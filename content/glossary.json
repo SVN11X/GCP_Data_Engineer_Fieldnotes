@@ -806,5 +806,397 @@
     "meaning": "Representing the state at a specified moment.",
     "example": "Create a point-in-time recovery copy.",
     "level": "B2"
+  },
+  {
+    "id": "v102",
+    "term": "constraint",
+    "es": "restricción o condición obligatoria",
+    "meaning": "A requirement limiting which solutions are acceptable.",
+    "example": "Latency is a constraint, not just a preference.",
+    "level": "Study"
+  },
+  {
+    "id": "v103",
+    "term": "ensure",
+    "es": "garantizar; asegurarse de",
+    "meaning": "Make a required condition hold.",
+    "example": "Ensure the consumer can read the recovered data.",
+    "level": "Study"
+  },
+  {
+    "id": "v104",
+    "term": "maintain",
+    "es": "mantener",
+    "meaning": "Keep a property or system working over time.",
+    "example": "Maintain the same data contract during migration.",
+    "level": "Study"
+  },
+  {
+    "id": "v105",
+    "term": "satisfy",
+    "es": "cumplir un requisito",
+    "meaning": "Meet a stated requirement.",
+    "example": "The design must satisfy both cost and privacy requirements.",
+    "level": "Study"
+  },
+  {
+    "id": "v106",
+    "term": "accommodate",
+    "es": "adaptarse a; admitir",
+    "meaning": "Make a design able to handle a condition.",
+    "example": "Accommodate late-arriving records.",
+    "level": "Study"
+  },
+  {
+    "id": "v107",
+    "term": "underlying",
+    "es": "subyacente; que está por debajo",
+    "meaning": "The resource or mechanism supporting the visible layer.",
+    "example": "Readers do not need direct access to the underlying bucket.",
+    "level": "Study"
+  },
+  {
+    "id": "v108",
+    "term": "whereas",
+    "es": "mientras que; en cambio",
+    "meaning": "Introduces a comparison between two different conditions.",
+    "example": "A view stores a query definition, whereas a materialized view stores results.",
+    "level": "Study"
+  },
+  {
+    "id": "v109",
+    "term": "unless",
+    "es": "a menos que",
+    "meaning": "Introduces a condition that creates an exception.",
+    "example": "Do not publish unless the quality checks pass.",
+    "level": "Study"
+  },
+  {
+    "id": "v110",
+    "term": "provided that",
+    "es": "siempre que; con la condición de que",
+    "meaning": "Introduces a condition required for a statement.",
+    "example": "Replay is possible provided that the messages remain retained.",
+    "level": "Study"
+  },
+  {
+    "id": "v111",
+    "term": "regardless of",
+    "es": "independientemente de",
+    "meaning": "Indicates that a condition does not change the requirement.",
+    "example": "Protect personal data regardless of its processing stage.",
+    "level": "Study"
+  },
+  {
+    "id": "v112",
+    "term": "as opposed to",
+    "es": "a diferencia de; en lugar de",
+    "meaning": "Contrasts one option or interpretation with another.",
+    "example": "Identify the worker account as opposed to the submitter account.",
+    "level": "Study"
+  },
+  {
+    "id": "v113",
+    "term": "in addition to",
+    "es": "además de",
+    "meaning": "Adds another requirement or component.",
+    "example": "Monitor freshness in addition to CPU.",
+    "level": "Study"
+  },
+  {
+    "id": "v114",
+    "term": "prior to",
+    "es": "antes de",
+    "meaning": "A formal way to say before.",
+    "example": "Validate totals prior to cutover.",
+    "level": "Study"
+  },
+  {
+    "id": "v115",
+    "term": "subsequent",
+    "es": "posterior; siguiente",
+    "meaning": "Happening after another event.",
+    "example": "Subsequent changes arrive through CDC.",
+    "level": "Study"
+  },
+  {
+    "id": "v116",
+    "term": "simultaneously",
+    "es": "simultáneamente",
+    "meaning": "At the same time.",
+    "example": "The platform serves analytics and operational reads simultaneously.",
+    "level": "Study"
+  },
+  {
+    "id": "v117",
+    "term": "infrequently",
+    "es": "con poca frecuencia",
+    "meaning": "Not often.",
+    "example": "The archive is read infrequently.",
+    "level": "Study"
+  },
+  {
+    "id": "v118",
+    "term": "sufficient",
+    "es": "suficiente",
+    "meaning": "Enough to meet the stated requirement.",
+    "example": "A row count alone is not sufficient validation.",
+    "level": "Study"
+  },
+  {
+    "id": "v119",
+    "term": "necessary",
+    "es": "necesario",
+    "meaning": "Required, even if it may not be enough by itself.",
+    "example": "Access permission is necessary but does not create network reachability.",
+    "level": "Study"
+  },
+  {
+    "id": "v120",
+    "term": "guarantee",
+    "es": "garantía; garantizar",
+    "meaning": "A commitment that a property holds under stated conditions.",
+    "example": "State the scope of the delivery guarantee.",
+    "level": "Study"
+  },
+  {
+    "id": "v121",
+    "term": "assumption",
+    "es": "supuesto",
+    "meaning": "A condition accepted when reasoning about a result.",
+    "example": "Make the bandwidth assumption explicit.",
+    "level": "Study"
+  },
+  {
+    "id": "v122",
+    "term": "reconcile",
+    "es": "conciliar; comprobar que coinciden",
+    "meaning": "Compare independent records or totals and explain differences.",
+    "example": "Reconcile revenue with the source before migration cutover.",
+    "level": "Study"
+  },
+  {
+    "id": "v123",
+    "term": "cardinality",
+    "es": "cardinalidad; cantidad de elementos o coincidencias",
+    "meaning": "The number of values, rows, or matches in a relationship.",
+    "example": "Check join cardinality before summing revenue.",
+    "level": "Study"
+  },
+  {
+    "id": "v124",
+    "term": "grain",
+    "es": "unidad de significado de cada fila",
+    "meaning": "What one row represents in a data model.",
+    "example": "This table has one row per order at the order grain.",
+    "level": "Study"
+  },
+  {
+    "id": "v125",
+    "term": "predicate",
+    "es": "condición de filtrado",
+    "meaning": "A condition used to select matching records.",
+    "example": "Use a predicate on the partition column.",
+    "level": "Study"
+  },
+  {
+    "id": "v126",
+    "term": "tie-breaker",
+    "es": "criterio de desempate",
+    "meaning": "A rule choosing between otherwise tied observations.",
+    "example": "Use a stable sequence as a deterministic tie-breaker.",
+    "level": "Study"
+  },
+  {
+    "id": "v127",
+    "term": "deterministic",
+    "es": "determinista; reproducible con la misma entrada",
+    "meaning": "Producing the same choice for the same defined input.",
+    "example": "Use deterministic ordering for current-state selection.",
+    "level": "Study"
+  },
+  {
+    "id": "v128",
+    "term": "backfill",
+    "es": "carga histórica; completar datos anteriores",
+    "meaning": "Process historical data to establish or repair a dataset.",
+    "example": "Run the backfill before reconciling later changes.",
+    "level": "Study"
+  },
+  {
+    "id": "v129",
+    "term": "logical interval",
+    "es": "intervalo lógico de datos de una ejecución",
+    "meaning": "The business data period assigned to a run.",
+    "example": "A retry should keep its logical interval.",
+    "level": "Study"
+  },
+  {
+    "id": "v130",
+    "term": "quarantine",
+    "es": "aislar datos fallidos para revisión",
+    "meaning": "Separate problematic records while preserving evidence for repair.",
+    "example": "Quarantine records with missing keys.",
+    "level": "Study"
+  },
+  {
+    "id": "v131",
+    "term": "malformed",
+    "es": "con estructura o formato inválido",
+    "meaning": "Not following the expected structure or format.",
+    "example": "Route malformed records to an error output.",
+    "level": "Study"
+  },
+  {
+    "id": "v132",
+    "term": "payload",
+    "es": "contenido útil de un mensaje",
+    "meaning": "The data carried by a message.",
+    "example": "Keep a safely protected copy of the failing payload.",
+    "level": "Study"
+  },
+  {
+    "id": "v133",
+    "term": "backlog",
+    "es": "trabajo o mensajes pendientes acumulados",
+    "meaning": "Input waiting to be handled.",
+    "example": "The backlog is growing even though workers are running.",
+    "level": "Study"
+  },
+  {
+    "id": "v134",
+    "term": "pane",
+    "es": "resultado emitido de una ventana",
+    "meaning": "One emitted result for a streaming window.",
+    "example": "A cumulative pane can include records counted earlier.",
+    "level": "Study"
+  },
+  {
+    "id": "v135",
+    "term": "accumulating",
+    "es": "acumulativo",
+    "meaning": "Retaining earlier contributions in a later result.",
+    "example": "Do not sum accumulating panes as independent deltas.",
+    "level": "Study"
+  },
+  {
+    "id": "v136",
+    "term": "bounded retry",
+    "es": "reintento con un límite definido",
+    "meaning": "Retry behavior constrained by a specified limit.",
+    "example": "Use bounded retry for appropriate transient failures.",
+    "level": "Study"
+  },
+  {
+    "id": "v137",
+    "term": "stale",
+    "es": "desactualizado",
+    "meaning": "Older than the state or freshness required.",
+    "example": "A stale CDC update must not overwrite a newer version.",
+    "level": "Study"
+  },
+  {
+    "id": "v138",
+    "term": "freshness",
+    "es": "actualidad de los datos",
+    "meaning": "How recently data reflects its source or intended business state.",
+    "example": "Measure freshness from the event to the consumer.",
+    "level": "Study"
+  },
+  {
+    "id": "v139",
+    "term": "completeness",
+    "es": "integridad en cuanto a datos esperados",
+    "meaning": "Whether the required records or partitions are present.",
+    "example": "A discovery scan does not prove data completeness.",
+    "level": "Study"
+  },
+  {
+    "id": "v140",
+    "term": "groundedness",
+    "es": "grado de respaldo en la evidencia proporcionada",
+    "meaning": "Whether an answer follows from its supplied evidence.",
+    "example": "Evaluate groundedness separately from citation syntax.",
+    "level": "Study"
+  },
+  {
+    "id": "v141",
+    "term": "provenance",
+    "es": "procedencia; trazabilidad del origen",
+    "meaning": "Information about where a datum or claim came from.",
+    "example": "Retain provenance for each retrieved chunk.",
+    "level": "Study"
+  },
+  {
+    "id": "v142",
+    "term": "holdout",
+    "es": "conjunto reservado para evaluación",
+    "meaning": "Data kept separate to evaluate a model.",
+    "example": "Choose a holdout that reflects deployment conditions.",
+    "level": "Study"
+  },
+  {
+    "id": "v143",
+    "term": "precision",
+    "es": "precisión de las predicciones positivas",
+    "meaning": "The share of predicted positives that are true positives.",
+    "example": "Precision is true positives divided by all positive alerts.",
+    "level": "Study"
+  },
+  {
+    "id": "v144",
+    "term": "recall",
+    "es": "sensibilidad; proporción de positivos encontrados",
+    "meaning": "The share of actual positives identified by a model.",
+    "example": "Recall is true positives divided by all actual positives.",
+    "level": "Study"
+  },
+  {
+    "id": "v145",
+    "term": "false positive",
+    "es": "falso positivo",
+    "meaning": "A predicted positive that is actually negative.",
+    "example": "A false positive can create unnecessary review work.",
+    "level": "Study"
+  },
+  {
+    "id": "v146",
+    "term": "false negative",
+    "es": "falso negativo",
+    "meaning": "An actual positive missed by a predictor.",
+    "example": "A false negative can mean missed fraud.",
+    "level": "Study"
+  },
+  {
+    "id": "v147",
+    "term": "point lookup",
+    "es": "consulta de un registro o entidad concreta",
+    "meaning": "A read aimed at a specific key rather than a broad scan.",
+    "example": "Use an access path suited to point lookups.",
+    "level": "Study"
+  },
+  {
+    "id": "v148",
+    "term": "projection",
+    "es": "representación derivada para un uso concreto",
+    "meaning": "A derived representation optimized for a consumer.",
+    "example": "Rebuild the serving projection from its durable source.",
+    "level": "Study"
+  },
+  {
+    "id": "v149",
+    "term": "cutover window",
+    "es": "intervalo de cambio entre sistemas",
+    "meaning": "The controlled interval for switching production access.",
+    "example": "Reconcile changes during the cutover window.",
+    "level": "Study"
+  },
+  {
+    "id": "v150",
+    "term": "runbook",
+    "es": "procedimiento operativo documentado",
+    "meaning": "A documented sequence for handling an operation or incident.",
+    "example": "Rehearse the recovery runbook before relying on its RTO.",
+    "level": "Study"
   }
 ]

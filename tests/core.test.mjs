@@ -50,3 +50,58 @@ test('imported key corrections preserve original answers and do not silently cer
  for(const n of [54,69,103,326]){assert.equal(map['imp-'+n].gradable,false);assert.equal(map['imp-'+n].status,'disputed');}
  assert.equal(map['imp-243'].choices.filter(c=>c.transcription).length,4);
 });
+test('each workshop produces its documented prediction without changing its input',()=>{
+ for(const w of pack.workshops){
+  const before=JSON.stringify(w.fixture),result=C.runWorkshop(w.fixture);
+  assert.ok(C.checkPrediction(w.prediction.answer,result.prediction),w.id);
+  assert.equal(JSON.stringify(w.fixture),before,w.id+' mutated the fixture');
+ }
+ assert.equal(C.checkPrediction('',0),false);assert.equal(C.checkPrediction('66,7',66.7),true);
+ assert.equal(C.checkPrediction('66.8',66.7),false);assert.equal(C.checkPrediction(' WORKER ','worker'),true);
+ assert.equal(C.checkPrediction('NaN',3),false);assert.equal(C.checkPrediction('anything',null),false);
+});
+test('latest-state decisions are stable under reordering and identical replay',()=>{
+ const dedup=pack.workshops.find(w=>w.id==='dedup-latest').fixture;
+ assert.deepEqual(C.runWorkshop({...dedup,rows:[...dedup.rows].reverse()}),C.runWorkshop(dedup));
+ const merge=pack.workshops.find(w=>w.id==='merge-replay').fixture,result=C.runWorkshop(merge);
+ assert.deepEqual(result.afterFirstRun,result.afterReplay);assert.equal(result.total,42);
+ assert.deepEqual(C.runWorkshop({...merge,changes:[...merge.changes].reverse()}).afterFirstRun,result.afterFirstRun);
+});
+test('grain, quality and authorization models expose the failed assumption',()=>{
+ const run=id=>C.runWorkshop(pack.workshops.find(w=>w.id===id).fixture);
+ assert.equal(run('join-grain').naiveTotal,280);assert.equal(run('join-grain').orderGrainTotal,180);
+ assert.equal(run('quality-contract').validCount,1);assert.equal(run('quality-contract').invalidRows.length,4);
+ const r=run('authorized-retrieval');assert.equal(r.prediction,'policy-public');assert.equal(r.excludedCount,1);assert.ok(r.authorizedChunks.every(c=>c.audience==='all'));
+});
+test('dependency and recovery rules include blocked output and incomplete snapshots',()=>{
+ const dag=pack.workshops.find(w=>w.id==='quality-gate').fixture,result=C.runWorkshop(dag);
+ assert.equal(result.tasks.assert,'failed');assert.equal(result.tasks.publish,'blocked');
+ assert.deepEqual(C.runWorkshop({...dag,nodes:[...dag.nodes].reverse()}),result);
+ assert.throws(()=>C.runWorkshop({type:'dag',failure:'',nodes:[{id:'a',dependencies:['b']},{id:'b',dependencies:['a']}]}),/cycle/);
+ const recovery=pack.workshops.find(w=>w.id==='rpo-ledger').fixture;
+ assert.equal(C.runWorkshop(recovery).dataAgeMinutes,33);
+ assert.equal(C.runWorkshop({...recovery,failureTime:65}).dataAgeMinutes,5);
+ assert.equal(C.runWorkshop({...recovery,failureTime:0}).recoverableState,null);
+ const empty=C.runWorkshop({type:'metrics',truePositives:0,falsePositives:0,falseNegatives:0});
+ assert.equal(empty.precisionPercent,null);assert.equal(empty.recallPercent,null);
+});
+test('both question levels support every session length and Applied includes multiple-select',()=>{
+ for(const level of ['Foundation','Applied','mixed'])for(const n of [10,20,40,50]){
+  const ids=C.makeExam(questions,n,pack.domains,()=>.417,level),counts=C.quotas(n,pack.domains);
+  assert.equal(ids.length,n);assert.equal(new Set(ids).size,n);
+  assert.ok(ids.every(id=>map[id].origin==='authored'&&(level==='mixed'||map[id].difficulty===level)));
+  for(const d of pack.domains)assert.equal(ids.filter(id=>map[id].domain===d.id).length,counts[d.id]);
+  if(level==='Applied'&&n===50)assert.equal(ids.filter(id=>map[id].required>1).length,17);
+ }
+ const multiple=pack.questions.find(q=>q.difficulty==='Applied'&&q.required===2);
+ assert.equal(C.scoreExam([multiple.id],{[multiple.id]:[multiple.answer[0]]},map).correct,0);
+ assert.equal(C.scoreExam([multiple.id],{[multiple.id]:[...multiple.answer].reverse()},map).correct,1);
+});
+test('expanded progress preserves old records and validates workshop steps',()=>{
+ const ids=[pack.lessons.map(l=>l.id),questions.map(q=>q.id),pack.glossary.map(g=>g.id)],legacy={version:1,completed:['least-privilege'],bookmarks:['imp-243'],vocab:{v1:{known:true}}};
+ const old=C.validateProgress(legacy,...ids,pack.workshops);assert.deepEqual(old.labProgress,{});assert.deepEqual(old.completed,legacy.completed);
+ const s=C.validateProgress({...legacy,labProgress:{'dedup-latest':{steps:['step-1','unknown','step-1'],prediction:'45',revealed:true,completed:false},evil:{completed:true}}},...ids,pack.workshops);
+ assert.deepEqual(s.labProgress['dedup-latest'],{steps:['step-1'],prediction:'45',revealed:true,completed:false});assert.equal(s.labProgress.evil,undefined);
+ const resumed=C.validateProgress({...s,exam:{ids:['lab-51','lab-52'],answers:{'lab-51':['A','C']},index:1,startedAt:100,deadline:9999999999999,difficulty:'Applied'}},...ids,pack.workshops);
+ assert.equal(resumed.exam.difficulty,'Applied');assert.deepEqual(resumed.exam.answers['lab-51'],['A','C']);
+});

@@ -1,0 +1,766 @@
+[
+  {
+    "id": "dedup-latest",
+    "title": "Deduplicate without guessing the latest record",
+    "domain": 3,
+    "lessons": [
+      "sql-grain",
+      "write-contracts",
+      "fidelity"
+    ],
+    "goal": "Keep one deterministic latest observation per stable business key.",
+    "minutes": 20,
+    "mode": "Local synthetic exercise",
+    "fixture": {
+      "type": "dedup",
+      "rows": [
+        {
+          "id": "a",
+          "time": 1,
+          "sequence": 1,
+          "amount": 10
+        },
+        {
+          "id": "a",
+          "time": 3,
+          "sequence": 2,
+          "amount": 15
+        },
+        {
+          "id": "b",
+          "time": 2,
+          "sequence": 3,
+          "amount": 25
+        },
+        {
+          "id": "b",
+          "time": 2,
+          "sequence": 4,
+          "amount": 30
+        }
+      ]
+    },
+    "steps": [
+      {
+        "id": "step-1",
+        "text": "State that the target grain is one row per ID."
+      },
+      {
+        "id": "step-2",
+        "text": "Order by event time, then sequence for a deterministic tie."
+      },
+      {
+        "id": "step-3",
+        "text": "Predict the final sum before running the local fixture."
+      },
+      {
+        "id": "step-4",
+        "text": "Check the retained versions and explain why the repeated key is not a new entity."
+      }
+    ],
+    "prediction": {
+      "prompt": "What is the sum after selecting the latest observation per ID?",
+      "unit": "amount units",
+      "answer": "45"
+    },
+    "explanation": "The selected rows are a/sequence 2 with amount 15 and b/sequence 4 with amount 30. A tie on time is resolved by the stated sequence rule. The result is 45, while summing every input observation gives 80.",
+    "references": [
+      "bqwindow",
+      "bqsql"
+    ],
+    "code": "WITH events AS (\n SELECT 'a' AS id, 1 AS event_minute, 1 AS sequence, 10 AS amount\n UNION ALL SELECT 'a', 3, 2, 15\n UNION ALL SELECT 'b', 2, 3, 25\n UNION ALL SELECT 'b', 2, 4, 30\n)\nSELECT * FROM events\nQUALIFY ROW_NUMBER() OVER (\n PARTITION BY id ORDER BY event_minute DESC, sequence DESC\n) = 1\nORDER BY id;",
+    "codeLanguage": "GoogleSQL",
+    "cloudNote": "The local fixture runs only in this browser and creates no Google Cloud resources. Any optional execution of sample SQL in your own BigQuery environment follows that environment’s normal permissions, quotas and pricing."
+  },
+  {
+    "id": "join-grain",
+    "title": "Find the revenue multiplication",
+    "domain": 3,
+    "lessons": [
+      "sql-grain",
+      "warehouse-model"
+    ],
+    "goal": "Explain exactly how a one-to-many join changes an order-level sum.",
+    "minutes": 20,
+    "mode": "Local synthetic exercise",
+    "fixture": {
+      "type": "join",
+      "orders": [
+        {
+          "id": "o1",
+          "total": 100
+        },
+        {
+          "id": "o2",
+          "total": 80
+        }
+      ],
+      "items": [
+        {
+          "order": "o1",
+          "sku": "a"
+        },
+        {
+          "order": "o1",
+          "sku": "b"
+        },
+        {
+          "order": "o2",
+          "sku": "c"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "id": "step-1",
+        "text": "Write the meaning of an order row and an item row."
+      },
+      {
+        "id": "step-2",
+        "text": "Enumerate the joined rows before calculating revenue."
+      },
+      {
+        "id": "step-3",
+        "text": "Compare the joined sum with the true order-grain sum."
+      },
+      {
+        "id": "step-4",
+        "text": "Explain why SUM(DISTINCT amount) is not a general fix if two orders have the same amount."
+      }
+    ],
+    "prediction": {
+      "prompt": "What does the naive sum of order totals after this join return?",
+      "unit": "amount units",
+      "answer": "280"
+    },
+    "explanation": "The joined amounts are 100, 100 and 80, giving 280. The source orders total 180. Fix the model or pre-aggregate to the intended grain; DISTINCT on a measure can incorrectly merge equal amounts from different orders.",
+    "references": [
+      "bqsql",
+      "bqnested"
+    ],
+    "code": "WITH orders AS (\n SELECT 'o1' AS id, 100 AS total UNION ALL SELECT 'o2', 80\n), items AS (\n SELECT 'o1' AS order_id, 'a' AS sku\n UNION ALL SELECT 'o1', 'b'\n UNION ALL SELECT 'o2', 'c'\n)\nSELECT SUM(o.total) AS naive_total\nFROM orders o JOIN items i ON o.id = i.order_id;",
+    "codeLanguage": "GoogleSQL",
+    "cloudNote": "The local fixture runs only in this browser and creates no Google Cloud resources. Any optional execution of sample SQL in your own BigQuery environment follows that environment’s normal permissions, quotas and pricing."
+  },
+  {
+    "id": "quality-contract",
+    "title": "Reject invalid rows with an explicit contract",
+    "domain": 2,
+    "lessons": [
+      "dataform-quality",
+      "bad-records"
+    ],
+    "goal": "Test completeness, uniqueness and values as different quality properties.",
+    "minutes": 20,
+    "mode": "Local synthetic exercise",
+    "fixture": {
+      "type": "quality",
+      "rows": [
+        {
+          "row": 1,
+          "id": "a",
+          "amount": 10,
+          "email": "a@example.test"
+        },
+        {
+          "row": 2,
+          "id": "a",
+          "amount": 10,
+          "email": "not-an-email"
+        },
+        {
+          "row": 3,
+          "id": null,
+          "amount": -5,
+          "email": "c@example.test"
+        },
+        {
+          "row": 4,
+          "id": "d",
+          "amount": null,
+          "email": "d@example.test"
+        },
+        {
+          "row": 5,
+          "id": "e",
+          "amount": 20,
+          "email": "e@example.test"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "id": "step-1",
+        "text": "Require a non-null unique ID, a non-negative non-null amount and an email containing @."
+      },
+      {
+        "id": "step-2",
+        "text": "Mark every row violating uniqueness, including both copies of a duplicate ID."
+      },
+      {
+        "id": "step-3",
+        "text": "Keep the rule and original row reference with each error."
+      },
+      {
+        "id": "step-4",
+        "text": "Check the good and invalid outputs before describing a replay path."
+      }
+    ],
+    "prediction": {
+      "prompt": "How many rows violate at least one stated rule?",
+      "unit": "rows",
+      "answer": "4"
+    },
+    "explanation": "Rows 1 and 2 violate unique ID; row 2 also violates the deliberately simple email check. Row 3 lacks an ID and has a negative amount; row 4 lacks an amount. Only row 5 satisfies this toy contract. The @ check is intentionally not a full real-world email validator.",
+    "references": [
+      "dataform",
+      "dependencies"
+    ],
+    "code": "",
+    "codeLanguage": "GoogleSQL",
+    "cloudNote": "The local fixture runs only in this browser and creates no Google Cloud resources. Any optional execution of sample SQL in your own BigQuery environment follows that environment’s normal permissions, quotas and pricing."
+  },
+  {
+    "id": "merge-replay",
+    "title": "Replay a versioned batch twice",
+    "domain": 2,
+    "lessons": [
+      "write-contracts",
+      "cdc-cutover"
+    ],
+    "goal": "Show why a version-aware current-state operation is repeatable.",
+    "minutes": 20,
+    "mode": "Local synthetic exercise",
+    "fixture": {
+      "type": "merge",
+      "target": [
+        {
+          "id": "a",
+          "version": 2,
+          "amount": 20
+        },
+        {
+          "id": "b",
+          "version": 1,
+          "amount": 5
+        }
+      ],
+      "changes": [
+        {
+          "id": "a",
+          "version": 3,
+          "amount": 30
+        },
+        {
+          "id": "a",
+          "version": 2,
+          "amount": 20
+        },
+        {
+          "id": "c",
+          "version": 1,
+          "amount": 7
+        }
+      ]
+    },
+    "steps": [
+      {
+        "id": "step-1",
+        "text": "Define the latest accepted version per entity as the current state."
+      },
+      {
+        "id": "step-2",
+        "text": "Apply only changes with a strictly newer version, or insert a new entity."
+      },
+      {
+        "id": "step-3",
+        "text": "Run the same batch again and compare row count and sum."
+      },
+      {
+        "id": "step-4",
+        "text": "Explain how deletes would require an additional explicit rule."
+      }
+    ],
+    "prediction": {
+      "prompt": "What is the total amount after one run and after the identical replay? Enter the common total.",
+      "unit": "amount units",
+      "answer": "42"
+    },
+    "explanation": "The target holds a/version 3/amount 30, b/version 1/amount 5 and c/version 1/amount 7: three rows totaling 42. Replaying the same changes does not increase the total. This fixture assumes comparable source versions and does not implement deletes.",
+    "references": [
+      "bqmerge",
+      "stream"
+    ],
+    "code": "FOR each source entity in a defined source order:\n  INSERT if no target entity exists\n  UPDATE only if source.version > target.version\nKEEP stable entity IDs and validate final totals\n-- A real MERGE needs appropriate source cardinality and delete semantics.",
+    "codeLanguage": "Conceptual pseudocode",
+    "cloudNote": "The local fixture runs only in this browser and creates no Google Cloud resources. Any optional execution of sample SQL in your own BigQuery environment follows that environment’s normal permissions, quotas and pricing."
+  },
+  {
+    "id": "late-corrections",
+    "title": "Recover an event-time total",
+    "domain": 2,
+    "lessons": [
+      "event-time",
+      "beam-triggers"
+    ],
+    "goal": "Compare the same delayed events under two explicit lateness policies.",
+    "minutes": 20,
+    "mode": "Local synthetic exercise",
+    "fixture": {
+      "type": "late"
+    },
+    "steps": [
+      {
+        "id": "step-1",
+        "text": "Open Interactive labs and process all six events with 0 minutes allowed lateness."
+      },
+      {
+        "id": "step-2",
+        "text": "Repeat with 3 minutes allowed lateness, keeping the event sequence fixed."
+      },
+      {
+        "id": "step-3",
+        "text": "Identify event D and the watermark before it arrives."
+      },
+      {
+        "id": "step-4",
+        "text": "Explain why this fixture’s watermark rule is an illustrative model rather than Dataflow’s implementation."
+      }
+    ],
+    "prediction": {
+      "prompt": "What is the accepted total after all events with 3 minutes allowed lateness?",
+      "unit": "value units",
+      "answer": "140"
+    },
+    "explanation": "Under the documented local model, event D is accepted with the three-minute policy. All six values total 140; with zero minutes the expired early window drops D and the total is 100. The original event time, not arrival time, selects its window.",
+    "references": [
+      "windowapi",
+      "beammodel"
+    ],
+    "code": "",
+    "codeLanguage": "GoogleSQL",
+    "cloudNote": "The local fixture runs only in this browser and creates no Google Cloud resources. Any optional execution of sample SQL in your own BigQuery environment follows that environment’s normal permissions, quotas and pricing."
+  },
+  {
+    "id": "scan-comparison",
+    "title": "Compare logical reads under a fixed workload",
+    "domain": 3,
+    "lessons": [
+      "warehouse-model",
+      "resource-cost"
+    ],
+    "goal": "Keep data and selected columns fixed while changing query-aligned layout.",
+    "minutes": 20,
+    "mode": "Local synthetic exercise",
+    "fixture": {
+      "type": "scan",
+      "days": 7,
+      "country": "CL"
+    },
+    "steps": [
+      {
+        "id": "step-1",
+        "text": "Use the toy dataset of 30 days × 10 GB/day and ten equal-volume countries."
+      },
+      {
+        "id": "step-2",
+        "text": "Query seven days and one country."
+      },
+      {
+        "id": "step-3",
+        "text": "Compare unorganized, date-partitioned and ideally country-pruned layouts."
+      },
+      {
+        "id": "step-4",
+        "text": "State why these logical bytes are not a real BigQuery billing quote."
+      }
+    ],
+    "prediction": {
+      "prompt": "Under the toy ideal-pruning assumptions, how many GB does the combined layout read?",
+      "unit": "GB",
+      "answer": "7"
+    },
+    "explanation": "The full logical read is 300 GB. Seven selected dates require 70 GB, and ideal pruning to one of ten equal countries gives 7 GB. Real storage blocks, plans, clustering effectiveness and the billing model can differ.",
+    "references": [
+      "partition",
+      "cluster",
+      "bqcost"
+    ],
+    "code": "",
+    "codeLanguage": "GoogleSQL",
+    "cloudNote": "The local fixture runs only in this browser and creates no Google Cloud resources. Any optional execution of sample SQL in your own BigQuery environment follows that environment’s normal permissions, quotas and pricing."
+  },
+  {
+    "id": "identity-map",
+    "title": "Map the failing permission boundary",
+    "domain": 1,
+    "lessons": [
+      "identity-boundaries",
+      "least-privilege"
+    ],
+    "goal": "Identify the actor that actually needs each operation.",
+    "minutes": 20,
+    "mode": "Local synthetic exercise",
+    "fixture": {
+      "type": "identity",
+      "operations": [
+        {
+          "actor": "submitter",
+          "operation": "create the job and use the approved worker identity",
+          "capabilities": [
+            "job.create",
+            "identity.use"
+          ]
+        },
+        {
+          "actor": "worker",
+          "operation": "read the source bucket and write the destination dataset",
+          "capabilities": [
+            "source.read",
+            "destination.write"
+          ]
+        },
+        {
+          "actor": "analyst",
+          "operation": "read the approved curated result",
+          "capabilities": [
+            "curated.read"
+          ]
+        }
+      ]
+    },
+    "steps": [
+      {
+        "id": "step-1",
+        "text": "List submitter, worker and analyst as distinct principals."
+      },
+      {
+        "id": "step-2",
+        "text": "Assign capabilities only on their required resources."
+      },
+      {
+        "id": "step-3",
+        "text": "Check inherited grants before claiming production is isolated."
+      },
+      {
+        "id": "step-4",
+        "text": "State why granting Owner to the human is not the first repair for a worker read error."
+      }
+    ],
+    "prediction": {
+      "prompt": "Which actor directly needs source-read permission in this fixture?",
+      "unit": "actor name",
+      "answer": "worker"
+    },
+    "explanation": "The worker reads the source. The submitter’s ability to launch the job is a separate boundary, and the analyst consumes only the approved output. Real roles and network configuration must be checked for the exact services and resources.",
+    "references": [
+      "iam",
+      "dfiam",
+      "network"
+    ],
+    "code": "",
+    "codeLanguage": "GoogleSQL",
+    "cloudNote": "The local fixture runs only in this browser and creates no Google Cloud resources. Any optional execution of sample SQL in your own BigQuery environment follows that environment’s normal permissions, quotas and pricing."
+  },
+  {
+    "id": "quality-gate",
+    "title": "Make a failing assertion block publication",
+    "domain": 5,
+    "lessons": [
+      "repeatability",
+      "dataform-quality"
+    ],
+    "goal": "Trace task dependency effects without calling a cloud service.",
+    "minutes": 20,
+    "mode": "Local synthetic exercise",
+    "fixture": {
+      "type": "dag",
+      "nodes": [
+        {
+          "id": "load",
+          "dependencies": []
+        },
+        {
+          "id": "transform",
+          "dependencies": [
+            "load"
+          ]
+        },
+        {
+          "id": "assert",
+          "dependencies": [
+            "transform"
+          ]
+        },
+        {
+          "id": "publish",
+          "dependencies": [
+            "assert"
+          ]
+        }
+      ],
+      "failure": "assert"
+    },
+    "steps": [
+      {
+        "id": "step-1",
+        "text": "Read the explicit dependency edges."
+      },
+      {
+        "id": "step-2",
+        "text": "Assume load and transform succeed but assert fails."
+      },
+      {
+        "id": "step-3",
+        "text": "Identify which consumer must not run."
+      },
+      {
+        "id": "step-4",
+        "text": "Describe how you would test this failure path in the real workflow configuration."
+      }
+    ],
+    "prediction": {
+      "prompt": "Which task must be blocked after the assertion failure?",
+      "unit": "task ID",
+      "answer": "publish"
+    },
+    "explanation": "Because publish depends on assert, it must remain blocked after the failed quality gate. If publish depended only on transform, the quality check would not establish that gate. This is a local dependency model, not a live Airflow or Dataform run.",
+    "references": [
+      "dependencies",
+      "composer",
+      "dataform"
+    ],
+    "code": "",
+    "codeLanguage": "GoogleSQL",
+    "cloudNote": "The local fixture runs only in this browser and creates no Google Cloud resources. Any optional execution of sample SQL in your own BigQuery environment follows that environment’s normal permissions, quotas and pricing."
+  },
+  {
+    "id": "rpo-ledger",
+    "title": "Calculate the recoverable-state age",
+    "domain": 5,
+    "lessons": [
+      "recovery",
+      "recovery-runbook"
+    ],
+    "goal": "Use completed recovery evidence rather than a scheduled backup label.",
+    "minutes": 20,
+    "mode": "Local synthetic exercise",
+    "fixture": {
+      "type": "recovery",
+      "snapshots": [
+        {
+          "capture": 0,
+          "complete": 4
+        },
+        {
+          "capture": 30,
+          "complete": 34
+        },
+        {
+          "capture": 60,
+          "complete": 64
+        }
+      ],
+      "failureTime": 63,
+      "clockBase": "09:00"
+    },
+    "steps": [
+      {
+        "id": "step-1",
+        "text": "Interpret minute 0 as 09:00 and minute 63 as 10:03."
+      },
+      {
+        "id": "step-2",
+        "text": "Exclude snapshots not complete at the failure time."
+      },
+      {
+        "id": "step-3",
+        "text": "Find the newest known recoverable capture time."
+      },
+      {
+        "id": "step-4",
+        "text": "Compare data-loss age with the separate time needed to resume the application."
+      }
+    ],
+    "prediction": {
+      "prompt": "How old is the latest known recoverable state at failure?",
+      "unit": "minutes",
+      "answer": "33"
+    },
+    "explanation": "The 10:00 capture is not complete by 10:03 under this fixture’s assumptions. The latest completed capture represents 09:30. Its age is 33 minutes. RTO is a different measurement covering the restoration of the actual business service.",
+    "references": [
+      "snapshot",
+      "replication",
+      "bqreliability"
+    ],
+    "code": "",
+    "codeLanguage": "GoogleSQL",
+    "cloudNote": "The local fixture runs only in this browser and creates no Google Cloud resources. Any optional execution of sample SQL in your own BigQuery environment follows that environment’s normal permissions, quotas and pricing."
+  },
+  {
+    "id": "model-metrics",
+    "title": "Read a classifier’s business errors",
+    "domain": 4,
+    "lessons": [
+      "ml-evaluation",
+      "features"
+    ],
+    "goal": "Calculate precision and recall from interpretable counts.",
+    "minutes": 20,
+    "mode": "Local synthetic exercise",
+    "fixture": {
+      "type": "metrics",
+      "truePositives": 8,
+      "falsePositives": 4,
+      "falseNegatives": 2
+    },
+    "steps": [
+      {
+        "id": "step-1",
+        "text": "Count positive alerts: true positives plus false positives."
+      },
+      {
+        "id": "step-2",
+        "text": "Count actual positives: true positives plus false negatives."
+      },
+      {
+        "id": "step-3",
+        "text": "Calculate precision and recall with different denominators."
+      },
+      {
+        "id": "step-4",
+        "text": "Explain which operational cost would influence a threshold change."
+      }
+    ],
+    "prediction": {
+      "prompt": "What is precision as a percentage, rounded to one decimal place?",
+      "unit": "percent",
+      "answer": "66.7"
+    },
+    "explanation": "Precision is 8/(8+4) = 66.7%; recall is 8/(8+2) = 80%. Overall accuracy cannot be obtained without the negative population information. A threshold decision should consider missed-positive cost and unnecessary review work.",
+    "references": [
+      "evaluation"
+    ],
+    "code": "",
+    "codeLanguage": "GoogleSQL",
+    "cloudNote": "The local fixture runs only in this browser and creates no Google Cloud resources. Any optional execution of sample SQL in your own BigQuery environment follows that environment’s normal permissions, quotas and pricing."
+  },
+  {
+    "id": "authorized-retrieval",
+    "title": "Filter evidence before generation",
+    "domain": 4,
+    "lessons": [
+      "rag-evaluation",
+      "embeddings"
+    ],
+    "goal": "Keep a relevant but forbidden passage out of model context.",
+    "minutes": 20,
+    "mode": "Local synthetic exercise",
+    "fixture": {
+      "type": "retrieval",
+      "allowedAudiences": [
+        "all"
+      ],
+      "chunks": [
+        {
+          "id": "policy-public",
+          "audience": "all",
+          "score": 0.92
+        },
+        {
+          "id": "finance-private",
+          "audience": "finance",
+          "score": 0.99
+        },
+        {
+          "id": "faq-public",
+          "audience": "all",
+          "score": 0.7
+        }
+      ]
+    },
+    "steps": [
+      {
+        "id": "step-1",
+        "text": "Treat the supplied scores as illustrative relevance values."
+      },
+      {
+        "id": "step-2",
+        "text": "Filter to the user’s allowed audience before selecting context."
+      },
+      {
+        "id": "step-3",
+        "text": "Find the highest-ranked permitted passage."
+      },
+      {
+        "id": "step-4",
+        "text": "Preserve source ID and version instead of relying on final-answer redaction."
+      }
+    ],
+    "prediction": {
+      "prompt": "Which chunk ID is the highest-ranked authorized result?",
+      "unit": "chunk ID",
+      "answer": "policy-public"
+    },
+    "explanation": "finance-private has the highest toy relevance score but is not authorized for this user. policy-public is the highest permitted result. Similarity is not a permission decision, and final-answer redaction does not replace authorized retrieval.",
+    "references": [
+      "vectors",
+      "ai"
+    ],
+    "code": "",
+    "codeLanguage": "GoogleSQL",
+    "cloudNote": "The local fixture runs only in this browser and creates no Google Cloud resources. Any optional execution of sample SQL in your own BigQuery environment follows that environment’s normal permissions, quotas and pricing."
+  },
+  {
+    "id": "read-constraints",
+    "title": "Translate the decision, not just the vocabulary",
+    "domain": 1,
+    "lessons": [
+      "pipeline-contract",
+      "processing-engine"
+    ],
+    "goal": "Extract simultaneous constraints from an English scenario.",
+    "minutes": 20,
+    "mode": "Local synthetic exercise",
+    "fixture": {
+      "type": "constraints",
+      "sentence": "You need to preserve the existing Spark jobs while minimizing operational overhead and keeping durable data independent of cluster lifetime.",
+      "constraints": [
+        "Preserve existing Spark compatibility",
+        "Reduce ongoing operating work",
+        "Keep durable data independent of temporary compute"
+      ]
+    },
+    "steps": [
+      {
+        "id": "step-1",
+        "text": "Find what must be preserved and what must be reduced."
+      },
+      {
+        "id": "step-2",
+        "text": "Translate while minimizing as a simultaneous requirement."
+      },
+      {
+        "id": "step-3",
+        "text": "Separate the durable data decision from the compute lifecycle."
+      },
+      {
+        "id": "step-4",
+        "text": "Name the evidence you would check before choosing a migration pattern."
+      }
+    ],
+    "prediction": {
+      "prompt": "How many simultaneous constraints are explicitly listed in the fixture?",
+      "unit": "constraints",
+      "answer": "3"
+    },
+    "explanation": "The sentence imposes compatibility, operation-effort and data-durability constraints together. Satisfying only the most familiar product clue does not fully answer it. In Spanish: conservar los trabajos Spark, reducir el esfuerzo de administración y mantener los datos fuera del ciclo de vida del clúster.",
+    "references": [
+      "spark",
+      "framework"
+    ],
+    "code": "",
+    "codeLanguage": "GoogleSQL",
+    "cloudNote": "The local fixture runs only in this browser and creates no Google Cloud resources. Any optional execution of sample SQL in your own BigQuery environment follows that environment’s normal permissions, quotas and pricing."
+  }
+]

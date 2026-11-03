@@ -4,7 +4,7 @@
     "domain": 1,
     "objective": "1.1",
     "title": "Give each identity just enough access",
-    "minutes": 9,
+    "minutes": 18,
     "lead": "Start with who is acting, which resource is involved, and which operation is necessary.",
     "sections": [
       {
@@ -18,21 +18,114 @@
       {
         "title": "Work through a scenario",
         "body": "A nightly loader reads one bucket and writes one dataset. Give its service account those permissions; the engineer running it does not need to remain Project Owner."
+      },
+      {
+        "title": "Separate four identities",
+        "body": "Identify the human or automation submitting a job, the workload identity reading the data, the service agent managing infrastructure, and the downstream consumer. They can require different grants. A service account is not a collection of credentials: it is the principal. A key is only one way to authenticate as that principal.",
+        "references": [
+          "iam",
+          "sa"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Follow the permission through the hierarchy",
+        "body": "A narrowly scoped local grant does not erase a broader inherited grant. Inspect organization, folder and project access before concluding that production is isolated. Granting a group access makes membership easier to manage, but the group itself must still be governed. Audit both role bindings and who can alter membership.",
+        "references": [
+          "iam",
+          "auditlogs"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Prefer short-lived credentials where possible",
+        "body": "For an external CI workload, federation can exchange a trusted external identity for short-lived Google credentials. For a workload already running on Google Cloud, an attached identity is often the simpler starting point. Impersonation permission is itself powerful; granting it broadly can defeat otherwise narrow data permissions.",
+        "references": [
+          "wif",
+          "sa"
+        ],
+        "expansion": true
       }
     ],
     "trap": "A project-wide Editor role creates more exposure than a bucket reader and dataset writer need.",
     "references": [
       "iam",
-      "sa"
+      "sa",
+      "wif",
+      "auditlogs"
     ],
-    "code": ""
+    "code": "",
+    "level": "Core",
+    "exercise": {
+      "prompt": "A job submitter has permission to start Dataflow, but workers cannot read a bucket. Which permission chain should you inspect?",
+      "answer": "Inspect the worker service account actually attached to the job and its effective bucket permissions. Also verify that the submitter may use that identity. Giving the human more project-wide permissions is not evidence that the worker gained read access.",
+      "checkpoints": [
+        "Name the principal that accesses each resource.",
+        "Distinguish inherited access from a local binding.",
+        "Explain why a downloaded key is not an IAM role."
+      ]
+    },
+    "reviewed": "2026-11-03"
+  },
+  {
+    "id": "identity-boundaries",
+    "domain": 1,
+    "objective": "1.1",
+    "title": "Trace identities across a private pipeline",
+    "minutes": 20,
+    "level": "Deep dive",
+    "lead": "Find the real principal and network path at every boundary.",
+    "sections": [
+      {
+        "title": "Build an identity map",
+        "body": "List the person or CI process submitting work, the service agent creating resources, the worker account and the identities of downstream readers. For each operation, write principal, action and resource. This prevents a common diagnostic mistake: changing the submitter’s role when a worker is failing to read data.",
+        "references": [
+          "iam",
+          "dfiam"
+        ]
+      },
+      {
+        "title": "Then build a network map",
+        "body": "For each endpoint, verify resolution, route, firewall controls and the service’s supported private-access configuration. Reaching an API is not the same as being authorized to use it. A Shared VPC introduces host-project subnet administration as well as service-project job administration.",
+        "references": [
+          "network"
+        ]
+      },
+      {
+        "title": "Use minimal evidence to narrow the fault",
+        "body": "Identify whether the error is an authorization denial, name-resolution failure, connection refusal or timeout. Follow the actual worker configuration rather than assuming a default identity. Use short-lived authentication mechanisms when appropriate and keep secrets out of code, logs and notebooks.",
+        "references": [
+          "sa",
+          "wif"
+        ]
+      }
+    ],
+    "trap": "Broad Project Owner grants can hide the boundary you need to understand.",
+    "references": [
+      "iam",
+      "dfiam",
+      "network",
+      "sa",
+      "wif"
+    ],
+    "code": "",
+    "reviewed": "2026-11-03",
+    "exercise": {
+      "prompt": "The job launches, source reads succeed and BigQuery writes fail with an access error. Which boundary is the first focus?",
+      "answer": "Inspect the sink write permissions of the identity performing the write, together with the dataset and job configuration. Starting the job and reading its source already provide evidence about other boundaries.",
+      "checkpoints": [
+        "Map a principal to each operation.",
+        "Separate authorization from connectivity.",
+        "Keep credentials out of diagnostic output."
+      ]
+    }
   },
   {
     "id": "protect-data",
     "domain": 1,
     "objective": "1.1",
     "title": "Protect the values, the keys and the boundary",
-    "minutes": 9,
+    "minutes": 18,
     "lead": "Encryption, authorization and data minimization solve different parts of the problem.",
     "sections": [
       {
@@ -46,6 +139,34 @@
       {
         "title": "Work through a scenario",
         "body": "Support agents need active customers, while analysts need all customers without national IDs. Combine a row filter for support with protected or transformed sensitive columns for analysts."
+      },
+      {
+        "title": "Choose the control by what must change",
+        "body": "Row policies restrict records. Column policies restrict fields. Masking changes which representation a permitted reader receives. De-identification transforms the data itself. An authorized view exposes a chosen query result. Encryption protects data under a key-management model; it does not decide which business rows an analyst should see. Combine controls when the requirement spans these layers.",
+        "references": [
+          "row",
+          "column",
+          "mask"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Keep permissions separate from geography",
+        "body": "Selecting a dataset location and constraining resource creation address different concerns. Also inspect where processing, staging, exports and recovery copies occur. A regional label is not proof of compliance with every legal requirement, and a service perimeter is not a substitute for the dataset’s actual location.",
+        "references": [
+          "locations",
+          "vpcsc"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Trace key ownership and recovery",
+        "body": "For CMEK, the service performing the encryption must be allowed to use the relevant key and the supported key location must fit the service. Plan key access and recovery with the data recovery plan. Deleting a shared key can affect more records than intended; per-person cryptographic deletion requires deliberate key granularity.",
+        "references": [
+          "cmek",
+          "dlp"
+        ],
+        "expansion": true
       }
     ],
     "trap": "A firewall rule alone cannot express which BigQuery columns a user can read.",
@@ -54,16 +175,81 @@
       "dlp",
       "row",
       "column",
-      "vpcsc"
+      "vpcsc",
+      "mask",
+      "locations"
     ],
-    "code": ""
+    "code": "",
+    "level": "Core",
+    "exercise": {
+      "prompt": "Analysts need all orders with masked identifiers; fraud investigators need original identifiers only for their cases. What must your design distinguish?",
+      "answer": "Distinguish the allowed rows, column or masked-value access, and the identity of each reader. Define which users may obtain original values and check inherited grants. A single project role or bucket encryption setting cannot express all these business conditions.",
+      "checkpoints": [
+        "Match a record restriction to row security.",
+        "Explain masking versus changing the stored dataset.",
+        "Include staging and backups in a residency decision."
+      ]
+    },
+    "reviewed": "2026-11-03"
+  },
+  {
+    "id": "region-recovery-design",
+    "domain": 1,
+    "objective": "1.1",
+    "title": "Choose locations against residency and recovery",
+    "minutes": 20,
+    "level": "Deep dive",
+    "lead": "A geographic requirement needs an explicit map of data copies and operations.",
+    "sections": [
+      {
+        "title": "List every place the data exists",
+        "body": "Include source capture, staging files, processing workers, warehouse datasets, temporary outputs, diagnostic logs and recovery copies. Ask whether the requirement covers storage, processing or both. Do not assume a single regional dataset setting constrains every other service in the route.",
+        "references": [
+          "locations"
+        ]
+      },
+      {
+        "title": "Compare allowed geography with failure domains",
+        "body": "A rule restricting all copies to one region can conflict with a request to recover from that region’s complete loss. Surface that constraint explicitly and compare supported designs. A multi-region label should not be treated as a guarantee of any chosen failover behavior or zero recovery time.",
+        "references": [
+          "bqreliability",
+          "replication"
+        ]
+      },
+      {
+        "title": "Validate access in the recovery environment",
+        "body": "The destination needs usable keys, roles, quotas, dependencies and a procedure to redirect consumers. Test with a controlled recovery copy and compare recovered business totals. Document which failure model, loss objective and restoration objective the evidence actually supports.",
+        "references": [
+          "cmek",
+          "replication"
+        ]
+      }
+    ],
+    "trap": "Location, jurisdiction, availability and backup retention are related but different requirements.",
+    "references": [
+      "locations",
+      "bqreliability",
+      "replication",
+      "cmek"
+    ],
+    "code": "",
+    "reviewed": "2026-11-03",
+    "exercise": {
+      "prompt": "A policy allows only one region, while the requested disaster plan requires another region. What is the right design response?",
+      "answer": "Expose the conflicting constraints and obtain an approved recovery scope; do not quietly place a forbidden copy elsewhere or pretend a same-region copy satisfies regional loss.",
+      "checkpoints": [
+        "Inventory staging and recovery copies.",
+        "Distinguish allowed geography from availability.",
+        "Test recovery permissions as well as data."
+      ]
+    }
   },
   {
     "id": "fidelity",
     "domain": 1,
     "objective": "1.2",
     "title": "Make correctness part of the architecture",
-    "minutes": 9,
+    "minutes": 18,
     "lead": "A pipeline that finishes can still deliver the wrong result.",
     "sections": [
       {
@@ -77,22 +263,61 @@
       {
         "title": "Work through a scenario",
         "body": "A payment retry arrives twice. Store a stable event ID and make the write idempotent, then reconcile the final totals. Exactly-once processing alone does not protect an arbitrary external API call."
+      },
+      {
+        "title": "Define the grain and the invariants",
+        "body": "The grain describes what one row represents: an order, an order line or an event observation. Define a stable business key at that grain. Quality rules should then protect required values, uniqueness, valid ranges and relationships. Reconcile a financial total as well as row counts: equal counts can still hide duplicated or corrupted values.",
+        "references": [
+          "dataform",
+          "bqsql"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Separate transport, processing and business effects",
+        "body": "At-least-once delivery can repeat a message. A processing engine may deduplicate its managed output while still retrying user code. A destination can support idempotent writes without making an unrelated API call transactional. State the guarantee at each boundary rather than describing the whole business flow with one exactly-once label.",
+        "references": [
+          "exactly",
+          "offset"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Make replay safe before you need it",
+        "body": "A stable event ID recognizes repeats; an ordering or version rule decides which update is newest. Keep the raw evidence and a reason for rejected records. Decide whether a replay replaces a partition, merges by key, or appends an explicitly versioned observation. Blindly appending rerun output can double the result.",
+        "references": [
+          "bqmerge",
+          "replay"
+        ],
+        "expansion": true
       }
     ],
     "trap": "Do not equate an acknowledged message with a completed external business transaction.",
     "references": [
       "exactly",
       "spanner",
-      "dataform"
+      "dataform",
+      "bqmerge"
     ],
-    "code": ""
+    "code": "",
+    "level": "Core",
+    "exercise": {
+      "prompt": "A report has the correct row count but twice the revenue. What two checks would you add?",
+      "answer": "Check the grain and join cardinality, then reconcile business totals against the source. A one-to-many join can multiply order-level revenue without changing an unrelated count metric. Use stable keys and test reruns against the same expected total.",
+      "checkpoints": [
+        "State the grain before designing a key.",
+        "Name the exact boundary of a delivery guarantee.",
+        "Define what a replay should change."
+      ]
+    },
+    "reviewed": "2026-11-03"
   },
   {
     "id": "portability",
     "domain": 1,
     "objective": "1.3",
     "title": "Design for the next requirement",
-    "minutes": 9,
+    "minutes": 18,
     "lead": "Keep data discoverable and make deliberate tradeoffs about portability.",
     "sections": [
       {
@@ -106,22 +331,62 @@
       {
         "title": "Work through a scenario",
         "body": "A team reuses data in Spark and a warehouse. Keep a documented object-storage landing area and govern the assets centrally rather than copying an undocumented dataset for each tool."
+      },
+      {
+        "title": "Portability has several layers",
+        "body": "A readable open file format helps different engines consume data, but it does not transfer IAM bindings, private connectivity, scheduling or SQL semantics. Separate the durable data contract from the execution environment. Record partition layout, schemas, schema changes and ownership so another engine can reproduce the interpretation.",
+        "references": [
+          "spark",
+          "architecture"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Keep discovery connected to governance",
+        "body": "A catalog can describe assets and lineage across a platform. It is not automatically the authority granting access to every underlying object. A useful product contract identifies the owner, business meaning, access path, expected freshness and quality checks. A discovered dataset can still be unusable if those details are absent.",
+        "references": [
+          "catalog",
+          "biglake"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Choose a measured migration boundary",
+        "body": "Preserve an existing Spark application when the business needs a fast move with minimal changes. Rewriting everything as warehouse SQL may be a later optimization rather than a prerequisite. Conversely, retaining a persistent cluster solely for a small SQL transformation can add unnecessary operational work.",
+        "references": [
+          "spark",
+          "framework"
+        ],
+        "expansion": true
       }
     ],
     "trap": "The guide says Dataplex; current documentation also uses Knowledge Catalog. Learn the governance capability as well as the name.",
     "references": [
       "spark",
       "catalog",
-      "transition"
+      "transition",
+      "biglake",
+      "framework"
     ],
-    "code": ""
+    "code": "",
+    "level": "Core",
+    "exercise": {
+      "prompt": "A team says that exporting Parquet makes its entire platform portable. What is missing?",
+      "answer": "The file format addresses data readability. The team must also account for schema evolution, authorization, catalogs, network paths, transformation semantics and orchestration. Portability is a set of tested contracts, not a property guaranteed by a filename extension.",
+      "checkpoints": [
+        "Separate data portability from application portability.",
+        "Describe a data product contract.",
+        "Name one reason to modernize after a migration."
+      ]
+    },
+    "reviewed": "2026-11-03"
   },
   {
     "id": "migration",
     "domain": 1,
     "objective": "1.4",
     "title": "Migrate with a validation and cutover plan",
-    "minutes": 9,
+    "minutes": 18,
     "lead": "Estimate transfer time before choosing the transfer mechanism.",
     "sections": [
       {
@@ -135,6 +400,34 @@
       {
         "title": "Work through a scenario",
         "body": "At 20 megabits per second, 1 petabyte needs about 12.7 years of ideal continuous transfer. A six-month deadline requires a different path; protocol tuning cannot close that gap."
+      },
+      {
+        "title": "Inventory before selecting a connector",
+        "body": "Record the source engine and version, formats, primary keys, change volume, update and delete behavior, network route and downtime limit. A named managed transfer product does not support every proprietary source. Database migration and warehouse ingestion are also different destination problems. Choose only after checking the supported source-to-target path.",
+        "references": [
+          "stream",
+          "mysql",
+          "transfer"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Separate the snapshot from later changes",
+        "body": "A bulk backfill moves the existing state. Change capture carries later modifications. Plan the transition so changes during the backfill are not lost or applied in the wrong order. Reconcile key counts and business values, and define how deletes are represented. Keep a rollback decision until validation is complete.",
+        "references": [
+          "stream",
+          "bqmerge"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Use units in a transfer estimate",
+        "body": "For a lower-bound estimate, transfer seconds = bytes × 8 ÷ bits per second. Convert units consistently and then allow for utilization, protocol overhead, competing traffic and retries. A link’s advertised capacity is not an end-to-end application guarantee. Offline appliances add shipping and handling time even if they reduce network transfer time.",
+        "references": [
+          "appliance",
+          "transfer"
+        ],
+        "expansion": true
       }
     ],
     "trap": "An unnamed proprietary file format is not automatically supported by a managed transfer connector.",
@@ -142,16 +435,78 @@
       "stream",
       "mysql",
       "transfer",
-      "appliance"
+      "appliance",
+      "bqmerge"
     ],
-    "code": ""
+    "code": "",
+    "level": "Core",
+    "exercise": {
+      "prompt": "A 10 TB snapshot is copied successfully while the source keeps changing. Is it safe to redirect production immediately?",
+      "answer": "Not from that evidence alone. Verify change capture coverage, catch-up lag, updates and deletes, business reconciliation, consumer compatibility and a rollback condition. A completed bulk copy does not prove that the destination represents the current source state.",
+      "checkpoints": [
+        "Explain snapshot versus CDC.",
+        "Calculate a transfer lower bound with explicit units.",
+        "Define validation and rollback criteria."
+      ]
+    },
+    "reviewed": "2026-11-03"
+  },
+  {
+    "id": "cdc-cutover",
+    "domain": 1,
+    "objective": "1.4",
+    "title": "Move from a snapshot to a changing source",
+    "minutes": 20,
+    "level": "Deep dive",
+    "lead": "Plan updates, deletes, ordering and cutover as one contract.",
+    "sections": [
+      {
+        "title": "Define initial and incremental state",
+        "body": "A snapshot is a representation of the source at a point or supported consistent boundary. CDC records later changes. The transition must cover modifications occurring during the full load. Check the connector’s supported source semantics rather than assuming event timestamps alone establish a consistent order.",
+        "references": [
+          "stream"
+        ]
+      },
+      {
+        "title": "Design the destination interpretation",
+        "body": "An event history can append each observed change, while a current-state table needs a version-aware application rule. Handle deletes deliberately. If multiple source versions arrive, a stale update must not overwrite a newer one simply because it was processed last. Deduplicate competing source versions before a MERGE when necessary.",
+        "references": [
+          "bqmerge"
+        ]
+      },
+      {
+        "title": "Make cutover a measured decision",
+        "body": "Measure source-to-target lag and compare source and destination business invariants. Test consumer queries against the new schema. Define what would trigger rollback and how any writes during the switch are reconciled. A green bulk-load job is only one part of the decision.",
+        "references": [
+          "stream",
+          "mysql"
+        ]
+      }
+    ],
+    "trap": "Source change order and processing arrival order are not interchangeable.",
+    "references": [
+      "stream",
+      "bqmerge",
+      "mysql"
+    ],
+    "code": "",
+    "reviewed": "2026-11-03",
+    "exercise": {
+      "prompt": "Version 4 for an entity arrives after version 5. What should a current-state merge do?",
+      "answer": "Keep the newer accepted version under the chosen source ordering contract. A MERGE condition and pre-deduplicated source should prevent the stale update from overwriting it.",
+      "checkpoints": [
+        "Explain the snapshot-to-CDC boundary.",
+        "Describe update and delete behavior.",
+        "Define cutover and rollback evidence."
+      ]
+    }
   },
   {
     "id": "pipeline-contract",
     "domain": 2,
     "objective": "2.1",
     "title": "Define the source, sink and network path",
-    "minutes": 9,
+    "minutes": 18,
     "lead": "Draw the complete route a record must travel.",
     "sections": [
       {
@@ -165,22 +520,114 @@
       {
         "title": "Work through a scenario",
         "body": "Dataflow reads Kafka on premises and writes BigQuery. An existing private connection may let KafkaIO read directly, avoiding an extra message bridge and its latency."
+      },
+      {
+        "title": "Write a contract for every boundary",
+        "body": "Describe the source schema, event identity, time semantics, maximum acceptable lag and destination behavior. Include what happens to bad records and who is responsible for fixing them. A pipeline can meet its worker CPU target while failing the business requirement because the final data is stale.",
+        "references": [
+          "beammodel",
+          "dataflow"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Trace the complete private route",
+        "body": "A worker may need to reach a database, object storage, an API endpoint and an artifact or dependency repository. Check DNS, routes, firewall controls, subnet selection and Google API access for each path. IAM can permit an operation while networking still prevents the connection, and the reverse is also possible.",
+        "references": [
+          "network",
+          "dfiam"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Distinguish control and data planes",
+        "body": "Creating a job is a control-plane action; workers reading and writing records perform data-plane actions. With a Shared VPC, permission to submit a job in the service project does not alone establish subnet access in the host project. Follow the current service-specific identity guidance rather than granting broad administration to an arbitrary account.",
+        "references": [
+          "dfiam",
+          "network"
+        ],
+        "expansion": true
       }
     ],
     "trap": "Granting Dataflow Admin does not by itself grant permission to use another project’s subnet.",
     "references": [
       "network",
       "dfiam",
-      "dataflow"
+      "dataflow",
+      "beammodel"
     ],
-    "code": ""
+    "code": "",
+    "level": "Core",
+    "exercise": {
+      "prompt": "A Dataflow job starts but cannot reach an on-premises database. What evidence should you collect first?",
+      "answer": "Identify the actual workers, selected subnet, resolved destination, connection route and failure message. Check private connectivity and firewall policy alongside the worker identity’s database and cloud permissions. Starting the job proves control-plane access, not complete data-plane connectivity.",
+      "checkpoints": [
+        "Document latency and malformed-data behavior.",
+        "Trace dependencies beyond the source and sink.",
+        "Distinguish job creation from worker data access."
+      ]
+    },
+    "reviewed": "2026-11-03"
+  },
+  {
+    "id": "pubsub-contracts",
+    "domain": 2,
+    "objective": "2.1",
+    "title": "Separate Pub/Sub delivery, ordering and replay",
+    "minutes": 20,
+    "level": "Deep dive",
+    "lead": "A messaging guarantee must be tied to its supported subscription and region.",
+    "sections": [
+      {
+        "title": "Delivery is not a unique business event",
+        "body": "A publisher retry can submit the same logical order as distinct messages. A supported exactly-once pull subscription addresses its documented delivery contract; it does not automatically recognize two different message IDs as the same business order. Preserve a stable business ID and protect external effects.",
+        "references": [
+          "psexact",
+          "exactly"
+        ]
+      },
+      {
+        "title": "Ordering has a key and a scope",
+        "body": "Supported ordering preserves related publication order under the configured ordering-key and regional requirements. It does not impose one event-time order across all keys or prove which globally distributed business event physically occurred first. Consider the impact of slow work for a key on later related messages.",
+        "references": [
+          "ordering"
+        ]
+      },
+      {
+        "title": "Replay depends on retained history",
+        "body": "A seek can replay retained input, but enabling retention after old data was discarded cannot recover that missing history. A snapshot records acknowledgement state under its documented lifetime. Before deploying risky subscriber changes, decide which retained history and safe output contract make rollback useful.",
+        "references": [
+          "replay",
+          "dead"
+        ]
+      }
+    ],
+    "trap": "Exactly-once delivery is not an automatic end-to-end payment transaction guarantee.",
+    "references": [
+      "psexact",
+      "exactly",
+      "ordering",
+      "replay",
+      "dead"
+    ],
+    "code": "",
+    "reviewed": "2026-11-03",
+    "exercise": {
+      "prompt": "Two publishers send the same business order with different Pub/Sub message IDs. Is subscription exactly-once enough?",
+      "answer": "No. It addresses the supported message delivery contract, not arbitrary publisher-level business duplication. The destination or business operation needs an idempotency contract using a stable business order ID.",
+      "checkpoints": [
+        "Distinguish message ID from business event ID.",
+        "State the ordering scope.",
+        "Plan retention before relying on seek."
+      ]
+    }
   },
   {
     "id": "processing-engine",
     "domain": 2,
     "objective": "2.2",
     "title": "Choose the engine that fits the work",
-    "minutes": 9,
+    "minutes": 18,
     "lead": "Minimize necessary code changes, then consider operating effort.",
     "sections": [
       {
@@ -194,6 +641,34 @@
       {
         "title": "Work through a scenario",
         "body": "A team has hundreds of Spark jobs and a short migration deadline. Move durable inputs to Cloud Storage and keep the Spark execution model before planning a later SQL rewrite."
+      },
+      {
+        "title": "Start with the existing execution model",
+        "body": "Beam and Dataflow suit a pipeline described as transforms over bounded or continuous collections. Spark and Hadoop compatibility can favor Dataproc or managed Spark. Dataform fits warehouse SQL graphs. Data Fusion offers visual integration. Workflows and Composer coordinate execution; they do not replace the engine doing every heavy transformation.",
+        "references": [
+          "beammodel",
+          "spark",
+          "fusion"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Decide ETL versus ELT from the constraint",
+        "body": "ETL transforms before the analytical load; ELT loads a staging representation and transforms inside the warehouse. ELT can simplify a SQL-centric system, but it is not appropriate if unprotected sensitive values must never reach that staging location. Choose based on data handling, transformation needs, scale and ownership.",
+        "references": [
+          "dataform",
+          "dlp"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Avoid choosing by a single adjective",
+        "body": "Serverless, managed and real time are not complete architectures. A service may reduce infrastructure work while still requiring schema design, identity configuration, dependency control and monitoring. Compare compatibility, transformation expressiveness, expected delay and operation cost using the same workload.",
+        "references": [
+          "dfdeploy",
+          "framework"
+        ],
+        "expansion": true
       }
     ],
     "trap": "A product being serverless does not mean its processing, storage and network use are free.",
@@ -201,16 +676,82 @@
       "dataflow",
       "spark",
       "fusion",
-      "dataform"
+      "dataform",
+      "beammodel",
+      "dfdeploy"
     ],
-    "code": ""
+    "code": "",
+    "level": "Core",
+    "exercise": {
+      "prompt": "A daily BigQuery SQL aggregate and an existing Spark ML job must both run. Must they share the same engine?",
+      "answer": "No. Keep the SQL transformation in a suitable warehouse workflow and preserve the Spark execution model where that fits the application. Coordinate their dependencies and validate the shared data contract. Using one engine everywhere is not a requirement unless the business explicitly imposes it.",
+      "checkpoints": [
+        "Separate orchestration from transformation.",
+        "Explain one valid ETL privacy constraint.",
+        "Compare engines using the same requirements."
+      ]
+    },
+    "reviewed": "2026-11-03"
+  },
+  {
+    "id": "dataflow-bottlenecks",
+    "domain": 2,
+    "objective": "2.2",
+    "title": "Find the limit before adding Dataflow workers",
+    "minutes": 20,
+    "level": "Deep dive",
+    "lead": "Use stage-level evidence to distinguish capacity from parallelism.",
+    "sections": [
+      {
+        "title": "Different bottlenecks need different changes",
+        "body": "A source or sink can throttle the pipeline, a hot key can concentrate aggregation, a fused stage can restrict redistribution, and worker code can exhaust memory. Increasing the maximum worker setting does not guarantee that any of these constraints disappears. Inspect stage behavior and backlog together.",
+        "references": [
+          "dftrouble",
+          "dfpatterns"
+        ]
+      },
+      {
+        "title": "Understand why work is or is not splittable",
+        "body": "Elements may be processed in parallel, but a particular grouping or stateful key can create a serial boundary. An explicit redistribution can help some fusion cases while adding materialization and network overhead. A hot-key redesign must preserve the aggregation semantics; random salting alone does not explain how results are recombined.",
+        "references": [
+          "beammodel",
+          "dfpatterns"
+        ]
+      },
+      {
+        "title": "Evaluate autoscaling with the full contract",
+        "body": "Check configured limits, available quota, job options, processing backlog and source/sink behavior. Compare a representative run before and after a change. Track output correctness and freshness, not just the number of active workers.",
+        "references": [
+          "dfautoscale",
+          "dftrouble"
+        ]
+      }
+    ],
+    "trap": "More workers are not proof of more useful parallel work.",
+    "references": [
+      "dftrouble",
+      "dfpatterns",
+      "beammodel",
+      "dfautoscale"
+    ],
+    "code": "",
+    "reviewed": "2026-11-03",
+    "exercise": {
+      "prompt": "One aggregation key dominates the workload while other workers are idle. What hypothesis should you test?",
+      "answer": "Investigate hot-key concentration and the serial aggregation boundary. Consider a correctness-preserving partial aggregation and recombination strategy, then measure the affected stage rather than merely raising the global worker limit.",
+      "checkpoints": [
+        "Identify a stage-specific bottleneck.",
+        "Distinguish hot keys from fusion.",
+        "Measure output correctness after tuning."
+      ]
+    }
   },
   {
     "id": "event-time",
     "domain": 2,
     "objective": "2.2",
     "title": "Reason about event time and late data",
-    "minutes": 9,
+    "minutes": 18,
     "lead": "When an event happened and when a worker saw it can be different.",
     "sections": [
       {
@@ -224,21 +765,114 @@
       {
         "title": "Work through a scenario",
         "body": "A click created at minute 2 arrives after one created at minute 9. It belongs to the earlier event-time window, if that window is still allowed to accept data."
+      },
+      {
+        "title": "Define what the output represents",
+        "body": "A fixed window has clock-aligned boundaries. A sliding window can include an event in overlapping intervals. A session merges activity according to an inactivity gap, typically after grouping by an entity key. Do not confuse an analytical SQL window function over table rows with a streaming event-time window.",
+        "references": [
+          "windowapi",
+          "bqwindow"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Separate watermark, trigger and retention",
+        "body": "The watermark estimates event-time progress. A trigger determines when a pane of results is emitted. Allowed lateness concerns how long a window may still accept delayed records. Source message retention concerns whether input can be replayed. These settings solve different problems and one does not replace the others.",
+        "references": [
+          "beam",
+          "windowapi",
+          "replay"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Design the downstream correction",
+        "body": "An early count may later change. Decide whether downstream consumers receive an updated aggregate, a replacement, or a sequence of panes they must combine correctly. Accumulating results can repeat earlier contributions; blindly summing every emitted pane can overcount. Test early, on-time and late arrivals with explicit expected totals.",
+        "references": [
+          "beammodel",
+          "beam"
+        ],
+        "expansion": true
       }
     ],
     "trap": "The first processed auction message is not necessarily the earliest bid.",
     "references": [
       "beam",
-      "ordering"
+      "ordering",
+      "windowapi",
+      "beammodel"
     ],
-    "code": ""
+    "code": "",
+    "level": "Core",
+    "exercise": {
+      "prompt": "A dashboard needs immediate provisional totals and corrected final totals. Is increasing allowed lateness enough?",
+      "answer": "No. Specify a trigger and accumulation strategy for interim results, the lateness policy and a sink representation that handles corrections. Retention and replay are separate concerns. Validate the final total using a known sequence of delayed and repeated events.",
+      "checkpoints": [
+        "Distinguish event time from processing time.",
+        "Explain what each window type groups.",
+        "Name how the sink applies a corrected aggregate."
+      ]
+    },
+    "reviewed": "2026-11-03"
+  },
+  {
+    "id": "beam-triggers",
+    "domain": 2,
+    "objective": "2.2",
+    "title": "Plan panes, late arrivals and corrected totals",
+    "minutes": 20,
+    "level": "Deep dive",
+    "lead": "State when a result is emitted and what later updates mean.",
+    "sections": [
+      {
+        "title": "Assign the business timestamp",
+        "body": "Choose the event timestamp from the source contract. Events in a collection need keys and a windowing strategy suitable for their business aggregation. A record can arrive out of order without being invalid; dropping it changes the result and therefore requires a documented policy.",
+        "references": [
+          "beammodel",
+          "windowapi"
+        ]
+      },
+      {
+        "title": "Separate emission from completeness",
+        "body": "A trigger can emit an early pane before the watermark suggests expected completeness. Later panes can reflect additional records. Allowed lateness and state cleanup determine what remains possible after a window’s expected end. Exact details depend on the transform and runner configuration, so test the intended behavior.",
+        "references": [
+          "beam"
+        ]
+      },
+      {
+        "title": "Match panes to a sink model",
+        "body": "If panes are cumulative, summing every pane as if each contained only new values double-counts earlier records. A sink may need keyed replacements or a documented accumulating representation. Use controlled delayed events to verify both the immediate dashboard and the final reconciled total.",
+        "references": [
+          "beammodel",
+          "exactly"
+        ]
+      }
+    ],
+    "trap": "A watermark estimate is not an assertion that the network can never deliver an older event.",
+    "references": [
+      "beammodel",
+      "windowapi",
+      "beam",
+      "exactly"
+    ],
+    "code": "",
+    "reviewed": "2026-11-03",
+    "exercise": {
+      "prompt": "Cumulative panes contain counts 3 and then 5. What is the final count, and why not 8?",
+      "answer": "The later cumulative pane already contains the earlier contributions, so the final count is 5. A downstream consumer must understand pane semantics rather than blindly add all emitted aggregates.",
+      "checkpoints": [
+        "Define event time and keys.",
+        "Explain trigger versus watermark.",
+        "State how the sink applies corrections."
+      ]
+    }
   },
   {
     "id": "bad-records",
     "domain": 2,
     "objective": "2.2",
     "title": "Route failures without losing the evidence",
-    "minutes": 9,
+    "minutes": 18,
     "lead": "A rejected record should remain explainable and recoverable.",
     "sections": [
       {
@@ -252,22 +886,117 @@
       {
         "title": "Work through a scenario",
         "body": "An address column mixes formats. A visual Data Fusion transformation can standardize values, while a quarantine path keeps rows whose values cannot be interpreted safely."
+      },
+      {
+        "title": "Separate data errors from service errors",
+        "body": "A missing mandatory key or malformed date usually needs correction of the record or transformation rule. A temporary API outage may benefit from bounded retry. Repeating permanent bad input indefinitely consumes capacity and blocks useful work without improving correctness. Classify the failure before selecting retry behavior.",
+        "references": [
+          "psretry",
+          "dfpatterns"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Keep a repairable error record",
+        "body": "An error output should preserve a stable identifier, the original or safely redacted payload, the validation rule, processing context and enough timing information to investigate. Protect this output as carefully as the primary dataset if it contains personal information. A dead-letter store is part of the data architecture, not a place where responsibility ends.",
+        "references": [
+          "dead",
+          "dlp"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Make reinsertion a controlled path",
+        "body": "Define how repaired records return to processing and how their identity prevents duplicate business results. Record the repair decision and monitor the growing backlog. A decreasing main-pipeline error rate can hide a worsening quarantine backlog if the two metrics are not considered together.",
+        "references": [
+          "replay",
+          "bqmerge",
+          "alerts"
+        ],
+        "expansion": true
       }
     ],
     "trap": "Converting malformed CSV to Avro does not by itself repair the underlying values.",
     "references": [
       "fusion",
       "dead",
-      "beam"
+      "beam",
+      "psretry",
+      "alerts"
     ],
-    "code": ""
+    "code": "",
+    "level": "Core",
+    "exercise": {
+      "prompt": "All invalid records are retained, but nobody reviews the error dataset. Is the data-quality problem solved?",
+      "answer": "No. Retention preserves evidence but does not repair the business data. Assign ownership, measure the failure backlog, classify causes and define a safe replay path. Reconcile the repaired output with the expected business totals.",
+      "checkpoints": [
+        "Classify transient versus permanent errors.",
+        "Specify fields in a repairable error record.",
+        "Include ownership and replay in the design."
+      ]
+    },
+    "reviewed": "2026-11-03"
+  },
+  {
+    "id": "write-contracts",
+    "domain": 2,
+    "objective": "2.2",
+    "title": "Choose load, stream and merge behavior explicitly",
+    "minutes": 20,
+    "level": "Deep dive",
+    "lead": "Ingestion method determines visibility, retry and schema responsibilities.",
+    "sections": [
+      {
+        "title": "Batch loading and streaming solve different timing needs",
+        "body": "Recurring object files can fit a batch load or supported transfer configuration. A streaming writer serves a different freshness contract. Confirm the supported file format, compression, location and schema. A filename ending in JSON does not establish that a compressed file uses the newline-delimited structure the loader expects.",
+        "references": [
+          "bqload",
+          "mysql"
+        ]
+      },
+      {
+        "title": "Use offsets within their real boundary",
+        "body": "Correctly managed offsets on supported application-created Storage Write API streams can make repeated append attempts identifiable. The offset scope is a stream, not every message from every producer forever. Producer-side duplicate business events still require an appropriate identity and downstream interpretation.",
+        "references": [
+          "offset",
+          "write"
+        ]
+      },
+      {
+        "title": "Make current-state updates deterministic",
+        "body": "For MERGE, define the match key and keep the source rows appropriate for the intended update semantics. Multiple source matches can produce errors for updating a target row. A deterministic latest-version selection is different from selecting an arbitrary row, especially when event times tie.",
+        "references": [
+          "bqmerge",
+          "bqwindow"
+        ]
+      }
+    ],
+    "trap": "The default write stream and offset-managed application streams do not have identical contracts.",
+    "references": [
+      "bqload",
+      "offset",
+      "write",
+      "bqmerge",
+      "bqwindow"
+    ],
+    "code": "",
+    "reviewed": "2026-11-03",
+    "exercise": {
+      "prompt": "A source batch has three updates for one target key. What should you define before MERGE?",
+      "answer": "Define the source ordering and current-state selection, deduplicate to the intended row per key, and decide how older versions and deletes are handled. Do not assume MERGE invents the business rule.",
+      "checkpoints": [
+        "Distinguish load versus stream requirements.",
+        "State the offset scope.",
+        "Define source cardinality for MERGE."
+      ]
+    }
   },
   {
     "id": "ai-enrichment",
     "domain": 2,
     "objective": "2.2",
     "title": "Enrich records with models, carefully",
-    "minutes": 9,
+    "minutes": 18,
     "lead": "Model output is another data dependency with latency and quality constraints.",
     "sections": [
       {
@@ -281,22 +1010,62 @@
       {
         "title": "Work through a scenario",
         "body": "For customer comments, validate the customer ID, remove unnecessary personal details, classify sentiment, and send malformed or failed inference results to review."
+      },
+      {
+        "title": "Treat the model as a fallible dependency",
+        "body": "A successful HTTP call is not proof that the returned classification is valid. Check structured output, allowed labels, missing fields and service errors. Account for endpoint latency and request capacity when sizing a pipeline. Control concurrency so a temporary inference slowdown does not create an unbounded backlog.",
+        "references": [
+          "generate",
+          "dfpatterns"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Control the input and the evidence",
+        "body": "Send only the information needed for the task. Separate untrusted document text from trusted processing instructions, retain the model and prompt version where permitted, and make results traceable to the input. Use human review where the application requires it rather than presenting generated values as validated ground truth.",
+        "references": [
+          "dlp",
+          "ai"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Choose where enrichment belongs",
+        "body": "In-pipeline inference can meet a before-load requirement but couples ingestion to model availability. A staged warehouse enrichment can simplify reprocessing when raw data is allowed in that environment. Select from the privacy boundary, latency target, supported model interface and recovery behavior instead of assuming a single product is always optimal.",
+        "references": [
+          "generate",
+          "dataflow"
+        ],
+        "expansion": true
       }
     ],
     "trap": "A confidently formatted model response can still be incorrect or fail your schema.",
     "references": [
       "beam",
       "ai",
-      "dlp"
+      "dlp",
+      "generate",
+      "dfpatterns"
     ],
-    "code": ""
+    "code": "",
+    "level": "Core",
+    "exercise": {
+      "prompt": "An enrichment endpoint returns an unknown label while the request status is successful. What should happen?",
+      "answer": "Validate the response against the output contract and route or flag it for review. Preserve the input identity and error context for a controlled retry or repair. Do not silently invent a default business label merely to keep a success metric high.",
+      "checkpoints": [
+        "Validate model output beyond HTTP success.",
+        "Account for model latency and concurrency.",
+        "Compare in-pipeline and staged enrichment."
+      ]
+    },
+    "reviewed": "2026-11-03"
   },
   {
     "id": "deploy-pipeline",
     "domain": 2,
     "objective": "2.3",
     "title": "Deploy a pipeline you can safely replace",
-    "minutes": 9,
+    "minutes": 18,
     "lead": "Make release behavior part of the design, before the first production run.",
     "sections": [
       {
@@ -310,21 +1079,112 @@
       {
         "title": "Work through a scenario",
         "body": "A windowing change is incompatible. Retain the source messages, drain the old job, start the replacement, and reconcile outputs rather than assuming a flag makes arbitrary state changes compatible."
+      },
+      {
+        "title": "Version more than application code",
+        "body": "Record the schema contract, runtime dependencies, worker identity, network configuration and relevant job options with a release. A tested transform can still fail in production if the deployment changes a subnet or service account. Keep representative test inputs and output assertions with the release evidence.",
+        "references": [
+          "dfdeploy",
+          "dflifecycle"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Choose the update path from compatibility",
+        "body": "A compatible stateful update and a replacement job have different requirements. Changes to state, coders or windowing can make an in-place update unsuitable. Review current upgrade guidance, source retention and the behavior of in-flight work before choosing drain or cancel. A deployment flag is not proof of semantic compatibility.",
+        "references": [
+          "upgrade",
+          "dflifecycle"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Plan the reconciliation and rollback",
+        "body": "Define the expected output for the overlap or transition interval and how duplicates are recognized. Test a replay from retained source data in a controlled destination. Preserve a usable recovery path until you have evidence that the new release meets quality and freshness requirements.",
+        "references": [
+          "replay",
+          "offset"
+        ],
+        "expansion": true
       }
     ],
     "trap": "A successful CI deployment is not evidence that output totals remain correct.",
     "references": [
       "upgrade",
-      "replay"
+      "replay",
+      "dfdeploy",
+      "dflifecycle"
     ],
-    "code": ""
+    "code": "",
+    "level": "Core",
+    "exercise": {
+      "prompt": "Your integration tests pass, but the new job uses a different worker service account. What additional review is required?",
+      "answer": "Review the effective permissions and private network path for that identity, along with artifact and source access. Then validate real output and freshness during a controlled release. Passing transformation tests does not prove that the deployed environment has the same access contract.",
+      "checkpoints": [
+        "Version identities and networking with code.",
+        "Distinguish a compatible update from replacement.",
+        "Define a measurable rollback condition."
+      ]
+    },
+    "reviewed": "2026-11-03"
+  },
+  {
+    "id": "dataform-quality",
+    "domain": 2,
+    "objective": "2.3",
+    "title": "Gate publication on warehouse quality",
+    "minutes": 20,
+    "level": "Deep dive",
+    "lead": "SQL as code should define both the table and its acceptance criteria.",
+    "sections": [
+      {
+        "title": "Separate validation from transformation",
+        "body": "A transformation creates a result; an assertion tests a property of it. Non-null, unique-key and row-condition checks can detect different failures. A custom assertion typically returns violating rows, with no violations representing success. Make business thresholds and required keys explicit rather than relying on a table creation success.",
+        "references": [
+          "dataform"
+        ]
+      },
+      {
+        "title": "Declare the gating dependency",
+        "body": "A downstream action may need to depend on upstream assertion results as well as the upstream table. Use the supported dependency configuration and test a failure path. An assertion appearing in the execution graph is not enough if the consumer can run before it passes.",
+        "references": [
+          "dependencies"
+        ]
+      },
+      {
+        "title": "Design incremental runs and replay together",
+        "body": "An incremental filter selects what to process, while a merge or replacement rule defines what to write. Late corrections outside a short lookback can be missed. Decide how historical backfills and corrected source records reach the target, then compare rerun counts and business totals.",
+        "references": [
+          "bqmerge",
+          "bqdml"
+        ]
+      }
+    ],
+    "trap": "An incremental date filter is not itself a deduplication or replay contract.",
+    "references": [
+      "dataform",
+      "dependencies",
+      "bqmerge",
+      "bqdml"
+    ],
+    "code": "",
+    "reviewed": "2026-11-03",
+    "exercise": {
+      "prompt": "A uniqueness assertion fails but the curated report still refreshes. What should you inspect?",
+      "answer": "Inspect the dependency relationship between the curated action and the assertion. Add and test the supported gate so invalid data cannot be published merely because the upstream table exists.",
+      "checkpoints": [
+        "Write quality rules at the right grain.",
+        "Prove that an assertion blocks publication.",
+        "Test a late correction outside the normal incremental interval."
+      ]
+    }
   },
   {
     "id": "storage-choice",
     "domain": 3,
     "objective": "3.1",
     "title": "Start with the access pattern",
-    "minutes": 9,
+    "minutes": 18,
     "lead": "Select storage from the required reads and writes, not from dataset size alone.",
     "sections": [
       {
@@ -338,6 +1198,35 @@
       {
         "title": "Work through a scenario",
         "body": "Sensor lookups need milliseconds while daily analytics need joins. Serve the keyed path from Bigtable and publish a warehouse copy for analytical scans."
+      },
+      {
+        "title": "Ask six questions before choosing",
+        "body": "What does a read request look like? Which writes must be atomic together? How much data is read per request? What consistency is required? What availability and recovery scope are needed? Which engine or API compatibility must remain? Data volume alone cannot answer these questions. A one-row serving request and a terabyte scan can require different stores over related data.",
+        "references": [
+          "spanner",
+          "bigtable",
+          "cloudsql"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Separate a system of record from a serving projection",
+        "body": "A warehouse can retain analytical history while a keyed database serves low-latency application queries. A cache may accelerate derived values without replacing their durable source. Each additional copy needs an update contract, consistency expectation and recovery procedure; duplicating data is a design responsibility rather than a free optimization.",
+        "references": [
+          "redis",
+          "bqreliability"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Avoid overgeneralizing database labels",
+        "body": "NoSQL does not mean there are no transactions, and SQL does not mean every query pattern is efficient. Firestore supports a document model and transaction capabilities; Bigtable emphasizes keyed access; Spanner addresses distributed transactions. Check the actual transaction scope and access interface instead of deciding from the category name.",
+        "references": [
+          "firestore",
+          "bigtable",
+          "spanner"
+        ],
+        "expansion": true
       }
     ],
     "trap": "A warehouse is not automatically the best transactional point-of-sale database.",
@@ -349,16 +1238,28 @@
       "spanner",
       "bigtable",
       "biglake",
-      "compute"
+      "compute",
+      "bqreliability"
     ],
-    "code": ""
+    "code": "",
+    "level": "Core",
+    "exercise": {
+      "prompt": "A solution requires millisecond entity reads and daily cross-entity analytical joins. Why might two stores be reasonable?",
+      "answer": "The access paths optimize different work. A keyed serving projection can handle individual entities while the warehouse handles scans and joins. The design must still explain how updates propagate, what lag consumers accept and how the projection is rebuilt.",
+      "checkpoints": [
+        "Describe read and write shapes concretely.",
+        "Name the transactional boundary.",
+        "Distinguish durable state from a cache or projection."
+      ]
+    },
+    "reviewed": "2026-11-03"
   },
   {
     "id": "lifecycle",
     "domain": 3,
     "objective": "3.1",
     "title": "Treat retention and cost as separate controls",
-    "minutes": 9,
+    "minutes": 18,
     "lead": "Cheap storage is useful only if its access and retention behavior fits.",
     "sections": [
       {
@@ -372,6 +1273,33 @@
       {
         "title": "Work through a scenario",
         "body": "An audit archive is rarely read and must remain immutable for years. Choose an appropriate archival class and a retention policy, then test your retrieval procedure."
+      },
+      {
+        "title": "Separate four independent decisions",
+        "body": "Bucket geography affects the placement and availability model. Storage class affects storage and retrieval economics. Lifecycle rules automate eligible object actions. Retention controls prevent premature modification or deletion under the configured policy. Choosing an archival class does not by itself make an object immutable or restrict who can read it.",
+        "references": [
+          "classes",
+          "lifecycle",
+          "protect"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Model the actual access pattern",
+        "body": "Estimate how often data is read, how long it remains and how much is retrieved. A very cheap stored-byte rate can be offset by retrieval or minimum-duration conditions. Use current official pricing and class rules when deploying; a study scenario should identify the relevant cost dimensions rather than memorize a permanent dollar figure.",
+        "references": [
+          "classes"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Recoverability needs more than keeping old objects",
+        "body": "An organization can retain many versions but still lack the permissions, metadata or documented procedure needed to restore the intended state. Rehearse the recovery and confirm the required time and data-loss objectives. Consider how accidental deletions, overwrites and region failures differ.",
+        "references": [
+          "protect",
+          "replication"
+        ],
+        "expansion": true
       }
     ],
     "trap": "A lifecycle delete rule does not override an active retention requirement.",
@@ -380,14 +1308,25 @@
       "lifecycle",
       "protect"
     ],
-    "code": ""
+    "code": "",
+    "level": "Core",
+    "exercise": {
+      "prompt": "A user proposes an archive storage class as the only way to prevent deletion for seven years. What is missing?",
+      "answer": "A supported retention policy and any required lock or object protection must enforce the minimum period. IAM controls access separately. Storage class is an economic choice and does not replace retention enforcement or recovery testing.",
+      "checkpoints": [
+        "Keep geography, class, lifecycle and retention separate.",
+        "Identify retrieval and early-deletion considerations.",
+        "Define what a restore must prove."
+      ]
+    },
+    "reviewed": "2026-11-03"
   },
   {
     "id": "warehouse-model",
     "domain": 3,
     "objective": "3.2",
     "title": "Model the warehouse around its queries",
-    "minutes": 9,
+    "minutes": 18,
     "lead": "Reduce repeated work without losing the meaning of a record.",
     "sections": [
       {
@@ -401,22 +1340,114 @@
       {
         "title": "Work through a scenario",
         "body": "Orders are queried by recent date and customer. Partition by order date, cluster by customer ID, and keep line items nested when that matches the reporting model."
+      },
+      {
+        "title": "Model the business grain before optimizing",
+        "body": "An order-level amount should not be repeatedly summed after a join that expands one order into many lines. Define keys and cardinalities, then choose a model that represents the report’s grain. Nested and repeated fields can preserve a parent-child relationship without requiring the same join in every analytical query.",
+        "references": [
+          "bqnested",
+          "bqsql"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Use filters that storage can exploit",
+        "body": "Partitioning helps when a query can eliminate partitions using an appropriate predicate. Clustering can skip irrelevant blocks within the remaining data. Column order matters for multi-column clustering. A selective-looking filter on an unrelated expression is not automatic evidence that the intended partitions or blocks were pruned. Inspect the actual plan and processed bytes.",
+        "references": [
+          "prune",
+          "cluster"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Keep changes and history explicit",
+        "body": "An append-only event table, a current-state dimension and a historical dimension answer different questions. Decide whether an update overwrites current truth or creates a new version. Use a stable key and a deterministic ordering rule for deduplication; a random choice among tied updates can make a rerun disagree with the previous output.",
+        "references": [
+          "bqmerge",
+          "bqwindow"
+        ],
+        "expansion": true
       }
     ],
     "trap": "LIMIT does not by itself reduce the bytes read from all referenced columns.",
     "references": [
       "partition",
       "cluster",
-      "compute"
+      "compute",
+      "bqnested",
+      "bqmerge"
     ],
-    "code": ""
+    "code": "",
+    "level": "Core",
+    "exercise": {
+      "prompt": "A report filters thirty days and a customer ID, but still scans much more than expected. What would you verify?",
+      "answer": "Check the actual partition column and predicate, selected columns, clustering specification and query plan. Confirm the report is not expanding rows through joins or UNNEST. Compare measured processed bytes under the same input and filters before claiming a storage-layout improvement.",
+      "checkpoints": [
+        "Explain the reporting grain.",
+        "Write a predicate that targets the partition.",
+        "Use a deterministic rule for current-state rows."
+      ]
+    },
+    "reviewed": "2026-11-03"
+  },
+  {
+    "id": "sql-grain",
+    "domain": 3,
+    "objective": "3.2",
+    "title": "Read SQL at the grain of the business question",
+    "minutes": 20,
+    "level": "Deep dive",
+    "lead": "Joins, arrays and analytical functions can change what one row means.",
+    "sections": [
+      {
+        "title": "Track cardinality through a query",
+        "body": "A one-to-many join repeats fields from the parent row. Summing a parent total after that expansion can multiply revenue. Pre-aggregate to a compatible grain or choose a representation that preserves the relationship. COUNT(DISTINCT parent_id) can fix one count but does not automatically fix every sum in the same query.",
+        "references": [
+          "bqsql",
+          "bqnested"
+        ]
+      },
+      {
+        "title": "Use analytical functions for a defined purpose",
+        "body": "ROW_NUMBER can select one observation per business key when paired with a deterministic ordering rule. A running total uses a partition, ordering and frame whose meaning should be explicit. QUALIFY filters analytical results; WHERE filters the relevant earlier row relation. None of these constructs chooses the correct business key for you.",
+        "references": [
+          "bqwindow",
+          "bqsql"
+        ]
+      },
+      {
+        "title": "Handle unknown values and empty relationships",
+        "body": "NULL is not always zero: it may mean unavailable, inapplicable or unobserved. A WHERE filter on a nullable right-side column after a LEFT JOIN can remove rows without a match. When expanding arrays, verify how empty arrays affect the intended population and aggregation. Test these cases with tiny explicit fixtures.",
+        "references": [
+          "bqsql",
+          "bqnested"
+        ]
+      }
+    ],
+    "trap": "SUM(DISTINCT amount) is not a general repair for duplicated parent rows.",
+    "references": [
+      "bqsql",
+      "bqnested",
+      "bqwindow"
+    ],
+    "code": "WITH joined AS (\n  SELECT 'o1' AS order_id, 100 AS order_total, 'a' AS item\n  UNION ALL SELECT 'o1', 100, 'b'\n  UNION ALL SELECT 'o2', 80, 'c'\n)\nSELECT SUM(order_total) AS wrong_grain_total\nFROM joined; -- 280, not the order-grain total 180",
+    "reviewed": "2026-11-03",
+    "exercise": {
+      "prompt": "Two orders total 100 and 80. The first has two items, the second one. What does SUM(order_total) after the item join return?",
+      "answer": "The joined rows contain 100, 100 and 80, giving 280 instead of the intended order-grain total 180. Fix the grain or pre-aggregate; do not substitute a generally unsafe DISTINCT on the amount.",
+      "checkpoints": [
+        "Predict row multiplication.",
+        "Explain a deterministic window ordering.",
+        "Preserve missing values and unmatched records deliberately."
+      ]
+    }
   },
   {
     "id": "lake",
     "domain": 3,
     "objective": "3.3",
     "title": "Make the lake usable, not just large",
-    "minutes": 9,
+    "minutes": 18,
     "lead": "Raw files need schema, metadata, access rules and quality checks.",
     "sections": [
       {
@@ -430,22 +1461,115 @@
       {
         "title": "Work through a scenario",
         "body": "A team needs reusable curated sales objects. Publish their schema, owner and freshness target, then validate incoming partitions instead of treating every uploaded object as trustworthy."
+      },
+      {
+        "title": "Organize stages by their contract",
+        "body": "A raw landing area preserves received evidence; a validated layer enforces interpretable schema and basic quality; a curated product exposes business-ready meaning. The number of folders is not the important property. Each transition should say which validation was performed and whether a consumer may safely use its result.",
+        "references": [
+          "catalog",
+          "dataform"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Choose access delegation deliberately",
+        "body": "A BigLake table can use a connection identity to reach supported external storage while readers receive table access. This differs from giving every analyst direct object permissions. The supported formats, locations, connector behavior and security features must fit the chosen source. A normal external table and a governed delegated-access design are not interchangeable labels.",
+        "references": [
+          "biglake",
+          "locations"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Monitor discovery and freshness separately",
+        "body": "Metadata discovery describes what exists; a freshness check asks whether the expected data arrived on time. A successful discovery scan can coexist with an incomplete daily partition. Monitor the input contract and data-quality result, not merely whether the catalog service is running.",
+        "references": [
+          "catalog",
+          "alerts"
+        ],
+        "expansion": true
       }
     ],
     "trap": "A catalog organizes metadata; it does not automatically cleanse every file it discovers.",
     "references": [
       "catalog",
       "fusion",
-      "partition"
+      "partition",
+      "biglake",
+      "alerts"
     ],
-    "code": ""
+    "code": "",
+    "level": "Core",
+    "exercise": {
+      "prompt": "New files are discoverable in the catalog but yesterday’s report is incomplete. Which contract should be examined?",
+      "answer": "Inspect expected arrivals, partition completeness, transformation quality and report freshness. Discovery succeeded as a metadata operation; it did not prove that every business record or scheduled partition was present.",
+      "checkpoints": [
+        "Explain what each lake stage guarantees.",
+        "Distinguish delegated table access from direct object access.",
+        "Separate discovery success from freshness."
+      ]
+    },
+    "reviewed": "2026-11-03"
+  },
+  {
+    "id": "biglake-access",
+    "domain": 3,
+    "objective": "3.3",
+    "title": "Compare lake access with warehouse access",
+    "minutes": 20,
+    "level": "Deep dive",
+    "lead": "Choose where the data stays and which identity reads it.",
+    "sections": [
+      {
+        "title": "Native and external storage imply different work",
+        "body": "A native warehouse table stores data in the warehouse service. An external table queries a supported external representation. Data movement, caching, format, location and performance needs influence the choice. Keeping files external is not automatically faster or cheaper for every frequently repeated analytical workload.",
+        "references": [
+          "biglake",
+          "bqload"
+        ]
+      },
+      {
+        "title": "Explain delegated access",
+        "body": "A BigLake connection can use a service identity to read supported underlying storage while consumer authorization is managed at the table layer. This can avoid broad direct object access for each analyst. The relevant connection and policy configuration still need explicit permissions and supported locations.",
+        "references": [
+          "biglake",
+          "column"
+        ]
+      },
+      {
+        "title": "Understand metadata and freshness",
+        "body": "File metadata caching can improve some external-query workloads, but cached metadata has refresh and supported-feature behavior. A recently changed object layout may not immediately be reflected by a cached view of the files. Choose a freshness contract and inspect the current feature limitations.",
+        "references": [
+          "biglake",
+          "catalog"
+        ]
+      }
+    ],
+    "trap": "An external table definition is not proof that every reader has the required governed access.",
+    "references": [
+      "biglake",
+      "column",
+      "catalog",
+      "bqload"
+    ],
+    "code": "",
+    "reviewed": "2026-11-03",
+    "exercise": {
+      "prompt": "Analysts should query external files without receiving direct bucket access. What capability should you evaluate?",
+      "answer": "Evaluate a supported BigLake delegated-access setup with a connection identity and table-level controls. Verify permissions, format and location. Do not simply grant every analyst object-viewer access and call it delegation.",
+      "checkpoints": [
+        "Compare native and external access paths.",
+        "Name the identity reading the external objects.",
+        "Explain how metadata freshness affects a query."
+      ]
+    }
   },
   {
     "id": "governance",
     "domain": 3,
     "objective": "3.4",
     "title": "Give distributed teams shared guardrails",
-    "minutes": 9,
+    "minutes": 18,
     "lead": "Domain ownership can coexist with organization-wide standards.",
     "sections": [
       {
@@ -459,6 +1583,33 @@
       {
         "title": "Work through a scenario",
         "body": "Marketing and finance each publish curated assets. A shared catalog exposes their meaning and lineage, while storage IAM and table policies continue to control real access."
+      },
+      {
+        "title": "Define a data product people can use",
+        "body": "A domain-owned asset needs an accountable owner, business definition, schema, access method, update expectation and quality evidence. Federated governance adds shared guardrails without making a central team perform every domain transformation. Publish enough context for consumers to understand what the product does and does not represent.",
+        "references": [
+          "catalog",
+          "sharing"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Use lineage to investigate impact",
+        "body": "Technical lineage connects inputs, transformations and outputs. When a source changes, use it to identify potentially affected consumers; then review actual contracts and tests. A lineage edge alone does not establish that an output is correct, legally usable or fresh. Data quality and authorization remain separate evidence.",
+        "references": [
+          "catalog",
+          "dataform"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Treat product names as time-sensitive",
+        "body": "The exam guide retains Dataplex and Dataplex Catalog terminology while current documentation can use Knowledge Catalog. Older notes may refer to Data Catalog APIs and role names. Preserve the architectural concept, but verify current migration and feature support before applying an old operational recipe.",
+        "references": [
+          "transition",
+          "catalog"
+        ],
+        "expansion": true
       }
     ],
     "trap": "Governance metadata does not grant readers permission to the underlying data.",
@@ -467,14 +1618,25 @@
       "transition",
       "sharing"
     ],
-    "code": ""
+    "code": "",
+    "level": "Core",
+    "exercise": {
+      "prompt": "A new catalog automatically scans all tables. Does that implement federated governance?",
+      "answer": "It provides part of discovery, but ownership, access policy, quality rules, lineage use and consumer contracts still need a deliberate design. Domain accountability and shared standards cannot be inferred from the mere presence of a catalog entry.",
+      "checkpoints": [
+        "Describe ownership and consumer expectations.",
+        "Use lineage for a concrete change-impact question.",
+        "Check renamed or retired features against current docs."
+      ]
+    },
+    "reviewed": "2026-11-03"
   },
   {
     "id": "analytics",
     "domain": 4,
     "objective": "4.1",
     "title": "Make dashboards efficient and trustworthy",
-    "minutes": 9,
+    "minutes": 18,
     "lead": "Optimize the expensive operation that actually appears in the query plan.",
     "sections": [
       {
@@ -488,6 +1650,34 @@
       {
         "title": "Work through a scenario",
         "body": "Hundreds of users repeatedly sum sales by day. A supported materialized aggregate avoids repeating the same large computation; BI Engine may further accelerate eligible dashboard queries."
+      },
+      {
+        "title": "Inspect where the expensive work occurs",
+        "body": "A query can spend time reading unnecessary columns, shuffling a large join, processing a skewed key or sorting a large intermediate result. Start from the execution evidence and compare the same workload. More capacity may help resource pressure but does not make an avoidable row explosion a good query design.",
+        "references": [
+          "jobs",
+          "bqreliability"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Choose the right reusable representation",
+        "body": "A logical view stores a query definition. A materialized view stores supported computed results and has specific refresh and query-shape rules. BI Engine accelerates eligible analytical work in memory. These mechanisms can complement one another, but none removes the need to understand filtering, freshness and authorization.",
+        "references": [
+          "views",
+          "mv",
+          "bi"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Test end-to-end dashboard freshness",
+        "body": "Distinguish the time an event occurred, when it was loaded, when an aggregate was refreshed and when the dashboard cache was last updated. A freshly refreshed dashboard can still show stale upstream data. Define which timestamp the business freshness target refers to and monitor that interval.",
+        "references": [
+          "jobs",
+          "mv"
+        ],
+        "expansion": true
       }
     ],
     "trap": "A logical view is a stored query definition, not automatically a stored result cache.",
@@ -495,16 +1685,80 @@
       "mv",
       "bi",
       "compute",
-      "views"
+      "views",
+      "jobs"
     ],
-    "code": ""
+    "code": "",
+    "level": "Core",
+    "exercise": {
+      "prompt": "The dashboard refreshes every minute but shows hour-old values. Is adding slots the first justified action?",
+      "answer": "No. Trace source arrival, ingestion completion, aggregate refresh and visualization caching. Use query execution evidence to decide whether compute is actually the bottleneck. Refresh frequency is not proof of end-to-end freshness.",
+      "checkpoints": [
+        "Locate the expensive query stage.",
+        "Explain logical versus materialized views.",
+        "Trace freshness across the entire path."
+      ]
+    },
+    "reviewed": "2026-11-03"
+  },
+  {
+    "id": "materialized-freshness",
+    "domain": 4,
+    "objective": "4.1",
+    "title": "Choose reusable results without losing freshness",
+    "minutes": 20,
+    "level": "Deep dive",
+    "lead": "A fast dashboard should still answer the intended time-sensitive question.",
+    "sections": [
+      {
+        "title": "Compare the stored object",
+        "body": "A logical view stores a SQL definition. A materialized view stores supported computed results with refresh behavior and eligibility rules. A report cache stores a presentation-side response. They exist at different layers, so changing one does not automatically repair stale data in the others.",
+        "references": [
+          "mv",
+          "views"
+        ]
+      },
+      {
+        "title": "Check the supported query pattern",
+        "body": "Incremental and non-incremental materialized-view options have different supported shapes and maintenance or freshness behavior. Inspect the current documentation rather than assuming every arbitrary SQL expression can be incrementally reused. Choose the simplest supported aggregate for a repeatable dashboard need.",
+        "references": [
+          "mv"
+        ]
+      },
+      {
+        "title": "Measure end-to-end freshness and latency",
+        "body": "Record source event time, load time, aggregate refresh and dashboard read behavior. Compare the actual analytical query with and without the acceleration strategy while keeping authorization and business logic fixed. A lower query time and a fresh result must be demonstrated separately.",
+        "references": [
+          "bi",
+          "jobs"
+        ]
+      }
+    ],
+    "trap": "Precomputation is not permission to ignore the business freshness target.",
+    "references": [
+      "mv",
+      "views",
+      "bi",
+      "jobs"
+    ],
+    "code": "",
+    "reviewed": "2026-11-03",
+    "exercise": {
+      "prompt": "A logical view is fast on the second run. Does that prove it is a materialized view?",
+      "answer": "No. A logical view remains a stored query definition; other caching can influence repeated execution. Inspect the actual object type and execution evidence before attributing a performance change.",
+      "checkpoints": [
+        "Distinguish the three caching layers.",
+        "Check materialization eligibility.",
+        "Measure freshness separately from query latency."
+      ]
+    }
   },
   {
     "id": "features",
     "domain": 4,
     "objective": "4.2",
     "title": "Keep training and serving transformations consistent",
-    "minutes": 9,
+    "minutes": 18,
     "lead": "The same raw value must mean the same thing in both environments.",
     "sections": [
       {
@@ -518,21 +1772,108 @@
       {
         "title": "Work through a scenario",
         "body": "Demand prediction uses scaled prices. Reuse the fitted scaling parameters for serving rather than independently recomputing them on a single prediction request."
+      },
+      {
+        "title": "Fit transformations on training information",
+        "body": "Scaling and encoding are part of the learned input contract. Fitting statistics using future evaluation data can leak information. Preserve fitted parameters and apply the same transformation at serving. A TRANSFORM clause can keep supported BigQuery ML transformations with model use, but external serving still needs a compatible implementation.",
+        "references": [
+          "transform",
+          "evaluation"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Choose metrics for the business error",
+        "body": "Accuracy can hide failure on a rare class. Precision describes how many predicted positives are true; recall describes how many actual positives were found. Regression metrics express different penalties for numerical errors. Compare models on an appropriate held-out evaluation design and choose thresholds for the actual cost of errors.",
+        "references": [
+          "evaluation"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Choose evaluation data that resembles deployment",
+        "body": "A random split is not automatically appropriate for a chronological forecast or repeated observations from the same entity. Check whether near-duplicate entities or future values cross the evaluation boundary. A more realistic holdout may lower the apparent score while providing a more useful estimate of production behavior.",
+        "references": [
+          "evaluation",
+          "transform"
+        ],
+        "expansion": true
       }
     ],
     "trap": "A high training score alone is not evidence of useful performance on unseen data.",
     "references": [
       "transform",
-      "ai"
+      "ai",
+      "evaluation"
     ],
-    "code": ""
+    "code": "",
+    "level": "Core",
+    "exercise": {
+      "prompt": "A fraud detector labels every transaction legitimate and reports 99.9% accuracy. What should you investigate?",
+      "answer": "Inspect class balance, the confusion matrix, fraud recall and the operational cost of missed fraud and false alarms. Compare against a meaningful baseline and evaluate on data that reflects deployment. A large aggregate accuracy value alone does not establish a useful detector.",
+      "checkpoints": [
+        "Keep fitted preprocessing consistent.",
+        "Explain precision versus recall.",
+        "Identify one form of temporal or entity leakage."
+      ]
+    },
+    "reviewed": "2026-11-03"
+  },
+  {
+    "id": "ml-evaluation",
+    "domain": 4,
+    "objective": "4.2",
+    "title": "Evaluate models against the real failure cost",
+    "minutes": 20,
+    "level": "Deep dive",
+    "lead": "A metric should correspond to a business error, not just look impressive.",
+    "sections": [
+      {
+        "title": "Build an interpretable baseline",
+        "body": "For classification, examine the population and confusion matrix. A majority-class predictor can have high accuracy while finding none of the rare positive events. For numerical prediction, compare against a reasonable baseline and select an error measure that reflects the penalty of large misses.",
+        "references": [
+          "evaluation"
+        ]
+      },
+      {
+        "title": "Choose the split from deployment conditions",
+        "body": "Keep future information out of training when evaluating a forecast. Consider repeated entities and near-duplicate records when selecting a holdout. Fit preprocessing on the training information and reuse it for evaluation and serving. A random split is a method, not an unconditional guarantee of realistic generalization.",
+        "references": [
+          "transform",
+          "evaluation"
+        ]
+      },
+      {
+        "title": "Connect a threshold to operational consequences",
+        "body": "Precision and recall change with the classification threshold. More recall can create more cases for human review; fewer false alerts can miss more positives. Evaluate the workload and business cost of the selected threshold, and keep training-serving consistency under observation.",
+        "references": [
+          "evaluation"
+        ]
+      }
+    ],
+    "trap": "A validation score does not guarantee the same error distribution in production.",
+    "references": [
+      "evaluation",
+      "transform"
+    ],
+    "code": "",
+    "reviewed": "2026-11-03",
+    "exercise": {
+      "prompt": "A detector identifies 8 of 10 fraud cases, with 12 alerts total. What are recall and precision?",
+      "answer": "Recall is 8/10 = 80%; precision is 8/12, about 66.7%. The useful threshold depends on the cost of missed fraud and investigating false alerts.",
+      "checkpoints": [
+        "Calculate precision and recall.",
+        "Choose a deployment-relevant holdout.",
+        "Explain one way preprocessing can leak information."
+      ]
+    }
   },
   {
     "id": "embeddings",
     "domain": 4,
     "objective": "4.2",
     "title": "Prepare documents for retrieval and generation",
-    "minutes": 9,
+    "minutes": 18,
     "lead": "A retrieval system needs relevant, permitted context before it generates an answer.",
     "sections": [
       {
@@ -546,21 +1887,112 @@
       {
         "title": "Work through a scenario",
         "body": "An internal policy assistant retrieves passages with document IDs and effective dates. The answer cites those passages, and restricted documents never reach unauthorized users."
+      },
+      {
+        "title": "Keep a reproducible document representation",
+        "body": "Store a chunk identifier, source document, version or date, access metadata and the embedding model used. A change of embedding model may require regenerating or separating stored vectors. Chunk boundaries affect whether retrieval captures enough context without mixing unrelated material.",
+        "references": [
+          "vectors",
+          "vectorindex"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Filter the retrieved evidence before generation",
+        "body": "The model should not receive a restricted passage simply because its vector is close to the question. Enforce authorized retrieval and retain provenance. Treat source text as untrusted content rather than instructions for the application. Evaluate relevance, groundedness and the usefulness of the final answer separately.",
+        "references": [
+          "vectors",
+          "ai"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Understand the indexing tradeoff",
+        "body": "A vector index can speed approximate retrieval for a workload at some storage and maintenance cost. Approximate neighbors are not automatically the same as an exact search over every vector. Measure the retrieval quality and latency that your application needs, and check index availability or coverage before attributing performance changes to it.",
+        "references": [
+          "vectorindex",
+          "vectors"
+        ],
+        "expansion": true
       }
     ],
     "trap": "A vector index improves retrieval performance; it does not guarantee factual or authorized answers.",
     "references": [
       "vectors",
-      "ai"
+      "ai",
+      "vectorindex"
     ],
-    "code": ""
+    "code": "",
+    "level": "Core",
+    "exercise": {
+      "prompt": "A RAG answer cites a real document but gives a wrong conclusion. Which layers might need evaluation?",
+      "answer": "Check whether the retrieved chunks were relevant, complete, current and authorized, then inspect how the generation used them. A valid document citation does not prove that the conclusion follows from the evidence. Review both retrieval quality and answer quality.",
+      "checkpoints": [
+        "Retain document version and access metadata.",
+        "Separate retrieval relevance from answer correctness.",
+        "Explain approximate versus exact retrieval."
+      ]
+    },
+    "reviewed": "2026-11-03"
+  },
+  {
+    "id": "rag-evaluation",
+    "domain": 4,
+    "objective": "4.2",
+    "title": "Evaluate retrieval and generated answers separately",
+    "minutes": 20,
+    "level": "Deep dive",
+    "lead": "Relevant context, access control and faithful generation are separate requirements.",
+    "sections": [
+      {
+        "title": "Test the retrieval stage on its own",
+        "body": "Create representative questions with expected useful passages. Check whether relevant material appears, whether it is current and whether access filters exclude restricted documents. If the right evidence is missing, changing the generation prompt alone may not repair the underlying retrieval problem.",
+        "references": [
+          "vectors"
+        ]
+      },
+      {
+        "title": "Test the answer against the retrieved evidence",
+        "body": "Assess whether the conclusion follows from the supplied passages, whether citations resolve to the right document version, and how missing evidence is handled. Distinguish a model-generated statement from a fact validated by your data pipeline. Treat arbitrary document instructions as untrusted content.",
+        "references": [
+          "ai",
+          "generate"
+        ]
+      },
+      {
+        "title": "Monitor the document lifecycle",
+        "body": "When a document changes, is deleted or has its access revoked, update the retrieval representation and its metadata under the appropriate contract. An old embedding can still lead to stale or forbidden context if the surrounding access and refresh design is incomplete.",
+        "references": [
+          "vectors",
+          "vectorindex"
+        ]
+      }
+    ],
+    "trap": "An embedding is a representation for comparison, not a copy of truth or an authorization decision.",
+    "references": [
+      "vectors",
+      "vectorindex",
+      "ai",
+      "generate"
+    ],
+    "code": "",
+    "reviewed": "2026-11-03",
+    "exercise": {
+      "prompt": "A previously public policy becomes restricted but its old chunk remains retrievable. Which contract failed?",
+      "answer": "The access and document-refresh contract of retrieval failed. Update or exclude the affected representation and enforce authorization before context reaches generation. A downstream promise to redact the final answer is weaker than preventing unauthorized retrieval.",
+      "checkpoints": [
+        "Evaluate passage relevance before generation.",
+        "Check citation version and groundedness.",
+        "Propagate document deletion and access changes."
+      ]
+    }
   },
   {
     "id": "share",
     "domain": 4,
     "objective": "4.3",
     "title": "Publish data products with an access contract",
-    "minutes": 9,
+    "minutes": 18,
     "lead": "Share the usable subset and keep ownership explicit.",
     "sections": [
       {
@@ -574,22 +2006,62 @@
       {
         "title": "Work through a scenario",
         "body": "A partner needs only aggregated regional sales. Expose the permitted aggregation and publish its contract; do not grant broad access to raw customer rows."
+      },
+      {
+        "title": "Publish a data-access contract",
+        "body": "An exchange or listing gives consumers a discoverable access path; it does not explain the business meaning by itself. Record ownership, permitted audience, location, freshness, quality and cost responsibility. A consumer needs to know whether they are seeing raw observations, corrected totals or a periodically refreshed snapshot.",
+        "references": [
+          "sharing",
+          "views"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Expose only the required shape",
+        "body": "Use an authorized view when a selected query result fits the sharing requirement. Use row or column controls when the underlying read policy needs to vary by identity or data field. Check the effective consumer grants and the authorization relationship instead of assuming a report link grants the intended data access.",
+        "references": [
+          "views",
+          "row",
+          "column"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Plan change and revocation behavior",
+        "body": "A producer can change schemas, retire a product or revoke access. Document which changes are compatible and how consumers learn about them. Avoid teaching third-party sharing as a one-time export when the requirement is governed, reusable access to current data.",
+        "references": [
+          "sharing",
+          "catalog"
+        ],
+        "expansion": true
       }
     ],
     "trap": "Sharing a report URL does not automatically authorize the viewer to its underlying data.",
     "references": [
       "views",
       "sharing",
-      "row"
+      "row",
+      "catalog"
     ],
-    "code": ""
+    "code": "",
+    "level": "Core",
+    "exercise": {
+      "prompt": "A partner subscribes to a listing but misinterprets a revenue field as net revenue. What was missing from the product?",
+      "answer": "The business definition and reporting contract were insufficient. Access and discovery succeeded, but the consumer also needs clear grain, metric meaning, refresh expectations and ownership. Data sharing is both a security and a semantic design problem.",
+      "checkpoints": [
+        "Choose a sharing mechanism for a specific audience.",
+        "State the metric grain and freshness contract.",
+        "Explain revocation and compatible schema changes."
+      ]
+    },
+    "reviewed": "2026-11-03"
   },
   {
     "id": "resource-cost",
     "domain": 5,
     "objective": "5.1",
     "title": "Pay for the work you actually need",
-    "minutes": 9,
+    "minutes": 18,
     "lead": "Tie optimization to a business requirement and a measured bottleneck.",
     "sections": [
       {
@@ -603,6 +2075,34 @@
       {
         "title": "Work through a scenario",
         "body": "A weekly Spark job runs for thirty minutes. Keep durable input in object storage and compare an ephemeral cluster or serverless execution against a cluster left running all week."
+      },
+      {
+        "title": "Measure total work and idle time",
+        "body": "Compare steady workloads with intermittent jobs. Keep input data durable while evaluating temporary compute. Account for storage, networking, processing, failed attempts and operating effort; a cheaper instance is not necessarily cheaper per successful business run. Use a representative completion target for every comparison.",
+        "references": [
+          "spark",
+          "classes",
+          "framework"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Distinguish price models from optimization",
+        "body": "On-demand analytical charges emphasize data processed; capacity models emphasize provisioned or consumed compute behavior. Reducing scanned bytes is still useful work reduction, but it does not guarantee an identical percentage reduction in a capacity bill. Review the actual model before interpreting a tuning result.",
+        "references": [
+          "bqcost",
+          "reservations"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Use feedback to protect the business objective",
+        "body": "Measure run duration, freshness, failures and resource utilization before and after a change. A cost optimization that violates the required completion time is not a complete solution. Keep the comparison’s input volume and business logic fixed, and identify any changed reliability or operational assumptions.",
+        "references": [
+          "jobs",
+          "dfautoscale"
+        ],
+        "expansion": true
       }
     ],
     "trap": "Reducing machine size is not an optimization if it violates the completion deadline.",
@@ -610,16 +2110,29 @@
       "spark",
       "compute",
       "classes",
-      "slots"
+      "slots",
+      "bqcost",
+      "jobs"
     ],
-    "code": ""
+    "code": "",
+    "level": "Core",
+    "exercise": {
+      "prompt": "A team reduces scan volume by 90% and promises a 90% reduction in its capacity-based bill. Is that conclusion supported?",
+      "answer": "Not by scan volume alone. It shows less logical read work under the measured query, but the bill depends on the capacity configuration, utilization and other charges. Compare actual usage under the billing model while checking that the output and deadline remain correct.",
+      "checkpoints": [
+        "Compare cost per successful business result.",
+        "Distinguish on-demand and capacity considerations.",
+        "Keep the workload fixed during a tuning comparison."
+      ]
+    },
+    "reviewed": "2026-11-03"
   },
   {
     "id": "repeatability",
     "domain": 5,
     "objective": "5.2",
     "title": "Make every retry intentional",
-    "minutes": 9,
+    "minutes": 18,
     "lead": "A directed acyclic graph makes task dependencies visible.",
     "sections": [
       {
@@ -633,22 +2146,62 @@
       {
         "title": "Work through a scenario",
         "body": "A daily process fetches files, decrypts them and runs SQL. Separate DAG tasks allow rerunning only the failed stage while preserving evidence of successful earlier stages."
+      },
+      {
+        "title": "Make run identity explicit",
+        "body": "A task should know the logical input interval or batch it is processing. A retry, delayed execution or historical backfill should not silently switch to whatever the wall clock calls today. Use that logical interval to choose inputs and output keys, and record the code or configuration version used.",
+        "references": [
+          "composer",
+          "dependencies"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Choose boundaries that support recovery",
+        "body": "Separate fetch, decryption, staging, transformation and validation when they need independent retries. Make each task’s effects repeatable or transactional where possible. A task should succeed only after its expected output is usable; catching every error and reporting success defeats downstream dependency logic.",
+        "references": [
+          "composer",
+          "bqmerge"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "A quality check must gate the consumer",
+        "body": "An assertion existing in a repository does not automatically mean every downstream action waits for it. Declare and test the appropriate assertion dependencies. Run a known failing input and verify that the curated consumer is blocked, rather than checking only that the assertion produced a red status somewhere.",
+        "references": [
+          "dataform",
+          "dependencies"
+        ],
+        "expansion": true
       }
     ],
     "trap": "Putting the entire process inside one operator hides the recovery boundaries.",
     "references": [
       "composer",
       "workflows",
-      "dependencies"
+      "dependencies",
+      "bqmerge",
+      "dataform"
     ],
-    "code": ""
+    "code": "",
+    "level": "Core",
+    "exercise": {
+      "prompt": "A backfill for last month queries CURRENT_DATE and appends into today’s target. What should change?",
+      "answer": "Parameterize the logical interval and define a repeatable write strategy for that interval. Use stable keys or replacement boundaries and gate publication on quality checks. Test the same interval twice and confirm that the resulting business total does not double.",
+      "checkpoints": [
+        "Use logical intervals for retries and backfills.",
+        "Make task effects repeatable.",
+        "Prove that failed quality checks block publication."
+      ]
+    },
+    "reviewed": "2026-11-03"
   },
   {
     "id": "capacity",
     "domain": 5,
     "objective": "5.3",
     "title": "Keep competing workloads from interfering",
-    "minutes": 9,
+    "minutes": 18,
     "lead": "Priority and capacity allocation are different controls.",
     "sections": [
       {
@@ -662,22 +2215,60 @@
       {
         "title": "Work through a scenario",
         "body": "Dashboards slow down during ETL. Assign them a deliberate capacity pool and place cost-sensitive ETL in another allocation rather than assuming an interactive label reserves resources."
+      },
+      {
+        "title": "Separate resource isolation from job priority",
+        "body": "Interactive and batch priority describe execution behavior; reservation assignments allocate workload capacity. A latency-sensitive team can still compete for a shared pool if it has no deliberate resource boundary. Use measurements to choose assignments and capacity rather than assuming a priority label guarantees a dedicated allocation.",
+        "references": [
+          "reservations",
+          "slots"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Reason about baseline and elasticity",
+        "body": "Baseline capacity supplies a configured starting allocation. Autoscaling can add capacity according to the supported configuration and workload. The maximum is a capacity setting, not a complete fixed-spend guarantee across storage and other services. Inspect edition, assignment, idle sharing and usage behavior under the chosen configuration.",
+        "references": [
+          "reservations"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Read billing controls literally",
+        "body": "A budget alert reports spend or triggers notification handling; it is not inherently a hard cap. Query-specific controls and resource quotas solve narrower problems. Protect business-critical execution while designing cost controls, and avoid shutting down essential processing as an unexamined side effect of a generic spending rule.",
+        "references": [
+          "budget",
+          "bqcost"
+        ],
+        "expansion": true
       }
     ],
     "trap": "A budget alert reports spend; it is not a guaranteed automatic spending cap.",
     "references": [
       "reservations",
       "slots",
-      "budget"
+      "budget",
+      "bqcost"
     ],
-    "code": ""
+    "code": "",
+    "level": "Core",
+    "exercise": {
+      "prompt": "Dashboards have an interactive priority label but still slow down during ETL. What design dimension has probably not been isolated?",
+      "answer": "Inspect the capacity pool and reservation assignments. Job priority alone does not establish separate compute for dashboards. Use actual slot usage and contention evidence to decide whether isolation or a query-level optimization is required.",
+      "checkpoints": [
+        "Distinguish capacity assignments from priority.",
+        "Explain baseline and autoscaling without a fixed-bill promise.",
+        "State what a budget alert does."
+      ]
+    },
+    "reviewed": "2026-11-03"
   },
   {
     "id": "observability",
     "domain": 5,
     "objective": "5.4",
     "title": "Diagnose the failure before scaling",
-    "minutes": 9,
+    "minutes": 18,
     "lead": "The exact error and execution stage matter more than a generic label.",
     "sections": [
       {
@@ -691,21 +2282,112 @@
       {
         "title": "Work through a scenario",
         "body": "A query fails during a large sort. Check the execution graph and memory pressure; reduce the sorted intermediate data or restructure the query rather than raising an unrelated API quota."
+      },
+      {
+        "title": "Observe the business and the engine",
+        "body": "Track data freshness, completeness and rejected-record backlog alongside CPU, memory and job status. A pipeline can be technically running while the expected data never reaches its consumer. Define an actionable threshold, an owner and a runbook for the failure condition you intend to detect.",
+        "references": [
+          "alerts",
+          "auditlogs"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Use the right evidence for the question",
+        "body": "Audit logs answer who performed relevant operations. Job metadata and execution details help explain query work and failure. Resource metrics describe saturation or backlog. Correlate these signals with a run identifier and logical interval instead of treating an isolated chart as proof of a root cause.",
+        "references": [
+          "auditlogs",
+          "jobs"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Prefer a causal test over a generic fix",
+        "body": "If a stage is serial because of a hot key, adding workers may leave that stage unchanged. If a query creates a large intermediate join, increasing an unrelated API quota will not repair its grain. Form a specific hypothesis, make a controlled change and compare outputs and resource behavior under the same input.",
+        "references": [
+          "dftrouble",
+          "bqcost"
+        ],
+        "expansion": true
       }
     ],
     "trap": "More slots do not guarantee that every Resources exceeded error disappears.",
     "references": [
       "errors",
-      "compute"
+      "compute",
+      "dftrouble",
+      "jobs"
     ],
-    "code": ""
+    "code": "",
+    "level": "Core",
+    "exercise": {
+      "prompt": "Worker CPU is moderate but event lag keeps rising and one key dominates a stage. What would you investigate?",
+      "answer": "Inspect key distribution, per-stage parallelism and any serial work or downstream limit. More workers may not split work for a single key. Verify the hypothesis with stage-level evidence and a correctness-preserving redesign rather than scaling blindly.",
+      "checkpoints": [
+        "Include freshness and data quality in monitoring.",
+        "Choose logs versus job metadata for a concrete question.",
+        "Test a specific bottleneck hypothesis."
+      ]
+    },
+    "reviewed": "2026-11-03"
+  },
+  {
+    "id": "query-diagnosis",
+    "domain": 5,
+    "objective": "5.4",
+    "title": "Diagnose a query from its execution evidence",
+    "minutes": 20,
+    "level": "Deep dive",
+    "lead": "A failure message is the beginning of a causal investigation.",
+    "sections": [
+      {
+        "title": "Separate queueing from expensive computation",
+        "body": "A query may wait for resources, scan excessive data, create a large join intermediate, sort too many rows or spend time handling skew. Job metadata and the execution graph help identify which stage matters. Compare the same input and query semantics when testing an improvement.",
+        "references": [
+          "jobs",
+          "errors"
+        ]
+      },
+      {
+        "title": "Inspect the reason behind the error",
+        "body": "Resources exceeded can indicate different memory, shuffle or planning problems. API request rate quotas are a different constraint from execution memory. A capacity reservation can be appropriate for some workload issues, but is not a universal repair for every failing operator or excessively complex query plan.",
+        "references": [
+          "errors"
+        ]
+      },
+      {
+        "title": "Use billing evidence correctly",
+        "body": "A dry run can estimate relevant processed bytes for supported queries. Actual clustered block pruning and runtime compute behavior have additional considerations. Query limits, job controls and budgets solve different problems. Record the billing model and the measured unit before translating a performance result into a cost claim.",
+        "references": [
+          "bqcost",
+          "jobs"
+        ]
+      }
+    ],
+    "trap": "The first visible red chart is not necessarily the root cause.",
+    "references": [
+      "jobs",
+      "errors",
+      "bqcost"
+    ],
+    "code": "",
+    "reviewed": "2026-11-03",
+    "exercise": {
+      "prompt": "A query fails in a large global sort. What evidence would distinguish a SQL redesign from buying more capacity?",
+      "answer": "Inspect the error details and execution stage, including intermediate size and memory pressure. Test reducing the sort input or using an appropriate query structure under the same business result. Capacity information helps, but the failing operation still needs a specific diagnosis.",
+      "checkpoints": [
+        "Separate queue time from computation.",
+        "Map an error to the right resource.",
+        "Interpret bytes and slots under the chosen billing model."
+      ]
+    }
   },
   {
     "id": "recovery",
     "domain": 5,
     "objective": "5.5",
     "title": "Design recovery against explicit objectives",
-    "minutes": 9,
+    "minutes": 18,
     "lead": "State how much data may be lost and how quickly service must return.",
     "sections": [
       {
@@ -719,6 +2401,34 @@
       {
         "title": "Work through a scenario",
         "body": "A daily export can leave nearly a day of changes unavailable, plus scheduling or export delays. A strict target below twenty-four hours needs an appropriate safety margin or a different replication approach."
+      },
+      {
+        "title": "Specify the failure you are recovering from",
+        "body": "Accidental deletion, corrupted data, a zonal outage and regional unavailability are different events. A high-availability replica can preserve service during some infrastructure failures while also replicating a bad write. A backup retained in the same failed region may not satisfy regional recovery requirements.",
+        "references": [
+          "bqreliability",
+          "sqlha"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Measure the age of recoverable state",
+        "body": "RPO concerns the data state you can recover, not merely when a backup task started or finished. Include snapshot intervals, completion delays, replication lag and missed jobs in the loss model. RTO also includes detection, permissions, restoration, validation and consumer redirection. A table copy existing is not a rehearsed recovery procedure.",
+        "references": [
+          "replication",
+          "snapshot"
+        ],
+        "expansion": true
+      },
+      {
+        "title": "Choose historical retention and disaster recovery separately",
+        "body": "Time travel can retrieve supported historical table states within its configured window. A retained snapshot can preserve a chosen state longer. Cross-region replication addresses a different failure domain and has its own supported capabilities. Verify locations, permissions and recovery operations against the actual incident requirement.",
+        "references": [
+          "time",
+          "snapshot",
+          "replication"
+        ],
+        "expansion": true
       }
     ],
     "trap": "Thirty-day backup retention and a thirty-day RPO describe different requirements.",
@@ -726,8 +2436,74 @@
       "time",
       "snapshot",
       "replication",
-      "sqlha"
+      "sqlha",
+      "bqreliability"
     ],
-    "code": ""
+    "code": "",
+    "level": "Core",
+    "exercise": {
+      "prompt": "A snapshot captured at 10:00 completes at 10:04. A failure at 10:03 leaves only the 09:30 snapshot complete. Which state is known recoverable?",
+      "answer": "Under those stated assumptions, the latest completed recovery copy captures 09:30, so the potential data-loss interval at 10:03 is 33 minutes. Do not use the incomplete 10:00 copy or confuse completion delay with the age of recoverable data.",
+      "checkpoints": [
+        "State the incident failure domain.",
+        "Compute data-loss age from recoverable state.",
+        "Separate historical retention, availability and regional recovery."
+      ]
+    },
+    "reviewed": "2026-11-03"
+  },
+  {
+    "id": "recovery-runbook",
+    "domain": 5,
+    "objective": "5.5",
+    "title": "Prove the recovery plan with a runbook",
+    "minutes": 20,
+    "level": "Deep dive",
+    "lead": "A protected copy is useful only when the service can actually be restored.",
+    "sections": [
+      {
+        "title": "Write a failure-specific sequence",
+        "body": "State the incident scope, detection signal, person or automation making the decision, recovery source, required permissions and target. Include restoration, validation, connection or consumer redirection and the condition for declaring success. Do not count a backup filename as a tested runbook.",
+        "references": [
+          "bqreliability",
+          "replication"
+        ]
+      },
+      {
+        "title": "Measure loss and restoration separately",
+        "body": "The age of the latest recoverable data state determines the potential RPO exposure under a given failure. RTO includes the time to detect and execute recovery, validate data and resume the business path. A fast copy operation does not prove a short end-to-end restoration objective.",
+        "references": [
+          "snapshot",
+          "sqlha"
+        ]
+      },
+      {
+        "title": "Rehearse with representative constraints",
+        "body": "A test should demonstrate the intended failure domain without corrupting production. Validate data totals, access, key availability and downstream behavior in the recovery environment. Record which assumptions were simulated, which were observed and what remains untested.",
+        "references": [
+          "cmek",
+          "replication"
+        ]
+      }
+    ],
+    "trap": "Replication can reproduce a bad application write; availability does not replace historical recovery.",
+    "references": [
+      "bqreliability",
+      "replication",
+      "snapshot",
+      "sqlha",
+      "cmek"
+    ],
+    "code": "",
+    "reviewed": "2026-11-03",
+    "exercise": {
+      "prompt": "The backup restores successfully but the application account cannot read it. Has RTO been met?",
+      "answer": "No, if the business service has not resumed. Access and consumer validation belong in the measured recovery procedure. Review the required roles, key permissions and redirection steps before declaring restoration complete.",
+      "checkpoints": [
+        "Define the incident scope.",
+        "Measure recoverable-state age.",
+        "Include consumers and permissions in recovery evidence."
+      ]
+    }
   }
 ]

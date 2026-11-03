@@ -1,0 +1,721 @@
+{
+  "checkedOn": "2026-11-03",
+  "method": "Public HTTP GET with redirect resolution; no account access.",
+  "scope": "URL availability only. This does not validate all claims in a linked resource.",
+  "results": [
+    {
+      "id": "exam",
+      "requestedURL": "https://cloud.google.com/learn/certification/data-engineer?hl=en",
+      "status": 200,
+      "finalURL": "https://cloud.google.com/learn/certification/data-engineer?hl=en",
+      "available": true
+    },
+    {
+      "id": "guide",
+      "requestedURL": "https://services.google.com/fh/files/misc/professional_data_engineer_exam_guide_english.pdf",
+      "status": 200,
+      "finalURL": "https://services.google.com/fh/files/misc/professional_data_engineer_exam_guide_english.pdf",
+      "available": true
+    },
+    {
+      "id": "iam",
+      "requestedURL": "https://docs.cloud.google.com/iam/docs/overview",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/iam/docs/overview",
+      "available": true
+    },
+    {
+      "id": "sa",
+      "requestedURL": "https://docs.cloud.google.com/iam/docs/best-practices-service-accounts",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/iam/docs/best-practices-service-accounts",
+      "available": true
+    },
+    {
+      "id": "cmek",
+      "requestedURL": "https://docs.cloud.google.com/kms/docs/cmek",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/kms/docs/cmek",
+      "available": true
+    },
+    {
+      "id": "vpcsc",
+      "requestedURL": "https://docs.cloud.google.com/vpc-service-controls/docs/overview",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/vpc-service-controls/docs/overview",
+      "available": true
+    },
+    {
+      "id": "dlp",
+      "requestedURL": "https://docs.cloud.google.com/sensitive-data-protection/docs/deidentify-sensitive-data",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/sensitive-data-protection/docs/deidentify-sensitive-data",
+      "available": true
+    },
+    {
+      "id": "row",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs/row-level-security-intro",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs/row-level-security-intro",
+      "available": true
+    },
+    {
+      "id": "column",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs/column-level-security-intro",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs/column-level-security-intro",
+      "available": true
+    },
+    {
+      "id": "views",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs/authorized-views",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs/authorized-views",
+      "available": true
+    },
+    {
+      "id": "dataflow",
+      "requestedURL": "https://docs.cloud.google.com/dataflow/docs/overview",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/dataflow/docs/overview",
+      "available": true
+    },
+    {
+      "id": "exactly",
+      "requestedURL": "https://docs.cloud.google.com/dataflow/docs/concepts/exactly-once",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/dataflow/docs/concepts/exactly-once",
+      "available": true
+    },
+    {
+      "id": "beam",
+      "requestedURL": "https://beam.apache.org/documentation/programming-guide/",
+      "status": 200,
+      "finalURL": "https://beam.apache.org/documentation/programming-guide/",
+      "available": true
+    },
+    {
+      "id": "upgrade",
+      "requestedURL": "https://docs.cloud.google.com/dataflow/docs/guides/upgrade-guide",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/dataflow/docs/guides/upgrade-guide",
+      "available": true
+    },
+    {
+      "id": "network",
+      "requestedURL": "https://docs.cloud.google.com/dataflow/docs/guides/specifying-networks",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/dataflow/docs/guides/specifying-networks",
+      "available": true
+    },
+    {
+      "id": "dfiam",
+      "requestedURL": "https://docs.cloud.google.com/dataflow/docs/concepts/access-control",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/dataflow/docs/concepts/access-control",
+      "available": true
+    },
+    {
+      "id": "spark",
+      "requestedURL": "https://docs.cloud.google.com/dataproc/docs/concepts/overview",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/dataproc/docs/concepts/overview",
+      "available": true
+    },
+    {
+      "id": "fusion",
+      "requestedURL": "https://docs.cloud.google.com/data-fusion/docs/concepts/overview",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/data-fusion/docs/concepts/overview",
+      "available": true
+    },
+    {
+      "id": "stream",
+      "requestedURL": "https://docs.cloud.google.com/datastream/docs/overview",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/datastream/docs/overview",
+      "available": true
+    },
+    {
+      "id": "ordering",
+      "requestedURL": "https://docs.cloud.google.com/pubsub/docs/ordering",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/pubsub/docs/ordering",
+      "available": true
+    },
+    {
+      "id": "psexact",
+      "requestedURL": "https://docs.cloud.google.com/pubsub/docs/exactly-once-delivery",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/pubsub/docs/exactly-once-delivery",
+      "available": true
+    },
+    {
+      "id": "replay",
+      "requestedURL": "https://docs.cloud.google.com/pubsub/docs/replay-overview",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/pubsub/docs/replay-overview",
+      "available": true
+    },
+    {
+      "id": "dead",
+      "requestedURL": "https://docs.cloud.google.com/pubsub/docs/dead-letter-topics",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/pubsub/docs/dead-letter-topics",
+      "available": true
+    },
+    {
+      "id": "write",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs/write-api-intro",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs/write-api-intro",
+      "available": true
+    },
+    {
+      "id": "offset",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs/write-api-best-practices",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs/write-api-best-practices",
+      "available": true
+    },
+    {
+      "id": "mysql",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs/mysql-transfer-intro",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs/mysql-transfer-intro",
+      "available": true
+    },
+    {
+      "id": "youtube",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs/youtube-channel-transfer",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs/youtube-channel-transfer",
+      "available": true
+    },
+    {
+      "id": "transfer",
+      "requestedURL": "https://docs.cloud.google.com/storage-transfer/docs/overview",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/storage-transfer/docs/overview",
+      "available": true
+    },
+    {
+      "id": "appliance",
+      "requestedURL": "https://docs.cloud.google.com/transfer-appliance/docs/4.0/overview",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/transfer-appliance/docs/4.0/overview",
+      "available": true
+    },
+    {
+      "id": "partition",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs/partitioned-tables",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs/partitioned-tables",
+      "available": true
+    },
+    {
+      "id": "cluster",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs/clustered-tables",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs/clustered-tables",
+      "available": true
+    },
+    {
+      "id": "prune",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs/querying-partitioned-tables",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs/querying-partitioned-tables",
+      "available": true
+    },
+    {
+      "id": "compute",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs/best-practices-performance-compute",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs/best-practices-performance-compute",
+      "available": true
+    },
+    {
+      "id": "bigtable",
+      "requestedURL": "https://docs.cloud.google.com/bigtable/docs/schema-design",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigtable/docs/schema-design",
+      "available": true
+    },
+    {
+      "id": "timeseries",
+      "requestedURL": "https://docs.cloud.google.com/bigtable/docs/schema-design-time-series",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigtable/docs/schema-design-time-series",
+      "available": true
+    },
+    {
+      "id": "classes",
+      "requestedURL": "https://docs.cloud.google.com/storage/docs/storage-classes",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/storage/docs/storage-classes",
+      "available": true
+    },
+    {
+      "id": "lifecycle",
+      "requestedURL": "https://docs.cloud.google.com/storage/docs/lifecycle",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/storage/docs/lifecycle",
+      "available": true
+    },
+    {
+      "id": "protect",
+      "requestedURL": "https://docs.cloud.google.com/storage/docs/protection-backup-recovery-overview",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/storage/docs/protection-backup-recovery-overview",
+      "available": true
+    },
+    {
+      "id": "spanner",
+      "requestedURL": "https://docs.cloud.google.com/spanner/docs",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/spanner/docs",
+      "available": true
+    },
+    {
+      "id": "sqlha",
+      "requestedURL": "https://docs.cloud.google.com/sql/docs/mysql/high-availability",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/sql/docs/mysql/high-availability",
+      "available": true
+    },
+    {
+      "id": "catalog",
+      "requestedURL": "https://docs.cloud.google.com/knowledge-catalog/docs/introduction",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/knowledge-catalog/docs/introduction",
+      "available": true
+    },
+    {
+      "id": "transition",
+      "requestedURL": "https://docs.cloud.google.com/knowledge-catalog/docs/transition-to-dataplex-catalog",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/knowledge-catalog/docs/transition-to-dataplex-catalog",
+      "available": true
+    },
+    {
+      "id": "dataform",
+      "requestedURL": "https://docs.cloud.google.com/dataform/docs/test-data",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/dataform/docs/test-data",
+      "available": true
+    },
+    {
+      "id": "dependencies",
+      "requestedURL": "https://docs.cloud.google.com/dataform/docs/dependencies",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/dataform/docs/dependencies",
+      "available": true
+    },
+    {
+      "id": "composer",
+      "requestedURL": "https://docs.cloud.google.com/composer/docs/composer-2/composer-overview",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/composer/docs/composer-2/composer-overview",
+      "available": true
+    },
+    {
+      "id": "workflows",
+      "requestedURL": "https://docs.cloud.google.com/workflows/docs/overview",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/workflows/docs/overview",
+      "available": true
+    },
+    {
+      "id": "mv",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs/materialized-views-intro",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs/materialized-views-intro",
+      "available": true
+    },
+    {
+      "id": "bi",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs/bi-engine-intro",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs/bi-engine-intro",
+      "available": true
+    },
+    {
+      "id": "transform",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs/bigqueryml-transform",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs/bigqueryml-transform",
+      "available": true
+    },
+    {
+      "id": "vectors",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs/vector-search-intro",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs/vector-search-intro",
+      "available": true
+    },
+    {
+      "id": "ai",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs/ai-introduction",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs/ai-introduction",
+      "available": true
+    },
+    {
+      "id": "sharing",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs/analytics-hub-introduction",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs/analytics-hub-introduction",
+      "available": true
+    },
+    {
+      "id": "reservations",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs/reservations-workload-management",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs/reservations-workload-management",
+      "available": true
+    },
+    {
+      "id": "slots",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs/slots",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs/slots",
+      "available": true
+    },
+    {
+      "id": "errors",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs/troubleshoot-queries",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs/troubleshoot-queries",
+      "available": true
+    },
+    {
+      "id": "time",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs/time-travel",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs/time-travel",
+      "available": true
+    },
+    {
+      "id": "snapshot",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs/table-snapshots-intro",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs/table-snapshots-intro",
+      "available": true
+    },
+    {
+      "id": "replication",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs/data-replication",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs/data-replication",
+      "available": true
+    },
+    {
+      "id": "github",
+      "requestedURL": "https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages",
+      "status": 200,
+      "finalURL": "https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages",
+      "available": true
+    },
+    {
+      "id": "cloudsql",
+      "requestedURL": "https://docs.cloud.google.com/sql/docs/introduction",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/sql/docs/introduction",
+      "available": true
+    },
+    {
+      "id": "firestore",
+      "requestedURL": "https://docs.cloud.google.com/firestore/native/docs/overview",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/firestore/native/docs/overview",
+      "available": true
+    },
+    {
+      "id": "alloydb",
+      "requestedURL": "https://docs.cloud.google.com/alloydb/docs/overview",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/alloydb/docs/overview",
+      "available": true
+    },
+    {
+      "id": "redis",
+      "requestedURL": "https://docs.cloud.google.com/memorystore/docs/redis/memorystore-for-redis-overview",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/memorystore/docs/redis/memorystore-for-redis-overview",
+      "available": true
+    },
+    {
+      "id": "biglake",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs/biglake-intro",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs/biglake-intro",
+      "available": true
+    },
+    {
+      "id": "budget",
+      "requestedURL": "https://docs.cloud.google.com/billing/docs/how-to/budgets",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/billing/docs/how-to/budgets",
+      "available": true
+    },
+    {
+      "id": "exam-es",
+      "requestedURL": "https://cloud.google.com/learn/certification/data-engineer?hl=es",
+      "status": 200,
+      "finalURL": "https://cloud.google.com/learn/certification/data-engineer?hl=es",
+      "available": true
+    },
+    {
+      "id": "renewal-guide",
+      "requestedURL": "https://services.google.com/fh/files/misc/professional_data_engineer_renewal_exam_guide_english.pdf",
+      "status": 200,
+      "finalURL": "https://services.google.com/fh/files/misc/professional_data_engineer_renewal_exam_guide_english.pdf",
+      "available": true
+    },
+    {
+      "id": "skills",
+      "requestedURL": "https://www.skills.google/paths/16",
+      "status": 200,
+      "finalURL": "https://www.skills.google/paths/16",
+      "available": true
+    },
+    {
+      "id": "partners",
+      "requestedURL": "https://partner.skills.google/paths/85",
+      "status": 200,
+      "finalURL": "https://partner.skills.google/paths/85",
+      "available": true
+    },
+    {
+      "id": "architecture",
+      "requestedURL": "https://docs.cloud.google.com/architecture/big-data-analytics",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/architecture/big-data-analytics",
+      "available": true
+    },
+    {
+      "id": "framework",
+      "requestedURL": "https://cloud.google.com/architecture/framework",
+      "status": 200,
+      "finalURL": "https://cloud.google.com/architecture/framework",
+      "available": true
+    },
+    {
+      "id": "bqdocs",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs",
+      "available": true
+    },
+    {
+      "id": "dfdocs",
+      "requestedURL": "https://docs.cloud.google.com/dataflow/docs",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/dataflow/docs",
+      "available": true
+    },
+    {
+      "id": "psdocs",
+      "requestedURL": "https://docs.cloud.google.com/pubsub/docs",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/pubsub/docs",
+      "available": true
+    },
+    {
+      "id": "bqsql",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/query-syntax",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/query-syntax",
+      "available": true
+    },
+    {
+      "id": "bqwindow",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/window-function-calls",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/window-function-calls",
+      "available": true
+    },
+    {
+      "id": "bqnested",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs/best-practices-performance-nested",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs/best-practices-performance-nested",
+      "available": true
+    },
+    {
+      "id": "bqload",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs/loading-data-cloud-storage-json",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs/loading-data-cloud-storage-json",
+      "available": true
+    },
+    {
+      "id": "bqmerge",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/dml-syntax",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/dml-syntax",
+      "available": true
+    },
+    {
+      "id": "bqdml",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs/using-dml-with-partitioned-tables",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs/using-dml-with-partitioned-tables",
+      "available": true
+    },
+    {
+      "id": "mask",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs/column-data-masking-intro",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs/column-data-masking-intro",
+      "available": true
+    },
+    {
+      "id": "locations",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs/locations",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs/locations",
+      "available": true
+    },
+    {
+      "id": "bqreliability",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs/reliability-intro",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs/reliability-intro",
+      "available": true
+    },
+    {
+      "id": "bqcost",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs/best-practices-costs",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs/best-practices-costs",
+      "available": true
+    },
+    {
+      "id": "jobs",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs/information-schema-jobs",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs/information-schema-jobs",
+      "available": true
+    },
+    {
+      "id": "psretry",
+      "requestedURL": "https://docs.cloud.google.com/pubsub/docs/subscription-retry-policy",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/pubsub/docs/subscription-retry-policy",
+      "available": true
+    },
+    {
+      "id": "beammodel",
+      "requestedURL": "https://docs.cloud.google.com/dataflow/docs/concepts/beam-programming-model",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/dataflow/docs/concepts/beam-programming-model",
+      "available": true
+    },
+    {
+      "id": "dfautoscale",
+      "requestedURL": "https://docs.cloud.google.com/dataflow/docs/guides/tune-horizontal-autoscaling",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/dataflow/docs/guides/tune-horizontal-autoscaling",
+      "available": true
+    },
+    {
+      "id": "dftrouble",
+      "requestedURL": "https://docs.cloud.google.com/dataflow/docs/guides/troubleshoot-autoscaling",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/dataflow/docs/guides/troubleshoot-autoscaling",
+      "available": true
+    },
+    {
+      "id": "dfpatterns",
+      "requestedURL": "https://docs.cloud.google.com/dataflow/docs/guides/pipeline-best-practices",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/dataflow/docs/guides/pipeline-best-practices",
+      "available": true
+    },
+    {
+      "id": "dfdeploy",
+      "requestedURL": "https://docs.cloud.google.com/dataflow/docs/guides/deploying-a-pipeline",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/dataflow/docs/guides/deploying-a-pipeline",
+      "available": true
+    },
+    {
+      "id": "dflifecycle",
+      "requestedURL": "https://docs.cloud.google.com/dataflow/docs/pipeline-lifecycle",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/dataflow/docs/pipeline-lifecycle",
+      "available": true
+    },
+    {
+      "id": "wif",
+      "requestedURL": "https://docs.cloud.google.com/iam/docs/workload-identity-federation",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/iam/docs/workload-identity-federation",
+      "available": true
+    },
+    {
+      "id": "uniform",
+      "requestedURL": "https://docs.cloud.google.com/storage/docs/uniform-bucket-level-access",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/storage/docs/uniform-bucket-level-access",
+      "available": true
+    },
+    {
+      "id": "auditlogs",
+      "requestedURL": "https://docs.cloud.google.com/logging/docs/audit",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/logging/docs/audit",
+      "available": true
+    },
+    {
+      "id": "alerts",
+      "requestedURL": "https://docs.cloud.google.com/monitoring/alerts",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/monitoring/alerts",
+      "available": true
+    },
+    {
+      "id": "evaluation",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs/evaluate-overview",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs/evaluate-overview",
+      "available": true
+    },
+    {
+      "id": "generate",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs/generate-text",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs/generate-text",
+      "available": true
+    },
+    {
+      "id": "vectorindex",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs/vector-index",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs/vector-index",
+      "available": true
+    },
+    {
+      "id": "windowapi",
+      "requestedURL": "https://beam.apache.org/releases/pydoc/current/apache_beam.transforms.window.html",
+      "status": 200,
+      "finalURL": "https://beam.apache.org/releases/pydoc/current/apache_beam.transforms.window.html",
+      "available": true
+    },
+    {
+      "id": "coursera",
+      "requestedURL": "https://www.coursera.org/professional-certificates/gcp-data-engineering",
+      "status": 200,
+      "finalURL": "https://www.coursera.org/professional-certificates/gcp-data-engineering",
+      "available": true
+    },
+    {
+      "id": "community-notes",
+      "requestedURL": "https://github.com/Nicola-Loi/gcp-data-engineer",
+      "status": 200,
+      "finalURL": "https://github.com/Nicola-Loi/gcp-data-engineer",
+      "available": true
+    }
+  ]
+}

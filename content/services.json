@@ -4,62 +4,175 @@
     "fit": "Large analytical scans, aggregations and joins.",
     "signal": "Warehouse queries across many records.",
     "caution": "Per-request point lookups need a separate latency assessment.",
-    "reference": "compute"
+    "reference": "compute",
+    "category": "Storage"
   },
   {
     "name": "Bigtable",
     "fit": "High-throughput keyed and time-series serving.",
     "signal": "Read a sensor or entity by a designed row-key range.",
     "caution": "Do not assume arbitrary warehouse-style joins are its main access path.",
-    "reference": "bigtable"
+    "reference": "bigtable",
+    "category": "Storage"
   },
   {
     "name": "Cloud SQL",
     "fit": "Managed MySQL, PostgreSQL or SQL Server applications.",
     "signal": "Relational transactions with existing engine compatibility.",
     "caution": "Size, connection limits and availability still need a deliberate design.",
-    "reference": "cloudsql"
+    "reference": "cloudsql",
+    "category": "Storage"
   },
   {
     "name": "Spanner",
     "fit": "Distributed relational transactions and strong consistency.",
     "signal": "Scale transactional data while preserving the required consistency model.",
     "caution": "Model keys and transaction scope; the service name alone is not the schema.",
-    "reference": "spanner"
+    "reference": "spanner",
+    "category": "Storage"
   },
   {
     "name": "AlloyDB",
     "fit": "Demanding PostgreSQL-compatible workloads.",
     "signal": "Preserve PostgreSQL tooling while using a managed database architecture.",
     "caution": "Verify compatibility and workload economics rather than assuming a free migration.",
-    "reference": "alloydb"
+    "reference": "alloydb",
+    "category": "Storage"
   },
   {
     "name": "Firestore",
     "fit": "Document-oriented application data.",
     "signal": "Read and update application entities through a document model.",
     "caution": "Design indexes and transactions against the actual document access pattern.",
-    "reference": "firestore"
+    "reference": "firestore",
+    "category": "Storage"
   },
   {
     "name": "Cloud Storage",
     "fit": "Durable objects and reusable lake files.",
     "signal": "Keep files independent of the processing cluster.",
     "caution": "Object storage alone is not a relational transaction engine.",
-    "reference": "classes"
+    "reference": "classes",
+    "category": "Storage"
   },
   {
     "name": "BigLake tables",
     "fit": "Governed queries over supported external objects.",
     "signal": "Delegate storage access through a connection and enforce table-level controls.",
     "caution": "A catalog entry alone does not create this delegated access model.",
-    "reference": "biglake"
+    "reference": "biglake",
+    "category": "Storage"
   },
   {
     "name": "Memorystore",
     "fit": "An in-memory cache or supported Redis workload.",
     "signal": "Serve frequently reused application state with a suitable availability tier.",
     "caution": "Decide explicitly whether cached values are recoverable from a durable source.",
-    "reference": "redis"
+    "reference": "redis",
+    "category": "Storage"
+  },
+  {
+    "name": "Dataflow",
+    "category": "Processing",
+    "fit": "Managed Beam execution for bounded and streaming pipelines.",
+    "signal": "Custom transforms, event-time processing and controlled error outputs.",
+    "caution": "Check runner behavior, source/sink limits and stateful update compatibility.",
+    "reference": "dataflow"
+  },
+  {
+    "name": "Pub/Sub",
+    "category": "Ingestion",
+    "fit": "Decoupled event transport and subscription delivery.",
+    "signal": "Producers and consumers need independent scaling and availability.",
+    "caution": "Delivery, per-key ordering, replay and external side effects are different contracts.",
+    "reference": "psdocs"
+  },
+  {
+    "name": "Dataproc / managed Spark",
+    "category": "Processing",
+    "fit": "Existing Spark and Hadoop ecosystems.",
+    "signal": "Preserve execution compatibility during a short migration.",
+    "caution": "Separate durable objects from temporary cluster storage and compare idle compute.",
+    "reference": "spark"
+  },
+  {
+    "name": "Dataform",
+    "category": "Transformation",
+    "fit": "Versioned BigQuery SQL dependency graphs and assertions.",
+    "signal": "Warehouse ELT, incremental models and quality gates.",
+    "caution": "Test that the required assertion is a true dependency of publication.",
+    "reference": "dataform"
+  },
+  {
+    "name": "Cloud Data Fusion",
+    "category": "Transformation",
+    "fit": "Visual integration and data preparation pipelines.",
+    "signal": "A team needs supported connectors and a graphical transformation interface.",
+    "caution": "A format conversion alone does not cleanse invalid values.",
+    "reference": "fusion"
+  },
+  {
+    "name": "Cloud Composer / managed Airflow",
+    "category": "Orchestration",
+    "fit": "Multi-step dependency graphs, schedules and task-level recovery.",
+    "signal": "Workflows need independently observable retries and reruns.",
+    "caution": "Use logical run intervals and idempotent task effects; an environment is not free idle compute.",
+    "reference": "composer"
+  },
+  {
+    "name": "Workflows",
+    "category": "Orchestration",
+    "fit": "Lightweight serverless service-call coordination.",
+    "signal": "A sequence of API calls and conditions should run without an Airflow environment.",
+    "caution": "The orchestration layer does not perform every large data transformation itself.",
+    "reference": "workflows"
+  },
+  {
+    "name": "Datastream",
+    "category": "Migration",
+    "fit": "Supported database change capture and replication.",
+    "signal": "Backfill plus ongoing updates should feed a supported target.",
+    "caution": "Verify the source engine, change semantics, connectivity and cutover contract.",
+    "reference": "stream"
+  },
+  {
+    "name": "Storage Transfer Service",
+    "category": "Migration",
+    "fit": "Managed movement of supported object and file data.",
+    "signal": "Recurring file transfer is the requirement.",
+    "caution": "It does not automatically replace a database CDC extractor or transform arbitrary proprietary formats.",
+    "reference": "transfer"
+  },
+  {
+    "name": "Knowledge Catalog / guide: Dataplex",
+    "category": "Governance",
+    "fit": "Metadata discovery, lineage and governed data context.",
+    "signal": "Domain products need discoverability and shared guardrails.",
+    "caution": "Catalog entries are not a substitute for underlying data permissions or quality evidence.",
+    "reference": "catalog"
+  },
+  {
+    "name": "Sensitive Data Protection",
+    "category": "Security",
+    "fit": "Inspection and supported de-identification of sensitive values.",
+    "signal": "Data must be inspected or transformed under a privacy contract.",
+    "caution": "Masking, irreversible transformations and reversible tokenization have different requirements.",
+    "reference": "dlp"
+  },
+  {
+    "name": "Cloud Monitoring",
+    "category": "Operations",
+    "fit": "Metrics and actionable alert policies.",
+    "signal": "Detect data freshness, backlog or resource symptoms with an owner and runbook.",
+    "caution": "A healthy CPU chart does not prove business data completeness.",
+    "reference": "alerts"
+  },
+  {
+    "name": "Cloud Logging / Audit Logs",
+    "category": "Operations",
+    "fit": "Operational logs and evidence of relevant access or administration.",
+    "signal": "Investigate who did what and correlate processing failures.",
+    "caution": "Check applicable log type, configuration, retention and sensitive payload handling.",
+    "reference": "auditlogs"
   }
 ]
