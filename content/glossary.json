@@ -1,0 +1,810 @@
+[
+  {
+    "id": "v1",
+    "term": "throughput",
+    "es": "capacidad de procesamiento por unidad de tiempo",
+    "meaning": "How much data a system processes per unit of time.",
+    "example": "The pipeline must sustain high throughput.",
+    "level": "B2"
+  },
+  {
+    "id": "v2",
+    "term": "latency",
+    "es": "tiempo de demora",
+    "meaning": "The time between a request or event and its result.",
+    "example": "Choose a store with low read latency.",
+    "level": "B2"
+  },
+  {
+    "id": "v3",
+    "term": "least privilege",
+    "es": "mínimo privilegio",
+    "meaning": "Giving an identity only the permissions required for its task.",
+    "example": "Apply least privilege to the worker account.",
+    "level": "B2"
+  },
+  {
+    "id": "v4",
+    "term": "operational overhead",
+    "es": "esfuerzo de administración",
+    "meaning": "The ongoing work needed to operate a system.",
+    "example": "Minimize operational overhead with managed services.",
+    "level": "B2"
+  },
+  {
+    "id": "v5",
+    "term": "while minimizing",
+    "es": "mientras se reduce al mínimo",
+    "meaning": "Satisfy the main goal and also reduce something.",
+    "example": "Improve reliability while minimizing cost.",
+    "level": "B2"
+  },
+  {
+    "id": "v6",
+    "term": "as little as possible",
+    "es": "lo menos posible",
+    "meaning": "The smallest practical amount.",
+    "example": "Change the existing code as little as possible.",
+    "level": "B2"
+  },
+  {
+    "id": "v7",
+    "term": "least amount of",
+    "es": "la menor cantidad de",
+    "meaning": "The smallest quantity needed.",
+    "example": "Choose the option with the least amount of maintenance.",
+    "level": "B2"
+  },
+  {
+    "id": "v8",
+    "term": "cost-effective",
+    "es": "rentable; eficiente en costos",
+    "meaning": "Providing the required result without unnecessary expense.",
+    "example": "Select a cost-effective archive strategy.",
+    "level": "B2"
+  },
+  {
+    "id": "v9",
+    "term": "tradeoff",
+    "es": "decisión entre ventajas y desventajas",
+    "meaning": "A choice where improving one property may worsen another.",
+    "example": "Latency and cost create a tradeoff.",
+    "level": "B2"
+  },
+  {
+    "id": "v10",
+    "term": "workload",
+    "es": "carga de trabajo",
+    "meaning": "A set of processing tasks performed by a system.",
+    "example": "Isolate the dashboard workload.",
+    "level": "B2"
+  },
+  {
+    "id": "v11",
+    "term": "ingest",
+    "es": "incorporar datos",
+    "meaning": "Bring data into a processing or storage system.",
+    "example": "Ingest events from Pub/Sub.",
+    "level": "B2"
+  },
+  {
+    "id": "v12",
+    "term": "sink",
+    "es": "destino de los datos",
+    "meaning": "The output destination of a pipeline.",
+    "example": "BigQuery is the analytics sink.",
+    "level": "B2"
+  },
+  {
+    "id": "v13",
+    "term": "source",
+    "es": "origen de los datos",
+    "meaning": "The input that supplies records to a pipeline.",
+    "example": "Kafka is the source of the events.",
+    "level": "B2"
+  },
+  {
+    "id": "v14",
+    "term": "bounded",
+    "es": "acotado; con un final definido",
+    "meaning": "Having a finite amount or endpoint.",
+    "example": "A file is a bounded input.",
+    "level": "B2"
+  },
+  {
+    "id": "v15",
+    "term": "unbounded",
+    "es": "continuo; sin un final definido",
+    "meaning": "Continuing without a known endpoint.",
+    "example": "A live event stream is unbounded.",
+    "level": "B2"
+  },
+  {
+    "id": "v16",
+    "term": "watermark",
+    "es": "estimación del avance del tiempo de los eventos",
+    "meaning": "An estimate of event-time progress in a stream.",
+    "example": "The watermark has passed the window end.",
+    "level": "B2"
+  },
+  {
+    "id": "v17",
+    "term": "late data",
+    "es": "datos que llegan tarde",
+    "meaning": "Events arriving after expected event-time progress.",
+    "example": "Configure a policy for late data.",
+    "level": "B2"
+  },
+  {
+    "id": "v18",
+    "term": "allowed lateness",
+    "es": "retraso admitido",
+    "meaning": "How long a window may still accept delayed events.",
+    "example": "Increase allowed lateness for delayed devices.",
+    "level": "B2"
+  },
+  {
+    "id": "v19",
+    "term": "out of order",
+    "es": "fuera de orden",
+    "meaning": "Arriving in a sequence different from the original event order.",
+    "example": "Network delays can deliver events out of order.",
+    "level": "B2"
+  },
+  {
+    "id": "v20",
+    "term": "event time",
+    "es": "momento en que ocurrió el evento",
+    "meaning": "The timestamp of the real event.",
+    "example": "Use event time for the sales window.",
+    "level": "B2"
+  },
+  {
+    "id": "v21",
+    "term": "processing time",
+    "es": "momento de procesamiento",
+    "meaning": "When the worker handles the record.",
+    "example": "Processing time depends on arrival and scheduling.",
+    "level": "B2"
+  },
+  {
+    "id": "v22",
+    "term": "window",
+    "es": "ventana de tiempo",
+    "meaning": "A rule for grouping time-related events.",
+    "example": "Use a five-minute fixed window.",
+    "level": "B2"
+  },
+  {
+    "id": "v23",
+    "term": "session",
+    "es": "sesión de actividad",
+    "meaning": "Activity grouped until an inactivity gap separates it.",
+    "example": "A session ends after thirty minutes of inactivity.",
+    "level": "B2"
+  },
+  {
+    "id": "v24",
+    "term": "idempotent",
+    "es": "idempotente; repetir no cambia el efecto",
+    "meaning": "Producing the same effect when repeated with the same input.",
+    "example": "Make the destination write idempotent.",
+    "level": "B2"
+  },
+  {
+    "id": "v25",
+    "term": "deduplicate",
+    "es": "eliminar duplicados",
+    "meaning": "Remove repeated representations of the same event.",
+    "example": "Deduplicate by stable event ID.",
+    "level": "B2"
+  },
+  {
+    "id": "v26",
+    "term": "acknowledgement",
+    "es": "confirmación de recepción",
+    "meaning": "A signal that a subscriber has accepted a message.",
+    "example": "Send the acknowledgement after successful handling.",
+    "level": "B2"
+  },
+  {
+    "id": "v27",
+    "term": "dead-letter",
+    "es": "destino para datos o mensajes fallidos",
+    "meaning": "A separate destination for messages that cannot be processed.",
+    "example": "Route invalid rows to a dead-letter output.",
+    "level": "B2"
+  },
+  {
+    "id": "v28",
+    "term": "backoff",
+    "es": "espera creciente entre reintentos",
+    "meaning": "A delay strategy between repeated attempts.",
+    "example": "Use exponential backoff for transient failures.",
+    "level": "B2"
+  },
+  {
+    "id": "v29",
+    "term": "transient",
+    "es": "temporal; pasajero",
+    "meaning": "Likely to disappear after a short time.",
+    "example": "A transient failure may succeed on retry.",
+    "level": "B2"
+  },
+  {
+    "id": "v30",
+    "term": "persistent",
+    "es": "persistente; duradero",
+    "meaning": "Remaining in place over time.",
+    "example": "Keep persistent data outside temporary compute.",
+    "level": "B2"
+  },
+  {
+    "id": "v31",
+    "term": "fault tolerance",
+    "es": "tolerancia a fallas",
+    "meaning": "The ability to continue despite component failures.",
+    "example": "Design fault tolerance into the pipeline.",
+    "level": "B2"
+  },
+  {
+    "id": "v32",
+    "term": "failover",
+    "es": "cambio a un sistema de respaldo",
+    "meaning": "Switching service to another instance after failure.",
+    "example": "Test failover before the production release.",
+    "level": "B2"
+  },
+  {
+    "id": "v33",
+    "term": "high availability",
+    "es": "alta disponibilidad",
+    "meaning": "Keeping a service accessible despite failures.",
+    "example": "Enable high availability for the database.",
+    "level": "B2"
+  },
+  {
+    "id": "v34",
+    "term": "recovery point objective",
+    "es": "objetivo de punto de recuperación",
+    "meaning": "The maximum acceptable amount of data loss measured in time.",
+    "example": "A short recovery point objective requires frequent protection.",
+    "level": "B2"
+  },
+  {
+    "id": "v35",
+    "term": "recovery time objective",
+    "es": "objetivo de tiempo de recuperación",
+    "meaning": "The longest acceptable duration for restoring service.",
+    "example": "The recovery time objective is one hour.",
+    "level": "B2"
+  },
+  {
+    "id": "v36",
+    "term": "retention",
+    "es": "conservación de datos",
+    "meaning": "How long information must remain available.",
+    "example": "Set retention before relying on message replay.",
+    "level": "B2"
+  },
+  {
+    "id": "v37",
+    "term": "immutable",
+    "es": "inmutable; no modificable",
+    "meaning": "Unable to be changed under the stated protection.",
+    "example": "The audit archive must be immutable.",
+    "level": "B2"
+  },
+  {
+    "id": "v38",
+    "term": "residency",
+    "es": "ubicación permitida de los datos",
+    "meaning": "Requirements about where data is stored or processed.",
+    "example": "Check data residency requirements.",
+    "level": "B2"
+  },
+  {
+    "id": "v39",
+    "term": "sovereignty",
+    "es": "soberanía de datos",
+    "meaning": "Legal control over data under a jurisdiction.",
+    "example": "Consider sovereignty when selecting regions.",
+    "level": "B2"
+  },
+  {
+    "id": "v40",
+    "term": "encryption",
+    "es": "cifrado",
+    "meaning": "Transforming information so a key is needed to read it.",
+    "example": "Encryption does not replace authorization.",
+    "level": "B2"
+  },
+  {
+    "id": "v41",
+    "term": "principal",
+    "es": "identidad que solicita acceso",
+    "meaning": "An identity to which access can be granted.",
+    "example": "A service account is an IAM principal.",
+    "level": "B2"
+  },
+  {
+    "id": "v42",
+    "term": "service account",
+    "es": "cuenta de servicio",
+    "meaning": "An identity used by an application or workload.",
+    "example": "Attach a service account to the pipeline.",
+    "level": "B2"
+  },
+  {
+    "id": "v43",
+    "term": "grant",
+    "es": "otorgar permisos",
+    "meaning": "Allow an identity to use a permission or role.",
+    "example": "Grant read access to the approved group.",
+    "level": "B2"
+  },
+  {
+    "id": "v44",
+    "term": "revoke",
+    "es": "revocar permisos",
+    "meaning": "Remove a previously allowed permission.",
+    "example": "Revoke access when the contract ends.",
+    "level": "B2"
+  },
+  {
+    "id": "v45",
+    "term": "scope",
+    "es": "alcance",
+    "meaning": "The boundary within which a rule or permission applies.",
+    "example": "Grant the role at dataset scope.",
+    "level": "B2"
+  },
+  {
+    "id": "v46",
+    "term": "exfiltration",
+    "es": "extracción no autorizada",
+    "meaning": "Moving protected data outside an approved boundary.",
+    "example": "A perimeter can reduce exfiltration risk.",
+    "level": "B2"
+  },
+  {
+    "id": "v47",
+    "term": "de-identify",
+    "es": "desidentificar",
+    "meaning": "Remove or transform identifying information.",
+    "example": "De-identify customer data before analysis.",
+    "level": "B2"
+  },
+  {
+    "id": "v48",
+    "term": "masking",
+    "es": "enmascaramiento",
+    "meaning": "Hiding values or replacing their visible representation.",
+    "example": "Use masking for sensitive fields.",
+    "level": "B2"
+  },
+  {
+    "id": "v49",
+    "term": "schema",
+    "es": "estructura y tipos de los datos",
+    "meaning": "The declared fields and types of a dataset.",
+    "example": "Validate the schema before loading.",
+    "level": "B2"
+  },
+  {
+    "id": "v50",
+    "term": "nullable",
+    "es": "que admite valores nulos",
+    "meaning": "Allowed to have a missing or unknown value.",
+    "example": "Check whether the field is nullable.",
+    "level": "B2"
+  },
+  {
+    "id": "v51",
+    "term": "skew",
+    "es": "distribución desigual",
+    "meaning": "An uneven distribution of values or processing work.",
+    "example": "One hot key can cause data skew.",
+    "level": "B2"
+  },
+  {
+    "id": "v52",
+    "term": "hotspot",
+    "es": "punto con carga excesiva",
+    "meaning": "A concentrated area receiving too many operations.",
+    "example": "A timestamp-first key can create a hotspot.",
+    "level": "B2"
+  },
+  {
+    "id": "v53",
+    "term": "partition",
+    "es": "partición; segmento de datos",
+    "meaning": "A segment of a dataset separated by a rule.",
+    "example": "Filter the date partition.",
+    "level": "B2"
+  },
+  {
+    "id": "v54",
+    "term": "clustering",
+    "es": "agrupación de bloques por columnas",
+    "meaning": "Organizing storage blocks using selected columns.",
+    "example": "Clustering can reduce the relevant blocks scanned.",
+    "level": "B2"
+  },
+  {
+    "id": "v55",
+    "term": "pruning",
+    "es": "descarte de segmentos innecesarios",
+    "meaning": "Skipping storage segments that cannot match a filter.",
+    "example": "Partition pruning reduces scanning.",
+    "level": "B2"
+  },
+  {
+    "id": "v56",
+    "term": "denormalize",
+    "es": "desnormalizar",
+    "meaning": "Store related analytical information together.",
+    "example": "Denormalize order lines when it fits the query pattern.",
+    "level": "B2"
+  },
+  {
+    "id": "v57",
+    "term": "nested",
+    "es": "anidado",
+    "meaning": "Contained inside another structure.",
+    "example": "Use a nested structure for order items.",
+    "level": "B2"
+  },
+  {
+    "id": "v58",
+    "term": "repeated",
+    "es": "repetido; con múltiples elementos",
+    "meaning": "A field that contains several values.",
+    "example": "An order may have repeated line items.",
+    "level": "B2"
+  },
+  {
+    "id": "v59",
+    "term": "query",
+    "es": "consulta",
+    "meaning": "A request to retrieve or transform information.",
+    "example": "Inspect the query execution graph.",
+    "level": "B2"
+  },
+  {
+    "id": "v60",
+    "term": "join",
+    "es": "unión de datos entre tablas",
+    "meaning": "Combining records based on a relationship.",
+    "example": "A large join can produce expensive intermediate results.",
+    "level": "B2"
+  },
+  {
+    "id": "v61",
+    "term": "slot",
+    "es": "unidad de capacidad de cómputo de BigQuery",
+    "meaning": "A unit of compute capacity used by BigQuery.",
+    "example": "Monitor slot usage before sizing a reservation.",
+    "level": "B2"
+  },
+  {
+    "id": "v62",
+    "term": "reservation",
+    "es": "reserva de capacidad",
+    "meaning": "An allocation of compute to a workload.",
+    "example": "Create a reservation for dashboards.",
+    "level": "B2"
+  },
+  {
+    "id": "v63",
+    "term": "baseline",
+    "es": "capacidad o referencia base",
+    "meaning": "A starting amount or reference level.",
+    "example": "Use baseline capacity for a steady workload.",
+    "level": "B2"
+  },
+  {
+    "id": "v64",
+    "term": "autoscaling",
+    "es": "ajuste automático de capacidad",
+    "meaning": "Changing resource capacity in response to work.",
+    "example": "Autoscaling does not fix a serial bottleneck.",
+    "level": "B2"
+  },
+  {
+    "id": "v65",
+    "term": "bottleneck",
+    "es": "cuello de botella",
+    "meaning": "The constraint that limits overall performance.",
+    "example": "Find the bottleneck before adding workers.",
+    "level": "B2"
+  },
+  {
+    "id": "v66",
+    "term": "orchestration",
+    "es": "coordinación de tareas",
+    "meaning": "Coordinating tasks, dependencies and their execution.",
+    "example": "Use orchestration to manage the daily workflow.",
+    "level": "B2"
+  },
+  {
+    "id": "v67",
+    "term": "directed acyclic graph",
+    "es": "grafo dirigido sin ciclos",
+    "meaning": "A dependency graph whose arrows do not loop back.",
+    "example": "An Airflow workflow is a directed acyclic graph.",
+    "level": "B2"
+  },
+  {
+    "id": "v68",
+    "term": "dependency",
+    "es": "dependencia",
+    "meaning": "Something that must be ready before another step.",
+    "example": "Declare the upstream dependency.",
+    "level": "B2"
+  },
+  {
+    "id": "v69",
+    "term": "upstream",
+    "es": "etapa anterior del flujo",
+    "meaning": "Earlier in a data or task dependency chain.",
+    "example": "An upstream failure can block this table.",
+    "level": "B2"
+  },
+  {
+    "id": "v70",
+    "term": "downstream",
+    "es": "etapa posterior del flujo",
+    "meaning": "Later in a data or task dependency chain.",
+    "example": "Validate data before downstream consumption.",
+    "level": "B2"
+  },
+  {
+    "id": "v71",
+    "term": "drain",
+    "es": "vaciar el trabajo pendiente antes de detener",
+    "meaning": "Finish in-flight work before stopping a pipeline.",
+    "example": "Drain the old streaming job before replacement.",
+    "level": "B2"
+  },
+  {
+    "id": "v72",
+    "term": "in-flight",
+    "es": "en tránsito o procesamiento",
+    "meaning": "Already started but not yet completed.",
+    "example": "Keep track of in-flight messages.",
+    "level": "B2"
+  },
+  {
+    "id": "v73",
+    "term": "replay",
+    "es": "volver a procesar datos conservados",
+    "meaning": "Process retained input again.",
+    "example": "Replay messages after fixing the transformation.",
+    "level": "B2"
+  },
+  {
+    "id": "v74",
+    "term": "cutover",
+    "es": "cambio definitivo al nuevo sistema",
+    "meaning": "The point at which production switches systems.",
+    "example": "Validate totals before cutover.",
+    "level": "B2"
+  },
+  {
+    "id": "v75",
+    "term": "change data capture",
+    "es": "captura de cambios en los datos",
+    "meaning": "Recording database changes for replication.",
+    "example": "Use change data capture after the initial load.",
+    "level": "B2"
+  },
+  {
+    "id": "v76",
+    "term": "fidelity",
+    "es": "fidelidad de los datos",
+    "meaning": "How faithfully data preserves the intended information.",
+    "example": "Validate fidelity after the migration.",
+    "level": "B2"
+  },
+  {
+    "id": "v77",
+    "term": "lineage",
+    "es": "linaje; procedencia y transformaciones",
+    "meaning": "The origin and transformation history of data.",
+    "example": "Lineage helps trace an incorrect metric.",
+    "level": "B2"
+  },
+  {
+    "id": "v78",
+    "term": "governance",
+    "es": "gobernanza de datos",
+    "meaning": "Shared rules for ownership, access and quality.",
+    "example": "Federated governance preserves domain ownership.",
+    "level": "B2"
+  },
+  {
+    "id": "v79",
+    "term": "embedding",
+    "es": "representación numérica del significado",
+    "meaning": "A numerical vector used to compare entities.",
+    "example": "Generate an embedding for each document chunk.",
+    "level": "B2"
+  },
+  {
+    "id": "v80",
+    "term": "retrieval",
+    "es": "recuperación o búsqueda de información",
+    "meaning": "Finding relevant stored information.",
+    "example": "Evaluate retrieval before judging the generated answer.",
+    "level": "B2"
+  },
+  {
+    "id": "v81",
+    "term": "grounding",
+    "es": "fundamentación en contexto o fuentes",
+    "meaning": "Connecting an answer to supplied evidence.",
+    "example": "Grounding needs relevant and permitted context.",
+    "level": "B2"
+  },
+  {
+    "id": "v82",
+    "term": "overfitting",
+    "es": "sobreajuste",
+    "meaning": "Learning training details that do not generalize well.",
+    "example": "Regularization can reduce overfitting.",
+    "level": "B2"
+  },
+  {
+    "id": "v83",
+    "term": "generalization",
+    "es": "capacidad de funcionar con datos nuevos",
+    "meaning": "Performance on unseen examples.",
+    "example": "Measure generalization with held-out data.",
+    "level": "B2"
+  },
+  {
+    "id": "v84",
+    "term": "training-serving skew",
+    "es": "diferencia entre preparación en entrenamiento y producción",
+    "meaning": "A mismatch between training and serving input handling.",
+    "example": "Reuse fitted transformations to avoid training-serving skew.",
+    "level": "B2"
+  },
+  {
+    "id": "v85",
+    "term": "data leakage",
+    "es": "filtración de información hacia el entrenamiento",
+    "meaning": "Using information that would not be available at prediction time.",
+    "example": "Future sales totals create data leakage.",
+    "level": "B2"
+  },
+  {
+    "id": "v86",
+    "term": "assertion",
+    "es": "comprobación de una condición esperada",
+    "meaning": "A test of a data property that should hold.",
+    "example": "Add an assertion for a non-null order ID.",
+    "level": "B2"
+  },
+  {
+    "id": "v87",
+    "term": "concurrency",
+    "es": "concurrencia; trabajo simultáneo",
+    "meaning": "The number of operations running at the same time.",
+    "example": "Reduce concurrency when each task needs much more memory.",
+    "level": "B2"
+  },
+  {
+    "id": "v88",
+    "term": "provision",
+    "es": "aprovisionar; preparar recursos",
+    "meaning": "Make resources ready for use.",
+    "example": "Provision only the necessary capacity.",
+    "level": "B2"
+  },
+  {
+    "id": "v89",
+    "term": "consistent",
+    "es": "coherente; con garantías de consistencia",
+    "meaning": "Following the stated rules about visible values.",
+    "example": "The application requires consistent transactional reads.",
+    "level": "B2"
+  },
+  {
+    "id": "v90",
+    "term": "at least",
+    "es": "como mínimo",
+    "meaning": "Not below the stated amount.",
+    "example": "Retain data for at least seven days.",
+    "level": "B2"
+  },
+  {
+    "id": "v91",
+    "term": "no more than",
+    "es": "como máximo",
+    "meaning": "Not above the stated amount.",
+    "example": "Allow no more than five minutes of data loss.",
+    "level": "B2"
+  },
+  {
+    "id": "v92",
+    "term": "as soon as",
+    "es": "en cuanto; tan pronto como",
+    "meaning": "Immediately after a stated condition happens.",
+    "example": "Notify the team as soon as a job fails.",
+    "level": "B2"
+  },
+  {
+    "id": "v93",
+    "term": "in order to",
+    "es": "para; con el fin de",
+    "meaning": "Introduces the purpose of an action.",
+    "example": "Filter partitions in order to reduce scanning.",
+    "level": "B2"
+  },
+  {
+    "id": "v94",
+    "term": "rather than",
+    "es": "en vez de",
+    "meaning": "Introduces an alternative that is not chosen.",
+    "example": "Use a group rather than individual role bindings.",
+    "level": "B2"
+  },
+  {
+    "id": "v95",
+    "term": "which two",
+    "es": "cuáles dos",
+    "meaning": "Signals that two options must be selected.",
+    "example": "Which two actions satisfy the requirements?",
+    "level": "B2"
+  },
+  {
+    "id": "v96",
+    "term": "choose two",
+    "es": "elige dos",
+    "meaning": "An instruction to select exactly two options.",
+    "example": "Choose two actions for the recovery plan.",
+    "level": "B2"
+  },
+  {
+    "id": "v97",
+    "term": "choose three",
+    "es": "elige tres",
+    "meaning": "An instruction to select exactly three options.",
+    "example": "Choose three ways to reduce overfitting.",
+    "level": "B2"
+  },
+  {
+    "id": "v98",
+    "term": "business requirements",
+    "es": "requisitos del negocio",
+    "meaning": "The outcomes and constraints the organization needs.",
+    "example": "Match the architecture to business requirements.",
+    "level": "B2"
+  },
+  {
+    "id": "v99",
+    "term": "on premises",
+    "es": "en las instalaciones propias",
+    "meaning": "Running in the organization’s own location.",
+    "example": "The source database runs on premises.",
+    "level": "B2"
+  },
+  {
+    "id": "v100",
+    "term": "ad hoc",
+    "es": "según necesidad; de forma puntual",
+    "meaning": "Created for an immediate, specific need.",
+    "example": "Analysts run ad hoc queries during the day.",
+    "level": "B2"
+  },
+  {
+    "id": "v101",
+    "term": "point-in-time",
+    "es": "correspondiente a un instante concreto",
+    "meaning": "Representing the state at a specified moment.",
+    "example": "Create a point-in-time recovery copy.",
+    "level": "B2"
+  }
+]

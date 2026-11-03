@@ -1,0 +1,733 @@
+[
+  {
+    "id": "least-privilege",
+    "domain": 1,
+    "objective": "1.1",
+    "title": "Give each identity just enough access",
+    "minutes": 9,
+    "lead": "Start with who is acting, which resource is involved, and which operation is necessary.",
+    "sections": [
+      {
+        "title": "Understand the idea",
+        "body": "IAM binds principals to roles on resources. A service account is an identity for a workload. Separate production from development and assign human permissions through groups so membership changes remain manageable."
+      },
+      {
+        "title": "Make the decision",
+        "body": "Grant the narrowest useful role at an appropriate resource scope. Prefer attached workload identities or impersonation over downloading long-lived keys. Network restrictions do not replace identity permissions."
+      },
+      {
+        "title": "Work through a scenario",
+        "body": "A nightly loader reads one bucket and writes one dataset. Give its service account those permissions; the engineer running it does not need to remain Project Owner."
+      }
+    ],
+    "trap": "A project-wide Editor role creates more exposure than a bucket reader and dataset writer need.",
+    "references": [
+      "iam",
+      "sa"
+    ],
+    "code": ""
+  },
+  {
+    "id": "protect-data",
+    "domain": 1,
+    "objective": "1.1",
+    "title": "Protect the values, the keys and the boundary",
+    "minutes": 9,
+    "lead": "Encryption, authorization and data minimization solve different parts of the problem.",
+    "sections": [
+      {
+        "title": "Understand the idea",
+        "body": "CMEK gives your organization control over encryption keys; it does not make every user authorized. Sensitive Data Protection can inspect and transform private values before analysts receive them."
+      },
+      {
+        "title": "Make the decision",
+        "body": "Use row policies for allowed records and column policies for restricted fields. Use a service perimeter to reduce exfiltration across supported APIs. Check residency requirements for both processing and storage."
+      },
+      {
+        "title": "Work through a scenario",
+        "body": "Support agents need active customers, while analysts need all customers without national IDs. Combine a row filter for support with protected or transformed sensitive columns for analysts."
+      }
+    ],
+    "trap": "A firewall rule alone cannot express which BigQuery columns a user can read.",
+    "references": [
+      "cmek",
+      "dlp",
+      "row",
+      "column",
+      "vpcsc"
+    ],
+    "code": ""
+  },
+  {
+    "id": "fidelity",
+    "domain": 1,
+    "objective": "1.2",
+    "title": "Make correctness part of the architecture",
+    "minutes": 9,
+    "lead": "A pipeline that finishes can still deliver the wrong result.",
+    "sections": [
+      {
+        "title": "Understand the idea",
+        "body": "Define a data contract: required fields, valid ranges, unique identifiers and freshness. An idempotent operation has the same effect when retried with the same input. ACID transactions keep related database changes consistent."
+      },
+      {
+        "title": "Make the decision",
+        "body": "Check counts and business totals as well as schema. Quarantine malformed records with an error reason. Test a representative fixed dataset before changing a production transformation."
+      },
+      {
+        "title": "Work through a scenario",
+        "body": "A payment retry arrives twice. Store a stable event ID and make the write idempotent, then reconcile the final totals. Exactly-once processing alone does not protect an arbitrary external API call."
+      }
+    ],
+    "trap": "Do not equate an acknowledged message with a completed external business transaction.",
+    "references": [
+      "exactly",
+      "spanner",
+      "dataform"
+    ],
+    "code": ""
+  },
+  {
+    "id": "portability",
+    "domain": 1,
+    "objective": "1.3",
+    "title": "Design for the next requirement",
+    "minutes": 9,
+    "lead": "Keep data discoverable and make deliberate tradeoffs about portability.",
+    "sections": [
+      {
+        "title": "Understand the idea",
+        "body": "Separate durable data from temporary compute. Open formats can make the same objects usable by multiple processing engines. A catalog records business meaning and technical metadata; lineage explains where an output came from."
+      },
+      {
+        "title": "Make the decision",
+        "body": "Choose formats, regions and interfaces against actual business constraints. A portable file format does not automatically make permissions, orchestration or application code portable."
+      },
+      {
+        "title": "Work through a scenario",
+        "body": "A team reuses data in Spark and a warehouse. Keep a documented object-storage landing area and govern the assets centrally rather than copying an undocumented dataset for each tool."
+      }
+    ],
+    "trap": "The guide says Dataplex; current documentation also uses Knowledge Catalog. Learn the governance capability as well as the name.",
+    "references": [
+      "spark",
+      "catalog",
+      "transition"
+    ],
+    "code": ""
+  },
+  {
+    "id": "migration",
+    "domain": 1,
+    "objective": "1.4",
+    "title": "Migrate with a validation and cutover plan",
+    "minutes": 9,
+    "lead": "Estimate transfer time before choosing the transfer mechanism.",
+    "sections": [
+      {
+        "title": "Understand the idea",
+        "body": "Inventory source formats, change rates, network capacity, dependencies and acceptable downtime. A full load moves existing records; change data capture tracks later changes. Reconcile counts, checksums or business totals before cutover."
+      },
+      {
+        "title": "Make the decision",
+        "body": "Use Datastream for supported database change capture, scheduled connectors for supported recurring imports, and Storage Transfer Service for object or file movement. Consider Transfer Appliance when offline movement suits the timeline."
+      },
+      {
+        "title": "Work through a scenario",
+        "body": "At 20 megabits per second, 1 petabyte needs about 12.7 years of ideal continuous transfer. A six-month deadline requires a different path; protocol tuning cannot close that gap."
+      }
+    ],
+    "trap": "An unnamed proprietary file format is not automatically supported by a managed transfer connector.",
+    "references": [
+      "stream",
+      "mysql",
+      "transfer",
+      "appliance"
+    ],
+    "code": ""
+  },
+  {
+    "id": "pipeline-contract",
+    "domain": 2,
+    "objective": "2.1",
+    "title": "Define the source, sink and network path",
+    "minutes": 9,
+    "lead": "Draw the complete route a record must travel.",
+    "sections": [
+      {
+        "title": "Understand the idea",
+        "body": "A source emits records, transforms change them, and a sink stores or serves the result. Specify latency, throughput, schema and delivery behavior. Verify that workers can reach both data endpoints and required Google APIs."
+      },
+      {
+        "title": "Make the decision",
+        "body": "Private workers need an appropriate subnet, API access and IAM permissions. In a Shared VPC, distinguish the worker identity, job submitter and Google-managed service agent."
+      },
+      {
+        "title": "Work through a scenario",
+        "body": "Dataflow reads Kafka on premises and writes BigQuery. An existing private connection may let KafkaIO read directly, avoiding an extra message bridge and its latency."
+      }
+    ],
+    "trap": "Granting Dataflow Admin does not by itself grant permission to use another project’s subnet.",
+    "references": [
+      "network",
+      "dfiam",
+      "dataflow"
+    ],
+    "code": ""
+  },
+  {
+    "id": "processing-engine",
+    "domain": 2,
+    "objective": "2.2",
+    "title": "Choose the engine that fits the work",
+    "minutes": 9,
+    "lead": "Minimize necessary code changes, then consider operating effort.",
+    "sections": [
+      {
+        "title": "Understand the idea",
+        "body": "Dataflow runs Apache Beam pipelines for bounded or unbounded data. Dataproc supports existing Spark and Hadoop ecosystems. Data Fusion provides visual integration. Dataform manages SQL transformations and dependencies in BigQuery."
+      },
+      {
+        "title": "Make the decision",
+        "body": "Use existing workload compatibility as a constraint. A nightly SQL transformation does not automatically need a streaming engine; an existing Hive application may favor managed Spark/Hadoop tooling."
+      },
+      {
+        "title": "Work through a scenario",
+        "body": "A team has hundreds of Spark jobs and a short migration deadline. Move durable inputs to Cloud Storage and keep the Spark execution model before planning a later SQL rewrite."
+      }
+    ],
+    "trap": "A product being serverless does not mean its processing, storage and network use are free.",
+    "references": [
+      "dataflow",
+      "spark",
+      "fusion",
+      "dataform"
+    ],
+    "code": ""
+  },
+  {
+    "id": "event-time",
+    "domain": 2,
+    "objective": "2.2",
+    "title": "Reason about event time and late data",
+    "minutes": 9,
+    "lead": "When an event happened and when a worker saw it can be different.",
+    "sections": [
+      {
+        "title": "Understand the idea",
+        "body": "A fixed window groups timestamps into equal intervals. A sliding window can overlap. A session groups activity separated by a chosen inactivity gap. A watermark estimates event-time progress; it is not a guarantee that every earlier event arrived."
+      },
+      {
+        "title": "Make the decision",
+        "body": "Choose allowed lateness and triggers based on the tradeoff between early results and later corrections. Preserve source timestamps rather than replacing them with processing time."
+      },
+      {
+        "title": "Work through a scenario",
+        "body": "A click created at minute 2 arrives after one created at minute 9. It belongs to the earlier event-time window, if that window is still allowed to accept data."
+      }
+    ],
+    "trap": "The first processed auction message is not necessarily the earliest bid.",
+    "references": [
+      "beam",
+      "ordering"
+    ],
+    "code": ""
+  },
+  {
+    "id": "bad-records",
+    "domain": 2,
+    "objective": "2.2",
+    "title": "Route failures without losing the evidence",
+    "minutes": 9,
+    "lead": "A rejected record should remain explainable and recoverable.",
+    "sections": [
+      {
+        "title": "Understand the idea",
+        "body": "Validate fields before loading typed warehouse tables. Separate valid rows from a dead-letter output containing the original payload, error type and event identifier. Distinguish permanent invalid data from temporary service errors."
+      },
+      {
+        "title": "Make the decision",
+        "body": "Use bounded retry with backoff for transient failures. Monitor the failure output and define who repairs or replays it. A Pub/Sub dead-letter delivery-attempt limit is approximate rather than an exact retry counter."
+      },
+      {
+        "title": "Work through a scenario",
+        "body": "An address column mixes formats. A visual Data Fusion transformation can standardize values, while a quarantine path keeps rows whose values cannot be interpreted safely."
+      }
+    ],
+    "trap": "Converting malformed CSV to Avro does not by itself repair the underlying values.",
+    "references": [
+      "fusion",
+      "dead",
+      "beam"
+    ],
+    "code": ""
+  },
+  {
+    "id": "ai-enrichment",
+    "domain": 2,
+    "objective": "2.2",
+    "title": "Enrich records with models, carefully",
+    "minutes": 9,
+    "lead": "Model output is another data dependency with latency and quality constraints.",
+    "sections": [
+      {
+        "title": "Understand the idea",
+        "body": "A Beam transform can validate records and route multiple outputs. Inference can add a predicted label. Generative enrichment also needs structured output validation, error handling and protection of sensitive inputs."
+      },
+      {
+        "title": "Make the decision",
+        "body": "Batch requests where supported, control concurrency and test the chosen model adapter. Do not assume every text-generation endpoint can be called through any RunInference configuration without an integration."
+      },
+      {
+        "title": "Work through a scenario",
+        "body": "For customer comments, validate the customer ID, remove unnecessary personal details, classify sentiment, and send malformed or failed inference results to review."
+      }
+    ],
+    "trap": "A confidently formatted model response can still be incorrect or fail your schema.",
+    "references": [
+      "beam",
+      "ai",
+      "dlp"
+    ],
+    "code": ""
+  },
+  {
+    "id": "deploy-pipeline",
+    "domain": 2,
+    "objective": "2.3",
+    "title": "Deploy a pipeline you can safely replace",
+    "minutes": 9,
+    "lead": "Make release behavior part of the design, before the first production run.",
+    "sections": [
+      {
+        "title": "Understand the idea",
+        "body": "Version code and configuration, validate schemas, and test with representative records. A compatible streaming update can preserve state. An incompatible update needs a controlled replacement and recovery strategy."
+      },
+      {
+        "title": "Make the decision",
+        "body": "Plan drain, source retention and replay together. Draining processes in-flight work; canceling may discard it. Decide whether the source can retain new messages while the replacement starts."
+      },
+      {
+        "title": "Work through a scenario",
+        "body": "A windowing change is incompatible. Retain the source messages, drain the old job, start the replacement, and reconcile outputs rather than assuming a flag makes arbitrary state changes compatible."
+      }
+    ],
+    "trap": "A successful CI deployment is not evidence that output totals remain correct.",
+    "references": [
+      "upgrade",
+      "replay"
+    ],
+    "code": ""
+  },
+  {
+    "id": "storage-choice",
+    "domain": 3,
+    "objective": "3.1",
+    "title": "Start with the access pattern",
+    "minutes": 9,
+    "lead": "Select storage from the required reads and writes, not from dataset size alone.",
+    "sections": [
+      {
+        "title": "Understand the idea",
+        "body": "BigQuery targets large analytical scans. Bigtable serves keyed, high-throughput access. Cloud SQL provides managed relational engines; Spanner supports strongly consistent distributed transactions. Cloud Storage stores objects. A cache such as Memorystore is a separate serving layer."
+      },
+      {
+        "title": "Make the decision",
+        "body": "Ask whether the application needs joins, row lookups, multi-row transactions, document access or object reads. Firestore fits document-oriented applications; AlloyDB targets PostgreSQL-compatible relational workloads."
+      },
+      {
+        "title": "Work through a scenario",
+        "body": "Sensor lookups need milliseconds while daily analytics need joins. Serve the keyed path from Bigtable and publish a warehouse copy for analytical scans."
+      }
+    ],
+    "trap": "A warehouse is not automatically the best transactional point-of-sale database.",
+    "references": [
+      "cloudsql",
+      "alloydb",
+      "firestore",
+      "redis",
+      "spanner",
+      "bigtable",
+      "biglake",
+      "compute"
+    ],
+    "code": ""
+  },
+  {
+    "id": "lifecycle",
+    "domain": 3,
+    "objective": "3.1",
+    "title": "Treat retention and cost as separate controls",
+    "minutes": 9,
+    "lead": "Cheap storage is useful only if its access and retention behavior fits.",
+    "sections": [
+      {
+        "title": "Understand the idea",
+        "body": "Cloud Storage classes trade storage cost against retrieval and minimum-duration conditions. Lifecycle rules can change class or delete eligible objects. A retention policy prevents deletion until the required age; locking it is a consequential administrative choice."
+      },
+      {
+        "title": "Make the decision",
+        "body": "Estimate the access pattern instead of assuming older data is never read. Distinguish availability, geographic placement, versioning and legal retention."
+      },
+      {
+        "title": "Work through a scenario",
+        "body": "An audit archive is rarely read and must remain immutable for years. Choose an appropriate archival class and a retention policy, then test your retrieval procedure."
+      }
+    ],
+    "trap": "A lifecycle delete rule does not override an active retention requirement.",
+    "references": [
+      "classes",
+      "lifecycle",
+      "protect"
+    ],
+    "code": ""
+  },
+  {
+    "id": "warehouse-model",
+    "domain": 3,
+    "objective": "3.2",
+    "title": "Model the warehouse around its queries",
+    "minutes": 9,
+    "lead": "Reduce repeated work without losing the meaning of a record.",
+    "sections": [
+      {
+        "title": "Understand the idea",
+        "body": "Nested and repeated fields can represent related analytical entities without repeated joins. Partitioning separates data into segments; clustering organizes blocks within a table or partition. Column selection also affects scan volume."
+      },
+      {
+        "title": "Make the decision",
+        "body": "Match partitions to common range filters and clustering order to selective access patterns. Preserve event identity and business keys. Avoid copying a transactional normalization rule into every analytical model."
+      },
+      {
+        "title": "Work through a scenario",
+        "body": "Orders are queried by recent date and customer. Partition by order date, cluster by customer ID, and keep line items nested when that matches the reporting model."
+      }
+    ],
+    "trap": "LIMIT does not by itself reduce the bytes read from all referenced columns.",
+    "references": [
+      "partition",
+      "cluster",
+      "compute"
+    ],
+    "code": ""
+  },
+  {
+    "id": "lake",
+    "domain": 3,
+    "objective": "3.3",
+    "title": "Make the lake usable, not just large",
+    "minutes": 9,
+    "lead": "Raw files need schema, metadata, access rules and quality checks.",
+    "sections": [
+      {
+        "title": "Understand the idea",
+        "body": "A lake stores durable objects that different engines can process. Columnar formats can reduce work for analytical reads. BigLake can provide governed access to supported external data; a catalog makes assets discoverable."
+      },
+      {
+        "title": "Make the decision",
+        "body": "Separate landing, validated and curated stages with explicit contracts. Monitor stale partitions and failed discovery. Check supported format and location combinations before choosing a query path."
+      },
+      {
+        "title": "Work through a scenario",
+        "body": "A team needs reusable curated sales objects. Publish their schema, owner and freshness target, then validate incoming partitions instead of treating every uploaded object as trustworthy."
+      }
+    ],
+    "trap": "A catalog organizes metadata; it does not automatically cleanse every file it discovers.",
+    "references": [
+      "catalog",
+      "fusion",
+      "partition"
+    ],
+    "code": ""
+  },
+  {
+    "id": "governance",
+    "domain": 3,
+    "objective": "3.4",
+    "title": "Give distributed teams shared guardrails",
+    "minutes": 9,
+    "lead": "Domain ownership can coexist with organization-wide standards.",
+    "sections": [
+      {
+        "title": "Understand the idea",
+        "body": "Federated governance lets domain teams own data products while shared policies define discovery, quality, security and meaning. Catalog entries, lineage and business definitions reduce accidental misuse."
+      },
+      {
+        "title": "Make the decision",
+        "body": "Identify an owner, approved access method, quality rules and a freshness expectation for each product. Use platform capabilities rather than building a separate spreadsheet catalog for each team."
+      },
+      {
+        "title": "Work through a scenario",
+        "body": "Marketing and finance each publish curated assets. A shared catalog exposes their meaning and lineage, while storage IAM and table policies continue to control real access."
+      }
+    ],
+    "trap": "Governance metadata does not grant readers permission to the underlying data.",
+    "references": [
+      "catalog",
+      "transition",
+      "sharing"
+    ],
+    "code": ""
+  },
+  {
+    "id": "analytics",
+    "domain": 4,
+    "objective": "4.1",
+    "title": "Make dashboards efficient and trustworthy",
+    "minutes": 9,
+    "lead": "Optimize the expensive operation that actually appears in the query plan.",
+    "sections": [
+      {
+        "title": "Understand the idea",
+        "body": "Materialized views reuse supported computed results. BI Engine accelerates eligible analytical queries in memory. Partition filters and selective columns reduce scanning. Row and column access controls still apply to the data exposed to users."
+      },
+      {
+        "title": "Make the decision",
+        "body": "Use execution details to locate expensive joins, skew or unnecessary scans. Check dashboard freshness and caching separately from warehouse ingestion freshness."
+      },
+      {
+        "title": "Work through a scenario",
+        "body": "Hundreds of users repeatedly sum sales by day. A supported materialized aggregate avoids repeating the same large computation; BI Engine may further accelerate eligible dashboard queries."
+      }
+    ],
+    "trap": "A logical view is a stored query definition, not automatically a stored result cache.",
+    "references": [
+      "mv",
+      "bi",
+      "compute",
+      "views"
+    ],
+    "code": ""
+  },
+  {
+    "id": "features",
+    "domain": 4,
+    "objective": "4.2",
+    "title": "Keep training and serving transformations consistent",
+    "minutes": 9,
+    "lead": "The same raw value must mean the same thing in both environments.",
+    "sections": [
+      {
+        "title": "Understand the idea",
+        "body": "Fit preprocessing using training data and apply it consistently during evaluation and serving. A BigQuery ML TRANSFORM clause can bind supported feature transformations to model use. Data leakage occurs when unavailable future information enters training."
+      },
+      {
+        "title": "Make the decision",
+        "body": "Split evaluation data deliberately, check nulls and outliers, and use appropriate metrics. Overfitting means fitting training peculiarities rather than generalizing; more representative data or regularization can help."
+      },
+      {
+        "title": "Work through a scenario",
+        "body": "Demand prediction uses scaled prices. Reuse the fitted scaling parameters for serving rather than independently recomputing them on a single prediction request."
+      }
+    ],
+    "trap": "A high training score alone is not evidence of useful performance on unseen data.",
+    "references": [
+      "transform",
+      "ai"
+    ],
+    "code": ""
+  },
+  {
+    "id": "embeddings",
+    "domain": 4,
+    "objective": "4.2",
+    "title": "Prepare documents for retrieval and generation",
+    "minutes": 9,
+    "lead": "A retrieval system needs relevant, permitted context before it generates an answer.",
+    "sections": [
+      {
+        "title": "Understand the idea",
+        "body": "An embedding is a numerical representation used to compare meaning. A RAG workflow chunks source material, retains metadata, creates embeddings, retrieves relevant chunks and gives that context to a generation model."
+      },
+      {
+        "title": "Make the decision",
+        "body": "Choose chunk boundaries and an embedding model consistently. Retain provenance and enforce access restrictions on retrieval, then evaluate both the retrieved context and the final answer."
+      },
+      {
+        "title": "Work through a scenario",
+        "body": "An internal policy assistant retrieves passages with document IDs and effective dates. The answer cites those passages, and restricted documents never reach unauthorized users."
+      }
+    ],
+    "trap": "A vector index improves retrieval performance; it does not guarantee factual or authorized answers.",
+    "references": [
+      "vectors",
+      "ai"
+    ],
+    "code": ""
+  },
+  {
+    "id": "share",
+    "domain": 4,
+    "objective": "4.3",
+    "title": "Publish data products with an access contract",
+    "minutes": 9,
+    "lead": "Share the usable subset and keep ownership explicit.",
+    "sections": [
+      {
+        "title": "Understand the idea",
+        "body": "An authorized view can expose a selected query result without granting direct access to source tables. BigQuery sharing, also known as Analytics Hub, distributes governed listings that consumers can subscribe to."
+      },
+      {
+        "title": "Make the decision",
+        "body": "Choose a view for a restricted shape of data and a listing for reusable discovery and subscription. Document freshness, location, cost responsibility and who can grant access."
+      },
+      {
+        "title": "Work through a scenario",
+        "body": "A partner needs only aggregated regional sales. Expose the permitted aggregation and publish its contract; do not grant broad access to raw customer rows."
+      }
+    ],
+    "trap": "Sharing a report URL does not automatically authorize the viewer to its underlying data.",
+    "references": [
+      "views",
+      "sharing",
+      "row"
+    ],
+    "code": ""
+  },
+  {
+    "id": "resource-cost",
+    "domain": 5,
+    "objective": "5.1",
+    "title": "Pay for the work you actually need",
+    "minutes": 9,
+    "lead": "Tie optimization to a business requirement and a measured bottleneck.",
+    "sections": [
+      {
+        "title": "Understand the idea",
+        "body": "Persistent clusters may fit steady workloads; job-based compute may fit intermittent processing. Query scan reduction matters for on-demand analysis, while capacity-based execution requires attention to slots and utilization."
+      },
+      {
+        "title": "Make the decision",
+        "body": "Reuse supported aggregates, stop idle compute, and compare storage, processing and network effects. A cheaper worker can cost more overall if it repeatedly fails or extends the job."
+      },
+      {
+        "title": "Work through a scenario",
+        "body": "A weekly Spark job runs for thirty minutes. Keep durable input in object storage and compare an ephemeral cluster or serverless execution against a cluster left running all week."
+      }
+    ],
+    "trap": "Reducing machine size is not an optimization if it violates the completion deadline.",
+    "references": [
+      "spark",
+      "compute",
+      "classes",
+      "slots"
+    ],
+    "code": ""
+  },
+  {
+    "id": "repeatability",
+    "domain": 5,
+    "objective": "5.2",
+    "title": "Make every retry intentional",
+    "minutes": 9,
+    "lead": "A directed acyclic graph makes task dependencies visible.",
+    "sections": [
+      {
+        "title": "Understand the idea",
+        "body": "Composer uses Airflow DAGs for scheduled workflows with task dependencies. Workflows coordinates service calls without managing an Airflow environment. An idempotent task supports safer retries and partial reruns."
+      },
+      {
+        "title": "Make the decision",
+        "body": "Use separate tasks when separate failure recovery matters. Pass a stable run identifier, make writes repeatable, and define completion and failure alerts."
+      },
+      {
+        "title": "Work through a scenario",
+        "body": "A daily process fetches files, decrypts them and runs SQL. Separate DAG tasks allow rerunning only the failed stage while preserving evidence of successful earlier stages."
+      }
+    ],
+    "trap": "Putting the entire process inside one operator hides the recovery boundaries.",
+    "references": [
+      "composer",
+      "workflows",
+      "dependencies"
+    ],
+    "code": ""
+  },
+  {
+    "id": "capacity",
+    "domain": 5,
+    "objective": "5.3",
+    "title": "Keep competing workloads from interfering",
+    "minutes": 9,
+    "lead": "Priority and capacity allocation are different controls.",
+    "sections": [
+      {
+        "title": "Understand the idea",
+        "body": "BigQuery reservations assign compute capacity to workloads. Baseline capacity and autoscaling affect resource availability and spend. Separate reservations can isolate dashboard work from heavy transformation jobs."
+      },
+      {
+        "title": "Make the decision",
+        "body": "Measure usage before sizing capacity. Choose interactive or batch execution according to latency tolerance, and use reservation assignments for the intended projects or workloads."
+      },
+      {
+        "title": "Work through a scenario",
+        "body": "Dashboards slow down during ETL. Assign them a deliberate capacity pool and place cost-sensitive ETL in another allocation rather than assuming an interactive label reserves resources."
+      }
+    ],
+    "trap": "A budget alert reports spend; it is not a guaranteed automatic spending cap.",
+    "references": [
+      "reservations",
+      "slots",
+      "budget"
+    ],
+    "code": ""
+  },
+  {
+    "id": "observability",
+    "domain": 5,
+    "objective": "5.4",
+    "title": "Diagnose the failure before scaling",
+    "minutes": 9,
+    "lead": "The exact error and execution stage matter more than a generic label.",
+    "sections": [
+      {
+        "title": "Understand the idea",
+        "body": "Observe freshness, lag, failed rows, task retries and resource utilization. BigQuery execution details and job metadata help distinguish slow scans, slot pressure, shuffle problems and memory-heavy operations."
+      },
+      {
+        "title": "Make the decision",
+        "body": "Inspect the query plan and the full error message before changing capacity. Separate API request quotas from execution memory and compute availability."
+      },
+      {
+        "title": "Work through a scenario",
+        "body": "A query fails during a large sort. Check the execution graph and memory pressure; reduce the sorted intermediate data or restructure the query rather than raising an unrelated API quota."
+      }
+    ],
+    "trap": "More slots do not guarantee that every Resources exceeded error disappears.",
+    "references": [
+      "errors",
+      "compute"
+    ],
+    "code": ""
+  },
+  {
+    "id": "recovery",
+    "domain": 5,
+    "objective": "5.5",
+    "title": "Design recovery against explicit objectives",
+    "minutes": 9,
+    "lead": "State how much data may be lost and how quickly service must return.",
+    "sections": [
+      {
+        "title": "Understand the idea",
+        "body": "RPO limits tolerable data loss; RTO limits recovery time. BigQuery time travel, snapshots and cross-region replication address different failure and retention needs. A multi-region label alone is not a complete disaster recovery plan."
+      },
+      {
+        "title": "Make the decision",
+        "body": "Match backup frequency and replication behavior to the objectives, then rehearse a restore. Check retention, permissions and the region of the recovery copy."
+      },
+      {
+        "title": "Work through a scenario",
+        "body": "A daily export can leave nearly a day of changes unavailable, plus scheduling or export delays. A strict target below twenty-four hours needs an appropriate safety margin or a different replication approach."
+      }
+    ],
+    "trap": "Thirty-day backup retention and a thirty-day RPO describe different requirements.",
+    "references": [
+      "time",
+      "snapshot",
+      "replication",
+      "sqlha"
+    ],
+    "code": ""
+  }
+]

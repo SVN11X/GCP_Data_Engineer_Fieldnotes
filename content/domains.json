@@ -1,0 +1,66 @@
+[
+  {
+    "id": 1,
+    "name": "Design with intent",
+    "subtitle": "Security, reliability, portability and migration",
+    "weight": 22,
+    "color": "#4263eb",
+    "objectives": {
+      "1.1": "Protect identities and data",
+      "1.2": "Preserve reliable, valid data",
+      "1.3": "Keep platforms adaptable",
+      "1.4": "Plan and validate migrations"
+    }
+  },
+  {
+    "id": 2,
+    "name": "Ingest & transform",
+    "subtitle": "Pipelines, streaming, integration and deployment",
+    "weight": 25,
+    "color": "#c47b14",
+    "objectives": {
+      "2.1": "Specify pipeline contracts",
+      "2.2": "Implement transformations",
+      "2.3": "Deploy repeatable pipelines"
+    }
+  },
+  {
+    "id": 3,
+    "name": "Choose your storage",
+    "subtitle": "Databases, warehouses, lakes and governance",
+    "weight": 20,
+    "color": "#1b8778",
+    "objectives": {
+      "3.1": "Match storage to access",
+      "3.2": "Model warehouse data",
+      "3.3": "Operate a data lake",
+      "3.4": "Govern a distributed platform"
+    }
+  },
+  {
+    "id": 4,
+    "name": "Deliver useful data",
+    "subtitle": "Analytics, machine learning and sharing",
+    "weight": 15,
+    "color": "#8c55b0",
+    "objectives": {
+      "4.1": "Make analytics efficient",
+      "4.2": "Prepare AI inputs",
+      "4.3": "Share controlled data products"
+    }
+  },
+  {
+    "id": 5,
+    "name": "Operate reliably",
+    "subtitle": "Cost, automation, capacity and recovery",
+    "weight": 18,
+    "color": "#bb5b52",
+    "objectives": {
+      "5.1": "Use resources economically",
+      "5.2": "Repeat and automate jobs",
+      "5.3": "Isolate and prioritize workloads",
+      "5.4": "Observe and diagnose execution",
+      "5.5": "Recover from failures"
+    }
+  }
+]

@@ -1,0 +1,522 @@
+{
+  "exam": {
+    "id": "exam",
+    "title": "Certification overview",
+    "url": "https://cloud.google.com/learn/certification/data-engineer?hl=en",
+    "topic": "Exam",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "guide": {
+    "id": "guide",
+    "title": "Standard exam guide, v4.2",
+    "url": "https://services.google.com/fh/files/misc/professional_data_engineer_exam_guide_english.pdf",
+    "topic": "Exam",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "iam": {
+    "id": "iam",
+    "title": "Identity and Access Management",
+    "url": "https://docs.cloud.google.com/iam/docs/overview",
+    "topic": "Security",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "sa": {
+    "id": "sa",
+    "title": "Secure service account practices",
+    "url": "https://docs.cloud.google.com/iam/docs/best-practices-service-accounts",
+    "topic": "Security",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "cmek": {
+    "id": "cmek",
+    "title": "Customer-managed encryption keys",
+    "url": "https://docs.cloud.google.com/kms/docs/cmek",
+    "topic": "Security",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "vpcsc": {
+    "id": "vpcsc",
+    "title": "Service perimeters and exfiltration protection",
+    "url": "https://docs.cloud.google.com/vpc-service-controls/docs/overview",
+    "topic": "Security",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "dlp": {
+    "id": "dlp",
+    "title": "De-identifying sensitive information",
+    "url": "https://docs.cloud.google.com/sensitive-data-protection/docs/deidentify-sensitive-data",
+    "topic": "Security",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "row": {
+    "id": "row",
+    "title": "BigQuery row access policies",
+    "url": "https://docs.cloud.google.com/bigquery/docs/row-level-security-intro",
+    "topic": "Security",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "column": {
+    "id": "column",
+    "title": "BigQuery column access policies",
+    "url": "https://docs.cloud.google.com/bigquery/docs/column-level-security-intro",
+    "topic": "Security",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "views": {
+    "id": "views",
+    "title": "Sharing through authorized views",
+    "url": "https://docs.cloud.google.com/bigquery/docs/authorized-views",
+    "topic": "Security",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "dataflow": {
+    "id": "dataflow",
+    "title": "Dataflow concepts",
+    "url": "https://docs.cloud.google.com/dataflow/docs/overview",
+    "topic": "Processing",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "exactly": {
+    "id": "exactly",
+    "title": "Dataflow delivery and side effects",
+    "url": "https://docs.cloud.google.com/dataflow/docs/concepts/exactly-once",
+    "topic": "Processing",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "beam": {
+    "id": "beam",
+    "title": "Beam programming model and event time",
+    "url": "https://beam.apache.org/documentation/programming-guide/",
+    "topic": "Processing",
+    "checked": "2026-11-02",
+    "publisher": "Apache Beam"
+  },
+  "upgrade": {
+    "id": "upgrade",
+    "title": "Upgrading a streaming pipeline",
+    "url": "https://docs.cloud.google.com/dataflow/docs/guides/upgrade-guide",
+    "topic": "Operations",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "network": {
+    "id": "network",
+    "title": "Dataflow networking and subnetworks",
+    "url": "https://docs.cloud.google.com/dataflow/docs/guides/specifying-networks",
+    "topic": "Security",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "dfiam": {
+    "id": "dfiam",
+    "title": "Dataflow identities and roles",
+    "url": "https://docs.cloud.google.com/dataflow/docs/concepts/access-control",
+    "topic": "Security",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "spark": {
+    "id": "spark",
+    "title": "Dataproc / managed Spark clusters",
+    "url": "https://docs.cloud.google.com/dataproc/docs/concepts/overview",
+    "topic": "Processing",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "fusion": {
+    "id": "fusion",
+    "title": "Visual integration with Cloud Data Fusion",
+    "url": "https://docs.cloud.google.com/data-fusion/docs/concepts/overview",
+    "topic": "Processing",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "stream": {
+    "id": "stream",
+    "title": "Change data capture with Datastream",
+    "url": "https://docs.cloud.google.com/datastream/docs/overview",
+    "topic": "Ingestion",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "ordering": {
+    "id": "ordering",
+    "title": "Pub/Sub ordering keys",
+    "url": "https://docs.cloud.google.com/pubsub/docs/ordering",
+    "topic": "Ingestion",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "psexact": {
+    "id": "psexact",
+    "title": "Pub/Sub exactly-once delivery",
+    "url": "https://docs.cloud.google.com/pubsub/docs/exactly-once-delivery",
+    "topic": "Ingestion",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "replay": {
+    "id": "replay",
+    "title": "Message retention and seek",
+    "url": "https://docs.cloud.google.com/pubsub/docs/replay-overview",
+    "topic": "Ingestion",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "dead": {
+    "id": "dead",
+    "title": "Pub/Sub dead-letter topics",
+    "url": "https://docs.cloud.google.com/pubsub/docs/dead-letter-topics",
+    "topic": "Ingestion",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "write": {
+    "id": "write",
+    "title": "BigQuery streaming write concepts",
+    "url": "https://docs.cloud.google.com/bigquery/docs/write-api-intro",
+    "topic": "Ingestion",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "offset": {
+    "id": "offset",
+    "title": "Stream offsets and safe write retries",
+    "url": "https://docs.cloud.google.com/bigquery/docs/write-api-best-practices",
+    "topic": "Ingestion",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "mysql": {
+    "id": "mysql",
+    "title": "Scheduled MySQL ingestion into BigQuery",
+    "url": "https://docs.cloud.google.com/bigquery/docs/mysql-transfer-intro",
+    "topic": "Migration",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "youtube": {
+    "id": "youtube",
+    "title": "YouTube channel transfers into BigQuery",
+    "url": "https://docs.cloud.google.com/bigquery/docs/youtube-channel-transfer",
+    "topic": "Migration",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "transfer": {
+    "id": "transfer",
+    "title": "Storage Transfer Service",
+    "url": "https://docs.cloud.google.com/storage-transfer/docs/overview",
+    "topic": "Migration",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "appliance": {
+    "id": "appliance",
+    "title": "Offline bulk transfer with Transfer Appliance",
+    "url": "https://docs.cloud.google.com/transfer-appliance/docs/4.0/overview",
+    "topic": "Migration",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "partition": {
+    "id": "partition",
+    "title": "Partitioning BigQuery tables",
+    "url": "https://docs.cloud.google.com/bigquery/docs/partitioned-tables",
+    "topic": "Storage",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "cluster": {
+    "id": "cluster",
+    "title": "Clustering BigQuery tables",
+    "url": "https://docs.cloud.google.com/bigquery/docs/clustered-tables",
+    "topic": "Storage",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "prune": {
+    "id": "prune",
+    "title": "Writing queries that prune partitions",
+    "url": "https://docs.cloud.google.com/bigquery/docs/querying-partitioned-tables",
+    "topic": "Analysis",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "compute": {
+    "id": "compute",
+    "title": "Improving BigQuery query plans",
+    "url": "https://docs.cloud.google.com/bigquery/docs/best-practices-performance-compute",
+    "topic": "Analysis",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "bigtable": {
+    "id": "bigtable",
+    "title": "Bigtable row key design",
+    "url": "https://docs.cloud.google.com/bigtable/docs/schema-design",
+    "topic": "Storage",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "timeseries": {
+    "id": "timeseries",
+    "title": "Bigtable time-series modeling",
+    "url": "https://docs.cloud.google.com/bigtable/docs/schema-design-time-series",
+    "topic": "Storage",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "classes": {
+    "id": "classes",
+    "title": "Cloud Storage classes and retrieval tradeoffs",
+    "url": "https://docs.cloud.google.com/storage/docs/storage-classes",
+    "topic": "Storage",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "lifecycle": {
+    "id": "lifecycle",
+    "title": "Object Lifecycle Management",
+    "url": "https://docs.cloud.google.com/storage/docs/lifecycle",
+    "topic": "Storage",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "protect": {
+    "id": "protect",
+    "title": "Object protection and retention",
+    "url": "https://docs.cloud.google.com/storage/docs/protection-backup-recovery-overview",
+    "topic": "Storage",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "spanner": {
+    "id": "spanner",
+    "title": "Spanner consistency and scale",
+    "url": "https://docs.cloud.google.com/spanner/docs",
+    "topic": "Storage",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "sqlha": {
+    "id": "sqlha",
+    "title": "Cloud SQL high availability",
+    "url": "https://docs.cloud.google.com/sql/docs/mysql/high-availability",
+    "topic": "Operations",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "catalog": {
+    "id": "catalog",
+    "title": "Knowledge Catalog (guide: Dataplex)",
+    "url": "https://docs.cloud.google.com/knowledge-catalog/docs/introduction",
+    "topic": "Governance",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "transition": {
+    "id": "transition",
+    "title": "Data Catalog transition guidance",
+    "url": "https://docs.cloud.google.com/knowledge-catalog/docs/transition-to-dataplex-catalog",
+    "topic": "Governance",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "dataform": {
+    "id": "dataform",
+    "title": "Dataform data quality assertions",
+    "url": "https://docs.cloud.google.com/dataform/docs/test-data",
+    "topic": "Processing",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "dependencies": {
+    "id": "dependencies",
+    "title": "Dataform dependencies",
+    "url": "https://docs.cloud.google.com/dataform/docs/dependencies",
+    "topic": "Processing",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "composer": {
+    "id": "composer",
+    "title": "Cloud Composer / managed Airflow concepts",
+    "url": "https://docs.cloud.google.com/composer/docs/composer-2/composer-overview",
+    "topic": "Orchestration",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "workflows": {
+    "id": "workflows",
+    "title": "Serverless service orchestration",
+    "url": "https://docs.cloud.google.com/workflows/docs/overview",
+    "topic": "Orchestration",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "mv": {
+    "id": "mv",
+    "title": "Materialized views and refresh behavior",
+    "url": "https://docs.cloud.google.com/bigquery/docs/materialized-views-intro",
+    "topic": "Analysis",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "bi": {
+    "id": "bi",
+    "title": "BI Engine acceleration",
+    "url": "https://docs.cloud.google.com/bigquery/docs/bi-engine-intro",
+    "topic": "Analysis",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "transform": {
+    "id": "transform",
+    "title": "BigQuery ML feature transformations",
+    "url": "https://docs.cloud.google.com/bigquery/docs/bigqueryml-transform",
+    "topic": "AI / ML",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "vectors": {
+    "id": "vectors",
+    "title": "Embeddings, semantic retrieval and RAG",
+    "url": "https://docs.cloud.google.com/bigquery/docs/vector-search-intro",
+    "topic": "AI / ML",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "ai": {
+    "id": "ai",
+    "title": "AI capabilities in BigQuery",
+    "url": "https://docs.cloud.google.com/bigquery/docs/ai-introduction",
+    "topic": "AI / ML",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "sharing": {
+    "id": "sharing",
+    "title": "BigQuery sharing (Analytics Hub)",
+    "url": "https://docs.cloud.google.com/bigquery/docs/analytics-hub-introduction",
+    "topic": "Analysis",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "reservations": {
+    "id": "reservations",
+    "title": "Compute reservations and workload isolation",
+    "url": "https://docs.cloud.google.com/bigquery/docs/reservations-workload-management",
+    "topic": "Operations",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "slots": {
+    "id": "slots",
+    "title": "BigQuery slots",
+    "url": "https://docs.cloud.google.com/bigquery/docs/slots",
+    "topic": "Operations",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "errors": {
+    "id": "errors",
+    "title": "Diagnosing BigQuery query failures",
+    "url": "https://docs.cloud.google.com/bigquery/docs/troubleshoot-queries",
+    "topic": "Operations",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "time": {
+    "id": "time",
+    "title": "Time travel and fail-safe",
+    "url": "https://docs.cloud.google.com/bigquery/docs/time-travel",
+    "topic": "Recovery",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "snapshot": {
+    "id": "snapshot",
+    "title": "Longer-lived table snapshots",
+    "url": "https://docs.cloud.google.com/bigquery/docs/table-snapshots-intro",
+    "topic": "Recovery",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "replication": {
+    "id": "replication",
+    "title": "Cross-region BigQuery replication",
+    "url": "https://docs.cloud.google.com/bigquery/docs/data-replication",
+    "topic": "Recovery",
+    "checked": "2026-11-02",
+    "publisher": "Google Cloud"
+  },
+  "github": {
+    "id": "github",
+    "title": "GitHub Pages custom deployment workflows",
+    "url": "https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages",
+    "topic": "Publishing",
+    "checked": "2026-11-02",
+    "publisher": "GitHub"
+  },
+  "cloudsql": {
+    "id": "cloudsql",
+    "title": "Managed relational engines in Cloud SQL",
+    "url": "https://docs.cloud.google.com/sql/docs/introduction",
+    "topic": "Storage",
+    "publisher": "Google Cloud",
+    "checked": "2026-11-03"
+  },
+  "firestore": {
+    "id": "firestore",
+    "title": "Firestore document-oriented applications",
+    "url": "https://docs.cloud.google.com/firestore/native/docs/overview",
+    "topic": "Storage",
+    "publisher": "Google Cloud",
+    "checked": "2026-11-03"
+  },
+  "alloydb": {
+    "id": "alloydb",
+    "title": "PostgreSQL-compatible workloads in AlloyDB",
+    "url": "https://docs.cloud.google.com/alloydb/docs/overview",
+    "topic": "Storage",
+    "publisher": "Google Cloud",
+    "checked": "2026-11-03"
+  },
+  "redis": {
+    "id": "redis",
+    "title": "Memorystore for Redis and caching",
+    "url": "https://docs.cloud.google.com/memorystore/docs/redis/memorystore-for-redis-overview",
+    "topic": "Storage",
+    "publisher": "Google Cloud",
+    "checked": "2026-11-03"
+  },
+  "biglake": {
+    "id": "biglake",
+    "title": "BigLake access delegation",
+    "url": "https://docs.cloud.google.com/bigquery/docs/biglake-intro",
+    "topic": "Storage",
+    "publisher": "Google Cloud",
+    "checked": "2026-11-03"
+  },
+  "budget": {
+    "id": "budget",
+    "title": "Cloud budgets and alert behavior",
+    "url": "https://docs.cloud.google.com/billing/docs/how-to/budgets",
+    "topic": "Operations",
+    "publisher": "Google Cloud",
+    "checked": "2026-11-03"
+  }
+}
