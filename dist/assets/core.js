@@ -100,14 +100,26 @@
     if(typeof expected==='number'){const parsed=Number(String(value).trim().replace(',','.'));return Number.isFinite(parsed)&&Math.abs(parsed-expected)<0.051;}
     return String(value).trim().toLowerCase()===String(expected).trim().toLowerCase();
   }
-  function defaultState() {return {version:1, completed:[], bookmarks:[], attempts:[], vocab:{}, english:true, exam:null,labProgress:{}};}
+  function defaultState() {return {version:1, completed:[], bookmarks:[], attempts:[], vocab:{}, english:true, exam:null,labProgress:{},reviewTopics:[],briefed:[],missionCompletions:[],focus:null,theme:'system',retired:{bookmarks:[],attempts:[]}};}
   function validateProgress(input, lessonIds, questionIds, termIds, workshopSpecs = []) {
     if (!input || input.version !== 1 || typeof input !== 'object') throw new Error('Unsupported progress file.');
     const out = defaultState(), l = new Set(lessonIds), q = new Set(questionIds), t = new Set(termIds);
     out.completed = [...new Set((Array.isArray(input.completed) ? input.completed : []).filter(x=>l.has(x)))];
-    out.bookmarks = [...new Set((Array.isArray(input.bookmarks) ? input.bookmarks : []).filter(x=>q.has(x)))];
+    out.bookmarks = [...new Set([...(Array.isArray(input.bookmarks)?input.bookmarks:[]),...(Array.isArray(input.retired?.bookmarks)?input.retired.bookmarks:[])].filter(x=>q.has(x)))];
     out.english = input.english !== false;
-    out.attempts = (Array.isArray(input.attempts) ? input.attempts : []).filter(a => a && q.has(a.id) && Array.isArray(a.selected) && a.selected.every(x => /^[A-Z]$/.test(x)) && Number.isFinite(a.at) && typeof a.correct === 'boolean').slice(-2000).map(a=>({id:a.id,selected:a.selected,correct:a.correct,at:a.at,verified:a.verified===true}));
+    out.theme = ['light','dark','system'].includes(input.theme) ? input.theme : 'system';
+    out.reviewTopics = [...new Set((Array.isArray(input.reviewTopics) ? input.reviewTopics : []).filter(id=>l.has(id)))];
+    out.briefed = [...new Set((Array.isArray(input.briefed) ? input.briefed : []).filter(id=>l.has(id)))];
+    out.missionCompletions = [...new Set((Array.isArray(input.missionCompletions) ? input.missionCompletions : []).filter(id=>['duplicates','scan','quality'].includes(id)))];
+    if(input.focus&&l.has(input.focus.lessonId)&&(input.focus.questionId===null||q.has(input.focus.questionId))){
+      out.focus={lessonId:input.focus.lessonId,questionId:input.focus.questionId,step:Math.max(0,Math.min(3,Math.floor(Number(input.focus.step)||0))),selected:[...new Set((Array.isArray(input.focus.selected)?input.focus.selected:[]).filter(x=>/^[A-Z]$/.test(x)))],checked:input.focus.checked===true};
+    }
+    // Restore live bookmarks and attempts from exports made before the supplied bank was reinstated.
+    const retiredId=id=>typeof id==='string'&&/^imp-\d+$/.test(id)&&Number(id.slice(4))>=1&&Number(id.slice(4))<=349;
+    out.retired.bookmarks=[...new Set([...(Array.isArray(input.bookmarks)?input.bookmarks:[]),...(Array.isArray(input.retired?.bookmarks)?input.retired.bookmarks:[])].filter(id=>retiredId(id)&&!q.has(id)))];
+    out.retired.attempts=[...(Array.isArray(input.attempts)?input.attempts:[]),...(Array.isArray(input.retired?.attempts)?input.retired.attempts:[])].filter(a=>a&&retiredId(a.id)&&!q.has(a.id)&&Array.isArray(a.selected)&&a.selected.every(x=>/^[A-Z]$/.test(x))&&Number.isFinite(a.at)&&typeof a.correct==='boolean').slice(-2000).map(a=>({id:a.id,selected:a.selected,correct:a.correct,at:a.at,verified:false}));
+    const candidates=[...(Array.isArray(input.retired?.attempts)?input.retired.attempts:[]).map(a=>a&&typeof a==='object'?{...a,verified:false}:a),...(Array.isArray(input.attempts)?input.attempts:[])];
+    out.attempts=[...new Map(candidates.filter(a=>a&&q.has(a.id)&&Array.isArray(a.selected)&&a.selected.every(x=>/^[A-Z]$/.test(x))&&Number.isFinite(a.at)&&typeof a.correct==='boolean').map(a=>[a.id+'@'+a.at+'@'+a.selected.join(','),{id:a.id,selected:a.selected,correct:a.correct,at:a.at,verified:a.verified===true}])).values()].sort((a,b)=>a.at-b.at).slice(-2000);
     for (const [id, value] of Object.entries(input.vocab || {})) if (t.has(id) && value && typeof value === 'object') out.vocab[id]={known:value.known === true,saved:true};
     for(const w of workshopSpecs){const p=input.labProgress?.[w.id];if(p&&typeof p==='object')out.labProgress[w.id]={steps:[...new Set((Array.isArray(p.steps)?p.steps:[]).filter(id=>w.steps.some(s=>s.id===id)))],prediction:typeof p.prediction==='string'?p.prediction.slice(0,300):'',revealed:p.revealed===true,completed:p.completed===true};}
     if (input.exam && Array.isArray(input.exam.ids) && input.exam.ids.length && input.exam.ids.length<=50 && input.exam.ids.every(id=>q.has(id)&&/^lab-\d+$/.test(id)) && new Set(input.exam.ids).size === input.exam.ids.length && Number.isFinite(input.exam.deadline) && Number.isFinite(input.exam.startedAt)) {

@@ -5,7 +5,13 @@
     "signal": "Warehouse queries across many records.",
     "caution": "Per-request point lookups need a separate latency assessment.",
     "reference": "compute",
-    "category": "Storage"
+    "category": "Storage",
+    "id": "service-1",
+    "strength": "Large analytical scans, aggregations and joins.",
+    "limitations": [
+      "Per-request point lookups need a separate latency assessment."
+    ],
+    "reviewStatus": "retained-review"
   },
   {
     "name": "Bigtable",
@@ -13,7 +19,13 @@
     "signal": "Read a sensor or entity by a designed row-key range.",
     "caution": "Do not assume arbitrary warehouse-style joins are its main access path.",
     "reference": "bigtable",
-    "category": "Storage"
+    "category": "Storage",
+    "id": "service-2",
+    "strength": "High-throughput keyed and time-series serving.",
+    "limitations": [
+      "Do not assume arbitrary warehouse-style joins are its main access path."
+    ],
+    "reviewStatus": "retained-review"
   },
   {
     "name": "Cloud SQL",
@@ -21,7 +33,13 @@
     "signal": "Relational transactions with existing engine compatibility.",
     "caution": "Size, connection limits and availability still need a deliberate design.",
     "reference": "cloudsql",
-    "category": "Storage"
+    "category": "Storage",
+    "id": "service-3",
+    "strength": "Managed MySQL, PostgreSQL or SQL Server applications.",
+    "limitations": [
+      "Size, connection limits and availability still need a deliberate design."
+    ],
+    "reviewStatus": "retained-review"
   },
   {
     "name": "Spanner",
@@ -29,7 +47,13 @@
     "signal": "Scale transactional data while preserving the required consistency model.",
     "caution": "Model keys and transaction scope; the service name alone is not the schema.",
     "reference": "spanner",
-    "category": "Storage"
+    "category": "Storage",
+    "id": "service-4",
+    "strength": "Distributed relational transactions and strong consistency.",
+    "limitations": [
+      "Model keys and transaction scope; the service name alone is not the schema."
+    ],
+    "reviewStatus": "retained-review"
   },
   {
     "name": "AlloyDB",
@@ -37,7 +61,13 @@
     "signal": "Preserve PostgreSQL tooling while using a managed database architecture.",
     "caution": "Verify compatibility and workload economics rather than assuming a free migration.",
     "reference": "alloydb",
-    "category": "Storage"
+    "category": "Storage",
+    "id": "service-5",
+    "strength": "Demanding PostgreSQL-compatible workloads.",
+    "limitations": [
+      "Verify compatibility and workload economics rather than assuming a free migration."
+    ],
+    "reviewStatus": "retained-review"
   },
   {
     "name": "Firestore",
@@ -45,7 +75,13 @@
     "signal": "Read and update application entities through a document model.",
     "caution": "Design indexes and transactions against the actual document access pattern.",
     "reference": "firestore",
-    "category": "Storage"
+    "category": "Storage",
+    "id": "service-6",
+    "strength": "Document-oriented application data.",
+    "limitations": [
+      "Design indexes and transactions against the actual document access pattern."
+    ],
+    "reviewStatus": "retained-review"
   },
   {
     "name": "Cloud Storage",
@@ -53,7 +89,13 @@
     "signal": "Keep files independent of the processing cluster.",
     "caution": "Object storage alone is not a relational transaction engine.",
     "reference": "classes",
-    "category": "Storage"
+    "category": "Storage",
+    "id": "service-7",
+    "strength": "Durable objects and reusable lake files.",
+    "limitations": [
+      "Object storage alone is not a relational transaction engine."
+    ],
+    "reviewStatus": "retained-review"
   },
   {
     "name": "BigLake tables",
@@ -61,7 +103,13 @@
     "signal": "Delegate storage access through a connection and enforce table-level controls.",
     "caution": "A catalog entry alone does not create this delegated access model.",
     "reference": "biglake",
-    "category": "Storage"
+    "category": "Storage",
+    "id": "service-8",
+    "strength": "Governed queries over supported external objects.",
+    "limitations": [
+      "A catalog entry alone does not create this delegated access model."
+    ],
+    "reviewStatus": "retained-review"
   },
   {
     "name": "Memorystore",
@@ -69,7 +117,13 @@
     "signal": "Serve frequently reused application state with a suitable availability tier.",
     "caution": "Decide explicitly whether cached values are recoverable from a durable source.",
     "reference": "redis",
-    "category": "Storage"
+    "category": "Storage",
+    "id": "service-9",
+    "strength": "An in-memory cache or supported Redis workload.",
+    "limitations": [
+      "Decide explicitly whether cached values are recoverable from a durable source."
+    ],
+    "reviewStatus": "retained-review"
   },
   {
     "name": "Dataflow",
@@ -77,7 +131,13 @@
     "fit": "Managed Beam execution for bounded and streaming pipelines.",
     "signal": "Custom transforms, event-time processing and controlled error outputs.",
     "caution": "Check runner behavior, source/sink limits and stateful update compatibility.",
-    "reference": "dataflow"
+    "reference": "dataflow",
+    "id": "service-10",
+    "strength": "Managed Beam execution for bounded and streaming pipelines.",
+    "limitations": [
+      "Check runner behavior, source/sink limits and stateful update compatibility."
+    ],
+    "reviewStatus": "retained-review"
   },
   {
     "name": "Pub/Sub",
@@ -85,7 +145,13 @@
     "fit": "Decoupled event transport and subscription delivery.",
     "signal": "Producers and consumers need independent scaling and availability.",
     "caution": "Delivery, per-key ordering, replay and external side effects are different contracts.",
-    "reference": "psdocs"
+    "reference": "psdocs",
+    "id": "service-11",
+    "strength": "Decoupled event transport and subscription delivery.",
+    "limitations": [
+      "Delivery, per-key ordering, replay and external side effects are different contracts."
+    ],
+    "reviewStatus": "retained-review"
   },
   {
     "name": "Dataproc / managed Spark",
@@ -93,7 +159,13 @@
     "fit": "Existing Spark and Hadoop ecosystems.",
     "signal": "Preserve execution compatibility during a short migration.",
     "caution": "Separate durable objects from temporary cluster storage and compare idle compute.",
-    "reference": "spark"
+    "reference": "spark",
+    "id": "service-12",
+    "strength": "Existing Spark and Hadoop ecosystems.",
+    "limitations": [
+      "Separate durable objects from temporary cluster storage and compare idle compute."
+    ],
+    "reviewStatus": "retained-review"
   },
   {
     "name": "Dataform",
@@ -101,7 +173,13 @@
     "fit": "Versioned BigQuery SQL dependency graphs and assertions.",
     "signal": "Warehouse ELT, incremental models and quality gates.",
     "caution": "Test that the required assertion is a true dependency of publication.",
-    "reference": "dataform"
+    "reference": "dataform",
+    "id": "service-13",
+    "strength": "Versioned BigQuery SQL dependency graphs and assertions.",
+    "limitations": [
+      "Test that the required assertion is a true dependency of publication."
+    ],
+    "reviewStatus": "retained-review"
   },
   {
     "name": "Cloud Data Fusion",
@@ -109,7 +187,13 @@
     "fit": "Visual integration and data preparation pipelines.",
     "signal": "A team needs supported connectors and a graphical transformation interface.",
     "caution": "A format conversion alone does not cleanse invalid values.",
-    "reference": "fusion"
+    "reference": "fusion",
+    "id": "service-14",
+    "strength": "Visual integration and data preparation pipelines.",
+    "limitations": [
+      "A format conversion alone does not cleanse invalid values."
+    ],
+    "reviewStatus": "retained-review"
   },
   {
     "name": "Cloud Composer / managed Airflow",
@@ -117,7 +201,13 @@
     "fit": "Multi-step dependency graphs, schedules and task-level recovery.",
     "signal": "Workflows need independently observable retries and reruns.",
     "caution": "Use logical run intervals and idempotent task effects; an environment is not free idle compute.",
-    "reference": "composer"
+    "reference": "composer",
+    "id": "service-15",
+    "strength": "Multi-step dependency graphs, schedules and task-level recovery.",
+    "limitations": [
+      "Use logical run intervals and idempotent task effects; an environment is not free idle compute."
+    ],
+    "reviewStatus": "retained-review"
   },
   {
     "name": "Workflows",
@@ -125,7 +215,13 @@
     "fit": "Lightweight serverless service-call coordination.",
     "signal": "A sequence of API calls and conditions should run without an Airflow environment.",
     "caution": "The orchestration layer does not perform every large data transformation itself.",
-    "reference": "workflows"
+    "reference": "workflows",
+    "id": "service-16",
+    "strength": "Lightweight serverless service-call coordination.",
+    "limitations": [
+      "The orchestration layer does not perform every large data transformation itself."
+    ],
+    "reviewStatus": "retained-review"
   },
   {
     "name": "Datastream",
@@ -133,7 +229,13 @@
     "fit": "Supported database change capture and replication.",
     "signal": "Backfill plus ongoing updates should feed a supported target.",
     "caution": "Verify the source engine, change semantics, connectivity and cutover contract.",
-    "reference": "stream"
+    "reference": "stream",
+    "id": "service-17",
+    "strength": "Supported database change capture and replication.",
+    "limitations": [
+      "Verify the source engine, change semantics, connectivity and cutover contract."
+    ],
+    "reviewStatus": "retained-review"
   },
   {
     "name": "Storage Transfer Service",
@@ -141,7 +243,13 @@
     "fit": "Managed movement of supported object and file data.",
     "signal": "Recurring file transfer is the requirement.",
     "caution": "It does not automatically replace a database CDC extractor or transform arbitrary proprietary formats.",
-    "reference": "transfer"
+    "reference": "transfer",
+    "id": "service-18",
+    "strength": "Managed movement of supported object and file data.",
+    "limitations": [
+      "It does not automatically replace a database CDC extractor or transform arbitrary proprietary formats."
+    ],
+    "reviewStatus": "retained-review"
   },
   {
     "name": "Knowledge Catalog / guide: Dataplex",
@@ -149,7 +257,13 @@
     "fit": "Metadata discovery, lineage and governed data context.",
     "signal": "Domain products need discoverability and shared guardrails.",
     "caution": "Catalog entries are not a substitute for underlying data permissions or quality evidence.",
-    "reference": "catalog"
+    "reference": "catalog",
+    "id": "service-19",
+    "strength": "Metadata discovery, lineage and governed data context.",
+    "limitations": [
+      "Catalog entries are not a substitute for underlying data permissions or quality evidence."
+    ],
+    "reviewStatus": "retained-review"
   },
   {
     "name": "Sensitive Data Protection",
@@ -157,7 +271,13 @@
     "fit": "Inspection and supported de-identification of sensitive values.",
     "signal": "Data must be inspected or transformed under a privacy contract.",
     "caution": "Masking, irreversible transformations and reversible tokenization have different requirements.",
-    "reference": "dlp"
+    "reference": "dlp",
+    "id": "service-20",
+    "strength": "Inspection and supported de-identification of sensitive values.",
+    "limitations": [
+      "Masking, irreversible transformations and reversible tokenization have different requirements."
+    ],
+    "reviewStatus": "retained-review"
   },
   {
     "name": "Cloud Monitoring",
@@ -165,7 +285,13 @@
     "fit": "Metrics and actionable alert policies.",
     "signal": "Detect data freshness, backlog or resource symptoms with an owner and runbook.",
     "caution": "A healthy CPU chart does not prove business data completeness.",
-    "reference": "alerts"
+    "reference": "alerts",
+    "id": "service-21",
+    "strength": "Metrics and actionable alert policies.",
+    "limitations": [
+      "A healthy CPU chart does not prove business data completeness."
+    ],
+    "reviewStatus": "retained-review"
   },
   {
     "name": "Cloud Logging / Audit Logs",
@@ -173,6 +299,96 @@
     "fit": "Operational logs and evidence of relevant access or administration.",
     "signal": "Investigate who did what and correlate processing failures.",
     "caution": "Check applicable log type, configuration, retention and sensitive payload handling.",
-    "reference": "auditlogs"
+    "reference": "auditlogs",
+    "id": "service-22",
+    "strength": "Operational logs and evidence of relevant access or administration.",
+    "limitations": [
+      "Check applicable log type, configuration, retention and sensitive payload handling."
+    ],
+    "reviewStatus": "retained-review"
+  },
+  {
+    "id": "service-23",
+    "name": "Managed Service for Apache Kafka",
+    "category": "Ingestion",
+    "fit": "Managed Kafka clusters for Kafka clients and consumer groups.",
+    "signal": "Kafka ecosystem compatibility is an explicit application requirement.",
+    "caution": "Retention, client behavior and the business event contract still need design.",
+    "reference": "kafka",
+    "strength": "Managed Kafka clusters for Kafka clients and consumer groups.",
+    "limitations": [
+      "Retention, client behavior and the business event contract still need design."
+    ],
+    "reviewStatus": "official-checked"
+  },
+  {
+    "id": "service-24",
+    "name": "Serverless for Apache Spark",
+    "category": "Processing",
+    "fit": "Submitted Spark batch workloads and interactive sessions.",
+    "signal": "Intermittent Spark processing without a user-provisioned cluster.",
+    "caution": "Test runtime, dependencies, network and workload economics.",
+    "reference": "spark-serverless",
+    "strength": "Submitted Spark batch workloads and interactive sessions.",
+    "limitations": [
+      "Test runtime, dependencies, network and workload economics."
+    ],
+    "reviewStatus": "official-checked"
+  },
+  {
+    "id": "service-25",
+    "name": "Transfer Appliance",
+    "category": "Migration",
+    "fit": "Physical shipment of large datasets into Cloud Storage.",
+    "signal": "The online transfer window does not fit the migration plan.",
+    "caution": "Include shipping, upload, availability and reconciliation in the plan.",
+    "reference": "appliance",
+    "strength": "Physical shipment of large datasets into Cloud Storage.",
+    "limitations": [
+      "Include shipping, upload, availability and reconciliation in the plan."
+    ],
+    "reviewStatus": "official-checked"
+  },
+  {
+    "id": "service-26",
+    "name": "gcloud storage cp",
+    "category": "Migration",
+    "fit": "Ad hoc object and file copy from the command line.",
+    "signal": "An operator needs a direct supported copy operation.",
+    "caution": "A copy command alone is not a recurring orchestration or database CDC contract.",
+    "reference": "gcloud-cp",
+    "strength": "Ad hoc object and file copy from the command line.",
+    "limitations": [
+      "A copy command alone is not a recurring orchestration or database CDC contract."
+    ],
+    "reviewStatus": "official-checked"
+  },
+  {
+    "id": "service-27",
+    "name": "Apache Iceberg managed tables",
+    "category": "Storage",
+    "fit": "BigQuery-managed open-format tables in customer-owned Cloud Storage.",
+    "signal": "Need documented BigQuery writes and open-format interoperability.",
+    "caution": "Validate exact table capabilities and the supported mutation path.",
+    "reference": "iceberg-managed",
+    "strength": "BigQuery-managed open-format tables in customer-owned Cloud Storage.",
+    "limitations": [
+      "Validate exact table capabilities and the supported mutation path."
+    ],
+    "reviewStatus": "official-checked"
+  },
+  {
+    "id": "service-28",
+    "name": "Database Migration Service",
+    "category": "Migration",
+    "fit": "Supported operational database migration paths.",
+    "signal": "Move a supported source database to a supported operational destination.",
+    "caution": "Confirm source/target features and cutover rather than assuming warehouse CDC.",
+    "reference": "dms",
+    "strength": "Supported operational database migration paths.",
+    "limitations": [
+      "Confirm source/target features and cutover rather than assuming warehouse CDC."
+    ],
+    "reviewStatus": "official-checked"
   }
 ]

@@ -1198,5 +1198,93 @@
     "meaning": "A documented sequence for handling an operation or incident.",
     "example": "Rehearse the recovery runbook before relying on its RTO.",
     "level": "Study"
+  },
+  {
+    "id": "v151",
+    "term": "consumer group",
+    "es": "grupo de consumidores",
+    "meaning": "Kafka consumers that coordinate consumption of assigned partitions.",
+    "example": "Rebalance the consumer group after changing its membership.",
+    "level": "Technical"
+  },
+  {
+    "id": "v152",
+    "term": "access delegation",
+    "es": "delegación de acceso",
+    "meaning": "A controlled identity accesses underlying data for an authorized table reader.",
+    "example": "BigLake uses a connection for access delegation.",
+    "level": "Technical"
+  },
+  {
+    "id": "v153",
+    "term": "schema evolution",
+    "es": "evolución del esquema",
+    "meaning": "Changing a data structure while managing compatibility and meaning.",
+    "example": "Test old records during schema evolution.",
+    "level": "Technical"
+  },
+  {
+    "id": "v154",
+    "term": "compaction",
+    "es": "compactación",
+    "meaning": "Rewriting many small files into a more suitable file layout.",
+    "example": "Compaction should preserve the intended records.",
+    "level": "Technical"
+  },
+  {
+    "id": "v155",
+    "term": "data interval",
+    "es": "intervalo lógico de datos",
+    "meaning": "The period of data a scheduled run is intended to process.",
+    "example": "Use the data interval when retrying the daily task.",
+    "level": "Technical"
+  },
+  {
+    "id": "v156",
+    "term": "lakehouse",
+    "es": "arquitectura que combina lago de datos y tablas analíticas",
+    "meaning": "A design combining object-based data with table and analytical capabilities.",
+    "example": "Specify the table management contract in a lakehouse.",
+    "level": "Technical"
+  },
+  {
+    "id": "v157",
+    "term": "side effect",
+    "es": "efecto externo",
+    "meaning": "An observable change outside a pure calculation, such as an API write.",
+    "example": "Make a payment side effect safe to retry.",
+    "level": "Technical"
+  },
+  {
+    "id": "v158",
+    "term": "backward compatibility",
+    "es": "compatibilidad con versiones anteriores",
+    "meaning": "The ability to keep working with an earlier interface or data contract.",
+    "example": "Check backward compatibility before changing the schema.",
+    "level": "Technical"
+  },
+  {
+    "id": "v159",
+    "term": "on-demand",
+    "es": "según el uso de cada consulta",
+    "meaning": "In BigQuery analysis pricing, a model based on the bytes processed by queries.",
+    "example": "Use query byte guardrails for on-demand analysis.",
+    "level": "Technical"
+  },
+  {
+    "id": "v160",
+    "term": "partition pruning",
+    "es": "descarte de particiones no necesarias",
+    "meaning": "Avoiding scans of partitions excluded by an eligible filter.",
+    "example": "Measure partition pruning using a selective date filter.",
+    "level": "Technical"
+  },
+  {
+    "id": "v161",
+    "term": "SLO",
+    "es": "objetivo de nivel de servicio",
+    "meaning": "A measurable target for an agreed service outcome.",
+    "example": "Define an SLO for analytical data freshness.",
+    "level": "Technical"
   }
 ]

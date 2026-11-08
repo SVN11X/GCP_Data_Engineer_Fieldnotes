@@ -5443,5 +5443,1357 @@
     "issues": [],
     "reviewNote": "Original applied learning scenario, reviewed against the linked primary references. It is not an official exam item.",
     "reviewed": "2026-11-03"
+  },
+  {
+    "id": "lab-101",
+    "number": 101,
+    "origin": "authored",
+    "domain": 1,
+    "objective": "1.4",
+    "lesson": "transfer-decisions",
+    "text": "A team needs a one-time copy of a small local folder into Cloud Storage. Which is the most direct candidate to evaluate?",
+    "html": "A team needs a one-time copy of a small local folder into Cloud Storage. Which is the most direct candidate to evaluate?",
+    "choices": [
+      {
+        "letter": "A",
+        "text": "A supported gcloud storage cp operation.",
+        "html": "A supported gcloud storage cp operation.",
+        "why": "The command supports ad hoc copies; verify credentials and paths."
+      },
+      {
+        "letter": "B",
+        "text": "Order Transfer Appliance as the default for any folder size.",
+        "html": "Order Transfer Appliance as the default for any folder size.",
+        "why": "Physical shipment is not the most direct candidate for the small ad hoc copy described."
+      },
+      {
+        "letter": "C",
+        "text": "Configure Datastream to read the local directory.",
+        "html": "Configure Datastream to read the local directory.",
+        "why": "Datastream captures supported database changes rather than acting as a generic directory copier."
+      },
+      {
+        "letter": "D",
+        "text": "Create a persistent Spark cluster just to run a single file copy.",
+        "html": "Create a persistent Spark cluster just to run a single file copy.",
+        "why": "A persistent processing environment adds unnecessary operational scope to this simple movement requirement."
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "sourceAnswer": [],
+    "required": 1,
+    "explanation": "The command supports ad hoc copies; verify credentials and paths.",
+    "sourceExplanation": "",
+    "sources": [],
+    "references": [
+      "transfer",
+      "appliance",
+      "gcloud-cp",
+      "stream",
+      "dms"
+    ],
+    "status": "reviewed",
+    "gradable": true,
+    "hasImages": false,
+    "issues": [],
+    "reviewNote": "Original educational scenario written for this update. Not an official or recalled certification item.",
+    "difficulty": "Applied"
+  },
+  {
+    "id": "lab-102",
+    "number": 102,
+    "origin": "authored",
+    "domain": 1,
+    "objective": "1.4",
+    "lesson": "transfer-decisions",
+    "text": "A changing database was copied last week. Which evidence is needed before switching production readers?",
+    "html": "A changing database was copied last week. Which evidence is needed before switching production readers?",
+    "choices": [
+      {
+        "letter": "A",
+        "text": "Only the copied byte count.",
+        "html": "Only the copied byte count.",
+        "why": "A byte count cannot prove that later database changes were captured."
+      },
+      {
+        "letter": "B",
+        "text": "A consistent reconciliation including subsequent changes and cutover rules.",
+        "html": "A consistent reconciliation including subsequent changes and cutover rules.",
+        "why": "The target must reflect the agreed state and changes before cutover."
+      },
+      {
+        "letter": "C",
+        "text": "Only confirmation that the destination schema was created.",
+        "html": "Only confirmation that the destination schema was created.",
+        "why": "A matching schema does not prove that records and subsequent changes were migrated correctly."
+      },
+      {
+        "letter": "D",
+        "text": "Only the successful status of last week’s copy operation.",
+        "html": "Only the successful status of last week’s copy operation.",
+        "why": "The copy status does not establish the target state after another week of source changes."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "sourceAnswer": [],
+    "required": 1,
+    "explanation": "The target must reflect the agreed state and changes before cutover.",
+    "sourceExplanation": "",
+    "sources": [],
+    "references": [
+      "transfer",
+      "appliance",
+      "gcloud-cp",
+      "stream",
+      "dms"
+    ],
+    "status": "reviewed",
+    "gradable": true,
+    "hasImages": false,
+    "issues": [],
+    "reviewNote": "Original educational scenario written for this update. Not an official or recalled certification item.",
+    "difficulty": "Applied"
+  },
+  {
+    "id": "lab-103",
+    "number": 103,
+    "origin": "authored",
+    "domain": 2,
+    "objective": "2.1",
+    "lesson": "managed-kafka",
+    "text": "An application must preserve its Kafka clients and consumer-group integration during migration. Which service is a candidate to evaluate first?",
+    "html": "An application must preserve its Kafka clients and consumer-group integration during migration. Which service is a candidate to evaluate first?",
+    "choices": [
+      {
+        "letter": "A",
+        "text": "Replace the Kafka broker endpoint with a BigQuery table name.",
+        "html": "Replace the Kafka broker endpoint with a BigQuery table name.",
+        "why": "A warehouse table does not implement the Kafka client protocol."
+      },
+      {
+        "letter": "B",
+        "text": "Write each message to a Cloud Storage object and leave clients unchanged.",
+        "html": "Write each message to a Cloud Storage object and leave clients unchanged.",
+        "why": "An object-store write path does not by itself preserve Kafka consumers and their group behavior."
+      },
+      {
+        "letter": "C",
+        "text": "Managed Service for Apache Kafka.",
+        "html": "Managed Service for Apache Kafka.",
+        "why": "The managed Kafka service is designed for the Kafka ecosystem."
+      },
+      {
+        "letter": "D",
+        "text": "A Pub/Sub subscription assumed to be an identical protocol.",
+        "html": "A Pub/Sub subscription assumed to be an identical protocol.",
+        "why": "Similar topic terminology does not prove protocol or behavior compatibility."
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "sourceAnswer": [],
+    "required": 1,
+    "explanation": "The managed Kafka service is designed for the Kafka ecosystem.",
+    "sourceExplanation": "",
+    "sources": [],
+    "references": [
+      "kafka",
+      "psdocs",
+      "ordering",
+      "replay",
+      "pubsub-dataflow"
+    ],
+    "status": "reviewed",
+    "gradable": true,
+    "hasImages": false,
+    "issues": [],
+    "reviewNote": "Original educational scenario written for this update. Not an official or recalled certification item.",
+    "difficulty": "Applied"
+  },
+  {
+    "id": "lab-104",
+    "number": 104,
+    "origin": "authored",
+    "domain": 2,
+    "objective": "2.1",
+    "lesson": "managed-kafka",
+    "text": "Who must still choose appropriate topic retention for a managed Kafka workload?",
+    "html": "Who must still choose appropriate topic retention for a managed Kafka workload?",
+    "choices": [
+      {
+        "letter": "A",
+        "text": "Nobody; managed tiered storage makes topic retention irrelevant.",
+        "html": "Nobody; managed tiered storage makes topic retention irrelevant.",
+        "why": "Managed storage still requires deliberate retention and cost decisions."
+      },
+      {
+        "letter": "B",
+        "text": "The BigQuery reservation administrator through query slots.",
+        "html": "The BigQuery reservation administrator through query slots.",
+        "why": "Analytical slot allocation does not configure Kafka topic retention."
+      },
+      {
+        "letter": "C",
+        "text": "The team owning the workload contract.",
+        "html": "The team owning the workload contract.",
+        "why": "Workload owners must choose retention appropriate to recovery and policy."
+      },
+      {
+        "letter": "D",
+        "text": "The Pub/Sub subscription through its acknowledgment deadline.",
+        "html": "The Pub/Sub subscription through its acknowledgment deadline.",
+        "why": "A Pub/Sub acknowledgment configuration is not a Kafka topic retention policy."
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "sourceAnswer": [],
+    "required": 1,
+    "explanation": "Workload owners must choose retention appropriate to recovery and policy.",
+    "sourceExplanation": "",
+    "sources": [],
+    "references": [
+      "kafka",
+      "psdocs",
+      "ordering",
+      "replay",
+      "pubsub-dataflow"
+    ],
+    "status": "reviewed",
+    "gradable": true,
+    "hasImages": false,
+    "issues": [],
+    "reviewNote": "Original educational scenario written for this update. Not an official or recalled certification item.",
+    "difficulty": "Applied"
+  },
+  {
+    "id": "lab-105",
+    "number": 105,
+    "origin": "authored",
+    "domain": 2,
+    "objective": "2.2",
+    "lesson": "streaming-semantics",
+    "text": "A publisher retries a purchase as a distinct Pub/Sub message with a new message ID. Which design addresses business duplicates?",
+    "html": "A publisher retries a purchase as a distinct Pub/Sub message with a new message ID. Which design addresses business duplicates?",
+    "choices": [
+      {
+        "letter": "A",
+        "text": "Treat every new message ID as a new purchase.",
+        "html": "Treat every new message ID as a new purchase.",
+        "why": "Message identity and purchase identity are different contracts."
+      },
+      {
+        "letter": "B",
+        "text": "Preserve a stable purchase ID and use an idempotent business update.",
+        "html": "Preserve a stable purchase ID and use an idempotent business update.",
+        "why": "A stable business key allows duplicate purchases to be recognized."
+      },
+      {
+        "letter": "C",
+        "text": "Increase the acknowledgment deadline and assume distinct message IDs are deduplicated.",
+        "html": "Increase the acknowledgment deadline and assume distinct message IDs are deduplicated.",
+        "why": "Acknowledgment timing does not identify two separately published messages as the same purchase."
+      },
+      {
+        "letter": "D",
+        "text": "Remove all retention to disable replay.",
+        "html": "Remove all retention to disable replay.",
+        "why": "Removing recovery options does not establish correctness."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "sourceAnswer": [],
+    "required": 1,
+    "explanation": "A stable business key allows duplicate purchases to be recognized.",
+    "sourceExplanation": "",
+    "sources": [],
+    "references": [
+      "stream-modes",
+      "pubsub-dataflow",
+      "exactly",
+      "write"
+    ],
+    "status": "reviewed",
+    "gradable": true,
+    "hasImages": false,
+    "issues": [],
+    "reviewNote": "Original educational scenario written for this update. Not an official or recalled certification item.",
+    "difficulty": "Applied"
+  },
+  {
+    "id": "lab-106",
+    "number": 106,
+    "origin": "authored",
+    "domain": 2,
+    "objective": "2.2",
+    "lesson": "streaming-semantics",
+    "text": "A Dataflow pipeline calls an external API that charges an account. What must be verified separately from pipeline processing mode?",
+    "html": "A Dataflow pipeline calls an external API that charges an account. What must be verified separately from pipeline processing mode?",
+    "choices": [
+      {
+        "letter": "A",
+        "text": "Whether the source topic has a longer retention period.",
+        "html": "Whether the source topic has a longer retention period.",
+        "why": "Retention supports recovery but does not define safe repeated requests to the external API."
+      },
+      {
+        "letter": "B",
+        "text": "Only the worker CPU percentage.",
+        "html": "Only the worker CPU percentage.",
+        "why": "CPU cannot prove a remote side effect is safe."
+      },
+      {
+        "letter": "C",
+        "text": "Whether the external API supports a safe idempotency contract.",
+        "html": "Whether the external API supports a safe idempotency contract.",
+        "why": "A remote side effect needs its own repeated-request behavior."
+      },
+      {
+        "letter": "D",
+        "text": "Whether the output table is partitioned by ingestion date.",
+        "html": "Whether the output table is partitioned by ingestion date.",
+        "why": "A table partition does not make an external charge request idempotent."
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "sourceAnswer": [],
+    "required": 1,
+    "explanation": "A remote side effect needs its own repeated-request behavior.",
+    "sourceExplanation": "",
+    "sources": [],
+    "references": [
+      "stream-modes",
+      "pubsub-dataflow",
+      "exactly",
+      "write"
+    ],
+    "status": "reviewed",
+    "gradable": true,
+    "hasImages": false,
+    "issues": [],
+    "reviewNote": "Original educational scenario written for this update. Not an official or recalled certification item.",
+    "difficulty": "Applied"
+  },
+  {
+    "id": "lab-107",
+    "number": 107,
+    "origin": "authored",
+    "domain": 2,
+    "objective": "2.2",
+    "lesson": "spark-execution",
+    "text": "An isolated nightly PySpark batch uses durable Cloud Storage inputs and has no required cluster-local state. Which option deserves evaluation?",
+    "html": "An isolated nightly PySpark batch uses durable Cloud Storage inputs and has no required cluster-local state. Which option deserves evaluation?",
+    "choices": [
+      {
+        "letter": "A",
+        "text": "Serverless for Apache Spark batch execution.",
+        "html": "Serverless for Apache Spark batch execution.",
+        "why": "Workload-based Spark execution matches the stated shape; dependencies still need testing."
+      },
+      {
+        "letter": "B",
+        "text": "A permanent cluster solely to retain temporary files.",
+        "html": "A permanent cluster solely to retain temporary files.",
+        "why": "The premise does not require persistent local cluster state."
+      },
+      {
+        "letter": "C",
+        "text": "Use a Pub/Sub ordering key to provide the Spark runtime.",
+        "html": "Use a Pub/Sub ordering key to provide the Spark runtime.",
+        "why": "Ordering keys govern message ordering rather than executing a Spark workload."
+      },
+      {
+        "letter": "D",
+        "text": "Move the job to a Dataform assertion without translating its PySpark logic.",
+        "html": "Move the job to a Dataform assertion without translating its PySpark logic.",
+        "why": "A warehouse SQL quality assertion does not directly replace arbitrary PySpark transformations."
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "sourceAnswer": [],
+    "required": 1,
+    "explanation": "Workload-based Spark execution matches the stated shape; dependencies still need testing.",
+    "sourceExplanation": "",
+    "sources": [],
+    "references": [
+      "spark",
+      "spark-serverless"
+    ],
+    "status": "reviewed",
+    "gradable": true,
+    "hasImages": false,
+    "issues": [],
+    "reviewNote": "Original educational scenario written for this update. Not an official or recalled certification item.",
+    "difficulty": "Applied"
+  },
+  {
+    "id": "lab-108",
+    "number": 108,
+    "origin": "authored",
+    "domain": 2,
+    "objective": "2.2",
+    "lesson": "spark-execution",
+    "text": "A Spark migration retains the source code unchanged. Which statement is justified?",
+    "html": "A Spark migration retains the source code unchanged. Which statement is justified?",
+    "choices": [
+      {
+        "letter": "A",
+        "text": "Every runtime dependency is necessarily supported.",
+        "html": "Every runtime dependency is necessarily supported.",
+        "why": "Source-code retention does not establish runtime compatibility."
+      },
+      {
+        "letter": "B",
+        "text": "Networking no longer matters.",
+        "html": "Networking no longer matters.",
+        "why": "The job still needs access to its inputs and sinks."
+      },
+      {
+        "letter": "C",
+        "text": "The environment and connectors still need compatibility tests.",
+        "html": "The environment and connectors still need compatibility tests.",
+        "why": "Runtime, connector and identity assumptions require validation."
+      },
+      {
+        "letter": "D",
+        "text": "All historical files are automatically migrated.",
+        "html": "All historical files are automatically migrated.",
+        "why": "Executing code does not imply that source data was moved."
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "sourceAnswer": [],
+    "required": 1,
+    "explanation": "Runtime, connector and identity assumptions require validation.",
+    "sourceExplanation": "",
+    "sources": [],
+    "references": [
+      "spark",
+      "spark-serverless"
+    ],
+    "status": "reviewed",
+    "gradable": true,
+    "hasImages": false,
+    "issues": [],
+    "reviewNote": "Original educational scenario written for this update. Not an official or recalled certification item.",
+    "difficulty": "Applied"
+  },
+  {
+    "id": "lab-109",
+    "number": 109,
+    "origin": "authored",
+    "domain": 2,
+    "objective": "2.2",
+    "lesson": "beam-portability",
+    "text": "In an unbounded Beam aggregation, which concept groups events while another controls when results are emitted?",
+    "html": "In an unbounded Beam aggregation, which concept groups events while another controls when results are emitted?",
+    "choices": [
+      {
+        "letter": "A",
+        "text": "A trigger groups events; a window controls every emission.",
+        "html": "A trigger groups events; a window controls every emission.",
+        "why": "This reverses the roles of grouping and result emission."
+      },
+      {
+        "letter": "B",
+        "text": "A window groups events; a trigger controls emission.",
+        "html": "A window groups events; a trigger controls emission.",
+        "why": "Windows and triggers answer the two separate timing questions."
+      },
+      {
+        "letter": "C",
+        "text": "A topic groups event-time windows; a subscription defines all Beam triggers.",
+        "html": "A topic groups event-time windows; a subscription defines all Beam triggers.",
+        "why": "Transport resources do not define the full Beam windowing and trigger contract."
+      },
+      {
+        "letter": "D",
+        "text": "A worker groups every event by arrival order; autoscaling controls emission.",
+        "html": "A worker groups every event by arrival order; autoscaling controls emission.",
+        "why": "Resource scaling is not the event-time grouping or result-emission policy."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "sourceAnswer": [],
+    "required": 1,
+    "explanation": "Windows and triggers answer the two separate timing questions.",
+    "sourceExplanation": "",
+    "sources": [],
+    "references": [
+      "beammodel",
+      "beam",
+      "dataflow"
+    ],
+    "status": "reviewed",
+    "gradable": true,
+    "hasImages": false,
+    "issues": [],
+    "reviewNote": "Original educational scenario written for this update. Not an official or recalled certification item.",
+    "difficulty": "Applied"
+  },
+  {
+    "id": "lab-110",
+    "number": 110,
+    "origin": "authored",
+    "domain": 2,
+    "objective": "2.2",
+    "lesson": "beam-portability",
+    "text": "A team changes Beam runners. What is the appropriate conclusion about the reusable model?",
+    "html": "A team changes Beam runners. What is the appropriate conclusion about the reusable model?",
+    "choices": [
+      {
+        "letter": "A",
+        "text": "Every runner must have identical connector behavior and performance.",
+        "html": "Every runner must have identical connector behavior and performance.",
+        "why": "A common model does not promise identical implementation behavior."
+      },
+      {
+        "letter": "B",
+        "text": "All tests can be deleted.",
+        "html": "All tests can be deleted.",
+        "why": "A runner change introduces execution assumptions to test."
+      },
+      {
+        "letter": "C",
+        "text": "The business model can be reused, with target-runner capability and sink tests.",
+        "html": "The business model can be reused, with target-runner capability and sink tests.",
+        "why": "Model reuse and implementation verification are complementary."
+      },
+      {
+        "letter": "D",
+        "text": "Event timestamps stop mattering.",
+        "html": "Event timestamps stop mattering.",
+        "why": "Event-time semantics still affect unbounded results."
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "sourceAnswer": [],
+    "required": 1,
+    "explanation": "Model reuse and implementation verification are complementary.",
+    "sourceExplanation": "",
+    "sources": [],
+    "references": [
+      "beammodel",
+      "beam",
+      "dataflow"
+    ],
+    "status": "reviewed",
+    "gradable": true,
+    "hasImages": false,
+    "issues": [],
+    "reviewNote": "Original educational scenario written for this update. Not an official or recalled certification item.",
+    "difficulty": "Applied"
+  },
+  {
+    "id": "lab-111",
+    "number": 111,
+    "origin": "authored",
+    "domain": 2,
+    "objective": "2.2",
+    "lesson": "schema-evolution",
+    "text": "Older orders lack a new discount field. Which review best preserves meaning?",
+    "html": "Older orders lack a new discount field. Which review best preserves meaning?",
+    "choices": [
+      {
+        "letter": "A",
+        "text": "Replace every absence with zero without consulting the contract.",
+        "html": "Replace every absence with zero without consulting the contract.",
+        "why": "Zero encodes a specific value that may not be justified."
+      },
+      {
+        "letter": "B",
+        "text": "Verify whether absence means unknown, no discount, or not applicable.",
+        "html": "Verify whether absence means unknown, no discount, or not applicable.",
+        "why": "The data contract must define missing-value semantics."
+      },
+      {
+        "letter": "C",
+        "text": "Mark the field required and assume historical rows are backfilled automatically.",
+        "html": "Mark the field required and assume historical rows are backfilled automatically.",
+        "why": "A stricter contract does not create the missing historical business facts."
+      },
+      {
+        "letter": "D",
+        "text": "Assume accepted JSON proves the intended meaning.",
+        "html": "Assume accepted JSON proves the intended meaning.",
+        "why": "Parsing success does not establish business semantics."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "sourceAnswer": [],
+    "required": 1,
+    "explanation": "The data contract must define missing-value semantics.",
+    "sourceExplanation": "",
+    "sources": [],
+    "references": [
+      "schema",
+      "bqsql",
+      "dataform"
+    ],
+    "status": "reviewed",
+    "gradable": true,
+    "hasImages": false,
+    "issues": [],
+    "reviewNote": "Original educational scenario written for this update. Not an official or recalled certification item.",
+    "difficulty": "Applied"
+  },
+  {
+    "id": "lab-112",
+    "number": 112,
+    "origin": "authored",
+    "domain": 2,
+    "objective": "2.2",
+    "lesson": "schema-evolution",
+    "text": "Which existing BigQuery column-mode change is documented as relaxation?",
+    "html": "Which existing BigQuery column-mode change is documented as relaxation?",
+    "choices": [
+      {
+        "letter": "A",
+        "text": "NULLABLE to REQUIRED.",
+        "html": "NULLABLE to REQUIRED.",
+        "why": "Making an existing nullable column required is not relaxation."
+      },
+      {
+        "letter": "B",
+        "text": "REPEATED to REQUIRED in place.",
+        "html": "REPEATED to REQUIRED in place.",
+        "why": "This is not the documented relaxation operation."
+      },
+      {
+        "letter": "C",
+        "text": "REQUIRED to NULLABLE.",
+        "html": "REQUIRED to NULLABLE.",
+        "why": "Relaxation allows previously required values to become nullable."
+      },
+      {
+        "letter": "D",
+        "text": "Any mode to any other mode with no restrictions.",
+        "html": "Any mode to any other mode with no restrictions.",
+        "why": "Mode modifications have documented constraints."
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "sourceAnswer": [],
+    "required": 1,
+    "explanation": "Relaxation allows previously required values to become nullable.",
+    "sourceExplanation": "",
+    "sources": [],
+    "references": [
+      "schema",
+      "bqsql",
+      "dataform"
+    ],
+    "status": "reviewed",
+    "gradable": true,
+    "hasImages": false,
+    "issues": [],
+    "reviewNote": "Original educational scenario written for this update. Not an official or recalled certification item.",
+    "difficulty": "Applied"
+  },
+  {
+    "id": "lab-113",
+    "number": 113,
+    "origin": "authored",
+    "domain": 3,
+    "objective": "3.3",
+    "lesson": "iceberg-contracts",
+    "text": "A proposal says every table associated with BigLake is read-only. What should the reviewer request?",
+    "html": "A proposal says every table associated with BigLake is read-only. What should the reviewer request?",
+    "choices": [
+      {
+        "letter": "A",
+        "text": "The exact table type and its supported mutation path.",
+        "html": "The exact table type and its supported mutation path.",
+        "why": "External BigLake and managed Iceberg tables have distinct contracts."
+      },
+      {
+        "letter": "B",
+        "text": "Only the storage class of the underlying bucket.",
+        "html": "Only the storage class of the underlying bucket.",
+        "why": "Storage class does not identify whether the table supports a managed mutation path."
+      },
+      {
+        "letter": "C",
+        "text": "Only whether the table appears in the metadata catalog.",
+        "html": "Only whether the table appears in the metadata catalog.",
+        "why": "Catalog discovery does not determine the table write contract."
+      },
+      {
+        "letter": "D",
+        "text": "A guarantee that every external engine can write the same table.",
+        "html": "A guarantee that every external engine can write the same table.",
+        "why": "Interoperability does not authorize arbitrary simultaneous writes."
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "sourceAnswer": [],
+    "required": 1,
+    "explanation": "External BigLake and managed Iceberg tables have distinct contracts.",
+    "sourceExplanation": "",
+    "sources": [],
+    "references": [
+      "biglake",
+      "iceberg-managed"
+    ],
+    "status": "reviewed",
+    "gradable": true,
+    "hasImages": false,
+    "issues": [],
+    "reviewNote": "Original educational scenario written for this update. Not an official or recalled certification item.",
+    "difficulty": "Applied"
+  },
+  {
+    "id": "lab-114",
+    "number": 114,
+    "origin": "authored",
+    "domain": 3,
+    "objective": "3.3",
+    "lesson": "iceberg-contracts",
+    "text": "What does BigLake external-table access delegation help achieve?",
+    "html": "What does BigLake external-table access delegation help achieve?",
+    "choices": [
+      {
+        "letter": "A",
+        "text": "Grant consumers table access without requiring their direct object-store access.",
+        "html": "Grant consumers table access without requiring their direct object-store access.",
+        "why": "A connection identity retrieves underlying objects for authorized table readers."
+      },
+      {
+        "letter": "B",
+        "text": "Convert all external files into a relational transaction engine.",
+        "html": "Convert all external files into a relational transaction engine.",
+        "why": "Delegation changes the access path, not every storage capability."
+      },
+      {
+        "letter": "C",
+        "text": "Eliminate all external-table limitations.",
+        "html": "Eliminate all external-table limitations.",
+        "why": "External-table limitations still apply."
+      },
+      {
+        "letter": "D",
+        "text": "Make metadata discovery grant universal data access.",
+        "html": "Make metadata discovery grant universal data access.",
+        "why": "Discovery and authorization remain separate."
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "sourceAnswer": [],
+    "required": 1,
+    "explanation": "A connection identity retrieves underlying objects for authorized table readers.",
+    "sourceExplanation": "",
+    "sources": [],
+    "references": [
+      "biglake",
+      "iceberg-managed"
+    ],
+    "status": "reviewed",
+    "gradable": true,
+    "hasImages": false,
+    "issues": [],
+    "reviewNote": "Original educational scenario written for this update. Not an official or recalled certification item.",
+    "difficulty": "Applied"
+  },
+  {
+    "id": "lab-115",
+    "number": 115,
+    "origin": "authored",
+    "domain": 3,
+    "objective": "3.1",
+    "lesson": "database-requirements",
+    "text": "A proposed checkout database is chosen only because its dataset is large. What is missing?",
+    "html": "A proposed checkout database is chosen only because its dataset is large. What is missing?",
+    "choices": [
+      {
+        "letter": "A",
+        "text": "Only the total compressed bytes stored.",
+        "html": "Only the total compressed bytes stored.",
+        "why": "Volume alone does not define the critical application reads, writes and transactions."
+      },
+      {
+        "letter": "B",
+        "text": "The application query, transaction, consistency and recovery requirements.",
+        "html": "The application query, transaction, consistency and recovery requirements.",
+        "why": "Access and transaction requirements determine a defensible database choice."
+      },
+      {
+        "letter": "C",
+        "text": "Only the batch dashboard query runtime.",
+        "html": "Only the batch dashboard query runtime.",
+        "why": "A dashboard benchmark does not establish checkout transaction suitability."
+      },
+      {
+        "letter": "D",
+        "text": "Only a schema export from the current application.",
+        "html": "Only a schema export from the current application.",
+        "why": "Schema compatibility is useful but does not supply concurrency, recovery or latency requirements."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "sourceAnswer": [],
+    "required": 1,
+    "explanation": "Access and transaction requirements determine a defensible database choice.",
+    "sourceExplanation": "",
+    "sources": [],
+    "references": [
+      "cloudsql",
+      "alloydb",
+      "spanner",
+      "bigtable",
+      "compute",
+      "redis"
+    ],
+    "status": "reviewed",
+    "gradable": true,
+    "hasImages": false,
+    "issues": [],
+    "reviewNote": "Original educational scenario written for this update. Not an official or recalled certification item.",
+    "difficulty": "Applied"
+  },
+  {
+    "id": "lab-116",
+    "number": 116,
+    "origin": "authored",
+    "domain": 3,
+    "objective": "3.1",
+    "lesson": "database-requirements",
+    "text": "Checkout transactions and hourly historical analytics have different access patterns. Which design can be reasonable?",
+    "html": "Checkout transactions and hourly historical analytics have different access patterns. Which design can be reasonable?",
+    "choices": [
+      {
+        "letter": "A",
+        "text": "One authoritative transactional store with validated analytical publication.",
+        "html": "One authoritative transactional store with validated analytical publication.",
+        "why": "Separate stores can serve distinct patterns when ownership and freshness are explicit."
+      },
+      {
+        "letter": "B",
+        "text": "Treat every cache value as the sole durable source.",
+        "html": "Treat every cache value as the sole durable source.",
+        "why": "A cache needs an explicit durability and recovery contract."
+      },
+      {
+        "letter": "C",
+        "text": "Require a single store without testing either workload.",
+        "html": "Require a single store without testing either workload.",
+        "why": "The premise requires validating both access patterns."
+      },
+      {
+        "letter": "D",
+        "text": "Delete reconciliation because the products are managed.",
+        "html": "Delete reconciliation because the products are managed.",
+        "why": "Managed services do not remove reconciliation."
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "sourceAnswer": [],
+    "required": 1,
+    "explanation": "Separate stores can serve distinct patterns when ownership and freshness are explicit.",
+    "sourceExplanation": "",
+    "sources": [],
+    "references": [
+      "cloudsql",
+      "alloydb",
+      "spanner",
+      "bigtable",
+      "compute",
+      "redis"
+    ],
+    "status": "reviewed",
+    "gradable": true,
+    "hasImages": false,
+    "issues": [],
+    "reviewNote": "Original educational scenario written for this update. Not an official or recalled certification item.",
+    "difficulty": "Applied"
+  },
+  {
+    "id": "lab-117",
+    "number": 117,
+    "origin": "authored",
+    "domain": 3,
+    "objective": "3.3",
+    "lesson": "lake-file-layout",
+    "text": "A reader spends excessive time opening millions of tiny lake files. What should the engineer evaluate?",
+    "html": "A reader spends excessive time opening millions of tiny lake files. What should the engineer evaluate?",
+    "choices": [
+      {
+        "letter": "A",
+        "text": "A measured file-layout and compaction change while preserving replay and retention.",
+        "html": "A measured file-layout and compaction change while preserving replay and retention.",
+        "why": "Measure the actual reader and preserve the data contract during rewrite."
+      },
+      {
+        "letter": "B",
+        "text": "A storage-class change assumed to repair every scan problem.",
+        "html": "A storage-class change assumed to repair every scan problem.",
+        "why": "Storage economics and file-opening overhead are different dimensions."
+      },
+      {
+        "letter": "C",
+        "text": "Removal of all catalog entries.",
+        "html": "Removal of all catalog entries.",
+        "why": "Deleting metadata makes data harder to discover."
+      },
+      {
+        "letter": "D",
+        "text": "Apply a mandatory file-size threshold without testing the actual reader.",
+        "html": "Apply a mandatory file-size threshold without testing the actual reader.",
+        "why": "The scenario supplies no universal file-size threshold."
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "sourceAnswer": [],
+    "required": 1,
+    "explanation": "Measure the actual reader and preserve the data contract during rewrite.",
+    "sourceExplanation": "",
+    "sources": [],
+    "references": [
+      "biglake",
+      "spark",
+      "classes",
+      "lifecycle",
+      "protect",
+      "catalog"
+    ],
+    "status": "reviewed",
+    "gradable": true,
+    "hasImages": false,
+    "issues": [],
+    "reviewNote": "Original educational scenario written for this update. Not an official or recalled certification item.",
+    "difficulty": "Applied"
+  },
+  {
+    "id": "lab-118",
+    "number": 118,
+    "origin": "authored",
+    "domain": 3,
+    "objective": "3.3",
+    "lesson": "lake-file-layout",
+    "text": "What evidence is still missing when a curated lake dataset has only a catalog entry?",
+    "html": "What evidence is still missing when a curated lake dataset has only a catalog entry?",
+    "choices": [
+      {
+        "letter": "A",
+        "text": "Only a successful catalog search result.",
+        "html": "Only a successful catalog search result.",
+        "why": "Search visibility does not prove a dataset’s meaning, quality or permitted use."
+      },
+      {
+        "letter": "B",
+        "text": "Its owner, quality evidence and underlying access contract.",
+        "html": "Its owner, quality evidence and underlying access contract.",
+        "why": "Discovery must be accompanied by ownership, quality and authorization."
+      },
+      {
+        "letter": "C",
+        "text": "Only a documented bucket path and file extension.",
+        "html": "Only a documented bucket path and file extension.",
+        "why": "A path and format do not establish ownership, correctness or authorization."
+      },
+      {
+        "letter": "D",
+        "text": "The raw files were immediately deleted.",
+        "html": "The raw files were immediately deleted.",
+        "why": "Deleting replay data can violate retention or recovery needs."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "sourceAnswer": [],
+    "required": 1,
+    "explanation": "Discovery must be accompanied by ownership, quality and authorization.",
+    "sourceExplanation": "",
+    "sources": [],
+    "references": [
+      "biglake",
+      "spark",
+      "classes",
+      "lifecycle",
+      "protect",
+      "catalog"
+    ],
+    "status": "reviewed",
+    "gradable": true,
+    "hasImages": false,
+    "issues": [],
+    "reviewNote": "Original educational scenario written for this update. Not an official or recalled certification item.",
+    "difficulty": "Applied"
+  },
+  {
+    "id": "lab-119",
+    "number": 119,
+    "origin": "authored",
+    "domain": 5,
+    "objective": "5.1",
+    "lesson": "warehouse-economics",
+    "text": "An on-demand query uses SELECT * with LIMIT 10 on a non-clustered table. What should you conclude?",
+    "html": "An on-demand query uses SELECT * with LIMIT 10 on a non-clustered table. What should you conclude?",
+    "choices": [
+      {
+        "letter": "A",
+        "text": "The limit universally guarantees a ten-row scan cost.",
+        "html": "The limit universally guarantees a ten-row scan cost.",
+        "why": "Result row count is not the scan contract for a non-clustered table."
+      },
+      {
+        "letter": "B",
+        "text": "The query has become free.",
+        "html": "The query has become free.",
+        "why": "A limit is not a free-query guarantee."
+      },
+      {
+        "letter": "C",
+        "text": "The result is smaller, but the limit does not reduce the bytes read.",
+        "html": "The result is smaller, but the limit does not reduce the bytes read.",
+        "why": "Projection, partition filters and appropriate guardrails address scan work."
+      },
+      {
+        "letter": "D",
+        "text": "The limit guarantees low latency regardless of the query plan.",
+        "html": "The limit guarantees low latency regardless of the query plan.",
+        "why": "A smaller result does not universally remove joins, scans or resource contention."
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "sourceAnswer": [],
+    "required": 1,
+    "explanation": "Projection, partition filters and appropriate guardrails address scan work.",
+    "sourceExplanation": "",
+    "sources": [],
+    "references": [
+      "bqcost",
+      "partition",
+      "slots",
+      "reservations",
+      "compute",
+      "mv"
+    ],
+    "status": "reviewed",
+    "gradable": true,
+    "hasImages": false,
+    "issues": [],
+    "reviewNote": "Original educational scenario written for this update. Not an official or recalled certification item.",
+    "difficulty": "Applied"
+  },
+  {
+    "id": "lab-120",
+    "number": 120,
+    "origin": "authored",
+    "domain": 5,
+    "objective": "5.1",
+    "lesson": "warehouse-economics",
+    "text": "Which pair helps control an on-demand query before execution?",
+    "html": "Which pair helps control an on-demand query before execution?",
+    "choices": [
+      {
+        "letter": "A",
+        "text": "A dry-run estimate and an appropriate maximum-bytes-billed setting.",
+        "html": "A dry-run estimate and an appropriate maximum-bytes-billed setting.",
+        "why": "They help estimate and bound permitted scan work within their documented limitations."
+      },
+      {
+        "letter": "B",
+        "text": "An output-row LIMIT and a dashboard cache with no freshness contract.",
+        "html": "An output-row LIMIT and a dashboard cache with no freshness contract.",
+        "why": "A non-clustered table limit does not bound scan work, and caching needs an explicit freshness contract."
+      },
+      {
+        "letter": "C",
+        "text": "A larger reservation assumed to enforce on-demand byte ceilings.",
+        "html": "A larger reservation assumed to enforce on-demand byte ceilings.",
+        "why": "Capacity allocation and an on-demand per-query byte guardrail are different controls."
+      },
+      {
+        "letter": "D",
+        "text": "A storage lifecycle rule and a dataset label.",
+        "html": "A storage lifecycle rule and a dataset label.",
+        "why": "Lifecycle and metadata labels do not impose the query execution byte ceiling."
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "sourceAnswer": [],
+    "required": 1,
+    "explanation": "They help estimate and bound permitted scan work within their documented limitations.",
+    "sourceExplanation": "",
+    "sources": [],
+    "references": [
+      "bqcost",
+      "partition",
+      "slots",
+      "reservations",
+      "compute",
+      "mv"
+    ],
+    "status": "reviewed",
+    "gradable": true,
+    "hasImages": false,
+    "issues": [],
+    "reviewNote": "Original educational scenario written for this update. Not an official or recalled certification item.",
+    "difficulty": "Applied"
+  },
+  {
+    "id": "lab-121",
+    "number": 121,
+    "origin": "authored",
+    "domain": 5,
+    "objective": "5.2",
+    "lesson": "composer-retries",
+    "text": "A retry reads a folder selected from the current clock. What is the main correctness risk?",
+    "html": "A retry reads a folder selected from the current clock. What is the main correctness risk?",
+    "choices": [
+      {
+        "letter": "A",
+        "text": "It may read a different interval from the original attempt.",
+        "html": "It may read a different interval from the original attempt.",
+        "why": "The retry must pin the intended logical input to be reproducible."
+      },
+      {
+        "letter": "B",
+        "text": "The retry automatically targets exactly the same historical records.",
+        "html": "The retry automatically targets exactly the same historical records.",
+        "why": "Using the current clock can change the selected input interval."
+      },
+      {
+        "letter": "C",
+        "text": "The orchestrator automatically converts every append to an upsert.",
+        "html": "The orchestrator automatically converts every append to an upsert.",
+        "why": "Task retry scheduling does not rewrite the application’s data mutation semantics."
+      },
+      {
+        "letter": "D",
+        "text": "Task dependencies alone guarantee deterministic inputs.",
+        "html": "Task dependencies alone guarantee deterministic inputs.",
+        "why": "Dependencies do not pin the folder chosen by a clock-based input expression."
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "sourceAnswer": [],
+    "required": 1,
+    "explanation": "The retry must pin the intended logical input to be reproducible.",
+    "sourceExplanation": "",
+    "sources": [],
+    "references": [
+      "composer3",
+      "airflow-practices",
+      "workflows",
+      "bqmerge",
+      "dataform"
+    ],
+    "status": "reviewed",
+    "gradable": true,
+    "hasImages": false,
+    "issues": [],
+    "reviewNote": "Original educational scenario written for this update. Not an official or recalled certification item.",
+    "difficulty": "Applied"
+  },
+  {
+    "id": "lab-122",
+    "number": 122,
+    "origin": "authored",
+    "domain": 5,
+    "objective": "5.2",
+    "lesson": "composer-retries",
+    "text": "A data load succeeded, but its notification failed. Which design supports a safe rerun?",
+    "html": "A data load succeeded, but its notification failed. Which design supports a safe rerun?",
+    "choices": [
+      {
+        "letter": "A",
+        "text": "Append all data again without an operation identity.",
+        "html": "Append all data again without an operation identity.",
+        "why": "Blind appends can duplicate business rows."
+      },
+      {
+        "letter": "B",
+        "text": "Use stable interval and operation identities with idempotent writes.",
+        "html": "Use stable interval and operation identities with idempotent writes.",
+        "why": "Pinned inputs and safe repeated effects address partial failure."
+      },
+      {
+        "letter": "C",
+        "text": "Assume orchestration success guarantees data quality.",
+        "html": "Assume orchestration success guarantees data quality.",
+        "why": "Data quality needs explicit checks."
+      },
+      {
+        "letter": "D",
+        "text": "Put the only required input on an arbitrary worker-local disk.",
+        "html": "Put the only required input on an arbitrary worker-local disk.",
+        "why": "Distributed tasks cannot rely on arbitrary worker-local durable state."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "sourceAnswer": [],
+    "required": 1,
+    "explanation": "Pinned inputs and safe repeated effects address partial failure.",
+    "sourceExplanation": "",
+    "sources": [],
+    "references": [
+      "composer3",
+      "airflow-practices",
+      "workflows",
+      "bqmerge",
+      "dataform"
+    ],
+    "status": "reviewed",
+    "gradable": true,
+    "hasImages": false,
+    "issues": [],
+    "reviewNote": "Original educational scenario written for this update. Not an official or recalled certification item.",
+    "difficulty": "Applied"
+  },
+  {
+    "id": "lab-123",
+    "number": 123,
+    "origin": "authored",
+    "domain": 5,
+    "objective": "5.4",
+    "lesson": "pipeline-slo",
+    "text": "Backlog grows, sink writes show permission errors, and worker CPU is modest. What is the best next investigation?",
+    "html": "Backlog grows, sink writes show permission errors, and worker CPU is modest. What is the best next investigation?",
+    "choices": [
+      {
+        "letter": "A",
+        "text": "Increase workers indefinitely before reading the errors.",
+        "html": "Increase workers indefinitely before reading the errors.",
+        "why": "Workers cannot repair denied writes by adding compute."
+      },
+      {
+        "letter": "B",
+        "text": "Inspect and repair the sink identity or permission path, then verify backlog drainage.",
+        "html": "Inspect and repair the sink identity or permission path, then verify backlog drainage.",
+        "why": "The sink errors provide a concrete causal lead to validate."
+      },
+      {
+        "letter": "C",
+        "text": "Delete the delayed records silently.",
+        "html": "Delete the delayed records silently.",
+        "why": "Silent deletion sacrifices data correctness."
+      },
+      {
+        "letter": "D",
+        "text": "Disable reconciliation permanently.",
+        "html": "Disable reconciliation permanently.",
+        "why": "Recovery still needs reconciliation."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "sourceAnswer": [],
+    "required": 1,
+    "explanation": "The sink errors provide a concrete causal lead to validate.",
+    "sourceExplanation": "",
+    "sources": [],
+    "references": [
+      "dfmetrics",
+      "psmetrics",
+      "dftrouble",
+      "auditlogs",
+      "alerts"
+    ],
+    "status": "reviewed",
+    "gradable": true,
+    "hasImages": false,
+    "issues": [],
+    "reviewNote": "Original educational scenario written for this update. Not an official or recalled certification item.",
+    "difficulty": "Applied"
+  },
+  {
+    "id": "lab-124",
+    "number": 124,
+    "origin": "authored",
+    "domain": 5,
+    "objective": "5.4",
+    "lesson": "pipeline-slo",
+    "text": "A team defines a freshness target without a timestamp or observation point. What is needed?",
+    "html": "A team defines a freshness target without a timestamp or observation point. What is needed?",
+    "choices": [
+      {
+        "letter": "A",
+        "text": "Only a green CPU utilization chart.",
+        "html": "Only a green CPU utilization chart.",
+        "why": "CPU is a resource observation rather than the business freshness objective."
+      },
+      {
+        "letter": "B",
+        "text": "A measurable definition of the population, timestamps and observation point.",
+        "html": "A measurable definition of the population, timestamps and observation point.",
+        "why": "An SLO must specify what is measured and where."
+      },
+      {
+        "letter": "C",
+        "text": "A longer message retention setting with no measurement rule.",
+        "html": "A longer message retention setting with no measurement rule.",
+        "why": "Retention does not define the freshness population, timestamp or observation point."
+      },
+      {
+        "letter": "D",
+        "text": "Only the product names.",
+        "html": "Only the product names.",
+        "why": "Product names do not define the target."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "sourceAnswer": [],
+    "required": 1,
+    "explanation": "An SLO must specify what is measured and where.",
+    "sourceExplanation": "",
+    "sources": [],
+    "references": [
+      "dfmetrics",
+      "psmetrics",
+      "dftrouble",
+      "auditlogs",
+      "alerts"
+    ],
+    "status": "reviewed",
+    "gradable": true,
+    "hasImages": false,
+    "issues": [],
+    "reviewNote": "Original educational scenario written for this update. Not an official or recalled certification item.",
+    "difficulty": "Applied"
   }
 ]

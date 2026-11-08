@@ -1,0 +1,414 @@
+[
+  {
+    "id": "streaming",
+    "title": "Validate an event stream",
+    "goal": "Device events become a queryable analytical dataset. Switch the validation outcome to follow the rejected path.",
+    "domain": 2,
+    "lessons": [
+      "pubsub-contracts",
+      "event-time",
+      "streaming-semantics",
+      "pipeline-slo"
+    ],
+    "references": [
+      "psdocs",
+      "dataflow",
+      "pubsub-dataflow",
+      "write"
+    ],
+    "nodes": [
+      {
+        "id": "source",
+        "label": "Event producers",
+        "caption": "Business event ID + event timestamp",
+        "detail": "The producer preserves a stable business identifier and the event timestamp. A retried publish may still need business-level deduplication.",
+        "x": 30,
+        "y": 20
+      },
+      {
+        "id": "transport",
+        "label": "Pub/Sub",
+        "caption": "Decoupled event delivery",
+        "detail": "Topics and subscriptions separate producer availability from consumer work. Decide retention and replay deliberately.",
+        "x": 30,
+        "y": 128
+      },
+      {
+        "id": "process",
+        "label": "Dataflow / Beam",
+        "caption": "Parse, window and transform",
+        "detail": "Define event-time windows and lateness. Inspect processing mode, connector behavior and the sink contract separately.",
+        "x": 30,
+        "y": 236
+      },
+      {
+        "id": "gate",
+        "label": "Validation boundary",
+        "caption": "Accepted record or explicit reject",
+        "detail": "The illustrative record is checked against a schema and business rule. Invalid records retain an identifier and a reason in a restricted quarantine.",
+        "x": 30,
+        "y": 344
+      },
+      {
+        "id": "sink",
+        "label": "BigQuery curated table",
+        "caption": "Accepted analytical output",
+        "detail": "Only accepted records follow this path. The production write method and replay strategy must be chosen and tested.",
+        "x": 30,
+        "y": 452
+      },
+      {
+        "id": "reject",
+        "label": "Restricted quarantine",
+        "caption": "Controlled exception path",
+        "detail": "Retain a minimal record identifier and rejection reason for controlled diagnosis and replay.",
+        "x": 390,
+        "y": 344
+      }
+    ],
+    "edges": [
+      {
+        "from": "source",
+        "to": "transport",
+        "label": "publish / read",
+        "when": "always"
+      },
+      {
+        "from": "transport",
+        "to": "process",
+        "label": "deliver / start",
+        "when": "always"
+      },
+      {
+        "from": "process",
+        "to": "gate",
+        "label": "transform / check",
+        "when": "always"
+      },
+      {
+        "from": "gate",
+        "to": "sink",
+        "label": "accepted",
+        "when": "success"
+      },
+      {
+        "from": "gate",
+        "to": "reject",
+        "label": "rejected / denied",
+        "when": "failure"
+      }
+    ],
+    "success": "The sample record passes validation and reaches the curated table. This illustrates a design, not a live Cloud deployment.",
+    "failure": "The sample record fails validation. It is routed to restricted quarantine; it does not appear in the curated output. A rejected record needs an owner and a repair policy.",
+    "scope": "Original illustrative architecture. No Cloud services are executed and no latency, price or availability is simulated."
+  },
+  {
+    "id": "batch",
+    "title": "Publish a validated batch",
+    "goal": "A file batch becomes a curated warehouse partition with an explicit quality boundary.",
+    "domain": 3,
+    "lessons": [
+      "spark-execution",
+      "dataform-quality",
+      "composer-retries",
+      "lake-file-layout"
+    ],
+    "references": [
+      "classes",
+      "spark-serverless",
+      "dataform",
+      "dependencies",
+      "composer3"
+    ],
+    "nodes": [
+      {
+        "id": "source",
+        "label": "Cloud Storage files",
+        "caption": "Immutable input batch ID",
+        "detail": "A durable batch reference pins the logical input. Keep a manifest and the agreed replay window.",
+        "x": 30,
+        "y": 20
+      },
+      {
+        "id": "transport",
+        "label": "Serverless Spark",
+        "caption": "Transform a pinned batch",
+        "detail": "This candidate fits an intermittent Spark workload. Test dependencies and preserve durable outputs outside temporary compute.",
+        "x": 30,
+        "y": 128
+      },
+      {
+        "id": "process",
+        "label": "BigQuery staging",
+        "caption": "Typed intermediate records",
+        "detail": "Staging isolates the unvalidated result from downstream publication and supports reconciliation.",
+        "x": 30,
+        "y": 236
+      },
+      {
+        "id": "gate",
+        "label": "Dataform quality gate",
+        "caption": "Assertion is a publish dependency",
+        "detail": "Check uniqueness, required fields and the business reconciliation rule. The dependency must block publication on failure.",
+        "x": 30,
+        "y": 344
+      },
+      {
+        "id": "sink",
+        "label": "Curated partition",
+        "caption": "Publish the agreed data interval",
+        "detail": "Publish the validated interval using a safe write contract. Retrying the orchestration must not blindly append duplicate business rows.",
+        "x": 30,
+        "y": 452
+      },
+      {
+        "id": "reject",
+        "label": "Hold publication",
+        "caption": "Controlled exception path",
+        "detail": "Retain staging and validation evidence. Alert the owner; repair and rerun the intended interval.",
+        "x": 390,
+        "y": 344
+      }
+    ],
+    "edges": [
+      {
+        "from": "source",
+        "to": "transport",
+        "label": "publish / read",
+        "when": "always"
+      },
+      {
+        "from": "transport",
+        "to": "process",
+        "label": "deliver / start",
+        "when": "always"
+      },
+      {
+        "from": "process",
+        "to": "gate",
+        "label": "transform / check",
+        "when": "always"
+      },
+      {
+        "from": "gate",
+        "to": "sink",
+        "label": "accepted",
+        "when": "success"
+      },
+      {
+        "from": "gate",
+        "to": "reject",
+        "label": "rejected / denied",
+        "when": "failure"
+      }
+    ],
+    "success": "The batch meets the illustrative quality contract and the curated partition can be published.",
+    "failure": "The quality check fails. Publication is held while staging and the validation result remain available for diagnosis.",
+    "scope": "Original illustrative architecture. No Cloud services are executed and no latency, price or availability is simulated."
+  },
+  {
+    "id": "cdc",
+    "title": "Reconcile a database migration",
+    "goal": "A snapshot and subsequent changes are validated before an analytical consumer switches.",
+    "domain": 1,
+    "lessons": [
+      "migration",
+      "cdc-cutover",
+      "transfer-decisions",
+      "schema-evolution"
+    ],
+    "references": [
+      "stream",
+      "bqmerge",
+      "dataform"
+    ],
+    "nodes": [
+      {
+        "id": "source",
+        "label": "Source database",
+        "caption": "Snapshot + changes",
+        "detail": "Inventory the source engine, log access and the agreed consistency boundary.",
+        "x": 30,
+        "y": 20
+      },
+      {
+        "id": "transport",
+        "label": "Datastream",
+        "caption": "Supported change capture",
+        "detail": "Verify the exact supported source, destination and connectivity. Do not assume all operational migration paths are interchangeable.",
+        "x": 30,
+        "y": 128
+      },
+      {
+        "id": "process",
+        "label": "Analytical staging",
+        "caption": "Versioned change records",
+        "detail": "Preserve keys and ordering evidence appropriate to the source. Deletes and repeated updates need an explicit target-state contract.",
+        "x": 30,
+        "y": 236
+      },
+      {
+        "id": "gate",
+        "label": "Reconciliation gate",
+        "caption": "Compare an agreed source state",
+        "detail": "Counts alone are insufficient. Check keys, deleted records, relevant totals and a consistent cutover boundary.",
+        "x": 30,
+        "y": 344
+      },
+      {
+        "id": "sink",
+        "label": "Consumer cutover",
+        "caption": "Switch only after validation",
+        "detail": "Record the decision, acceptable lag and rollback. Distinguish analytical replication from an operational database migration.",
+        "x": 30,
+        "y": 452
+      },
+      {
+        "id": "reject",
+        "label": "Hold cutover",
+        "caption": "Controlled exception path",
+        "detail": "Keep existing readers on their current system while the discrepancy is investigated.",
+        "x": 390,
+        "y": 344
+      }
+    ],
+    "edges": [
+      {
+        "from": "source",
+        "to": "transport",
+        "label": "publish / read",
+        "when": "always"
+      },
+      {
+        "from": "transport",
+        "to": "process",
+        "label": "deliver / start",
+        "when": "always"
+      },
+      {
+        "from": "process",
+        "to": "gate",
+        "label": "transform / check",
+        "when": "always"
+      },
+      {
+        "from": "gate",
+        "to": "sink",
+        "label": "accepted",
+        "when": "success"
+      },
+      {
+        "from": "gate",
+        "to": "reject",
+        "label": "rejected / denied",
+        "when": "failure"
+      }
+    ],
+    "success": "The illustrative reconciliation passes; a controlled consumer cutover can proceed under the migration plan.",
+    "failure": "A reconciliation discrepancy prevents cutover. Investigate the missing or changed records before switching readers.",
+    "scope": "Original illustrative architecture. No Cloud services are executed and no latency, price or availability is simulated."
+  },
+  {
+    "id": "lakehouse",
+    "title": "Trace delegated lake access",
+    "goal": "A table reader receives authorized results without a direct object-store grant.",
+    "domain": 3,
+    "lessons": [
+      "iceberg-contracts",
+      "biglake-access",
+      "governance",
+      "least-privilege"
+    ],
+    "references": [
+      "biglake",
+      "iam",
+      "column",
+      "catalog"
+    ],
+    "nodes": [
+      {
+        "id": "source",
+        "label": "Analyst identity",
+        "caption": "Query request",
+        "detail": "The analyst requests a table query. Discovery in a catalog does not itself authorize this request.",
+        "x": 30,
+        "y": 20
+      },
+      {
+        "id": "transport",
+        "label": "BigLake external table",
+        "caption": "Table-level access boundary",
+        "detail": "This pattern uses an external BigLake table, not a managed Iceberg write path. Check the exact policy support.",
+        "x": 30,
+        "y": 128
+      },
+      {
+        "id": "process",
+        "label": "Connection identity",
+        "caption": "Retrieve underlying objects",
+        "detail": "The connection service account accesses the supported objects. Protect its permissions and keep them scoped.",
+        "x": 30,
+        "y": 236
+      },
+      {
+        "id": "gate",
+        "label": "Access decision",
+        "caption": "Authorized data or denied request",
+        "detail": "The sample policy decision represents the configured permissions. It is a teaching boundary, not an IAM simulator.",
+        "x": 30,
+        "y": 344
+      },
+      {
+        "id": "sink",
+        "label": "Authorized result",
+        "caption": "Read-only external-table query",
+        "detail": "Return only the data authorized through this access path. Do not grant direct bucket access just to bypass a denied query.",
+        "x": 30,
+        "y": 452
+      },
+      {
+        "id": "reject",
+        "label": "Access denied",
+        "caption": "Controlled exception path",
+        "detail": "Retain appropriate audit evidence without exposing the protected record.",
+        "x": 390,
+        "y": 344
+      }
+    ],
+    "edges": [
+      {
+        "from": "source",
+        "to": "transport",
+        "label": "publish / read",
+        "when": "always"
+      },
+      {
+        "from": "transport",
+        "to": "process",
+        "label": "deliver / start",
+        "when": "always"
+      },
+      {
+        "from": "process",
+        "to": "gate",
+        "label": "transform / check",
+        "when": "always"
+      },
+      {
+        "from": "gate",
+        "to": "sink",
+        "label": "accepted",
+        "when": "success"
+      },
+      {
+        "from": "gate",
+        "to": "reject",
+        "label": "rejected / denied",
+        "when": "failure"
+      }
+    ],
+    "success": "The sample request is authorized and returns a permitted analytical result.",
+    "failure": "The sample request is denied. No protected record is returned; investigate the effective identity and policy path.",
+    "scope": "Original illustrative architecture. No Cloud services are executed and no latency, price or availability is simulated."
+  }
+]

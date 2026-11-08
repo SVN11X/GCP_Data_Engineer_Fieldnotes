@@ -916,5 +916,122 @@
     "publisher": "Nicola Loi",
     "checked": "2026-11-03",
     "kind": "community"
+  },
+  "kafka": {
+    "id": "kafka",
+    "title": "Managed Service for Apache Kafka overview",
+    "url": "https://docs.cloud.google.com/managed-service-for-apache-kafka/docs/overview",
+    "topic": "Streaming",
+    "checked": "2026-11-07",
+    "publisher": "Google Cloud",
+    "kind": "official"
+  },
+  "spark-serverless": {
+    "id": "spark-serverless",
+    "title": "Serverless for Apache Spark execution",
+    "url": "https://docs.cloud.google.com/dataproc-serverless/docs/overview",
+    "topic": "Processing",
+    "checked": "2026-11-07",
+    "publisher": "Google Cloud",
+    "kind": "official"
+  },
+  "composer3": {
+    "id": "composer3",
+    "title": "Managed Airflow / Cloud Composer Gen 3 overview",
+    "url": "https://docs.cloud.google.com/composer/docs/composer-3/composer-overview",
+    "topic": "Orchestration",
+    "checked": "2026-11-07",
+    "publisher": "Google Cloud",
+    "kind": "official"
+  },
+  "airflow-practices": {
+    "id": "airflow-practices",
+    "title": "Airflow task and retry best practices",
+    "url": "https://airflow.apache.org/docs/apache-airflow/stable/best-practices.html",
+    "topic": "Orchestration",
+    "checked": "2026-11-07",
+    "publisher": "Apache Airflow",
+    "kind": "official"
+  },
+  "stream-modes": {
+    "id": "stream-modes",
+    "title": "Dataflow streaming modes and tradeoffs",
+    "url": "https://docs.cloud.google.com/dataflow/docs/guides/streaming-modes",
+    "topic": "Streaming",
+    "checked": "2026-11-07",
+    "publisher": "Google Cloud",
+    "kind": "official"
+  },
+  "pubsub-dataflow": {
+    "id": "pubsub-dataflow",
+    "title": "Pub/Sub delivery and Dataflow processing",
+    "url": "https://docs.cloud.google.com/dataflow/docs/concepts/streaming-with-cloud-pubsub",
+    "topic": "Streaming",
+    "checked": "2026-11-07",
+    "publisher": "Google Cloud",
+    "kind": "official"
+  },
+  "iceberg-managed": {
+    "id": "iceberg-managed",
+    "title": "Apache Iceberg managed tables in BigQuery",
+    "url": "https://docs.cloud.google.com/bigquery/docs/biglake-iceberg-tables-in-bigquery",
+    "topic": "Storage",
+    "checked": "2026-11-07",
+    "publisher": "Google Cloud",
+    "kind": "official"
+  },
+  "schema": {
+    "id": "schema",
+    "title": "BigQuery schema modifications",
+    "url": "https://docs.cloud.google.com/bigquery/docs/managing-table-schemas",
+    "topic": "Transformation",
+    "checked": "2026-11-07",
+    "publisher": "Google Cloud",
+    "kind": "official"
+  },
+  "dfmetrics": {
+    "id": "dfmetrics",
+    "title": "Dataflow freshness, backlog and latency metrics",
+    "url": "https://docs.cloud.google.com/dataflow/docs/guides/using-monitoring-intf",
+    "topic": "Operations",
+    "checked": "2026-11-07",
+    "publisher": "Google Cloud",
+    "kind": "official"
+  },
+  "psmetrics": {
+    "id": "psmetrics",
+    "title": "Pub/Sub monitoring and backlog interpretation",
+    "url": "https://docs.cloud.google.com/pubsub/docs/monitoring",
+    "topic": "Operations",
+    "checked": "2026-11-07",
+    "publisher": "Google Cloud",
+    "kind": "official"
+  },
+  "gcloud-cp": {
+    "id": "gcloud-cp",
+    "title": "Ad hoc copies with gcloud storage cp",
+    "url": "https://docs.cloud.google.com/sdk/gcloud/reference/storage/cp",
+    "topic": "Migration",
+    "checked": "2026-11-07",
+    "publisher": "Google Cloud",
+    "kind": "official"
+  },
+  "storage-perf": {
+    "id": "storage-perf",
+    "title": "Cloud Storage request rate and access distribution",
+    "url": "https://docs.cloud.google.com/storage/docs/request-rate",
+    "topic": "Storage",
+    "checked": "2026-11-07",
+    "publisher": "Google Cloud",
+    "kind": "official"
+  },
+  "dms": {
+    "id": "dms",
+    "title": "Database Migration Service overview",
+    "url": "https://docs.cloud.google.com/database-migration/docs/overview",
+    "topic": "Migration",
+    "checked": "2026-11-07",
+    "publisher": "Google Cloud",
+    "kind": "official"
   }
 }

@@ -1,0 +1,173 @@
+{
+  "0c8e1f5f248c8b5a1208.png": {
+    "kind": "text",
+    "language": "sql",
+    "text": "# Syntax error : Expected end of statement but got “-” at [4:11]\nSELECT age\nFROM\n    bigquery-public-data.noaa_gsod.gsod\nWHERE\n    age != 99\n    AND_TABLE_SUFFIX = ‘1929’\nORDER BY\n    age DESC",
+    "review": "visually-checked",
+    "method": "Local OCR where useful, then visual comparison with the original image; question 243 already had single-line source transcriptions.",
+    "note": "Source identifiers, operators, typographic quotes and apparent source syntax are retained. Readable layout is not a technical correction of the question.",
+    "sourceSha256": "5960edb63333db0daf4548e512d8b8a8bfe969177baf0012cb7804f1a9e420c0"
+  },
+  "e145a46844ed5dd43421.png": {
+    "kind": "text",
+    "language": "java",
+    "text": "BigQueryIO.Read\n    .named(“ReadLogData”)\n    .from(“clouddataflow-readonly:samples.log_data”)",
+    "review": "visually-checked",
+    "method": "Local OCR where useful, then visual comparison with the original image; question 243 already had single-line source transcriptions.",
+    "note": "Source identifiers, operators, typographic quotes and apparent source syntax are retained. Readable layout is not a technical correction of the question.",
+    "sourceSha256": "84b585ab9ba3bffb0126dc3362aa2306dcd4a7c4ef256a8791e3ffd8629d4bea"
+  },
+  "ce9a8c492e24c900585a.png": {
+    "kind": "text",
+    "language": "yaml",
+    "text": "Indexes:\n-kind: Movie\n    Properties:\n    -name: actors\n    name: date_released\n-kind: Movie\n    Properties:\n    -name: tags\n    name: date_released",
+    "review": "visually-checked",
+    "method": "Local OCR where useful, then visual comparison with the original image; question 243 already had single-line source transcriptions.",
+    "note": "Source identifiers, operators, typographic quotes and apparent source syntax are retained. Readable layout is not a technical correction of the question.",
+    "sourceSha256": "b027e49fb5eba3a947c3b173834e04c2acec82c1d8c9604b3ccc8ec82e6febab"
+  },
+  "ee0c886b58da167b2839.png": {
+    "kind": "text",
+    "language": "yaml",
+    "text": "Indexes:\n    -kind: Movie\n        Properties:\n        -name: actors\n        -name: tags\n-name: date_published",
+    "review": "visually-checked",
+    "method": "Local OCR where useful, then visual comparison with the original image; question 243 already had single-line source transcriptions.",
+    "note": "Source identifiers, operators, typographic quotes and apparent source syntax are retained. Readable layout is not a technical correction of the question.",
+    "sourceSha256": "8065f9cee044d2c4db6cfd6854551507c4e3255b6944c0daff8c205097cf8865"
+  },
+  "ab3f73505d90839610a8.png": {
+    "kind": "text",
+    "language": "sql",
+    "text": "SELECT\n    MAX(temperature)\nFROM\n    acme_iot_data.sensors\nWHERE\n    create_date > DATE_SUB(CURRENT_DATE(), INTERVAL 7 day)\n    AND location_id = \"SW1W9TQ\"\n    AND device_version = \"202007r3\"",
+    "review": "visually-checked",
+    "method": "Local OCR where useful, then visual comparison with the original image; question 243 already had single-line source transcriptions.",
+    "note": "Source identifiers, operators, typographic quotes and apparent source syntax are retained. Readable layout is not a technical correction of the question.",
+    "sourceSha256": "6ba79ec9b31c6913a23772cba02f3b976647d894c0f25ff7c37e009852567ebe"
+  },
+  "a947b8821c3294d68bf8.png": {
+    "kind": "text",
+    "language": "sql",
+    "text": "SELECT date, order, status FROM customer_order\nWHERE country = '<country_name>' AND username = '<username>'",
+    "review": "visually-checked",
+    "method": "Local OCR where useful, then visual comparison with the original image; question 243 already had single-line source transcriptions.",
+    "note": "Source identifiers, operators, typographic quotes and apparent source syntax are retained. Readable layout is not a technical correction of the question.",
+    "sourceSha256": "6769cbe07aa5af94f7f33626fea2620f6ecd7556bdabde960165131db3dc8149"
+  },
+  "c419afa5b850f34044da.png": {
+    "kind": "text",
+    "language": "sql",
+    "text": "SELECT * EXCEPT(feature1),\n    IFNULL(feature1, 0) AS feature1_cleaned\nFROM training_data;",
+    "review": "visually-checked",
+    "method": "Local OCR where useful, then visual comparison with the original image; question 243 already had single-line source transcriptions.",
+    "note": "Source identifiers, operators, typographic quotes and apparent source syntax are retained. Readable layout is not a technical correction of the question.",
+    "sourceSha256": "94f0b0c119c2586dd0e6c427da411e9fc80889fc40db96bd7dd7d463d0759421"
+  },
+  "d86000254687563f3bde.png": {
+    "kind": "text",
+    "language": "sql",
+    "text": "SELECT * EXCEPT(price, square_feet),\n    price/square_feet AS price_per_sqft\nFROM training_data\nWHERE feature1 IS NOT NULL;",
+    "review": "visually-checked",
+    "method": "Local OCR where useful, then visual comparison with the original image; question 243 already had single-line source transcriptions.",
+    "note": "Source identifiers, operators, typographic quotes and apparent source syntax are retained. Readable layout is not a technical correction of the question.",
+    "sourceSha256": "48fba9abb8462d30f877e60e8b3ab2dfb1fc87e0d7b5869ae8e1b2f37c6deca9"
+  },
+  "7e5b2a7681e6b722fbeb.png": {
+    "kind": "text",
+    "language": "sql",
+    "text": "SELECT * EXCEPT(price, square_feet, feature1),\n    price/square_feet AS price_per_sqft,\n    IFNULL(feature1, 0) AS feature1_cleaned\nFROM training_data;",
+    "review": "visually-checked",
+    "method": "Local OCR where useful, then visual comparison with the original image; question 243 already had single-line source transcriptions.",
+    "note": "Source identifiers, operators, typographic quotes and apparent source syntax are retained. Readable layout is not a technical correction of the question.",
+    "sourceSha256": "9893c1d77b8b5884911f9ab9b1e7cf748ccba3e2a79cb90a5ca8cb1446ee39fb"
+  },
+  "7b852b6f96e70e0b3ea2.png": {
+    "kind": "text",
+    "language": "sql",
+    "text": "SELECT *\nFROM training_data\nWHERE feature1 IS NOT NULL;",
+    "review": "visually-checked",
+    "method": "Local OCR where useful, then visual comparison with the original image; question 243 already had single-line source transcriptions.",
+    "note": "Source identifiers, operators, typographic quotes and apparent source syntax are retained. Readable layout is not a technical correction of the question.",
+    "sourceSha256": "a0bb271f1e3af9d2bad448283df9f91e54edd1f852ed64a9cf6f1cfe6a7893be"
+  },
+  "e2f4b76a2f2a21b880f3.png": {
+    "kind": "table",
+    "review": "visually-checked",
+    "method": "Manual transcription checked against the original table; grouped cells are preserved as row groups.",
+    "headers": [
+      "Row",
+      "id",
+      "name",
+      "components.name",
+      "components.qty"
+    ],
+    "groups": [
+      {
+        "row": "1",
+        "id": "vm02781",
+        "name": "d-jp-kfk-02-02",
+        "components": [
+          [
+            "vcpu",
+            "2"
+          ],
+          [
+            "memory",
+            "8"
+          ],
+          [
+            "boot_disk",
+            "10"
+          ],
+          [
+            "disk_1",
+            "50"
+          ]
+        ]
+      },
+      {
+        "row": "2",
+        "id": "vm11490",
+        "name": "i-jp-kfk-02-07",
+        "components": [
+          [
+            "vcpu",
+            "16"
+          ],
+          [
+            "memory",
+            "64"
+          ],
+          [
+            "boot_disk",
+            "10"
+          ],
+          [
+            "disk_1",
+            "200"
+          ]
+        ]
+      },
+      {
+        "row": "3",
+        "id": "vm18130",
+        "name": "i-jp-kfk-02-08",
+        "components": [
+          [
+            "vcpu",
+            "8"
+          ],
+          [
+            "memory",
+            "8"
+          ],
+          [
+            "boot_disk",
+            "10"
+          ]
+        ]
+      }
+    ],
+    "note": "Only the visible rows are transcribed; no missing component is invented.",
+    "sourceSha256": "6cf758afb1534d85ddc4d2358c6217dbe4a15de01b97c5c0abe036c921506fcf"
+  }
+}

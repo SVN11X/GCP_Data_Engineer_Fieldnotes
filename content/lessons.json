@@ -65,7 +65,19 @@
         "Explain why a downloaded key is not an IAM role."
       ]
     },
-    "reviewed": "2026-11-03"
+    "reviewed": "2026-11-03",
+    "review": {
+      "status": "retained-review",
+      "checked": "2026-11-03",
+      "scope": "Retained original lesson and prior editorial references. Only claims listed in the current verification ledger were rechecked in this update."
+    },
+    "briefing": {
+      "context": "A scheduled loader needs one bucket and one dataset. It should not be able to change every resource in the company.",
+      "whyItMatters": "If the job is misused, its permissions determine how much data can be exposed or changed.",
+      "takeaway": "Name the acting identity, its required operation and the narrowest useful resource scope.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    }
   },
   {
     "id": "identity-boundaries",
@@ -118,6 +130,18 @@
         "Separate authorization from connectivity.",
         "Keep credentials out of diagnostic output."
       ]
+    },
+    "review": {
+      "status": "retained-review",
+      "checked": "2026-11-03",
+      "scope": "Retained original lesson and prior editorial references. Only claims listed in the current verification ledger were rechecked in this update."
+    },
+    "briefing": {
+      "context": "An engineer can start a job, but the running workers cannot read its input. They are acting as different identities.",
+      "whyItMatters": "Giving the engineer more access can leave the actual worker failure unresolved.",
+      "takeaway": "Follow the identity that performs each read and write.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
     }
   },
   {
@@ -190,7 +214,19 @@
         "Include staging and backups in a residency decision."
       ]
     },
-    "reviewed": "2026-11-03"
+    "reviewed": "2026-11-03",
+    "review": {
+      "status": "retained-review",
+      "checked": "2026-11-03",
+      "scope": "Retained original lesson and prior editorial references. Only claims listed in the current verification ledger were rechecked in this update."
+    },
+    "briefing": {
+      "context": "A useful customer dataset contains values that some readers must never see.",
+      "whyItMatters": "Access rules, encryption and privacy transformations protect different parts of the same data journey.",
+      "takeaway": "Identify the value, identity and access boundary before choosing a security control.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    }
   },
   {
     "id": "region-recovery-design",
@@ -242,6 +278,18 @@
         "Distinguish allowed geography from availability.",
         "Test recovery permissions as well as data."
       ]
+    },
+    "review": {
+      "status": "retained-review",
+      "checked": "2026-11-03",
+      "scope": "Retained original lesson and prior editorial references. Only claims listed in the current verification ledger were rechecked in this update."
+    },
+    "briefing": {
+      "context": "A business needs data to stay in an approved location and remain recoverable after a failure.",
+      "whyItMatters": "A convenient region choice can conflict with residency or recovery requirements.",
+      "takeaway": "Choose a location and a recovery plan against explicit constraints.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
     }
   },
   {
@@ -310,7 +358,19 @@
         "Define what a replay should change."
       ]
     },
-    "reviewed": "2026-11-03"
+    "reviewed": "2026-11-03",
+    "review": {
+      "status": "retained-review",
+      "checked": "2026-11-03",
+      "scope": "Retained original lesson and prior editorial references. Only claims listed in the current verification ledger were rechecked in this update."
+    },
+    "briefing": {
+      "context": "A purchase message arrives twice after a retry. The dashboard must still represent one purchase.",
+      "whyItMatters": "A successful pipeline can publish the wrong business total if it counts repeated events.",
+      "takeaway": "Protect business identity and reconcile the result, not just the job status.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    }
   },
   {
     "id": "portability",
@@ -379,7 +439,19 @@
         "Name one reason to modernize after a migration."
       ]
     },
-    "reviewed": "2026-11-03"
+    "reviewed": "2026-11-03",
+    "review": {
+      "status": "retained-review",
+      "checked": "2026-11-03",
+      "scope": "Retained original lesson and prior editorial references. Only claims listed in the current verification ledger were rechecked in this update."
+    },
+    "briefing": {
+      "context": "A working data platform must support another team, engine or location next year.",
+      "whyItMatters": "Hidden dependencies can turn a future migration into a costly redesign.",
+      "takeaway": "Keep the data contract separate from replaceable execution details.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    }
   },
   {
     "id": "migration",
@@ -449,7 +521,19 @@
         "Define validation and rollback criteria."
       ]
     },
-    "reviewed": "2026-11-03"
+    "reviewed": "2026-11-03",
+    "review": {
+      "status": "retained-review",
+      "checked": "2026-11-03",
+      "scope": "Retained original lesson and prior editorial references. Only claims listed in the current verification ledger were rechecked in this update."
+    },
+    "briefing": {
+      "context": "A team is moving production data while people continue to use the old system.",
+      "whyItMatters": "A copied file or green transfer status does not prove that the replacement is ready.",
+      "takeaway": "Plan the validation, cutover and rollback before switching readers.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    }
   },
   {
     "id": "cdc-cutover",
@@ -499,6 +583,98 @@
         "Describe update and delete behavior.",
         "Define cutover and rollback evidence."
       ]
+    },
+    "review": {
+      "status": "retained-review",
+      "checked": "2026-11-03",
+      "scope": "Retained original lesson and prior editorial references. Only claims listed in the current verification ledger were rechecked in this update."
+    },
+    "briefing": {
+      "context": "A database snapshot is copied at noon, then more orders arrive. Change data capture tracks changes after the snapshot.",
+      "whyItMatters": "Readers can lose updates if the snapshot and subsequent changes do not meet at a consistent boundary.",
+      "takeaway": "Reconcile a consistent state before the consumer switches.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    }
+  },
+  {
+    "id": "transfer-decisions",
+    "domain": 1,
+    "objective": "1.4",
+    "title": "Match the migration tool to the movement contract",
+    "minutes": 14,
+    "lead": "Measure volume and available bandwidth, then separate object movement, offline shipping and database change capture.",
+    "sections": [
+      {
+        "title": "Choose by what moves",
+        "body": "Storage Transfer Service manages supported file and object transfers. Transfer Appliance provides a physical data shipment route into Cloud Storage. For an ad hoc copy, gcloud storage cp is a command-line option. None of these facts makes a file-copy tool a database log reader.",
+        "references": [
+          "transfer",
+          "appliance",
+          "gcloud-cp"
+        ]
+      },
+      {
+        "title": "Use a lower-bound estimate",
+        "body": "Illustrative planning model: 100 TB (decimal) over a sustained 1 Gbit/s link requires about 9.26 days before overhead: bytes × 8 / bits per second. Shared capacity, retries, validation and change traffic increase the required window. Compare that window with appliance shipping and upload logistics rather than assuming offline is always faster.",
+        "references": [
+          "transfer",
+          "appliance"
+        ]
+      },
+      {
+        "title": "Validate before switching readers",
+        "body": "For files, reconcile object counts, checksums where applicable, naming and access. For a changing database, choose a supported migration or CDC path and reconcile a consistent snapshot plus subsequent changes. Datastream and Database Migration Service have different destinations and use cases; validate the exact source/target pair.",
+        "references": [
+          "stream",
+          "dms"
+        ]
+      }
+    ],
+    "trap": "A copied snapshot does not include changes made after that snapshot.",
+    "references": [
+      "transfer",
+      "appliance",
+      "gcloud-cp",
+      "stream",
+      "dms"
+    ],
+    "code": "",
+    "level": "Applied",
+    "exercise": {
+      "prompt": "A small one-time folder copy and a nightly on-premises file feed share a Cloud Storage destination. Must they use the same tool?",
+      "answer": "No. Consider gcloud storage cp for the ad hoc copy and a supported scheduled Storage Transfer Service job for the recurring feed. Check access, source support, connectivity and validation in both cases.",
+      "checkpoints": [
+        "Name the data type and destination.",
+        "Estimate the transfer window with units.",
+        "Define reconciliation and cutover."
+      ]
+    },
+    "reviewed": "2026-11-07",
+    "review": {
+      "status": "official-checked",
+      "checked": "2026-11-07",
+      "scope": "The specific service claims in this original lesson were checked against its primary references; the scenario is illustrative."
+    },
+    "decision": {
+      "advantage": "A movement contract narrows the service choice before implementation.",
+      "limitation": "Physical shipment and online transfers both require logistics and reconciliation.",
+      "useCase": "Move a historical archive, then keep a scheduled file feed running."
+    },
+    "keywords": [
+      "migration",
+      "Transfer Appliance",
+      "Storage Transfer Service",
+      "bandwidth",
+      "Datastream",
+      "gcloud storage cp"
+    ],
+    "briefing": {
+      "context": "A migration deadline is approaching and several data-movement tools look similar.",
+      "whyItMatters": "Choosing a database tool for files, or a file copy for ongoing changes, misses the movement contract.",
+      "takeaway": "Name the data type, estimate the transfer window and define reconciliation.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
     }
   },
   {
@@ -567,7 +743,19 @@
         "Distinguish job creation from worker data access."
       ]
     },
-    "reviewed": "2026-11-03"
+    "reviewed": "2026-11-03",
+    "review": {
+      "status": "retained-review",
+      "checked": "2026-11-03",
+      "scope": "Retained original lesson and prior editorial references. Only claims listed in the current verification ledger were rechecked in this update."
+    },
+    "briefing": {
+      "context": "A data pipeline moves records from a source, through transformations, into a destination called a sink.",
+      "whyItMatters": "When ownership and expectations are vague, a healthy service can still deliver unusable data.",
+      "takeaway": "Define the source, sink, identity and acceptable output first.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    }
   },
   {
     "id": "pubsub-contracts",
@@ -620,6 +808,97 @@
         "State the ordering scope.",
         "Plan retention before relying on seek."
       ]
+    },
+    "review": {
+      "status": "retained-review",
+      "checked": "2026-11-03",
+      "scope": "Retained original lesson and prior editorial references. Only claims listed in the current verification ledger were rechecked in this update."
+    },
+    "briefing": {
+      "context": "A producer publishes events and a consumer processes them later through a subscription.",
+      "whyItMatters": "Delivery retries, ordering and replay affect what the consumer must safely repeat.",
+      "takeaway": "Describe delivery, event identity and replay as separate contracts.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    }
+  },
+  {
+    "id": "managed-kafka",
+    "domain": 2,
+    "objective": "2.1",
+    "title": "Choose between Kafka compatibility and Pub/Sub delivery",
+    "minutes": 14,
+    "lead": "Start with existing clients, replay requirements and ownership of the event contract.",
+    "sections": [
+      {
+        "title": "Retain an ecosystem deliberately",
+        "body": "Managed Service for Apache Kafka runs managed Kafka clusters. Google provisions brokers from the configured compute resources, while the team still chooses topic retention. It is a candidate when Kafka clients, partitions and consumer groups are part of the application contract.",
+        "references": [
+          "kafka"
+        ]
+      },
+      {
+        "title": "Compare the contract",
+        "body": "Pub/Sub provides topics and subscriptions that decouple publishers from consumers. A Pub/Sub subscription is not a Kafka consumer group with identical behavior. Compare ordering scope, acknowledgment behavior, replay and authentication before choosing a migration path.",
+        "references": [
+          "psdocs",
+          "ordering",
+          "replay"
+        ]
+      },
+      {
+        "title": "Work through an original decision",
+        "body": "A team already operates a Kafka application and must preserve its client integration during a migration. Evaluate the managed Kafka service, then test network access and consumer recovery. A new application without that compatibility requirement can evaluate Pub/Sub without assuming broker semantics. Neither choice removes the need for durable business event IDs.",
+        "references": [
+          "kafka",
+          "pubsub-dataflow"
+        ]
+      }
+    ],
+    "trap": "Managed infrastructure does not make every duplicate business event disappear.",
+    "references": [
+      "kafka",
+      "psdocs",
+      "ordering",
+      "replay",
+      "pubsub-dataflow"
+    ],
+    "code": "",
+    "level": "Applied",
+    "exercise": {
+      "prompt": "A team proposes Pub/Sub solely because both products use the word topic. What evidence is missing?",
+      "answer": "The proposal must compare client compatibility, partition or ordering assumptions, replay behavior, identity, networking and recovery. Similar nouns are not an interoperability guarantee.",
+      "checkpoints": [
+        "Identify the compatibility requirement.",
+        "Separate transport delivery from business deduplication.",
+        "Test replay and recovery."
+      ]
+    },
+    "reviewed": "2026-11-07",
+    "review": {
+      "status": "official-checked",
+      "checked": "2026-11-07",
+      "scope": "The specific service claims in this original lesson were checked against its primary references; the scenario is illustrative."
+    },
+    "decision": {
+      "advantage": "Managed Kafka reduces infrastructure work while retaining the Kafka ecosystem.",
+      "limitation": "Topic configuration, consumer logic and application correctness remain design responsibilities.",
+      "useCase": "Preserve Kafka producers and consumers during a platform migration."
+    },
+    "keywords": [
+      "Kafka",
+      "Pub/Sub",
+      "consumer group",
+      "partition",
+      "retention",
+      "replay"
+    ],
+    "briefing": {
+      "context": "A team has Kafka clients and consumer groups that must continue working after a migration.",
+      "whyItMatters": "Two services having topics does not make their protocols and delivery behavior interchangeable.",
+      "takeaway": "Compare ecosystem compatibility and event contracts before the service name.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
     }
   },
   {
@@ -691,7 +970,19 @@
         "Compare engines using the same requirements."
       ]
     },
-    "reviewed": "2026-11-03"
+    "reviewed": "2026-11-03",
+    "review": {
+      "status": "retained-review",
+      "checked": "2026-11-03",
+      "scope": "Retained original lesson and prior editorial references. Only claims listed in the current verification ledger were rechecked in this update."
+    },
+    "briefing": {
+      "context": "The team has data to transform but several services appear to do similar work.",
+      "whyItMatters": "Choosing by a product name can add unnecessary rewrites or ongoing administration.",
+      "takeaway": "Match the existing code, transformations and workload shape to the execution engine.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    }
   },
   {
     "id": "dataflow-bottlenecks",
@@ -744,6 +1035,18 @@
         "Distinguish hot keys from fusion.",
         "Measure output correctness after tuning."
       ]
+    },
+    "review": {
+      "status": "retained-review",
+      "checked": "2026-11-03",
+      "scope": "Retained original lesson and prior editorial references. Only claims listed in the current verification ledger were rechecked in this update."
+    },
+    "briefing": {
+      "context": "A streaming pipeline is late even though the team keeps adding workers.",
+      "whyItMatters": "More compute cannot repair a denied write or make one overloaded key evenly distributed.",
+      "takeaway": "Find the limiting source, stage, key or sink before scaling.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
     }
   },
   {
@@ -813,7 +1116,19 @@
         "Name how the sink applies a corrected aggregate."
       ]
     },
-    "reviewed": "2026-11-03"
+    "reviewed": "2026-11-03",
+    "review": {
+      "status": "retained-review",
+      "checked": "2026-11-03",
+      "scope": "Retained original lesson and prior editorial references. Only claims listed in the current verification ledger were rechecked in this update."
+    },
+    "briefing": {
+      "context": "A device reports at 10:02 that an event happened at 09:59. Event time is when it happened; arrival time is when it reached the system.",
+      "whyItMatters": "Using arrival time can put a valid event into the wrong reporting period.",
+      "takeaway": "Choose the timestamp and late-arrival policy deliberately.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    }
   },
   {
     "id": "beam-triggers",
@@ -865,6 +1180,18 @@
         "Explain trigger versus watermark.",
         "State how the sink applies corrections."
       ]
+    },
+    "review": {
+      "status": "retained-review",
+      "checked": "2026-11-03",
+      "scope": "Retained original lesson and prior editorial references. Only claims listed in the current verification ledger were rechecked in this update."
+    },
+    "briefing": {
+      "context": "A live report publishes an early total, then a late record changes that total.",
+      "whyItMatters": "Appending both cumulative results can count the same history more than once.",
+      "takeaway": "Define when results appear and how later corrections replace or update them.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
     }
   },
   {
@@ -935,7 +1262,19 @@
         "Include ownership and replay in the design."
       ]
     },
-    "reviewed": "2026-11-03"
+    "reviewed": "2026-11-03",
+    "review": {
+      "status": "retained-review",
+      "checked": "2026-11-03",
+      "scope": "Retained original lesson and prior editorial references. Only claims listed in the current verification ledger were rechecked in this update."
+    },
+    "briefing": {
+      "context": "Most records are valid, but one malformed record keeps a pipeline retrying.",
+      "whyItMatters": "Silently dropping the record loses evidence; repeatedly blocking all records delays the whole dataset.",
+      "takeaway": "Give invalid data an explicit, restricted exception path and repair owner.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    }
   },
   {
     "id": "write-contracts",
@@ -989,6 +1328,18 @@
         "State the offset scope.",
         "Define source cardinality for MERGE."
       ]
+    },
+    "review": {
+      "status": "retained-review",
+      "checked": "2026-11-03",
+      "scope": "Retained original lesson and prior editorial references. Only claims listed in the current verification ledger were rechecked in this update."
+    },
+    "briefing": {
+      "context": "A batch or stream must write records into BigQuery and may need to retry.",
+      "whyItMatters": "An append, a merge and an offset-based write have different replay consequences.",
+      "takeaway": "Specify the target state and repeated-write behavior before selecting the write method.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
     }
   },
   {
@@ -1058,7 +1409,321 @@
         "Compare in-pipeline and staged enrichment."
       ]
     },
-    "reviewed": "2026-11-03"
+    "reviewed": "2026-11-03",
+    "review": {
+      "status": "retained-review",
+      "checked": "2026-11-03",
+      "scope": "Retained original lesson and prior editorial references. Only claims listed in the current verification ledger were rechecked in this update."
+    },
+    "briefing": {
+      "context": "A pipeline asks a model to add a classification or extract information from each record.",
+      "whyItMatters": "Model failures, privacy exposure and changing outputs can affect the entire data product.",
+      "takeaway": "Treat model output as a versioned, validated transformation.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    }
+  },
+  {
+    "id": "streaming-semantics",
+    "domain": 2,
+    "objective": "2.2",
+    "title": "Separate delivery from exactly-once processing",
+    "minutes": 14,
+    "lead": "State what is processed once, where duplicates can originate and what the sink promises.",
+    "sections": [
+      {
+        "title": "Choose a Dataflow processing mode",
+        "body": "Dataflow streaming uses exactly-once mode by default and also supports at-least-once mode. The latter can reduce cost and latency when duplicate processing is acceptable. Treat the decision as a correctness requirement before optimizing the execution mode.",
+        "references": [
+          "stream-modes"
+        ]
+      },
+      {
+        "title": "Trace the identifier",
+        "body": "Pub/Sub normally delivers at least once. Dataflow can deduplicate redeliveries, but an application can publish the same business event twice as distinct messages. Define a stable event ID rather than equating message identity with business identity.",
+        "references": [
+          "pubsub-dataflow"
+        ]
+      },
+      {
+        "title": "Inspect the final side effect",
+        "body": "Original scenario: a pipeline calls an external payment endpoint and then writes an analytical record. A processing guarantee is not proof that the endpoint cannot receive a repeated request. Design an idempotency contract at that endpoint and verify the sink write method separately.",
+        "references": [
+          "exactly",
+          "write"
+        ]
+      }
+    ],
+    "trap": "Exactly-once processing is not a blanket promise for arbitrary external side effects.",
+    "references": [
+      "stream-modes",
+      "pubsub-dataflow",
+      "exactly",
+      "write"
+    ],
+    "code": "",
+    "level": "Applied",
+    "exercise": {
+      "prompt": "A repeated purchase is published with a new message ID. Is transport redelivery deduplication sufficient?",
+      "answer": "No. Preserve a stable purchase identifier and make the business update idempotent. Verify pipeline and sink behavior independently.",
+      "checkpoints": [
+        "Name the duplicate identity.",
+        "Specify the processing mode.",
+        "Define sink and side-effect behavior."
+      ]
+    },
+    "reviewed": "2026-11-07",
+    "review": {
+      "status": "official-checked",
+      "checked": "2026-11-07",
+      "scope": "The specific service claims in this original lesson were checked against its primary references; the scenario is illustrative."
+    },
+    "decision": {
+      "advantage": "An explicit processing contract makes correctness testable.",
+      "limitation": "A runtime guarantee does not replace event IDs or sink-specific checks.",
+      "useCase": "Produce trustworthy transaction aggregates from a replayable stream."
+    },
+    "keywords": [
+      "exactly-once",
+      "at-least-once",
+      "deduplication",
+      "idempotency",
+      "side effect"
+    ],
+    "briefing": {
+      "context": "A purchase is published twice with two message IDs after an application retry.",
+      "whyItMatters": "A transport-level guarantee does not automatically identify the same business purchase twice.",
+      "takeaway": "Preserve a stable business identifier and verify every side-effect boundary.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    }
+  },
+  {
+    "id": "spark-execution",
+    "domain": 2,
+    "objective": "2.2",
+    "title": "Choose a Spark execution environment",
+    "minutes": 14,
+    "lead": "Separate Spark code compatibility from the decision to operate a persistent cluster.",
+    "sections": [
+      {
+        "title": "Compare cluster and serverless execution",
+        "body": "Dataproc terminology appears in the exam guide; current documentation also uses Managed Service for Apache Spark. Serverless supports submitted batch workloads and interactive sessions without a user-provisioned cluster. Batch compute scales for the workload and is charged while execution runs.",
+        "references": [
+          "spark",
+          "spark-serverless"
+        ]
+      },
+      {
+        "title": "Test dependencies before choosing",
+        "body": "An existing job may rely on a particular image, initialization action, native library or cluster service. Inventory those assumptions before moving it to serverless execution. Keeping Spark code does not prove the surrounding environment is compatible.",
+        "references": [
+          "spark",
+          "spark-serverless"
+        ]
+      },
+      {
+        "title": "Use the workload shape",
+        "body": "Original scenario: an isolated nightly PySpark transformation reads durable objects and leaves no required cluster-local state. Evaluate a serverless batch first. A workload needing a specific long-running Hadoop component needs a cluster compatibility assessment instead. Compare measured runtime, startup, permissions and total cost.",
+        "references": [
+          "spark",
+          "spark-serverless"
+        ]
+      }
+    ],
+    "trap": "Serverless does not mean that the job has no runtime, network or identity requirements.",
+    "references": [
+      "spark",
+      "spark-serverless"
+    ],
+    "code": "",
+    "level": "Applied",
+    "exercise": {
+      "prompt": "A nightly Spark job depends on files left on its previous cluster. What must change before using disposable compute?",
+      "answer": "Move the required durable inputs and checkpoints to appropriate persistent storage and define explicit paths per run. Then test runtime dependencies and permissions.",
+      "checkpoints": [
+        "Separate compute lifecycle from data retention.",
+        "Inventory runtime dependencies.",
+        "Measure the complete execution window."
+      ]
+    },
+    "reviewed": "2026-11-07",
+    "review": {
+      "status": "official-checked",
+      "checked": "2026-11-07",
+      "scope": "The specific service claims in this original lesson were checked against its primary references; the scenario is illustrative."
+    },
+    "decision": {
+      "advantage": "Workload-based execution avoids maintaining a user-provisioned idle cluster.",
+      "limitation": "Compatibility and workload economics require measurement.",
+      "useCase": "Run intermittent PySpark processing with durable inputs in Cloud Storage."
+    },
+    "keywords": [
+      "Spark",
+      "Dataproc",
+      "Serverless for Apache Spark",
+      "batch",
+      "cluster"
+    ],
+    "briefing": {
+      "context": "A nightly Spark transformation needs compute for a limited execution window.",
+      "whyItMatters": "Keeping the code does not prove that its runtime, dependencies and storage assumptions still work.",
+      "takeaway": "Choose the execution environment after inventorying the workload assumptions.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    }
+  },
+  {
+    "id": "beam-portability",
+    "domain": 2,
+    "objective": "2.2",
+    "title": "Read the Beam model before choosing a runner",
+    "minutes": 14,
+    "lead": "The pipeline model describes data and transforms; a runner provides a particular execution environment.",
+    "sections": [
+      {
+        "title": "Distinguish the objects",
+        "body": "Apache Beam models a pipeline as transforms over collections. Bounded input can complete; unbounded input needs policies for grouping data over time. Dataflow is a managed execution service for Beam pipelines rather than a different name for the Beam SDK.",
+        "references": [
+          "beammodel",
+          "dataflow"
+        ]
+      },
+      {
+        "title": "Specify time behavior",
+        "body": "For an unbounded aggregation, define event timestamps, windows, triggers and allowed lateness. A window groups records; a trigger controls when results are emitted. A result emitted early may need correction when later data arrives.",
+        "references": [
+          "beammodel",
+          "beam"
+        ]
+      },
+      {
+        "title": "Port the contract, then test",
+        "body": "Original scenario: a team wants to reuse transformation logic across runners. Keep business logic separate from infrastructure settings and test connectors, supported features and sink semantics on the target runner. Model portability is useful evidence, but not a promise of identical performance or every connector behavior.",
+        "references": [
+          "beammodel",
+          "dataflow"
+        ]
+      }
+    ],
+    "trap": "A fixed window is not a timer that makes every event arrive on time.",
+    "references": [
+      "beammodel",
+      "beam",
+      "dataflow"
+    ],
+    "code": "",
+    "level": "Applied",
+    "exercise": {
+      "prompt": "An hourly event-time aggregation emits before all events arrive. Which separate policies must the design describe?",
+      "answer": "Specify the event timestamp, window boundaries, trigger, lateness policy, accumulation behavior and how the sink represents corrections.",
+      "checkpoints": [
+        "Separate SDK model from runner.",
+        "Distinguish a window from a trigger.",
+        "Describe corrected output."
+      ]
+    },
+    "reviewed": "2026-11-07",
+    "review": {
+      "status": "official-checked",
+      "checked": "2026-11-07",
+      "scope": "The specific service claims in this original lesson were checked against its primary references; the scenario is illustrative."
+    },
+    "decision": {
+      "advantage": "A common model helps reason about batch and streaming together.",
+      "limitation": "Runner and connector capabilities still need testing.",
+      "useCase": "Reuse Beam transforms while validating execution on a chosen runner."
+    },
+    "keywords": [
+      "Apache Beam",
+      "runner",
+      "bounded",
+      "unbounded",
+      "window",
+      "trigger"
+    ],
+    "briefing": {
+      "context": "The same transformation logic needs to process a completed file and a continuing stream.",
+      "whyItMatters": "A common pipeline model helps, but unbounded data still needs explicit time behavior.",
+      "takeaway": "Separate the Beam model from the runner that executes it.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    }
+  },
+  {
+    "id": "schema-evolution",
+    "domain": 2,
+    "objective": "2.2",
+    "title": "Evolve schemas without breaking consumers",
+    "minutes": 14,
+    "lead": "Treat the producer, transport, table and consumer as one versioned data contract.",
+    "sections": [
+      {
+        "title": "Check the allowed table operation",
+        "body": "BigQuery supports adding fields under documented mode and operation rules. Relaxing REQUIRED to NULLABLE differs from changing NULLABLE to REQUIRED, which requires a table recreation. Verify the supported change for the exact ingestion method and table type.",
+        "references": [
+          "schema"
+        ]
+      },
+      {
+        "title": "Test both old and new records",
+        "body": "An optional field does not automatically have a safe business default. Original scenario: a new discount field is absent from old orders. Zero, unknown and not applicable represent different facts. Test old producers against new consumers and new producers against old consumers.",
+        "references": [
+          "schema",
+          "bqsql"
+        ]
+      },
+      {
+        "title": "Roll out with evidence",
+        "body": "Stage the new contract, replay representative historical records and inspect rejected rows. Keep a version identifier and a rollback plan. When a change alters meaning rather than representation, publish a new data product contract instead of silently rewriting history.",
+        "references": [
+          "schema",
+          "dataform"
+        ]
+      }
+    ],
+    "trap": "Successful parsing is not proof that two schema versions mean the same thing.",
+    "references": [
+      "schema",
+      "bqsql",
+      "dataform"
+    ],
+    "code": "",
+    "level": "Applied",
+    "exercise": {
+      "prompt": "A producer changes an optional amount field to mandatory. Will making the consumer table stricter repair old missing values?",
+      "answer": "No. Backfill or explicitly reject the missing values under a documented rule, verify the table operation, and coordinate producer and consumer rollout.",
+      "checkpoints": [
+        "Test absent, null and valid values.",
+        "Check the exact table mutation.",
+        "Retain version and rollback evidence."
+      ]
+    },
+    "reviewed": "2026-11-07",
+    "review": {
+      "status": "official-checked",
+      "checked": "2026-11-07",
+      "scope": "The specific service claims in this original lesson were checked against its primary references; the scenario is illustrative."
+    },
+    "decision": {
+      "advantage": "An explicit schema contract makes compatibility failures visible before publication.",
+      "limitation": "A technically accepted schema change can still break business meaning.",
+      "useCase": "Add an optional field while keeping historical records interpretable."
+    },
+    "keywords": [
+      "schema evolution",
+      "NULLABLE",
+      "REQUIRED",
+      "backward compatibility",
+      "contract"
+    ],
+    "briefing": {
+      "context": "A producer adds an optional discount field that older order records do not have.",
+      "whyItMatters": "A valid new schema can still change business meaning or break old consumers.",
+      "takeaway": "Test old and new records and define what absent values mean.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    }
   },
   {
     "id": "deploy-pipeline",
@@ -1126,7 +1791,19 @@
         "Define a measurable rollback condition."
       ]
     },
-    "reviewed": "2026-11-03"
+    "reviewed": "2026-11-03",
+    "review": {
+      "status": "retained-review",
+      "checked": "2026-11-03",
+      "scope": "Retained original lesson and prior editorial references. Only claims listed in the current verification ledger were rechecked in this update."
+    },
+    "briefing": {
+      "context": "A new pipeline version must replace one that already holds processing state.",
+      "whyItMatters": "An incompatible update can lose the ability to resume or produce the intended output.",
+      "takeaway": "Test state, connector and replay assumptions before replacement.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    }
   },
   {
     "id": "dataform-quality",
@@ -1177,6 +1854,18 @@
         "Prove that an assertion blocks publication.",
         "Test a late correction outside the normal incremental interval."
       ]
+    },
+    "review": {
+      "status": "retained-review",
+      "checked": "2026-11-03",
+      "scope": "Retained original lesson and prior editorial references. Only claims listed in the current verification ledger were rechecked in this update."
+    },
+    "briefing": {
+      "context": "A warehouse transformation finishes successfully, but some published rows are invalid.",
+      "whyItMatters": "Downstream reports can consume bad data unless quality checks actually block publication.",
+      "takeaway": "Make the required assertion a real dependency of the published result.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
     }
   },
   {
@@ -1252,7 +1941,19 @@
         "Distinguish durable state from a cache or projection."
       ]
     },
-    "reviewed": "2026-11-03"
+    "reviewed": "2026-11-03",
+    "review": {
+      "status": "retained-review",
+      "checked": "2026-11-03",
+      "scope": "Retained original lesson and prior editorial references. Only claims listed in the current verification ledger were rechecked in this update."
+    },
+    "briefing": {
+      "context": "An application needs fast keyed reads while analysts need historical joins and aggregations.",
+      "whyItMatters": "A storage service can be excellent for one access pattern and unsuitable for the other.",
+      "takeaway": "Start from the critical read, write and consistency requirement.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    }
   },
   {
     "id": "lifecycle",
@@ -1319,7 +2020,102 @@
         "Define what a restore must prove."
       ]
     },
-    "reviewed": "2026-11-03"
+    "reviewed": "2026-11-03",
+    "review": {
+      "status": "retained-review",
+      "checked": "2026-11-03",
+      "scope": "Retained original lesson and prior editorial references. Only claims listed in the current verification ledger were rechecked in this update."
+    },
+    "briefing": {
+      "context": "A large archive must be kept for years, but only a small part is read regularly.",
+      "whyItMatters": "Storage rates, retrieval costs and required retention can push in different directions.",
+      "takeaway": "Separate cost optimization from the rule that protects required data.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    }
+  },
+  {
+    "id": "database-requirements",
+    "domain": 3,
+    "objective": "3.1",
+    "title": "Choose a database from the query and transaction",
+    "minutes": 14,
+    "lead": "Begin with access patterns, transaction boundaries, engine compatibility and recovery requirements.",
+    "sections": [
+      {
+        "title": "Separate analytical and operational reads",
+        "body": "BigQuery is designed for analytical work across records. Bigtable is a candidate for keyed high-throughput access when its row-key design fits the workload. Neither label alone proves the latency required by an application. Build a representative workload before choosing.",
+        "references": [
+          "compute",
+          "bigtable"
+        ]
+      },
+      {
+        "title": "State the relational requirement",
+        "body": "Cloud SQL offers managed familiar relational engines. AlloyDB is PostgreSQL-compatible. Spanner provides a distributed relational database with strong consistency. Compare supported features, transaction scope, scale and location requirements rather than choosing only from data size.",
+        "references": [
+          "cloudsql",
+          "alloydb",
+          "spanner"
+        ]
+      },
+      {
+        "title": "Use multiple stores with explicit ownership",
+        "body": "Original scenario: checkout transactions and hourly historical sales analysis need different access paths. Keep an authoritative transaction system and publish validated analytical data. Document freshness, deletion propagation and reconciliation between the systems instead of demanding that one database serve every query.",
+        "references": [
+          "cloudsql",
+          "stream",
+          "compute"
+        ]
+      }
+    ],
+    "trap": "A cache hit rate is not evidence that the durable source can be recovered.",
+    "references": [
+      "cloudsql",
+      "alloydb",
+      "spanner",
+      "bigtable",
+      "compute",
+      "redis"
+    ],
+    "code": "",
+    "level": "Applied",
+    "exercise": {
+      "prompt": "A team chooses BigQuery for a checkout path because it stores a large volume. What requirements are still missing?",
+      "answer": "Measure point-read and write latency, concurrent transaction behavior, consistency, supported constraints and recovery. Volume alone does not select the serving database.",
+      "checkpoints": [
+        "Name the critical query.",
+        "Define transaction and consistency boundaries.",
+        "Test recovery and realistic load."
+      ]
+    },
+    "reviewed": "2026-11-07",
+    "review": {
+      "status": "official-checked",
+      "checked": "2026-11-07",
+      "scope": "The specific service claims in this original lesson were checked against its primary references; the scenario is illustrative."
+    },
+    "decision": {
+      "advantage": "Requirements make database comparisons concrete and testable.",
+      "limitation": "A service overview cannot substitute for workload validation.",
+      "useCase": "Separate transactional order handling from warehouse reporting."
+    },
+    "keywords": [
+      "OLTP",
+      "OLAP",
+      "transaction",
+      "Spanner",
+      "AlloyDB",
+      "Bigtable",
+      "Cloud SQL"
+    ],
+    "briefing": {
+      "context": "A team chooses a checkout database only from the size of its historical dataset.",
+      "whyItMatters": "Volume does not establish the transaction and latency contract of a live checkout.",
+      "takeaway": "Name the critical query and transaction before selecting the database.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    }
   },
   {
     "id": "warehouse-model",
@@ -1388,7 +2184,19 @@
         "Use a deterministic rule for current-state rows."
       ]
     },
-    "reviewed": "2026-11-03"
+    "reviewed": "2026-11-03",
+    "review": {
+      "status": "retained-review",
+      "checked": "2026-11-03",
+      "scope": "Retained original lesson and prior editorial references. Only claims listed in the current verification ledger were rechecked in this update."
+    },
+    "briefing": {
+      "context": "A report needs order totals by date and customer without repeatedly scanning unnecessary data.",
+      "whyItMatters": "Poor grain and layout can make results slower, more expensive or incorrect.",
+      "takeaway": "Choose the business grain, then a layout aligned with the queries.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    }
   },
   {
     "id": "sql-grain",
@@ -1440,6 +2248,18 @@
         "Explain a deterministic window ordering.",
         "Preserve missing values and unmatched records deliberately."
       ]
+    },
+    "review": {
+      "status": "retained-review",
+      "checked": "2026-11-03",
+      "scope": "Retained original lesson and prior editorial references. Only claims listed in the current verification ledger were rechecked in this update."
+    },
+    "briefing": {
+      "context": "One order has several line items. A join can repeat its order-level amount on every line.",
+      "whyItMatters": "A syntactically correct SQL query can multiply revenue while looking plausible.",
+      "takeaway": "State what one row represents before joining and summing.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
     }
   },
   {
@@ -1509,7 +2329,19 @@
         "Separate discovery success from freshness."
       ]
     },
-    "reviewed": "2026-11-03"
+    "reviewed": "2026-11-03",
+    "review": {
+      "status": "retained-review",
+      "checked": "2026-11-03",
+      "scope": "Retained original lesson and prior editorial references. Only claims listed in the current verification ledger were rechecked in this update."
+    },
+    "briefing": {
+      "context": "Files accumulate in a bucket, but people cannot tell what they mean or whether they are trustworthy.",
+      "whyItMatters": "A large collection of files is hard to reuse without ownership, schema and quality evidence.",
+      "takeaway": "Make the lake discoverable, governed and understandable to its readers.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    }
   },
   {
     "id": "biglake-access",
@@ -1562,6 +2394,171 @@
         "Name the identity reading the external objects.",
         "Explain how metadata freshness affects a query."
       ]
+    },
+    "review": {
+      "status": "retained-review",
+      "checked": "2026-11-03",
+      "scope": "Retained original lesson and prior editorial references. Only claims listed in the current verification ledger were rechecked in this update."
+    },
+    "briefing": {
+      "context": "Analysts need to query existing object-store data without receiving direct access to every file.",
+      "whyItMatters": "The table boundary is useful only if the selected access path actually enforces its policy.",
+      "takeaway": "Trace the reader, connection identity and underlying storage separately.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    }
+  },
+  {
+    "id": "iceberg-contracts",
+    "domain": 3,
+    "objective": "3.3",
+    "title": "Distinguish external BigLake access from managed Iceberg",
+    "minutes": 14,
+    "lead": "Identify who owns the files, who mutates the table and which access path enforces policy.",
+    "sections": [
+      {
+        "title": "Read the table type",
+        "body": "BigLake external tables delegate supported object-store access through a connection. Users can be granted table access without direct access to the underlying objects. Those external tables are read-only in BigQuery; do not generalize that limitation to every product containing BigLake or Iceberg in its name.",
+        "references": [
+          "biglake"
+        ]
+      },
+      {
+        "title": "Compare the managed format",
+        "body": "Apache Iceberg managed tables in BigQuery store data in customer-owned Cloud Storage buckets and support documented table mutations. BigQuery manages storage optimization and exports Iceberg metadata for interoperability. Check the current feature and limitation list for the exact table type.",
+        "references": [
+          "iceberg-managed"
+        ]
+      },
+      {
+        "title": "Apply the distinction",
+        "body": "Original scenario: a team wants governed read access over existing Parquet files. Compare an external BigLake table with loading a native table. A different team needs BigQuery-managed mutation of an open-format table in its own bucket; evaluate managed Iceberg and test its supported access paths.",
+        "references": [
+          "biglake",
+          "iceberg-managed"
+        ]
+      }
+    ],
+    "trap": "The words open format do not imply that every external engine may safely write the same managed table.",
+    "references": [
+      "biglake",
+      "iceberg-managed"
+    ],
+    "code": "",
+    "level": "Applied",
+    "exercise": {
+      "prompt": "A design says all BigLake tables reject DML. What missing qualification should you request?",
+      "answer": "Ask for the exact table type. BigLake external object tables and Apache Iceberg managed tables have different write contracts. Confirm the documented mutation path.",
+      "checkpoints": [
+        "Identify the table type.",
+        "Separate file ownership from table management.",
+        "Verify the policy enforcement path."
+      ]
+    },
+    "reviewed": "2026-11-07",
+    "review": {
+      "status": "official-checked",
+      "checked": "2026-11-07",
+      "scope": "The specific service claims in this original lesson were checked against its primary references; the scenario is illustrative."
+    },
+    "decision": {
+      "advantage": "Delegated table access can avoid granting consumers raw object access.",
+      "limitation": "External-table and managed-table capabilities must be evaluated separately.",
+      "useCase": "Choose a lakehouse access model with explicit read and write ownership."
+    },
+    "keywords": [
+      "BigLake",
+      "Iceberg",
+      "lakehouse",
+      "external table",
+      "access delegation"
+    ],
+    "briefing": {
+      "context": "A design says its lake table can be queried and modified, but only names BigLake.",
+      "whyItMatters": "External access and managed Iceberg tables have different mutation contracts.",
+      "takeaway": "Ask for the exact table type and supported read and write paths.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    }
+  },
+  {
+    "id": "lake-file-layout",
+    "domain": 3,
+    "objective": "3.3",
+    "title": "Design lake files for the readers that use them",
+    "minutes": 14,
+    "lead": "A useful lake needs discoverable datasets, deliberate object layout and a lifecycle contract.",
+    "sections": [
+      {
+        "title": "Match layout to queries",
+        "body": "Columnar formats such as Parquet can be useful for analytical scans. Organize files around common filtering dimensions and test file-size distribution with the intended reader. Tiny files can add per-object overhead; one very large file can restrict parallelism depending on its format and reader. These are design hypotheses to measure, not universal size thresholds.",
+        "references": [
+          "biglake",
+          "spark"
+        ]
+      },
+      {
+        "title": "Separate retention from retrieval cost",
+        "body": "Cloud Storage classes differ in storage and access economics. Lifecycle rules automate eligible object actions; retention controls protect required data. A cheap storage rate alone does not establish the cost of frequent access or early deletion.",
+        "references": [
+          "classes",
+          "lifecycle",
+          "protect"
+        ]
+      },
+      {
+        "title": "Make ownership visible",
+        "body": "Original scenario: a raw daily feed becomes a curated monthly data product. Keep the raw replay contract, curated schema, validation results and owner discoverable. Publishing metadata does not grant data access and cannot prove that the records are complete.",
+        "references": [
+          "catalog",
+          "biglake"
+        ]
+      }
+    ],
+    "trap": "Do not delete raw replay data merely because a curated table exists.",
+    "references": [
+      "biglake",
+      "spark",
+      "classes",
+      "lifecycle",
+      "protect",
+      "catalog"
+    ],
+    "code": "",
+    "level": "Applied",
+    "exercise": {
+      "prompt": "A lake is hard to query after millions of tiny daily files accumulate. Should the team change storage class first?",
+      "answer": "First measure listing and scan overhead, reader parallelism and file layout. Consider a controlled compaction and catalog update while preserving replay and retention obligations; storage class addresses a different cost dimension.",
+      "checkpoints": [
+        "Measure with the target reader.",
+        "Separate lifecycle and legal retention.",
+        "Keep ownership and quality evidence."
+      ]
+    },
+    "reviewed": "2026-11-07",
+    "review": {
+      "status": "official-checked",
+      "checked": "2026-11-07",
+      "scope": "The specific service claims in this original lesson were checked against its primary references; the scenario is illustrative."
+    },
+    "decision": {
+      "advantage": "A deliberate layout and catalog reduce discovery and query friction.",
+      "limitation": "Compaction and cleanup must preserve references, retention and replay guarantees.",
+      "useCase": "Publish queryable curated files while preserving controlled raw replay."
+    },
+    "keywords": [
+      "Parquet",
+      "compaction",
+      "data lake",
+      "lifecycle",
+      "retention"
+    ],
+    "briefing": {
+      "context": "A query spends too much time opening millions of tiny lake files.",
+      "whyItMatters": "A cheaper storage class does not automatically fix reader overhead or file layout.",
+      "takeaway": "Measure the reader and preserve replay and retention during a layout change.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
     }
   },
   {
@@ -1629,7 +2626,19 @@
         "Check renamed or retired features against current docs."
       ]
     },
-    "reviewed": "2026-11-03"
+    "reviewed": "2026-11-03",
+    "review": {
+      "status": "retained-review",
+      "checked": "2026-11-03",
+      "scope": "Retained original lesson and prior editorial references. Only claims listed in the current verification ledger were rechecked in this update."
+    },
+    "briefing": {
+      "context": "Several domain teams publish datasets that the wider organization wants to discover and trust.",
+      "whyItMatters": "A catalog label alone cannot establish data quality or replace underlying permissions.",
+      "takeaway": "Combine shared guardrails with accountable product ownership.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    }
   },
   {
     "id": "analytics",
@@ -1699,7 +2708,19 @@
         "Trace freshness across the entire path."
       ]
     },
-    "reviewed": "2026-11-03"
+    "reviewed": "2026-11-03",
+    "review": {
+      "status": "retained-review",
+      "checked": "2026-11-03",
+      "scope": "Retained original lesson and prior editorial references. Only claims listed in the current verification ledger were rechecked in this update."
+    },
+    "briefing": {
+      "context": "A dashboard refreshes often and people rely on its numbers to make decisions.",
+      "whyItMatters": "Fast charts are not useful if their values are stale, duplicated or visible to the wrong reader.",
+      "takeaway": "Balance query efficiency, freshness and authorized access.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    }
   },
   {
     "id": "materialized-freshness",
@@ -1751,6 +2772,18 @@
         "Check materialization eligibility.",
         "Measure freshness separately from query latency."
       ]
+    },
+    "review": {
+      "status": "retained-review",
+      "checked": "2026-11-03",
+      "scope": "Retained original lesson and prior editorial references. Only claims listed in the current verification ledger were rechecked in this update."
+    },
+    "briefing": {
+      "context": "Many users repeat the same expensive analytical calculation.",
+      "whyItMatters": "Reusing results can help, but a report still needs an explicit freshness contract.",
+      "takeaway": "Compare reusable results against how much staleness the business permits.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
     }
   },
   {
@@ -1817,7 +2850,19 @@
         "Identify one form of temporal or entity leakage."
       ]
     },
-    "reviewed": "2026-11-03"
+    "reviewed": "2026-11-03",
+    "review": {
+      "status": "retained-review",
+      "checked": "2026-11-03",
+      "scope": "Retained original lesson and prior editorial references. Only claims listed in the current verification ledger were rechecked in this update."
+    },
+    "briefing": {
+      "context": "A model learns from transformed training data and later receives live inputs.",
+      "whyItMatters": "Different transformations during training and serving can make the model behave unexpectedly.",
+      "takeaway": "Keep feature meaning and transformations consistent across the lifecycle.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    }
   },
   {
     "id": "ml-evaluation",
@@ -1866,6 +2911,18 @@
         "Choose a deployment-relevant holdout.",
         "Explain one way preprocessing can leak information."
       ]
+    },
+    "review": {
+      "status": "retained-review",
+      "checked": "2026-11-03",
+      "scope": "Retained original lesson and prior editorial references. Only claims listed in the current verification ledger were rechecked in this update."
+    },
+    "briefing": {
+      "context": "A fraud model can miss real fraud or incorrectly flag legitimate purchases.",
+      "whyItMatters": "A single accuracy number hides the different costs of those mistakes.",
+      "takeaway": "Choose evaluation measures that reflect the actual failure cost.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
     }
   },
   {
@@ -1933,7 +2990,19 @@
         "Explain approximate versus exact retrieval."
       ]
     },
-    "reviewed": "2026-11-03"
+    "reviewed": "2026-11-03",
+    "review": {
+      "status": "retained-review",
+      "checked": "2026-11-03",
+      "scope": "Retained original lesson and prior editorial references. Only claims listed in the current verification ledger were rechecked in this update."
+    },
+    "briefing": {
+      "context": "A user asks a question and the system must find relevant document passages before generating an answer.",
+      "whyItMatters": "Relevant text must be discoverable without discarding its source or authorization rules.",
+      "takeaway": "Prepare useful chunks, embeddings and retrieval evidence together.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    }
   },
   {
     "id": "rag-evaluation",
@@ -1985,6 +3054,18 @@
         "Check citation version and groundedness.",
         "Propagate document deletion and access changes."
       ]
+    },
+    "review": {
+      "status": "retained-review",
+      "checked": "2026-11-03",
+      "scope": "Retained original lesson and prior editorial references. Only claims listed in the current verification ledger were rechecked in this update."
+    },
+    "briefing": {
+      "context": "A generated answer sounds convincing, but the retrieved evidence may be irrelevant or unauthorized.",
+      "whyItMatters": "Good retrieval and good generation are separate outcomes that need separate checks.",
+      "takeaway": "Evaluate evidence selection and answer support independently.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
     }
   },
   {
@@ -2054,7 +3135,19 @@
         "Explain revocation and compatible schema changes."
       ]
     },
-    "reviewed": "2026-11-03"
+    "reviewed": "2026-11-03",
+    "review": {
+      "status": "retained-review",
+      "checked": "2026-11-03",
+      "scope": "Retained original lesson and prior editorial references. Only claims listed in the current verification ledger were rechecked in this update."
+    },
+    "briefing": {
+      "context": "One team wants to let another team use its data product.",
+      "whyItMatters": "Sharing a dataset without an access and freshness contract creates confusing responsibilities.",
+      "takeaway": "Define who may consume which data and under what expectations.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    }
   },
   {
     "id": "resource-cost",
@@ -2125,7 +3218,98 @@
         "Keep the workload fixed during a tuning comparison."
       ]
     },
-    "reviewed": "2026-11-03"
+    "reviewed": "2026-11-03",
+    "review": {
+      "status": "retained-review",
+      "checked": "2026-11-03",
+      "scope": "Retained original lesson and prior editorial references. Only claims listed in the current verification ledger were rechecked in this update."
+    },
+    "briefing": {
+      "context": "A Spark job runs once a week while its cluster can remain allocated all week.",
+      "whyItMatters": "Idle resources can consume budget without improving the required business outcome.",
+      "takeaway": "Compare resource lifetime with the work that actually needs it.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    }
+  },
+  {
+    "id": "warehouse-economics",
+    "domain": 5,
+    "objective": "5.1",
+    "title": "Control query cost with the correct pricing model",
+    "minutes": 14,
+    "lead": "Bytes scanned, slot capacity and result row count answer different questions.",
+    "sections": [
+      {
+        "title": "Choose the cost signal",
+        "body": "For on-demand BigQuery queries, use a dry run as an estimate and configure maximum bytes billed where appropriate. A LIMIT on a non-clustered table does not reduce the bytes read. Selecting fewer required columns and filtering partitions address the scan rather than just truncating the result.",
+        "references": [
+          "bqcost",
+          "partition"
+        ]
+      },
+      {
+        "title": "Separate capacity from scans",
+        "body": "Capacity-based workloads use slot capacity and reservations. Reduce wasted work, but also inspect concurrency, queuing and slot contention. A faster query and a smaller bill are related only through the applicable pricing and capacity contract.",
+        "references": [
+          "slots",
+          "reservations"
+        ]
+      },
+      {
+        "title": "Compare an original workload",
+        "body": "A report scans the same historical columns for many consumers. Test a narrower projection, partition pruning and a suitable reusable result. Compare bytes, runtime, freshness and concurrent behavior before adopting the change. Keep illustrative scan models separate from a real invoice estimate.",
+        "references": [
+          "compute",
+          "mv"
+        ]
+      }
+    ],
+    "trap": "LIMIT 10 is a result-size control, not a universal query-cost ceiling.",
+    "references": [
+      "bqcost",
+      "partition",
+      "slots",
+      "reservations",
+      "compute",
+      "mv"
+    ],
+    "code": "",
+    "level": "Applied",
+    "exercise": {
+      "prompt": "A dashboard adds LIMIT 100 to SELECT * on a non-clustered table. What should the engineer inspect next?",
+      "answer": "Inspect projected columns, partition filters and estimated bytes, then the execution evidence. Set an appropriate query guardrail for on-demand use and evaluate capacity behavior separately.",
+      "checkpoints": [
+        "Identify the pricing model.",
+        "Separate result rows from scanned bytes.",
+        "Measure freshness as well as runtime."
+      ]
+    },
+    "reviewed": "2026-11-07",
+    "review": {
+      "status": "official-checked",
+      "checked": "2026-11-07",
+      "scope": "The specific service claims in this original lesson were checked against its primary references; the scenario is illustrative."
+    },
+    "decision": {
+      "advantage": "Cost controls can prevent an unexpectedly large scan before it runs.",
+      "limitation": "An estimate or a local scan model is not a production bill.",
+      "useCase": "Reduce repeated dashboard work while preserving the required freshness."
+    },
+    "keywords": [
+      "dry run",
+      "maximum bytes billed",
+      "on-demand",
+      "slots",
+      "partition pruning"
+    ],
+    "briefing": {
+      "context": "A dashboard adds LIMIT 10 and expects a much smaller query bill.",
+      "whyItMatters": "On a non-clustered BigQuery table, fewer returned rows do not mean fewer bytes read.",
+      "takeaway": "Separate result size, scan work and the applicable pricing model.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    }
   },
   {
     "id": "repeatability",
@@ -2194,7 +3378,97 @@
         "Prove that failed quality checks block publication."
       ]
     },
-    "reviewed": "2026-11-03"
+    "reviewed": "2026-11-03",
+    "review": {
+      "status": "retained-review",
+      "checked": "2026-11-03",
+      "scope": "Retained original lesson and prior editorial references. Only claims listed in the current verification ledger were rechecked in this update."
+    },
+    "briefing": {
+      "context": "An orchestrated workflow fails after one task has already written durable output.",
+      "whyItMatters": "Retrying every step blindly can append duplicates or publish mixed intervals.",
+      "takeaway": "Make repeated execution produce the intended state.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    }
+  },
+  {
+    "id": "composer-retries",
+    "domain": 5,
+    "objective": "5.2",
+    "title": "Make orchestration safe to retry",
+    "minutes": 14,
+    "lead": "A schedule coordinates tasks; deterministic inputs and controlled side effects make retries safe.",
+    "sections": [
+      {
+        "title": "Separate orchestration and execution",
+        "body": "Cloud Composer terminology appears in the exam guide; current documentation uses Managed Airflow. DAGs describe tasks and their dependencies. Let specialized services perform the large transformation while the orchestration layer starts, observes and coordinates the work.",
+        "references": [
+          "composer3",
+          "workflows"
+        ]
+      },
+      {
+        "title": "Pin the logical input",
+        "body": "Airflow recommends repeatable task effects and reading a specific data partition. A retry that reads latest data can see different inputs. Use the intended interval and stable outputs, then make publication depend on validation. Avoid passing required durable data through a worker-local file.",
+        "references": [
+          "airflow-practices"
+        ]
+      },
+      {
+        "title": "Rehearse a partial failure",
+        "body": "Original scenario: a daily load succeeds but its notification task fails. Re-running should not append the same business rows again. Record the interval and operation identity, use an appropriate idempotent write pattern and test the failure after each durable side effect.",
+        "references": [
+          "airflow-practices",
+          "bqmerge"
+        ]
+      }
+    ],
+    "trap": "A green DAG does not prove the produced data satisfies the business contract.",
+    "references": [
+      "composer3",
+      "airflow-practices",
+      "workflows",
+      "bqmerge",
+      "dataform"
+    ],
+    "code": "",
+    "level": "Applied",
+    "exercise": {
+      "prompt": "A retried task uses the current clock to choose its input folder. What changes?",
+      "answer": "A later retry can read a different interval. Pin the logical input and output and verify idempotent effects, including downstream publication.",
+      "checkpoints": [
+        "Pin the data interval.",
+        "Identify every durable side effect.",
+        "Block publication on quality."
+      ]
+    },
+    "reviewed": "2026-11-07",
+    "review": {
+      "status": "official-checked",
+      "checked": "2026-11-07",
+      "scope": "The specific service claims in this original lesson were checked against its primary references; the scenario is illustrative."
+    },
+    "decision": {
+      "advantage": "Explicit dependencies make recovery and ownership easier to reason about.",
+      "limitation": "Orchestrator success does not validate data correctness automatically.",
+      "useCase": "Recover a failed daily pipeline without publishing duplicate business rows."
+    },
+    "keywords": [
+      "Cloud Composer",
+      "Airflow",
+      "DAG",
+      "data interval",
+      "idempotent",
+      "retry"
+    ],
+    "briefing": {
+      "context": "A daily load succeeds, then its notification fails and the workflow retries.",
+      "whyItMatters": "Using the current clock or blindly appending can change the input or duplicate the output.",
+      "takeaway": "Pin the logical interval and make durable side effects safe to repeat.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    }
   },
   {
     "id": "capacity",
@@ -2261,7 +3535,19 @@
         "State what a budget alert does."
       ]
     },
-    "reviewed": "2026-11-03"
+    "reviewed": "2026-11-03",
+    "review": {
+      "status": "retained-review",
+      "checked": "2026-11-03",
+      "scope": "Retained original lesson and prior editorial references. Only claims listed in the current verification ledger were rechecked in this update."
+    },
+    "briefing": {
+      "context": "Scheduled reports and interactive analysts compete for analytical resources.",
+      "whyItMatters": "A workload can miss its deadline because it waits for shared capacity, even with valid SQL.",
+      "takeaway": "Inspect concurrency and allocate capacity against business priorities.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    }
   },
   {
     "id": "observability",
@@ -2329,7 +3615,19 @@
         "Test a specific bottleneck hypothesis."
       ]
     },
-    "reviewed": "2026-11-03"
+    "reviewed": "2026-11-03",
+    "review": {
+      "status": "retained-review",
+      "checked": "2026-11-03",
+      "scope": "Retained original lesson and prior editorial references. Only claims listed in the current verification ledger were rechecked in this update."
+    },
+    "briefing": {
+      "context": "A data job is late and the team sees several symptoms at once.",
+      "whyItMatters": "Treating the most visible metric as the cause can waste time and money.",
+      "takeaway": "Use source, stage and sink evidence to test a specific diagnosis.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    }
   },
   {
     "id": "query-diagnosis",
@@ -2380,6 +3678,98 @@
         "Map an error to the right resource.",
         "Interpret bytes and slots under the chosen billing model."
       ]
+    },
+    "review": {
+      "status": "retained-review",
+      "checked": "2026-11-03",
+      "scope": "Retained original lesson and prior editorial references. Only claims listed in the current verification ledger were rechecked in this update."
+    },
+    "briefing": {
+      "context": "An analytical query becomes slow after the dataset or workload changes.",
+      "whyItMatters": "Changing SQL at random can hide the bottleneck without fixing it.",
+      "takeaway": "Use execution evidence to distinguish scan, join and resource contention problems.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    }
+  },
+  {
+    "id": "pipeline-slo",
+    "domain": 5,
+    "objective": "5.4",
+    "title": "Diagnose freshness across a streaming pipeline",
+    "minutes": 14,
+    "lead": "Trace where data waits before adding compute or suppressing an alert.",
+    "sections": [
+      {
+        "title": "Distinguish the observations",
+        "body": "Dataflow exposes freshness, system latency, throughput and backlog metrics. System latency measures time an element spends processing or waiting, subject to source visibility. Pub/Sub oldest unacknowledged age describes waiting subscription messages. These observations are related but not interchangeable.",
+        "references": [
+          "dfmetrics",
+          "psmetrics"
+        ]
+      },
+      {
+        "title": "Follow the bottleneck",
+        "body": "Original incident: input traffic is steady, destination writes start failing, and upstream backlog grows while worker CPU stays modest. Inspect write errors, permissions, quota and destination capacity. Adding workers cannot repair a denied sink. Correlate stage evidence rather than diagnosing from CPU alone.",
+        "references": [
+          "dfmetrics",
+          "dftrouble",
+          "auditlogs"
+        ]
+      },
+      {
+        "title": "Define an actionable outcome",
+        "body": "Illustrative SLO: curated orders should be queryable within five minutes for the agreed population. Specify the timestamp, denominator, observation point and late-event policy. Couple an alert to an owner, a bounded recovery action and a check that reconciles missing records after recovery.",
+        "references": [
+          "alerts",
+          "dfmetrics"
+        ]
+      }
+    ],
+    "trap": "A healthy transport graph does not prove that the business dataset is complete.",
+    "references": [
+      "dfmetrics",
+      "psmetrics",
+      "dftrouble",
+      "auditlogs",
+      "alerts"
+    ],
+    "code": "",
+    "level": "Applied",
+    "exercise": {
+      "prompt": "Backlog rises while sink writes fail with permission errors. Is increasing worker count a sufficient fix?",
+      "answer": "No. Repair the identity or permission path, then observe whether the backlog drains and reconcile delayed or failed outputs. Verify the diagnosis from logs and metrics.",
+      "checkpoints": [
+        "Name the observation point and unit.",
+        "Correlate source, stage and sink evidence.",
+        "Reconcile data after recovery."
+      ]
+    },
+    "reviewed": "2026-11-07",
+    "review": {
+      "status": "official-checked",
+      "checked": "2026-11-07",
+      "scope": "The specific service claims in this original lesson were checked against its primary references; the scenario is illustrative."
+    },
+    "decision": {
+      "advantage": "Stage-specific evidence narrows the corrective action.",
+      "limitation": "Freshness metrics alone do not establish semantic completeness.",
+      "useCase": "Triage delayed analytics with source, processor and sink evidence."
+    },
+    "keywords": [
+      "observability",
+      "freshness",
+      "backlog",
+      "SLO",
+      "system latency",
+      "runbook"
+    ],
+    "briefing": {
+      "context": "Orders arrive on time, but the analytical dataset is late while sink writes fail.",
+      "whyItMatters": "More workers cannot repair a denied write, and a CPU chart does not establish data freshness.",
+      "takeaway": "Correlate source, stage and sink evidence before changing capacity.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
     }
   },
   {
@@ -2450,7 +3840,19 @@
         "Separate historical retention, availability and regional recovery."
       ]
     },
-    "reviewed": "2026-11-03"
+    "reviewed": "2026-11-03",
+    "review": {
+      "status": "retained-review",
+      "checked": "2026-11-03",
+      "scope": "Retained original lesson and prior editorial references. Only claims listed in the current verification ledger were rechecked in this update."
+    },
+    "briefing": {
+      "context": "A dataset is corrupted or becomes unavailable during business hours.",
+      "whyItMatters": "A backup exists only as a useful recovery option if it can meet the required data-loss and time objectives.",
+      "takeaway": "State the failure, recovery point and recovery time you need to prove.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    }
   },
   {
     "id": "recovery-runbook",
@@ -2504,6 +3906,18 @@
         "Measure recoverable-state age.",
         "Include consumers and permissions in recovery evidence."
       ]
+    },
+    "review": {
+      "status": "retained-review",
+      "checked": "2026-11-03",
+      "scope": "Retained original lesson and prior editorial references. Only claims listed in the current verification ledger were rechecked in this update."
+    },
+    "briefing": {
+      "context": "During an incident, a team must choose a recovery path under pressure.",
+      "whyItMatters": "An untested sequence can restore the wrong state or leave readers using incomplete data.",
+      "takeaway": "Rehearse the restore and validate the recovered dataset before reopening it.",
+      "minutes": 5,
+      "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
     }
   }
 ]

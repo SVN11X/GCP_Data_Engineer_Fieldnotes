@@ -1,76 +1,47 @@
-# Revisión de la ampliación de conocimiento
+# Knowledge review — 2026-11-07
 
-Fecha de revisión: **2026-11-03**. Base Git real: `dc1b5a7e99d9c8b014cdfa806f67d9e833753d07`.
+## Evidence categories
 
-## Alcance y fuentes
-
-La estructura sigue los 19 objetivos numerados de la guía estándar v4.2, con pesos aproximados 22/25/20/15/18. Los títulos de los dominios son etiquetas de estudio abreviadas, no una transcripción de Google. Cada lección incluye una decisión, supuestos, ejercicio de explicación y referencias primarias.
-
-Se ampliaron las 25 lecciones existentes y se agregaron 15 profundizaciones. Los 50 escenarios aplicados nuevos cubren permisos efectivos, CDC, granularidad SQL, reintentos, panes acumulativos, ventanas, diagnóstico, gobierno, evaluación ML/RAG y recuperación. Cada alternativa tiene explicación. No son preguntas oficiales.
-
-Las 102 fuentes tienen destino HTTPS y respondieron a GET público durante la comprobación. `content/source-audit.json` registra cada resultado; `scripts/check-sources.py` permite repetirla. La disponibilidad de un enlace no verifica todas las afirmaciones que pueda contener.
-
-Los datos del examen y la distinción estándar/renovación se contrastaron con la página oficial y ambos PDF. Se corrigieron los destinos de Skills Boost a Google Skills, se identificó el nombre Well-Architected Framework y se verificó que el programa de Coursera sea de Google Cloud. La ruta para Partners requiere revisar la elegibilidad de formación; no constituye un requisito del examen.
-
-No se proporcionó una URL concreta de fact sheet ni un curso concreto de Udemy. Se ofrece una guía de decisiones propia y un repositorio personal de GitHub identificado como lectura secundaria, con advertencia de información histórica. No se inventa una verificación de recursos no identificados.
-
-## Matriz de objetivos
-
-| Objetivo | Lecciones enlazadas |
+| Label | Meaning |
 | --- | --- |
-| 1.1 | [Give each identity just enough access](dist/index.html#learn/least-privilege); [Trace identities across a private pipeline](dist/index.html#learn/identity-boundaries); [Protect the values, the keys and the boundary](dist/index.html#learn/protect-data); [Choose locations against residency and recovery](dist/index.html#learn/region-recovery-design) |
-| 1.2 | [Make correctness part of the architecture](dist/index.html#learn/fidelity) |
-| 1.3 | [Design for the next requirement](dist/index.html#learn/portability) |
-| 1.4 | [Migrate with a validation and cutover plan](dist/index.html#learn/migration); [Move from a snapshot to a changing source](dist/index.html#learn/cdc-cutover) |
-| 2.1 | [Define the source, sink and network path](dist/index.html#learn/pipeline-contract); [Separate Pub/Sub delivery, ordering and replay](dist/index.html#learn/pubsub-contracts) |
-| 2.2 | [Choose the engine that fits the work](dist/index.html#learn/processing-engine); [Find the limit before adding Dataflow workers](dist/index.html#learn/dataflow-bottlenecks); [Reason about event time and late data](dist/index.html#learn/event-time); [Plan panes, late arrivals and corrected totals](dist/index.html#learn/beam-triggers); [Route failures without losing the evidence](dist/index.html#learn/bad-records); [Choose load, stream and merge behavior explicitly](dist/index.html#learn/write-contracts); [Enrich records with models, carefully](dist/index.html#learn/ai-enrichment) |
-| 2.3 | [Deploy a pipeline you can safely replace](dist/index.html#learn/deploy-pipeline); [Gate publication on warehouse quality](dist/index.html#learn/dataform-quality) |
-| 3.1 | [Start with the access pattern](dist/index.html#learn/storage-choice); [Treat retention and cost as separate controls](dist/index.html#learn/lifecycle) |
-| 3.2 | [Model the warehouse around its queries](dist/index.html#learn/warehouse-model); [Read SQL at the grain of the business question](dist/index.html#learn/sql-grain) |
-| 3.3 | [Make the lake usable, not just large](dist/index.html#learn/lake); [Compare lake access with warehouse access](dist/index.html#learn/biglake-access) |
-| 3.4 | [Give distributed teams shared guardrails](dist/index.html#learn/governance) |
-| 4.1 | [Make dashboards efficient and trustworthy](dist/index.html#learn/analytics); [Choose reusable results without losing freshness](dist/index.html#learn/materialized-freshness) |
-| 4.2 | [Keep training and serving transformations consistent](dist/index.html#learn/features); [Evaluate models against the real failure cost](dist/index.html#learn/ml-evaluation); [Prepare documents for retrieval and generation](dist/index.html#learn/embeddings); [Evaluate retrieval and generated answers separately](dist/index.html#learn/rag-evaluation) |
-| 4.3 | [Publish data products with an access contract](dist/index.html#learn/share) |
-| 5.1 | [Pay for the work you actually need](dist/index.html#learn/resource-cost) |
-| 5.2 | [Make every retry intentional](dist/index.html#learn/repeatability) |
-| 5.3 | [Keep competing workloads from interfering](dist/index.html#learn/capacity) |
-| 5.4 | [Diagnose the failure before scaling](dist/index.html#learn/observability); [Diagnose a query from its execution evidence](dist/index.html#learn/query-diagnosis) |
-| 5.5 | [Design recovery against explicit objectives](dist/index.html#learn/recovery); [Prove the recovery plan with a runbook](dist/index.html#learn/recovery-runbook) |
+| Extracted metadata | A measured property of the supplied private archive. Not service verification. |
+| Official claims checked | Specific published claims were compared with primary documentation for this update. Original examples remain illustrative. |
+| Prior editorial review | Existing original content and its review date were retained. Only claims in the current ledger were rechecked. |
+| Pending | Incomplete resource coverage, ASR accuracy or questions requiring further investigation. |
 
-## Talleres y límites de ejecución
+The source for the audit is the attached `study_pack_path_16(1).zip`, identified by SHA-256 in `content/knowledge-audit.json`. The extractor repository was inspected at `eec2f7d1b137406b935220c56b7d72415fb7ba21`; its example output is not treated as the coverage report for this archive.
 
-| Taller | Qué permite comprobar |
-| --- | --- |
-| [Deduplicate without guessing the latest record](dist/index.html#workshops/dedup-latest) | Keep one deterministic latest observation per stable business key. |
-| [Find the revenue multiplication](dist/index.html#workshops/join-grain) | Explain exactly how a one-to-many join changes an order-level sum. |
-| [Reject invalid rows with an explicit contract](dist/index.html#workshops/quality-contract) | Test completeness, uniqueness and values as different quality properties. |
-| [Replay a versioned batch twice](dist/index.html#workshops/merge-replay) | Show why a version-aware current-state operation is repeatable. |
-| [Recover an event-time total](dist/index.html#workshops/late-corrections) | Compare the same delayed events under two explicit lateness policies. |
-| [Compare logical reads under a fixed workload](dist/index.html#workshops/scan-comparison) | Keep data and selected columns fixed while changing query-aligned layout. |
-| [Map the failing permission boundary](dist/index.html#workshops/identity-map) | Identify the actor that actually needs each operation. |
-| [Make a failing assertion block publication](dist/index.html#workshops/quality-gate) | Trace task dependency effects without calling a cloud service. |
-| [Calculate the recoverable-state age](dist/index.html#workshops/rpo-ledger) | Use completed recovery evidence rather than a scheduled backup label. |
-| [Read a classifier’s business errors](dist/index.html#workshops/model-metrics) | Calculate precision and recall from interpretable counts. |
-| [Filter evidence before generation](dist/index.html#workshops/authorized-retrieval) | Keep a relevant but forbidden passage out of model context. |
-| [Translate the decision, not just the vocabulary](dist/index.html#workshops/read-constraints) | Extract simultaneous constraints from an English scenario. |
+## Measured and declared coverage
 
-Los 12 talleres calculan resultados con modelos JavaScript locales y datos sintéticos. No ejecutan BigQuery, Beam, Dataflow ni servicios de Google Cloud. Los ejemplos SQL son opcionales; no se ejecutaron en una cuenta de Google Cloud. Para práctica real se enlaza la ruta oficial de Google Skills y se explican las condiciones de acceso.
+- Measured: 15,169 records; 13,315 distinct exact text chunks; 1,854 repetitions; 1,113 source URLs. All records have `ai_verified: false`.
+- Record kinds: 14,132 page chunks, 260 video transcript chunks, 59 recovered document chunks, 304 HTML-bundle chunks and 414 Rise-state observations. Chunk totals do not equal lesson totals.
+- Declared by the archive index: 982 pages with text and 131 videos with transcripts; ASR accuracy is not automatically validated.
+- Declared resource status: 19 recovered and 24 partial documents, 35 partial HTML bundles, 41 partial quizzes.
+- The Rise audit reports evidence for 59 tried lessons, 694 control activations and 408 new text states. It explicitly says coverage is incomplete. No visible quiz questions are reported by that deep audit.
+- Exact-URL document overlap connects 45 of 52 lessons with up to three archive source records each. The seven without direct overlap are not represented as directly extracted. Mapping IDs are discovery metadata; no excerpt is published and a match does not prove claim accuracy.
 
-## Compatibilidad y verificación
+## Important distinctions
 
-- Se conservaron sin cambios los bytes de `content/imported.json`: 349 preguntas, estados de revisión, claves de origen, correcciones previas y procedencia.
-- Los 50 originales anteriores conservan su contenido e IDs; solo se añade el nivel Foundation.
-- Se conservaron todos los IDs anteriores de lecciones y los 101 términos originales. El respaldo versión 1 y la clave local de almacenamiento siguen siendo compatibles.
-- Las fuentes primarias apoyan las explicaciones nuevas; un enlace relacionado de una pregunta importada no acredita su clave.
-- El aprendizaje registrado y la puntuación de práctica no predicen la aprobación.
+The standard guide still uses Dataproc, Cloud Composer and Dataplex terminology. Live documentation also uses managed Spark, managed Airflow and Knowledge Catalog terminology. The UI retains useful aliases.
 
-## Reproducibilidad
+External BigLake tables and Apache Iceberg managed tables have different mutation contracts. Pub/Sub delivery, Dataflow processing, business event identity and external side effects are separate guarantees. BigQuery result limits and query scan guardrails answer different questions. These distinctions have dedicated lessons and entries in `content/verification.json`.
 
-```bash
-npm run build
-npm test
-npm run validate
-```
+All 115 reference URLs responded to public GET checks on the review date. Availability is recorded in `content/source-audit.json`; it is not a claim-level certificate. The 14-claim ledger states exactly which claims were checked. No exhaustive semantic contradiction detection, near-duplicate clustering or full ASR correction was performed.
 
-La entrega incluye el informe de pruebas en `VALIDATION.md`. El ZIP conserva el repositorio completo y el parche está pensado para `git am` sobre la base indicada. La publicación pública depende de aplicar los cambios, hacer push y tener GitHub Pages configurado para GitHub Actions.
+## Supplied bank and image preservation
+
+The user explicitly confirmed on 2026-11-08 that the owner supplied the 349 imported questions and instructed that neither the questions nor their images be removed. All 349 records and 25 source images are preserved byte-for-byte from base commit `904616979cded694b99245cc2ea585a650fab861`, alongside the original learning notes, cases and diagrams. `AGENTS.md` records this project requirement.
+
+The source archive remains intact. Existing source-answer keys, editorial corrections, disputed statuses and image limitations are not silently changed. The permission basis and original hashes are recorded in `content/imported-preservation.json`. A user-provided collection is separate from the 41 partially observed Path 16 provider quiz resources.
+
+Ten text/code images have visually checked selectable alternatives. One text table is represented with semantic headers and row groups. The overlays in `content/image-text.json` retain the source wording, identifiers, operators and apparent source syntax; the original images remain available at full size. Three diagrams, one visual bar and ten existing 9×6 placeholders stay visual. Unreadable details are not invented.
+
+Raw course copies, provider PDFs, complete transcripts and videos remain outside the public research integration. That boundary does not exclude the separate owner-supplied question bank.
+
+## Remaining work
+
+1. Review ASR accuracy against the original videos if quotations or fine-grained transcript claims are later needed.
+2. Complete interactive-state and partial-resource research only within the user's permitted access. No missing provider quizzes are reconstructed here.
+3. Recheck service feature limits, locations, pricing and runtime compatibility before a real deployment; the lessons deliberately avoid fixed performance or cost promises.
+4. Extend the original Applied pool with further difficult multi-select cases and cloud lab outcomes. This finite practice set is educational, not an official or predictive exam.
+5. Revisit prior editorial lessons individually over time; their old review dates remain visible.

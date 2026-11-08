@@ -1,54 +1,76 @@
-# Validación de la ampliación
+# Validation — release 2.1.0
 
-Revisión: 2026-11-03. Base real del repositorio: `dc1b5a7e99d9c8b014cdfa806f67d9e833753d07`.
+Review date: 2026-11-08. Full-update base: `904616979cded694b99245cc2ea585a650fab861`. Correction base: `2294a70c8f5ad7923e70a7862c5010ef91672bf9`.
 
-## Pruebas automáticas
+## Commands executed
 
-Se completaron `npm run build`, `npm test` y `npm run validate` con Node.js. Pasaron las 13 pruebas:
+| Check | Result |
+| --- | --- |
+| Original baseline build, tests and validation | Passed: 13 baseline behavior tests, reviewed during the initial update. |
+| Current `npm run build` | Passed; generated content release `cf8a8b04b3c23d4e`. |
+| Current `npm test` | 30 tests passed; 0 failures, skipped or todo. |
+| Current `npm run validate` | Passed: content, primary-reference mappings, relative entry assets, chunks, JSON, script syntax, preservation hashes and startup budgets. |
+| Supplied question bank | All 349 source records unchanged; source numbers 1–349, keys, explanations and review labels retained. |
+| Supplied images | All 25 image SHA-256 values match the original bytes. Source JSON hashes normalize LF/CRLF for Windows Git compatibility. |
+| Readable image alternatives | Ten text/code alternatives and one grouped table, visually checked against the source images. |
+| Private study-pack audit (2026-11-07) | 15,169 parsed records; 1,854 exact repetitions; 45 direct source-document lesson mappings. |
+| Public reference GET checks (2026-11-07) | 115 / 115 responded; this checks link availability only. |
+| Targeted credential-pattern scan | No private-key blocks, GitHub token patterns or Google API-key patterns found in the checked project sources. This is a scoped pattern check. |
 
-- Selección exacta, sin crédito parcial ni alternativas duplicadas.
-- Reparto ponderado por dominio y ausencia de importados en el simulacro.
-- Puntuación que incluye preguntas sin responder.
-- Eventos tardíos y cambios de política de lateness.
-- Modelo de lectura con particiones y clustering, unidades y límites.
-- Restauración de progreso y conservación del plazo de un simulacro previo.
-- Procedencia de las correcciones importadas existentes.
-- Predicciones de los 12 talleres y ausencia de mutación de sus entradas.
-- Selección de estado reciente independiente del orden y replay idempotente.
-- Granularidad de joins, contratos de calidad y filtrado por autorización.
-- Bloqueo por dependencias, ciclos inválidos, snapshots incompletos y denominadores vacíos de métricas.
-- Simulacros Foundation, Applied y mixed de 10/20/40/50 preguntas; 17 multiselecciones en el Applied completo.
-- Compatibilidad de respaldos antiguos y validación de pasos de talleres nuevos.
+The verification runtime was Node.js `v24.22.1`. The supported project engine and existing GitHub Actions workflow remain Node.js 22+. No external package installation was needed. The npm proxy-environment notice belongs to the runner, not a project dependency.
 
-El validador comprueba 449 IDs de preguntas únicos, numeración importada continua, 40 lecciones/19 objetivos, 150 términos, 22 servicios, 12 talleres, referencias primarias de las explicaciones técnicas, relaciones de la ruta de estudio, activos relativos y sintaxis de los scripts. Las 25 imágenes y la detección de los diez placeholders se conservan.
+## Behavior coverage
 
-Además se contrastó contra la base Git que el importado permanece idéntico byte por byte, los 50 escenarios previos solo añaden el nivel Foundation, todos los IDs previos de lecciones siguen existiendo y los 101 términos anteriores son idénticos.
+The retained tests check exact multiple-select scoring, weighted session allocation for every supported length and difficulty, unanswered items, event-time lateness, scan-model units, progress recovery, deterministic deduplication, replay safety, join grain, quality gates, recovery snapshots and workshop predictions.
 
-## Comprobación de fuentes
+The tests also verify all 52 context / purpose briefings, stable-ID totals, publication rules, scan bounds and short-session restoration without falsely completing a full lesson. Search tests cover ranked concepts, services and bilingual vocabulary, punctuation and empty queries. Loader tests cover object identity, no content requests for the overview, demand-loaded imported metadata, domain-request coalescing, subdirectory URLs, HTTP retries, stale search releases and authored answer loading for timed sessions.
 
-La página de certificación, guía estándar v4.2, guía de renovación, destinos de formación y documentación técnica se consultaron durante la ampliación. Las 102 URL del registro respondieron al GET público del comprobador el 2026-11-03. El registro de disponibilidad es `content/source-audit.json`; un HTTP 200 no certifica todas las afirmaciones de una web externa.
+Six image / preservation regressions check all source records and image hashes, escaped SQL placeholders, exact copy text, image-text search indexing, retained diagrams and tiny originals, three table groups with eleven component rows, catalog-after-detail hydration, and restoration of imported bookmarks and attempts from the prior delivery without duplication or false verification.
 
-## Navegador
+The validator checks 52 lessons, 473 questions (349 supplied + 124 original), 161 terms, 28 service cards, 12 workshops, 4 architecture graphs, all 19 guide objectives, 115 source mappings and 14 checked-claim records. It rejects lost or altered supplied material, duplicate IDs, unsupported references, invalid answers, unsafe question HTML, missing images, mismatched chunks and excessive startup payloads. It does not certify the source bank's answer keys.
 
-Comprobado en la vista de escritorio de 1363 × 936 píxeles CSS:
+## Actual browser checks
 
-- Centro de recursos: seis bloques de estudio, ocho recursos y 22 filas de decisión de servicios.
-- Comparación separada del estándar y la renovación.
-- Se ejecutaron los 12 talleres en la interfaz y se comprobaron sus resultados, incluyendo activación con teclado.
-- La búsqueda global encuentra talleres y recursos además del contenido anterior.
-- Taller de deduplicación: predicción, resultado calculado 45, cuatro pasos, bloqueo de finalización hasta completar y conservación tras recargar.
-- Lección nueva de granularidad SQL: explicación desplegable, enlaces a talleres y doce términos interactivos.
-- Diálogo de vocabulario con definición, traducción al español y pronunciación disponible.
-- Filtro Applied: 50 preguntas.
-- Simulacro Applied de 50: ítem multiselección, dos respuestas conservadas tras recargar, mismo plazo, finalización y cómputo de preguntas sin responder.
-- Sin desbordamiento horizontal en las vistas revisadas. No se observaron errores de la aplicación en el registro consultado; el entorno emitió avisos de su extensión de navegador.
+A real Chromium browser loaded the locally served `dist` output. The initial update was checked on 2026-11-07; the correction and readable alternatives were checked on 2026-11-08.
 
-Se conservan reglas adaptativas para móvil y se revisaron los nuevos grids, anchos mínimos, navegación y tablas desplazables. Esta ampliación no tuvo una prueba visual nueva en una ventana móvil: la interfaz del navegador de comprobación no expone cambio de viewport. No se presenta la revisión CSS como una prueba visual móvil.
+The initial review covered all 12 new detailed lessons and review labels; global concept and vocabulary search; suggested Pub/Sub / Kafka and BigLake comparisons; architecture selection, rejected paths, reset and keyboard control; topic review flags; original question rationales; and a retained deduplication workshop. A 10-question timed session resumed at question 2 after reload with its original running deadline; finishing returned 1 / 10 correct and 9 unanswered. System / light / dark modes, mobile navigation and the provenance view were inspected.
 
-## Límites de la entrega
+The correction review confirmed:
 
-No se ejecutaron servicios ni consultas en Google Cloud. Los talleres son modelos locales con reglas explícitas, no mediciones de la plataforma. El SQL opcional necesita el entorno correspondiente para ejecutarse.
+- The bank displays 473 questions and the imported collection filters to all 349 supplied questions.
+- Direct routes for image questions render readable code and accessible option labels. Question #243 still has all four SQL choices after navigating to the bank and reopening it.
+- Copy controls show their success status. Unit tests independently check exact copy content; browser clipboard bytes were not independently inspected.
+- Original #243 and #248 images load in the full-size dialog at 597 × 107 and 763 × 432 pixels respectively.
+- The #248 semantic table has three VM groups and eleven component rows. Global search for `vm02781`, a value previously visible only in the image, finds #248.
+- The #63 scatter diagram remains an expandable original image.
+- Embedded 360 px and 768 px CSS viewports load the text and table questions under `/GCP_Data_Engineer_Fieldnotes/`. Measured document client / scroll widths match (345 / 345 and 753 / 753 px after scrollbar space), with no page-wide horizontal overflow.
 
-Las 349 claves importadas mantienen su estado anterior de revisión; no se verificaron todas individualmente en esta ampliación. La pronunciación depende de las voces del navegador.
+These checks do not claim a complete screen-reader audit, every browser combination, live execution of Google Cloud examples, a production deployment or a certification score prediction.
 
-No se hizo push ni despliegue en el GitHub remoto desde esta sesión. El workflow publica `dist/` después de aplicar la entrega y hacer push a `main` o `master`, si Settings → Pages → Source está en GitHub Actions. El parche y el ZIP se verifican contra una aplicación limpia de la base Git indicada.
+## Context-first flow checks
+
+The home screen exposes four primary navigation entries, with existing tools retained in a disclosure. Its prominent entry opens an original quick challenge. Each lesson explains the context, why it matters and its takeaway.
+
+- The duplicate fixture changes from 70 to 60 illustrative units after enabling the stable business-ID rule.
+- The scan fixture changes from 300 to 7 GB; keyboard Home / End changes the enabled model to 1 / 30 GB while preserving the fixed baseline.
+- The quality fixture applies its explicit positive-amount rule, changing four published rows to two. Reset restores four rows.
+- A completed four-step short session retains its step, selected answer and revealed feedback after reload; its recap is saved separately from full-chapter completion.
+- The novice context and interactive model fit phone and tablet views. Brief transitions respond to actions; CSS respects reduced-motion preferences. Short sessions have no countdown, autoplay audio or continuous animation.
+
+The flow has not been evaluated in a user study with the intended audience; no clinical effectiveness claim is made.
+
+## Payload measurements
+
+| Asset / group | Uncompressed bytes |
+| --- | ---: |
+| Original eager `dist/assets/data.js` | 1,511,371 |
+| Current `dist/assets/data.js`, including wrapper and compact IDs | 227,232 |
+| Initial HTML, scripts, stylesheet and icon | 427,377 |
+| Search index, requested on search | 826,938 |
+| Complete study JSON, explicit download | 1,681,242 |
+
+The catalog script is approximately 85% smaller than the original eager script while retaining all supplied question identities. These are byte measurements, not latency, Lighthouse, TTI or compressed-transfer benchmarks. Startup does not request full lesson bodies, question answers, workshop fixtures, architectures, the audit or the search index. The bank list requests its searchable metadata; opening a supplied question requests the relevant imported domain. Timed sessions load the 124 authored scenarios and preserve existing deadlines.
+
+## Patch verification
+
+Both alternatives are exported from real commits with `git format-patch --full-index --binary`. The full V2 patch has a single commit directly on the original base, so it never deletes and re-adds the supplied bank. The correction starts from the previously delivered update. Each is applied with `git am` in an isolated clean copy of its respective base and its resulting Git tree is compared with the delivery tree. The ZIP contains every tracked file from that tree. The delivery receipt records exact commit and artifact hashes; the applied full copy is also built, tested and validated before handoff.

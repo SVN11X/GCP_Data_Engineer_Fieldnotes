@@ -1,6 +1,6 @@
 {
-  "checkedOn": "2026-11-03",
-  "method": "Public HTTP GET with redirect resolution; no account access.",
+  "checkedOn": "2026-11-07",
+  "method": "Public HTTP GET with redirects; no account access.",
   "scope": "URL availability only. This does not validate all claims in a linked resource.",
   "results": [
     {
@@ -715,6 +715,97 @@
       "requestedURL": "https://github.com/Nicola-Loi/gcp-data-engineer",
       "status": 200,
       "finalURL": "https://github.com/Nicola-Loi/gcp-data-engineer",
+      "available": true
+    },
+    {
+      "id": "kafka",
+      "requestedURL": "https://docs.cloud.google.com/managed-service-for-apache-kafka/docs/overview",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/managed-service-for-apache-kafka/docs/overview",
+      "available": true
+    },
+    {
+      "id": "spark-serverless",
+      "requestedURL": "https://docs.cloud.google.com/dataproc-serverless/docs/overview",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/dataproc-serverless/docs/overview",
+      "available": true
+    },
+    {
+      "id": "composer3",
+      "requestedURL": "https://docs.cloud.google.com/composer/docs/composer-3/composer-overview",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/composer/docs/composer-3/composer-overview",
+      "available": true
+    },
+    {
+      "id": "airflow-practices",
+      "requestedURL": "https://airflow.apache.org/docs/apache-airflow/stable/best-practices.html",
+      "status": 200,
+      "finalURL": "https://airflow.apache.org/docs/apache-airflow/stable/best-practices.html",
+      "available": true
+    },
+    {
+      "id": "stream-modes",
+      "requestedURL": "https://docs.cloud.google.com/dataflow/docs/guides/streaming-modes",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/dataflow/docs/guides/streaming-modes",
+      "available": true
+    },
+    {
+      "id": "pubsub-dataflow",
+      "requestedURL": "https://docs.cloud.google.com/dataflow/docs/concepts/streaming-with-cloud-pubsub",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/dataflow/docs/concepts/streaming-with-cloud-pubsub",
+      "available": true
+    },
+    {
+      "id": "iceberg-managed",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs/biglake-iceberg-tables-in-bigquery",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs/biglake-iceberg-tables-in-bigquery",
+      "available": true
+    },
+    {
+      "id": "schema",
+      "requestedURL": "https://docs.cloud.google.com/bigquery/docs/managing-table-schemas",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/bigquery/docs/managing-table-schemas",
+      "available": true
+    },
+    {
+      "id": "dfmetrics",
+      "requestedURL": "https://docs.cloud.google.com/dataflow/docs/guides/using-monitoring-intf",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/dataflow/docs/guides/using-monitoring-intf",
+      "available": true
+    },
+    {
+      "id": "psmetrics",
+      "requestedURL": "https://docs.cloud.google.com/pubsub/docs/monitoring",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/pubsub/docs/monitoring",
+      "available": true
+    },
+    {
+      "id": "gcloud-cp",
+      "requestedURL": "https://docs.cloud.google.com/sdk/gcloud/reference/storage/cp",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/sdk/gcloud/reference/storage/cp",
+      "available": true
+    },
+    {
+      "id": "storage-perf",
+      "requestedURL": "https://docs.cloud.google.com/storage/docs/request-rate",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/storage/docs/request-rate",
+      "available": true
+    },
+    {
+      "id": "dms",
+      "requestedURL": "https://docs.cloud.google.com/database-migration/docs/overview",
+      "status": 200,
+      "finalURL": "https://docs.cloud.google.com/database-migration/docs/overview",
       "available": true
     }
   ]

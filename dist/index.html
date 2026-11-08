@@ -5,11 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#3159c9">
   <meta name="description" content="Learn Google Cloud data engineering through a guided study route, explained practice, interactive labs and English vocabulary with Spanish support.">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
-  <title>Data Engineer Fieldnotes · Learn with understanding</title>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <title>Data Engineer Fieldnotes · One problem, one clear decision</title>
   <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/styles.css">
   <script defer src="assets/core.js"></script>
+  <script defer src="assets/knowledge.js"></script>
+  <script defer src="assets/loader.js"></script>
+  <script defer src="assets/study-ui.js"></script>
+  <script defer src="assets/attention.js"></script>
+  <script defer src="assets/image-text.js"></script>
   <script defer src="assets/data.js"></script>
   <script defer src="assets/app.js"></script>
 </head>
@@ -25,14 +30,15 @@
     <header class="topbar">
       <button id="menu-toggle" class="icon-button mobile-only" aria-expanded="false" aria-controls="sidebar" aria-label="Open navigation">☰</button>
       <span class="breadcrumb">Google Cloud <span>/</span> <strong id="breadcrumb">Overview</strong></span>
-      <form id="global-search" role="search"><label class="sr-only" for="search-input">Search lessons, questions, vocabulary, workshops and resources</label><span aria-hidden="true">⌕</span><input id="search-input" placeholder="Search your fieldnotes…" autocomplete="off"><kbd>/</kbd></form>
+      <form id="global-search" role="search"><label class="sr-only" for="search-input">Search concepts, services, questions, vocabulary and architecture patterns</label><span aria-hidden="true">⌕</span><input id="search-input" placeholder="Search your fieldnotes…" autocomplete="off"><kbd>/</kbd></form>
+      <button id="theme-toggle" class="button small theme-toggle" aria-label="Change color theme">Theme: system</button>
       <button id="english-toggle" class="english-toggle" aria-pressed="true"><span class="language-icon">Aa</span><span>English help <b id="english-status">on</b></span></button>
     </header>
     <main id="main" tabindex="-1"></main>
     <footer><span>Built for understanding, one decision at a time.</span><a href="#sources">Sources & content review</a><span>Progress stays in this browser.</span></footer>
   </div>
   <dialog id="vocab-dialog" aria-labelledby="vocab-title"><div id="vocab-content"></div></dialog>
-  <dialog id="image-dialog" aria-label="Original question image"><button class="dialog-close" data-action="close-image" aria-label="Close full-size image">×</button><div id="image-content"></div></dialog>
+  <dialog id="image-dialog" aria-label="Study illustration"><button class="dialog-close" data-action="close-image" aria-label="Close full-size image">×</button><div id="image-content"></div></dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <input type="file" id="import-progress" accept="application/json,.json" hidden>
   <noscript><div class="noscript"><h1>Data Engineer Fieldnotes</h1><p>This interactive study guide needs JavaScript. You can still read the <a href="data/study-notes.md">study notes</a> or download the <a href="data/study-pack.json">complete study pack with sources</a>.</p></div></noscript>

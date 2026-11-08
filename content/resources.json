@@ -1,5 +1,5 @@
 {
-  "reviewedOn": "2026-11-03",
+  "reviewedOn": "2026-11-07",
   "standard": {
     "minutes": 120,
     "questionRange": "40–50",
@@ -82,7 +82,7 @@
       ],
       "access": "Account required for participation; lab access may require credits or a subscription",
       "use": "Use courses, labs and skill badges as the hands-on companion to these written chapters.",
-      "caution": "The public path lists 13 activities when checked. Their availability and access terms can change."
+      "caution": "Activity availability and access terms can change; confirm the live provider page. Extracted material is a research input rather than proof of exhaustive coverage."
     },
     {
       "id": "partner-path",
@@ -98,7 +98,7 @@
       ],
       "access": "Partner access and sign-in",
       "use": "The supplied partner URL resolves to the Professional Data Engineer path on Google Skills for Partners.",
-      "caution": "The public page lists 15 activities when checked; membership and entitlement are separate from exam eligibility."
+      "caution": "Activity availability and access terms can change; confirm the live provider page. Extracted material is a research input rather than proof of exhaustive coverage."
     },
     {
       "id": "architecture-read",
@@ -172,7 +172,8 @@
         "identity-boundaries",
         "region-recovery-design",
         "migration",
-        "cdc-cutover"
+        "cdc-cutover",
+        "transfer-decisions"
       ],
       "workshops": [
         "identity-map",
@@ -188,7 +189,9 @@
         "warehouse-model",
         "sql-grain",
         "write-contracts",
-        "dataform-quality"
+        "dataform-quality",
+        "database-requirements",
+        "schema-evolution"
       ],
       "workshops": [
         "dedup-latest",
@@ -207,7 +210,11 @@
         "event-time",
         "beam-triggers",
         "dataflow-bottlenecks",
-        "deploy-pipeline"
+        "deploy-pipeline",
+        "managed-kafka",
+        "streaming-semantics",
+        "beam-portability",
+        "spark-execution"
       ],
       "workshops": [
         "late-corrections"
@@ -222,7 +229,9 @@
         "biglake-access",
         "governance",
         "share",
-        "lifecycle"
+        "lifecycle",
+        "iceberg-contracts",
+        "lake-file-layout"
       ],
       "workshops": [
         "scan-comparison"
@@ -256,7 +265,10 @@
         "observability",
         "query-diagnosis",
         "recovery",
-        "recovery-runbook"
+        "recovery-runbook",
+        "warehouse-economics",
+        "composer-retries",
+        "pipeline-slo"
       ],
       "workshops": [
         "quality-gate",
@@ -271,6 +283,7 @@
     "The standard and renewal PDFs are valid separate guides with different weights.",
     "No specific GitHub fact-sheet URL or Udemy course was supplied. This site provides its own referenced field guide and labels the verified optional community repository as secondary reading.",
     "Availability checking validates a URL response, not every claim in every external course or personal note.",
-    "The 349 imported answer keys retain their prior review status. Expanded learning material does not turn an unreviewed third-party key into an official answer."
+    "The 349 imported answer keys retain their prior review status. Expanded learning material does not turn an unreviewed third-party key into an official answer.",
+    "2026-11-07 update: the claim ledger identifies rechecked primary-source claims. Prior lessons retain their earlier review date; link availability does not certify every claim. The supplied Path 16 archive is incomplete and no course text, transcripts or provider quizzes are republished."
   ]
 }
