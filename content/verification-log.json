@@ -1055,5 +1055,60 @@
     ],
     "result": "confirmed",
     "note": "Checked: continuous or one-time migration into Cloud SQL and AlloyDB, with source and version limits. Not checked: cutover steps and per-engine feature gaps."
+  },
+  {
+    "topic": "storage",
+    "kind": "comparison",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Choose between BigQuery, Bigtable, Spanner, Cloud SQL and Firestore",
+    "sources": [
+      "https://docs.cloud.google.com/bigquery/docs/introduction",
+      "https://docs.cloud.google.com/bigtable/docs/overview",
+      "https://cloud.google.com/spanner"
+    ],
+    "result": "confirmed",
+    "note": "Checked what each service is for and one caution each. Cloud Storage was left out. Other sources are on each option. No prices or limits were checked."
+  },
+  {
+    "topic": "processing",
+    "kind": "comparison",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "When to use Dataflow, Managed Service for Apache Spark (Dataproc) or Cloud Data Fusion",
+    "sources": [
+      "https://docs.cloud.google.com/dataflow/docs/overview",
+      "https://cloud.google.com/products/managed-service-for-apache-spark",
+      "https://cloud.google.com/data-fusion"
+    ],
+    "result": "confirmed",
+    "note": "Checked the use case and one caution for each service, and the Dataproc rename. No prices or limits were checked. The Dataflow versus Spark caution is a reading of two pages."
+  },
+  {
+    "topic": "messaging",
+    "kind": "comparison",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Choose between Pub/Sub and Managed Service for Apache Kafka",
+    "sources": [
+      "https://docs.cloud.google.com/pubsub/docs/choose-pubsub-kafka",
+      "https://docs.cloud.google.com/managed-service-for-apache-kafka/docs/overview"
+    ],
+    "result": "confirmed",
+    "note": "Checked the guidance on when to choose each service and the Kafka Connect link to Pub/Sub. The Pub/Sub API caution comes from the same page. No prices, quotas or limits were checked."
+  },
+  {
+    "topic": "orchestration",
+    "kind": "comparison",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Choose between Managed Airflow (Cloud Composer), Workflows and Cloud Scheduler",
+    "sources": [
+      "https://docs.cloud.google.com/workflows/docs/choose-orchestration",
+      "https://docs.cloud.google.com/scheduler/docs/overview",
+      "https://cloud.google.com/products/managed-service-for-apache-airflow"
+    ],
+    "result": "confirmed",
+    "note": "Checked the Airflow and Workflows comparison table, Scheduler targets and repeat runs, and the Cloud Composer rename. Scheduler has no official comparison page. No prices or limits were checked."
   }
 ]

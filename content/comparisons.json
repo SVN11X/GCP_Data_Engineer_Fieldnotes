@@ -1,0 +1,163 @@
+[
+  {
+    "id": "storage",
+    "title": "Where to store this data",
+    "question": "Which Google Cloud service should hold this data?",
+    "quickRule": "Start with how the data is read and written, then pick the service built for that access pattern.",
+    "lessons": ["storage-choice", "database-requirements"],
+    "options": [
+      {
+        "name": "BigQuery",
+        "chooseWhen": "You need to analyze large amounts of data with SQL. It fits business intelligence, ad hoc analysis and machine learning.",
+        "beCarefulWhen": "Your data already lives in Bigtable or Spanner. BigQuery can query it there, so you may not need to copy it.",
+        "sources": [
+          "https://docs.cloud.google.com/bigquery/docs/introduction"
+        ]
+      },
+      {
+        "name": "Bigtable",
+        "chooseWhen": "You need high read and write throughput at low latency on large amounts of single-keyed data. It fits time series, IoT and clickstream data.",
+        "beCarefulWhen": "Your app is small. The docs say Firestore may suit small applications better, and the row key needs careful design.",
+        "sources": [
+          "https://docs.cloud.google.com/bigtable/docs/overview",
+          "https://cloud.google.com/bigtable"
+        ]
+      },
+      {
+        "name": "Spanner",
+        "chooseWhen": "You need a relational database with SQL, strong consistency and horizontal scale. It supports transactions at large scale.",
+        "beCarefulWhen": "You create the database. You must choose the GoogleSQL or PostgreSQL dialect then.",
+        "sources": [
+          "https://cloud.google.com/spanner",
+          "https://docs.cloud.google.com/spanner/docs/choose-googlesql-or-postgres"
+        ]
+      },
+      {
+        "name": "Cloud SQL",
+        "chooseWhen": "You want a managed MySQL, PostgreSQL or SQL Server database. The docs call it the easiest lift and shift to the cloud.",
+        "beCarefulWhen": "You need virtually unlimited scale. Each Cloud SQL instance runs on one virtual machine, so compare Spanner.",
+        "sources": [
+          "https://docs.cloud.google.com/sql/docs/introduction",
+          "https://cloud.google.com/sql"
+        ]
+      },
+      {
+        "name": "Firestore",
+        "chooseWhen": "You build mobile or web apps with flexible documents. It is serverless and can sync data, also offline.",
+        "beCarefulWhen": "You need analytics over all your documents. Load the data into BigQuery for that.",
+        "sources": [
+          "https://docs.cloud.google.com/firestore/native/docs/overview",
+          "https://docs.cloud.google.com/bigquery/docs/introduction"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "processing",
+    "title": "Dataflow, the Spark service or Cloud Data Fusion",
+    "question": "Which service should run this data processing job?",
+    "quickRule": "Dataflow for new batch and streaming code, Spark for existing Spark jobs, Data Fusion for visual pipelines.",
+    "lessons": ["processing-engine", "spark-execution"],
+    "options": [
+      {
+        "name": "Dataflow",
+        "chooseWhen": "You need batch and streaming pipelines at scale. It is fully managed and uses Apache Beam.",
+        "beCarefulWhen": "You have Spark or Hadoop jobs today. Dataflow runs Apache Beam pipelines, but the Spark service moves Spark projects without redevelopment.",
+        "sources": [
+          "https://docs.cloud.google.com/dataflow/docs/overview",
+          "https://docs.cloud.google.com/managed-spark/docs/concepts/clusters-overview"
+        ]
+      },
+      {
+        "name": "Managed Service for Apache Spark (formerly Dataproc)",
+        "chooseWhen": "You have Spark or Hadoop jobs to move to Google Cloud. Use clusters for deep control or serverless for new pipelines.",
+        "beCarefulWhen": "You choose clusters. They give more control but they are your infrastructure to manage, while serverless needs no cluster.",
+        "sources": [
+          "https://cloud.google.com/products/managed-service-for-apache-spark",
+          "https://docs.cloud.google.com/managed-spark/docs/concepts/clusters-overview"
+        ]
+      },
+      {
+        "name": "Cloud Data Fusion",
+        "chooseWhen": "You want to build ETL or ELT pipelines with a visual, point-and-click tool. It needs little or no code.",
+        "beCarefulWhen": "You run a pipeline. By default Data Fusion creates a Spark cluster for each run, so you also depend on the Spark service.",
+        "sources": [
+          "https://cloud.google.com/data-fusion",
+          "https://docs.cloud.google.com/data-fusion/docs/concepts/overview"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "messaging",
+    "title": "Pub/Sub or Managed Service for Apache Kafka",
+    "question": "Which messaging service should carry these events?",
+    "quickRule": "Pub/Sub is the simple default on Google Cloud. Choose Kafka when you need Kafka compatibility or portability.",
+    "lessons": ["managed-kafka", "pubsub-contracts"],
+    "options": [
+      {
+        "name": "Pub/Sub",
+        "chooseWhen": "You want a serverless service with little to manage. It scales on its own, also when your workload size changes.",
+        "beCarefulWhen": "You need Kafka compatibility. Pub/Sub is a distinct service with its own API.",
+        "sources": [
+          "https://docs.cloud.google.com/pubsub/docs/choose-pubsub-kafka"
+        ]
+      },
+      {
+        "name": "Managed Service for Apache Kafka",
+        "chooseWhen": "You have Kafka workloads to move with few code changes. It also fits when you need the same API across clouds or on-premises.",
+        "beCarefulWhen": "You pick it. You must manage capacity, such as the cluster size and the number of partitions.",
+        "sources": [
+          "https://docs.cloud.google.com/pubsub/docs/choose-pubsub-kafka",
+          "https://docs.cloud.google.com/managed-service-for-apache-kafka/docs/overview"
+        ]
+      },
+      {
+        "name": "Both, joined with Kafka Connect",
+        "chooseWhen": "Some of your systems use Kafka and others use Google Cloud services. Kafka Connect connectors can link a Kafka cluster to Pub/Sub and BigQuery.",
+        "beCarefulWhen": "You mix the two. Kafka clients and Pub/Sub clients are not interchangeable, because Pub/Sub has its own API.",
+        "sources": [
+          "https://docs.cloud.google.com/managed-service-for-apache-kafka/docs/overview",
+          "https://docs.cloud.google.com/pubsub/docs/choose-pubsub-kafka"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "orchestration",
+    "title": "Managed Airflow, Workflows or Cloud Scheduler",
+    "question": "Which service should run and order these jobs?",
+    "quickRule": "Airflow for data pipelines with many tasks, Workflows for chaining services, Scheduler for a simple time trigger.",
+    "lessons": ["composer-retries", "repeatability"],
+    "options": [
+      {
+        "name": "Managed Service for Apache Airflow (formerly Cloud Composer)",
+        "chooseWhen": "You orchestrate data pipelines, especially ETL or ELT. You write the tasks and the schedule in Python as DAG files.",
+        "beCarefulWhen": "You need very fast steps. The docs say it is best for batch work that can wait a few seconds between tasks.",
+        "sources": [
+          "https://docs.cloud.google.com/workflows/docs/choose-orchestration",
+          "https://cloud.google.com/products/managed-service-for-apache-airflow"
+        ]
+      },
+      {
+        "name": "Workflows",
+        "chooseWhen": "You chain HTTP-based services and Google Cloud APIs in a set order. It is serverless and runs steps in milliseconds.",
+        "beCarefulWhen": "You process data in pipelines. It has no backfills or DAG re-runs, which Airflow has.",
+        "sources": [
+          "https://docs.cloud.google.com/workflows/docs/choose-orchestration",
+          "https://docs.cloud.google.com/workflows/docs/overview"
+        ]
+      },
+      {
+        "name": "Cloud Scheduler",
+        "chooseWhen": "You only need to start something on a time schedule, like a cron job. It needs no code and can call HTTP endpoints or Pub/Sub topics.",
+        "beCarefulWhen": "A job runs. It can run more than once, so make the target safe to repeat.",
+        "sources": [
+          "https://docs.cloud.google.com/scheduler/docs/overview",
+          "https://docs.cloud.google.com/workflows/docs/choose-orchestration",
+          "https://docs.cloud.google.com/managed-spark/docs/concepts/workflows/workflow-schedule-solutions"
+        ]
+      }
+    ]
+  }
+]
