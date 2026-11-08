@@ -638,5 +638,633 @@
    "es": "Se confirmó que el producto se llamaba antes Cloud Composer, que los DAG contienen tareas y dependencias y que los reintentos conservan la misma fecha lógica. El consejo de Airflow sobre efectos repetibles y lecturas por partición queda fuera del corpus y no se comprobó.",
    "src": "89cb103a2113"
   }
+ },
+ "capacity": {
+  "title": {
+   "es": "Evita que las cargas que compiten se estorben",
+   "src": "3cedbb0e7794"
+  },
+  "lead": {
+   "es": "La prioridad y la asignación de capacidad son controles distintos.",
+   "src": "2ff249be2745"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "Las reservas de BigQuery (reservations) asignan capacidad de cómputo a las cargas de trabajo. La capacidad base (baseline) y el escalado automático (autoscaling) afectan la disponibilidad de recursos y el gasto. Reservas separadas pueden aislar el trabajo de los dashboards de los trabajos pesados de transformación.",
+   "src": "1296f167695f"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Mide el uso antes de dimensionar la capacidad. Elige la ejecución interactiva o por lotes (batch) según la tolerancia a la latencia, y usa asignaciones de reserva para los proyectos o las cargas que corresponden.",
+   "src": "a8f333f65423"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Los dashboards se vuelven lentos durante el ETL. Dales un grupo de capacidad deliberado y pon el ETL sensible al costo en otra asignación, en lugar de suponer que una etiqueta interactiva reserva recursos.",
+   "src": "e7c351875696"
+  },
+  "sections.3.title": {
+   "es": "Separa el aislamiento de recursos de la prioridad del trabajo",
+   "src": "85817a686f82"
+  },
+  "sections.3.body": {
+   "es": "La prioridad interactiva y la de lotes describen cómo se ejecuta un trabajo. Las asignaciones de reserva reparten la capacidad entre cargas. Un equipo sensible a la latencia aún puede competir por un grupo compartido si no tiene un límite de recursos deliberado. Usa mediciones para elegir las asignaciones y la capacidad, en lugar de suponer que una etiqueta de prioridad garantiza una asignación dedicada.",
+   "src": "5ebcee6891eb"
+  },
+  "sections.4.title": {
+   "es": "Razona sobre la capacidad base y la elasticidad",
+   "src": "ba003a170db4"
+  },
+  "sections.4.body": {
+   "es": "La capacidad base da una asignación inicial configurada. El escalado automático puede agregar capacidad según la configuración admitida y la carga. El máximo es un ajuste de capacidad, no una garantía completa de gasto fijo en almacenamiento y otros servicios. Revisa la edición (edition), la asignación, el uso compartido de capacidad ociosa y el comportamiento del uso con la configuración elegida.",
+   "src": "58d4820f972e"
+  },
+  "sections.5.title": {
+   "es": "Lee los controles de facturación al pie de la letra",
+   "src": "d27db7631401"
+  },
+  "sections.5.body": {
+   "es": "Una alerta de presupuesto informa el gasto o activa el manejo de notificaciones. Por sí sola no es un tope duro. Los controles propios de cada consulta y las cuotas de recursos resuelven problemas más acotados. Protege la ejecución crítica para el negocio mientras diseñas controles de costo, y evita apagar procesos esenciales como efecto colateral no examinado de una regla genérica de gasto.",
+   "src": "1141c9aa7451"
+  },
+  "trap": {
+   "es": "Una alerta de presupuesto informa el gasto. No es un tope automático garantizado.",
+   "src": "c34bb0a054b6"
+  },
+  "exercise.prompt": {
+   "es": "Los dashboards tienen una etiqueta de prioridad interactiva, pero siguen lentos durante el ETL. ¿Qué dimensión del diseño probablemente no se aisló?",
+   "src": "fc83d7d0d3bc"
+  },
+  "exercise.answer": {
+   "es": "Revisa el grupo de capacidad y las asignaciones de reserva. La prioridad del trabajo por sí sola no crea un cómputo separado para los dashboards. Usa evidencia real del uso de slots y de la competencia para decidir si hace falta aislamiento o una optimización a nivel de consulta.",
+   "src": "cc12c051443d"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Distingue las asignaciones de capacidad de la prioridad.",
+   "src": "c7fc71e22a23"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Explica la capacidad base y el escalado automático sin prometer una factura fija.",
+   "src": "f45f67a68f5e"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Indica qué hace una alerta de presupuesto.",
+   "src": "bb41cc2c37d3"
+  },
+  "briefing.context": {
+   "es": "Los reportes programados y los analistas interactivos compiten por los recursos analíticos.",
+   "src": "76efa9fa8e5d"
+  },
+  "briefing.whyItMatters": {
+   "es": "Una carga puede no llegar a su plazo porque espera capacidad compartida, aunque su SQL sea válido.",
+   "src": "cacea686f636"
+  },
+  "briefing.takeaway": {
+   "es": "Revisa la concurrencia y asigna la capacidad según las prioridades del negocio.",
+   "src": "dc5123c394a9"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Aislar los dashboards del ETL",
+   "src": "21752f1e91af"
+  },
+  "block.diagram.description": {
+   "es": "Asigna los dashboards y el ETL a reservas separadas, en lugar de confiar en una etiqueta de prioridad.",
+   "src": "880a3ad6d980"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Mide el uso",
+   "src": "adba715bc859"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "primero",
+   "src": "a7937b64b8ca"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Asigna un grupo de",
+   "src": "461f943c9a86"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "capacidad a dashboards",
+   "src": "706d8b9a6011"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Pon el ETL sensible",
+   "src": "471621d2b72c"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "al costo aparte",
+   "src": "ee2b9d4d6ce7"
+  },
+  "block.keyFact": {
+   "es": "Una alerta de presupuesto informa el gasto. No es un tope automático garantizado.",
+   "src": "895c8b920956"
+  },
+  "block.check.question": {
+   "es": "Los dashboards se vuelven lentos durante el ETL. ¿Qué les da capacidad protegida?",
+   "src": "477ecff58083"
+  },
+  "block.check.choices.0.text": {
+   "es": "Prioridad interactiva en las consultas del dashboard",
+   "src": "e843aff03048"
+  },
+  "block.check.choices.0.why": {
+   "es": "La prioridad describe cómo se ejecuta el trabajo y no asigna capacidad.",
+   "src": "11ba5f0103de"
+  },
+  "block.check.choices.1.text": {
+   "es": "Una alerta de presupuesto en el proyecto",
+   "src": "9303432d081c"
+  },
+  "block.check.choices.1.why": {
+   "es": "Una alerta de presupuesto informa el gasto y no es un límite de recursos.",
+   "src": "a956a13d9ab8"
+  },
+  "block.check.choices.2.text": {
+   "es": "Una asignación de reserva separada para los dashboards",
+   "src": "9d6ccc2ef410"
+  },
+  "block.check.choices.2.why": {
+   "es": "Las asignaciones de reserva reparten la capacidad entre cargas.",
+   "src": "d0eaaf2063ad"
+  },
+  "verification.note": {
+   "es": "Hay tres ediciones (editions): Standard, Enterprise y Enterprise Plus. Las ediciones son una propiedad del cómputo, no del almacenamiento. Cambiar la edición de una reserva significa borrarla y volver a crearla.",
+   "src": "d7b5c06d05a6"
+  }
+ },
+ "observability": {
+  "title": {
+   "es": "Diagnostica el fallo antes de escalar",
+   "src": "756469286093"
+  },
+  "lead": {
+   "es": "El error exacto y la etapa de ejecución importan más que una etiqueta genérica.",
+   "src": "9db21a85ac3a"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "Observa la frescura, el retraso (lag), las filas fallidas, los reintentos de tareas y el uso de recursos. Los detalles de ejecución y los metadatos de los trabajos de BigQuery ayudan a distinguir escaneos lentos, presión de slots, problemas de shuffle y operaciones que usan mucha memoria.",
+   "src": "b475c27e72bd"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Revisa el plan de la consulta y el mensaje de error completo antes de cambiar la capacidad. Separa las cuotas de solicitudes a la API de la memoria de ejecución y de la disponibilidad de cómputo.",
+   "src": "38c7e6c38d56"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Una consulta falla durante un ordenamiento grande. Revisa el grafo de ejecución y la presión de memoria. Reduce los datos intermedios que se ordenan o reestructura la consulta, en lugar de subir una cuota de API que no tiene relación.",
+   "src": "6354c3f4aa01"
+  },
+  "sections.3.title": {
+   "es": "Observa el negocio y el motor",
+   "src": "333e6564454c"
+  },
+  "sections.3.body": {
+   "es": "Sigue la frescura, la completitud de los datos y la acumulación de registros rechazados junto con la CPU, la memoria y el estado de los trabajos. Un pipeline puede estar corriendo bien y aun así los datos esperados nunca llegan a su consumidor. Define un umbral accionable, un responsable y un runbook para la condición de fallo que quieres detectar.",
+   "src": "d0b3595d246f"
+  },
+  "sections.4.title": {
+   "es": "Usa la evidencia adecuada para cada pregunta",
+   "src": "761ae287a06a"
+  },
+  "sections.4.body": {
+   "es": "Los registros de auditoría responden quién hizo las operaciones relevantes. Los metadatos del trabajo y los detalles de ejecución ayudan a explicar el trabajo de la consulta y su fallo. Las métricas de recursos describen la saturación o la acumulación. Correlaciona estas señales con un identificador de ejecución y un intervalo lógico, en lugar de tratar un gráfico aislado como prueba de la causa raíz.",
+   "src": "85b91aeeb6db"
+  },
+  "sections.5.title": {
+   "es": "Prefiere una prueba causal a una solución genérica",
+   "src": "b8d7b7720f8b"
+  },
+  "sections.5.body": {
+   "es": "Si una etapa es serial por una clave caliente (hot key), agregar workers puede dejar esa etapa igual. Si una consulta crea un join intermedio grande, subir una cuota de API que no tiene relación no corrige su granularidad. Plantea una hipótesis concreta, haz un cambio controlado y compara las salidas y el uso de recursos con la misma entrada.",
+   "src": "66aacb8b13c6"
+  },
+  "trap": {
+   "es": "Más slots no garantizan que desaparezca todo error de Resources exceeded.",
+   "src": "a232d052d0e2"
+  },
+  "exercise.prompt": {
+   "es": "La CPU de los workers es moderada, pero el retraso de eventos sigue subiendo y una clave domina una etapa. ¿Qué investigarías?",
+   "src": "6d6ef624fe97"
+  },
+  "exercise.answer": {
+   "es": "Revisa la distribución de claves, el paralelismo por etapa y cualquier trabajo serial o límite posterior. Más workers pueden no dividir el trabajo de una sola clave. Verifica la hipótesis con evidencia a nivel de etapa y con un rediseño que conserve la corrección, en lugar de escalar a ciegas.",
+   "src": "fe792300e6b6"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Incluye la frescura y la calidad de los datos en el monitoreo.",
+   "src": "3fe13a13911a"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Elige entre registros y metadatos del trabajo según una pregunta concreta.",
+   "src": "51d63868238e"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Prueba una hipótesis específica de cuello de botella.",
+   "src": "05585776d5e8"
+  },
+  "briefing.context": {
+   "es": "Un trabajo de datos va tarde y el equipo ve varios síntomas a la vez.",
+   "src": "9e5ace1393f6"
+  },
+  "briefing.whyItMatters": {
+   "es": "Tomar la métrica más visible como la causa puede hacer perder tiempo y dinero.",
+   "src": "62246a559d48"
+  },
+  "briefing.takeaway": {
+   "es": "Usa evidencia del origen, de la etapa y del destino para probar un diagnóstico concreto.",
+   "src": "bdff2351ee11"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Diagnosticar antes de escalar",
+   "src": "d1f3819aaef7"
+  },
+  "block.diagram.description": {
+   "es": "Lee el error completo y el plan de la consulta, plantea una hipótesis y luego haz un solo cambio controlado.",
+   "src": "b24b469114fd"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Lee el error exacto",
+   "src": "1f990b608a32"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "y el plan de consulta",
+   "src": "9264db683ac7"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Plantea una",
+   "src": "31d97b6e991c"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "hipótesis concreta",
+   "src": "7beb7f4a5725"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Cambia una cosa,",
+   "src": "9d43b4a579c5"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "compara resultados",
+   "src": "c63e420f2df0"
+  },
+  "block.keyFact": {
+   "es": "Más slots no garantizan que desaparezca todo error de Resources exceeded.",
+   "src": "a232d052d0e2"
+  },
+  "block.check.question": {
+   "es": "Una consulta falla durante un ordenamiento grande. ¿Qué revisas primero?",
+   "src": "44188128a0ef"
+  },
+  "block.check.choices.0.text": {
+   "es": "Subir la cuota de solicitudes a la API",
+   "src": "7e6c3b85ef82"
+  },
+  "block.check.choices.0.why": {
+   "es": "Las cuotas de solicitudes a la API son independientes de la memoria de ejecución.",
+   "src": "9adde360a64e"
+  },
+  "block.check.choices.1.text": {
+   "es": "El grafo de ejecución y la presión de memoria",
+   "src": "325898711373"
+  },
+  "block.check.choices.1.why": {
+   "es": "Reduce los datos intermedios que se ordenan o reestructura la consulta.",
+   "src": "df05d767f9a1"
+  },
+  "block.check.choices.2.text": {
+   "es": "Agregar más slots y ejecutar de nuevo",
+   "src": "e712c2d9016a"
+  },
+  "block.check.choices.2.why": {
+   "es": "Más slots no garantizan que el error desaparezca.",
+   "src": "60f6737578aa"
+  },
+  "verification.note": {
+   "es": "Se confirmó que los metadatos del trabajo muestran la competencia por slots, que un error de memoria al ordenar viene de la forma de la consulta y que los registros de auditoría guardan quién envió los trabajos. No se comprobaron el consejo de Dataflow sobre claves calientes ni el diseño de alertas.",
+   "src": "989c22f646e0"
+  }
+ },
+ "query-diagnosis": {
+  "title": {
+   "es": "Diagnostica una consulta con su evidencia de ejecución",
+   "src": "11e3d62dbc92"
+  },
+  "lead": {
+   "es": "Un mensaje de fallo es el inicio de una investigación causal.",
+   "src": "36f9a4d27909"
+  },
+  "sections.0.title": {
+   "es": "Separa la espera en cola del cómputo costoso",
+   "src": "bb1e032dc036"
+  },
+  "sections.0.body": {
+   "es": "Una consulta puede esperar recursos, escanear demasiados datos, crear un resultado intermedio grande en un join, ordenar demasiadas filas o perder tiempo por sesgo (skew). Los metadatos del trabajo y el grafo de ejecución ayudan a identificar qué etapa importa. Al probar una mejora, compara con la misma entrada y la misma semántica de consulta.",
+   "src": "2fe274a285c8"
+  },
+  "sections.1.title": {
+   "es": "Revisa la razón detrás del error",
+   "src": "f37c6517044e"
+  },
+  "sections.1.body": {
+   "es": "Resources exceeded puede indicar problemas distintos de memoria, de shuffle o de planificación. Las cuotas de tasa de solicitudes a la API son una restricción distinta de la memoria de ejecución. Una reserva de capacidad puede ser adecuada para algunos problemas de carga, pero no es una reparación universal para cualquier operador que falla ni para un plan de consulta demasiado complejo.",
+   "src": "04928c7760cf"
+  },
+  "sections.2.title": {
+   "es": "Usa bien la evidencia de facturación",
+   "src": "d5b7ec3707b1"
+  },
+  "sections.2.body": {
+   "es": "Una dry run puede estimar los bytes procesados relevantes en las consultas que la admiten. La poda real de bloques en tablas con clustering y el cómputo en tiempo de ejecución tienen consideraciones adicionales. Los límites de consulta, los controles de trabajo y los presupuestos resuelven problemas distintos. Registra el modelo de facturación y la unidad medida antes de convertir un resultado de rendimiento en una afirmación de costo.",
+   "src": "931f0163cf93"
+  },
+  "trap": {
+   "es": "El primer gráfico rojo visible no es necesariamente la causa raíz.",
+   "src": "95991007fe1e"
+  },
+  "exercise.prompt": {
+   "es": "Una consulta falla en un ordenamiento global grande. ¿Qué evidencia distinguiría un rediseño del SQL de comprar más capacidad?",
+   "src": "c72dca075ebf"
+  },
+  "exercise.answer": {
+   "es": "Revisa los detalles del error y la etapa de ejecución, incluidos el tamaño intermedio y la presión de memoria. Prueba reducir la entrada del ordenamiento o usar una estructura de consulta adecuada con el mismo resultado de negocio. La información de capacidad ayuda, pero la operación que falla aún necesita un diagnóstico concreto.",
+   "src": "def3813df70e"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Separa el tiempo en cola del cómputo.",
+   "src": "53f329e64bb9"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Relaciona un error con el recurso correcto.",
+   "src": "bd73f826f940"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Interpreta los bytes y los slots según el modelo de facturación elegido.",
+   "src": "3b15fdb9bcde"
+  },
+  "briefing.context": {
+   "es": "Una consulta analítica se vuelve lenta después de que cambia el dataset o la carga.",
+   "src": "d6cee9f362db"
+  },
+  "briefing.whyItMatters": {
+   "es": "Cambiar el SQL al azar puede esconder el cuello de botella sin arreglarlo.",
+   "src": "971b77dbd663"
+  },
+  "briefing.takeaway": {
+   "es": "Usa la evidencia de ejecución para distinguir los problemas de escaneo, de join y de competencia por recursos.",
+   "src": "f9d12b48793f"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Ubicar la etapa lenta",
+   "src": "3f10564836a5"
+  },
+  "block.diagram.description": {
+   "es": "Los metadatos del trabajo y el grafo de ejecución muestran si la consulta espera, escanea, une, ordena o tiene sesgo.",
+   "src": "3140e05af2a8"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Metadatos del",
+   "src": "2d1e5a084c58"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "trabajo y grafo",
+   "src": "674abc7af584"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Encuentra la etapa",
+   "src": "8c8e8ebbb97c"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "que importa",
+   "src": "53e67243faa3"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Prueba con la misma",
+   "src": "2f74bc4206f1"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "entrada y consulta",
+   "src": "95048ad00cfd"
+  },
+  "block.keyFact": {
+   "es": "El primer gráfico rojo visible no es necesariamente la causa raíz.",
+   "src": "95991007fe1e"
+  },
+  "block.check.question": {
+   "es": "Una consulta muestra Resources exceeded. ¿Cuál es el primer paso correcto?",
+   "src": "478cf7a7f140"
+  },
+  "block.check.choices.0.text": {
+   "es": "Reservar más capacidad para cada consulta que falla",
+   "src": "07529069be93"
+  },
+  "block.check.choices.0.why": {
+   "es": "Una reserva no es una reparación universal para cualquier operador que falla.",
+   "src": "a998d943dff9"
+  },
+  "block.check.choices.1.text": {
+   "es": "Subir la cuota de tasa de solicitudes a la API",
+   "src": "b037a774b8cb"
+  },
+  "block.check.choices.1.why": {
+   "es": "Las cuotas de tasa de solicitudes a la API son una restricción distinta de la memoria de ejecución.",
+   "src": "2a77dc4a76ab"
+  },
+  "block.check.choices.2.text": {
+   "es": "Revisar la razón en la evidencia de ejecución",
+   "src": "0147a5f2e7d9"
+  },
+  "block.check.choices.2.why": {
+   "es": "Puede indicar problemas distintos de memoria, de shuffle o de planificación.",
+   "src": "4ae7e9331e0b"
+  },
+  "verification.note": {
+   "es": "Se confirmó que Resources exceeded tiene causas de memoria, de shuffle y de complejidad, que más slots solo arreglan el caso del shuffle y que una dry run en una tabla con clustering da un límite superior. No se comprobó el consejo sobre sesgo y granularidad de joins.",
+   "src": "fcdb9f020461"
+  }
+ },
+ "pipeline-slo": {
+  "title": {
+   "es": "Diagnostica la frescura en un pipeline de streaming",
+   "src": "47f52a8e7863"
+  },
+  "lead": {
+   "es": "Rastrea dónde esperan los datos antes de agregar cómputo o de silenciar una alerta.",
+   "src": "a0d1ae33e6ed"
+  },
+  "sections.0.title": {
+   "es": "Distingue las observaciones",
+   "src": "69fae36d9c51"
+  },
+  "sections.0.body": {
+   "es": "Dataflow muestra métricas de frescura, latencia del sistema, rendimiento (throughput) y acumulación (backlog). La latencia del sistema mide el tiempo que un elemento pasa procesándose o esperando, según lo que el origen deje ver. La antigüedad del mensaje más antiguo sin confirmar (oldest unacknowledged age) de Pub/Sub describe los mensajes de la suscripción que esperan. Estas observaciones se relacionan, pero no son intercambiables.",
+   "src": "f1049f9ddf05"
+  },
+  "sections.1.title": {
+   "es": "Sigue el cuello de botella",
+   "src": "8e3c6f101fe4"
+  },
+  "sections.1.body": {
+   "es": "Incidente original: el tráfico de entrada es estable, las escrituras al destino empiezan a fallar y el backlog crece mientras la CPU de los workers sigue baja. Revisa los errores de escritura, los permisos, la cuota y la capacidad del destino. Agregar workers no puede reparar un destino que niega el acceso. Correlaciona la evidencia de las etapas en lugar de diagnosticar solo con la CPU.",
+   "src": "c9524e31294b"
+  },
+  "sections.2.title": {
+   "es": "Define un resultado accionable",
+   "src": "128432b1322b"
+  },
+  "sections.2.body": {
+   "es": "SLO de ejemplo: los pedidos curados deben poder consultarse en cinco minutos para la población acordada. Especifica la marca de tiempo, el denominador, el punto de observación y la política de eventos tardíos. Une la alerta a un responsable, a una acción de recuperación acotada y a una comprobación que concilie los registros faltantes después de recuperarte.",
+   "src": "ef8c178d27f1"
+  },
+  "trap": {
+   "es": "Un grafo de transporte sano no prueba que el dataset de negocio esté completo.",
+   "src": "e1dcb83668fb"
+  },
+  "exercise.prompt": {
+   "es": "El backlog sube mientras las escrituras al destino fallan con errores de permisos. ¿Subir el número de workers es una solución suficiente?",
+   "src": "28e9c3c51440"
+  },
+  "exercise.answer": {
+   "es": "No. Repara la identidad o la ruta de permisos y luego observa si el backlog se vacía. Concilia las salidas retrasadas o fallidas. Verifica el diagnóstico con los registros y las métricas.",
+   "src": "bdf4f96b6b0b"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Nombra el punto de observación y la unidad.",
+   "src": "3d9d5c23ac8d"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Correlaciona la evidencia del origen, de la etapa y del destino.",
+   "src": "2d4f9506acca"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Concilia los datos después de la recuperación.",
+   "src": "22a904bc85b3"
+  },
+  "briefing.context": {
+   "es": "Los pedidos llegan a tiempo, pero el dataset analítico va tarde porque fallan las escrituras al destino.",
+   "src": "828ac632888e"
+  },
+  "briefing.whyItMatters": {
+   "es": "Más workers no pueden reparar una escritura denegada, y un gráfico de CPU no establece la frescura de los datos.",
+   "src": "64ce541706c4"
+  },
+  "briefing.takeaway": {
+   "es": "Correlaciona la evidencia del origen, de la etapa y del destino antes de cambiar la capacidad.",
+   "src": "b8e03d0a4cb5"
+  },
+  "review.scope": {
+   "es": "Las afirmaciones sobre servicios de esta lección original se comprobaron con sus referencias principales. El escenario es un ejemplo.",
+   "src": "9203ccf1a1ce"
+  },
+  "decision.useCase": {
+   "es": "Clasificar un retraso en analítica con evidencia del origen, del procesador y del destino.",
+   "src": "1110601207e1"
+  },
+  "decision.advantage": {
+   "es": "La evidencia específica de cada etapa acota la acción correctiva.",
+   "src": "549491779836"
+  },
+  "decision.limitation": {
+   "es": "Las métricas de frescura por sí solas no establecen que los datos estén completos en su significado.",
+   "src": "03c7f9cf6f1d"
+  },
+  "block.diagram.title": {
+   "es": "Rastrear un backlog",
+   "src": "11a4738f8fbc"
+  },
+  "block.diagram.description": {
+   "es": "Una entrada estable, escrituras fallidas al destino y un backlog que crece apuntan al destino, no al número de workers.",
+   "src": "5efee065ba35"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Entrada estable,",
+   "src": "47c26cead9cd"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "el backlog crece",
+   "src": "f7494e3f6938"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Revisa errores de",
+   "src": "e594dab40612"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "escritura, permisos, cuota",
+   "src": "aa5e28303f9b"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Arregla el destino,",
+   "src": "574f82a3467d"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "luego concilia",
+   "src": "eac3b50e0903"
+  },
+  "block.keyFact": {
+   "es": "Un grafo de transporte sano no prueba que el dataset de negocio esté completo.",
+   "src": "e1dcb83668fb"
+  },
+  "block.check.question": {
+   "es": "El backlog crece, las escrituras fallan y la CPU de los workers es baja. ¿Qué haces?",
+   "src": "e8e705b580a0"
+  },
+  "block.check.choices.0.text": {
+   "es": "Revisar errores de escritura, permisos, cuota y capacidad",
+   "src": "c40077d1274d"
+  },
+  "block.check.choices.0.why": {
+   "es": "Agregar workers no puede reparar un destino que niega el acceso.",
+   "src": "d9c9aaf26bca"
+  },
+  "block.check.choices.1.text": {
+   "es": "Agregar más workers",
+   "src": "966d3d25a9de"
+  },
+  "block.check.choices.1.why": {
+   "es": "Agregar workers no puede reparar un destino que niega el acceso.",
+   "src": "d9c9aaf26bca"
+  },
+  "block.check.choices.2.text": {
+   "es": "Diagnosticar solo con la CPU",
+   "src": "fc7f49c0dd79"
+  },
+  "block.check.choices.2.why": {
+   "es": "Correlaciona la evidencia de las etapas en lugar de diagnosticar solo con la CPU.",
+   "src": "111118310021"
+  },
+  "verification.note": {
+   "es": "Se confirmó que Dataflow muestra frescura, latencia del sistema, rendimiento y backlog, que la latencia sube cuando un destino deja de aceptar escrituras y que Pub/Sub informa la antigüedad del mensaje más antiguo sin confirmar. No se comprobaron el diseño de SLO ni el consejo sobre permisos del destino.",
+   "src": "5f1bfb116571"
+  }
  }
 }
