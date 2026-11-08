@@ -62,3 +62,6 @@ main.credits-page{max-width:70ch;margin:0 auto;padding:32px 17px 48px;font-size:
 
 .rich,.lesson-body .lead,.lesson-body p,.result-explain,.explanation{max-width:var(--prose)}
 @media(max-width:560px){.rich,.lead{font-size:var(--fs-body)}}
+
+.lesson-section p,.lesson-section li,.source-list li,.retrieval-exercise p,.trap p,.mission-card p,.details p,.panel p:not(.credit):not(.small){font-size:var(--fs-body,16px);line-height:1.7}.hero-records{max-width:100%;overflow-wrap:anywhere}
+select{max-width:100%;min-width:0;box-sizing:border-box}.filterbar{flex-wrap:wrap}.lesson-section p,.lesson-section li,.retrieval-exercise p,.trap p{max-width:62ch}
