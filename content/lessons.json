@@ -359,14 +359,14 @@
         "question": "Analysts need all customers but must not see national IDs. Which control restricts those fields?",
         "choices": [
           {
-            "text": "Column policies",
-            "correct": true,
-            "why": "Column policies restrict fields, so protected columns can hold sensitive values."
-          },
-          {
             "text": "Row policies",
             "correct": false,
             "why": "Row policies restrict records, not fields."
+          },
+          {
+            "text": "Column policies",
+            "correct": true,
+            "why": "Column policies restrict fields, so protected columns can hold sensitive values."
           },
           {
             "text": "A firewall rule",
@@ -575,9 +575,9 @@
         "question": "A payment retry arrives twice. What helps most?",
         "choices": [
           {
-            "text": "A stable event ID and an idempotent write",
-            "correct": true,
-            "why": "Then reconcile the final totals to confirm the result."
+            "text": "Blindly appending the rerun output",
+            "correct": false,
+            "why": "Blindly appending rerun output can double the result."
           },
           {
             "text": "Exactly-once processing alone",
@@ -585,9 +585,9 @@
             "why": "Exactly-once processing alone does not protect an arbitrary external API call."
           },
           {
-            "text": "Blindly appending the rerun output",
-            "correct": false,
-            "why": "Blindly appending rerun output can double the result."
+            "text": "A stable event ID and an idempotent write",
+            "correct": true,
+            "why": "Then reconcile the final totals to confirm the result."
           }
         ]
       }
@@ -1107,14 +1107,14 @@
         "question": "Dataflow reads Kafka on premises and writes BigQuery. An existing private connection may let KafkaIO read directly. What does that avoid?",
         "choices": [
           {
-            "text": "An extra message bridge and its latency",
-            "correct": true,
-            "why": "An existing private connection may let KafkaIO read directly, avoiding an extra message bridge and its latency."
-          },
-          {
             "text": "The need for IAM permissions",
             "correct": false,
             "why": "Private workers still need an appropriate subnet, API access and IAM permissions."
+          },
+          {
+            "text": "An extra message bridge and its latency",
+            "correct": true,
+            "why": "An existing private connection may let KafkaIO read directly, avoiding an extra message bridge and its latency."
           },
           {
             "text": "The need to specify the schema",
@@ -1244,9 +1244,9 @@
         "question": "A publisher retry submits the same logical order twice. What should you preserve?",
         "choices": [
           {
-            "text": "A stable business ID",
-            "correct": true,
-            "why": "Preserve a stable business ID and protect external effects."
+            "text": "Nothing, because exactly-once pull merges the two",
+            "correct": false,
+            "why": "A supported exactly-once pull subscription does not automatically recognize two different message IDs as the same business order."
           },
           {
             "text": "Nothing, because message IDs already identify the order",
@@ -1254,9 +1254,9 @@
             "why": "A publisher retry can submit the same logical order as distinct messages."
           },
           {
-            "text": "Nothing, because exactly-once pull merges the two",
-            "correct": false,
-            "why": "A supported exactly-once pull subscription does not automatically recognize two different message IDs as the same business order."
+            "text": "A stable business ID",
+            "correct": true,
+            "why": "Preserve a stable business ID and protect external effects."
           }
         ]
       }
@@ -1702,14 +1702,14 @@
         "question": "A click created at minute 2 arrives after one created at minute 9. Where does it belong?",
         "choices": [
           {
-            "text": "The earlier event-time window, if it still accepts data",
-            "correct": true,
-            "why": "It belongs to the earlier event-time window, if that window is still allowed to accept data."
-          },
-          {
             "text": "The window of its arrival time",
             "correct": false,
             "why": "Preserve source timestamps rather than replacing them with processing time."
+          },
+          {
+            "text": "The earlier event-time window, if it still accepts data",
+            "correct": true,
+            "why": "It belongs to the earlier event-time window, if that window is still allowed to accept data."
           },
           {
             "text": "Nowhere, because the watermark guarantees completeness",
@@ -1923,9 +1923,9 @@
         "question": "A temporary API outage makes some records fail. What fits?",
         "choices": [
           {
-            "text": "Bounded retry with backoff",
-            "correct": true,
-            "why": "Use bounded retry with backoff for transient failures."
+            "text": "Treat it as permanent invalid data",
+            "correct": false,
+            "why": "Distinguish permanent invalid data from temporary service errors."
           },
           {
             "text": "Repeat the record indefinitely",
@@ -1933,9 +1933,9 @@
             "why": "Repeating permanent bad input indefinitely consumes capacity and blocks useful work."
           },
           {
-            "text": "Treat it as permanent invalid data",
-            "correct": false,
-            "why": "Distinguish permanent invalid data from temporary service errors."
+            "text": "Bounded retry with backoff",
+            "correct": true,
+            "why": "Use bounded retry with backoff for transient failures."
           }
         ]
       }
@@ -2521,14 +2521,14 @@
         "question": "Which BigQuery schema change requires a table recreation?",
         "choices": [
           {
-            "text": "Changing NULLABLE to REQUIRED",
-            "correct": true,
-            "why": "Relaxing REQUIRED to NULLABLE differs from changing NULLABLE to REQUIRED, which requires a table recreation."
-          },
-          {
             "text": "Relaxing REQUIRED to NULLABLE",
             "correct": false,
             "why": "This is the relaxing direction, which differs from changing NULLABLE to REQUIRED."
+          },
+          {
+            "text": "Changing NULLABLE to REQUIRED",
+            "correct": true,
+            "why": "Relaxing REQUIRED to NULLABLE differs from changing NULLABLE to REQUIRED, which requires a table recreation."
           },
           {
             "text": "Adding a field",
@@ -2687,9 +2687,9 @@
         "question": "A windowing change is incompatible. What is the path?",
         "choices": [
           {
-            "text": "Retain the source messages, drain the old job, start the replacement, reconcile outputs",
-            "correct": true,
-            "why": "This is the scenario in the lesson."
+            "text": "Cancel the old job at once",
+            "correct": false,
+            "why": "Draining processes in-flight work. Canceling may discard it."
           },
           {
             "text": "Set a flag so the update is compatible",
@@ -2697,9 +2697,9 @@
             "why": "A deployment flag is not proof of semantic compatibility."
           },
           {
-            "text": "Cancel the old job at once",
-            "correct": false,
-            "why": "Draining processes in-flight work. Canceling may discard it."
+            "text": "Retain the source messages, drain the old job, start the replacement, reconcile outputs",
+            "correct": true,
+            "why": "This is the scenario in the lesson."
           }
         ]
       }
