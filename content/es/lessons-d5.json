@@ -1,0 +1,642 @@
+{
+ "resource-cost": {
+  "title": {
+   "es": "Paga solo el trabajo que de verdad necesitas",
+   "src": "a1ff4b51592a"
+  },
+  "lead": {
+   "es": "Une la optimización con un requisito del negocio y un cuello de botella medido.",
+   "src": "9e4992f2a191"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "Los clústeres persistentes pueden servir para cargas estables. El cómputo por trabajo (job-based) puede servir para procesos intermitentes. Reducir el escaneo importa en el análisis bajo demanda (on-demand). En la ejecución por capacidad hay que cuidar los slots y su uso.",
+   "src": "2bd2098a6c89"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Reutiliza los agregados compatibles, apaga el cómputo ocioso y compara los efectos en almacenamiento, procesamiento y red. Un worker más barato puede salir más caro en total si falla seguido o alarga el trabajo.",
+   "src": "d4bfb242bd28"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Un trabajo semanal de Spark dura treinta minutos. Guarda la entrada duradera en almacenamiento de objetos y compara un clúster efímero o la ejecución serverless con un clúster que queda encendido toda la semana.",
+   "src": "e6eef1718919"
+  },
+  "sections.3.title": {
+   "es": "Mide el trabajo total y el tiempo ocioso",
+   "src": "0b06eec28897"
+  },
+  "sections.3.body": {
+   "es": "Compara las cargas estables con los trabajos intermitentes. Mantén duradera la entrada de datos mientras evalúas cómputo temporal. Cuenta el almacenamiento, la red, el procesamiento, los intentos fallidos y el esfuerzo de operación. Una instancia más barata no siempre es más barata por cada ejecución de negocio exitosa. Usa una meta de finalización representativa en cada comparación.",
+   "src": "2e83dbd27c43"
+  },
+  "sections.4.title": {
+   "es": "Distingue los modelos de precio de la optimización",
+   "src": "328ebdbecc1b"
+  },
+  "sections.4.body": {
+   "es": "Los cargos analíticos bajo demanda se centran en los datos procesados. Los modelos por capacidad se centran en el cómputo aprovisionado o consumido. Reducir los bytes escaneados sigue siendo trabajo menos hecho, pero no garantiza el mismo porcentaje de reducción en una factura por capacidad. Revisa el modelo real antes de interpretar el resultado de un ajuste.",
+   "src": "85ed38ec15ac"
+  },
+  "sections.5.title": {
+   "es": "Usa la retroalimentación para proteger el objetivo del negocio",
+   "src": "d6bf12cf8556"
+  },
+  "sections.5.body": {
+   "es": "Mide la duración de la ejecución, la frescura, los fallos y el uso de recursos antes y después de un cambio. Una optimización de costo que rompe el tiempo de finalización requerido no es una solución completa. Mantén fijos el volumen de entrada y la lógica de negocio de la comparación, e identifica cualquier cambio en la confiabilidad o en los supuestos de operación.",
+   "src": "0f21bc80475b"
+  },
+  "trap": {
+   "es": "Reducir el tamaño de la máquina no es una optimización si incumple el plazo de finalización.",
+   "src": "dfeb3e6188ba"
+  },
+  "exercise.prompt": {
+   "es": "Un equipo reduce el volumen escaneado en un 90% y promete reducir en un 90% su factura por capacidad. ¿Esa conclusión tiene respaldo?",
+   "src": "c6ff6f788898"
+  },
+  "exercise.answer": {
+   "es": "No solo con el volumen escaneado. Eso muestra menos trabajo de lectura lógica en la consulta medida, pero la factura depende de la configuración de capacidad, del uso y de otros cargos. Compara el uso real bajo el modelo de facturación y comprueba que el resultado y el plazo sigan siendo correctos.",
+   "src": "3efecee8e954"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Compara el costo por resultado de negocio exitoso.",
+   "src": "ef9bfb5e2dc9"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Distingue las consideraciones del uso bajo demanda y por capacidad.",
+   "src": "9874a51dd217"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Mantén fija la carga durante una comparación de ajuste.",
+   "src": "814392eed59f"
+  },
+  "briefing.context": {
+   "es": "Un trabajo de Spark corre una vez por semana, pero su clúster puede quedar asignado toda la semana.",
+   "src": "2c8d84bd9cfc"
+  },
+  "briefing.whyItMatters": {
+   "es": "Los recursos ociosos gastan presupuesto sin mejorar el resultado de negocio requerido.",
+   "src": "3d92cede5c6d"
+  },
+  "briefing.takeaway": {
+   "es": "Compara cuánto vive el recurso con el trabajo que de verdad lo necesita.",
+   "src": "178ddbf04b94"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Cómo juzgar un cambio de costo",
+   "src": "6ce9ed8afc7d"
+  },
+  "block.diagram.description": {
+   "es": "Mide el trabajo total y el tiempo ocioso, revisa el modelo de precio y confirma que el objetivo del negocio se mantiene.",
+   "src": "8e899fca01dc"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Mide el trabajo total",
+   "src": "95454bdd51cb"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "y el tiempo ocioso",
+   "src": "4e633de48408"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Revisa el",
+   "src": "8f0343dbb0c3"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "modelo de precio",
+   "src": "0c22ac7bbbce"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Protege la meta",
+   "src": "b00cd9c57984"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "de finalización",
+   "src": "11eca7d0c4b9"
+  },
+  "block.keyFact": {
+   "es": "Reducir el tamaño de la máquina no es una optimización si incumple el plazo de finalización.",
+   "src": "dfeb3e6188ba"
+  },
+  "block.check.question": {
+   "es": "Una máquina más pequeña ahorra dinero, pero el trabajo ahora no llega al plazo. ¿Es una optimización?",
+   "src": "967cfcd95aff"
+  },
+  "block.check.choices.0.text": {
+   "es": "Sí, una máquina más pequeña siempre cuesta menos",
+   "src": "65df446c5699"
+  },
+  "block.check.choices.0.why": {
+   "es": "Una instancia más barata no siempre es más barata por cada ejecución de negocio exitosa.",
+   "src": "77951cb063bb"
+  },
+  "block.check.choices.1.text": {
+   "es": "No, rompe el tiempo de finalización requerido",
+   "src": "5197c45b8742"
+  },
+  "block.check.choices.1.why": {
+   "es": "Un cambio de costo que incumple el tiempo de finalización requerido no es una solución completa.",
+   "src": "3dbde4fa7e77"
+  },
+  "block.check.choices.2.text": {
+   "es": "Sí, si bajaron los bytes escaneados",
+   "src": "a13413705a77"
+  },
+  "block.check.choices.2.why": {
+   "es": "Menos bytes escaneados no garantizan la misma baja en una factura por capacidad.",
+   "src": "2ec3fc9f0d62"
+  },
+  "verification.note": {
+   "es": "Se confirmó que las consultas bajo demanda se facturan por bytes leídos y que un clúster de Spark puede borrarse solo tras un periodo ocioso. No se comprobaron la facturación por capacidad, Spark serverless ni el consejo del costo por ejecución exitosa.",
+   "src": "53e1ee907a68"
+  }
+ },
+ "warehouse-economics": {
+  "title": {
+   "es": "Controla el costo de las consultas con el modelo de precio correcto",
+   "src": "1cb42f7add91"
+  },
+  "lead": {
+   "es": "Los bytes escaneados, la capacidad de slots y el número de filas del resultado responden preguntas distintas.",
+   "src": "c8fc7cac623d"
+  },
+  "sections.0.title": {
+   "es": "Elige la señal de costo",
+   "src": "829b9462fa70"
+  },
+  "sections.0.body": {
+   "es": "En las consultas de BigQuery bajo demanda, usa una ejecución de prueba (dry run) como estimación y configura el máximo de bytes facturados (maximum bytes billed) cuando corresponda. Un LIMIT en una tabla sin clustering no reduce los bytes leídos. Elegir menos columnas necesarias y filtrar particiones reduce el escaneo, en lugar de solo recortar el resultado.",
+   "src": "d8255efd3702"
+  },
+  "sections.1.title": {
+   "es": "Separa la capacidad de los escaneos",
+   "src": "5e0831271a88"
+  },
+  "sections.1.body": {
+   "es": "Las cargas por capacidad usan slots y reservas. Reduce el trabajo desperdiciado, pero revisa también la concurrencia, las colas y la competencia por slots. Una consulta más rápida y una factura más pequeña se relacionan solo a través del contrato de precio y capacidad que aplique.",
+   "src": "cd795965ef56"
+  },
+  "sections.2.title": {
+   "es": "Compara una carga original",
+   "src": "e0ba40b159a0"
+  },
+  "sections.2.body": {
+   "es": "Un reporte escanea las mismas columnas históricas para muchos consumidores. Prueba una proyección más estrecha, la poda de particiones (partition pruning) y un resultado reutilizable adecuado. Compara los bytes, el tiempo de ejecución, la frescura y el comportamiento concurrente antes de adoptar el cambio. Mantén los modelos de escaneo de ejemplo separados de una estimación real de factura.",
+   "src": "f3be87aebdef"
+  },
+  "trap": {
+   "es": "LIMIT 10 controla el tamaño del resultado. No es un techo universal del costo de la consulta.",
+   "src": "32afd1ec82fe"
+  },
+  "exercise.prompt": {
+   "es": "Un dashboard agrega LIMIT 100 a un SELECT * en una tabla sin clustering. ¿Qué debe revisar después el ingeniero?",
+   "src": "77a5adaf86a3"
+  },
+  "exercise.answer": {
+   "es": "Debe revisar las columnas proyectadas, los filtros de partición y los bytes estimados, y después la evidencia de ejecución. Debe fijar una protección adecuada de la consulta para el uso bajo demanda y evaluar por separado el comportamiento de la capacidad.",
+   "src": "d91d15ff5487"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Identifica el modelo de precio.",
+   "src": "5d3df53a2ff3"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Separa las filas del resultado de los bytes escaneados.",
+   "src": "a22df77f2be3"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Mide la frescura además del tiempo de ejecución.",
+   "src": "b42a2fff555c"
+  },
+  "briefing.context": {
+   "es": "Un dashboard agrega LIMIT 10 y espera una factura de consultas mucho menor.",
+   "src": "0eeace721305"
+  },
+  "briefing.whyItMatters": {
+   "es": "En una tabla de BigQuery sin clustering, devolver menos filas no significa leer menos bytes.",
+   "src": "965ce1c4f89a"
+  },
+  "briefing.takeaway": {
+   "es": "Separa el tamaño del resultado, el trabajo de escaneo y el modelo de precio que aplica.",
+   "src": "58e2c85df1c3"
+  },
+  "review.scope": {
+   "es": "Las afirmaciones sobre servicios de esta lección original se comprobaron con sus referencias principales. El escenario es un ejemplo.",
+   "src": "9203ccf1a1ce"
+  },
+  "decision.useCase": {
+   "es": "Reducir el trabajo repetido del dashboard sin perder la frescura requerida.",
+   "src": "29d4cbcb403c"
+  },
+  "decision.advantage": {
+   "es": "Los controles de costo pueden evitar un escaneo inesperadamente grande antes de que se ejecute.",
+   "src": "74f860fe2d59"
+  },
+  "decision.limitation": {
+   "es": "Una estimación o un modelo local de escaneo no es una factura de producción.",
+   "src": "cc9c865e025c"
+  },
+  "block.diagram.title": {
+   "es": "Cómo leer el costo de una consulta",
+   "src": "494b5b4c1bbf"
+  },
+  "block.diagram.description": {
+   "es": "Usa una dry run y menos columnas para bajar los bytes escaneados, y revisa los slots en las cargas por capacidad.",
+   "src": "3d0454bd42e5"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Dry run y máximo",
+   "src": "128fd2d04bea"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "de bytes facturados",
+   "src": "917b7c50531e"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Menos columnas,",
+   "src": "5c761273738f"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "filtra particiones",
+   "src": "21ca5a481fdd"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Revisa slots y",
+   "src": "d13224244d77"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "concurrencia",
+   "src": "d1b92de2d207"
+  },
+  "block.keyFact": {
+   "es": "LIMIT 10 controla el tamaño del resultado. No es un techo universal del costo de la consulta.",
+   "src": "32afd1ec82fe"
+  },
+  "block.check.question": {
+   "es": "Una consulta bajo demanda en una tabla sin clustering termina con LIMIT 10. ¿Lee menos bytes?",
+   "src": "38864deff244"
+  },
+  "block.check.choices.0.text": {
+   "es": "Sí, LIMIT detiene el escaneo tras diez filas",
+   "src": "4f2c6a71513f"
+  },
+  "block.check.choices.0.why": {
+   "es": "Un LIMIT en una tabla sin clustering no reduce los bytes leídos.",
+   "src": "3b7d576592f7"
+  },
+  "block.check.choices.1.text": {
+   "es": "Sí, y además limita la factura",
+   "src": "43ef4eb5518b"
+  },
+  "block.check.choices.1.why": {
+   "es": "LIMIT controla el tamaño del resultado. No es un techo del costo de la consulta.",
+   "src": "92fbe83ba7f7"
+  },
+  "block.check.choices.2.text": {
+   "es": "No, para eso hay que elegir menos columnas y filtrar particiones",
+   "src": "d1bd4a8e7cf6"
+  },
+  "block.check.choices.2.why": {
+   "es": "Un LIMIT en una tabla sin clustering no reduce los bytes leídos.",
+   "src": "3b7d576592f7"
+  },
+  "verification.note": {
+   "es": "Se confirmó que la dry run estima los bytes, que el máximo de bytes facturados detiene las consultas que lo superan, que LIMIT no reduce los bytes leídos en tablas sin clustering y que los slots ponen las consultas en cola. No se comprobaron las estimaciones de factura ni la reutilización de vistas materializadas.",
+   "src": "7dd892ee8fff"
+  }
+ },
+ "repeatability": {
+  "title": {
+   "es": "Haz que cada reintento sea intencional",
+   "src": "e2d65e2d2178"
+  },
+  "lead": {
+   "es": "Un grafo acíclico dirigido (DAG) hace visibles las dependencias entre tareas.",
+   "src": "23ebba2fdce5"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "Managed Service for Apache Airflow (antes Cloud Composer, el nombre que usa la guía del examen) usa DAGs de Airflow para flujos programados con dependencias entre tareas. Workflows coordina llamadas a servicios sin que administres un entorno de Airflow. Una tarea idempotente (idempotent) permite reintentos más seguros y reejecuciones parciales.",
+   "src": "8873ab51c6e2"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Usa tareas separadas cuando importa recuperarse de un fallo por separado. Pasa un identificador de ejecución estable, haz que las escrituras sean repetibles y define alertas de finalización y de fallo.",
+   "src": "133e4c946056"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Un proceso diario obtiene archivos, los descifra y ejecuta SQL. Con tareas separadas en el DAG puedes volver a ejecutar solo la etapa que falló y conservar la evidencia de las etapas anteriores que sí funcionaron.",
+   "src": "49a902a4235b"
+  },
+  "sections.3.title": {
+   "es": "Haz explícita la identidad de la ejecución",
+   "src": "1b7f18cf1981"
+  },
+  "sections.3.body": {
+   "es": "Una tarea debe saber qué intervalo lógico o qué lote de entrada procesa. Un reintento, una ejecución retrasada o un relleno histórico (backfill) no deben cambiar en silencio a lo que el reloj llame hoy. Usa ese intervalo lógico para elegir las entradas y las claves de salida, y registra la versión del código o de la configuración que se usó.",
+   "src": "49ca5b8b66e6"
+  },
+  "sections.4.title": {
+   "es": "Elige límites que ayuden a recuperarse",
+   "src": "7a40c0b73ba1"
+  },
+  "sections.4.body": {
+   "es": "Separa la obtención, el descifrado, la preparación (staging), la transformación y la validación cuando necesiten reintentos independientes. Haz que los efectos de cada tarea sean repetibles o transaccionales cuando se pueda. Una tarea solo debe tener éxito cuando su salida esperada ya se puede usar. Capturar todos los errores y reportar éxito rompe la lógica de dependencias posteriores.",
+   "src": "47a821374537"
+  },
+  "sections.5.title": {
+   "es": "Una comprobación de calidad debe frenar al consumidor",
+   "src": "9090b0e69515"
+  },
+  "sections.5.body": {
+   "es": "Que una aserción (assertion) exista en un repositorio no significa que cada acción posterior la espere. Declara y prueba las dependencias de las aserciones que correspondan. Ejecuta una entrada que se sabe que falla y verifica que el consumidor curado quede bloqueado, en lugar de comprobar solo que la aserción dio un estado rojo en algún lugar.",
+   "src": "ad5516f5a3e9"
+  },
+  "trap": {
+   "es": "Poner todo el proceso dentro de un solo operador oculta los límites de recuperación.",
+   "src": "78980aab6609"
+  },
+  "exercise.prompt": {
+   "es": "Un relleno histórico del mes pasado consulta CURRENT_DATE y agrega datos al destino de hoy. ¿Qué debe cambiar?",
+   "src": "f5f6fcef2dcd"
+  },
+  "exercise.answer": {
+   "es": "Parametriza el intervalo lógico y define una estrategia de escritura repetible para ese intervalo. Usa claves estables o límites de reemplazo y condiciona la publicación a las comprobaciones de calidad. Prueba el mismo intervalo dos veces y confirma que el total de negocio resultante no se duplique.",
+   "src": "085443db1879"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Usa intervalos lógicos en los reintentos y los rellenos históricos.",
+   "src": "f6983748d109"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Haz que los efectos de las tareas sean repetibles.",
+   "src": "8a18cd004969"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Demuestra que las comprobaciones de calidad fallidas bloquean la publicación.",
+   "src": "80ef47fddcfb"
+  },
+  "briefing.context": {
+   "es": "Un flujo orquestado falla después de que una tarea ya escribió una salida duradera.",
+   "src": "c65549bdd68f"
+  },
+  "briefing.whyItMatters": {
+   "es": "Reintentar todos los pasos a ciegas puede agregar duplicados o publicar intervalos mezclados.",
+   "src": "8e438046ecbc"
+  },
+  "briefing.takeaway": {
+   "es": "Haz que ejecutar de nuevo produzca el estado que se busca.",
+   "src": "b65e953b7121"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Reintentos seguros en un DAG",
+   "src": "2433891c9d58"
+  },
+  "block.diagram.description": {
+   "es": "Tareas separadas, un identificador de ejecución estable y escrituras repetibles permiten que un reintento ejecute solo la etapa que falló.",
+   "src": "9453e9dda1b0"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Tareas separadas",
+   "src": "f144d42f5976"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "por etapa",
+   "src": "f20334ca2051"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Identificador",
+   "src": "cd5a5da72b16"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "de ejecución estable",
+   "src": "285437db8c5e"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Escrituras",
+   "src": "f961e9e5d961"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "repetibles",
+   "src": "531995e8b52d"
+  },
+  "block.keyFact": {
+   "es": "Poner todo el proceso dentro de un solo operador oculta los límites de recuperación.",
+   "src": "78980aab6609"
+  },
+  "block.check.question": {
+   "es": "Un proceso diario obtiene archivos, los descifra y ejecuta SQL. ¿Cómo lo construyes?",
+   "src": "73f1d60b36f3"
+  },
+  "block.check.choices.0.text": {
+   "es": "Tareas separadas en el DAG, para que solo se repita la etapa que falló",
+   "src": "52fb63990637"
+  },
+  "block.check.choices.0.why": {
+   "es": "Las tareas separadas conservan la evidencia de las etapas anteriores que sí funcionaron.",
+   "src": "ee9096656375"
+  },
+  "block.check.choices.1.text": {
+   "es": "Un solo operador que lo haga todo",
+   "src": "12eaf9dda636"
+  },
+  "block.check.choices.1.why": {
+   "es": "Un solo operador oculta los límites de recuperación.",
+   "src": "2aec414abd26"
+  },
+  "block.check.choices.2.text": {
+   "es": "Capturar todos los errores y reportar éxito",
+   "src": "e5e0ae212199"
+  },
+  "block.check.choices.2.why": {
+   "es": "Reportar éxito después de un error rompe la lógica de dependencias posteriores.",
+   "src": "b59af29862c2"
+  },
+  "verification.note": {
+   "es": "La lección ahora nombra Managed Service for Apache Airflow (antes Cloud Composer). Se confirmaron las tareas del DAG, que los reintentos conservan la fecha lógica y que Workflows es serverless. No se comprobó la condición de paso con aserciones de Dataform.",
+   "src": "49ed0414db05"
+  }
+ },
+ "composer-retries": {
+  "title": {
+   "es": "Haz que la orquestación sea segura de reintentar",
+   "src": "d49a76e70e5b"
+  },
+  "lead": {
+   "es": "Una programación coordina tareas. Las entradas deterministas y los efectos controlados hacen seguros los reintentos.",
+   "src": "e7b7e065d1eb"
+  },
+  "sections.0.title": {
+   "es": "Separa la orquestación y la ejecución",
+   "src": "e012e2337506"
+  },
+  "sections.0.body": {
+   "es": "El término Cloud Composer aparece en la guía del examen. La documentación actual usa Managed Airflow. Los DAG describen las tareas y sus dependencias. Deja que servicios especializados hagan la transformación grande, mientras la capa de orquestación inicia, observa y coordina el trabajo.",
+   "src": "220faf509f2e"
+  },
+  "sections.1.title": {
+   "es": "Fija la entrada lógica",
+   "src": "2372fa2447bb"
+  },
+  "sections.1.body": {
+   "es": "Airflow recomienda efectos repetibles en las tareas y leer una partición de datos concreta. Un reintento que lee los datos más recientes puede ver entradas distintas. Usa el intervalo previsto y salidas estables, y haz que la publicación dependa de la validación. Evita pasar datos duraderos necesarios a través de un archivo local del worker.",
+   "src": "065993212162"
+  },
+  "sections.2.title": {
+   "es": "Ensaya un fallo parcial",
+   "src": "70e1f93d1b0e"
+  },
+  "sections.2.body": {
+   "es": "Escenario original: una carga diaria funciona, pero falla su tarea de notificación. Ejecutarla de nuevo no debe agregar otra vez las mismas filas de negocio. Registra el intervalo y la identidad de la operación, usa un patrón de escritura idempotente adecuado y prueba el fallo después de cada efecto duradero.",
+   "src": "7eb2aef36999"
+  },
+  "trap": {
+   "es": "Un DAG en verde no prueba que los datos producidos cumplan el contrato del negocio.",
+   "src": "633cf3995259"
+  },
+  "exercise.prompt": {
+   "es": "Una tarea reintentada usa el reloj actual para elegir su carpeta de entrada. ¿Qué cambia?",
+   "src": "820a5b3d13a1"
+  },
+  "exercise.answer": {
+   "es": "Un reintento posterior puede leer un intervalo distinto. Fija la entrada y la salida lógicas y verifica los efectos idempotentes, incluida la publicación posterior.",
+   "src": "08660d823512"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Fija el intervalo de datos.",
+   "src": "7fb975788a34"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Identifica cada efecto duradero.",
+   "src": "b3baf31dd1d6"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Bloquea la publicación si falla la calidad.",
+   "src": "2b58523a1c44"
+  },
+  "briefing.context": {
+   "es": "Una carga diaria funciona, luego falla su notificación y el flujo se reintenta.",
+   "src": "5162e98a08f3"
+  },
+  "briefing.whyItMatters": {
+   "es": "Usar el reloj actual o agregar datos a ciegas puede cambiar la entrada o duplicar la salida.",
+   "src": "f87147ea542e"
+  },
+  "briefing.takeaway": {
+   "es": "Fija el intervalo lógico y haz que los efectos duraderos se puedan repetir sin riesgo.",
+   "src": "08f82be25697"
+  },
+  "review.scope": {
+   "es": "Las afirmaciones sobre servicios de esta lección original se comprobaron con sus referencias principales. El escenario es un ejemplo.",
+   "src": "9203ccf1a1ce"
+  },
+  "decision.useCase": {
+   "es": "Recuperar un pipeline diario que falló sin publicar filas de negocio duplicadas.",
+   "src": "b0e181774223"
+  },
+  "decision.advantage": {
+   "es": "Las dependencias explícitas hacen más fácil razonar sobre la recuperación y la responsabilidad.",
+   "src": "35d5adaed7b8"
+  },
+  "decision.limitation": {
+   "es": "El éxito del orquestador no valida por sí solo que los datos sean correctos.",
+   "src": "a36e67c09d93"
+  },
+  "block.diagram.title": {
+   "es": "Cómo hacer seguro un reintento",
+   "src": "3ffd41a649d9"
+  },
+  "block.diagram.description": {
+   "es": "Fija el intervalo lógico de entrada, escribe con una salida estable y publica solo después de validar.",
+   "src": "327152e1325b"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Fija el intervalo",
+   "src": "b0b4d95bab57"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "lógico de entrada",
+   "src": "607a80061290"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Escritura idempotente,",
+   "src": "8467fac78b3d"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "salida estable",
+   "src": "d73b4f18706a"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Publica tras",
+   "src": "c0f4fbc99dce"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "la validación",
+   "src": "98c41dcd20b8"
+  },
+  "block.keyFact": {
+   "es": "Un DAG en verde no prueba que los datos producidos cumplan el contrato del negocio.",
+   "src": "633cf3995259"
+  },
+  "block.check.question": {
+   "es": "Una carga diaria funciona, pero falla su tarea de notificación. ¿Qué hace seguro el reintento?",
+   "src": "2a2fa1ea9b0e"
+  },
+  "block.check.choices.0.text": {
+   "es": "Leer los datos más recientes en cada reintento",
+   "src": "368b641f13a8"
+  },
+  "block.check.choices.0.why": {
+   "es": "Un reintento que lee los datos más recientes puede ver entradas distintas.",
+   "src": "b31247de4e94"
+  },
+  "block.check.choices.1.text": {
+   "es": "Una escritura idempotente ligada al intervalo",
+   "src": "fccd32c9fe51"
+  },
+  "block.check.choices.1.why": {
+   "es": "Ejecutarla de nuevo no debe agregar otra vez las mismas filas de negocio.",
+   "src": "9581be5aae38"
+  },
+  "block.check.choices.2.text": {
+   "es": "Confiar en el estado verde del DAG",
+   "src": "7257b61471bc"
+  },
+  "block.check.choices.2.why": {
+   "es": "Un DAG en verde no prueba que los datos cumplan el contrato del negocio.",
+   "src": "ed608f129f8d"
+  },
+  "verification.note": {
+   "es": "Se confirmó que el producto se llamaba antes Cloud Composer, que los DAG contienen tareas y dependencias y que los reintentos conservan la misma fecha lógica. El consejo de Airflow sobre efectos repetibles y lecturas por partición queda fuera del corpus y no se comprobó.",
+   "src": "89cb103a2113"
+  }
+ }
+}
