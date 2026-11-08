@@ -65,3 +65,11 @@ main.credits-page{max-width:70ch;margin:0 auto;padding:32px 17px 48px;font-size:
 
 .lesson-section p,.lesson-section li,.source-list li,.retrieval-exercise p,.trap p,.mission-card p,.details p,.panel p:not(.credit):not(.small){font-size:var(--fs-body,16px);line-height:1.7}.hero-records{max-width:100%;overflow-wrap:anywhere}
 select{max-width:100%;min-width:0;box-sizing:border-box}.filterbar{flex-wrap:wrap}.lesson-section p,.lesson-section li,.retrieval-exercise p,.trap p{max-width:62ch}
+
+/* Field-notebook visual system (DESIGN.md). Contrast of every text pair is at least 4.5:1 in both themes. */
+:root{--ink:#1d2a3d;--muted:#5b6678;--paper:#fbf7ee;--card:#fffdf8;--line:#e6dfd0;--blue:#2f54c4;--pale:#eef2ff;--key-bg:#ffe9a8;--key-ink:#1d2a3d;--key-edge:#d9a21b;--domain-mix:62%;--shadow:none}
+[data-theme=dark]{--ink:#e5eaf4;--muted:#afbed2;--paper:#121a28;--card:#182338;--line:#35435a;--key-bg:#5c4710;--key-ink:#e5eaf4;--key-edge:#e1b96c;--domain-mix:45%;--shadow:none}
+body{background:var(--paper);color:var(--ink)}
+.sidebar,.topbar,.panel,.domain-card,.path-section,.lesson-body,.study-side,.question-card,.vocab-card,.flashcard,.source-card,.stat,.exam-config,.question-row{background:var(--card);border-color:var(--line)}
+.key-fact{background:var(--key-bg);color:var(--key-ink);padding:0 .25em;border-radius:3px;border-bottom:2px solid var(--key-edge);-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.domain-index{color:color-mix(in srgb,var(--accent) var(--domain-mix),var(--ink));background:color-mix(in srgb,var(--accent) 12%,var(--card));border-color:color-mix(in srgb,var(--accent) 24%,var(--card))}

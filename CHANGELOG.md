@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Added the field-notebook look: warm paper and ink tokens, a key-fact highlighter style, and domain text colors that keep 4.5:1 contrast in both themes. The handwritten font waits for approval.
 - Added a type and spacing scale in styles.css: no font below 14 px, 16 px body text, prose capped at 70ch, and size and spacing tokens in :root.
 - Added a notice in the footer that the site is independent and not affiliated with Google, and a credit line to the Google Cloud documentation on every lesson.
 - Renamed the five domains and 19 objectives to the official titles of exam guide v4.2. IDs, colors and weights are unchanged, so saved progress is not affected.
