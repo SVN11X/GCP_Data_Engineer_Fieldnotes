@@ -1,0 +1,476 @@
+{
+ "analytics": {
+  "title": {
+   "es": "Haz que los dashboards sean eficientes y confiables",
+   "src": "d62fae31449d"
+  },
+  "lead": {
+   "es": "Optimiza la operación costosa que de verdad aparece en el plan de la consulta.",
+   "src": "9e103c880a98"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "Las vistas materializadas (materialized views) reutilizan resultados calculados compatibles. BI Engine acelera en memoria las consultas analíticas elegibles (eligible). Los filtros de partición y las columnas selectivas reducen el escaneo. Los controles de acceso por fila y por columna se siguen aplicando a los datos que ven los usuarios.",
+   "src": "3f0cb6a45e5b"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Usa los detalles de ejecución para ubicar joins costosos, sesgo (skew) o escaneos innecesarios. Revisa por separado la frescura del dashboard y su caché, y la frescura de la ingesta en el almacén (warehouse).",
+   "src": "133ad0f9ae41"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Cientos de usuarios suman las ventas por día una y otra vez. Un agregado materializado compatible evita repetir el mismo cálculo grande. BI Engine puede acelerar aún más las consultas elegibles del dashboard.",
+   "src": "c14a8e1c9d24"
+  },
+  "sections.3.title": {
+   "es": "Revisa dónde ocurre el trabajo costoso",
+   "src": "911b077bec6a"
+  },
+  "sections.3.body": {
+   "es": "Una consulta puede perder tiempo leyendo columnas que no necesita, reordenando (shuffle) un join grande, procesando una clave sesgada u ordenando un resultado intermedio grande. Parte de la evidencia de la ejecución y compara la misma carga de trabajo. Más capacidad puede ayudar si hay presión de recursos, pero no convierte en buen diseño una explosión de filas que se podía evitar.",
+   "src": "3cb6aca67b0b"
+  },
+  "sections.4.title": {
+   "es": "Elige la representación reutilizable adecuada",
+   "src": "1039cca726e6"
+  },
+  "sections.4.body": {
+   "es": "Una vista lógica (logical view) guarda la definición de una consulta. Una vista materializada guarda resultados calculados compatibles y tiene reglas propias de actualización (refresh) y de forma de la consulta. BI Engine acelera en memoria el trabajo analítico elegible. Estos mecanismos pueden complementarse, pero ninguno elimina la necesidad de entender el filtrado, la frescura y la autorización.",
+   "src": "998012bbdfa2"
+  },
+  "sections.5.title": {
+   "es": "Prueba la frescura del dashboard de extremo a extremo",
+   "src": "e03e6650b04d"
+  },
+  "sections.5.body": {
+   "es": "Distingue cuándo ocurrió un evento, cuándo se cargó, cuándo se actualizó un agregado y cuándo se actualizó por última vez la caché del dashboard. Un dashboard recién actualizado todavía puede mostrar datos viejos de origen. Define a qué marca de tiempo se refiere la meta de frescura del negocio y monitorea ese intervalo.",
+   "src": "010c922aabeb"
+  },
+  "trap": {
+   "es": "Una vista lógica es la definición guardada de una consulta. No es, por sí sola, una caché de resultados guardada.",
+   "src": "f85a848efd58"
+  },
+  "exercise.prompt": {
+   "es": "El dashboard se actualiza cada minuto, pero muestra valores de hace una hora. ¿Agregar slots es la primera acción justificada?",
+   "src": "7dd12fc35f73"
+  },
+  "exercise.answer": {
+   "es": "No. Sigue la ruta de la llegada del origen, el fin de la ingesta, la actualización del agregado y la caché de la visualización. Usa la evidencia de ejecución de la consulta para decidir si el cómputo es de verdad el cuello de botella. Actualizar con frecuencia no prueba que haya frescura de extremo a extremo.",
+   "src": "fd163cb361a8"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Ubica la etapa costosa de la consulta.",
+   "src": "37ea758d60b1"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Explica la diferencia entre vistas lógicas y materializadas.",
+   "src": "42dbc43975cb"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Sigue la frescura a lo largo de todo el camino.",
+   "src": "d72bb4650296"
+  },
+  "briefing.context": {
+   "es": "Un dashboard se actualiza seguido y las personas confían en sus números para tomar decisiones.",
+   "src": "7f8e36062799"
+  },
+  "briefing.whyItMatters": {
+   "es": "Los gráficos rápidos no sirven si sus valores están desactualizados, duplicados o los ve quien no debe.",
+   "src": "2b802649f0a8"
+  },
+  "briefing.takeaway": {
+   "es": "Equilibra la eficiencia de la consulta, la frescura y el acceso autorizado.",
+   "src": "77183f787e3a"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Del plan de la consulta al dashboard",
+   "src": "1aa226b90095"
+  },
+  "block.diagram.description": {
+   "es": "Lee el plan de la consulta, corrige el paso costoso y revisa la frescura por separado.",
+   "src": "249d56e7aade"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Lee el plan",
+   "src": "11001a8dbcdc"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "del paso costoso",
+   "src": "41764b296ce6"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Corrige escaneos,",
+   "src": "33987e30c454"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "joins o trabajo repetido",
+   "src": "90b9c56d0c1a"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Revisa la frescura",
+   "src": "4c3dffb02d7b"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "por separado",
+   "src": "dcb1661cdedc"
+  },
+  "block.keyFact": {
+   "es": "Una vista lógica es la definición guardada de una consulta. No es, por sí sola, una caché de resultados guardada.",
+   "src": "f85a848efd58"
+  },
+  "block.check.question": {
+   "es": "Cientos de usuarios suman las ventas por día una y otra vez. ¿Qué evita repetir el mismo cálculo grande?",
+   "src": "5b9464e0c7f1"
+  },
+  "block.check.choices.0.text": {
+   "es": "Una vista lógica",
+   "src": "8047265d2c26"
+  },
+  "block.check.choices.0.why": {
+   "es": "Una vista lógica guarda la definición de una consulta, no un resultado.",
+   "src": "7d35c81eb070"
+  },
+  "block.check.choices.1.text": {
+   "es": "Solo más capacidad",
+   "src": "7dd580b7bad0"
+  },
+  "block.check.choices.1.why": {
+   "es": "La capacidad puede ayudar si hay presión de recursos, pero no corrige el trabajo evitable.",
+   "src": "15a71e3d5e07"
+  },
+  "block.check.choices.2.text": {
+   "es": "Un agregado materializado compatible",
+   "src": "4dc7ed30eaa2"
+  },
+  "block.check.choices.2.why": {
+   "es": "Guarda resultados calculados, así que no se repite el mismo cálculo grande.",
+   "src": "28d3f9a6445f"
+  },
+  "verification.note": {
+   "es": "Se confirmó que las vistas lógicas solo guardan una consulta, que las vistas materializadas guardan resultados, que BI Engine trabaja en memoria y que se mantienen las vistas autorizadas y la seguridad por columna. No se comprobaron el ajuste del plan de consulta ni los tiempos de la caché del dashboard.",
+   "src": "26bd9d86d523"
+  }
+ },
+ "materialized-freshness": {
+  "title": {
+   "es": "Elige resultados reutilizables sin perder frescura",
+   "src": "13d907819363"
+  },
+  "lead": {
+   "es": "Un dashboard rápido igual debe responder la pregunta sensible al tiempo que se quiere resolver.",
+   "src": "aa8c537849a8"
+  },
+  "sections.0.title": {
+   "es": "Compara el objeto guardado",
+   "src": "4c827da09a74"
+  },
+  "sections.0.body": {
+   "es": "Una vista lógica guarda una definición SQL. Una vista materializada guarda resultados calculados compatibles, con su propio comportamiento de actualización y sus reglas de elegibilidad. Una caché de reportes guarda una respuesta del lado de la presentación. Están en capas distintas, así que cambiar una no repara de forma automática los datos viejos de las otras.",
+   "src": "7ef81d2c3fd9"
+  },
+  "sections.1.title": {
+   "es": "Revisa el patrón de consulta compatible",
+   "src": "063245a19158"
+  },
+  "sections.1.body": {
+   "es": "Las opciones incrementales y no incrementales de las vistas materializadas admiten formas de consulta distintas y tienen un mantenimiento o una frescura distintos. Consulta la documentación actual y no supongas que cualquier expresión SQL se puede reutilizar de forma incremental. Elige el agregado compatible más simple para una necesidad repetible del dashboard.",
+   "src": "02bfb65f446b"
+  },
+  "sections.2.title": {
+   "es": "Mide la frescura y la latencia de extremo a extremo",
+   "src": "d907e817a20e"
+  },
+  "sections.2.body": {
+   "es": "Registra la hora del evento de origen, la hora de carga, la actualización del agregado y cómo lee el dashboard. Compara la consulta analítica real con la estrategia de aceleración y sin ella, y deja fijas la autorización y la lógica del negocio. Debes demostrar por separado un menor tiempo de consulta y un resultado fresco.",
+   "src": "072c3aa889d4"
+  },
+  "trap": {
+   "es": "Precalcular no da permiso para ignorar la meta de frescura del negocio.",
+   "src": "bbae2f8d9080"
+  },
+  "exercise.prompt": {
+   "es": "Una vista lógica es rápida en la segunda ejecución. ¿Eso prueba que es una vista materializada?",
+   "src": "1e3ed3400d06"
+  },
+  "exercise.answer": {
+   "es": "No. Una vista lógica sigue siendo la definición guardada de una consulta. Otras cachés pueden influir en una ejecución repetida. Revisa el tipo real del objeto y la evidencia de ejecución antes de atribuir un cambio de rendimiento.",
+   "src": "0f49a6eed517"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Distingue las tres capas de caché.",
+   "src": "bda9167fee4e"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Revisa la elegibilidad para materializar.",
+   "src": "a07e429621c6"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Mide la frescura por separado de la latencia de la consulta.",
+   "src": "86d6a107e82c"
+  },
+  "briefing.context": {
+   "es": "Muchos usuarios repiten el mismo cálculo analítico costoso.",
+   "src": "5759837bfcec"
+  },
+  "briefing.whyItMatters": {
+   "es": "Reutilizar resultados puede ayudar, pero un reporte igual necesita un acuerdo claro de frescura.",
+   "src": "307f8f43460d"
+  },
+  "briefing.takeaway": {
+   "es": "Compara los resultados reutilizables con cuánta antigüedad (staleness) permite el negocio.",
+   "src": "dabb46c52407"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Tres capas que pueden quedar viejas",
+   "src": "e10d55d76df0"
+  },
+  "block.diagram.description": {
+   "es": "Una vista lógica guarda SQL, una vista materializada guarda resultados compatibles y una caché de reportes guarda una respuesta.",
+   "src": "d32816ae470c"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Vista lógica:",
+   "src": "948378892677"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "definición SQL",
+   "src": "c5fd7c2cc7eb"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Vista materializada:",
+   "src": "063fb2108f50"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "resultados compatibles",
+   "src": "46248d4a9f4f"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Caché de reportes:",
+   "src": "bdc72f341e88"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "respuesta final",
+   "src": "a1e9768a61ee"
+  },
+  "block.keyFact": {
+   "es": "Precalcular no da permiso para ignorar la meta de frescura del negocio.",
+   "src": "bbae2f8d9080"
+  },
+  "block.check.question": {
+   "es": "Una vista materializada está actualizada, pero el reporte sigue viéndose viejo. ¿Por qué?",
+   "src": "b40e5cce1b43"
+  },
+  "block.check.choices.0.text": {
+   "es": "Están en capas distintas, así que una no repara las otras",
+   "src": "a61d5ca89475"
+  },
+  "block.check.choices.0.why": {
+   "es": "Cambiar una capa no repara de forma automática los datos viejos de las otras.",
+   "src": "336f44303ed1"
+  },
+  "block.check.choices.1.text": {
+   "es": "Una vista materializada es solo una vista lógica",
+   "src": "fdc3d5cfe35c"
+  },
+  "block.check.choices.1.why": {
+   "es": "Una vista lógica guarda SQL y una vista materializada guarda resultados calculados.",
+   "src": "c894688f884b"
+  },
+  "block.check.choices.2.text": {
+   "es": "Precalcular elimina la meta de frescura",
+   "src": "5b22bc7ce12f"
+  },
+  "block.check.choices.2.why": {
+   "es": "Precalcular no da permiso para ignorar la meta de frescura del negocio.",
+   "src": "bbae2f8d9080"
+  },
+  "verification.note": {
+   "es": "Se confirmó que las vistas incrementales admiten pocas formas de consulta y las no incrementales admiten la mayoría, con distinto costo de actualización y distinta frescura. No se comprobaron la capa de caché de reportes ni las metas de frescura del negocio.",
+   "src": "f2ad60840be0"
+  }
+ },
+ "features": {
+  "title": {
+   "es": "Mantén coherentes las transformaciones de entrenamiento y de servicio",
+   "src": "87aa36627f51"
+  },
+  "lead": {
+   "es": "El mismo valor crudo debe significar lo mismo en los dos entornos.",
+   "src": "6feb183409b5"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "Ajusta (fit) el preprocesamiento con los datos de entrenamiento y aplícalo igual en la evaluación y en el servicio (serving). La cláusula TRANSFORM de BigQuery ML puede unir las transformaciones compatibles al uso del modelo. Hay fuga de datos (data leakage) cuando entra al entrenamiento información futura que no estaría disponible.",
+   "src": "b8523b2006f6"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Divide los datos de evaluación con intención, revisa los nulos y los valores atípicos, y usa métricas adecuadas. El sobreajuste (overfitting) es ajustarse a rarezas del entrenamiento en lugar de generalizar. Más datos representativos o la regularización pueden ayudar.",
+   "src": "dad771c55e54"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "La predicción de demanda usa precios escalados. Reutiliza los parámetros de escalado ya ajustados para el servicio y no los recalcules por separado con una sola solicitud de predicción.",
+   "src": "3d4eb3d0fe44"
+  },
+  "sections.3.title": {
+   "es": "Ajusta las transformaciones con la información de entrenamiento",
+   "src": "8fa219f1d766"
+  },
+  "sections.3.body": {
+   "es": "El escalado y la codificación son parte del contrato de entrada que aprende el modelo. Ajustar las estadísticas con datos futuros de evaluación puede filtrar información. Conserva los parámetros ajustados y aplica la misma transformación en el servicio. Una cláusula TRANSFORM puede mantener con el modelo las transformaciones compatibles de BigQuery ML, pero un servicio externo igual necesita una implementación compatible.",
+   "src": "85e1c1c5b5f7"
+  },
+  "sections.4.title": {
+   "es": "Elige métricas según el error del negocio",
+   "src": "156240731c6d"
+  },
+  "sections.4.body": {
+   "es": "La exactitud (accuracy) puede ocultar el fallo en una clase poco común. La precisión (precision) indica cuántos de los positivos predichos son verdaderos. La exhaustividad (recall) indica cuántos de los positivos reales se encontraron. Las métricas de regresión expresan penalizaciones distintas para los errores numéricos. Compara los modelos con un diseño de evaluación reservado (held-out) adecuado y elige los umbrales según el costo real de los errores.",
+   "src": "f94394a99bf7"
+  },
+  "sections.5.title": {
+   "es": "Elige datos de evaluación parecidos al uso real",
+   "src": "c5551aa12ee6"
+  },
+  "sections.5.body": {
+   "es": "Una división aleatoria no siempre es adecuada para un pronóstico cronológico ni para observaciones repetidas de la misma entidad. Revisa si entidades casi duplicadas o valores futuros cruzan el límite de evaluación. Un conjunto reservado más realista puede bajar el puntaje aparente, pero da una estimación más útil del comportamiento en producción.",
+   "src": "07e01d1ac6f2"
+  },
+  "trap": {
+   "es": "Un puntaje alto de entrenamiento, por sí solo, no es evidencia de buen rendimiento con datos nuevos.",
+   "src": "a1ababa0d7a8"
+  },
+  "exercise.prompt": {
+   "es": "Un detector de fraude marca todas las transacciones como legítimas y reporta 99.9% de exactitud. ¿Qué debes investigar?",
+   "src": "c46e4467f2e2"
+  },
+  "exercise.answer": {
+   "es": "Revisa el balance de clases, la matriz de confusión, la exhaustividad (recall) del fraude y el costo operativo de los fraudes no detectados y de las falsas alarmas. Compara con una línea base (baseline) con sentido y evalúa con datos que reflejen el uso real. Un valor global alto de exactitud, por sí solo, no demuestra que el detector sea útil.",
+   "src": "88e9a92b415d"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Mantén coherente el preprocesamiento ajustado.",
+   "src": "e739072134cd"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Explica la diferencia entre precisión y exhaustividad.",
+   "src": "c3b2c589bff3"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Identifica una forma de fuga temporal o por entidad.",
+   "src": "ea960f2c6767"
+  },
+  "briefing.context": {
+   "es": "Un modelo aprende de datos de entrenamiento transformados y luego recibe entradas en vivo.",
+   "src": "33770c856282"
+  },
+  "briefing.whyItMatters": {
+   "es": "Si las transformaciones del entrenamiento y del servicio son distintas, el modelo puede comportarse de forma inesperada.",
+   "src": "ded97a48f068"
+  },
+  "briefing.takeaway": {
+   "es": "Mantén coherentes el significado de las variables (features) y sus transformaciones en todo el ciclo de vida.",
+   "src": "88836caeb4c8"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Una transformación, dos lugares",
+   "src": "21f2e93d6387"
+  },
+  "block.diagram.description": {
+   "es": "Ajusta el escalado con los datos de entrenamiento, conserva los parámetros y aplícalos en el servicio.",
+   "src": "d92ec1500b2d"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Ajusta el escalado",
+   "src": "a446f8989719"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "con datos de entrenamiento",
+   "src": "56eabe5e6f9e"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Conserva los",
+   "src": "5ba29ad0e499"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "parámetros ajustados",
+   "src": "f528212a496d"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Aplica la misma",
+   "src": "a27e0f2c54d8"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "transformación al servir",
+   "src": "3264f42a5859"
+  },
+  "block.keyFact": {
+   "es": "Un puntaje alto de entrenamiento, por sí solo, no es evidencia de buen rendimiento con datos nuevos.",
+   "src": "a1ababa0d7a8"
+  },
+  "block.check.question": {
+   "es": "La predicción de demanda usa precios escalados. ¿Cómo debe escalarse una sola solicitud de servicio?",
+   "src": "5c90b06f51ae"
+  },
+  "block.check.choices.0.text": {
+   "es": "Recalcular las estadísticas con esa sola solicitud",
+   "src": "e75dc98f4970"
+  },
+  "block.check.choices.0.why": {
+   "es": "Reutiliza los parámetros ajustados y no los recalcules con una sola solicitud.",
+   "src": "bae310054cbd"
+  },
+  "block.check.choices.1.text": {
+   "es": "Reutilizar los parámetros de escalado ajustados",
+   "src": "756683a73027"
+  },
+  "block.check.choices.1.why": {
+   "es": "La misma transformación debe aplicarse en el entrenamiento y en el servicio.",
+   "src": "d53f4653e9a7"
+  },
+  "block.check.choices.2.text": {
+   "es": "Ajustar las estadísticas con los datos de evaluación",
+   "src": "6d7b0872f914"
+  },
+  "block.check.choices.2.why": {
+   "es": "Ajustar las estadísticas con datos futuros de evaluación puede filtrar información.",
+   "src": "da509f8ea8b5"
+  },
+  "verification.note": {
+   "es": "Se confirmó que TRANSFORM vuelve a aplicar el preprocesamiento y las estadísticas de entrenamiento en la predicción y la evaluación, y que los modelos exportados lo admiten. La fuga de datos y el sobreajuste son consejos generales de ML y no se comprobaron.",
+   "src": "4b518c97be47"
+  }
+ }
+}
