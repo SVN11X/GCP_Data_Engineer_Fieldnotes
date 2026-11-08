@@ -392,5 +392,327 @@
    "es": "Una regla de firewall por sí sola no puede expresar qué columnas de BigQuery puede leer un usuario.",
    "src": "d368cb00eeac"
   }
+ },
+ "region-recovery-design": {
+  "title": {
+   "es": "Elige ubicaciones según la residencia y la recuperación",
+   "src": "1523f311a072"
+  },
+  "lead": {
+   "es": "Un requisito geográfico necesita un mapa claro de las copias de los datos y de las operaciones.",
+   "src": "19fe49db332c"
+  },
+  "sections.0.title": {
+   "es": "Haz una lista de todos los lugares donde existen los datos",
+   "src": "6332877a263b"
+  },
+  "sections.0.body": {
+   "es": "Incluye la captura en el origen, los archivos de almacenamiento temporal (staging), los workers de procesamiento, los datasets del almacén (warehouse), las salidas temporales, los logs de diagnóstico y las copias de recuperación. Pregunta si el requisito cubre el almacenamiento, el procesamiento o ambos. No supongas que un único ajuste regional del dataset limita a todos los demás servicios de la ruta.",
+   "src": "fea5e26352ae"
+  },
+  "sections.1.title": {
+   "es": "Compara la geografía permitida con los dominios de fallo",
+   "src": "1dd7d57c6756"
+  },
+  "sections.1.body": {
+   "es": "Una regla que limita todas las copias a una sola región puede chocar con la petición de recuperarse de la pérdida total de esa región. Muestra esa restricción de forma explícita y compara los diseños compatibles. Una etiqueta multirregión (multi-region) no se debe tratar como garantía de un comportamiento de conmutación por error (failover) concreto ni de un tiempo de recuperación cero.",
+   "src": "f0d31fce0626"
+  },
+  "sections.2.title": {
+   "es": "Valida el acceso en el entorno de recuperación",
+   "src": "b5bcda162922"
+  },
+  "sections.2.body": {
+   "es": "El destino necesita claves, roles, cuotas y dependencias que se puedan usar, y un procedimiento para redirigir a los consumidores. Prueba con una copia de recuperación controlada y compara los totales de negocio recuperados. Documenta qué modelo de fallo, qué objetivo de pérdida y qué objetivo de restauración respalda realmente la evidencia.",
+   "src": "3f90989df6e4"
+  },
+  "trap": {
+   "es": "La ubicación, la jurisdicción, la disponibilidad y la retención de copias de seguridad están relacionadas, pero son requisitos distintos.",
+   "src": "e1a7b346d756"
+  },
+  "exercise.prompt": {
+   "es": "Una política permite solo una región, pero el plan de recuperación ante desastres que piden exige otra región. ¿Cuál es la respuesta correcta de diseño?",
+   "src": "59baa863fbfa"
+  },
+  "exercise.answer": {
+   "es": "Muestra las restricciones que chocan y consigue un alcance de recuperación aprobado. No pongas en silencio una copia prohibida en otro sitio ni finjas que una copia en la misma región cubre la pérdida de la región.",
+   "src": "403127ad3136"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Haz un inventario de las copias de staging y de recuperación.",
+   "src": "6e35cc83c897"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Distingue la geografía permitida de la disponibilidad.",
+   "src": "868c1ddc0f58"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Prueba los permisos de recuperación, además de los datos.",
+   "src": "f62732dd3486"
+  },
+  "briefing.context": {
+   "es": "Una empresa necesita que los datos se queden en una ubicación aprobada y que se puedan recuperar después de un fallo.",
+   "src": "7d26692eae66"
+  },
+  "briefing.whyItMatters": {
+   "es": "Elegir una región por comodidad puede chocar con los requisitos de residencia o de recuperación.",
+   "src": "f666498db4c5"
+  },
+  "briefing.takeaway": {
+   "es": "Elige una ubicación y un plan de recuperación según restricciones explícitas.",
+   "src": "4012cf788f19"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  }
+ },
+ "fidelity": {
+  "title": {
+   "es": "Haz que la corrección sea parte de la arquitectura",
+   "src": "4e3206cd4f0e"
+  },
+  "lead": {
+   "es": "Un pipeline que termina puede entregar un resultado incorrecto.",
+   "src": "04c0e7380f43"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "Define un contrato de datos (data contract): campos obligatorios, rangos válidos, identificadores únicos y frescura. Una operación idempotente (idempotent) tiene el mismo efecto si se repite con la misma entrada. Las transacciones ACID mantienen coherentes los cambios relacionados de una base de datos.",
+   "src": "ff1c9402214b"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Comprueba los conteos y los totales de negocio, además del esquema. Pon en cuarentena los registros mal formados y guarda el motivo del error. Prueba con un conjunto de datos fijo y representativo antes de cambiar una transformación de producción.",
+   "src": "cb4981813e5d"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Un reintento de pago llega dos veces. Guarda un ID de evento estable y haz que la escritura sea idempotente. Después concilia (reconcile) los totales finales. El procesamiento exactly-once por sí solo no protege una llamada cualquiera a una API externa.",
+   "src": "cca0c0aef902"
+  },
+  "sections.3.title": {
+   "es": "Define la granularidad y las invariantes",
+   "src": "742bb3d3326c"
+  },
+  "sections.3.body": {
+   "es": "La granularidad (grain) describe qué representa una fila: un pedido, una línea de pedido o una observación de evento. Define una clave de negocio estable en esa granularidad. Después, las reglas de calidad deben proteger los valores obligatorios, la unicidad, los rangos válidos y las relaciones. Concilia un total financiero y no solo el número de filas. Dos conteos iguales pueden esconder valores duplicados o dañados.",
+   "src": "a668efb07b4c"
+  },
+  "sections.4.title": {
+   "es": "Separa el transporte, el procesamiento y los efectos de negocio",
+   "src": "7023ec8e31d4"
+  },
+  "sections.4.body": {
+   "es": "La entrega at-least-once puede repetir un mensaje. Un motor de procesamiento puede deduplicar su salida gestionada y aun así reintentar el código del usuario. Un destino puede admitir escrituras idempotentes sin que una llamada a una API ajena sea transaccional. Indica la garantía en cada frontera. No describas todo el flujo de negocio con una sola etiqueta exactly-once.",
+   "src": "5c36c05285ec"
+  },
+  "sections.5.title": {
+   "es": "Haz que la repetición (replay) sea segura antes de necesitarla",
+   "src": "f6ce2be22163"
+  },
+  "sections.5.body": {
+   "es": "Un ID de evento estable reconoce las repeticiones. Una regla de orden o de versión decide qué actualización es la más reciente. Guarda la evidencia original y el motivo de los registros rechazados. Decide si una repetición reemplaza una partición, combina por clave (merge) o añade una observación con versión explícita. Añadir sin pensar la salida de una nueva ejecución puede duplicar el resultado.",
+   "src": "abaf2964182c"
+  },
+  "trap": {
+   "es": "No consideres que un mensaje confirmado (acknowledged) equivale a una transacción de negocio externa completada.",
+   "src": "3511682f5af2"
+  },
+  "exercise.prompt": {
+   "es": "Un informe tiene el número correcto de filas pero el doble de ingresos. ¿Qué dos comprobaciones añadirías?",
+   "src": "3daf67d9e293"
+  },
+  "exercise.answer": {
+   "es": "Comprueba la granularidad y la cardinalidad de los joins. Después concilia los totales de negocio con el origen. Un join de uno a muchos puede multiplicar los ingresos a nivel de pedido sin cambiar una métrica de conteo que no tiene relación. Usa claves estables y prueba las nuevas ejecuciones contra el mismo total esperado.",
+   "src": "81818f234dad"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Indica la granularidad antes de diseñar una clave.",
+   "src": "f69474619fc2"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Nombra la frontera exacta de una garantía de entrega.",
+   "src": "c32035c5091f"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Define qué debe cambiar una repetición.",
+   "src": "453a47ccdc43"
+  },
+  "briefing.context": {
+   "es": "Un mensaje de compra llega dos veces después de un reintento. El panel (dashboard) debe seguir mostrando una sola compra.",
+   "src": "e3f3e7a09d14"
+  },
+  "briefing.whyItMatters": {
+   "es": "Un pipeline que termina bien puede publicar un total de negocio incorrecto si cuenta eventos repetidos.",
+   "src": "7d785cd78fab"
+  },
+  "briefing.takeaway": {
+   "es": "Protege la identidad de negocio y concilia el resultado, no solo el estado del trabajo.",
+   "src": "9ad4373f3977"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Cómo hacer segura una repetición de pago",
+   "src": "77d64e55794a"
+  },
+  "block.diagram.description": {
+   "es": "Un ID de evento estable alimenta una escritura idempotente y después se concilian los totales finales.",
+   "src": "f3dad308b395"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "ID de evento estable",
+   "src": "544d3f2009f5"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Escritura idempotente",
+   "src": "cce76b6d93b0"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Totales conciliados",
+   "src": "e7a9d57fb59a"
+  },
+  "block.keyFact": {
+   "es": "Concilia un total financiero y no solo el número de filas. Dos conteos iguales pueden esconder valores duplicados o dañados.",
+   "src": "62a38458c5cb"
+  },
+  "block.check.question": {
+   "es": "Un reintento de pago llega dos veces. ¿Qué ayuda más?",
+   "src": "87d046df4379"
+  },
+  "block.check.choices.0.text": {
+   "es": "Añadir sin pensar la salida de la nueva ejecución",
+   "src": "fb406be07dd6"
+  },
+  "block.check.choices.0.why": {
+   "es": "Añadir sin pensar la salida de una nueva ejecución puede duplicar el resultado.",
+   "src": "6c4a56627bcc"
+  },
+  "block.check.choices.1.text": {
+   "es": "Solo el procesamiento exactly-once",
+   "src": "5cf71a2cbd0a"
+  },
+  "block.check.choices.1.why": {
+   "es": "El procesamiento exactly-once por sí solo no protege una llamada cualquiera a una API externa.",
+   "src": "19205e5bb0c3"
+  },
+  "block.check.choices.2.text": {
+   "es": "Un ID de evento estable y una escritura idempotente",
+   "src": "c3fbb0bbbf11"
+  },
+  "block.check.choices.2.why": {
+   "es": "Después concilia los totales finales para confirmar el resultado.",
+   "src": "b97bd488ab62"
+  }
+ },
+ "portability": {
+  "title": {
+   "es": "Diseña pensando en el próximo requisito",
+   "src": "4fd1e91804cf"
+  },
+  "lead": {
+   "es": "Mantén los datos fáciles de encontrar y toma decisiones deliberadas sobre la portabilidad.",
+   "src": "e0a1a805ac9d"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "Separa los datos duraderos del cómputo temporal. Los formatos abiertos (open formats) permiten que varios motores de procesamiento usen los mismos objetos. Un catálogo (catalog) guarda el significado de negocio y los metadatos técnicos. El linaje (lineage) explica de dónde viene una salida.",
+   "src": "23d7f88dbb7b"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Elige formatos, regiones e interfaces según las restricciones reales del negocio. Un formato de archivo portable no hace portables, por sí solo, los permisos, la orquestación ni el código de la aplicación.",
+   "src": "17e9a2e63a02"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Un equipo reutiliza datos en Spark y en un almacén (warehouse). Mantén una zona de aterrizaje documentada en almacenamiento de objetos y gobierna los activos de forma central. No copies un dataset sin documentar para cada herramienta.",
+   "src": "0c8d6abc40d8"
+  },
+  "sections.3.title": {
+   "es": "La portabilidad tiene varias capas",
+   "src": "a916887e6c23"
+  },
+  "sections.3.body": {
+   "es": "Un formato de archivo abierto y legible ayuda a que distintos motores consuman los datos, pero no transfiere las asignaciones de IAM, la conectividad privada, la programación ni la semántica de SQL. Separa el contrato de datos duradero del entorno de ejecución. Registra la disposición de las particiones, los esquemas, sus cambios y quién es el responsable, para que otro motor pueda reproducir la interpretación.",
+   "src": "c9ff5e94ed0c"
+  },
+  "sections.4.title": {
+   "es": "Mantén el descubrimiento conectado con la gobernanza",
+   "src": "9b02e3e399f6"
+  },
+  "sections.4.body": {
+   "es": "Un catálogo puede describir activos y linaje en toda una plataforma. No es automáticamente la autoridad que da acceso a cada objeto subyacente. Un buen contrato de producto de datos identifica al responsable, el significado de negocio, la vía de acceso, la frescura esperada y las comprobaciones de calidad. Un dataset descubierto puede seguir siendo inutilizable si faltan esos detalles.",
+   "src": "c7afafddf6e6"
+  },
+  "sections.5.title": {
+   "es": "Elige un límite de migración medido",
+   "src": "ac24111e157e"
+  },
+  "sections.5.body": {
+   "es": "Conserva una aplicación Spark existente cuando el negocio necesite un traslado rápido con pocos cambios. Reescribirlo todo como SQL de almacén puede ser una optimización posterior y no un requisito previo. Al contrario, mantener un clúster persistente solo para una transformación SQL pequeña puede añadir trabajo operativo innecesario.",
+   "src": "9523584810bb"
+  },
+  "trap": {
+   "es": "La guía dice Dataplex. La documentación actual también usa Knowledge Catalog. Aprende la capacidad de gobernanza además del nombre.",
+   "src": "62e32dea1c33"
+  },
+  "exercise.prompt": {
+   "es": "Un equipo dice que exportar Parquet hace portable toda su plataforma. ¿Qué falta?",
+   "src": "0cc8b0d6c9e6"
+  },
+  "exercise.answer": {
+   "es": "El formato de archivo resuelve la legibilidad de los datos. El equipo debe tener en cuenta también la evolución del esquema, la autorización, los catálogos, las rutas de red, la semántica de las transformaciones y la orquestación. La portabilidad es un conjunto de contratos probados. No es una propiedad que garantice la extensión de un archivo.",
+   "src": "bba7212d0766"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Separa la portabilidad de los datos de la portabilidad de la aplicación.",
+   "src": "31d9559bb267"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Describe el contrato de un producto de datos (data product).",
+   "src": "e87fdc8c2bc6"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Nombra un motivo para modernizar después de una migración.",
+   "src": "4644c42415ea"
+  },
+  "briefing.context": {
+   "es": "Una plataforma de datos que funciona debe dar servicio el año próximo a otro equipo, a otro motor o a otra ubicación.",
+   "src": "ae55ca3ca806"
+  },
+  "briefing.whyItMatters": {
+   "es": "Las dependencias ocultas pueden convertir una migración futura en un rediseño costoso.",
+   "src": "8ec4f68dd6cb"
+  },
+  "briefing.takeaway": {
+   "es": "Mantén el contrato de datos separado de los detalles de ejecución que se pueden reemplazar.",
+   "src": "50a0e3a962b7"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  }
  }
 }
