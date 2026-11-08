@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Added lesson blocks to all ten domain 3 lessons, with correct quick-check answers spread over all three positions. Text is derived from the lessons and awaits owner review.
 - Added lesson blocks to eight domain 2 lessons: pipeline contract, Pub/Sub contracts, processing engine, event time, bad records, streaming semantics, schema evolution and deployment. Text is derived from the lessons and awaits owner review.
 - Added gentle rewards: a "Days studied in a row" chip and domain mark badges on My progress and Start here. The optional streak field loads from old saves and exports, a missed day restarts quietly, and nothing is animated.
 - Added a calm motion set: dots that travel along lesson diagram edges for three short passes with a pause button, quick button feedback, and a one-time key-fact marker sweep. Reduced motion shows everything still. Purposes are in docs/decisions/0001-motion-purposes.md.

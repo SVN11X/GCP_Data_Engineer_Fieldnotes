@@ -35,7 +35,7 @@ Format: `- [ ]` pending, `- [x]` done, `- [x] SKIPPED: reason`, `- [ ] BLOCKED: 
 - [ ] BLOCKED: 19. Lucide UI icons copied as local SVG and CC0 illustrations (Open Peeps, Open Doodles), each listed in LICENSES/. Needs your OK to download or install: Lucide SVG files and CC0 illustrations.
 - [ ] BLOCKED: 20. Manim pilot: one 20 to 40 s WebM clip (batch vs streaming) rendered locally, 1 MB or less, poster, EN and ES VTT, pause control. Radar pull requ... Needs your OK to download or install: Manim, ffmpeg and a rendered video.
 - [x] 21. G Convert domain 2 to the lesson block format with diagrams. Done for the 8 most central of 16 lessons, text derived from the lessons, owner review pending.
-- [ ] 22. G Convert domain 3 to the lesson block format with diagrams.
+- [x] 22. G Convert domain 3 to the lesson block format with diagrams. All 10 lessons have blocks, text derived from the lessons, owner review pending.
 - [ ] 23. G Convert domain 4 to the lesson block format with diagrams.
 - [ ] 24. G Convert domain 5 to the lesson block format with diagrams.
 - [ ] BLOCKED: 25. Two more Manim clips (Pub/Sub to Dataflow to BigQuery, partition pruning) within the media budget of 10 MB new media in git. Needs your OK to download or install: Manim again, same approval as item 20.
