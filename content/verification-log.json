@@ -814,8 +814,8 @@
       "https://cloud.google.com/memorystore",
       "https://docs.cloud.google.com/memorystore/docs/redis/memorystore-for-redis-overview"
     ],
-    "result": "confirmed",
-    "note": "Checked: managed in-memory cache with Redis protocol and availability tiers. Not changed: docs also list Valkey and Memcached, the card says Redis only. Recoverability advice not checked."
+    "result": "updated",
+    "note": "Checked: managed in-memory cache with Redis protocol and availability tiers. Card now names Redis or Valkey. Docs also list Memcached, which they advise moving to Valkey. Recoverability advice not checked."
   },
   {
     "topic": "service-10",

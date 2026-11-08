@@ -113,13 +113,13 @@
   },
   {
     "name": "Memorystore",
-    "fit": "An in-memory cache or supported Redis workload.",
+    "fit": "In-memory cache for a Redis or Valkey workload.",
     "signal": "Serve frequently reused application state with a suitable availability tier.",
     "caution": "Decide explicitly whether cached values are recoverable from a durable source.",
     "reference": "redis",
     "category": "Storage",
     "id": "service-9",
-    "strength": "An in-memory cache or supported Redis workload.",
+    "strength": "In-memory cache for a Redis or Valkey workload.",
     "limitations": [
       "Decide explicitly whether cached values are recoverable from a durable source."
     ],
