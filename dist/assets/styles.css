@@ -91,3 +91,6 @@ body{background:var(--paper);color:var(--ink)}
 .lb-choice.wrong{border:2px dashed var(--gold)}
 .lb-feedback{margin:10px 0 0;font-size:16px;min-height:1.5em}
 .lb-feedback.right{color:var(--green);font-weight:650}
+.lesson-block{overflow-x:auto}.lesson-block .lb-diagram{max-width:none}
+@media(max-width:560px){.lesson-block{padding:12px 6px}}
+@media(max-width:560px){.lesson-body{padding-left:12px;padding-right:12px}.lesson-block{padding:12px 4px}}
