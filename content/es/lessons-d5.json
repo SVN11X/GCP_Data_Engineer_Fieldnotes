@@ -1266,5 +1266,313 @@
    "es": "Se confirmó que Dataflow muestra frescura, latencia del sistema, rendimiento y backlog, que la latencia sube cuando un destino deja de aceptar escrituras y que Pub/Sub informa la antigüedad del mensaje más antiguo sin confirmar. No se comprobaron el diseño de SLO ni el consejo sobre permisos del destino.",
    "src": "5f1bfb116571"
   }
+ },
+ "recovery": {
+  "title": {
+   "es": "Diseña la recuperación según objetivos explícitos",
+   "src": "f0891d8ee94f"
+  },
+  "lead": {
+   "es": "Indica cuántos datos se pueden perder y qué tan rápido debe volver el servicio.",
+   "src": "af1b377abef8"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "El RPO (objetivo de punto de recuperación) limita la pérdida de datos tolerable. El RTO (objetivo de tiempo de recuperación) limita el tiempo de recuperación. El time travel de BigQuery, los snapshots y la replicación entre regiones (cross-region replication) atienden necesidades distintas de fallo y de retención. Una etiqueta multi-región por sí sola no es un plan completo de recuperación ante desastres (disaster recovery).",
+   "src": "e067d41287f6"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Ajusta la frecuencia de las copias y el comportamiento de la replicación a los objetivos, y luego ensaya una restauración. Revisa la retención, los permisos y la región de la copia de recuperación.",
+   "src": "64a8428be974"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Una exportación diaria puede dejar sin disponibilidad casi un día de cambios, más los retrasos de programación o de exportación. Una meta estricta de menos de veinticuatro horas necesita un margen de seguridad adecuado o un enfoque de replicación distinto.",
+   "src": "6be65742f898"
+  },
+  "sections.3.title": {
+   "es": "Especifica el fallo del que te recuperas",
+   "src": "807edf06f9d4"
+  },
+  "sections.3.body": {
+   "es": "Un borrado accidental, datos corruptos, una caída de zona y la falta de disponibilidad de una región son eventos distintos. Una réplica de alta disponibilidad puede mantener el servicio durante algunos fallos de infraestructura, pero también replica una mala escritura. Una copia guardada en la misma región que falló puede no cumplir los requisitos de recuperación regional.",
+   "src": "f4493643582c"
+  },
+  "sections.4.title": {
+   "es": "Mide la antigüedad del estado recuperable",
+   "src": "bf61f048640c"
+  },
+  "sections.4.body": {
+   "es": "El RPO se refiere al estado de los datos que puedes recuperar, no solo a cuándo empezó o terminó una tarea de copia. Incluye en el modelo de pérdida los intervalos de snapshots, los retrasos de finalización, el retraso de replicación y los trabajos que no corrieron. El RTO también incluye la detección, los permisos, la restauración, la validación y la redirección de los consumidores. Que exista una copia de la tabla no es un procedimiento de recuperación ensayado.",
+   "src": "f08cd90d033e"
+  },
+  "sections.5.title": {
+   "es": "Elige por separado la retención histórica y la recuperación ante desastres",
+   "src": "1819a17e46b8"
+  },
+  "sections.5.body": {
+   "es": "El time travel puede recuperar estados históricos admitidos de una tabla dentro de su ventana configurada. Un snapshot retenido puede conservar un estado elegido por más tiempo. La replicación entre regiones atiende otro dominio de fallo y tiene sus propias capacidades admitidas, pero por sí sola no está pensada como plan para la caída total de una región. La recuperación ante desastres administrada de BigQuery (edición Enterprise Plus) agrega la conmutación por error (failover). Verifica las ubicaciones, los permisos y las operaciones de recuperación según el requisito real del incidente.",
+   "src": "c16667ac5a1d"
+  },
+  "trap": {
+   "es": "Una retención de copias de treinta días y un RPO de treinta días describen requisitos distintos.",
+   "src": "3e402ff12af7"
+  },
+  "exercise.prompt": {
+   "es": "Un snapshot tomado a las 10:00 termina a las 10:04. Un fallo a las 10:03 deja completo solo el snapshot de las 09:30. ¿Qué estado se sabe que es recuperable?",
+   "src": "0f4a2d186ec1"
+  },
+  "exercise.answer": {
+   "es": "Con esos supuestos, la última copia de recuperación completa captura las 09:30, así que el posible intervalo de pérdida de datos a las 10:03 es de 33 minutos. No uses la copia incompleta de las 10:00 ni confundas el retraso de finalización con la antigüedad de los datos recuperables.",
+   "src": "cc916aa0c6e2"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Indica el dominio de fallo del incidente.",
+   "src": "ae30d7483c91"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Calcula la antigüedad de la pérdida de datos a partir del estado recuperable.",
+   "src": "94d611fa3f1b"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Separa la retención histórica, la disponibilidad y la recuperación regional.",
+   "src": "8ef4d97ae1af"
+  },
+  "briefing.context": {
+   "es": "Un dataset se corrompe o deja de estar disponible en horario laboral.",
+   "src": "a8eacbd6b83d"
+  },
+  "briefing.whyItMatters": {
+   "es": "Una copia solo sirve como opción de recuperación si cumple los objetivos requeridos de pérdida de datos y de tiempo.",
+   "src": "bc50a7d554a3"
+  },
+  "briefing.takeaway": {
+   "es": "Indica el fallo, el punto de recuperación y el tiempo de recuperación que necesitas demostrar.",
+   "src": "bdca0d58c995"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Recuperar según los objetivos",
+   "src": "96dcc4de40a2"
+  },
+  "block.diagram.description": {
+   "es": "Indica el fallo, mide la antigüedad del estado recuperable y luego ensaya la restauración.",
+   "src": "51f56c4b1b09"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Nombra el fallo",
+   "src": "21ea64f6f775"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "del que te recuperas",
+   "src": "de10e6052361"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Mide la antigüedad",
+   "src": "63409c275f32"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "del estado recuperable",
+   "src": "4322163a02b3"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Ensaya la",
+   "src": "d902b974a562"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "restauración",
+   "src": "f329e3a317ee"
+  },
+  "block.keyFact": {
+   "es": "Una retención de copias de treinta días y un RPO de treinta días describen requisitos distintos.",
+   "src": "3e402ff12af7"
+  },
+  "block.check.question": {
+   "es": "Una exportación diaria es la única copia. ¿Puede cumplir una meta de menos de veinticuatro horas?",
+   "src": "9465e23ffe22"
+  },
+  "block.check.choices.0.text": {
+   "es": "Sí, existe una copia, así que la recuperación está cubierta",
+   "src": "1bb7256962cc"
+  },
+  "block.check.choices.0.why": {
+   "es": "Que exista una copia de la tabla no es un procedimiento de recuperación ensayado.",
+   "src": "1a9214692590"
+  },
+  "block.check.choices.1.text": {
+   "es": "Sí, una etiqueta multi-región basta",
+   "src": "81899b50d86a"
+  },
+  "block.check.choices.1.why": {
+   "es": "Una etiqueta multi-región por sí sola no es un plan completo de recuperación ante desastres.",
+   "src": "dcbd0fe4b476"
+  },
+  "block.check.choices.2.text": {
+   "es": "No sin un margen de seguridad o una replicación distinta",
+   "src": "c70aee16b657"
+  },
+  "block.check.choices.2.why": {
+   "es": "Una exportación diaria puede dejar sin disponibilidad casi un día de cambios.",
+   "src": "9ea5e9c8b28b"
+  },
+  "verification.note": {
+   "es": "Se agregó que la replicación por sí sola no es un plan para una caída regional y que la recuperación ante desastres administrada requiere Enterprise Plus. Se confirmó que los snapshots duran más que el time travel y que la alta disponibilidad (HA) copia las escrituras. No se comprobó la aritmética del RPO.",
+   "src": "07ae170043b0"
+  }
+ },
+ "recovery-runbook": {
+  "title": {
+   "es": "Demuestra el plan de recuperación con un runbook",
+   "src": "3f05ec2aa556"
+  },
+  "lead": {
+   "es": "Una copia protegida sirve solo cuando el servicio de verdad se puede restaurar.",
+   "src": "d54ec23c32e5"
+  },
+  "sections.0.title": {
+   "es": "Escribe una secuencia propia de cada fallo",
+   "src": "96796039e021"
+  },
+  "sections.0.body": {
+   "es": "Indica el alcance del incidente, la señal de detección, la persona o la automatización que decide, la fuente de recuperación, los permisos necesarios y el destino. Incluye la restauración, la validación, la reconexión o redirección de los consumidores y la condición para declarar el éxito. No cuentes el nombre de un archivo de copia como un runbook probado.",
+   "src": "37469bacef8e"
+  },
+  "sections.1.title": {
+   "es": "Mide por separado la pérdida y la restauración",
+   "src": "fa9cea51a48d"
+  },
+  "sections.1.body": {
+   "es": "La antigüedad del último estado de datos recuperable determina la posible exposición de RPO ante un fallo dado. El RTO incluye el tiempo para detectar y ejecutar la recuperación, validar los datos y retomar el camino del negocio. Una operación de copia rápida no demuestra un objetivo corto de restauración de extremo a extremo.",
+   "src": "5252a7c0e631"
+  },
+  "sections.2.title": {
+   "es": "Ensaya con restricciones representativas",
+   "src": "de06916fc3fc"
+  },
+  "sections.2.body": {
+   "es": "Una prueba debe mostrar el dominio de fallo previsto sin corromper la producción. Valida los totales de datos, el acceso, la disponibilidad de las claves y el comportamiento posterior en el entorno de recuperación. Registra qué supuestos se simularon, cuáles se observaron y qué queda sin probar.",
+   "src": "504bfa42df5f"
+  },
+  "trap": {
+   "es": "La replicación puede reproducir una mala escritura de la aplicación. La disponibilidad no reemplaza la recuperación histórica.",
+   "src": "c45fd5356895"
+  },
+  "exercise.prompt": {
+   "es": "La copia se restaura bien, pero la cuenta de la aplicación no puede leerla. ¿Se cumplió el RTO?",
+   "src": "173aefaae019"
+  },
+  "exercise.answer": {
+   "es": "No, si el servicio de negocio no se ha reanudado. El acceso y la validación de los consumidores forman parte del procedimiento de recuperación que se mide. Revisa los roles necesarios, los permisos de las claves y los pasos de redirección antes de declarar completa la restauración.",
+   "src": "bc8ce9f184b6"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Define el alcance del incidente.",
+   "src": "f2205beabc97"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Mide la antigüedad del estado recuperable.",
+   "src": "c0eca6848b27"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Incluye a los consumidores y los permisos en la evidencia de recuperación.",
+   "src": "a677076900e6"
+  },
+  "briefing.context": {
+   "es": "Durante un incidente, un equipo debe elegir una ruta de recuperación bajo presión.",
+   "src": "38d0fdcb647d"
+  },
+  "briefing.whyItMatters": {
+   "es": "Una secuencia sin probar puede restaurar el estado equivocado o dejar a los lectores con datos incompletos.",
+   "src": "8b336a039906"
+  },
+  "briefing.takeaway": {
+   "es": "Ensaya la restauración y valida el dataset recuperado antes de abrirlo de nuevo.",
+   "src": "f25d8ada7b11"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Demostrar un runbook",
+   "src": "f1273150b08c"
+  },
+  "block.diagram.description": {
+   "es": "Escribe los pasos propios de cada fallo, mide por separado la pérdida y la restauración, y ensaya con seguridad.",
+   "src": "65823e8d33ac"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Escribe los pasos",
+   "src": "4a69ff7aa3d5"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "propios del fallo",
+   "src": "a52433a191fd"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Mide por separado",
+   "src": "08408639b74a"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "pérdida y restauración",
+   "src": "cd273120573c"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Ensaya y anota",
+   "src": "25d57f97b8d1"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "lo que no probaste",
+   "src": "d39e5a8ac1fa"
+  },
+  "block.keyFact": {
+   "es": "La replicación puede reproducir una mala escritura de la aplicación. La disponibilidad no reemplaza la recuperación histórica.",
+   "src": "e80353360c6b"
+  },
+  "block.check.question": {
+   "es": "Existe un archivo de copia. ¿Eso es un runbook probado?",
+   "src": "5f5185a96afc"
+  },
+  "block.check.choices.0.text": {
+   "es": "Sí, el nombre del archivo lo demuestra",
+   "src": "4556accb6bcb"
+  },
+  "block.check.choices.0.why": {
+   "es": "No cuentes el nombre de un archivo de copia como un runbook probado.",
+   "src": "646585d69488"
+  },
+  "block.check.choices.1.text": {
+   "es": "No, una prueba debe mostrar la restauración y la validación",
+   "src": "7d2d438c196b"
+  },
+  "block.check.choices.1.why": {
+   "es": "Una prueba debe validar los totales, el acceso, las claves y el comportamiento posterior.",
+   "src": "b49ee4d79951"
+  },
+  "block.check.choices.2.text": {
+   "es": "Sí, una copia rápida demuestra un RTO corto",
+   "src": "fc72f53ac7cd"
+  },
+  "block.check.choices.2.why": {
+   "es": "Una operación de copia rápida no demuestra un objetivo corto de extremo a extremo.",
+   "src": "3f3865d5fd38"
+  },
+  "verification.note": {
+   "es": "Se confirmó que los snapshots son copias de un punto en el tiempo, que las réplicas copian los datos corruptos y que una conmutación por error forzada puede perder datos sin replicar. No se comprobaron la disponibilidad de las claves en las copias cifradas ni el diseño del ensayo.",
+   "src": "657e3e740fb4"
+  }
  }
 }
