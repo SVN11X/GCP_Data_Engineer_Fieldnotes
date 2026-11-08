@@ -584,5 +584,45 @@
     ],
     "result": "confirmed",
     "note": "Checked BigQuery sharing is formerly Analytics Hub, subscribers get read-only linked datasets, authorized views hide source datasets. Lesson says also known as. Report link access not checked."
+  },
+  {
+    "topic": "resource-cost",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Dataproc ephemeral cluster scheduled deletion after idle period and BigQuery on-demand bytes read billing",
+    "sources": [
+      "https://docs.cloud.google.com/bigquery/docs/best-practices-costs",
+      "https://docs.cloud.google.com/managed-spark/docs/concepts/configuring-clusters/scheduled-deletion"
+    ],
+    "result": "confirmed",
+    "note": "Checked on-demand queries bill by bytes read and a Spark cluster can auto-delete after an idle period. Capacity-model billing, serverless Spark and the cost per successful run advice not checked."
+  },
+  {
+    "topic": "warehouse-economics",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "BigQuery dry run estimate bytes processed maximum bytes billed LIMIT clause non-clustered table reservation query queue",
+    "sources": [
+      "https://docs.cloud.google.com/bigquery/docs/best-practices-costs",
+      "https://docs.cloud.google.com/bigquery/docs/query-queues"
+    ],
+    "result": "confirmed",
+    "note": "Checked dry run estimates bytes, maximum bytes billed stops over-limit queries, LIMIT keeps bytes read on non-clustered tables, slots queue queries. Invoice estimates and materialized view reuse not checked."
+  },
+  {
+    "topic": "repeatability",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Cloud Composer renamed Managed Service for Apache Airflow DAG tasks retries logical date Workflows serverless orchestration",
+    "sources": [
+      "https://cloud.google.com/products/managed-service-for-apache-airflow",
+      "https://docs.cloud.google.com/composer/docs/composer-3/schedule-and-trigger-dags",
+      "https://docs.cloud.google.com/workflows/docs/choose-orchestration"
+    ],
+    "result": "updated",
+    "note": "Lesson now names Managed Service for Apache Airflow (formerly Cloud Composer). Checked DAG tasks, retries keep the logical date, Workflows is serverless. Dataform assertion gating not checked."
   }
 ]

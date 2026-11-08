@@ -5656,7 +5656,7 @@
     "sections": [
       {
         "title": "Understand the idea",
-        "body": "Composer uses Airflow DAGs for scheduled workflows with task dependencies. Workflows coordinates service calls without managing an Airflow environment. An idempotent task supports safer retries and partial reruns."
+        "body": "Managed Service for Apache Airflow (formerly Cloud Composer, the name in the exam guide) uses Airflow DAGs for scheduled workflows with task dependencies. Workflows coordinates service calls without managing an Airflow environment. An idempotent task supports safer retries and partial reruns."
       },
       {
         "title": "Make the decision",
@@ -6597,7 +6597,7 @@
       },
       {
         "title": "Choose historical retention and disaster recovery separately",
-        "body": "Time travel can retrieve supported historical table states within its configured window. A retained snapshot can preserve a chosen state longer. Cross-region replication addresses a different failure domain and has its own supported capabilities. Verify locations, permissions and recovery operations against the actual incident requirement.",
+        "body": "Time travel can retrieve supported historical table states within its configured window. A retained snapshot can preserve a chosen state longer. Cross-region replication addresses a different failure domain and has its own supported capabilities, but on its own it is not intended as a plan for a total-region outage. BigQuery managed disaster recovery (Enterprise Plus edition) adds failover. Verify locations, permissions and recovery operations against the actual incident requirement.",
         "references": [
           "time",
           "snapshot",
