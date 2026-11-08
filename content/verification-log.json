@@ -705,5 +705,78 @@
     ],
     "result": "confirmed",
     "note": "Checked snapshots are point-in-time backups, replicas copy corrupted data, hard failover can lose unreplicated data. Key availability for encrypted copies and rehearsal design not checked."
+  },
+  {
+    "topic": "service-1",
+    "kind": "service",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "BigQuery overview serverless data warehouse analytics",
+    "sources": [
+      "https://docs.cloud.google.com/bigquery/docs/introduction"
+    ],
+    "result": "confirmed",
+    "note": "Checked: serverless data warehouse, large analytical SQL with joins and aggregations. Not checked: point-lookup latency advice, which is site guidance."
+  },
+  {
+    "topic": "service-2",
+    "kind": "service",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Bigtable overview row key time series low latency high throughput",
+    "sources": [
+      "https://docs.cloud.google.com/bigtable/docs/overview"
+    ],
+    "result": "confirmed",
+    "note": "Checked: high read and write throughput at low latency, single-keyed data, time series and IoT, row key design. Not checked: the join caveat, which is site guidance."
+  },
+  {
+    "topic": "service-3",
+    "kind": "service",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Cloud SQL overview managed MySQL PostgreSQL SQL Server",
+    "sources": [
+      "https://docs.cloud.google.com/sql/docs/introduction"
+    ],
+    "result": "confirmed",
+    "note": "Checked: fully managed MySQL, PostgreSQL and SQL Server with HA and failover. Not checked: connection limits and sizing, which are site guidance."
+  },
+  {
+    "topic": "service-4",
+    "kind": "service",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Spanner overview strong consistency relational horizontal scale",
+    "sources": [
+      "https://cloud.google.com/spanner",
+      "https://docs.cloud.google.com/spanner/docs/non-relational/overview"
+    ],
+    "result": "confirmed",
+    "note": "Checked: ACID transactions, strong consistency, joins and horizontal scale. Not checked: key and transaction modelling advice, which is site guidance."
+  },
+  {
+    "topic": "service-5",
+    "kind": "service",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "AlloyDB for PostgreSQL overview PostgreSQL-compatible",
+    "sources": [
+      "https://docs.cloud.google.com/alloydb/docs/overview"
+    ],
+    "result": "confirmed",
+    "note": "Checked: fully managed PostgreSQL-compatible service for demanding workloads. Not checked: migration compatibility and economics, which are site guidance."
+  },
+  {
+    "topic": "service-6",
+    "kind": "service",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Firestore overview document database NoSQL",
+    "sources": [
+      "https://docs.cloud.google.com/firestore/native/docs/overview"
+    ],
+    "result": "confirmed",
+    "note": "Checked: document and collection model, ACID transactions. Not checked: index design advice, which is site guidance."
   }
 ]
