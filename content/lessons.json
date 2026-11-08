@@ -77,6 +77,81 @@
       "takeaway": "Name the acting identity, its required operation and the narrowest useful resource scope.",
       "minutes": 5,
       "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    },
+    "block": {
+      "minutes": 2,
+      "diagram": {
+        "title": "Least privilege for a nightly loader",
+        "description": "A nightly loader service account reads one bucket and writes one dataset. It does not hold a project-wide role.",
+        "width": 280,
+        "height": 160,
+        "nodes": [
+          {
+            "id": "sa",
+            "lines": [
+              "Nightly loader",
+              "service account"
+            ],
+            "x": 20,
+            "y": 8,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "b",
+            "lines": [
+              "Reads one",
+              "bucket"
+            ],
+            "x": 2,
+            "y": 100,
+            "w": 136,
+            "h": 44
+          },
+          {
+            "id": "d",
+            "lines": [
+              "Writes one",
+              "dataset"
+            ],
+            "x": 142,
+            "y": 100,
+            "w": 136,
+            "h": 44
+          }
+        ],
+        "edges": [
+          {
+            "from": "sa",
+            "to": "b"
+          },
+          {
+            "from": "sa",
+            "to": "d"
+          }
+        ]
+      },
+      "keyFact": "Grant the narrowest useful role at an appropriate resource scope.",
+      "check": {
+        "question": "A nightly loader reads one bucket and writes one dataset. Which grant fits?",
+        "choices": [
+          {
+            "text": "Bucket and dataset permissions for its service account",
+            "correct": true,
+            "why": "The job gets only the permissions it needs, and the engineer running it does not need to remain Project Owner."
+          },
+          {
+            "text": "Project Owner for the engineer running it",
+            "correct": false,
+            "why": "The engineer running the job does not need to remain Project Owner."
+          },
+          {
+            "text": "A project-wide Editor role",
+            "correct": false,
+            "why": "A project-wide Editor role creates more exposure than a bucket reader and dataset writer need."
+          }
+        ]
+      }
     }
   },
   {
@@ -226,6 +301,80 @@
       "takeaway": "Identify the value, identity and access boundary before choosing a security control.",
       "minutes": 5,
       "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    },
+    "block": {
+      "minutes": 2,
+      "diagram": {
+        "title": "Controls for different parts of the data problem",
+        "description": "Customer data can be protected by row policies, which restrict records, and column policies, which restrict fields.",
+        "width": 280,
+        "height": 160,
+        "nodes": [
+          {
+            "id": "data",
+            "lines": [
+              "Customer data"
+            ],
+            "x": 20,
+            "y": 8,
+            "w": 240,
+            "h": 36
+          },
+          {
+            "id": "row",
+            "lines": [
+              "Row policy:",
+              "restricts records"
+            ],
+            "x": 2,
+            "y": 100,
+            "w": 136,
+            "h": 44
+          },
+          {
+            "id": "col",
+            "lines": [
+              "Column policy:",
+              "restricts fields"
+            ],
+            "x": 142,
+            "y": 100,
+            "w": 136,
+            "h": 44
+          }
+        ],
+        "edges": [
+          {
+            "from": "data",
+            "to": "row"
+          },
+          {
+            "from": "data",
+            "to": "col"
+          }
+        ]
+      },
+      "keyFact": "Encryption protects data under a key-management model. It does not decide which business rows an analyst should see.",
+      "check": {
+        "question": "Analysts need all customers but must not see national IDs. Which control restricts those fields?",
+        "choices": [
+          {
+            "text": "Column policies",
+            "correct": true,
+            "why": "Column policies restrict fields, so protected columns can hold sensitive values."
+          },
+          {
+            "text": "Row policies",
+            "correct": false,
+            "why": "Row policies restrict records, not fields."
+          },
+          {
+            "text": "A firewall rule",
+            "correct": false,
+            "why": "A firewall rule alone cannot express which BigQuery columns a user can read."
+          }
+        ]
+      }
     }
   },
   {
@@ -370,6 +519,78 @@
       "takeaway": "Protect business identity and reconcile the result, not just the job status.",
       "minutes": 5,
       "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    },
+    "block": {
+      "minutes": 2,
+      "diagram": {
+        "title": "Making a retried payment safe",
+        "description": "A stable event ID feeds an idempotent write, and the final totals are then reconciled.",
+        "width": 280,
+        "height": 196,
+        "nodes": [
+          {
+            "id": "id",
+            "lines": [
+              "Stable event ID"
+            ],
+            "x": 20,
+            "y": 8,
+            "w": 240,
+            "h": 36
+          },
+          {
+            "id": "w",
+            "lines": [
+              "Idempotent write"
+            ],
+            "x": 20,
+            "y": 80,
+            "w": 240,
+            "h": 36
+          },
+          {
+            "id": "r",
+            "lines": [
+              "Reconciled totals"
+            ],
+            "x": 20,
+            "y": 152,
+            "w": 240,
+            "h": 36
+          }
+        ],
+        "edges": [
+          {
+            "from": "id",
+            "to": "w"
+          },
+          {
+            "from": "w",
+            "to": "r"
+          }
+        ]
+      },
+      "keyFact": "Reconcile a financial total as well as row counts: equal counts can still hide duplicated or corrupted values.",
+      "check": {
+        "question": "A payment retry arrives twice. What helps most?",
+        "choices": [
+          {
+            "text": "A stable event ID and an idempotent write",
+            "correct": true,
+            "why": "Then reconcile the final totals to confirm the result."
+          },
+          {
+            "text": "Exactly-once processing alone",
+            "correct": false,
+            "why": "Exactly-once processing alone does not protect an arbitrary external API call."
+          },
+          {
+            "text": "Blindly appending the rerun output",
+            "correct": false,
+            "why": "Blindly appending rerun output can double the result."
+          }
+        ]
+      }
     }
   },
   {
@@ -533,6 +754,80 @@
       "takeaway": "Plan the validation, cutover and rollback before switching readers.",
       "minutes": 5,
       "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    },
+    "block": {
+      "minutes": 2,
+      "diagram": {
+        "title": "Moving from a snapshot to later changes",
+        "description": "A full load moves existing records, change capture carries later changes, and the data is reconciled before cutover.",
+        "width": 280,
+        "height": 196,
+        "nodes": [
+          {
+            "id": "f",
+            "lines": [
+              "Full load:",
+              "existing records"
+            ],
+            "x": 20,
+            "y": 4,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "c",
+            "lines": [
+              "Change capture:",
+              "later changes"
+            ],
+            "x": 20,
+            "y": 76,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "v",
+            "lines": [
+              "Reconcile, then cut over"
+            ],
+            "x": 20,
+            "y": 160,
+            "w": 240,
+            "h": 34
+          }
+        ],
+        "edges": [
+          {
+            "from": "f",
+            "to": "c"
+          },
+          {
+            "from": "c",
+            "to": "v"
+          }
+        ]
+      },
+      "keyFact": "A full load moves existing records. Change data capture tracks later changes.",
+      "check": {
+        "question": "At 20 megabits per second, 1 petabyte needs about 12.7 years. The deadline is six months. What closes the gap?",
+        "choices": [
+          {
+            "text": "A different transfer path",
+            "correct": true,
+            "why": "A six-month deadline requires a different path."
+          },
+          {
+            "text": "Protocol tuning",
+            "correct": false,
+            "why": "Protocol tuning cannot close that gap."
+          },
+          {
+            "text": "Skipping validation before cutover",
+            "correct": false,
+            "why": "Reconcile counts, checksums or business totals before cutover."
+          }
+        ]
+      }
     }
   },
   {
