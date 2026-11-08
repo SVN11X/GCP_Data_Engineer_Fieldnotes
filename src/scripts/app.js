@@ -130,8 +130,7 @@ async function render(scroll=false){
   if(version!==renderVersion)return;
   switch(target){
    case'home':html=renderHome();break;
-   case'orientation':html=entryUI().orientation();break;
-   case'diagnostic':html=entryUI().diagnostic();break;
+   case'orientation':case'diagnostic':case'review':html=await entryUI()[target](parts[1]);break;
    case'missions':html=A.renderMissions(parts[1]);break;
    case'focus':html=A.renderFocus(parts[1]);break;
    case'learn':html=renderLearn(parts[1]);break;

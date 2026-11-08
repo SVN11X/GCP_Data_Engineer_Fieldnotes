@@ -72,7 +72,7 @@ assert.equal(Object.values(pack.assets).filter(a=>a.transcription?.kind==='table
 const html=fs.readFileSync(path.join(dist,'index.html'),'utf8');
 for(const m of html.matchAll(/(?:src|href)="([^"#]+)"/g)){if(m[1].startsWith('http'))continue;assert.ok(fs.existsSync(path.join(dist,m[1])),'Missing asset '+m[1]);assert.ok(!m[1].startsWith('/'),'Absolute Pages asset path');}
 assert.ok(html.includes("connect-src 'self'"));assert.ok(!html.includes('unsafe-eval'));
-for(const file of ['app','core','data','knowledge','loader','study-ui','attention','image-text','entry','entry-core'])new vm.Script(fs.readFileSync(path.join(dist,'assets/'+file+'.js'),'utf8'),{filename:file});
+for(const file of ['app','core','data','knowledge','loader','study-ui','attention','image-text','entry','entry-core','review','review-core'])new vm.Script(fs.readFileSync(path.join(dist,'assets/'+file+'.js'),'utf8'),{filename:file});
 const context={};vm.runInNewContext(fs.readFileSync(path.join(dist,'assets/data.js'),'utf8'),context);const boot=context.FIELDNOTES_DATA;
 assert.ok(boot.lessons.every(l=>!l.sections),'Lesson bodies must load on demand');
 assert.ok(boot.questions.every(q=>!q.answer&&q.choices.length===0),'Answer bodies must load on demand');

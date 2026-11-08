@@ -43,7 +43,8 @@ Format: `- [ ]` pending, `- [x]` done, `- [x] SKIPPED: reason`, `- [ ] BLOCKED: 
 ## Entry paths, comparisons and questions
 
 - [x] 26. G First-visit question "Do you know the exam?": orientation or a 10-question diagnostic, switchable, as a state machine. Orientation text awaits owner review.
-- [ ] 27. G Fast review path: a 1 to 2 hour plan across the five domains weighted by the guide, with a one-page summary per domain.
+- [ ] BLOCKED: 26b. The initial payload is 449,973 of 450,000 bytes. Do you want to raise the limit in scripts/validate.mjs, or lazy-load more code such as lesson-block.js? New routes now load lazily.
+- [x] 27. G Fast review path: a 1 to 2 hour plan across the five domains weighted by the guide, with a one-page summary per domain.
 - [ ] 28. G Extend the services compare view: storage choice, Dataflow vs Dataproc vs Data Fusion, Pub/Sub vs Managed Kafka, Composer vs Workflows vs Scheduler.
 - [ ] 29. G Original scenario questions until every objective has five, kept outside the timed pool. BLOCKED: allow them in timed sessions? AGENTS.md fixes that pool.
 
