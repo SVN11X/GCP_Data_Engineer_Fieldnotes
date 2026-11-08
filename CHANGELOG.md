@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Added a notice in the footer that the site is independent and not affiliated with Google, and a credit line to the Google Cloud documentation on every lesson.
+- Renamed the five domains and 19 objectives to the official titles of exam guide v4.2. IDs, colors and weights are unchanged, so saved progress is not affected.
 - Added a Credits page with the licenses and terms of everything the site relies on, linked from the footer.
 
 ## 2.1.0 — 2026-11-08
