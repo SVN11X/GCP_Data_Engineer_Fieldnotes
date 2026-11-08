@@ -1006,5 +1006,54 @@
     ],
     "result": "updated",
     "note": "Checked: Spark batch and interactive sessions without a cluster, now called Managed Service for Apache Spark serverless. Card name shortened to fit the budget. Not checked: runtime and economics."
+  },
+  {
+    "topic": "service-25",
+    "kind": "service",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Transfer Appliance overview ship data offline to Cloud Storage",
+    "sources": [
+      "https://docs.cloud.google.com/transfer-appliance/docs/4.0/overview"
+    ],
+    "result": "confirmed",
+    "note": "Checked: physical appliance shipped to Google and uploaded to Cloud Storage, suited when upload takes over a week. Not checked: shipping, availability and reconciliation planning details."
+  },
+  {
+    "topic": "service-26",
+    "kind": "service",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "gcloud storage cp copy files and objects command",
+    "sources": [
+      "https://docs.cloud.google.com/sdk/gcloud/reference/storage/cp"
+    ],
+    "result": "confirmed",
+    "note": "Checked: copies between local files, Cloud Storage and other providers from the command line. Not checked: the recurring orchestration and CDC caveat, which is site guidance."
+  },
+  {
+    "topic": "service-27",
+    "kind": "service",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "BigQuery tables for Apache Iceberg managed tables Cloud Storage bucket DML Storage Write API",
+    "sources": [
+      "https://docs.cloud.google.com/bigquery/docs/biglake-iceberg-tables-in-bigquery"
+    ],
+    "result": "confirmed",
+    "note": "Checked: BigQuery-managed Iceberg tables in buckets you own, writes by DML and Storage Write API, open engine access. Not checked: exact capability limits per engine."
+  },
+  {
+    "topic": "service-28",
+    "kind": "service",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Database Migration Service overview supported sources destinations continuous migration",
+    "sources": [
+      "https://docs.cloud.google.com/database-migration/docs/overview",
+      "https://docs.cloud.google.com/database-migration/docs/supported-databases"
+    ],
+    "result": "confirmed",
+    "note": "Checked: continuous or one-time migration into Cloud SQL and AlloyDB, with source and version limits. Not checked: cutover steps and per-engine feature gaps."
   }
 ]
