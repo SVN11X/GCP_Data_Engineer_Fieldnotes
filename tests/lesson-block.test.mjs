@@ -44,3 +44,24 @@ test('lesson text is escaped in the rendered block',()=>{
  const html=L.render(l);
  assert.ok(!html.includes('<b>')&&!html.includes('<i>')&&!html.includes('<t>'));
 });
+test('data flow plan stays under 5 seconds and is off under reduced motion',()=>{
+ const p=L.flowPlan(false);
+ assert.equal(p.animate,true);
+ assert.equal(p.passes,3);
+ assert.ok(p.totalMs<5000&&p.totalMs===L.FLOW.passMs*L.FLOW.passes);
+ assert.deepEqual(L.flowPlan(true),{animate:false,passes:0,totalMs:0,control:false});
+});
+test('data flow states toggle, stop at the end and never move under reduced motion',()=>{
+ assert.equal(L.flowNext('playing','toggle',false),'paused');
+ assert.equal(L.flowNext('paused','toggle',false),'playing');
+ assert.equal(L.flowNext('playing','end',false),'done');
+ assert.equal(L.flowNext('playing','toggle',true),'done');
+ assert.equal(L.flowLabel('playing'),'Pause data flow');
+ assert.equal(L.flowLabel('done'),'Play data flow');
+});
+test('render ships a flow button and one resting dot per edge, static by default',()=>{
+ const l=withBlock[0],html=L.render(l);
+ assert.match(html,/data-lb-flow[^>]*>Play data flow</);
+ assert.equal((html.match(/class="lb-dot"/g)||[]).length,l.block.diagram.edges.length);
+ assert.match(html,/data-flow="done"/);
+});

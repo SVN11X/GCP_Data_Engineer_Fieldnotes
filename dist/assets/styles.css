@@ -94,3 +94,18 @@ body{background:var(--paper);color:var(--ink)}
 .lesson-block{overflow-x:auto}.lesson-block .lb-diagram{max-width:none}
 @media(max-width:560px){.lesson-block{padding:12px 6px}}
 @media(max-width:560px){.lesson-body{padding-left:12px;padding-right:12px}.lesson-block{padding:12px 4px}}
+/* Motion set, see docs/decisions/0001-motion-purposes.md */
+.lb-dot{fill:var(--blue);stroke:var(--white);stroke-width:1;transform:translate(var(--dx),var(--dy))}
+.lb-diagram[data-flow=playing] .lb-dot,.lb-diagram[data-flow=paused] .lb-dot{animation:lb-run 1.6s linear 3 both}
+.lb-diagram[data-flow=paused] .lb-dot{animation-play-state:paused}
+@keyframes lb-run{from{transform:translate(0,0)}to{transform:translate(var(--dx),var(--dy))}}
+.lb-flow{margin:4px 0 0}
+.button,.lb-choice{transition:background-color .12s ease,border-color .12s ease,transform .1s ease}
+.button:active:not(:disabled):not([aria-disabled=true]),.lb-choice:active:not(:disabled){transform:scale(.98)}
+.lb-choice:hover:not(:disabled):not(.right):not(.wrong){background:var(--pale)}
+.lb-choice.right{transition:background-color .15s ease,border-color .15s ease}
+.lb-feedback.right,.lb-feedback.wrong{animation:lb-fade .15s ease-out 1}
+@keyframes lb-fade{from{opacity:0}to{opacity:1}}
+.lb-fact .key-fact{background:linear-gradient(var(--key-bg),var(--key-bg)) no-repeat 0 0/100% 100%;animation:lb-sweep .6s ease-out 1}
+@keyframes lb-sweep{from{background-size:0 100%}to{background-size:100% 100%}}
+@media(prefers-reduced-motion:reduce){.lb-flow{display:none}.lb-dot{animation:none!important}.button,.lb-choice{transition:none}.button:active:not(:disabled),.lb-choice:active:not(:disabled){transform:none}}
