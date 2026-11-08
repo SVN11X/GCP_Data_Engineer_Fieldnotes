@@ -624,5 +624,46 @@
     ],
     "result": "updated",
     "note": "Lesson now names Managed Service for Apache Airflow (formerly Cloud Composer). Checked DAG tasks, retries keep the logical date, Workflows is serverless. Dataform assertion gating not checked."
+  },
+  {
+    "topic": "composer-retries",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Cloud Composer formerly Managed Service for Apache Airflow DAG tasks dependencies retries logical date",
+    "sources": [
+      "https://cloud.google.com/products/managed-service-for-apache-airflow",
+      "https://docs.cloud.google.com/composer/docs/composer-3/composer-overview",
+      "https://docs.cloud.google.com/composer/docs/composer-3/schedule-and-trigger-dags"
+    ],
+    "result": "confirmed",
+    "note": "Checked the product was formerly Cloud Composer, DAGs hold tasks and dependencies, retries keep the same logical date. Airflow advice on repeatable effects and partition reads is outside the corpus, not checked."
+  },
+  {
+    "topic": "observability",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "BigQuery INFORMATION_SCHEMA.JOBS slot contention insights Resources exceeded ORDER BY memory audit logs job submitted by",
+    "sources": [
+      "https://docs.cloud.google.com/bigquery/docs/information-schema-jobs",
+      "https://docs.cloud.google.com/bigquery/docs/troubleshoot-queries",
+      "https://docs.cloud.google.com/bigquery/docs/introduction-audit-workloads"
+    ],
+    "result": "confirmed",
+    "note": "Checked job metadata shows slot contention, a sort memory error comes from the query shape, audit logs record who submitted jobs. Dataflow hot key advice and alert design not checked."
+  },
+  {
+    "topic": "query-diagnosis",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "BigQuery Resources exceeded memory shuffle query too complex dry run upper bound clustered tables",
+    "sources": [
+      "https://docs.cloud.google.com/bigquery/docs/troubleshoot-queries",
+      "https://docs.cloud.google.com/bigquery/docs/best-practices-costs"
+    ],
+    "result": "confirmed",
+    "note": "Checked Resources exceeded has memory, shuffle and complexity causes, more slots fix only the shuffle case, and a clustered dry run is an upper bound. Skew and join grain advice not checked."
   }
 ]
