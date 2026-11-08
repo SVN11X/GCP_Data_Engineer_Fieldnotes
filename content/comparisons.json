@@ -35,7 +35,7 @@
       {
         "name": "Cloud SQL",
         "chooseWhen": "You want a managed MySQL, PostgreSQL or SQL Server database. The docs call it the easiest lift and shift to the cloud.",
-        "beCarefulWhen": "You need virtually unlimited scale. Each Cloud SQL instance runs on one virtual machine, so compare Spanner.",
+        "beCarefulWhen": "You need virtually unlimited scale. Each Cloud SQL instance is powered by a virtual machine, so compare Spanner.",
         "sources": [
           "https://docs.cloud.google.com/sql/docs/introduction",
           "https://cloud.google.com/sql"
