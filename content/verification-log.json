@@ -543,5 +543,46 @@
     ],
     "result": "confirmed",
     "note": "Checked BigQuery ML reports precision, recall, accuracy and a confusion matrix, and evaluates at a custom threshold for binary models. Majority-class and split design advice is general ML, not checked."
+  },
+  {
+    "topic": "embeddings",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "BigQuery vector index approximate nearest neighbor recall brute force VECTOR_SEARCH index coverage embeddings",
+    "sources": [
+      "https://docs.cloud.google.com/bigquery/docs/vector-search",
+      "https://docs.cloud.google.com/bigquery/docs/vector-search-intro",
+      "https://docs.cloud.google.com/generative-ai-app-builder/docs/builder-apis"
+    ],
+    "result": "confirmed",
+    "note": "Checked indexed search is approximate with lower recall, brute force is exact, index coverage is visible, RAG flow chunks, embeds, retrieves. Embedding model change and access enforcement not checked."
+  },
+  {
+    "topic": "rag-evaluation",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "evaluate RAG retrieval and generated answer groundedness separately check grounding API",
+    "sources": [
+      "https://docs.cloud.google.com/generative-ai-app-builder/docs/builder-apis",
+      "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/grounding/ground-responses-using-rag"
+    ],
+    "result": "confirmed",
+    "note": "Checked RAG has separate retrieval and generation stages and a check grounding API scores answers against retrieved sources. Document deletion, access revocation and untrusted text advice not checked."
+  },
+  {
+    "topic": "share",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "BigQuery sharing formerly Analytics Hub listings exchanges subscribers linked datasets authorized view",
+    "sources": [
+      "https://docs.cloud.google.com/bigquery/docs/analytics-hub-introduction",
+      "https://docs.cloud.google.com/bigquery/docs/analytics-hub-view-subscribe-listings",
+      "https://docs.cloud.google.com/bigquery/docs/logical-materialized-view-overview"
+    ],
+    "result": "confirmed",
+    "note": "Checked BigQuery sharing is formerly Analytics Hub, subscribers get read-only linked datasets, authorized views hide source datasets. Lesson says also known as. Report link access not checked."
   }
 ]

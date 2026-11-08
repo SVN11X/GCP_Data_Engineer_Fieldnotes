@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Verified the seven domain 4 lessons against Google documentation through the Developer Knowledge MCP and logged each check. All were confirmed, no lesson text changed.
 - Verified the ten domain 3 lessons against Google documentation through the Developer Knowledge MCP and logged each check. Nine were confirmed and one updated: the LIMIT cost note now says it applies to non-clustered tables.
 - Verified the sixteen domain 2 lessons against Google documentation through the Developer Knowledge MCP and logged each check. All were confirmed, no lesson text changed.
 - Verified the nine domain 1 lessons against Google documentation through the Developer Knowledge MCP and logged each check. All were confirmed, no lesson text changed.
