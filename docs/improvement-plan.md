@@ -56,7 +56,7 @@ Format: `- [ ]` pending, `- [x]` done, `- [x] SKIPPED: reason`, `- [ ] BLOCKED: 
 - [x] 33. G Verified the 10 domain 3 lessons with the MCP: 9 confirmed, 1 updated, 0 unverifiable. Fixed the LIMIT cost note to say non-clustered tables.
 - [x] 34. G Verified the 7 domain 4 lessons with the MCP: 7 confirmed, 0 updated, 0 unverifiable. No lesson text needed changes, unchecked claims are listed in each log note.
 - [x] 35. G Verified the 9 domain 5 lessons with the MCP: 7 confirmed, 2 updated, 0 unverifiable. Capacity keeps its earlier entry. Renamed Composer in repeatability and qualified replication in recovery.
-- [ ] 36. G Verify services and comparisons with the MCP. Then make missing verification records fail the build.
+- [x] 36. G Verified the 28 service cards with the MCP: 25 confirmed, 3 updated, 0 unverifiable (Dataproc, Composer, serverless Spark renamed). Missing lesson or service records now fail the build.
 
 ## Bilingual
 

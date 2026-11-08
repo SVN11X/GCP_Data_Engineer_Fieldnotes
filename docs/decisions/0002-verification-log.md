@@ -14,9 +14,9 @@ Readers should be able to see when and where a topic was checked against officia
 - Add content/verification-log.json, a separate append-style list. Each entry has topic, kind (lesson, service, comparison or exam), checkedOn, method, query, sources, result (confirmed, updated or unverifiable) and a one-sentence note.
 - Allowed methods are google-developer-knowledge-mcp (a Model Context Protocol server that searches official Google documentation) and official-page (a direct read of an official Google page, used when the page is not in the MCP corpus, such as the exam guide PDF).
 - Sources must be https URLs on google.com, services.google.com, cloud.google.com, docs.cloud.google.com, developers.google.com or ai.google.dev. The latest entry per topic is the one shown. The same topic, method and date cannot repeat.
-- The build and the validator check the schema and fail on invalid entries. The build only warns for lessons and services without an entry and for entries older than 90 days, measured against the build date (BUILD_DATE can override it in tests).
+- The build and the validator check the schema and fail on invalid entries. The build fails when a lesson or service has no entry, naming the first 10 missing ids. It only warns for entries older than 90 days, measured against the build date (BUILD_DATE can override it in tests). Comparisons are required too once a content/comparisons.json file exists.
 - The log is served as dist/data/verification-log.json and shown by a lazily loaded script on lesson pages. The page says "Not yet verified against Google documentation" when no entry exists. Service cards have no detail view, so they are skipped for now.
-- Gaps only warn for now because only two topics have been checked. The gap check is one function (findGaps in scripts/verification-log.mjs) so a later item can make it fail the build.
+- Gaps first only warned because few topics had been checked. Once all 52 lessons and 28 service cards were logged, gaps now fail the build. The gap check stays in one place (findGaps in scripts/verification-log.mjs, formatted by gapErrors and enforced by assertNoGaps). A new lesson or service needs a log entry in the same change.
 
 ## Alternatives considered
 
