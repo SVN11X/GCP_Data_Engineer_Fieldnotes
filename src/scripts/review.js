@@ -13,7 +13,7 @@ root.FieldReview={create({D,C,e}){
  function summary(id){
   const s=C.domainSummary(D.domains,D.lessons,id);
   if(!s)return plan();
-  return `<div class="entry-page review-page"><a href="#review" class="back-link">← Review plan</a><div class="eyebrow">ONE-PAGE SUMMARY · ${s.weight}% OF THE EXAM</div><h1>Domain ${s.id}: ${e(s.name)}</h1><section class="lesson-section"><h2>Objectives</h2><ul class="review-list">${s.objectives.map(o=>`<li><b>${e(o.id)}</b> ${e(o.title)}</li>`).join('')}</ul></section><section class="lesson-section"><h2>Key facts by lesson</h2><ul class="review-list">${s.lessons.map(l=>`<li><a href="#learn/${e(l.id)}">${e(l.title)}</a>${l.keyFact?`<p>${e(l.keyFact)}</p>`:''}</li>`).join('')}</ul></section><div class="entry-actions"><a class="button" href="#practice">Practice questions →</a></div></div>`;
+  return `<div class="entry-page review-page"><a href="#review" class="back-link">← Review plan</a><div class="eyebrow">ONE-PAGE SUMMARY · ${s.weight}% OF THE EXAM</div><h1>Domain ${s.id}: ${e(s.name)}</h1><section class="lesson-section"><h2>Objectives</h2><ul class="review-list">${s.objectives.map(o=>`<li><b>${e(o.id)}</b> ${e(o.title)}</li>`).join('')}</ul></section><section class="lesson-section"><h2>Key facts by lesson</h2><ul class="review-list">${s.lessons.map(l=>`<li><a href="#learn/${e(l.id)}">${e(l.title)}</a>${l.keyFact?`<p data-no-translate>${e(l.keyFact)}</p>`:''}</li>`).join('')}</ul></section><div class="entry-actions"><a class="button" href="#practice">Practice questions →</a></div></div>`;
  }
  function onAction(button){
   if(button.dataset.action!=='review-hours')return false;

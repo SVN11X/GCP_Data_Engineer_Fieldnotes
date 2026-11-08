@@ -192,5 +192,9 @@
   function isFocusShortcut(ev) {
     return !!ev && ev.key === 'f' && !ev.ctrlKey && !ev.metaKey && !ev.altKey && !ev.shiftKey && !isTypingTarget(ev.target);
   }
-  root.FieldCore = {FOCUS_KEY, parseFocusPreference, serializeFocusPreference, toggleFocus, focusProgress, isFocusShortcut, equalAnswers, quotas, shuffle, makeExam, scoreExam, EVENTS, simulateStream, scanModel, runWorkshop, checkPrediction, defaultState, validateProgress, touchStreak, currentStreak, domainMarks, localDate, rewardsHtml};
+  const LANG_KEY = 'data-engineer-fieldnotes.lang.v1';
+  function parseLang(raw) {return raw === 'es' ? 'es' : 'en';}
+  function serializeLang(lang) {return lang === 'es' ? 'es' : 'en';}
+  function toggleLang(lang) {return lang === 'es' ? 'en' : 'es';}
+  root.FieldCore = {LANG_KEY, parseLang, serializeLang, toggleLang, FOCUS_KEY, parseFocusPreference, serializeFocusPreference, toggleFocus, focusProgress, isFocusShortcut, equalAnswers, quotas, shuffle, makeExam, scoreExam, EVENTS, simulateStream, scanModel, runWorkshop, checkPrediction, defaultState, validateProgress, touchStreak, currentStreak, domainMarks, localDate, rewardsHtml};
 })(globalThis);
