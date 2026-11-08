@@ -21,7 +21,8 @@ function lineHtml(entry){
  if(!entry)return '<span>Not yet verified against Google documentation.</span>';
  const url=Array.isArray(entry.sources)?entry.sources[0]:'';
  const link=/^https:\/\//.test(url||'')?` · <a href="${esc(url)}" target="_blank" rel="noopener noreferrer">Source (opens in a new tab)</a>`:'';
- return `<span>Checked ${esc(entry.checkedOn)} against ${esc(METHODS[entry.method]||'an official Google source')}</span>${link}`;
+ const scope=entry.note?` <span class="verify-scope">What was checked: ${esc(entry.note)}</span>`:'';
+ return `<span>Checked ${esc(entry.checkedOn)} against ${esc(METHODS[entry.method]||'an official Google source')}</span>${link}${scope}`;
 }
 const api={MAX_AGE_DAYS,METHODS,dayNumber,ageInDays,isStale,latestByTopic,lineHtml};
 root.FieldVerification=api;
