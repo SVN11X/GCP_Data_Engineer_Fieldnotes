@@ -1,0 +1,458 @@
+{
+ "streaming": {
+  "title": {
+   "es": "Valida un flujo de eventos",
+   "src": "0bf185dd64fd"
+  },
+  "goal": {
+   "es": "Los eventos de dispositivos se convierten en un conjunto de datos analítico que se puede consultar. Cambia el resultado de la validación para seguir la vía rechazada.",
+   "src": "0374f5d3ee27"
+  },
+  "success": {
+   "es": "El registro de ejemplo pasa la validación y llega a la tabla curada. Esto ilustra un diseño, no un despliegue real en la nube.",
+   "src": "b75f169fc095"
+  },
+  "failure": {
+   "es": "El registro de ejemplo falla la validación. Se envía a una cuarentena restringida y no aparece en la salida curada. Un registro rechazado necesita un responsable y una política de reparación.",
+   "src": "52dad485a3ac"
+  },
+  "scope": {
+   "es": "Arquitectura ilustrativa original. No se ejecuta ningún servicio de la nube y no se simula ninguna latencia, precio ni disponibilidad.",
+   "src": "623e81e45b9c"
+  },
+  "nodes.0.label": {
+   "es": "Productores de eventos",
+   "src": "b12d2b2f9f6a"
+  },
+  "nodes.0.caption": {
+   "es": "ID del evento de negocio + marca de tiempo del evento",
+   "src": "ac77d7a236e8"
+  },
+  "nodes.0.detail": {
+   "es": "El productor conserva un identificador de negocio estable y la marca de tiempo del evento. Una publicación repetida (retry) todavía puede necesitar deduplicación a nivel de negocio.",
+   "src": "4fb8c53f2d70"
+  },
+  "nodes.1.label": {
+   "es": "Pub/Sub",
+   "src": "6859e7b3318a"
+  },
+  "nodes.1.caption": {
+   "es": "Entrega de eventos desacoplada",
+   "src": "e36965248c3b"
+  },
+  "nodes.1.detail": {
+   "es": "Los temas y las suscripciones separan la disponibilidad del productor del trabajo del consumidor. Decide con cuidado la retención y la repetición (replay).",
+   "src": "a0146b71552f"
+  },
+  "nodes.2.label": {
+   "es": "Dataflow / Beam",
+   "src": "0dbce233ce17"
+  },
+  "nodes.2.caption": {
+   "es": "Analizar, crear ventanas y transformar",
+   "src": "9c8070cf35fe"
+  },
+  "nodes.2.detail": {
+   "es": "Define ventanas por tiempo del evento (event-time) y la tardanza (lateness). Revisa por separado el modo de procesamiento, el comportamiento del conector y el contrato del destino (sink).",
+   "src": "059af103979e"
+  },
+  "nodes.3.label": {
+   "es": "Límite de validación",
+   "src": "6879e0ffe771"
+  },
+  "nodes.3.caption": {
+   "es": "Registro aceptado o rechazo explícito",
+   "src": "ed5b4df64e17"
+  },
+  "nodes.3.detail": {
+   "es": "El registro ilustrativo se revisa con un esquema y una regla de negocio. Los registros no válidos conservan un identificador y un motivo en una cuarentena restringida.",
+   "src": "b878f1f052c0"
+  },
+  "nodes.4.label": {
+   "es": "Tabla curada de BigQuery",
+   "src": "d78eff11aeec"
+  },
+  "nodes.4.caption": {
+   "es": "Salida analítica aceptada",
+   "src": "7bf62ce91cd5"
+  },
+  "nodes.4.detail": {
+   "es": "Solo los registros aceptados siguen esta vía. El método de escritura de producción y la estrategia de repetición (replay) deben elegirse y probarse.",
+   "src": "118aa789145c"
+  },
+  "nodes.5.label": {
+   "es": "Cuarentena restringida",
+   "src": "7c8044b32949"
+  },
+  "nodes.5.caption": {
+   "es": "Vía de excepción controlada",
+   "src": "31d3f468ed24"
+  },
+  "nodes.5.detail": {
+   "es": "Conserva un identificador mínimo del registro y el motivo del rechazo para un diagnóstico y una repetición (replay) controlados.",
+   "src": "6ba182da18ff"
+  },
+  "edges.0.label": {
+   "es": "publicar / leer",
+   "src": "d657c7ba4a60"
+  },
+  "edges.1.label": {
+   "es": "entregar / iniciar",
+   "src": "af9eb3d7a02a"
+  },
+  "edges.2.label": {
+   "es": "transformar / revisar",
+   "src": "f52eb0cf843b"
+  },
+  "edges.3.label": {
+   "es": "aceptado",
+   "src": "070c160a6299"
+  },
+  "edges.4.label": {
+   "es": "rechazado / denegado",
+   "src": "f267e75d2d57"
+  }
+ },
+ "batch": {
+  "title": {
+   "es": "Publica un lote validado",
+   "src": "6a40e23d9d8e"
+  },
+  "goal": {
+   "es": "Un lote de archivos se convierte en una partición curada del almacén de datos, con un límite de calidad explícito.",
+   "src": "583fd62b4116"
+  },
+  "success": {
+   "es": "El lote cumple el contrato de calidad ilustrativo y la partición curada se puede publicar.",
+   "src": "e5c5931dce6d"
+  },
+  "failure": {
+   "es": "La revisión de calidad falla. La publicación se detiene, y el área de preparación (staging) y el resultado de la validación siguen disponibles para el diagnóstico.",
+   "src": "be497bf6fe9b"
+  },
+  "scope": {
+   "es": "Arquitectura ilustrativa original. No se ejecuta ningún servicio de la nube y no se simula ninguna latencia, precio ni disponibilidad.",
+   "src": "623e81e45b9c"
+  },
+  "nodes.0.label": {
+   "es": "Archivos de Cloud Storage",
+   "src": "d150a6ebee82"
+  },
+  "nodes.0.caption": {
+   "es": "ID de lote de entrada inmutable",
+   "src": "988f931c4ce5"
+  },
+  "nodes.0.detail": {
+   "es": "Una referencia de lote duradera fija la entrada lógica. Guarda un manifiesto y la ventana de repetición (replay) acordada.",
+   "src": "dd8ba972cf9c"
+  },
+  "nodes.1.label": {
+   "es": "Serverless Spark",
+   "src": "9c39b79e5d2e"
+  },
+  "nodes.1.caption": {
+   "es": "Transformar un lote fijo",
+   "src": "0e7f012d8a9d"
+  },
+  "nodes.1.detail": {
+   "es": "Este candidato sirve para una carga de trabajo de Spark intermitente. Prueba las dependencias y conserva las salidas duraderas fuera del cómputo temporal.",
+   "src": "bf9912b22b7f"
+  },
+  "nodes.2.label": {
+   "es": "Staging de BigQuery",
+   "src": "6f811296c492"
+  },
+  "nodes.2.caption": {
+   "es": "Registros intermedios con tipos",
+   "src": "eb00396f5cb2"
+  },
+  "nodes.2.detail": {
+   "es": "El staging aísla el resultado sin validar de la publicación posterior y permite conciliar los datos.",
+   "src": "0d91f3d43292"
+  },
+  "nodes.3.label": {
+   "es": "Control de calidad de Dataform",
+   "src": "2da1d5acbac2"
+  },
+  "nodes.3.caption": {
+   "es": "La aserción es una dependencia de la publicación",
+   "src": "3d72bbf1bc0d"
+  },
+  "nodes.3.detail": {
+   "es": "Revisa la unicidad, los campos obligatorios y la regla de conciliación del negocio. La dependencia debe bloquear la publicación si hay un fallo.",
+   "src": "af10790104c8"
+  },
+  "nodes.4.label": {
+   "es": "Partición curada",
+   "src": "9f8979906b44"
+  },
+  "nodes.4.caption": {
+   "es": "Publicar el intervalo de datos acordado",
+   "src": "ca9cb7a8b9c1"
+  },
+  "nodes.4.detail": {
+   "es": "Publica el intervalo validado con un contrato de escritura seguro. Repetir la orquestación no debe agregar a ciegas filas de negocio duplicadas.",
+   "src": "fccf4d02435e"
+  },
+  "nodes.5.label": {
+   "es": "Publicación detenida",
+   "src": "7d5c2b82c5ce"
+  },
+  "nodes.5.caption": {
+   "es": "Vía de excepción controlada",
+   "src": "31d3f468ed24"
+  },
+  "nodes.5.detail": {
+   "es": "Conserva la evidencia del staging y de la validación. Avisa al responsable, repara y vuelve a ejecutar el intervalo previsto.",
+   "src": "8c29575d2472"
+  },
+  "edges.0.label": {
+   "es": "publicar / leer",
+   "src": "d657c7ba4a60"
+  },
+  "edges.1.label": {
+   "es": "entregar / iniciar",
+   "src": "af9eb3d7a02a"
+  },
+  "edges.2.label": {
+   "es": "transformar / revisar",
+   "src": "f52eb0cf843b"
+  },
+  "edges.3.label": {
+   "es": "aceptado",
+   "src": "070c160a6299"
+  },
+  "edges.4.label": {
+   "es": "rechazado / denegado",
+   "src": "f267e75d2d57"
+  }
+ },
+ "cdc": {
+  "title": {
+   "es": "Concilia una migración de base de datos",
+   "src": "744bdbfea8bf"
+  },
+  "goal": {
+   "es": "Una instantánea y los cambios posteriores se validan antes de que un consumidor analítico cambie de sistema.",
+   "src": "8f84c126a2ab"
+  },
+  "success": {
+   "es": "La conciliación ilustrativa pasa y el cambio controlado del consumidor (cutover) puede seguir según el plan de migración.",
+   "src": "b43424cba2de"
+  },
+  "failure": {
+   "es": "Una discrepancia en la conciliación impide el cambio (cutover). Investiga los registros que faltan o que cambiaron antes de cambiar a los lectores.",
+   "src": "60f469ec069a"
+  },
+  "scope": {
+   "es": "Arquitectura ilustrativa original. No se ejecuta ningún servicio de la nube y no se simula ninguna latencia, precio ni disponibilidad.",
+   "src": "623e81e45b9c"
+  },
+  "nodes.0.label": {
+   "es": "Base de datos de origen",
+   "src": "f757ef1e62a5"
+  },
+  "nodes.0.caption": {
+   "es": "Instantánea + cambios",
+   "src": "524e9ca0046f"
+  },
+  "nodes.0.detail": {
+   "es": "Haz un inventario del motor de origen, del acceso a los registros (logs) y del límite de consistencia acordado.",
+   "src": "6c1b18bd2ddf"
+  },
+  "nodes.1.label": {
+   "es": "Datastream",
+   "src": "4000942f3fbf"
+  },
+  "nodes.1.caption": {
+   "es": "Captura de cambios compatible",
+   "src": "f83c19edc4f9"
+  },
+  "nodes.1.detail": {
+   "es": "Verifica el origen, el destino y la conectividad exactos que son compatibles. No supongas que todas las vías de migración operativa son intercambiables.",
+   "src": "138f73df07b0"
+  },
+  "nodes.2.label": {
+   "es": "Staging analítico",
+   "src": "06fd2ab27aca"
+  },
+  "nodes.2.caption": {
+   "es": "Registros de cambio con versiones",
+   "src": "1a09bb47fb34"
+  },
+  "nodes.2.detail": {
+   "es": "Conserva las claves y la evidencia del orden que sean adecuadas para el origen. Las eliminaciones y las actualizaciones repetidas necesitan un contrato explícito del estado del destino.",
+   "src": "5fbdbfad794b"
+  },
+  "nodes.3.label": {
+   "es": "Control de conciliación",
+   "src": "8fa7ca9b34b7"
+  },
+  "nodes.3.caption": {
+   "es": "Comparar con un estado de origen acordado",
+   "src": "44be8eeb894c"
+  },
+  "nodes.3.detail": {
+   "es": "Los conteos por sí solos no bastan. Revisa las claves, los registros eliminados, los totales relevantes y un límite de cambio (cutover) consistente.",
+   "src": "5b4ffb4576d9"
+  },
+  "nodes.4.label": {
+   "es": "Cambio del consumidor",
+   "src": "19c2434b7df1"
+  },
+  "nodes.4.caption": {
+   "es": "Cambiar solo después de validar",
+   "src": "7b7bf485a1f8"
+  },
+  "nodes.4.detail": {
+   "es": "Anota la decisión, el retraso aceptable y la reversión (rollback). Distingue la replicación analítica de una migración de base de datos operativa.",
+   "src": "72c7e0a872f6"
+  },
+  "nodes.5.label": {
+   "es": "Cambio detenido",
+   "src": "12c773a01274"
+  },
+  "nodes.5.caption": {
+   "es": "Vía de excepción controlada",
+   "src": "31d3f468ed24"
+  },
+  "nodes.5.detail": {
+   "es": "Mantén a los lectores actuales en su sistema actual mientras se investiga la discrepancia.",
+   "src": "1c4545a5067d"
+  },
+  "edges.0.label": {
+   "es": "publicar / leer",
+   "src": "d657c7ba4a60"
+  },
+  "edges.1.label": {
+   "es": "entregar / iniciar",
+   "src": "af9eb3d7a02a"
+  },
+  "edges.2.label": {
+   "es": "transformar / revisar",
+   "src": "f52eb0cf843b"
+  },
+  "edges.3.label": {
+   "es": "aceptado",
+   "src": "070c160a6299"
+  },
+  "edges.4.label": {
+   "es": "rechazado / denegado",
+   "src": "f267e75d2d57"
+  }
+ },
+ "lakehouse": {
+  "title": {
+   "es": "Sigue el acceso delegado al lago de datos",
+   "src": "cebb32b15f57"
+  },
+  "goal": {
+   "es": "Quien lee una tabla recibe resultados autorizados sin un permiso directo sobre el almacén de objetos.",
+   "src": "c8ea6dea098f"
+  },
+  "success": {
+   "es": "La solicitud de ejemplo está autorizada y devuelve un resultado analítico permitido.",
+   "src": "c4856d56a477"
+  },
+  "failure": {
+   "es": "La solicitud de ejemplo se deniega. No se devuelve ningún registro protegido. Investiga la identidad efectiva y la vía de la política.",
+   "src": "a7b23b81004a"
+  },
+  "scope": {
+   "es": "Arquitectura ilustrativa original. No se ejecuta ningún servicio de la nube y no se simula ninguna latencia, precio ni disponibilidad.",
+   "src": "623e81e45b9c"
+  },
+  "nodes.0.label": {
+   "es": "Identidad del analista",
+   "src": "d70e8b1edc05"
+  },
+  "nodes.0.caption": {
+   "es": "Solicitud de consulta",
+   "src": "8ff500fff64a"
+  },
+  "nodes.0.detail": {
+   "es": "El analista solicita una consulta de tabla. Descubrir la tabla en un catálogo no autoriza por sí solo esta solicitud.",
+   "src": "8923333aaf0c"
+  },
+  "nodes.1.label": {
+   "es": "Tabla externa de BigLake",
+   "src": "dfd7f43c9141"
+  },
+  "nodes.1.caption": {
+   "es": "Límite de acceso a nivel de tabla",
+   "src": "0e9d1fd07fb3"
+  },
+  "nodes.1.detail": {
+   "es": "Este patrón usa una tabla externa de BigLake, no una vía de escritura de Iceberg administrada. Revisa qué políticas se admiten exactamente.",
+   "src": "7eed60a9b550"
+  },
+  "nodes.2.label": {
+   "es": "Identidad de la conexión",
+   "src": "527d26a3eee1"
+  },
+  "nodes.2.caption": {
+   "es": "Obtener los objetos de fondo",
+   "src": "916230392add"
+  },
+  "nodes.2.detail": {
+   "es": "La cuenta de servicio de la conexión accede a los objetos compatibles. Protege sus permisos y mantenlos acotados.",
+   "src": "ea67fe245dd4"
+  },
+  "nodes.3.label": {
+   "es": "Decisión de acceso",
+   "src": "42c907142b4f"
+  },
+  "nodes.3.caption": {
+   "es": "Datos autorizados o solicitud denegada",
+   "src": "22d9cbc0ee5e"
+  },
+  "nodes.3.detail": {
+   "es": "La decisión de la política de ejemplo representa los permisos configurados. Es un límite para enseñar, no un simulador de IAM.",
+   "src": "20439813d7b7"
+  },
+  "nodes.4.label": {
+   "es": "Resultado autorizado",
+   "src": "eef01fac4f41"
+  },
+  "nodes.4.caption": {
+   "es": "Consulta de tabla externa de solo lectura",
+   "src": "4cfdfa6c046a"
+  },
+  "nodes.4.detail": {
+   "es": "Devuelve solo los datos autorizados por esta vía de acceso. No des acceso directo al bucket solo para evitar una consulta denegada.",
+   "src": "c820cc07c14a"
+  },
+  "nodes.5.label": {
+   "es": "Acceso denegado",
+   "src": "cc11d415d932"
+  },
+  "nodes.5.caption": {
+   "es": "Vía de excepción controlada",
+   "src": "31d3f468ed24"
+  },
+  "nodes.5.detail": {
+   "es": "Conserva la evidencia de auditoría adecuada sin exponer el registro protegido.",
+   "src": "44ac5290170d"
+  },
+  "edges.0.label": {
+   "es": "publicar / leer",
+   "src": "d657c7ba4a60"
+  },
+  "edges.1.label": {
+   "es": "entregar / iniciar",
+   "src": "af9eb3d7a02a"
+  },
+  "edges.2.label": {
+   "es": "transformar / revisar",
+   "src": "f52eb0cf843b"
+  },
+  "edges.3.label": {
+   "es": "aceptado",
+   "src": "070c160a6299"
+  },
+  "edges.4.label": {
+   "es": "rechazado / denegado",
+   "src": "f267e75d2d57"
+  }
+ }
+}
