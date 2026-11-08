@@ -526,5 +526,477 @@
    "es": "Serverless, administrado y en tiempo real no son arquitecturas completas. Compara primero la compatibilidad.",
    "src": "2037bc6f3d3c"
   }
+ },
+ "dataflow-bottlenecks": {
+  "title": {
+   "es": "Encuentra el límite antes de añadir workers a Dataflow",
+   "src": "a6ceea5b3e3a"
+  },
+  "lead": {
+   "es": "Usa evidencia por etapa para distinguir la capacidad del paralelismo.",
+   "src": "aea24414a620"
+  },
+  "sections.0.title": {
+   "es": "Cada cuello de botella necesita un cambio distinto",
+   "src": "57f7684414d8"
+  },
+  "sections.0.body": {
+   "es": "Un origen o un destino puede limitar la canalización. Una clave caliente (hot key) puede concentrar la agregación. Una etapa fusionada (fused stage) puede limitar la redistribución. El código del worker puede agotar la memoria. Subir el máximo de workers no garantiza que desaparezca ninguna de estas restricciones. Revisa juntos el comportamiento de las etapas y la acumulación de trabajo pendiente (backlog).",
+   "src": "8666c80532aa"
+  },
+  "sections.1.title": {
+   "es": "Entiende por qué el trabajo se puede dividir o no",
+   "src": "5ac978849c73"
+  },
+  "sections.1.body": {
+   "es": "Los elementos se pueden procesar en paralelo, pero una agrupación concreta o una clave con estado puede crear un límite serial. Una redistribución explícita puede ayudar en algunos casos de fusión, pero añade materialización y costo de red. Si rediseñas una clave caliente, debes conservar la semántica de la agregación. Añadir sal (salting) al azar no explica por sí solo cómo se vuelven a combinar los resultados.",
+   "src": "88c9ae2e0d63"
+  },
+  "sections.2.title": {
+   "es": "Evalúa el autoescalado con el contrato completo",
+   "src": "d3bd9905759e"
+  },
+  "sections.2.body": {
+   "es": "Revisa los límites configurados, la cuota disponible, las opciones del trabajo, el trabajo pendiente de procesamiento y el comportamiento del origen y del destino. Compara una ejecución representativa antes y después de un cambio. Sigue la corrección y la frescura de la salida, no solo el número de workers activos.",
+   "src": "1697a9a3b5ee"
+  },
+  "trap": {
+   "es": "Tener más workers no demuestra que haya más trabajo paralelo útil.",
+   "src": "bb00d6115604"
+  },
+  "exercise.prompt": {
+   "es": "Una clave de agregación domina la carga mientras otros workers están inactivos. ¿Qué hipótesis debes probar?",
+   "src": "2bf31319f3ee"
+  },
+  "exercise.answer": {
+   "es": "Investiga la concentración en una clave caliente y el límite serial de la agregación. Considera una estrategia de agregación parcial y recombinación que conserve la corrección. Después mide la etapa afectada, en lugar de solo subir el límite global de workers.",
+   "src": "1d34cd10bd61"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Identifica un cuello de botella propio de una etapa.",
+   "src": "dcbe458e4d23"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Distingue las claves calientes de la fusión.",
+   "src": "83954628a35d"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Mide la corrección de la salida después del ajuste.",
+   "src": "f1bea09d63d0"
+  },
+  "briefing.context": {
+   "es": "Una canalización de streaming va con retraso aunque el equipo sigue añadiendo workers.",
+   "src": "651a32bf31ab"
+  },
+  "briefing.whyItMatters": {
+   "es": "Más cómputo no puede reparar una escritura denegada ni repartir de forma pareja una clave sobrecargada.",
+   "src": "85d2f450191c"
+  },
+  "briefing.takeaway": {
+   "es": "Encuentra el origen, la etapa, la clave o el destino que limita antes de escalar.",
+   "src": "f3417b812938"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  }
+ },
+ "event-time": {
+  "title": {
+   "es": "Razona sobre el tiempo del evento y los datos tardíos",
+   "src": "6605e9fa11e3"
+  },
+  "lead": {
+   "es": "El momento en que ocurrió un evento y el momento en que un worker lo vio pueden ser distintos.",
+   "src": "518783aa1dba"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "Una ventana fija (fixed window) agrupa las marcas de tiempo en intervalos iguales. Una ventana deslizante (sliding window) puede solaparse. Una sesión (session) agrupa la actividad separada por una pausa de inactividad que tú eliges. Una marca de agua (watermark) estima el avance del tiempo del evento. No garantiza que hayan llegado todos los eventos anteriores.",
+   "src": "ac609162aba6"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Elige la tardanza permitida (allowed lateness) y los disparadores (triggers) según el equilibrio entre resultados tempranos y correcciones posteriores. Conserva las marcas de tiempo del origen en lugar de reemplazarlas por el tiempo de procesamiento.",
+   "src": "92825898c4d5"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Un clic creado en el minuto 2 llega después de uno creado en el minuto 9. Pertenece a la ventana más temprana del tiempo del evento, si esa ventana todavía puede aceptar datos.",
+   "src": "86343eba899f"
+  },
+  "sections.3.title": {
+   "es": "Define qué representa la salida",
+   "src": "61e9f93b6f5c"
+  },
+  "sections.3.body": {
+   "es": "Una ventana fija tiene límites alineados con el reloj. Una ventana deslizante puede incluir un evento en intervalos que se solapan. Una sesión une la actividad según una pausa de inactividad, por lo general después de agrupar por una clave de entidad. No confundas una función de ventana de SQL analítico sobre las filas de una tabla con una ventana de streaming por tiempo del evento.",
+   "src": "c2a662cd2792"
+  },
+  "sections.4.title": {
+   "es": "Separa la marca de agua, el disparador y la retención",
+   "src": "183d01760f74"
+  },
+  "sections.4.body": {
+   "es": "La marca de agua estima el avance del tiempo del evento. Un disparador decide cuándo se emite un panel (pane) de resultados. La tardanza permitida se refiere a cuánto tiempo puede una ventana seguir aceptando registros retrasados. La retención de los mensajes del origen se refiere a si se puede reproducir la entrada. Estos ajustes resuelven problemas distintos y ninguno reemplaza a los otros.",
+   "src": "d69aaddd6361"
+  },
+  "sections.5.title": {
+   "es": "Diseña la corrección en el destino",
+   "src": "1481bac3984c"
+  },
+  "sections.5.body": {
+   "es": "Un conteo temprano puede cambiar más tarde. Decide si los consumidores finales reciben un agregado actualizado, un reemplazo o una secuencia de paneles que deben combinar bien. Los resultados acumulativos pueden repetir aportes anteriores. Si sumas a ciegas cada panel emitido, puedes contar de más. Prueba las llegadas tempranas, a tiempo y tardías con totales esperados explícitos.",
+   "src": "12db5d77331e"
+  },
+  "trap": {
+   "es": "El primer mensaje de subasta que se procesa no es necesariamente la oferta más temprana.",
+   "src": "78a630884b30"
+  },
+  "exercise.prompt": {
+   "es": "Un panel de control necesita totales provisionales inmediatos y totales finales corregidos. ¿Basta con aumentar la tardanza permitida?",
+   "src": "598ce6b1f7bf"
+  },
+  "exercise.answer": {
+   "es": "No. Define un disparador y una estrategia de acumulación para los resultados intermedios, la política de tardanza y una representación en el destino que maneje las correcciones. La retención y la reproducción son temas aparte. Valida el total final con una secuencia conocida de eventos retrasados y repetidos.",
+   "src": "39c9c0df2182"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Distingue el tiempo del evento del tiempo de procesamiento.",
+   "src": "dd726fccc8fd"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Explica qué agrupa cada tipo de ventana.",
+   "src": "29d5e5b104bb"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Nombra cómo aplica el destino un agregado corregido.",
+   "src": "43720a451e20"
+  },
+  "briefing.context": {
+   "es": "Un dispositivo informa a las 10:02 que un evento ocurrió a las 09:59. El tiempo del evento (event time) es cuando ocurrió. El tiempo de llegada es cuando llegó al sistema.",
+   "src": "bbb427060345"
+  },
+  "briefing.whyItMatters": {
+   "es": "Usar el tiempo de llegada puede poner un evento válido en el periodo de reporte equivocado.",
+   "src": "dafaca6b6f80"
+  },
+  "briefing.takeaway": {
+   "es": "Elige a propósito la marca de tiempo y la política para las llegadas tardías.",
+   "src": "1ca1568d2f5f"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Un clic tardío y su ventana",
+   "src": "cf0ebbbd888b"
+  },
+  "block.diagram.description": {
+   "es": "Un clic creado en el minuto 2 llega después de un clic creado en el minuto 9 y pertenece a la ventana más temprana del tiempo del evento.",
+   "src": "fc5f4ee63eab"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Clic hecho",
+   "src": "9cbc041a7c60"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "en el minuto 2",
+   "src": "38390daa78a4"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Llega después del",
+   "src": "5bad9588cab1"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "clic del minuto 9",
+   "src": "2f54a57bdbcc"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Ventana anterior,",
+   "src": "353b44f53cfd"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "si sigue abierta",
+   "src": "2ce160a1a187"
+  },
+  "block.keyFact": {
+   "es": "Una marca de agua estima el avance del tiempo del evento. No garantiza que hayan llegado todos los eventos anteriores.",
+   "src": "4b4eaf36d51f"
+  },
+  "block.check.question": {
+   "es": "Un clic creado en el minuto 2 llega después de uno creado en el minuto 9. ¿A dónde pertenece?",
+   "src": "d6bb1378eb2f"
+  },
+  "block.check.choices.0.text": {
+   "es": "A la ventana de su hora de llegada",
+   "src": "04044952bd1f"
+  },
+  "block.check.choices.0.why": {
+   "es": "Conserva las marcas de tiempo del origen en lugar de reemplazarlas por el tiempo de procesamiento.",
+   "src": "3573bff24940"
+  },
+  "block.check.choices.1.text": {
+   "es": "A la ventana más temprana del tiempo del evento, si todavía acepta datos",
+   "src": "ae12e6da387c"
+  },
+  "block.check.choices.1.why": {
+   "es": "Pertenece a la ventana más temprana del tiempo del evento, si esa ventana todavía puede aceptar datos.",
+   "src": "08b147abe23c"
+  },
+  "block.check.choices.2.text": {
+   "es": "A ninguna, porque la marca de agua garantiza que todo llegó",
+   "src": "1bb3bc21c1a3"
+  },
+  "block.check.choices.2.why": {
+   "es": "Una marca de agua no garantiza que hayan llegado todos los eventos anteriores.",
+   "src": "12e90f1e43ce"
+  }
+ },
+ "beam-triggers": {
+  "title": {
+   "es": "Planea los paneles, las llegadas tardías y los totales corregidos",
+   "src": "b7a7c2d0c4e6"
+  },
+  "lead": {
+   "es": "Indica cuándo se emite un resultado y qué significan las actualizaciones posteriores.",
+   "src": "3ca7923d349d"
+  },
+  "sections.0.title": {
+   "es": "Asigna la marca de tiempo del negocio",
+   "src": "339a030b810b"
+  },
+  "sections.0.body": {
+   "es": "Elige la marca de tiempo del evento a partir del contrato del origen. Los eventos de una colección necesitan claves y una estrategia de ventanas que sirva para su agregación de negocio. Un registro puede llegar fuera de orden sin ser inválido. Si lo descartas, cambias el resultado, y por eso hace falta una política documentada.",
+   "src": "b6b4ca538e57"
+  },
+  "sections.1.title": {
+   "es": "Separa la emisión de la completitud",
+   "src": "6f7e0762649b"
+  },
+  "sections.1.body": {
+   "es": "Un disparador puede emitir un panel temprano antes de que la marca de agua indique que se espera que los datos estén completos. Los paneles posteriores pueden reflejar registros adicionales. La tardanza permitida y la limpieza del estado determinan qué sigue siendo posible después del final esperado de una ventana. Los detalles exactos dependen de la transformación y de la configuración del runner, así que prueba el comportamiento que quieres.",
+   "src": "04c909cffa9a"
+  },
+  "sections.2.title": {
+   "es": "Haz coincidir los paneles con un modelo de destino",
+   "src": "70ddd799e0a4"
+  },
+  "sections.2.body": {
+   "es": "Si los paneles son acumulativos, sumar cada panel como si solo tuviera valores nuevos cuenta dos veces los registros anteriores. Un destino puede necesitar reemplazos por clave o una representación acumulativa documentada. Usa eventos retrasados controlados para verificar tanto el panel de control inmediato como el total final reconciliado.",
+   "src": "94fb5d0fcedc"
+  },
+  "trap": {
+   "es": "Una estimación de la marca de agua no afirma que la red nunca pueda entregar un evento más antiguo.",
+   "src": "3e89e37fdf18"
+  },
+  "exercise.prompt": {
+   "es": "Los paneles acumulativos tienen los conteos 3 y después 5. ¿Cuál es el conteo final y por qué no es 8?",
+   "src": "799cf420f788"
+  },
+  "exercise.answer": {
+   "es": "El panel acumulativo posterior ya contiene los aportes anteriores, así que el conteo final es 5. Un consumidor final debe entender la semántica de los paneles en lugar de sumar a ciegas todos los agregados emitidos.",
+   "src": "0f16119b23f7"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Define el tiempo del evento y las claves.",
+   "src": "ac8158fee38d"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Explica la diferencia entre disparador y marca de agua.",
+   "src": "d4057e470916"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Indica cómo aplica el destino las correcciones.",
+   "src": "797814b2a8d5"
+  },
+  "briefing.context": {
+   "es": "Un reporte en vivo publica un total temprano y después un registro tardío cambia ese total.",
+   "src": "0610a7dfd0e4"
+  },
+  "briefing.whyItMatters": {
+   "es": "Agregar los dos resultados acumulativos puede contar la misma historia más de una vez.",
+   "src": "7d569bf06e38"
+  },
+  "briefing.takeaway": {
+   "es": "Define cuándo aparecen los resultados y cómo los reemplazan o actualizan las correcciones posteriores.",
+   "src": "0ecb22c8c54f"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  }
+ },
+ "bad-records": {
+  "title": {
+   "es": "Enruta los fallos sin perder la evidencia",
+   "src": "4b83a5110020"
+  },
+  "lead": {
+   "es": "Un registro rechazado debe poder explicarse y recuperarse.",
+   "src": "e0aee1ca7ccd"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "Valida los campos antes de cargar las tablas tipadas del almacén de datos. Separa las filas válidas de una salida de mensajes fallidos (dead-letter) que contenga la carga original, el tipo de error y el identificador del evento. Distingue los datos inválidos permanentes de los errores temporales del servicio.",
+   "src": "97e896fe0260"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Usa reintentos acotados con espera creciente (backoff) para los fallos transitorios. Monitorea la salida de fallos y define quién la repara o la reproduce. El límite de intentos de entrega de dead-letter en Pub/Sub es aproximado, no un contador exacto de reintentos.",
+   "src": "a959c365de5b"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Una columna de direcciones mezcla formatos. Una transformación visual de Data Fusion puede estandarizar los valores, y una ruta de cuarentena guarda las filas cuyos valores no se pueden interpretar con seguridad.",
+   "src": "eb408f5efa3d"
+  },
+  "sections.3.title": {
+   "es": "Separa los errores de datos de los errores del servicio",
+   "src": "5383d957b6fa"
+  },
+  "sections.3.body": {
+   "es": "Una clave obligatoria que falta o una fecha mal formada suele necesitar la corrección del registro o de la regla de transformación. Una caída temporal de una API puede beneficiarse de un reintento acotado. Repetir sin fin una entrada mala permanente consume capacidad y bloquea trabajo útil sin mejorar la corrección. Clasifica el fallo antes de elegir cómo reintentar.",
+   "src": "40ffd4bd1d51"
+  },
+  "sections.4.title": {
+   "es": "Guarda un registro de error que se pueda reparar",
+   "src": "90a23fda3379"
+  },
+  "sections.4.body": {
+   "es": "Una salida de errores debe conservar un identificador estable, la carga original o una versión con datos ocultos de forma segura, la regla de validación, el contexto del procesamiento y suficiente información de tiempos para investigar. Protege esta salida con el mismo cuidado que el conjunto de datos principal si contiene información personal. Un almacén de dead-letter es parte de la arquitectura de datos. No es un lugar donde termina la responsabilidad.",
+   "src": "29f14df74283"
+  },
+  "sections.5.title": {
+   "es": "Haz de la reinserción un camino controlado",
+   "src": "1d6b49440825"
+  },
+  "sections.5.body": {
+   "es": "Define cómo vuelven al procesamiento los registros reparados y cómo su identidad evita resultados de negocio duplicados. Registra la decisión de reparación y monitorea el backlog que crece. Una tasa de errores en la canalización principal que baja puede ocultar un backlog de cuarentena que empeora, si no miras las dos métricas juntas.",
+   "src": "5c050848f5c4"
+  },
+  "trap": {
+   "es": "Convertir un CSV mal formado a Avro no repara por sí solo los valores de fondo.",
+   "src": "ce63d8cd22ff"
+  },
+  "exercise.prompt": {
+   "es": "Se conservan todos los registros inválidos, pero nadie revisa el conjunto de datos de errores. ¿Está resuelto el problema de calidad de datos?",
+   "src": "517e10157da3"
+  },
+  "exercise.answer": {
+   "es": "No. Conservar los registros guarda la evidencia, pero no repara los datos del negocio. Asigna un responsable, mide el backlog de fallos, clasifica las causas y define un camino seguro para reproducirlos. Reconcilia la salida reparada con los totales de negocio esperados.",
+   "src": "d6f84c385f60"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Clasifica los errores transitorios y los permanentes.",
+   "src": "a38a2074400c"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Define los campos de un registro de error reparable.",
+   "src": "85c90746b2fe"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Incluye al responsable y la reproducción en el diseño.",
+   "src": "8d202990d124"
+  },
+  "briefing.context": {
+   "es": "La mayoría de los registros son válidos, pero un registro mal formado hace que una canalización siga reintentando.",
+   "src": "83819c64572b"
+  },
+  "briefing.whyItMatters": {
+   "es": "Descartar el registro en silencio pierde la evidencia. Bloquear todos los registros una y otra vez retrasa todo el conjunto de datos.",
+   "src": "1e3aec42d778"
+  },
+  "briefing.takeaway": {
+   "es": "Dale a los datos inválidos un camino de excepción explícito y restringido, con un responsable de la reparación.",
+   "src": "5523738c31c0"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Filas válidas y una salida de dead-letter",
+   "src": "abbfea4715de"
+  },
+  "block.diagram.description": {
+   "es": "Las filas válidas van al almacén de datos. Los registros rechazados van a una salida de dead-letter con la carga original, el tipo de error y el identificador del evento.",
+   "src": "f2065929a17b"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Registro",
+   "src": "e301820ac839"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "entrante",
+   "src": "70ce871f8a3d"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Filas válidas",
+   "src": "fee8f6c27a45"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "al almacén",
+   "src": "bad60c3de437"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Salida de",
+   "src": "7254a1907790"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "dead-letter",
+   "src": "e0ee8bb50685"
+  },
+  "block.keyFact": {
+   "es": "Separa las filas válidas de una salida de dead-letter que contenga la carga original, el tipo de error y el identificador del evento.",
+   "src": "4223299fa998"
+  },
+  "block.check.question": {
+   "es": "Una caída temporal de una API hace que fallen algunos registros. ¿Qué encaja?",
+   "src": "f0e8c57cab1f"
+  },
+  "block.check.choices.0.text": {
+   "es": "Tratarlo como datos inválidos permanentes",
+   "src": "7995d39cc778"
+  },
+  "block.check.choices.0.why": {
+   "es": "Distingue los datos inválidos permanentes de los errores temporales del servicio.",
+   "src": "fcf7440cd376"
+  },
+  "block.check.choices.1.text": {
+   "es": "Repetir el registro sin fin",
+   "src": "864022ea8dfa"
+  },
+  "block.check.choices.1.why": {
+   "es": "Repetir sin fin una entrada mala permanente consume capacidad y bloquea trabajo útil.",
+   "src": "982850cd3edb"
+  },
+  "block.check.choices.2.text": {
+   "es": "Reintento acotado con backoff",
+   "src": "30ca57fab3de"
+  },
+  "block.check.choices.2.why": {
+   "es": "Usa reintentos acotados con backoff para los fallos transitorios.",
+   "src": "0801ffef628e"
+  }
  }
 }
