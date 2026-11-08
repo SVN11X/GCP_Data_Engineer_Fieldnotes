@@ -5,6 +5,7 @@ import vm from 'node:vm';
 import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
 import {validateLog,comparisonIds} from './verification-log.mjs';
+import {validateComparisons} from './comparisons.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),dist=path.join(root,'dist');
 const pack=JSON.parse(fs.readFileSync(path.join(dist,'data/study-pack.json'),'utf8'));
 assert.equal(pack.version,2);assert.equal(pack.lessons.length,52);assert.equal(pack.questions.length,473);
@@ -73,7 +74,7 @@ assert.equal(Object.values(pack.assets).filter(a=>a.transcription?.kind==='table
 const html=fs.readFileSync(path.join(dist,'index.html'),'utf8');
 for(const m of html.matchAll(/(?:src|href)="([^"#]+)"/g)){if(m[1].startsWith('http'))continue;assert.ok(fs.existsSync(path.join(dist,m[1])),'Missing asset '+m[1]);assert.ok(!m[1].startsWith('/'),'Absolute Pages asset path');}
 assert.ok(html.includes("connect-src 'self'"));assert.ok(!html.includes('unsafe-eval'));
-for(const file of ['app','core','data','knowledge','loader','study-ui','attention','image-text','entry','entry-core','review','review-core'])new vm.Script(fs.readFileSync(path.join(dist,'assets/'+file+'.js'),'utf8'),{filename:file});
+for(const file of ['app','core','data','knowledge','loader','study-ui','attention','image-text','entry','entry-core','review','review-core','compare'])new vm.Script(fs.readFileSync(path.join(dist,'assets/'+file+'.js'),'utf8'),{filename:file});
 const context={};vm.runInNewContext(fs.readFileSync(path.join(dist,'assets/data.js'),'utf8'),context);const boot=context.FIELDNOTES_DATA;
 assert.ok(boot.lessons.every(l=>!l.sections),'Lesson bodies must load on demand');
 assert.ok(boot.questions.every(q=>!q.answer&&q.choices.length===0),'Answer bodies must load on demand');
@@ -88,6 +89,9 @@ assert.equal(index.release,boot.release);assert.equal(new Set(index.documents.ma
 for(const document of index.documents){assert.ok(document.href.startsWith('#'));assert.ok(document.search);}
 const vlog=JSON.parse(fs.readFileSync(path.join(dist,'data/verification-log.json'),'utf8'));
 assert.deepEqual(validateLog(vlog,{lesson:pack.lessons.map(l=>l.id),service:pack.services.map(x=>x.id),comparison:comparisonIds(path.join(root,'content'))}),[],'Verification log');
+const cmp=JSON.parse(fs.readFileSync(path.join(dist,'data/comparisons.json'),'utf8'));
+assert.deepEqual(validateComparisons(cmp,vlog,pack.lessons.map(l=>l.id)),[],'Comparisons');
+assert.ok(fs.existsSync(path.join(dist,'assets/compare.js'))&&fs.existsSync(path.join(dist,'assets/compare.css')));assert.ok(!html.includes('compare.js')&&!html.includes('compare.css'),'compare assets must stay lazy');
 assert.ok(fs.existsSync(path.join(dist,'assets/verification.js')));assert.ok(!html.includes('verification.js'),'verification.js must stay lazy');
 const metrics=JSON.parse(fs.readFileSync(path.join(dist,'data/build-metrics.json'),'utf8'));
 assert.ok(metrics.bootBytes<230000,'Catalog payload budget');

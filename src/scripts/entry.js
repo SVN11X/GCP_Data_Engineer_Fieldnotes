@@ -50,7 +50,15 @@ root.FieldEntry={create({D,C,e,tag,render,setPracticeDomain}){
  }
  const lazy=(t,f)=>new Promise((ok,no)=>{const el=document.createElement(t);if(t==='link'){el.rel='stylesheet';el.href='assets/'+f+'?v='+D.release;}else el.src='assets/'+f+'?v='+D.release;el.onload=ok;el.onerror=no;document.head.append(el);});
  let R,loading;
+ let K,kLoading;
+ const fetchJSON=n=>fetch('data/'+n+'.json?v='+D.release,{credentials:'omit'}).then(r=>{if(!r.ok)throw new Error('Content request failed ('+r.status+').');return r.json();});
+ async function compare(id){
+  if(!K){kLoading=kLoading||Promise.all([lazy('link','compare.css'),lazy('script','compare.js'),fetchJSON('comparisons'),fetchJSON('verification-log')]).catch(x=>{kLoading=null;throw x;});const [,,items,log]=await kLoading;K={...globalThis.FieldCompare.create({D,e}),items,log};}
+  const cid=String(id).slice(8),c=K.items.find(x=>x.id===cid);
+  return c?K.detail(c,globalThis.FieldCompare.entryFor(K.log,cid)):K.list(K.items);
+ }
  async function review(id){
+  if(/^compare(-|$)/.test(String(id)))return compare(id);
   if(!R){loading=loading||Promise.all([lazy('link','review.css'),lazy('script','review-core.js')]).then(()=>lazy('script','review.js')).catch(x=>{loading=null;throw x;});await loading;R=globalThis.FieldReview.create({D,C,e});}
   const n=Number(id);return Number.isInteger(n)&&n>=1&&n<=5?R.summary(n):R.plan();
  }
