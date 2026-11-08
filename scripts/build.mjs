@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import {fileURLToPath} from 'node:url';
+import {validateLog,warnings} from './verification-log.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const read=n=>JSON.parse(fs.readFileSync(path.join(root,'content',n+'.json'),'utf8'));
 const imported=read('imported'),imageText=read('image-text'),preservation=read('imported-preservation');
@@ -34,6 +35,13 @@ const release=crypto.createHash('sha256').update(JSON.stringify(data)).digest('h
 data.release=release;
 for(const d of data.domains){write('lessons/domain-'+d.id,data.lessons.filter(l=>l.domain===d.id));write('questions/domain-'+d.id,data.questions.filter(q=>q.domain===d.id&&q.origin==='authored'));write('imported/domain-'+d.id,data.questions.filter(q=>q.domain===d.id&&q.origin==='imported'));}
 for(const key of ['workshops','architectures','knowledgeAudit','verification'])write(key,data[key]);
+// Verification log: validated, then served as its own demand-loaded file. Gaps and old entries only warn for now.
+const verificationLog=read('verification-log'),logIds={lesson:data.lessons.map(l=>l.id),service:data.services.map(x=>x.id),comparison:[]};
+const logErrors=validateLog(verificationLog,logIds);
+if(logErrors.length)throw new Error('Invalid content/verification-log.json:\n'+logErrors.join('\n'));
+write('verification-log',verificationLog);
+// BUILD_DATE (YYYY-MM-DD) makes the 90 day rule reproducible in tests.
+for(const line of warnings(verificationLog,logIds,process.env.BUILD_DATE||new Date().toISOString().slice(0,10)))console.warn('WARNING: '+line);
 const normalize=s=>String(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
 const imageSearch=q=>[...new Set([...((q.html||'')+' '+q.choices.map(c=>c.html||'').join(' ')).matchAll(/assets\/images\/([^\"/]+)\"/g)].map(m=>m[1]))].map(file=>{const t=imageText[file];return !t?'':t.kind==='text'?t.text:t.groups.map(g=>[g.row,g.id,g.name,...g.components.flat()].join(' ')).join(' ');}).join(' ');
 const search=[];

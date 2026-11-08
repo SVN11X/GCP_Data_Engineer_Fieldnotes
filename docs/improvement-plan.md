@@ -50,7 +50,7 @@ Format: `- [ ]` pending, `- [x]` done, `- [x] SKIPPED: reason`, `- [ ] BLOCKED: 
 
 ## Verification with the Google MCP
 
-- [ ] 30. G Extend content/verification.json per topic with MCP query, source URL and date. The UI shows date and source. The build warns on gaps and on entries older than 90 days.
+- [x] 30. G Added content/verification-log.json (query, source, date per topic), a lazy lesson-page line and build warnings for gaps and entries over 90 days.
 - [ ] 31. G Verify domain 1 topics with the MCP and the official certification page. Fix stale claims.
 - [ ] 32. G Verify domain 2 topics with the MCP. Fix stale claims.
 - [ ] 33. G Verify domain 3 topics with the MCP. Fix stale claims.

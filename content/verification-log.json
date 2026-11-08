@@ -1,0 +1,27 @@
+[
+  {
+    "topic": "exam",
+    "kind": "exam",
+    "checkedOn": "2026-11-08",
+    "method": "official-page",
+    "query": "Professional Data Engineer certification page and exam guide v4.2",
+    "sources": [
+      "https://cloud.google.com/learn/certification/data-engineer",
+      "https://services.google.com/fh/files/misc/professional_data_engineer_exam_guide_english.pdf"
+    ],
+    "result": "confirmed",
+    "note": "Domain titles, objectives and weights match guide v4.2."
+  },
+  {
+    "topic": "capacity",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "What are BigQuery editions?",
+    "sources": [
+      "https://docs.cloud.google.com/bigquery/docs/editions-intro"
+    ],
+    "result": "confirmed",
+    "note": "Three editions: Standard, Enterprise and Enterprise Plus; editions are a property of compute, not storage; changing the edition of a reservation means deleting and recreating it."
+  }
+]

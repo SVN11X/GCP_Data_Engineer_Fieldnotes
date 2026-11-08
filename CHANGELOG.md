@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Added a verification log (content/verification-log.json) with the date, method, query and official source of each check. Lesson pages show a lazy line with the date and source or say the lesson is not yet verified, and the build warns about topics without an entry and entries older than 90 days.
 - Added a fast review path: #review splits a 1 or 2 hour plan across the five domains by exam weight with objective checklists and lesson links, and #review/1 to #review/5 give a one-page summary per domain from existing lesson key facts. The reviewer path and the diagnostic result link to it. New code loads on demand.
 - Added the first-visit question "Do you know the exam?" with two switchable paths: a newcomer orientation (#orientation) and a 10-question diagnostic from original questions (#diagnostic) that names the weakest domain. The choice is stored under its own key, nothing enters saved progress, and the orientation text awaits owner review.
 - Added lesson blocks to all ten domain 5 lessons, with correct quick-check answers spread over all three positions. Text is derived from the lessons and awaits owner review.
