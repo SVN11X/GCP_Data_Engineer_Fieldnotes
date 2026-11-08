@@ -914,5 +914,171 @@
    "es": "Se confirmó que RAG tiene etapas separadas de recuperación y de generación, y que una API de verificación de apoyo en fuentes (check grounding) puntúa las respuestas contra las fuentes recuperadas. No se comprobaron los consejos sobre la eliminación de documentos, la revocación de acceso y el texto no confiable.",
    "src": "3a7552733944"
   }
+ },
+ "share": {
+  "title": {
+   "es": "Publica productos de datos con un contrato de acceso",
+   "src": "2f9d2e5e7570"
+  },
+  "lead": {
+   "es": "Comparte el subconjunto que se puede usar y deja claro quién es el responsable.",
+   "src": "32af7adfabf4"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "Una vista autorizada (authorized view) puede mostrar el resultado de una consulta elegida sin dar acceso directo a las tablas de origen. BigQuery sharing, también conocido como Analytics Hub, distribuye listados (listings) gobernados a los que los consumidores pueden suscribirse.",
+   "src": "bcec3b1200bf"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Elige una vista para una forma restringida de los datos y un listado para el descubrimiento y la suscripción reutilizables. Documenta la frescura, la ubicación, quién paga los costos y quién puede dar acceso.",
+   "src": "68a86ca2232e"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Un socio solo necesita las ventas regionales agregadas. Expón la agregación permitida y publica su contrato. No des acceso amplio a las filas crudas de clientes.",
+   "src": "0dc0f8e32036"
+  },
+  "sections.3.title": {
+   "es": "Publica un contrato de acceso a los datos",
+   "src": "08c5db01242b"
+  },
+  "sections.3.body": {
+   "es": "Un intercambio (exchange) o un listado da a los consumidores una ruta de acceso que pueden encontrar, pero no explica por sí solo el significado de negocio. Registra el responsable, la audiencia permitida, la ubicación, la frescura, la calidad y quién paga los costos. Quien consume los datos debe saber si ve observaciones crudas, totales corregidos o una instantánea (snapshot) que se actualiza cada cierto tiempo.",
+   "src": "df1fd5f8dd6e"
+  },
+  "sections.4.title": {
+   "es": "Expón solo la forma que se necesita",
+   "src": "0e39e3c98310"
+  },
+  "sections.4.body": {
+   "es": "Usa una vista autorizada cuando el resultado de una consulta elegida cubra el requisito de compartir. Usa controles por fila o por columna cuando la política de lectura de los datos de origen deba variar según la identidad o el campo. Revisa los permisos efectivos del consumidor y la relación de autorización. No supongas que un enlace a un reporte da el acceso a los datos que quieres dar.",
+   "src": "72a2cc9ffe0a"
+  },
+  "sections.5.title": {
+   "es": "Planifica los cambios y las revocaciones",
+   "src": "6485239ac529"
+  },
+  "sections.5.body": {
+   "es": "Un productor puede cambiar esquemas, retirar un producto o revocar un acceso. Documenta qué cambios son compatibles y cómo se enteran los consumidores. No enseñes el uso compartido con terceros como una exportación única cuando el requisito es un acceso gobernado y reutilizable a datos actuales.",
+   "src": "8f753bf0d522"
+  },
+  "trap": {
+   "es": "Compartir la URL de un reporte no autoriza, por sí solo, a quien lo ve a acceder a los datos de origen.",
+   "src": "a787be92ecde"
+  },
+  "exercise.prompt": {
+   "es": "Un socio se suscribe a un listado, pero interpreta mal un campo de ingresos como ingresos netos. ¿Qué le faltaba al producto?",
+   "src": "771b6d5434e9"
+  },
+  "exercise.answer": {
+   "es": "La definición de negocio y el contrato del reporte eran insuficientes. El acceso y el descubrimiento funcionaron, pero el consumidor también necesita una granularidad (grain) clara, el significado de la métrica, las expectativas de actualización y el responsable. Compartir datos es a la vez un problema de seguridad y de diseño semántico.",
+   "src": "e49ce37dfc98"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Elige un mecanismo para compartir según una audiencia concreta.",
+   "src": "2a1276364c92"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Define la granularidad de la métrica y el contrato de frescura.",
+   "src": "3de0c26b1676"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Explica la revocación y los cambios de esquema compatibles.",
+   "src": "34a4a925782d"
+  },
+  "briefing.context": {
+   "es": "Un equipo quiere que otro equipo use su producto de datos.",
+   "src": "5472993eb522"
+  },
+  "briefing.whyItMatters": {
+   "es": "Compartir un conjunto de datos sin un contrato de acceso y de frescura crea responsabilidades confusas.",
+   "src": "6bde60631a3e"
+  },
+  "briefing.takeaway": {
+   "es": "Define quién puede consumir qué datos y con qué expectativas.",
+   "src": "12efc0a1e129"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Compartir solo lo necesario",
+   "src": "092cb01a34cd"
+  },
+  "block.diagram.description": {
+   "es": "Expón la forma que se necesita, publica un contrato de acceso y planifica los cambios y la revocación.",
+   "src": "7c9dc9554495"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Expón solo la",
+   "src": "17857b32d3a2"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "forma necesaria",
+   "src": "34aeeb3c7baa"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Publica un contrato",
+   "src": "4ff5b9cac9c5"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "de acceso",
+   "src": "4cb0b1c8b2b6"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Planifica cambios",
+   "src": "5a7933623daa"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "y revocación",
+   "src": "2a3c5fe92785"
+  },
+  "block.keyFact": {
+   "es": "Compartir la URL de un reporte no autoriza, por sí solo, a quien lo ve a acceder a los datos de origen.",
+   "src": "a787be92ecde"
+  },
+  "block.check.question": {
+   "es": "Un socio solo necesita las ventas regionales agregadas. ¿Qué haces?",
+   "src": "a306c02c9c33"
+  },
+  "block.check.choices.0.text": {
+   "es": "Exponer la agregación permitida y publicar su contrato",
+   "src": "c8e559d56d52"
+  },
+  "block.check.choices.0.why": {
+   "es": "No des acceso amplio a las filas crudas de clientes.",
+   "src": "0bab8fcff929"
+  },
+  "block.check.choices.1.text": {
+   "es": "Dar acceso a las filas crudas de clientes",
+   "src": "cfc0b787acc0"
+  },
+  "block.check.choices.1.why": {
+   "es": "El socio solo necesita la agregación permitida.",
+   "src": "7f63e7b429b1"
+  },
+  "block.check.choices.2.text": {
+   "es": "Enviar la URL de un reporte",
+   "src": "bb282b7bdc08"
+  },
+  "block.check.choices.2.why": {
+   "es": "El enlace a un reporte no autoriza el acceso a los datos de origen.",
+   "src": "81fed77702ec"
+  },
+  "verification.note": {
+   "es": "Se confirmó que BigQuery sharing es el antiguo Analytics Hub, que los suscriptores reciben datasets vinculados (linked datasets) de solo lectura y que las vistas autorizadas ocultan los datasets de origen. La lección dice también conocido como. No se comprobó el acceso mediante el enlace a un reporte.",
+   "src": "aa5bb2f424d0"
+  }
  }
 }
