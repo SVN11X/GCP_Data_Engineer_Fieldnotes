@@ -5,7 +5,7 @@ owner: SVN11X
 name: GCP_Data_Engineer_Fieldnotes
 profile: web
 setup: done
-license: none
+license: MIT
 content_language: en
 github:
   description: Independent bilingual study site for the Google Cloud Professional Data Engineer exam

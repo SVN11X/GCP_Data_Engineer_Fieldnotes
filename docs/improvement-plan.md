@@ -11,7 +11,8 @@ Format: `- [ ]` pending, `- [x]` done, `- [x] SKIPPED: reason`, `- [ ] BLOCKED: 
 - [ ] BLOCKED: 3. Y Move the client in dist/ (index.html, assets code) to src/, mark.svg and 25 images to assets/, untrack dist/. Do you approve? It changes how the site is built. Details after item 4.
 - [ ] BLOCKED: 4. Y Do you approve docs/migration-plan.yml: INSTALLATION, KNOWLEDGE_REVIEW and VALIDATION move to docs/ in lowercase, and reports/ goes to docs/reports/? README links and build.mjs:57 get fixed.
 - [x] 5. G Add docs/glossary.md and docs/assumptions.md. Each later decision record is written in the pull request that needs it.
-- [ ] 6. G Add an MIT LICENSE for code, excluding content/imported.json and the 25 source images. BLOCKED: which license for the original content?
+- [x] 6. G Add an MIT LICENSE for code, excluding content/imported.json and the 25 source images (done).
+- [ ] BLOCKED: 6b. G Which license should the original written content use, for example CC BY 4.0? Until you choose, the README says it is still to be chosen.
 - [ ] 7. G Footer and About notice: not affiliated with or endorsed by Google, trademarks of Google LLC. Credit and links to Google Cloud docs (CC BY 4.0) on every lesson.
 - [ ] 8. G LICENSES/ folder and credits page for every third-party asset with license and reason. Keep CSP default-src 'self'.
 - [ ] 9. G Commit package-lock.json. Run the pinned standard check and gitleaks in CI after radar review. Keep minimal workflow permissions.

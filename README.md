@@ -45,3 +45,7 @@ No backend, remote search API, tracking, runtime CDN, paid dependency, browser p
 The context-first flow and visual-reference inspection scope are documented in [reports/DESIGN_NOTES.md](reports/DESIGN_NOTES.md).
 
 See [INSTALLATION.md](INSTALLATION.md), [CHANGELOG.md](CHANGELOG.md), [VALIDATION.md](VALIDATION.md), [reports/CONTENT_INVENTORY.md](reports/CONTENT_INVENTORY.md) and [reports/UPDATE_REPORT.md](reports/UPDATE_REPORT.md).
+
+## License
+
+The source code is released under the [MIT License](LICENSE). The license does not cover the 349 owner-supplied imported questions in `content/imported.json` or the 25 source images, which were supplied by the owner and are not relicensed here. Google Cloud product names and documentation belong to Google LLC. The license for the site's original written content is still to be chosen by the owner.
