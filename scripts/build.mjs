@@ -4,7 +4,7 @@ import crypto from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {validateLog,warnings,assertNoGaps,comparisonIds} from './verification-log.mjs';
 import {validateComparisons} from './comparisons.mjs';
-import {validateOverlay,overlayDomains,readOverlay} from './lesson-es.mjs';
+import {validateOverlay,overlayDomains,readOverlay,esTitles} from './lesson-es.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const read=n=>JSON.parse(fs.readFileSync(path.join(root,'content',n+'.json'),'utf8'));
 const imported=read('imported'),imageText=read('image-text'),preservation=read('imported-preservation');
@@ -42,6 +42,8 @@ for(const d of data.domains){write('lessons/domain-'+d.id,data.lessons.filter(l=
 for(const key of ['workshops','architectures','knowledgeAudit','verification'])write(key,data[key]);
 fs.mkdirSync(path.join(dataDir,'es','lessons'),{recursive:true});
 for(const [d,overlay] of esOverlays)write('es/lessons/domain-'+d,overlay);
+// Titles index for list pages: lesson id -> Spanish title and lead (with the same hash rule), for every translated lesson of every domain.
+write('es/titles',esTitles(esOverlays));
 // Verification log: validated, then served as its own demand-loaded file. Missing records fail the build, entries older than 90 days only warn.
 const verificationLog=read('verification-log'),logIds={lesson:data.lessons.map(l=>l.id),service:data.services.map(x=>x.id),comparison:comparisonIds(path.join(root,'content'))};
 const logErrors=validateLog(verificationLog,logIds);
@@ -75,7 +77,7 @@ write('search-index',{release,documents:search});
 const pick=(obj,keys)=>Object.fromEntries(keys.filter(k=>obj[k]!==undefined).map(k=>[k,obj[k]]));
 const questionKeys=['id','number','origin','domain','objective','lesson','text','required','difficulty','gradable','status','references','hasImages'];
 write('imported/catalog',imported.questions.map(q=>({...pick(q,questionKeys),choices:[],search:normalize(q.text+' '+q.choices.map(c=>c.transcription||c.text).join(' ')+' '+imageSearch(q))})));
-const boot={...data,preservation:undefined,importedQuestionMeta:imported.questions.map(q=>[q.number,q.domain,q.lesson,q.required,q.status,q.gradable,q.hasImages]),lessons:data.lessons.map(l=>pick(l,['id','domain','objective','title','minutes','lead','level','reviewed','review','references','keywords'])),questions:data.questions.filter(q=>q.origin==='authored').map(q=>({...pick(q,questionKeys),choices:[],search:normalize(q.choices.map(c=>c.text).join(' '))})),workshops:data.workshops.map(w=>pick(w,['id','title','domain','lessons','goal','minutes','mode','steps','references'])),sourceAudit:{...data.sourceAudit,results:data.sourceAudit.results.map(r=>pick(r,['id','available','status']))},architectures:[],knowledgeAudit:null,verification:null,manifest:{release,lessons:'data/lessons/domain-',lessonsEs:'data/es/lessons/domain-',esDomains,questions:'data/questions/domain-',imported:'data/imported/domain-',importedCatalog:'data/imported/catalog.json',workshops:'data/workshops.json',architectures:'data/architectures.json',knowledgeAudit:'data/knowledgeAudit.json',verification:'data/verification.json',search:'data/search-index.json'}};
+const boot={...data,preservation:undefined,importedQuestionMeta:imported.questions.map(q=>[q.number,q.domain,q.lesson,q.required,q.status,q.gradable,q.hasImages]),lessons:data.lessons.map(l=>pick(l,['id','domain','objective','title','minutes','lead','level','reviewed','review','references','keywords'])),questions:data.questions.filter(q=>q.origin==='authored').map(q=>({...pick(q,questionKeys),choices:[],search:normalize(q.choices.map(c=>c.text).join(' '))})),workshops:data.workshops.map(w=>pick(w,['id','title','domain','lessons','goal','minutes','mode','steps','references'])),sourceAudit:{...data.sourceAudit,results:data.sourceAudit.results.map(r=>pick(r,['id','available','status']))},architectures:[],knowledgeAudit:null,verification:null,manifest:{release,lessons:'data/lessons/domain-',lessonsEs:'data/es/lessons/domain-',esTitles:'data/es/titles.json',esDomains,questions:'data/questions/domain-',imported:'data/imported/domain-',importedCatalog:'data/imported/catalog.json',workshops:'data/workshops.json',architectures:'data/architectures.json',knowledgeAudit:'data/knowledgeAudit.json',verification:'data/verification.json',search:'data/search-index.json'}};
 const encoded=JSON.stringify(boot).replaceAll('<','\\u003c').replaceAll('\u2028','\\u2028').replaceAll('\u2029','\\u2029');
 const seed='\nfor(const [number,domain,lesson,required,status,gradable,hasImages] of FIELDNOTES_DATA.importedQuestionMeta)FIELDNOTES_DATA.questions.push({id: "imp-"+number,number,domain,lesson,required,status,gradable,hasImages,origin:"imported",text:"",search:"",choices:[],references:[]});\ndelete FIELDNOTES_DATA.importedQuestionMeta;\n';
 fs.writeFileSync(path.join(output,'assets/data.js'),'/* Generated catalog; full content is loaded by route. */\nglobalThis.FIELDNOTES_DATA = '+encoded+';'+seed);

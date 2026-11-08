@@ -1,7 +1,10 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import {sha12,lessonPaths,validateOverlay,status,coverage,merge,readOverlay,englishLessons,overlayDomains} from '../scripts/lesson-es.mjs';
+import vm from 'node:vm';
+import {sha12,lessonPaths,validateOverlay,status,coverage,merge,readOverlay,englishLessons,overlayDomains,englishNotes,esTitles,NOTE_PATH} from '../scripts/lesson-es.mjs';
+import '../dist/assets/loader.js';
+import '../src/scripts/verification.js';
 const ES=globalThis.FieldLessonEs;
 const lessons=JSON.parse(fs.readFileSync(new URL('../content/lessons.json',import.meta.url),'utf8'));
 const sample=()=>({id:'demo',domain:1,title:'Use BigQuery with 3 tables',lead:'Read it.',sections:[{title:'Idea',body:'Dataflow writes 12 rows.'}],block:{diagram:{title:'T',description:'D',nodes:[{lines:['Pub/Sub','topic']}]},keyFact:'Fact',check:{question:'Which?',choices:[{text:'A',correct:false,why:'Because A.'},{text:'B',correct:true,why:'Because B.'}]}}});
@@ -87,4 +90,89 @@ test('domain 1 has 100 percent coverage, no Spanish with semicolons or long dash
  assert.equal(c.ok,c.total,'domain 1 translated '+c.ok+' of '+c.total);
  assert.ok(c.total>=254);
  for(const [id,entries] of Object.entries(o))for(const [p,x] of Object.entries(entries))assert.ok(!/[;–—]/.test(x.es),id+':'+p);
+});
+test('domain 2 has 100 percent coverage of translatable strings, notes included, and plain Spanish',()=>{
+ const l=englishLessons(2),o=readOverlay(2),c=coverage(o,l);
+ assert.equal(l.length,16);
+ assert.equal(c.ok,c.total,'domain 2 translated '+c.ok+' of '+c.total);
+ assert.ok(c.total>=475);
+ assert.deepEqual(validateOverlay(o,l),[]);
+ for(const [id,entries] of Object.entries(o))for(const [p,x] of Object.entries(entries))assert.ok(!/[;–—]/.test(x.es),id+':'+p);
+});
+test('every domain 1 and 2 lesson with a log note has a Spanish note under verification.note',()=>{
+ const notes=englishNotes();
+ for(const d of [1,2])for(const l of englishLessons(d)){
+  assert.ok(notes.has(l.id),l.id+' has a log note');
+  const x=readOverlay(d)[l.id]['verification.note'];
+  assert.equal(x.src,sha12(notes.get(l.id)),l.id);
+ }
+});
+test('a stale, bad or unknown verification note fails validation',()=>{
+ const l=sample(),notes=new Map([['demo','Checked 7 days of retention for Pub/Sub.']]);
+ const run=o=>validateOverlay(o,[l],undefined,notes);
+ const ok={es:'Se comprobaron 7 días de retención de Pub/Sub.',src:sha12(notes.get('demo'))};
+ assert.deepEqual(run({demo:{[NOTE_PATH]:ok}}),[]);
+ assert.ok(run({demo:{[NOTE_PATH]:{...ok,src:'000000000000'}}}).some(e=>/stale/.test(e)));
+ assert.ok(run({demo:{[NOTE_PATH]:{...ok,es:'Se comprobó la retención de Pub/Sub.'}}}).some(e=>/numbers differ/.test(e)));
+ assert.ok(run({demo:{[NOTE_PATH]:{...ok,es:'Se comprobaron 7 días de retención.'}}}).some(e=>/protected name "Pub\/Sub"/.test(e)));
+ assert.ok(validateOverlay({demo:{[NOTE_PATH]:ok}},[l],undefined,new Map()).some(e=>/path does not exist/.test(e)),'no log note, no path');
+ assert.deepEqual(status({},[l],notes).filter(r=>r.path===NOTE_PATH).map(r=>r.state),['missing']);
+});
+test('the Spanish note shows only when its hash matches and otherwise falls back to English',async()=>{
+ const V=globalThis.FieldVerification,entry={checkedOn:'2026-11-08',method:'official-page',sources:['https://cloud.google.com/x'],note:'Checked a thing.'};
+ const es={'verification.note':{es:'Se comprobó una cosa.',src:sha12(entry.note)}};
+ const hash=async t=>sha12(t);
+ assert.equal(await V.spanishNote(entry,es,hash),'Se comprobó una cosa.');
+ assert.equal(await V.spanishNote(entry,{'verification.note':{...es['verification.note'],src:'000000000000'}},hash),'');
+ assert.equal(await V.spanishNote(entry,undefined,hash),'');
+ assert.ok(V.lineHtml(entry,'Se comprobó una cosa.').includes('Se comprobó una cosa.'));
+ assert.ok(V.lineHtml(entry,'').includes('Checked a thing.'));
+ assert.ok(V.lineHtml(entry).includes('Checked a thing.'));
+});
+test('the build writes a titles index for all translated lessons and it matches the overlays',()=>{
+ const idx=JSON.parse(fs.readFileSync(new URL('../dist/data/es/titles.json',import.meta.url),'utf8')),all=[1,2].flatMap(d=>englishLessons(d));
+ assert.deepEqual(Object.keys(idx).sort(),all.map(l=>l.id).sort());
+ for(const l of all){
+  assert.deepEqual(Object.keys(idx[l.id]),['title','lead']);
+  for(const k of ['title','lead'])assert.deepEqual(idx[l.id][k],{es:readOverlay(l.domain)[l.id][k].es,src:sha12(l[k])},l.id+':'+k);
+ }
+ assert.ok(fs.statSync(new URL('../dist/data/es/titles.json',import.meta.url)).size<30000,'the index stays small');
+ assert.equal(JSON.stringify(esTitles(new Map([[1,{a:{title:{es:'x',src:'s'},'sections.0.body':{es:'y',src:'s'}},b:{'sections.0.body':{es:'y',src:'s'}}}]]))),'{"a":{"title":{"es":"x","src":"s"}}}');
+ const boot={};vm.runInNewContext(fs.readFileSync(new URL('../dist/assets/data.js',import.meta.url),'utf8'),boot);
+ assert.equal(boot.FIELDNOTES_DATA.manifest.esTitles,'data/es/titles.json');
+});
+test('titles apply to lesson lists, fall back per lesson on a missing or stale entry and restore English',async()=>{
+ const mk=()=>[{id:'a',title:'Alpha',lead:'First'},{id:'b',title:'Beta',lead:'Second'},{id:'c',title:'Gamma',lead:'Third'}];
+ const idx={a:{title:{es:'Alfa',src:sha12('Alpha')},lead:{es:'Primero',src:sha12('First')}},b:{title:{es:'Beta es',src:'000000000000'}}};
+ const l=mk();
+ await ES.applyTitles(l,idx,true);
+ assert.deepEqual(l.map(x=>[x.title,x.lead]),[['Alfa','Primero'],['Beta','Second'],['Gamma','Third']],'a stale and a missing entry keep English');
+ await ES.applyTitles(l,idx,false);
+ assert.deepEqual(l,mk());
+ await ES.applyTitles(l,null,true);
+ assert.deepEqual(l,mk(),'no index leaves English');
+});
+test('the loader fetches the titles index once for lists, never a whole overlay, and only in Spanish',async()=>{
+ const sandbox={};vm.runInNewContext(fs.readFileSync(new URL('../dist/assets/data.js',import.meta.url),'utf8'),sandbox);
+ const data=JSON.parse(JSON.stringify(sandbox.FIELDNOTES_DATA)),calls=[],scripts=[];
+ globalThis.document={createElement:()=>({}),head:{append:el=>{scripts.push(el.src);queueMicrotask(()=>el.onload());}}};
+ const fetcher=async url=>{calls.push(new URL(url).pathname.split('/data/')[1]);return {ok:true,json:async()=>JSON.parse(fs.readFileSync(new URL('../dist/data/'+new URL(url).pathname.split('/data/')[1],import.meta.url),'utf8'))};};
+ try{
+  let lang='en';
+  const loader=globalThis.FieldLoader.create(data,fetcher,'https://example.test/p/',()=>lang);
+  const first=data.lessons.find(x=>x.id==='event-time').title;
+  await loader.ensure('learn');
+  assert.deepEqual(calls,[],'English visitors request no Spanish file');
+  lang='es';
+  await loader.ensure('learn');
+  assert.deepEqual(calls,['es/titles.json']);
+  assert.notEqual(data.lessons.find(x=>x.id==='event-time').title,first,'the list title is Spanish without opening the lesson');
+  assert.ok(data.lessons.find(x=>x.id==='least-privilege').title.startsWith('Da a cada'));
+  await loader.ensure('review');
+  assert.ok(calls.every(c=>c==='es/titles.json'||c.startsWith('lessons/domain-')),calls.join());
+  assert.ok(data.lessons.find(x=>x.id==='event-time').title!==first,'titles survive loading the full lessons');
+  lang='en';
+  await loader.ensure('learn');
+  assert.equal(data.lessons.find(x=>x.id==='event-time').title,first,'English is restored');
+ }finally{delete globalThis.document;}
 });

@@ -6,9 +6,19 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import '../src/scripts/lesson-es.js';
+import {latestByTopic} from './verification-log.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 export const sha12=text=>crypto.createHash('sha256').update(String(text)).digest('hex').slice(0,12);
 export const lessonPaths=lesson=>globalThis.FieldLessonEs.paths(lesson);
+/* The verification note of a lesson (content/verification-log.json, latest entry) is also translatable, under the path verification.note. */
+export const NOTE_PATH='verification.note';
+export const englishNotes=()=>{
+ const log=JSON.parse(fs.readFileSync(path.join(root,'content','verification-log.json'),'utf8'));
+ return new Map([...latestByTopic(log)].filter(([k,x])=>k.startsWith('lesson:')&&x.note).map(([k,x])=>[k.slice(7),x.note]));
+};
+let notesCache;
+const defaultNotes=()=>notesCache||(notesCache=englishNotes());
+export const allPaths=(lesson,notes=defaultNotes())=>[...lessonPaths(lesson),...(notes.has(lesson.id)?[[NOTE_PATH,notes.get(lesson.id)]]:[])];
 /* Product names that must survive translation unchanged. Checked only when the English string contains them. */
 const PRODUCTS=['BigQuery','Dataflow','Pub/Sub','Cloud Storage','Bigtable','Spanner','Dataproc','Cloud Composer','Data Fusion','Dataform','Looker','Vertex AI','Cloud Scheduler','Dataplex','Managed Service for Apache Airflow','Managed Service for Apache Spark','Managed Kafka','Cloud SQL','Datastream','Database Migration Service','Storage Transfer Service','Transfer Appliance','Cloud Run','Cloud KMS','Cloud Logging','Cloud Monitoring','Cloud Functions','Cloud Build','Compute Engine','Google Kubernetes Engine','Dataprep','Datastore','Firestore','Memorystore','Workflows','Eventarc','Analytics Hub','BigLake','Apache Beam','Apache Kafka','Apache Spark','Apache Airflow','Terraform','IAM','VPC Service Controls','Secret Manager','Security Command Center','Data Catalog','Cloud DLP','Sensitive Data Protection','Cloud Identity','Workload Identity Federation'];
 const protectedNames=()=>{
@@ -18,13 +28,13 @@ const protectedNames=()=>{
 const numbers=s=>(String(s).match(/\d+(?:[.,]\d+)?/g)||[]).sort().join('|');
 const termRe=t=>new RegExp('(?<![\\w])'+t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'(?![\\w])');
 /* Returns a list of error strings. Empty means valid. lessons are the English lessons of ONE domain. */
-export function validateOverlay(overlay,lessons,names=protectedNames()){
+export function validateOverlay(overlay,lessons,names=protectedNames(),notes=defaultNotes()){
  const errors=[],byId=new Map(lessons.map(l=>[l.id,l]));
  if(!overlay||typeof overlay!=='object'||Array.isArray(overlay))return ['overlay must be an object keyed by lesson id'];
  for(const [id,entries] of Object.entries(overlay)){
   const lesson=byId.get(id);
   if(!lesson){errors.push(id+': unknown lesson id for this domain');continue;}
-  const english=new Map(lessonPaths(lesson));
+  const english=new Map(allPaths(lesson,notes));
   for(const [p,x] of Object.entries(entries||{})){
    const where=id+':'+p;
    if(!english.has(p)){errors.push(where+': path does not exist in the English lesson');continue;}
@@ -39,30 +49,30 @@ export function validateOverlay(overlay,lessons,names=protectedNames()){
    const done=choices.filter((_,i)=>entries['block.check.choices.'+i+'.text']).length;
    if(done!==choices.length)errors.push(id+': quick check has '+choices.length+' choices but '+done+' translated texts');
    const copy=structuredClone(lesson);
-   for(const [p,x] of Object.entries(entries))if(english.has(p)&&x?.es)globalThis.FieldLessonEs.setAt(copy,p,x.es);
+   for(const [p,x] of Object.entries(entries))if(english.has(p)&&p!==NOTE_PATH&&x?.es)globalThis.FieldLessonEs.setAt(copy,p,x.es);
    if(copy.block.check.choices.length!==choices.length||copy.block.check.choices.some((c,i)=>c.correct!==choices[i].correct))errors.push(id+': correct choice moved');
   }
  }
  return errors;
 }
 /* Per path state: ok, missing or stale. */
-export function status(overlay,lessons){
+export function status(overlay,lessons,notes=defaultNotes()){
  const out=[];
- for(const lesson of lessons)for(const [p,en] of lessonPaths(lesson)){
+ for(const lesson of lessons)for(const [p,en] of allPaths(lesson,notes)){
   const x=overlay?.[lesson.id]?.[p],src=sha12(en);
   out.push({id:lesson.id,path:p,en,src,state:!x||!x.es?'missing':x.src===src?'ok':'stale'});
  }
  return out;
 }
-export const coverage=(overlay,lessons)=>{const s=status(overlay,lessons);return {total:s.length,ok:s.filter(x=>x.state==='ok').length};};
+export const coverage=(overlay,lessons,notes)=>{const s=status(overlay,lessons,notes);return {total:s.length,ok:s.filter(x=>x.state==='ok').length};};
 export const overlayFile=domain=>path.join(root,'content','es','lessons-d'+domain+'.json');
 export function readOverlay(domain){const f=overlayFile(domain);return fs.existsSync(f)?JSON.parse(fs.readFileSync(f,'utf8')):null;}
 export const englishLessons=domain=>JSON.parse(fs.readFileSync(path.join(root,'content','lessons.json'),'utf8')).filter(l=>l.domain===domain);
 /* Domains that have an overlay file. */
 export const overlayDomains=()=>fs.existsSync(path.join(root,'content','es'))?fs.readdirSync(path.join(root,'content','es')).map(f=>/^lessons-d(\d+)\.json$/.exec(f)?.[1]).filter(Boolean).map(Number).sort():[];
 /* Adds plain translations ({id:{path:"es"}}) to an overlay, stamping each with the hash of the current English. */
-export function merge(overlay,plain,lessons){
- const out=structuredClone(overlay||{}),byId=new Map(lessons.map(l=>[l.id,new Map(lessonPaths(l))]));
+export function merge(overlay,plain,lessons,notes=defaultNotes()){
+ const out=structuredClone(overlay||{}),byId=new Map(lessons.map(l=>[l.id,new Map(allPaths(l,notes))]));
  for(const [id,entries] of Object.entries(plain)){
   const english=byId.get(id);if(!english)throw new Error('Unknown lesson id '+id);
   out[id]=out[id]||{};
@@ -72,5 +82,15 @@ export function merge(overlay,plain,lessons){
   }
  }
  for(const id of Object.keys(out)){const order=[...byId.get(id).keys()];out[id]=Object.fromEntries(order.filter(p=>out[id][p]).map(p=>[p,out[id][p]]));}
+ return out;
+}
+/* Titles index for list pages: lesson id -> {title, lead} with the same {es, src} entries as the overlays, for every translated lesson of every domain. */
+export function esTitles(overlays){
+ const out={};
+ for(const overlay of (overlays instanceof Map?overlays.values():[overlays]))
+  for(const [id,entries] of Object.entries(overlay||{})){
+   const t={};for(const k of ['title','lead'])if(entries[k])t[k]=entries[k];
+   if(Object.keys(t).length)out[id]=t;
+  }
  return out;
 }

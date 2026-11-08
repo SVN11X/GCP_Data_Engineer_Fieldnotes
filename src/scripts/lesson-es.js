@@ -31,11 +31,13 @@ async function hash12(text){
  return cache.get(text);
 }
 const english={};
+/* English text per path. A lesson object can first be a short list entry and later the full lesson, so new paths are added when they appear. */
+function baseOf(l){const b=english[l.id]||(english[l.id]={});for(const [p,v] of paths(l))if(!(p in b))b[p]=v;return b;}
 /* Puts Spanish (on=true) or English (on=false) into the given lesson objects. Returns the stale paths that fell back to English. */
 async function apply(lessons,overlay,on){
  const stale=[];
  for(const l of lessons){
-  const base=english[l.id]||(english[l.id]=Object.fromEntries(paths(l)));
+  const base=baseOf(l);
   for(const p in base)setAt(l,p,base[p]);
   const entries=on&&overlay?overlay[l.id]:null;if(!entries)continue;
   for(const p in entries){
@@ -48,5 +50,19 @@ async function apply(lessons,overlay,on){
  if(stale.length&&root.console)root.console.warn('Stale Spanish lesson text fell back to English: '+stale.join(', '));
  return stale;
 }
-root.FieldLessonEs={paths,setAt,hash12,apply};
+/* List text only: puts the Spanish title and lead (titles = id -> {title, lead} -> {es, src}) into lesson objects, or restores English.
+   A missing or stale entry keeps English for that lesson. */
+async function applyTitles(lessons,titles,on){
+ for(const l of lessons){
+  const base=baseOf(l),entries=on&&titles?titles[l.id]:null;
+  for(const k of ['title','lead']){
+   if(!(k in base))continue;
+   l[k]=base[k];
+   const x=entries?.[k];if(!x||typeof x.es!=='string'||!x.es.trim())continue;
+   const h=await hash12(base[k]);
+   if(h===null||h===x.src)l[k]=x.es;
+  }
+ }
+}
+root.FieldLessonEs={paths,setAt,hash12,apply,applyTitles};
 })(globalThis);
