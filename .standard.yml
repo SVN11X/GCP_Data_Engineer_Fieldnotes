@@ -24,7 +24,6 @@ parts: {}
 part_options: {}
 extra_folders:
   content: Editable knowledge source of the study site (lessons, questions, glossary, sources). Build scripts read it.
-  dist: Temporary. Committed build output until plan item 3 moves the client to src/ and stops tracking it.
   LICENSES: License texts of third-party assets the repository ships (REUSE layout).
 skills:
 - repo-improve

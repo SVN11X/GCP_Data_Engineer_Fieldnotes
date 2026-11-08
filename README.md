@@ -28,7 +28,7 @@ npm test
 npm run validate
 ```
 
-`content/` is the editable knowledge source. `scripts/build.mjs` generates the public catalog, content chunks, local index, downloadable notes and inventory. `dist/assets/` contains the maintained dependency-free client. `dist/` is the GitHub Pages output. The existing Actions workflow builds and validates it before publication.
+`content/` is the editable knowledge source. `scripts/build.mjs` generates the public catalog, content chunks, local index, downloadable notes and inventory. `src/` holds the dependency-free client: the pages (`index.html`, `credits.html`), `scripts/` and `styles/`. `assets/` holds the images, including the 25 unchanged source images. `npm run build` copies them into `dist/`, which is generated, never committed, and is the GitHub Pages output. The Actions workflow builds, tests and validates it before publication. `npm test` builds first.
 
 For local review, serve `dist/` over HTTP (for example `python -m http.server 8000 --directory dist`). Demand-loaded JSON does not work by double-clicking a `file://` entry. All assets and requests use relative paths and the application keeps hash routes, including under `/GCP_Data_Engineer_Fieldnotes/`.
 

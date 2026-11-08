@@ -39,8 +39,11 @@ Se requiere Node.js 22 o posterior. No se necesita `npm install`: no hay depende
 Para revisar el ZIP completo, descomprímelo en una carpeta nueva. Para revisar localmente por HTTP:
 
 ```powershell
+npm run build
 python -m http.server 8000 --directory dist
 ```
+
+`dist/` ya no se guarda en git: `npm run build` lo genera desde `src/`, `assets/` y `content/`.
 
 La carga de JSON bajo demanda requiere HTTP; abrir `index.html` con `file://` no es suficiente. Se mantienen las rutas anteriores y las nuevas de retos, sesiones breves, comparación y progreso.
 
