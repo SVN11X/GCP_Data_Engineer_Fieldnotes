@@ -151,6 +151,10 @@
   "block.check.choices.2.why": {
    "es": "El contrato de la canalización sigue definiendo la latencia, el rendimiento, el esquema y el comportamiento de la entrega.",
    "src": "8c0ee106d436"
+  },
+  "verification.note": {
+   "es": "Se comprobó que Shared VPC necesita la subred compartida con la cuenta de servicio de Dataflow más Compute Network User, que los roles del worker y de quien envía el trabajo son distintos y que los workers necesitan una ruta de red hasta Kafka. No se comprobaron el DNS privado ni las rutas.",
+   "src": "81a368e181ee"
   }
  },
  "pubsub-contracts": {
@@ -277,6 +281,10 @@
   "block.check.choices.2.why": {
    "es": "Conserva un ID de negocio estable y protege los efectos externos.",
    "src": "3c127184b2f9"
+  },
+  "verification.note": {
+   "es": "Se comprobó que el orden es solo por clave y por región, que hacer seek a un momento pasado necesita mensajes retenidos y que las instantáneas (snapshots) caducan con el backlog (máximo 7 días). No se comprobaron a fondo los eventos de negocio duplicados ni el alcance de exactly-once.",
+   "src": "a8f2be4b8959"
   }
  },
  "managed-kafka": {
@@ -363,6 +371,10 @@
   "decision.limitation": {
    "es": "La configuración de los topics, la lógica de los consumidores y la corrección de la aplicación siguen siendo responsabilidades de diseño.",
    "src": "7277cd4f77ee"
+  },
+  "verification.note": {
+   "es": "Se comprobó que los brokers se aprovisionan a partir de las vCPU y la memoria que configuras, que la retención de los topics la elige el usuario y que los clientes de Kafka funcionan sin cambios. No se comprobaron las diferencias entre Pub/Sub y los grupos de consumidores de Kafka.",
+   "src": "3f7a01e00446"
   }
  },
  "processing-engine": {
@@ -525,6 +537,10 @@
   "block.check.choices.2.why": {
    "es": "Serverless, administrado y en tiempo real no son arquitecturas completas. Compara primero la compatibilidad.",
    "src": "2037bc6f3d3c"
+  },
+  "verification.note": {
+   "es": "Se comprobó que Dataflow ejecuta Beam por lotes y en streaming, que Dataform administra SQL en BigQuery, que Data Fusion es visual y que la página del producto se llama Managed Service for Apache Spark (antes Dataproc). No se comprobó Composer.",
+   "src": "815c5e5cbd8c"
   }
  },
  "dataflow-bottlenecks": {
@@ -599,6 +615,10 @@
   "review.scope": {
    "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
    "src": "65bb82d02b96"
+  },
+  "verification.note": {
+   "es": "Se comprobó que las claves calientes se procesan en serie por clave, que tener pocas claves limita el escalado, que subir el máximo de workers solo ayuda cuando el límite son las vCPU y que la sal (salting) de claves necesita un paso de agregación posterior. No se comprobaron los detalles de la fusión.",
+   "src": "d64d48fd690a"
   }
  },
  "event-time": {
@@ -761,6 +781,10 @@
   "block.check.choices.2.why": {
    "es": "Una marca de agua no garantiza que hayan llegado todos los eventos anteriores.",
    "src": "12e90f1e43ce"
+  },
+  "verification.note": {
+   "es": "Se comprobaron las ventanas fijas, deslizantes y de sesión, que la marca de agua es una estimación, que los datos tardíos son los que quedan por detrás de ella y que los disparadores deciden cuándo se emiten los resultados. No se comprobaron la tardanza permitida ni las funciones de ventana de SQL.",
+   "src": "2ef670b0b532"
   }
  },
  "beam-triggers": {
@@ -835,6 +859,10 @@
   "review.scope": {
    "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
    "src": "65bb82d02b96"
+  },
+  "verification.note": {
+   "es": "Se comprobó que el disparador predeterminado se activa en la marca de agua, que no se puede garantizar la completitud y que los registros tardíos pueden descartarse. No se comprobaron los paneles tempranos, los modos de acumulación ni cómo maneja el destino los paneles acumulativos.",
+   "src": "f725a7a096ae"
   }
  },
  "bad-records": {
@@ -997,6 +1025,10 @@
   "block.check.choices.2.why": {
    "es": "Usa reintentos acotados con backoff para los fallos transitorios.",
    "src": "0801ffef628e"
+  },
+  "verification.note": {
+   "es": "Se comprobó que el límite de intentos de dead-letter es aproximado y de mejor esfuerzo, y que las llamadas remotas necesitan backoff y una salida de dead-letter. No se comprobaron la estandarización con Data Fusion ni el diseño de la cuarentena.",
+   "src": "9eb27fa8a1b6"
   }
  },
  "write-contracts": {
@@ -1071,6 +1103,10 @@
   "review.scope": {
    "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
    "src": "65bb82d02b96"
+  },
+  "verification.note": {
+   "es": "Se comprobó que las cargas de JSON deben estar delimitadas por saltos de línea, que los offsets dan exactly-once solo dentro de un stream creado por la aplicación y que MERGE da error cuando varias filas de origen coinciden con una fila de destino. No se comprobó el servicio de transferencia.",
+   "src": "492cef88be1a"
   }
  },
  "ai-enrichment": {
@@ -1169,6 +1205,10 @@
   "review.scope": {
    "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
    "src": "65bb82d02b96"
+  },
+  "verification.note": {
+   "es": "Se comprobó que RunInference agrupa las entradas, que las llamadas remotas necesitan backoff y una salida de dead-letter y que los manejadores de Vertex AI necesitan entrada en JSON. No se comprobaron los límites del adaptador de generación de texto ni los consejos de privacidad.",
+   "src": "68a56f92f48a"
   }
  },
  "streaming-semantics": {
@@ -1319,6 +1359,10 @@
   "block.check.choices.2.why": {
    "es": "Define un ID de evento estable en lugar de equiparar la identidad del mensaje con la identidad del negocio.",
    "src": "fccf815116fc"
+  },
+  "verification.note": {
+   "es": "Se comprobó que exactly-once es el modo predeterminado, que at-least-once es opcional, que Dataflow deduplica por ID de mensaje y que los efectos secundarios de un DoFn personalizado pueden repetirse. No se comprobó el diseño de idempotencia para endpoints de pagos.",
+   "src": "f7fcf7d1d397"
   }
  },
  "spark-execution": {
@@ -1405,6 +1449,10 @@
   "decision.limitation": {
    "es": "La compatibilidad y la economía de la carga de trabajo exigen medición.",
    "src": "504f8bc15b5c"
+  },
+  "verification.note": {
+   "es": "Se comprobó que Spark serverless ejecuta cargas por lotes y sesiones interactivas sin un clúster propio, que escala solo, que se cobra mientras se ejecuta y que la documentación usa el nombre Managed Service for Apache Spark. No se comprobaron las imágenes.",
+   "src": "617c49a54d6e"
   }
  },
  "beam-portability": {
@@ -1491,6 +1539,10 @@
   "decision.limitation": {
    "es": "Las capacidades del runner y de los conectores todavía necesitan pruebas.",
    "src": "6afeb5c0a01c"
+  },
+  "verification.note": {
+   "es": "Se comprobó que las canalizaciones de Beam son transformaciones sobre colecciones acotadas o no acotadas, que Dataflow ejecuta canalizaciones de Beam y que Beam puede correr en otros runners. No se comprobó la paridad de conectores entre runners.",
+   "src": "f2d08dc8ca28"
   }
  },
  "schema-evolution": {
@@ -1637,6 +1689,10 @@
   "block.check.choices.2.why": {
    "es": "BigQuery admite añadir campos según reglas documentadas de modo y de operación.",
    "src": "67957e643973"
+  },
+  "verification.note": {
+   "es": "Se comprobó que REQUIRED a NULLABLE es el único cambio de modo, que NULLABLE a REQUIRED necesita una tabla recreada y que las columnas añadidas deben ser NULLABLE o REPEATED. No se comprobaron las reglas por método de ingesta ni los consejos de despliegue.",
+   "src": "7f54f0bea3d3"
   }
  },
  "deploy-pipeline": {
@@ -1791,6 +1847,10 @@
   "block.check.choices.2.why": {
    "es": "Este es el escenario de la lección.",
    "src": "11a0c9b434a5"
+  },
+  "verification.note": {
+   "es": "Se comprobó que las actualizaciones compatibles conservan el estado, que las incompatibles necesitan detener y reemplazar, que cancelar puede perder datos en curso y que se prefiere drenar, y que los cambios grandes de ventanas son impredecibles. No se comprobó la retención del origen.",
+   "src": "8a52deddc6ce"
   }
  },
  "dataform-quality": {
@@ -1865,6 +1925,10 @@
   "review.scope": {
    "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
    "src": "65bb82d02b96"
+  },
+  "verification.note": {
+   "es": "Se comprobó que las aserciones son consultas que devuelven las filas que violan la regla, que existen las comprobaciones integradas nonNull, uniqueKey y rowConditions y que las dependencias deben incluir las aserciones de forma explícita. No se comprobaron el lookback incremental ni los consejos de backfill.",
+   "src": "dcc42a19071a"
   }
  }
 }
