@@ -1,0 +1,396 @@
+{
+ "least-privilege": {
+  "title": {
+   "es": "Da a cada identidad solo el acceso que necesita",
+   "src": "73b74ec4effa"
+  },
+  "lead": {
+   "es": "Empieza por saber quién actúa, qué recurso interviene y qué operación hace falta.",
+   "src": "2a83b1e2de1d"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "IAM asigna roles a los principales (principals) sobre los recursos. Una cuenta de servicio (service account) es la identidad de una carga de trabajo (workload). Separa producción de desarrollo y da los permisos de las personas a través de grupos. Así es más fácil gestionar los cambios de miembros.",
+   "src": "67a78df2962d"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Da el rol más estrecho que sea útil, en el alcance de recurso adecuado. Prefiere las identidades asociadas a la carga de trabajo o la suplantación (impersonation) antes que descargar claves de larga duración. Las restricciones de red no sustituyen los permisos de identidad.",
+   "src": "9ef1af02750a"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Un proceso de carga nocturno lee un bucket y escribe en un dataset. Da esos permisos a su cuenta de servicio. La persona que lo ejecuta no necesita seguir como Project Owner.",
+   "src": "a7a3d5c439a9"
+  },
+  "sections.3.title": {
+   "es": "Separa cuatro identidades",
+   "src": "a7a296f43dc1"
+  },
+  "sections.3.body": {
+   "es": "Identifica a la persona o la automatización que envía el trabajo, la identidad de la carga de trabajo que lee los datos, el agente de servicio (service agent) que gestiona la infraestructura y el consumidor final. Pueden necesitar permisos distintos. Una cuenta de servicio no es un conjunto de credenciales. Es el principal. Una clave es solo una forma de autenticarse como ese principal.",
+   "src": "c40e33eb051b"
+  },
+  "sections.4.title": {
+   "es": "Sigue el permiso a través de la jerarquía",
+   "src": "e64cac2bf0f3"
+  },
+  "sections.4.body": {
+   "es": "Un permiso local y estrecho no anula un permiso heredado más amplio. Revisa el acceso de la organización, de las carpetas y del proyecto antes de concluir que producción está aislada. Dar acceso a un grupo facilita gestionar a los miembros, pero el propio grupo también debe estar controlado. Audita tanto las asignaciones de roles como quién puede cambiar los miembros.",
+   "src": "c08944c24a9f"
+  },
+  "sections.5.title": {
+   "es": "Prefiere credenciales de corta duración cuando sea posible",
+   "src": "2b3fb3bb8cb5"
+  },
+  "sections.5.body": {
+   "es": "Para una carga de trabajo externa de CI, la federación (federation) puede cambiar una identidad externa de confianza por credenciales de Google de corta duración. Para una carga que ya se ejecuta en Google Cloud, una identidad asociada suele ser un punto de partida más simple. El permiso de suplantación es muy poderoso. Si lo das de forma amplia, puede anular permisos de datos que por lo demás son estrechos.",
+   "src": "6c1d6620b5f1"
+  },
+  "trap": {
+   "es": "Un rol Editor en todo el proyecto expone más de lo que necesitan un lector de bucket y un escritor de dataset.",
+   "src": "8a1ec7295d89"
+  },
+  "exercise.prompt": {
+   "es": "Quien envía un trabajo tiene permiso para iniciar Dataflow, pero los workers no pueden leer un bucket. ¿Qué cadena de permisos debes revisar?",
+   "src": "1a259b6bff44"
+  },
+  "exercise.answer": {
+   "es": "Revisa la cuenta de servicio del worker que de verdad está asociada al trabajo y sus permisos efectivos sobre el bucket. Comprueba también que quien envía el trabajo puede usar esa identidad. Dar más permisos de proyecto a la persona no demuestra que el worker haya ganado acceso de lectura.",
+   "src": "3eec4b3b6c6e"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Nombra el principal que accede a cada recurso.",
+   "src": "0ca36af60476"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Distingue el acceso heredado de una asignación local (binding).",
+   "src": "14690a1b6be9"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Explica por qué una clave descargada no es un rol de IAM.",
+   "src": "b3f69ebcef17"
+  },
+  "briefing.context": {
+   "es": "Un proceso de carga programado necesita un bucket y un dataset. No debería poder cambiar todos los recursos de la empresa.",
+   "src": "2e76b4c1e04e"
+  },
+  "briefing.whyItMatters": {
+   "es": "Si se usa mal el trabajo, sus permisos determinan cuántos datos se pueden exponer o cambiar.",
+   "src": "154858de28a9"
+  },
+  "briefing.takeaway": {
+   "es": "Nombra la identidad que actúa, la operación que necesita y el alcance de recurso más estrecho que sea útil.",
+   "src": "d6125cf97db5"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Mínimo privilegio para un proceso de carga nocturno",
+   "src": "aa17b30324b1"
+  },
+  "block.diagram.description": {
+   "es": "La cuenta de servicio de un proceso de carga nocturno lee un bucket y escribe en un dataset. No tiene ningún rol para todo el proyecto.",
+   "src": "9b1a26b0cee3"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Proceso de carga",
+   "src": "135eeeb4b1a8"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "cuenta de servicio",
+   "src": "d7da08389824"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Lee un",
+   "src": "73df924ab902"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "bucket",
+   "src": "c5879b8d250c"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Escribe en un",
+   "src": "9dceb40208e3"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "dataset",
+   "src": "b277fd623676"
+  },
+  "block.keyFact": {
+   "es": "Da el rol más estrecho que sea útil, en el alcance de recurso adecuado.",
+   "src": "f7d7e671c338"
+  },
+  "block.check.question": {
+   "es": "Un proceso de carga nocturno lee un bucket y escribe en un dataset. ¿Qué permiso encaja?",
+   "src": "d739e08b8f70"
+  },
+  "block.check.choices.0.text": {
+   "es": "Permisos sobre el bucket y el dataset para su cuenta de servicio",
+   "src": "4164350c66c9"
+  },
+  "block.check.choices.0.why": {
+   "es": "El trabajo recibe solo los permisos que necesita. La persona que lo ejecuta no necesita seguir como Project Owner.",
+   "src": "869cd2a9630a"
+  },
+  "block.check.choices.1.text": {
+   "es": "Project Owner para la persona que lo ejecuta",
+   "src": "8c4127e16e5b"
+  },
+  "block.check.choices.1.why": {
+   "es": "La persona que ejecuta el trabajo no necesita seguir como Project Owner.",
+   "src": "d99b06c88c38"
+  },
+  "block.check.choices.2.text": {
+   "es": "Un rol Editor en todo el proyecto",
+   "src": "48f382bb6f57"
+  },
+  "block.check.choices.2.why": {
+   "es": "Un rol Editor en todo el proyecto expone más de lo que necesitan un lector de bucket y un escritor de dataset.",
+   "src": "8a1ec7295d89"
+  }
+ },
+ "identity-boundaries": {
+  "title": {
+   "es": "Sigue las identidades en un pipeline privado",
+   "src": "a71dedf2906a"
+  },
+  "lead": {
+   "es": "Encuentra el principal real y la ruta de red en cada frontera.",
+   "src": "c09cf1777ba2"
+  },
+  "sections.0.title": {
+   "es": "Crea un mapa de identidades",
+   "src": "65e0f8b61f1e"
+  },
+  "sections.0.body": {
+   "es": "Haz una lista con la persona o el proceso de CI que envía el trabajo, el agente de servicio (service agent) que crea los recursos, la cuenta del worker y las identidades de quienes leen los datos después. Para cada operación, escribe principal, acción y recurso. Así evitas un error de diagnóstico muy común. Es cambiar el rol de quien envía el trabajo cuando el que falla al leer los datos es un worker.",
+   "src": "8d2dcd5cd513"
+  },
+  "sections.1.title": {
+   "es": "Después crea un mapa de red",
+   "src": "8bb4b69c9737"
+  },
+  "sections.1.body": {
+   "es": "Para cada endpoint, comprueba la resolución de nombres, la ruta, los controles de firewall y la configuración de acceso privado que admite el servicio. Llegar a una API no es lo mismo que tener autorización para usarla. Una VPC compartida (Shared VPC) añade la administración de subredes del proyecto host, además de la administración de trabajos del proyecto de servicio.",
+   "src": "67e59bef8501"
+  },
+  "sections.2.title": {
+   "es": "Usa la mínima evidencia para acotar el fallo",
+   "src": "ced9e708f53b"
+  },
+  "sections.2.body": {
+   "es": "Identifica si el error es una denegación de autorización, un fallo de resolución de nombres, una conexión rechazada o un tiempo de espera agotado (timeout). Sigue la configuración real del worker. No supongas que usa una identidad por defecto. Usa mecanismos de autenticación de corta duración cuando convenga y mantén los secretos fuera del código, de los logs y de los notebooks.",
+   "src": "38484e614f1a"
+  },
+  "trap": {
+   "es": "Dar Project Owner a todo el mundo puede ocultar la frontera que necesitas entender.",
+   "src": "b6ca7777c776"
+  },
+  "exercise.prompt": {
+   "es": "El trabajo se inicia, las lecturas del origen funcionan y las escrituras en BigQuery fallan con un error de acceso. ¿Qué frontera debes mirar primero?",
+   "src": "cae4c5481f06"
+  },
+  "exercise.answer": {
+   "es": "Revisa los permisos de escritura en el destino (sink) de la identidad que hace la escritura, junto con el dataset y la configuración del trabajo. Que el trabajo se inicie y lea su origen ya es evidencia sobre otras fronteras.",
+   "src": "1ba9cee945c4"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Asigna un principal a cada operación.",
+   "src": "d12a40a25e39"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Separa la autorización de la conectividad.",
+   "src": "dfa2d4fb8795"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Mantén las credenciales fuera de la salida de diagnóstico.",
+   "src": "17836baa916b"
+  },
+  "briefing.context": {
+   "es": "Una persona puede iniciar un trabajo, pero los workers que se ejecutan no pueden leer su entrada. Actúan con identidades distintas.",
+   "src": "46d64abf73e7"
+  },
+  "briefing.whyItMatters": {
+   "es": "Dar más acceso a la persona puede dejar sin resolver el fallo real del worker.",
+   "src": "abcccf28b703"
+  },
+  "briefing.takeaway": {
+   "es": "Sigue la identidad que hace cada lectura y cada escritura.",
+   "src": "a36ded9fdc09"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  }
+ },
+ "protect-data": {
+  "title": {
+   "es": "Protege los valores, las claves y la frontera",
+   "src": "10ebf4e4e775"
+  },
+  "lead": {
+   "es": "El cifrado, la autorización y la minimización de datos resuelven partes distintas del problema.",
+   "src": "75b972b3455f"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "CMEK (claves de cifrado gestionadas por el cliente) da a tu organización el control de las claves de cifrado. No hace que todos los usuarios estén autorizados. Sensitive Data Protection puede inspeccionar y transformar valores privados antes de que los reciban los analistas.",
+   "src": "b9b24db9ab5f"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Usa políticas de filas (row policies) para los registros permitidos y políticas de columnas (column policies) para los campos restringidos. Usa un perímetro de servicio (service perimeter) para reducir la exfiltración entre las APIs compatibles. Comprueba los requisitos de residencia de datos (residency) tanto para el procesamiento como para el almacenamiento.",
+   "src": "3c725e6b4247"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Los agentes de soporte necesitan los clientes activos y los analistas necesitan todos los clientes, pero sin los documentos de identidad. Combina un filtro de filas para soporte con columnas sensibles protegidas o transformadas para los analistas.",
+   "src": "17d71a2c0721"
+  },
+  "sections.3.title": {
+   "es": "Elige el control según lo que deba cambiar",
+   "src": "62544ee189f5"
+  },
+  "sections.3.body": {
+   "es": "Las políticas de filas restringen registros. Las políticas de columnas restringen campos. El enmascaramiento (masking) cambia la representación que recibe un lector autorizado. La desidentificación (de-identification) transforma los datos mismos. Una vista autorizada (authorized view) expone el resultado de una consulta elegida. El cifrado protege los datos con un modelo de gestión de claves. No decide qué filas de negocio debe ver un analista. Combina controles cuando el requisito abarca estas capas.",
+   "src": "ea9444977899"
+  },
+  "sections.4.title": {
+   "es": "Mantén los permisos separados de la geografía",
+   "src": "42e6a78a182f"
+  },
+  "sections.4.body": {
+   "es": "Elegir la ubicación de un dataset y limitar la creación de recursos son cosas distintas. Revisa también dónde ocurren el procesamiento, el almacenamiento temporal (staging), las exportaciones y las copias de recuperación. Una etiqueta regional no demuestra que se cumplan todos los requisitos legales. Y un perímetro de servicio no sustituye a la ubicación real del dataset.",
+   "src": "b66193dea412"
+  },
+  "sections.5.title": {
+   "es": "Sigue quién es dueño de las claves y cómo se recuperan",
+   "src": "66a01b8e73e0"
+  },
+  "sections.5.body": {
+   "es": "Con CMEK, el servicio que cifra debe tener permiso para usar la clave correspondiente, y la ubicación de la clave debe ser compatible con el servicio. Planifica el acceso a las claves y su recuperación junto con el plan de recuperación de datos. Borrar una clave compartida puede afectar a más registros de los que querías. El borrado criptográfico por persona exige elegir con cuidado la granularidad de las claves.",
+   "src": "d87967fe6a75"
+  },
+  "trap": {
+   "es": "Una regla de firewall por sí sola no puede expresar qué columnas de BigQuery puede leer un usuario.",
+   "src": "d368cb00eeac"
+  },
+  "exercise.prompt": {
+   "es": "Los analistas necesitan todos los pedidos con los identificadores enmascarados. Los investigadores de fraude necesitan los identificadores originales solo para sus casos. ¿Qué debe distinguir tu diseño?",
+   "src": "22b2e5641bdb"
+  },
+  "exercise.answer": {
+   "es": "Distingue las filas permitidas, el acceso a columnas o a valores enmascarados, y la identidad de cada lector. Define qué usuarios pueden obtener los valores originales y revisa los permisos heredados. Un único rol de proyecto o un ajuste de cifrado del bucket no puede expresar todas estas condiciones de negocio.",
+   "src": "52f4510e25b3"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Relaciona una restricción de registros con la seguridad por filas.",
+   "src": "3b341eff5c75"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Explica la diferencia entre enmascarar y cambiar el dataset almacenado.",
+   "src": "3b572697c819"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Incluye el almacenamiento temporal y las copias de seguridad en una decisión de residencia.",
+   "src": "793ba5628842"
+  },
+  "briefing.context": {
+   "es": "Un dataset de clientes útil contiene valores que algunos lectores nunca deben ver.",
+   "src": "15b2fe1c6176"
+  },
+  "briefing.whyItMatters": {
+   "es": "Las reglas de acceso, el cifrado y las transformaciones de privacidad protegen partes distintas del mismo recorrido de los datos.",
+   "src": "c89bd9458063"
+  },
+  "briefing.takeaway": {
+   "es": "Identifica el valor, la identidad y la frontera de acceso antes de elegir un control de seguridad.",
+   "src": "681a3724a1e8"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Controles para distintas partes del problema de datos",
+   "src": "92c171f25ca2"
+  },
+  "block.diagram.description": {
+   "es": "Los datos de clientes se pueden proteger con políticas de filas, que restringen registros, y con políticas de columnas, que restringen campos.",
+   "src": "adef948814b4"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Datos de clientes",
+   "src": "91d3d9beb714"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Política de filas:",
+   "src": "17d550c07bf2"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "restringe registros",
+   "src": "434a73fd51e9"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Política de columnas:",
+   "src": "649ea2ad1541"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "restringe campos",
+   "src": "9facc22d4467"
+  },
+  "block.keyFact": {
+   "es": "El cifrado protege los datos con un modelo de gestión de claves. No decide qué filas de negocio debe ver un analista.",
+   "src": "2a1a95c48460"
+  },
+  "block.check.question": {
+   "es": "Los analistas necesitan todos los clientes, pero no deben ver los documentos de identidad. ¿Qué control restringe esos campos?",
+   "src": "b11921d50f71"
+  },
+  "block.check.choices.0.text": {
+   "es": "Políticas de filas",
+   "src": "8254715cc907"
+  },
+  "block.check.choices.0.why": {
+   "es": "Las políticas de filas restringen registros, no campos.",
+   "src": "703393195a7f"
+  },
+  "block.check.choices.1.text": {
+   "es": "Políticas de columnas",
+   "src": "b54864b2f21a"
+  },
+  "block.check.choices.1.why": {
+   "es": "Las políticas de columnas restringen campos, así que las columnas protegidas pueden contener valores sensibles.",
+   "src": "48e8e6684b0e"
+  },
+  "block.check.choices.2.text": {
+   "es": "Una regla de firewall",
+   "src": "6bcd46bdd2e8"
+  },
+  "block.check.choices.2.why": {
+   "es": "Una regla de firewall por sí sola no puede expresar qué columnas de BigQuery puede leer un usuario.",
+   "src": "d368cb00eeac"
+  }
+ }
+}
