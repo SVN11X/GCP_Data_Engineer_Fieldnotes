@@ -67,7 +67,7 @@ Format: `- [ ]` pending, `- [x]` done, `- [x] SKIPPED: reason`, `- [ ] BLOCKED: 
 - [x] 40. G Domain 3 lessons are in Spanish (388 strings, notes included, owner review pending). The titles index now covers domains 1 to 3.
 - [x] 41. G Domain 4 lessons are in Spanish (267 strings, notes included, owner review pending). The titles index now covers domains 1 to 4.
 - [x] 42. G Domain 5 lessons are in Spanish (389 strings, notes included, owner review pending). The titles index now covers all 52 lessons.
-- [ ] 43. G Translate services, comparisons and workshops to Spanish. The glossary already has 161 Spanish entries.
+- [x] 43. G Services, comparisons, workshops and architecture patterns are in Spanish (28 cards, 4 comparisons with notes, 12 workshops, 4 patterns, owner review pending).
 - [ ] 44. G Spanish layer for the 349 imported questions in content/imported-es.json. imported.json stays untouched, unreadable image text is not translated, one batch per domain.
 
 ## Presentation

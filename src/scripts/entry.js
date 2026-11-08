@@ -2,7 +2,7 @@
 (function(root){
 'use strict';
 const SIZE=10;
-root.FieldEntry={create({D,C,e,tag,render,setPracticeDomain}){
+root.FieldEntry={create({D,C,e,tag,render,setPracticeDomain,localize}){
  let path=null,skipped=false,machine=C.entryStart(),ids=[];
  try{path=C.parsePath(localStorage.getItem(C.PATH_KEY));}catch{}
  const go=hash=>{if(location.hash===hash)render(true);else location.hash=hash;};
@@ -53,9 +53,10 @@ root.FieldEntry={create({D,C,e,tag,render,setPracticeDomain}){
  let K,kLoading;
  const fetchJSON=n=>fetch('data/'+n+'.json?v='+D.release,{credentials:'omit'}).then(r=>{if(!r.ok)throw new Error('Content request failed ('+r.status+').');return r.json();});
  async function compare(id){
-  if(!K){kLoading=kLoading||Promise.all([lazy('link','compare.css'),lazy('script','compare.js'),fetchJSON('comparisons'),fetchJSON('verification-log')]).catch(x=>{kLoading=null;throw x;});const [,,items,log]=await kLoading;K={...globalThis.FieldCompare.create({D,e}),items,log};}
-  const cid=String(id).slice(8),c=K.items.find(x=>x.id===cid);
-  return c?K.detail(c,globalThis.FieldCompare.entryFor(K.log,cid)):K.list(K.items);
+  if(!K){kLoading=kLoading||Promise.all([lazy('link','compare.css'),lazy('script','compare.js'),fetchJSON('comparisons'),fetchJSON('verification-log')]).catch(x=>{kLoading=null;throw x;});const [,,items,log]=await kLoading;for(const c of items){const n=globalThis.FieldCompare.entryFor(log,c.id);if(n)c.verification={note:n.note};}K={...globalThis.FieldCompare.create({D,e}),items,log};}
+  await localize?.('comparisons',K.items);
+  const cid=String(id).slice(8),c=K.items.find(x=>x.id===cid),entry=c&&globalThis.FieldCompare.entryFor(K.log,cid);
+  return c?K.detail(c,entry&&{...entry,note:c.verification?.note||entry.note}):K.list(K.items);
  }
  async function review(id){
   if(/^compare(-|$)/.test(String(id)))return compare(id);

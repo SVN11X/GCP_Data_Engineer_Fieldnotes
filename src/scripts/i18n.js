@@ -1,17 +1,17 @@
 /* Spanish interface layer. Loaded on demand, only when the language is Spanish.
    It replaces exact English strings (and simple patterns with placeholders) by the values of data/i18n-es.json.
-   Lessons, questions, services and code are skipped on purpose. Original strings are kept so English can be restored without a reload. */
+   Lessons, services, comparisons, workshops and architecture patterns have their own Spanish overlays, applied to the data before it renders, so the translator skips them. Questions and code are skipped on purpose. Original strings are kept so English can be restored without a reload. */
 (function(root){
 'use strict';
 const ATTRS=['aria-label','title','placeholder','alt'];
-/* Routes whose chrome (labels, buttons, filters, notices) is translated. Their lesson, question and service text is not, see HARD. */
-const COVERED=['home','orientation','diagnostic','review','progress','focus','learn','practice','workshops','english','compare','sources'];
+/* Routes whose chrome (labels, buttons, filters, notices) is translated. Their study content comes from its own overlay and question text stays English, see HARD. */
+const COVERED=['home','orientation','diagnostic','review','progress','focus','learn','practice','workshops','english','compare','architectures','sources'];
 /* Content that stays in English on purpose until its own stage. It is never translated and report() counts it as skipped. */
 const HARD=[
  ['code','pre,code,.code,textarea,script,style,noscript'],
  ['diagram text','svg'],
  ['text already in Spanish','[lang="es"]:not(html)'],
- ['lesson, question, service and workshop text','[data-english],[data-no-translate],.focus-choice'],
+ ['study content (own Spanish overlay or English) and question text','[data-english],[data-no-translate],.focus-choice'],
  ['glossary entries','#vocab-content h2,#vocab-content .vocab-definition,#vocab-content .vocab-example,.vocab-card h2,.vocab-card p,.flashcard h2,.flashcard p,.word-pill'],
  ['question list text','.question-row h3']
 ];
@@ -219,7 +219,7 @@ function stop(){
  if(st.c)restore();
 }
 /* What is still English on this page. "missing" are strings that need an entry. "skipped" counts the text left in English on purpose
-   (lesson, question, service and workshop text, code, titles and names), grouped by region, so a crawl can tell the two apart. */
+   (study content that has its own overlay, question text, code, titles and names), grouped by region, so a crawl can tell the two apart. */
 function report(){
  if(!st.c)return null;
  st.covered=isCovered();

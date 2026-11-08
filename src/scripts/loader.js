@@ -43,6 +43,18 @@
         await globalThis.FieldLessonEs.applyTitles(data.lessons,titles,on);
       }catch{}
     }
+    /* Spanish text of services, comparisons, workshops and architectures. Only for Spanish visitors and only on the route that shows it. Any failure leaves English. */
+    async function localizeContent(kind,items){
+      const on=getLang?.()==='es';
+      if(!on&&!pending.has('c'))return;
+      try{
+        if(!pending.has('s'))pending.set('s',add('script','lesson-es.js').catch(x=>{pending.delete('s');throw x;}));
+        if(!pending.has('c'))pending.set('c',pending.get('s').then(()=>add('script','content-es.js')).catch(x=>{pending.delete('c');throw x;}));
+        await pending.get('c');
+        const overlay=on&&(data.manifest.esContent||[]).includes(kind)?await load('data/es/'+kind+'.json',()=>{}):null;
+        await globalThis.FieldContentEs.apply(kind,items,overlay,on);
+      }catch{}
+    }
     const add=(t,f)=>new Promise((ok,no)=>{const el=document.createElement(t);if(t==='link'){el.rel='stylesheet';el.href='assets/'+f+'?v='+data.release;}else el.src='assets/'+f+'?v='+data.release;el.onload=ok;el.onerror=no;document.head.append(el);});
     const entry=()=>pending.get('e')||pending.set('e',Promise.all([add('link','entry.css'),add('script','entry-core.js')]).then(()=>add('script','entry.js')).catch(x=>{pending.delete('e');throw x;})).get('e');
     async function ensure(route,id){await ensureRoute(route,id);await localizeTitles();}
@@ -56,8 +68,9 @@
       if(route==='practice'&&id){const question=data.questions.find(q=>q.id===id);if(question)await(question.origin==='imported'?importedQuestions(question.domain):questions(question.domain));}
       if((route==='practice'&&!id)||route==='progress')await importedCatalog();
       if(['diagnostic','exam','review'].includes(route))await Promise.all(data.domains.map(d=>route==='review'?lessons(d.id):questions(d.id)));
-      if(route==='workshops')await load(data.manifest.workshops,v=>merge(data.workshops,v));
-      if(route==='architectures')await load(data.manifest.architectures,v=>{data.architectures=v;});
+      if(route==='compare')await localizeContent('services',data.services);
+      if(route==='workshops'){await load(data.manifest.workshops,v=>merge(data.workshops,v));await localizeContent('workshops',data.workshops);}
+      if(route==='architectures'){await load(data.manifest.architectures,v=>{data.architectures=v;});await localizeContent('architectures',data.architectures);}
       if(route==='sources')await Promise.all([
         load(data.manifest.knowledgeAudit,v=>{data.knowledgeAudit=v;}),
         load(data.manifest.verification,v=>{data.verification=v;})
@@ -67,7 +80,7 @@
         data.searchIndex=v.documents;
       });
     }
-    return {ensure};
+    return {ensure,content:localizeContent};
   }
   root.FieldLoader={create};
 })(globalThis);

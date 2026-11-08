@@ -609,7 +609,19 @@
   "Use when": "Úsalo cuando",
   "Strength": "Fortaleza",
   "Check the limitation": "Revisa la limitación",
-  "Compare this service": "Comparar este servicio"
+  "Compare this service": "Comparar este servicio",
+  "ORIGINAL SOLUTION PATTERNS": "PATRONES DE SOLUCIÓN ORIGINALES",
+  "Follow the data.": "Sigue los datos.",
+  "Inspect the boundary.": "Revisa el límite.",
+  "SOLUTION PATTERN": "PATRÓN DE SOLUCIÓN",
+  "Test a rejected record / request": "Probar un registro o una solicitud rechazados",
+  "Reset pattern": "Restablecer el patrón",
+  "Arrows name the data or decision. Faded nodes are outside the active path. Select a numbered node to inspect its role.": "Las flechas nombran el dato o la decisión. Los nodos atenuados están fuera de la vía activa. Elige un nodo numerado para ver su función.",
+  "Architecture diagram; scroll horizontally if needed": "Diagrama de arquitectura. Desplázate en horizontal si hace falta.",
+  "SELECTED NODE": "NODO ELEGIDO",
+  "Next node →": "Siguiente nodo →",
+  "Read the decisions": "Lee las decisiones",
+  "Primary references": "Referencias principales"
  },
  "patterns": {
   "Theme: {name}": "Tema: {name}",
