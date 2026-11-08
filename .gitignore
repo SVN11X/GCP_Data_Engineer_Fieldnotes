@@ -5,3 +5,15 @@ __pycache__/
 qa-responsive.html
 .DS_Store
 Thumbs.db
+
+# standard
+.standards/
+.env
+.env.*
+!.env.example
+*.log
+.idea/
+dist/
+.cache/
+coverage/
+.vite/
