@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Verified the ten domain 3 lessons against Google documentation through the Developer Knowledge MCP and logged each check. Nine were confirmed and one updated: the LIMIT cost note now says it applies to non-clustered tables.
 - Verified the sixteen domain 2 lessons against Google documentation through the Developer Knowledge MCP and logged each check. All were confirmed, no lesson text changed.
 - Verified the nine domain 1 lessons against Google documentation through the Developer Knowledge MCP and logged each check. All were confirmed, no lesson text changed.
 - Added a verification log (content/verification-log.json) with the date, method, query and official source of each check. Lesson pages show a lazy line with the date and source or say the lesson is not yet verified, and the build warns about topics without an entry and entries older than 90 days.
