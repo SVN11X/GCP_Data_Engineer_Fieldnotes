@@ -26,6 +26,7 @@ fs.mkdirSync(path.join(output,'assets'),{recursive:true});
 for(const page of ['index.html','credits.html'])fs.copyFileSync(path.join(root,'src',page),path.join(output,page));
 fs.cpSync(path.join(root,'src/scripts'),path.join(output,'assets'),{recursive:true,filter:keep});
 fs.copyFileSync(path.join(root,'src/styles/styles.css'),path.join(output,'assets/styles.css'));
+fs.copyFileSync(path.join(root,'src/styles/entry.css'),path.join(output,'assets/entry.css'));
 fs.cpSync(path.join(root,'assets'),path.join(output,'assets'),{recursive:true,filter:keep});
 const write=(name,value)=>fs.writeFileSync(path.join(dataDir,name+'.json'),JSON.stringify(value)+'\n');
 // Content-derived release keys prevent mixing a cached catalog with another release.
