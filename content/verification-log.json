@@ -184,10 +184,11 @@
     "sources": [
       "https://docs.cloud.google.com/dataflow/docs/overview",
       "https://docs.cloud.google.com/dataform/docs/overview",
-      "https://docs.cloud.google.com/data-fusion/docs/concepts/overview"
+      "https://docs.cloud.google.com/data-fusion/docs/concepts/overview",
+      "https://cloud.google.com/products/managed-service-for-apache-spark"
     ],
     "result": "confirmed",
-    "note": "Checked Dataflow runs Beam batch and streaming, Dataform manages SQL transformations in BigQuery (ELT) and Data Fusion is visual. Dataproc, now Managed Service for Apache Spark in docs, and Composer not checked."
+    "note": "Checked Dataflow runs Beam batch and streaming, Dataform manages SQL in BigQuery, Data Fusion is visual, and the product page is titled Managed Service for Apache Spark (formerly Dataproc). Composer not checked."
   },
   {
     "topic": "dataflow-bottlenecks",
@@ -357,6 +358,6 @@
       "https://docs.cloud.google.com/managed-spark/docs/serverless-overview"
     ],
     "result": "confirmed",
-    "note": "Checked serverless Spark runs batch workloads and interactive sessions without your own cluster, autoscales, charges while running,, and docs use the Managed Service for Apache Spark name. Images not checked."
+    "note": "Checked serverless Spark runs batch workloads and interactive sessions without your own cluster, autoscales, charges while running, and docs use the Managed Service for Apache Spark name. Images not checked."
   }
 ]
