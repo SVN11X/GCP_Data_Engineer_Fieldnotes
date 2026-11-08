@@ -5,9 +5,11 @@ import '../dist/assets/lesson-block.js';
 const L=globalThis.FieldLessonBlock;
 const lessons=JSON.parse(fs.readFileSync(new URL('../content/lessons.json',import.meta.url),'utf8'));
 const withBlock=lessons.filter(l=>l.block);
-test('the pilot covers four domain 1 lessons only',()=>{
- assert.equal(withBlock.length,4);
- assert.ok(withBlock.every(l=>l.domain===1));
+test('blocks cover four domain 1 lessons and eight domain 2 lessons only',()=>{
+ assert.equal(withBlock.length,12);
+ assert.equal(withBlock.filter(l=>l.domain===1).length,4);
+ assert.equal(withBlock.filter(l=>l.domain===2).length,8);
+ assert.ok(withBlock.every(l=>l.domain===1||l.domain===2));
 });
 test('every block has valid minutes, a connected diagram, a key fact and a three-choice check',()=>{
  for(const l of withBlock){
