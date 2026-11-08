@@ -1,0 +1,530 @@
+{
+ "pipeline-contract": {
+  "title": {
+   "es": "Define el origen, el destino y la ruta de red",
+   "src": "d364535b6b8f"
+  },
+  "lead": {
+   "es": "Dibuja la ruta completa que debe recorrer un registro.",
+   "src": "5221ce680b9e"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "Un origen (source) emite registros, las transformaciones (transforms) los cambian y un destino (sink) guarda o sirve el resultado. Define la latencia, el rendimiento (throughput), el esquema y el comportamiento de la entrega. Comprueba que los workers pueden llegar a los dos puntos de datos y a las API de Google que hacen falta.",
+   "src": "14504be6b262"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Los workers privados necesitan una subred adecuada, acceso a las API y permisos de IAM. En una VPC compartida (Shared VPC), distingue la identidad del worker, a quien envía el trabajo y el agente de servicio que administra Google.",
+   "src": "3ea892fb3ef0"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Dataflow lee Kafka en las instalaciones de la empresa (on premises) y escribe en BigQuery. Una conexión privada que ya existe puede dejar que KafkaIO lea directamente. Así evitas un puente de mensajes extra y su latencia.",
+   "src": "0c235ab6d852"
+  },
+  "sections.3.title": {
+   "es": "Escribe un contrato para cada límite",
+   "src": "4798b5e44a44"
+  },
+  "sections.3.body": {
+   "es": "Describe el esquema del origen, la identidad del evento, la semántica del tiempo, el retraso máximo aceptable y el comportamiento del destino. Incluye qué pasa con los registros malos y quién es responsable de corregirlos. Una canalización (pipeline) puede cumplir su objetivo de CPU en los workers y aun así fallar el requisito del negocio, porque los datos finales llegan viejos.",
+   "src": "24118aac9d78"
+  },
+  "sections.4.title": {
+   "es": "Sigue la ruta privada completa",
+   "src": "79b53de7ec2d"
+  },
+  "sections.4.body": {
+   "es": "Un worker puede necesitar llegar a una base de datos, a almacenamiento de objetos, a un punto de acceso de API y a un repositorio de artefactos o dependencias. Revisa el DNS, las rutas, los controles de firewall, la subred elegida y el acceso a las API de Google en cada camino. IAM puede permitir una operación y la red aun así impedir la conexión. También puede pasar al revés.",
+   "src": "2bb286f50872"
+  },
+  "sections.5.title": {
+   "es": "Distingue el plano de control y el plano de datos",
+   "src": "8d37ad1bb66e"
+  },
+  "sections.5.body": {
+   "es": "Crear un trabajo es una acción del plano de control (control plane). Cuando los workers leen y escriben registros, hacen acciones del plano de datos (data plane). Con una VPC compartida, el permiso para enviar un trabajo en el proyecto de servicio no basta para tener acceso a la subred del proyecto anfitrión. Sigue la guía actual de identidades de cada servicio. No des administración amplia a una cuenta cualquiera.",
+   "src": "a4127a427b02"
+  },
+  "trap": {
+   "es": "Dar Dataflow Admin no da por sí solo permiso para usar la subred de otro proyecto.",
+   "src": "e86d093576e8"
+  },
+  "exercise.prompt": {
+   "es": "Un trabajo de Dataflow arranca, pero no puede llegar a una base de datos on premises. ¿Qué evidencia debes reunir primero?",
+   "src": "195319146166"
+  },
+  "exercise.answer": {
+   "es": "Identifica los workers reales, la subred elegida, el destino resuelto, la ruta de conexión y el mensaje de error. Revisa la conectividad privada y la política de firewall junto con los permisos de la identidad del worker sobre la base de datos y sobre la nube. Que el trabajo arranque demuestra el acceso al plano de control, no la conectividad completa del plano de datos.",
+   "src": "bdf0aa5bcf09"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Documenta la latencia y qué pasa con los datos mal formados.",
+   "src": "b8a92d96ff31"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Sigue las dependencias más allá del origen y el destino.",
+   "src": "b6328e542f64"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Distingue crear el trabajo del acceso del worker a los datos.",
+   "src": "7bee8eb6fc7b"
+  },
+  "briefing.context": {
+   "es": "Una canalización de datos (data pipeline) mueve registros desde un origen, los pasa por transformaciones y los deja en un destino llamado sink.",
+   "src": "13babf5b7f0e"
+  },
+  "briefing.whyItMatters": {
+   "es": "Cuando la responsabilidad y lo que se espera son vagos, un servicio sano puede entregar datos que no sirven.",
+   "src": "8a412ef8caa8"
+  },
+  "briefing.takeaway": {
+   "es": "Define primero el origen, el destino, la identidad y la salida aceptable.",
+   "src": "786546d7a7eb"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "La ruta de un registro",
+   "src": "04e462b00856"
+  },
+  "block.diagram.description": {
+   "es": "Un origen emite registros, las transformaciones los cambian y un destino guarda o sirve el resultado.",
+   "src": "b9d83f9b1ce6"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "El origen emite registros",
+   "src": "b6ad67fff860"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Las transformaciones los cambian",
+   "src": "19a355623c91"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "El destino guarda o",
+   "src": "7d72a5a26ffa"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "sirve el resultado",
+   "src": "2666369991a8"
+  },
+  "block.keyFact": {
+   "es": "Comprueba que los workers pueden llegar a los dos puntos de datos y a las API de Google que hacen falta.",
+   "src": "409e6d17dd39"
+  },
+  "block.check.question": {
+   "es": "Dataflow lee Kafka on premises y escribe en BigQuery. Una conexión privada que ya existe puede dejar que KafkaIO lea directamente. ¿Qué evita eso?",
+   "src": "37d11244edad"
+  },
+  "block.check.choices.0.text": {
+   "es": "La necesidad de permisos de IAM",
+   "src": "1e05e990363e"
+  },
+  "block.check.choices.0.why": {
+   "es": "Los workers privados siguen necesitando una subred adecuada, acceso a las API y permisos de IAM.",
+   "src": "2dbf46c263c5"
+  },
+  "block.check.choices.1.text": {
+   "es": "Un puente de mensajes extra y su latencia",
+   "src": "6fcd27814dcc"
+  },
+  "block.check.choices.1.why": {
+   "es": "Una conexión privada que ya existe puede dejar que KafkaIO lea directamente. Así se evita un puente de mensajes extra y su latencia.",
+   "src": "e1f78eb4cf70"
+  },
+  "block.check.choices.2.text": {
+   "es": "La necesidad de definir el esquema",
+   "src": "24720443c430"
+  },
+  "block.check.choices.2.why": {
+   "es": "El contrato de la canalización sigue definiendo la latencia, el rendimiento, el esquema y el comportamiento de la entrega.",
+   "src": "8c0ee106d436"
+  }
+ },
+ "pubsub-contracts": {
+  "title": {
+   "es": "Separa la entrega, el orden y la reproducción en Pub/Sub",
+   "src": "f54fc1d83ec6"
+  },
+  "lead": {
+   "es": "Una garantía de mensajería debe ir unida a la suscripción y a la región que la admiten.",
+   "src": "efec650cd4d6"
+  },
+  "sections.0.title": {
+   "es": "La entrega no es un evento de negocio único",
+   "src": "175b995167d8"
+  },
+  "sections.0.body": {
+   "es": "Un reintento del publicador puede enviar el mismo pedido lógico como mensajes distintos. Una suscripción pull con exactly-once (entrega exactamente una vez) admitida cubre el contrato de entrega que está documentado. No reconoce de forma automática que dos IDs de mensaje distintos son el mismo pedido de negocio. Conserva un ID de negocio estable y protege los efectos externos.",
+   "src": "6a6460381ebd"
+  },
+  "sections.1.title": {
+   "es": "El orden tiene una clave y un alcance",
+   "src": "c52a3ec27f19"
+  },
+  "sections.1.body": {
+   "es": "El orden que se admite conserva el orden de publicación de los mensajes relacionados, según los requisitos de la clave de orden (ordering key) y de la región. No impone un único orden por tiempo del evento entre todas las claves. Tampoco demuestra qué evento de negocio ocurrió primero en un sistema distribuido por todo el mundo. Piensa en el efecto que tiene el trabajo lento de una clave sobre los mensajes posteriores relacionados.",
+   "src": "5ed92f345f56"
+  },
+  "sections.2.title": {
+   "es": "La reproducción depende del historial retenido",
+   "src": "8acc619867c3"
+  },
+  "sections.2.body": {
+   "es": "Una operación seek puede reproducir la entrada retenida. Pero si activas la retención después de que se descartaron datos viejos, no recuperas ese historial perdido. Una instantánea (snapshot) guarda el estado de las confirmaciones (acknowledgements) durante el tiempo de vida que está documentado. Antes de desplegar cambios riesgosos en el suscriptor, decide qué historial retenido y qué contrato de salida seguro hacen útil una reversión.",
+   "src": "1f4a5885729d"
+  },
+  "trap": {
+   "es": "La entrega exactly-once no es una garantía automática de transacción de pago de extremo a extremo.",
+   "src": "d1aedb0d8484"
+  },
+  "exercise.prompt": {
+   "es": "Dos publicadores envían el mismo pedido de negocio con IDs de mensaje de Pub/Sub distintos. ¿Basta con exactly-once en la suscripción?",
+   "src": "5e9f292f161c"
+  },
+  "exercise.answer": {
+   "es": "No. Cubre el contrato de entrega de mensajes que se admite, no cualquier duplicado de negocio que venga del publicador. El destino o la operación de negocio necesita un contrato de idempotencia (idempotency) con un ID de pedido de negocio estable.",
+   "src": "6d3d9639bdf1"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Distingue el ID del mensaje del ID del evento de negocio.",
+   "src": "dd441ab1965c"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Indica el alcance del orden.",
+   "src": "4c3246235889"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Planea la retención antes de depender de seek.",
+   "src": "70a55ffccd0b"
+  },
+  "briefing.context": {
+   "es": "Un productor publica eventos y un consumidor los procesa más tarde a través de una suscripción.",
+   "src": "f7860220a791"
+  },
+  "briefing.whyItMatters": {
+   "es": "Los reintentos de entrega, el orden y la reproducción afectan lo que el consumidor debe poder repetir sin riesgo.",
+   "src": "0ef16bbc2817"
+  },
+  "briefing.takeaway": {
+   "es": "Describe la entrega, la identidad del evento y la reproducción como contratos separados.",
+   "src": "90593f679283"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Un reintento se convierte en dos mensajes",
+   "src": "a6fd2f5e3503"
+  },
+  "block.diagram.description": {
+   "es": "Un reintento del publicador puede enviar el mismo pedido lógico como dos mensajes distintos.",
+   "src": "a28691de7f8d"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Reintento del publicador",
+   "src": "8820c78a522f"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Dos mensajes distintos",
+   "src": "7b846f14f521"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "El mismo pedido lógico",
+   "src": "0e6cd101cd6c"
+  },
+  "block.keyFact": {
+   "es": "Conserva un ID de negocio estable y protege los efectos externos.",
+   "src": "3c127184b2f9"
+  },
+  "block.check.question": {
+   "es": "Un reintento del publicador envía dos veces el mismo pedido lógico. ¿Qué debes conservar?",
+   "src": "4defdac6654d"
+  },
+  "block.check.choices.0.text": {
+   "es": "Nada, porque exactly-once en pull junta los dos",
+   "src": "84b49d27635e"
+  },
+  "block.check.choices.0.why": {
+   "es": "Una suscripción pull con exactly-once admitida no reconoce de forma automática que dos IDs de mensaje distintos son el mismo pedido de negocio.",
+   "src": "94f8b443b74a"
+  },
+  "block.check.choices.1.text": {
+   "es": "Nada, porque los IDs de mensaje ya identifican el pedido",
+   "src": "300e841a1418"
+  },
+  "block.check.choices.1.why": {
+   "es": "Un reintento del publicador puede enviar el mismo pedido lógico como mensajes distintos.",
+   "src": "24689d4472b0"
+  },
+  "block.check.choices.2.text": {
+   "es": "Un ID de negocio estable",
+   "src": "0283cded86ec"
+  },
+  "block.check.choices.2.why": {
+   "es": "Conserva un ID de negocio estable y protege los efectos externos.",
+   "src": "3c127184b2f9"
+  }
+ },
+ "managed-kafka": {
+  "title": {
+   "es": "Elige entre la compatibilidad con Kafka y la entrega de Pub/Sub",
+   "src": "1e5283ef73a5"
+  },
+  "lead": {
+   "es": "Empieza por los clientes que ya existen, los requisitos de reproducción y quién es dueño del contrato de eventos.",
+   "src": "2ca0a5371b61"
+  },
+  "sections.0.title": {
+   "es": "Conserva un ecosistema a propósito",
+   "src": "f7fbe7677fe8"
+  },
+  "sections.0.body": {
+   "es": "Managed Service for Apache Kafka ejecuta clústeres de Kafka administrados. Google aprovisiona los brokers a partir de los recursos de cómputo que configuras, y el equipo sigue eligiendo la retención de los topics. Es una opción cuando los clientes de Kafka, las particiones (partitions) y los grupos de consumidores (consumer groups) son parte del contrato de la aplicación.",
+   "src": "68e1c3e443ed"
+  },
+  "sections.1.title": {
+   "es": "Compara el contrato",
+   "src": "1a32cea5bd13"
+  },
+  "sections.1.body": {
+   "es": "Pub/Sub ofrece topics y suscripciones que desacoplan a los publicadores de los consumidores. Una suscripción de Pub/Sub no es un grupo de consumidores de Kafka con el mismo comportamiento. Antes de elegir un camino de migración, compara el alcance del orden, el comportamiento de las confirmaciones, la reproducción y la autenticación.",
+   "src": "6b8c785e29e6"
+  },
+  "sections.2.title": {
+   "es": "Resuelve una decisión original",
+   "src": "0e8b1c875c89"
+  },
+  "sections.2.body": {
+   "es": "Un equipo ya opera una aplicación de Kafka y debe conservar la integración de sus clientes durante una migración. Evalúa el servicio de Kafka administrado y después prueba el acceso de red y la recuperación de los consumidores. Una aplicación nueva sin ese requisito de compatibilidad puede evaluar Pub/Sub sin suponer la semántica de los brokers. Ninguna de las dos opciones elimina la necesidad de IDs de evento de negocio duraderos.",
+   "src": "55fb3cb17b25"
+  },
+  "trap": {
+   "es": "La infraestructura administrada no hace desaparecer todos los eventos de negocio duplicados.",
+   "src": "b6d5d94f9a40"
+  },
+  "exercise.prompt": {
+   "es": "Un equipo propone Pub/Sub solo porque los dos productos usan la palabra topic. ¿Qué evidencia falta?",
+   "src": "74c28741ee14"
+  },
+  "exercise.answer": {
+   "es": "La propuesta debe comparar la compatibilidad de los clientes, los supuestos sobre particiones o sobre el orden, el comportamiento de la reproducción, la identidad, la red y la recuperación. Que los nombres se parezcan no garantiza que sean interoperables.",
+   "src": "c4b94fa69ec9"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Identifica el requisito de compatibilidad.",
+   "src": "b6c94866147d"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Separa la entrega por el transporte de la deduplicación de negocio.",
+   "src": "ba4b18cec9ed"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Prueba la reproducción y la recuperación.",
+   "src": "e2b0c42a8a2d"
+  },
+  "briefing.context": {
+   "es": "Un equipo tiene clientes y grupos de consumidores de Kafka que deben seguir funcionando después de una migración.",
+   "src": "57b904f86ce7"
+  },
+  "briefing.whyItMatters": {
+   "es": "Que dos servicios tengan topics no hace que sus protocolos y su comportamiento de entrega sean intercambiables.",
+   "src": "d832cc13fd31"
+  },
+  "briefing.takeaway": {
+   "es": "Compara la compatibilidad del ecosistema y los contratos de eventos antes que el nombre del servicio.",
+   "src": "25990d244c9d"
+  },
+  "review.scope": {
+   "es": "Las afirmaciones específicas sobre servicios en esta lección original se comprobaron con sus referencias primarias. El escenario es ilustrativo.",
+   "src": "9203ccf1a1ce"
+  },
+  "decision.useCase": {
+   "es": "Conservar los productores y consumidores de Kafka durante una migración de plataforma.",
+   "src": "cfce4ddc75e5"
+  },
+  "decision.advantage": {
+   "es": "Managed Kafka reduce el trabajo de infraestructura y conserva el ecosistema de Kafka.",
+   "src": "8c4823a6485e"
+  },
+  "decision.limitation": {
+   "es": "La configuración de los topics, la lógica de los consumidores y la corrección de la aplicación siguen siendo responsabilidades de diseño.",
+   "src": "7277cd4f77ee"
+  }
+ },
+ "processing-engine": {
+  "title": {
+   "es": "Elige el motor que encaja con el trabajo",
+   "src": "4dda85c8dc67"
+  },
+  "lead": {
+   "es": "Reduce al mínimo los cambios de código necesarios y después piensa en el esfuerzo de operación.",
+   "src": "b0212feba6b7"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "Dataflow ejecuta canalizaciones de Apache Beam para datos acotados (bounded) o no acotados (unbounded). Dataproc admite los ecosistemas de Spark y Hadoop que ya existen. Data Fusion ofrece integración visual. Dataform administra transformaciones de SQL y sus dependencias en BigQuery.",
+   "src": "31d7ebb12d5f"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Usa la compatibilidad con la carga de trabajo que ya existe como una restricción. Una transformación de SQL nocturna no necesita de forma automática un motor de streaming. Una aplicación de Hive que ya existe puede inclinarse por herramientas administradas de Spark o Hadoop.",
+   "src": "9735b2150d58"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Un equipo tiene cientos de trabajos de Spark y una fecha límite corta para migrar. Mueve las entradas duraderas a Cloud Storage y conserva el modelo de ejecución de Spark antes de planear una reescritura posterior a SQL.",
+   "src": "fdc7c80e6932"
+  },
+  "sections.3.title": {
+   "es": "Empieza por el modelo de ejecución que ya existe",
+   "src": "eb4091496a23"
+  },
+  "sections.3.body": {
+   "es": "Beam y Dataflow encajan con una canalización descrita como transformaciones sobre colecciones acotadas o continuas. La compatibilidad con Spark y Hadoop puede favorecer a Dataproc o a Spark administrado. Dataform encaja con los grafos de SQL del almacén de datos (warehouse). Data Fusion ofrece integración visual. Workflows y Composer coordinan la ejecución. No reemplazan al motor que hace cada transformación pesada.",
+   "src": "b13aafa399f8"
+  },
+  "sections.4.title": {
+   "es": "Decide entre ETL y ELT a partir de la restricción",
+   "src": "ab4c7baeb015"
+  },
+  "sections.4.body": {
+   "es": "ETL transforma los datos antes de la carga analítica. ELT carga una representación intermedia (staging) y transforma dentro del almacén. ELT puede simplificar un sistema centrado en SQL, pero no es adecuado si los valores sensibles sin proteger nunca deben llegar a ese lugar intermedio. Elige según el manejo de los datos, las transformaciones necesarias, la escala y quién es dueño.",
+   "src": "b117ab9ff2ab"
+  },
+  "sections.5.title": {
+   "es": "Evita elegir por un solo adjetivo",
+   "src": "24ce2ec685cd"
+  },
+  "sections.5.body": {
+   "es": "Serverless, administrado y en tiempo real no son arquitecturas completas. Un servicio puede reducir el trabajo de infraestructura y aun así exigir diseño de esquemas, configuración de identidades, control de dependencias y monitoreo. Compara la compatibilidad, lo que puedes expresar en las transformaciones, el retraso esperado y el costo de operación con la misma carga de trabajo.",
+   "src": "4df345617e57"
+  },
+  "trap": {
+   "es": "Que un producto sea serverless no significa que su procesamiento, su almacenamiento y su uso de red sean gratis.",
+   "src": "1ff8531057e8"
+  },
+  "exercise.prompt": {
+   "es": "Deben correr una agregación diaria de SQL en BigQuery y un trabajo de ML en Spark que ya existe. ¿Tienen que compartir el mismo motor?",
+   "src": "6a41dd1b2592"
+  },
+  "exercise.answer": {
+   "es": "No. Deja la transformación de SQL en un flujo de trabajo de almacén adecuado y conserva el modelo de ejecución de Spark donde encaje con la aplicación. Coordina sus dependencias y valida el contrato de los datos compartidos. Usar un solo motor para todo no es un requisito, salvo que el negocio lo imponga de forma explícita.",
+   "src": "8fa1e765fec9"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Separa la orquestación (orchestration) de la transformación.",
+   "src": "ea81158fc1ee"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Explica una restricción de privacidad válida para usar ETL.",
+   "src": "06bfb1123c8e"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Compara los motores con los mismos requisitos.",
+   "src": "77fbc49ec7ce"
+  },
+  "briefing.context": {
+   "es": "El equipo tiene datos que transformar, pero varios servicios parecen hacer un trabajo parecido.",
+   "src": "b0c616aa7b8f"
+  },
+  "briefing.whyItMatters": {
+   "es": "Elegir por el nombre del producto puede añadir reescrituras innecesarias o administración continua.",
+   "src": "fa412e33714a"
+  },
+  "briefing.takeaway": {
+   "es": "Haz coincidir el código que ya existe, las transformaciones y la forma de la carga de trabajo con el motor de ejecución.",
+   "src": "fe35009fd7c3"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Migrar trabajos de Spark con una fecha límite",
+   "src": "5bd2cf5a0e5b"
+  },
+  "block.diagram.description": {
+   "es": "Mueve las entradas duraderas a Cloud Storage y conserva el modelo de ejecución de Spark antes de cualquier reescritura posterior a SQL.",
+   "src": "aaf1f6a2727b"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Cientos de",
+   "src": "69b2280b51aa"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "trabajos de Spark",
+   "src": "e757e9c931c1"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Entradas en",
+   "src": "1ea11da17045"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "Cloud Storage",
+   "src": "2ec3eb563477"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Conserva el modelo de Spark,",
+   "src": "6fea83bf7002"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "reescribe a SQL después",
+   "src": "62755cd6b759"
+  },
+  "block.keyFact": {
+   "es": "Usa la compatibilidad con la carga de trabajo que ya existe como una restricción.",
+   "src": "db1d884b09ed"
+  },
+  "block.check.question": {
+   "es": "Un equipo tiene cientos de trabajos de Spark y una fecha límite corta para migrar. ¿Cuál es el enfoque de la lección?",
+   "src": "83a4a346eda9"
+  },
+  "block.check.choices.0.text": {
+   "es": "Mover las entradas duraderas a Cloud Storage y conservar el modelo de ejecución de Spark",
+   "src": "007553c229c7"
+  },
+  "block.check.choices.0.why": {
+   "es": "Así se conserva el modelo que ya existe y la reescritura posterior a SQL queda para después de la fecha límite.",
+   "src": "a21420415ab5"
+  },
+  "block.check.choices.1.text": {
+   "es": "Reescribir primero cada trabajo como SQL",
+   "src": "4ef1bec24820"
+  },
+  "block.check.choices.1.why": {
+   "es": "La lección planea la reescritura a SQL para más tarde, no antes de la fecha límite.",
+   "src": "d6a754592986"
+  },
+  "block.check.choices.2.text": {
+   "es": "Elegir el motor que se describe como serverless",
+   "src": "55c07dc918e8"
+  },
+  "block.check.choices.2.why": {
+   "es": "Serverless, administrado y en tiempo real no son arquitecturas completas. Compara primero la compatibilidad.",
+   "src": "2037bc6f3d3c"
+  }
+ }
+}
