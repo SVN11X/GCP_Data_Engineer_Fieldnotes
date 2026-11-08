@@ -21,12 +21,12 @@ const defaultNotes=()=>notesCache||(notesCache=englishNotes());
 export const allPaths=(lesson,notes=defaultNotes())=>[...lessonPaths(lesson),...(notes.has(lesson.id)?[[NOTE_PATH,notes.get(lesson.id)]]:[])];
 /* Product names that must survive translation unchanged. Checked only when the English string contains them. */
 const PRODUCTS=['BigQuery','Dataflow','Pub/Sub','Cloud Storage','Bigtable','Spanner','Dataproc','Cloud Composer','Data Fusion','Dataform','Looker','Vertex AI','Cloud Scheduler','Dataplex','Managed Service for Apache Airflow','Managed Service for Apache Spark','Managed Kafka','Cloud SQL','Datastream','Database Migration Service','Storage Transfer Service','Transfer Appliance','Cloud Run','Cloud KMS','Cloud Logging','Cloud Monitoring','Cloud Functions','Cloud Build','Compute Engine','Google Kubernetes Engine','Dataprep','Datastore','Firestore','Memorystore','Workflows','Eventarc','Analytics Hub','BigLake','Apache Beam','Apache Kafka','Apache Spark','Apache Airflow','Terraform','IAM','VPC Service Controls','Secret Manager','Security Command Center','Data Catalog','Cloud DLP','Sensitive Data Protection','Cloud Identity','Workload Identity Federation'];
-const protectedNames=()=>{
+export const protectedNames=()=>{
  const dict=JSON.parse(fs.readFileSync(path.join(root,'content','i18n-es.json'),'utf8'));
  return [...new Set([...(dict.protected||[]).filter(t=>t!=='fieldnotes'&&t!=='Google LLC'),...PRODUCTS])];
 };
-const numbers=s=>(String(s).match(/\d+(?:[.,]\d+)?/g)||[]).sort().join('|');
-const termRe=t=>new RegExp('(?<![\\w])'+t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'(?![\\w])');
+export const numbers=s=>(String(s).match(/\d+(?:[.,]\d+)?/g)||[]).sort().join('|');
+export const termRe=t=>new RegExp('(?<![\\w])'+t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'(?![\\w])');
 /* Returns a list of error strings. Empty means valid. lessons are the English lessons of ONE domain. */
 export function validateOverlay(overlay,lessons,names=protectedNames(),notes=defaultNotes()){
  const errors=[],byId=new Map(lessons.map(l=>[l.id,l]));
