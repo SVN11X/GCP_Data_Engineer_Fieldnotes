@@ -778,5 +778,147 @@
     ],
     "result": "confirmed",
     "note": "Checked: document and collection model, ACID transactions. Not checked: index design advice, which is site guidance."
+  },
+  {
+    "topic": "service-7",
+    "kind": "service",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Cloud Storage introduction objects buckets storage classes",
+    "sources": [
+      "https://docs.cloud.google.com/storage/docs/introduction",
+      "https://docs.cloud.google.com/storage/docs/storage-classes"
+    ],
+    "result": "confirmed",
+    "note": "Checked: durable object storage in buckets with storage classes and 99.999999999% durability. Not checked: lake-file usage and the not-a-relational-engine caveat, which are site guidance."
+  },
+  {
+    "topic": "service-8",
+    "kind": "service",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "BigLake tables access delegation connection row-level column-level security Cloud Storage",
+    "sources": [
+      "https://docs.cloud.google.com/bigquery/docs/biglake-intro"
+    ],
+    "result": "confirmed",
+    "note": "Checked: query supported external objects via a connection service account and enforce table-level row and column security. Not checked: the catalog-entry caveat."
+  },
+  {
+    "topic": "service-9",
+    "kind": "service",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Memorystore overview in-memory Redis Valkey Memcached cache",
+    "sources": [
+      "https://cloud.google.com/memorystore",
+      "https://docs.cloud.google.com/memorystore/docs/redis/memorystore-for-redis-overview"
+    ],
+    "result": "confirmed",
+    "note": "Checked: managed in-memory cache with Redis protocol and availability tiers. Not changed: docs also list Valkey and Memcached, the card says Redis only. Recoverability advice not checked."
+  },
+  {
+    "topic": "service-10",
+    "kind": "service",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Dataflow overview managed Apache Beam batch and streaming pipelines",
+    "sources": [
+      "https://docs.cloud.google.com/dataflow/docs/overview",
+      "https://docs.cloud.google.com/dataflow/docs/concepts/beam-programming-model"
+    ],
+    "result": "confirmed",
+    "note": "Checked: managed Beam runner for batch and streaming, event time, windows and watermarks. Not checked: runner behavior, error outputs and stateful update compatibility."
+  },
+  {
+    "topic": "service-11",
+    "kind": "service",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Pub/Sub message ordering ordering key at-least-once delivery seek replay",
+    "sources": [
+      "https://docs.cloud.google.com/pubsub/docs/ordering",
+      "https://docs.cloud.google.com/pubsub/docs/replay-overview"
+    ],
+    "result": "confirmed",
+    "note": "Checked: at-least-once delivery, per-ordering-key order, and replay by seek with retention. Not checked: producer and consumer scaling independence, and external side effects."
+  },
+  {
+    "topic": "service-13",
+    "kind": "service",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Dataform overview SQL workflows BigQuery assertions dependencies",
+    "sources": [
+      "https://docs.cloud.google.com/dataform/docs/overview",
+      "https://docs.cloud.google.com/dataform/docs/dependencies"
+    ],
+    "result": "confirmed",
+    "note": "Checked: version-controlled SQLX workflows for BigQuery, dependency tree, assertions that can be dependencies. Not checked: incremental modelling advice and publication-gate practice."
+  },
+  {
+    "topic": "service-14",
+    "kind": "service",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Cloud Data Fusion overview visual interface code-free data integration pipelines",
+    "sources": [
+      "https://cloud.google.com/data-fusion",
+      "https://docs.cloud.google.com/data-fusion/docs/concepts/overview"
+    ],
+    "result": "confirmed",
+    "note": "Checked: visual code-free pipeline design with 150+ connectors and transformations. Not checked: data cleansing versus format conversion, which is site guidance."
+  },
+  {
+    "topic": "service-12",
+    "kind": "service",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Dataproc renamed Managed Service for Apache Spark on clusters Hadoop Spark",
+    "sources": [
+      "https://docs.cloud.google.com/managed-spark/docs/concepts/clusters-overview",
+      "https://cloud.google.com/products/managed-service-for-apache-spark"
+    ],
+    "result": "updated",
+    "note": "Checked: managed Spark and Hadoop clusters, lift-and-shift of existing workloads. Name changed from Dataproc to Managed Service for Apache Spark on clusters. Not checked: idle compute advice."
+  },
+  {
+    "topic": "service-15",
+    "kind": "service",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Cloud Composer renamed Managed Service for Apache Airflow overview",
+    "sources": [
+      "https://docs.cloud.google.com/composer/docs",
+      "https://docs.cloud.google.com/composer/docs/release-notes"
+    ],
+    "result": "updated",
+    "note": "Checked: managed Apache Airflow for scheduled DAGs, renamed from Cloud Composer on 2026-04-15. Not checked: logical run intervals, idempotency and idle cost advice."
+  },
+  {
+    "topic": "service-16",
+    "kind": "service",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Workflows overview serverless orchestration HTTP-based services",
+    "sources": [
+      "https://docs.cloud.google.com/workflows/docs/overview",
+      "https://docs.cloud.google.com/workflows/docs/choose-orchestration"
+    ],
+    "result": "confirmed",
+    "note": "Checked: serverless, no idle charge, orchestrates HTTP-based services, and complex transformation belongs in services. Not checked: the Airflow-free comparison beyond the docs table."
+  },
+  {
+    "topic": "service-17",
+    "kind": "service",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Datastream overview change data capture backfill supported sources destinations",
+    "sources": [
+      "https://docs.cloud.google.com/datastream/docs/overview",
+      "https://docs.cloud.google.com/datastream/docs/faq"
+    ],
+    "result": "confirmed",
+    "note": "Checked: serverless CDC and replication with backfill from supported database sources to BigQuery or Cloud Storage. Not checked: per-engine semantics, connectivity and cutover."
   }
 ]

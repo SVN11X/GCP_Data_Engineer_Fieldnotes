@@ -154,7 +154,7 @@
     "reviewStatus": "retained-review"
   },
   {
-    "name": "Dataproc / managed Spark",
+    "name": "Managed Spark (Dataproc)",
     "category": "Processing",
     "fit": "Existing Spark and Hadoop ecosystems.",
     "signal": "Preserve execution compatibility during a short migration.",
@@ -196,7 +196,7 @@
     "reviewStatus": "retained-review"
   },
   {
-    "name": "Cloud Composer / managed Airflow",
+    "name": "Managed Airflow (Cloud Composer)",
     "category": "Orchestration",
     "fit": "Multi-step dependency graphs, schedules and task-level recovery.",
     "signal": "Workflows need independently observable retries and reruns.",
@@ -323,7 +323,7 @@
   },
   {
     "id": "service-24",
-    "name": "Serverless for Apache Spark",
+    "name": "Managed Spark serverless",
     "category": "Processing",
     "fit": "Submitted Spark batch workloads and interactive sessions.",
     "signal": "Intermittent Spark processing without a user-provisioned cluster.",
