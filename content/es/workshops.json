@@ -1,0 +1,458 @@
+{
+ "dedup-latest": {
+  "title": {
+   "es": "Elimina duplicados sin adivinar cuál es el último registro",
+   "src": "2b17d3485f5a"
+  },
+  "goal": {
+   "es": "Conserva una observación más reciente y determinista por cada clave de negocio estable.",
+   "src": "eb01b5f18372"
+  },
+  "steps.0.text": {
+   "es": "Indica que la granularidad (grain) del destino es una fila por ID.",
+   "src": "c1953c96c145"
+  },
+  "steps.1.text": {
+   "es": "Ordena por la hora del evento y después por la secuencia, para que un empate se resuelva de forma determinista.",
+   "src": "2e84520f6387"
+  },
+  "steps.2.text": {
+   "es": "Predice la suma final antes de ejecutar los datos de ejemplo locales.",
+   "src": "ada36dc9785e"
+  },
+  "steps.3.text": {
+   "es": "Revisa las versiones conservadas y explica por qué la clave repetida no es una entidad nueva.",
+   "src": "e9a348f552e5"
+  },
+  "prediction.prompt": {
+   "es": "¿Cuál es la suma después de elegir la última observación por ID?",
+   "src": "6797883dda29"
+  },
+  "prediction.unit": {
+   "es": "unidades de monto",
+   "src": "eb11f851b881"
+  },
+  "explanation": {
+   "es": "Las filas elegidas son a/sequence 2 con monto 15 y b/sequence 4 con monto 30. Un empate en la hora se resuelve con la regla de secuencia indicada. El resultado es 45, mientras que sumar todas las observaciones de entrada da 80.",
+   "src": "a8afb980014a"
+  }
+ },
+ "join-grain": {
+  "title": {
+   "es": "Encuentra la multiplicación de ingresos",
+   "src": "45c2ab26e03d"
+  },
+  "goal": {
+   "es": "Explica con exactitud cómo una unión (join) de uno a muchos cambia una suma a nivel de pedido.",
+   "src": "972903bb04bc"
+  },
+  "steps.0.text": {
+   "es": "Escribe qué significa una fila de pedido y una fila de artículo.",
+   "src": "275cc0e2bca4"
+  },
+  "steps.1.text": {
+   "es": "Enumera las filas unidas antes de calcular los ingresos.",
+   "src": "d89d38179a16"
+  },
+  "steps.2.text": {
+   "es": "Compara la suma unida con la suma verdadera a la granularidad del pedido.",
+   "src": "a13bfe8c340a"
+  },
+  "steps.3.text": {
+   "es": "Explica por qué SUM(DISTINCT amount) no es una solución general si dos pedidos tienen el mismo monto.",
+   "src": "ff885a67f04c"
+  },
+  "prediction.prompt": {
+   "es": "¿Qué devuelve la suma simple de los totales de pedido después de esta unión?",
+   "src": "13fcddebbf4d"
+  },
+  "prediction.unit": {
+   "es": "unidades de monto",
+   "src": "eb11f851b881"
+  },
+  "explanation": {
+   "es": "Los montos unidos son 100, 100 y 80, y dan 280. Los pedidos de origen suman 180. Corrige el modelo o preagrega a la granularidad prevista. DISTINCT sobre una medida puede unir por error montos iguales de pedidos distintos.",
+   "src": "c4bce3cce76e"
+  }
+ },
+ "quality-contract": {
+  "title": {
+   "es": "Rechaza las filas no válidas con un contrato explícito",
+   "src": "75688e5fa118"
+  },
+  "goal": {
+   "es": "Prueba la completitud, la unicidad y los valores como propiedades de calidad distintas.",
+   "src": "cb08518ea86d"
+  },
+  "steps.0.text": {
+   "es": "Exige un ID único que no sea nulo, un monto que no sea nulo ni negativo y un correo que contenga @.",
+   "src": "70d572ea980f"
+  },
+  "steps.1.text": {
+   "es": "Marca cada fila que viole la unicidad, incluidas las dos copias de un ID duplicado.",
+   "src": "79b3869f1a5f"
+  },
+  "steps.2.text": {
+   "es": "Guarda la regla y la referencia a la fila original junto con cada error.",
+   "src": "405331d124b9"
+  },
+  "steps.3.text": {
+   "es": "Revisa las salidas buenas y las no válidas antes de describir una vía de reproceso (replay).",
+   "src": "8a8d67cba2da"
+  },
+  "prediction.prompt": {
+   "es": "¿Cuántas filas violan al menos una de las reglas indicadas?",
+   "src": "097ca41f8b76"
+  },
+  "prediction.unit": {
+   "es": "filas",
+   "src": "bc51e9e65d79"
+  },
+  "explanation": {
+   "es": "Las filas 1 y 2 violan la regla de ID único. La fila 2 también viola la comprobación de correo, que es simple a propósito. La fila 3 no tiene ID y tiene un monto negativo. La fila 4 no tiene monto. Solo la fila 5 cumple este contrato de juguete. La comprobación de @ no es, a propósito, un validador completo de correos del mundo real.",
+   "src": "38cc090e3ded"
+  }
+ },
+ "merge-replay": {
+  "title": {
+   "es": "Repite dos veces un lote con versiones",
+   "src": "79c26a9ed652"
+  },
+  "goal": {
+   "es": "Muestra por qué una operación de estado actual que usa versiones se puede repetir sin problema.",
+   "src": "20e8b4d59451"
+  },
+  "steps.0.text": {
+   "es": "Define como estado actual la última versión aceptada de cada entidad.",
+   "src": "a777db665925"
+  },
+  "steps.1.text": {
+   "es": "Aplica solo los cambios con una versión estrictamente más nueva, o inserta una entidad nueva.",
+   "src": "a3c1e469f012"
+  },
+  "steps.2.text": {
+   "es": "Ejecuta el mismo lote otra vez y compara el número de filas y la suma.",
+   "src": "50f935be24b5"
+  },
+  "steps.3.text": {
+   "es": "Explica por qué las eliminaciones necesitarían una regla explícita adicional.",
+   "src": "6a741c33bc46"
+  },
+  "prediction.prompt": {
+   "es": "¿Cuál es el monto total después de una ejecución y después de la repetición idéntica? Escribe el total común.",
+   "src": "1d1292c49799"
+  },
+  "prediction.unit": {
+   "es": "unidades de monto",
+   "src": "eb11f851b881"
+  },
+  "explanation": {
+   "es": "El destino contiene a/version 3/amount 30, b/version 1/amount 5 y c/version 1/amount 7. Son tres filas que suman 42. Repetir los mismos cambios no aumenta el total. Estos datos de ejemplo suponen que las versiones del origen se pueden comparar y no implementan eliminaciones.",
+   "src": "7f6978f887c5"
+  }
+ },
+ "late-corrections": {
+  "title": {
+   "es": "Recupera un total por tiempo del evento",
+   "src": "8ac18ce4e7c0"
+  },
+  "goal": {
+   "es": "Compara los mismos eventos retrasados con dos políticas de tardanza explícitas.",
+   "src": "b58e9e0769be"
+  },
+  "steps.0.text": {
+   "es": "Abre los laboratorios interactivos y procesa los seis eventos con 0 minutos de tardanza permitida (allowed lateness).",
+   "src": "d9820607189d"
+  },
+  "steps.1.text": {
+   "es": "Repite con 3 minutos de tardanza permitida y mantén fija la secuencia de eventos.",
+   "src": "3c3eac6a49d9"
+  },
+  "steps.2.text": {
+   "es": "Identifica el evento D y la marca de agua (watermark) antes de que llegue.",
+   "src": "ae707222f8f3"
+  },
+  "steps.3.text": {
+   "es": "Explica por qué la regla de watermark de estos datos de ejemplo es un modelo ilustrativo y no la implementación de Dataflow.",
+   "src": "11792d71189b"
+  },
+  "prediction.prompt": {
+   "es": "¿Cuál es el total aceptado después de todos los eventos con 3 minutos de tardanza permitida?",
+   "src": "16ce18995b8e"
+  },
+  "prediction.unit": {
+   "es": "unidades de valor",
+   "src": "550e0977fdf0"
+  },
+  "explanation": {
+   "es": "Con el modelo local documentado, el evento D se acepta con la política de tres minutos. Los seis valores suman 140. Con cero minutos, la ventana temprana ya vencida descarta D y el total es 100. La hora original del evento, y no la hora de llegada, elige su ventana.",
+   "src": "858e1874a193"
+  }
+ },
+ "scan-comparison": {
+  "title": {
+   "es": "Compara las lecturas lógicas con una carga de trabajo fija",
+   "src": "746e45f2a681"
+  },
+  "goal": {
+   "es": "Mantén fijos los datos y las columnas elegidas mientras cambias la organización alineada con la consulta.",
+   "src": "80e26941b687"
+  },
+  "steps.0.text": {
+   "es": "Usa el conjunto de datos de juguete de 30 días × 10 GB por día y diez países con el mismo volumen.",
+   "src": "f7724fc6ae63"
+  },
+  "steps.1.text": {
+   "es": "Consulta siete días y un país.",
+   "src": "500a2e5a972d"
+  },
+  "steps.2.text": {
+   "es": "Compara la organización sin orden, la particionada por fecha y la que idealmente poda por país (pruning).",
+   "src": "ec6211713fb5"
+  },
+  "steps.3.text": {
+   "es": "Explica por qué estos bytes lógicos no son una cotización real de facturación de BigQuery.",
+   "src": "0a3499384b6c"
+  },
+  "prediction.prompt": {
+   "es": "Con los supuestos ideales de poda del ejemplo, ¿cuántos GB lee la organización combinada?",
+   "src": "bc9ea0ebab0a"
+  },
+  "prediction.unit": {
+   "es": "GB",
+   "src": "b4043b0b8297"
+  },
+  "explanation": {
+   "es": "La lectura lógica completa es de 300 GB. Siete fechas elegidas requieren 70 GB, y una poda ideal a uno de diez países con el mismo volumen da 7 GB. Los bloques de almacenamiento reales, los planes, la eficacia del clustering y el modelo de facturación pueden ser distintos.",
+   "src": "168267906abb"
+  }
+ },
+ "identity-map": {
+  "title": {
+   "es": "Dibuja el límite de permisos que falla",
+   "src": "2e28bbfab890"
+  },
+  "goal": {
+   "es": "Identifica qué actor necesita de verdad cada operación.",
+   "src": "443a9a5fa697"
+  },
+  "steps.0.text": {
+   "es": "Enumera el submitter, el worker y el analista como principales (principals) distintos.",
+   "src": "b19823ad6a50"
+  },
+  "steps.1.text": {
+   "es": "Asigna capacidades solo sobre los recursos que las necesitan.",
+   "src": "4242e20c60a6"
+  },
+  "steps.2.text": {
+   "es": "Revisa los permisos heredados antes de afirmar que producción está aislada.",
+   "src": "59abe45a996f"
+  },
+  "steps.3.text": {
+   "es": "Explica por qué dar Owner a la persona no es la primera solución para un error de lectura del worker.",
+   "src": "99ea81e1e5c8"
+  },
+  "prediction.prompt": {
+   "es": "¿Qué actor necesita directamente el permiso de lectura de la fuente en estos datos de ejemplo?",
+   "src": "3c0fc46f0b8c"
+  },
+  "prediction.unit": {
+   "es": "nombre del actor",
+   "src": "5e56e87f72e6"
+  },
+  "explanation": {
+   "es": "El worker lee la fuente. La capacidad del submitter de lanzar el trabajo es un límite distinto, y el analista consume solo la salida aprobada. Los roles y la configuración de red reales deben revisarse para los servicios y los recursos exactos.",
+   "src": "bd2df2918719"
+  }
+ },
+ "quality-gate": {
+  "title": {
+   "es": "Haz que una aserción fallida bloquee la publicación",
+   "src": "f1668d50ddde"
+  },
+  "goal": {
+   "es": "Sigue los efectos de las dependencias entre tareas sin llamar a un servicio de nube.",
+   "src": "f9399e6be663"
+  },
+  "steps.0.text": {
+   "es": "Lee las aristas de dependencia explícitas.",
+   "src": "199e025bc8c3"
+  },
+  "steps.1.text": {
+   "es": "Supón que load y transform tienen éxito pero assert falla.",
+   "src": "ddd531e71853"
+  },
+  "steps.2.text": {
+   "es": "Identifica qué consumidor no debe ejecutarse.",
+   "src": "f15677d60d3a"
+  },
+  "steps.3.text": {
+   "es": "Describe cómo probarías esta vía de fallo en la configuración real del flujo de trabajo.",
+   "src": "a4efd02b65b3"
+  },
+  "prediction.prompt": {
+   "es": "¿Qué tarea debe quedar bloqueada después de que falle la aserción?",
+   "src": "7994eb03e795"
+  },
+  "prediction.unit": {
+   "es": "ID de tarea",
+   "src": "ce9878b2f97c"
+  },
+  "explanation": {
+   "es": "Como publish depende de assert, debe seguir bloqueada después de que falle el control de calidad. Si publish dependiera solo de transform, la comprobación de calidad no establecería ese control. Este es un modelo local de dependencias, no una ejecución real de Airflow o de Dataform.",
+   "src": "020963088123"
+  }
+ },
+ "rpo-ledger": {
+  "title": {
+   "es": "Calcula la antigüedad del estado recuperable",
+   "src": "b84313fe9f3c"
+  },
+  "goal": {
+   "es": "Usa evidencia de recuperación completada y no la etiqueta de una copia programada.",
+   "src": "382aa9314a75"
+  },
+  "steps.0.text": {
+   "es": "Interpreta el minuto 0 como las 09:00 y el minuto 63 como las 10:03.",
+   "src": "581133b47cab"
+  },
+  "steps.1.text": {
+   "es": "Excluye las instantáneas (snapshots) que no estaban completas en el momento del fallo.",
+   "src": "a9e9a367f6ee"
+  },
+  "steps.2.text": {
+   "es": "Encuentra la hora de captura recuperable conocida más reciente.",
+   "src": "98b02fcde1ab"
+  },
+  "steps.3.text": {
+   "es": "Compara la antigüedad de la pérdida de datos con el tiempo aparte que se necesita para reanudar la aplicación.",
+   "src": "f9a2ad13fbb8"
+  },
+  "prediction.prompt": {
+   "es": "¿Qué antigüedad tiene el último estado recuperable conocido en el momento del fallo?",
+   "src": "2130fa19292a"
+  },
+  "prediction.unit": {
+   "es": "minutos",
+   "src": "90e63d85fa1a"
+  },
+  "explanation": {
+   "es": "La captura de las 10:00 no está completa a las 10:03 con los supuestos de estos datos de ejemplo. La última captura completada representa las 09:30. Su antigüedad es de 33 minutos. El RTO (tiempo objetivo de recuperación) es otra medida: cubre la restauración del servicio de negocio real.",
+   "src": "b1d1f84e4e3a"
+  }
+ },
+ "model-metrics": {
+  "title": {
+   "es": "Lee los errores de negocio de un clasificador",
+   "src": "92cb79a8e434"
+  },
+  "goal": {
+   "es": "Calcula la precisión (precision) y la exhaustividad (recall) a partir de conteos que se pueden interpretar.",
+   "src": "93a53d3092cf"
+  },
+  "steps.0.text": {
+   "es": "Cuenta las alertas positivas: verdaderos positivos más falsos positivos.",
+   "src": "679071119234"
+  },
+  "steps.1.text": {
+   "es": "Cuenta los positivos reales: verdaderos positivos más falsos negativos.",
+   "src": "841469c91b4d"
+  },
+  "steps.2.text": {
+   "es": "Calcula la precisión y la exhaustividad con denominadores distintos.",
+   "src": "518c20d97b78"
+  },
+  "steps.3.text": {
+   "es": "Explica qué costo operativo influiría en un cambio de umbral.",
+   "src": "24ec52084fd3"
+  },
+  "prediction.prompt": {
+   "es": "¿Cuál es la precisión como porcentaje, redondeada a un decimal?",
+   "src": "48b21cdf2389"
+  },
+  "prediction.unit": {
+   "es": "porcentaje",
+   "src": "fd86717aca41"
+  },
+  "explanation": {
+   "es": "La precisión es 8/(8+4) = 66.7 % y la exhaustividad es 8/(8+2) = 80 %. La exactitud global (accuracy) no se puede obtener sin la información de la población negativa. Una decisión sobre el umbral debe considerar el costo de los positivos que no se detectan y el trabajo de revisión innecesario.",
+   "src": "e09fd8b85f4c"
+  }
+ },
+ "authorized-retrieval": {
+  "title": {
+   "es": "Filtra la evidencia antes de generar",
+   "src": "4bdb4c27f457"
+  },
+  "goal": {
+   "es": "Mantén fuera del contexto del modelo un pasaje relevante pero prohibido.",
+   "src": "4b63f1df3923"
+  },
+  "steps.0.text": {
+   "es": "Trata los puntajes que se dan como valores de relevancia ilustrativos.",
+   "src": "ebdf3ecf3d09"
+  },
+  "steps.1.text": {
+   "es": "Filtra por la audiencia permitida del usuario antes de elegir el contexto.",
+   "src": "91550ea49431"
+  },
+  "steps.2.text": {
+   "es": "Encuentra el pasaje permitido con la posición más alta.",
+   "src": "265b90cb929e"
+  },
+  "steps.3.text": {
+   "es": "Conserva el ID y la versión de la fuente, en lugar de confiar en ocultar datos en la respuesta final.",
+   "src": "06c86ea07513"
+  },
+  "prediction.prompt": {
+   "es": "¿Qué ID de fragmento (chunk) es el resultado autorizado con la posición más alta?",
+   "src": "caa21c7c5c1e"
+  },
+  "prediction.unit": {
+   "es": "ID de fragmento",
+   "src": "75d63b924e67"
+  },
+  "explanation": {
+   "es": "finance-private tiene el puntaje de relevancia más alto del ejemplo, pero no está autorizado para este usuario. policy-public es el resultado permitido con la posición más alta. La similitud no es una decisión de permisos, y ocultar datos en la respuesta final no reemplaza una recuperación autorizada.",
+   "src": "5a9897abb14b"
+  }
+ },
+ "read-constraints": {
+  "title": {
+   "es": "Traduce la decisión, no solo el vocabulario",
+   "src": "cb122a4c8a21"
+  },
+  "goal": {
+   "es": "Extrae las restricciones simultáneas de un escenario en inglés.",
+   "src": "adb21c3e2f8d"
+  },
+  "steps.0.text": {
+   "es": "Encuentra qué se debe conservar y qué se debe reducir.",
+   "src": "3b4b27cf1839"
+  },
+  "steps.1.text": {
+   "es": "Traduce y trata el verbo minimizar como un requisito simultáneo.",
+   "src": "c8eab8654ce5"
+  },
+  "steps.2.text": {
+   "es": "Separa la decisión sobre los datos duraderos del ciclo de vida del cómputo.",
+   "src": "b8fd8c4e5041"
+  },
+  "steps.3.text": {
+   "es": "Nombra la evidencia que revisarías antes de elegir un patrón de migración.",
+   "src": "c11a047ad1cb"
+  },
+  "prediction.prompt": {
+   "es": "¿Cuántas restricciones simultáneas se indican de forma explícita en los datos de ejemplo?",
+   "src": "1c2cf6b5e360"
+  },
+  "prediction.unit": {
+   "es": "restricciones",
+   "src": "e225063b944e"
+  },
+  "explanation": {
+   "es": "La oración impone a la vez restricciones de compatibilidad, de esfuerzo de operación y de durabilidad de los datos. Cumplir solo la pista del producto más conocido no la responde por completo. En español: conservar los trabajos Spark, reducir el esfuerzo de administración y mantener los datos fuera del ciclo de vida del clúster.",
+   "src": "e3d1c541ba89"
+  }
+ }
+}
