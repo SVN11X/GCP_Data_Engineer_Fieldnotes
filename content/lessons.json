@@ -3290,7 +3290,7 @@
         "expansion": true
       }
     ],
-    "trap": "LIMIT does not by itself reduce the bytes read from all referenced columns.",
+    "trap": "On a non-clustered table, LIMIT does not by itself reduce the bytes read from all referenced columns.",
     "references": [
       "partition",
       "cluster",
@@ -3375,7 +3375,7 @@
           }
         ]
       },
-      "keyFact": "LIMIT does not by itself reduce the bytes read from all referenced columns.",
+      "keyFact": "On a non-clustered table, LIMIT does not by itself reduce the bytes read from all referenced columns.",
       "check": {
         "question": "Orders are queried by recent date and customer. What layout fits?",
         "choices": [
@@ -3387,7 +3387,7 @@
           {
             "text": "Add LIMIT to cut the bytes read",
             "correct": false,
-            "why": "LIMIT does not by itself reduce the bytes read from all referenced columns."
+            "why": "On a non-clustered table, LIMIT does not by itself reduce the bytes read from all referenced columns."
           },
           {
             "text": "Partition by order date, cluster by customer ID, nest line items",
