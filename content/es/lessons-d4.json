@@ -472,5 +472,447 @@
    "es": "Se confirmó que TRANSFORM vuelve a aplicar el preprocesamiento y las estadísticas de entrenamiento en la predicción y la evaluación, y que los modelos exportados lo admiten. La fuga de datos y el sobreajuste son consejos generales de ML y no se comprobaron.",
    "src": "4b518c97be47"
   }
+ },
+ "ml-evaluation": {
+  "title": {
+   "es": "Evalúa los modelos según el costo real de sus fallos",
+   "src": "c110be067482"
+  },
+  "lead": {
+   "es": "Una métrica debe corresponder a un error del negocio y no solo verse impresionante.",
+   "src": "23892bd0d94e"
+  },
+  "sections.0.title": {
+   "es": "Crea una línea base fácil de interpretar",
+   "src": "1afdbe3b8981"
+  },
+  "sections.0.body": {
+   "es": "En clasificación, examina la población y la matriz de confusión. Un predictor de la clase mayoritaria (majority-class) puede tener una exactitud alta y no encontrar ninguno de los eventos positivos poco comunes. En la predicción numérica, compara con una línea base razonable y elige una medida de error que refleje la penalización de los errores grandes.",
+   "src": "91ae3263f2a4"
+  },
+  "sections.1.title": {
+   "es": "Elige la división según las condiciones de uso",
+   "src": "f6170dfb8349"
+  },
+  "sections.1.body": {
+   "es": "Al evaluar un pronóstico, mantén la información futura fuera del entrenamiento. Considera las entidades repetidas y los registros casi duplicados al elegir el conjunto reservado (holdout). Ajusta el preprocesamiento con la información de entrenamiento y reutilízalo en la evaluación y en el servicio. Una división aleatoria es un método y no una garantía absoluta de una generalización realista.",
+   "src": "ef914fdd5e65"
+  },
+  "sections.2.title": {
+   "es": "Conecta un umbral con sus consecuencias operativas",
+   "src": "2cf1724b209c"
+  },
+  "sections.2.body": {
+   "es": "La precisión y la exhaustividad cambian con el umbral de clasificación. Más exhaustividad puede generar más casos para revisión humana. Con menos falsas alertas se pueden perder más positivos. Evalúa la carga de trabajo y el costo para el negocio del umbral elegido, y vigila que el entrenamiento y el servicio sigan siendo coherentes.",
+   "src": "f6d17f305dd7"
+  },
+  "trap": {
+   "es": "Un puntaje de validación no garantiza la misma distribución de errores en producción.",
+   "src": "cf182ba4e4e3"
+  },
+  "exercise.prompt": {
+   "es": "Un detector identifica 8 de 10 casos de fraude, con 12 alertas en total. ¿Cuáles son la exhaustividad (recall) y la precisión (precision)?",
+   "src": "b07a46406c5f"
+  },
+  "exercise.answer": {
+   "es": "La exhaustividad es 8/10 = 80%. La precisión es 8/12, cerca de 66.7%. El umbral útil depende del costo del fraude no detectado y de investigar las falsas alertas.",
+   "src": "36e6b533bbbd"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Calcula la precisión y la exhaustividad.",
+   "src": "e674033b51e9"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Elige un conjunto reservado que sirva para el uso real.",
+   "src": "002487168127"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Explica una forma en que el preprocesamiento puede filtrar información.",
+   "src": "2efb4d757bbb"
+  },
+  "briefing.context": {
+   "es": "Un modelo de fraude puede no detectar fraudes reales o marcar por error compras legítimas.",
+   "src": "93869bd83b33"
+  },
+  "briefing.whyItMatters": {
+   "es": "Un solo número de exactitud oculta los costos distintos de esos errores.",
+   "src": "83ca43bede2e"
+  },
+  "briefing.takeaway": {
+   "es": "Elige medidas de evaluación que reflejen el costo real de los fallos.",
+   "src": "ae89e112c3ce"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Cómo juzgar un modelo con eventos raros",
+   "src": "621c559fb25e"
+  },
+  "block.diagram.description": {
+   "es": "Una línea base de clase mayoritaria puede tener una exactitud alta, así que compara la precisión y la exhaustividad con un umbral elegido.",
+   "src": "d7a15069deeb"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Predictor de la",
+   "src": "c7d4514f3fe8"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "clase mayoritaria",
+   "src": "3b857e4f8436"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Exactitud alta,",
+   "src": "fcda2ae921a9"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "ningún positivo raro hallado",
+   "src": "aced381d4207"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Precisión y exhaustividad",
+   "src": "f95010e587a3"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "con el umbral",
+   "src": "79096397397a"
+  },
+  "block.keyFact": {
+   "es": "Un puntaje de validación no garantiza la misma distribución de errores en producción.",
+   "src": "cf182ba4e4e3"
+  },
+  "block.check.question": {
+   "es": "Un predictor de la clase mayoritaria muestra una exactitud alta en un evento raro. ¿Qué demuestra eso?",
+   "src": "289987dcf60e"
+  },
+  "block.check.choices.0.text": {
+   "es": "Que el modelo es útil",
+   "src": "5f7eb87256dd"
+  },
+  "block.check.choices.0.why": {
+   "es": "La exactitud puede ocultar el fallo en una clase poco común.",
+   "src": "16fa61d30798"
+  },
+  "block.check.choices.1.text": {
+   "es": "Que la exhaustividad ya no importa",
+   "src": "c987fe0a6ff3"
+  },
+  "block.check.choices.1.why": {
+   "es": "La precisión y la exhaustividad cambian con el umbral y tienen un costo operativo.",
+   "src": "455002c9d7ed"
+  },
+  "block.check.choices.2.text": {
+   "es": "Que puede no encontrar ninguno de los positivos raros",
+   "src": "2693c454d557"
+  },
+  "block.check.choices.2.why": {
+   "es": "Un predictor de la clase mayoritaria puede tener una exactitud alta y no encontrar ninguno.",
+   "src": "38baadfaedbb"
+  },
+  "verification.note": {
+   "es": "Se confirmó que BigQuery ML reporta precisión, exhaustividad, exactitud y una matriz de confusión, y que evalúa con un umbral personalizado en los modelos binarios. Los consejos sobre la clase mayoritaria y el diseño de la división son de ML general y no se comprobaron.",
+   "src": "75ca1f6cd39b"
+  }
+ },
+ "embeddings": {
+  "title": {
+   "es": "Prepara los documentos para la recuperación y la generación",
+   "src": "9e01d59237bc"
+  },
+  "lead": {
+   "es": "Un sistema de recuperación necesita contexto relevante y permitido antes de generar una respuesta.",
+   "src": "6bc3dfb46851"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "Un embedding (incrustación) es una representación numérica que sirve para comparar significados. Un flujo RAG divide el material de origen en fragmentos (chunks), conserva los metadatos, crea los embeddings, recupera los fragmentos relevantes y entrega ese contexto a un modelo de generación.",
+   "src": "95beb56cb80f"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Elige los límites de los fragmentos y el modelo de embeddings de forma coherente. Conserva la procedencia (provenance) y aplica las restricciones de acceso al recuperar. Después evalúa tanto el contexto recuperado como la respuesta final.",
+   "src": "b8c8b1f5d640"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Un asistente interno de políticas recupera pasajes con ID de documento y fechas de vigencia. La respuesta cita esos pasajes y los documentos restringidos nunca llegan a usuarios sin autorización.",
+   "src": "a3c0456fc7e5"
+  },
+  "sections.3.title": {
+   "es": "Mantén una representación reproducible de los documentos",
+   "src": "d4fc15fbdba0"
+  },
+  "sections.3.body": {
+   "es": "Guarda un identificador de fragmento, el documento de origen, la versión o la fecha, los metadatos de acceso y el modelo de embeddings usado. Si cambias de modelo de embeddings, puede ser necesario regenerar los vectores guardados o separarlos. Los límites de los fragmentos influyen en que la recuperación capte suficiente contexto sin mezclar material que no tiene relación.",
+   "src": "57352a029f3f"
+  },
+  "sections.4.title": {
+   "es": "Filtra la evidencia recuperada antes de generar",
+   "src": "ba725d98b84d"
+  },
+  "sections.4.body": {
+   "es": "El modelo no debe recibir un pasaje restringido solo porque su vector esté cerca de la pregunta. Aplica una recuperación autorizada y conserva la procedencia. Trata el texto de origen como contenido no confiable y no como instrucciones para la aplicación. Evalúa por separado la relevancia, el apoyo en las fuentes (groundedness) y la utilidad de la respuesta final.",
+   "src": "330343c9ea81"
+  },
+  "sections.5.title": {
+   "es": "Entiende el equilibrio del indexado",
+   "src": "f64d6d7dfe3f"
+  },
+  "sections.5.body": {
+   "es": "Un índice vectorial puede acelerar la recuperación aproximada (approximate) en una carga de trabajo, a cambio de algo de almacenamiento y mantenimiento. Los vecinos aproximados no son, por sí solos, lo mismo que una búsqueda exacta en todos los vectores. Mide la calidad de recuperación y la latencia que necesita tu aplicación, y revisa la disponibilidad o la cobertura del índice antes de atribuirle cambios de rendimiento.",
+   "src": "7769bbc455d8"
+  },
+  "trap": {
+   "es": "Un índice vectorial mejora el rendimiento de la recuperación. No garantiza respuestas correctas ni autorizadas.",
+   "src": "505d9bd1a7e4"
+  },
+  "exercise.prompt": {
+   "es": "Una respuesta RAG cita un documento real, pero da una conclusión equivocada. ¿Qué capas podrían necesitar evaluación?",
+   "src": "738739574786"
+  },
+  "exercise.answer": {
+   "es": "Revisa si los fragmentos recuperados eran relevantes, completos, actuales y autorizados. Luego inspecciona cómo los usó la generación. Citar un documento válido no prueba que la conclusión se deduzca de la evidencia. Revisa tanto la calidad de la recuperación como la calidad de la respuesta.",
+   "src": "fff2d983db35"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Conserva la versión del documento y los metadatos de acceso.",
+   "src": "7b23e745e7b0"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Separa la relevancia de la recuperación de la corrección de la respuesta.",
+   "src": "774345819b70"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Explica la recuperación aproximada frente a la exacta.",
+   "src": "61ddd0a75131"
+  },
+  "briefing.context": {
+   "es": "Un usuario hace una pregunta y el sistema debe encontrar pasajes relevantes de los documentos antes de generar una respuesta.",
+   "src": "b8a90366b7a6"
+  },
+  "briefing.whyItMatters": {
+   "es": "El texto relevante debe poder encontrarse sin perder su fuente ni sus reglas de autorización.",
+   "src": "e2209b0386f6"
+  },
+  "briefing.takeaway": {
+   "es": "Prepara juntos los fragmentos útiles, los embeddings y la evidencia de recuperación.",
+   "src": "f0b23f8597ed"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Recuperar antes de generar",
+   "src": "585c387788c3"
+  },
+  "block.diagram.description": {
+   "es": "Divide las fuentes en fragmentos, crea embeddings con metadatos, recupera los fragmentos permitidos y luego genera.",
+   "src": "283137ff238e"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Divide el material",
+   "src": "3b0ad620be27"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Embedding y metadatos",
+   "src": "189d510bf76e"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Recupera lo permitido",
+   "src": "0ef876eb89e5"
+  },
+  "block.diagram.nodes.3.lines.0": {
+   "es": "Genera con contexto",
+   "src": "d7692231c690"
+  },
+  "block.keyFact": {
+   "es": "Un índice vectorial mejora el rendimiento de la recuperación. No garantiza respuestas correctas ni autorizadas.",
+   "src": "508bdde7c384"
+  },
+  "block.check.question": {
+   "es": "Un pasaje restringido tiene un vector cercano a la pregunta. ¿Qué debe pasar?",
+   "src": "54ad5b7ba1b3"
+  },
+  "block.check.choices.0.text": {
+   "es": "Aplicar el acceso para que no se recupere para usuarios sin autorización",
+   "src": "326203cde7c3"
+  },
+  "block.check.choices.0.why": {
+   "es": "El modelo no debe recibir un pasaje restringido solo porque su vector esté cerca.",
+   "src": "b8b706cdd439"
+  },
+  "block.check.choices.1.text": {
+   "es": "Enviarlo, porque es la coincidencia más cercana",
+   "src": "1b477819401b"
+  },
+  "block.check.choices.1.why": {
+   "es": "La cercanía, por sí sola, no justifica enviar un pasaje restringido.",
+   "src": "1aae8c632f5b"
+  },
+  "block.check.choices.2.text": {
+   "es": "Confiar en que el índice vectorial mantenga las respuestas autorizadas",
+   "src": "59f693ddd6a1"
+  },
+  "block.check.choices.2.why": {
+   "es": "Un índice vectorial mejora el rendimiento, pero no garantiza respuestas autorizadas.",
+   "src": "355d52183280"
+  },
+  "verification.note": {
+   "es": "Se confirmó que la búsqueda con índice es aproximada y con menor exhaustividad, que la fuerza bruta (brute force) es exacta, que la cobertura del índice es visible y que el flujo RAG divide, crea embeddings y recupera. No se comprobaron el cambio de modelo de embeddings ni la aplicación del acceso.",
+   "src": "5cc5eefd67fb"
+  }
+ },
+ "rag-evaluation": {
+  "title": {
+   "es": "Evalúa por separado la recuperación y las respuestas generadas",
+   "src": "a56daab0c434"
+  },
+  "lead": {
+   "es": "El contexto relevante, el control de acceso y la generación fiel son requisitos distintos.",
+   "src": "422f5e4a5edb"
+  },
+  "sections.0.title": {
+   "es": "Prueba la etapa de recuperación por sí sola",
+   "src": "a5fca6284bd0"
+  },
+  "sections.0.body": {
+   "es": "Crea preguntas representativas con los pasajes útiles que esperas. Revisa si aparece el material relevante, si está actualizado y si los filtros de acceso excluyen los documentos restringidos. Si falta la evidencia correcta, cambiar solo el prompt de generación puede no arreglar el problema de fondo de la recuperación.",
+   "src": "092992ac1af5"
+  },
+  "sections.1.title": {
+   "es": "Prueba la respuesta contra la evidencia recuperada",
+   "src": "bf97d34ff4f8"
+  },
+  "sections.1.body": {
+   "es": "Evalúa si la conclusión se deduce de los pasajes entregados, si las citas llevan a la versión correcta del documento y cómo se maneja la evidencia que falta. Distingue una afirmación generada por el modelo de un hecho validado por tu pipeline de datos. Trata cualquier instrucción dentro de un documento como contenido no confiable.",
+   "src": "bfebf5f601e0"
+  },
+  "sections.2.title": {
+   "es": "Monitorea el ciclo de vida de los documentos",
+   "src": "3bfab2c75482"
+  },
+  "sections.2.body": {
+   "es": "Cuando un documento cambia, se elimina o pierde el acceso, actualiza la representación de recuperación y sus metadatos según el contrato que corresponda. Un embedding viejo puede seguir llevando a contexto desactualizado o prohibido si el diseño de acceso y de actualización a su alrededor está incompleto.",
+   "src": "b225ea999229"
+  },
+  "trap": {
+   "es": "Un embedding es una representación para comparar. No es una copia de la verdad ni una decisión de autorización.",
+   "src": "96c97b854b5c"
+  },
+  "exercise.prompt": {
+   "es": "Una política que antes era pública pasa a ser restringida, pero su fragmento viejo sigue siendo recuperable. ¿Qué contrato falló?",
+   "src": "bb601863813b"
+  },
+  "exercise.answer": {
+   "es": "Falló el contrato de acceso y de actualización de documentos de la recuperación. Actualiza o excluye la representación afectada y aplica la autorización antes de que el contexto llegue a la generación. Prometer ocultar datos en la respuesta final es más débil que impedir la recuperación no autorizada.",
+   "src": "872f4c848f8f"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Evalúa la relevancia de los pasajes antes de generar.",
+   "src": "44784dd1d2b9"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Revisa la versión de la cita y el apoyo en las fuentes (groundedness).",
+   "src": "b285983f9144"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Propaga las eliminaciones de documentos y los cambios de acceso.",
+   "src": "9ca08c6b7462"
+  },
+  "briefing.context": {
+   "es": "Una respuesta generada suena convincente, pero la evidencia recuperada puede ser irrelevante o no estar autorizada.",
+   "src": "208bc5ca8376"
+  },
+  "briefing.whyItMatters": {
+   "es": "Una buena recuperación y una buena generación son resultados distintos y necesitan revisiones distintas.",
+   "src": "798089c974a4"
+  },
+  "briefing.takeaway": {
+   "es": "Evalúa por separado la selección de la evidencia y el respaldo de la respuesta.",
+   "src": "aeb4874b0abf"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Tres revisiones para un sistema RAG",
+   "src": "29a1d1043aa1"
+  },
+  "block.diagram.description": {
+   "es": "Prueba la recuperación, prueba la respuesta contra su evidencia y monitorea el ciclo de vida de los documentos.",
+   "src": "767640a4ec2c"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Prueba la",
+   "src": "b0327b09828a"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "recuperación sola",
+   "src": "a80799e8d715"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Prueba la respuesta",
+   "src": "caf563fbfe50"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "contra la evidencia",
+   "src": "7da96c097066"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Monitorea el ciclo",
+   "src": "d387ae8e8af7"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "de vida de documentos",
+   "src": "100584cb1432"
+  },
+  "block.keyFact": {
+   "es": "Un embedding es una representación para comparar. No es una copia de la verdad ni una decisión de autorización.",
+   "src": "96c97b854b5c"
+  },
+  "block.check.question": {
+   "es": "Un documento se elimina o pierde el acceso. ¿Qué debe pasar?",
+   "src": "5f03a0a042c4"
+  },
+  "block.check.choices.0.text": {
+   "es": "Nada, el embedding viejo es inofensivo",
+   "src": "3d1300805f02"
+  },
+  "block.check.choices.0.why": {
+   "es": "Un embedding viejo puede seguir llevando a contexto desactualizado o prohibido.",
+   "src": "fdbc1cc8a400"
+  },
+  "block.check.choices.1.text": {
+   "es": "Actualizar la representación de recuperación y sus metadatos",
+   "src": "b35a87a385a7"
+  },
+  "block.check.choices.1.why": {
+   "es": "Los cambios, las eliminaciones y las revocaciones deben llegar a la representación de recuperación.",
+   "src": "d181120260de"
+  },
+  "block.check.choices.2.text": {
+   "es": "Tratar el embedding como la decisión de autorización",
+   "src": "6b5d33619ef3"
+  },
+  "block.check.choices.2.why": {
+   "es": "Un embedding es una representación para comparar, no una decisión de autorización.",
+   "src": "4ef5f80ae82b"
+  },
+  "verification.note": {
+   "es": "Se confirmó que RAG tiene etapas separadas de recuperación y de generación, y que una API de verificación de apoyo en fuentes (check grounding) puntúa las respuestas contra las fuentes recuperadas. No se comprobaron los consejos sobre la eliminación de documentos, la revocación de acceso y el texto no confiable.",
+   "src": "3a7552733944"
+  }
  }
 }
