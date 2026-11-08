@@ -30,7 +30,7 @@ Format: `- [ ]` pending, `- [x]` done, `- [x] SKIPPED: reason`, `- [ ] BLOCKED: 
 - [x] 14. G Focus mode: topbar button, f key, Escape, remembered in its own storage key, progress bar. Tests cover toggle, bad values, clamping and old saved progress. Bar shows session step or completed lessons.
 - [x] 15. G Lesson block pilot: 4 of 9 domain 1 lessons start with a diagram, a key fact and a quick check. Text is derived from the lessons and needs owner review.
 - [x] 16. G Motion set: dots moving along lesson diagrams (3 short passes, pause button), button feedback, key-fact sweep, reduced-motion fallback, decision 0001.
-- [ ] 17. G Gentle rewards: streaks and domain marks as optional fields under data-engineer-fieldnotes.v1. Export and restore test with old state.
+- [x] 17. G Gentle rewards: optional streak field under data-engineer-fieldnotes.v1, domain marks derived from completed lessons, calm chip and badges. Tests cover old state, export and restore.
 - [ ] BLOCKED: 18. Official Google Cloud product icons in diagrams after confirming the terms on cloud.google.com/icons. Attribution on the credits page. Needs your OK to download or install: official Google Cloud icon files.
 - [ ] BLOCKED: 19. Lucide UI icons copied as local SVG and CC0 illustrations (Open Peeps, Open Doodles), each listed in LICENSES/. Needs your OK to download or install: Lucide SVG files and CC0 illustrations.
 - [ ] BLOCKED: 20. Manim pilot: one 20 to 40 s WebM clip (batch vs streaming) rendered locally, 1 MB or less, poster, EN and ES VTT, pause control. Radar pull requ... Needs your OK to download or install: Manim, ffmpeg and a rendered video.

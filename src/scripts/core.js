@@ -100,7 +100,7 @@
     if(typeof expected==='number'){const parsed=Number(String(value).trim().replace(',','.'));return Number.isFinite(parsed)&&Math.abs(parsed-expected)<0.051;}
     return String(value).trim().toLowerCase()===String(expected).trim().toLowerCase();
   }
-  function defaultState() {return {version:1, completed:[], bookmarks:[], attempts:[], vocab:{}, english:true, exam:null,labProgress:{},reviewTopics:[],briefed:[],missionCompletions:[],focus:null,theme:'system',retired:{bookmarks:[],attempts:[]}};}
+  function defaultState() {return {version:1, completed:[], bookmarks:[], attempts:[], vocab:{}, english:true, exam:null,labProgress:{},reviewTopics:[],briefed:[],missionCompletions:[],focus:null,theme:'system',retired:{bookmarks:[],attempts:[]},streak:{days:0,last:null,best:0}};}
   function validateProgress(input, lessonIds, questionIds, termIds, workshopSpecs = []) {
     if (!input || input.version !== 1 || typeof input !== 'object') throw new Error('Unsupported progress file.');
     const out = defaultState(), l = new Set(lessonIds), q = new Set(questionIds), t = new Set(termIds);
@@ -126,7 +126,56 @@
       const answers={}; for(const id of input.exam.ids) {const a=input.exam.answers?.[id]; if(Array.isArray(a) && a.every(x=>/^[A-Z]$/.test(x))) answers[id]=[...new Set(a)];}
       out.exam={ids:input.exam.ids,answers,index:Math.max(0,Math.min(input.exam.ids.length-1,Math.floor(Number(input.exam.index)||0))),startedAt:input.exam.startedAt,deadline:input.exam.deadline,finished:input.exam.finished === true,recorded:input.exam.recorded === true,difficulty:['Foundation','Applied','mixed'].includes(input.exam.difficulty)?input.exam.difficulty:'mixed'};
     }
+    out.streak=cleanStreak(input.streak);
     return out;
+  }
+  const MAX_STREAK=36500;
+  function dayNumber(iso){
+    if(typeof iso!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(iso))return null;
+    const [y,m,d]=iso.split('-').map(Number),t=Date.UTC(y,m-1,d),dt=new Date(t);
+    return dt.getUTCFullYear()===y&&dt.getUTCMonth()===m-1&&dt.getUTCDate()===d&&y>=2000&&y<=2200?Math.round(t/86400000):null;
+  }
+  function cleanStreak(raw){
+    const out={days:0,last:null,best:0};
+    if(!raw||typeof raw!=='object')return out;
+    const clamp=v=>Math.max(0,Math.min(MAX_STREAK,Math.floor(Number(v))||0));
+    if(dayNumber(raw.last)!==null){out.last=raw.last;out.days=clamp(raw.days);}
+    out.best=Math.max(clamp(raw.best),out.days);
+    return out;
+  }
+  // Records one calendar day of study. A gap restarts the count at 1 for today and always keeps "best". Never mutates its input.
+  function touchStreak(state,dateISO){
+    const cur=cleanStreak(state&&state.streak),today=dayNumber(dateISO);
+    if(today===null)return {...state,streak:cur};
+    const last=cur.last===null?null:dayNumber(cur.last);
+    let days;
+    if(last===null)days=1;
+    else if(today<last)return {...state,streak:cur};
+    else if(today===last)days=Math.max(1,cur.days);
+    else if(today-last===1)days=Math.min(MAX_STREAK,cur.days+1);
+    else days=1;
+    return {...state,streak:{days,last:today<last?cur.last:dateISO,best:Math.max(cur.best,days)}};
+  }
+  // Days to show today: a streak that was not continued yesterday or today reads as 0, without any message.
+  function currentStreak(state,dateISO){
+    const cur=cleanStreak(state&&state.streak),today=dayNumber(dateISO),last=cur.last===null?null:dayNumber(cur.last);
+    return today!==null&&last!==null&&today-last<=1&&today>=last?cur.days:0;
+  }
+  // Marks are derived from completed lessons and never stored.
+  function domainMarks(state,domains,lessons){
+    const done=new Set(Array.isArray(state&&state.completed)?state.completed:[]),marks={};
+    for(const d of domains){const own=lessons.filter(l=>l.domain===d.id);marks[d.id]=own.length>0&&own.every(l=>done.has(l.id));}
+    return marks;
+  }
+  function localDate(d=new Date()){const p=n=>String(n).padStart(2,'0');return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate());}
+  const MARK_SVG='<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+  // Gentle rewards markup: a study-days chip and one badge per domain. Static, text labels, no warnings.
+  function rewardsHtml(state,domains,lessons,dateISO,esc,full){
+    const days=currentStreak(state,dateISO),marks=domainMarks(state,domains,lessons),best=cleanStreak(state&&state.streak).best;
+    const chip='<span class="reward-chip">Days studied in a row: '+days+(best>days?' <span class="reward-best">(best '+best+')</span>':'')+'</span>';
+    const earned=domains.filter(d=>marks[d.id]);
+    if(!full)return '<p class="rewards-line">'+chip+(earned.length?' <span class="reward-chip">'+earned.length+' of '+domains.length+' domain marks earned</span>':'')+'</p>';
+    return '<section class="panel rewards"><h2>Gentle rewards</h2><p>'+chip+'</p><ul class="mark-list">'+domains.map(d=>'<li class="domain-mark'+(marks[d.id]?' earned':'')+'">'+(marks[d.id]?MARK_SVG+' ':'')+esc(d.name)+': '+(marks[d.id]?'mark earned':'not yet earned')+'</li>').join('')+'</ul><p class="small muted">A mark appears when every lesson in a domain is complete. Your count restarts quietly after a rest day and your best is kept.</p></section>';
   }
   const FOCUS_KEY = 'data-engineer-fieldnotes.focus.v1';
   function parseFocusPreference(raw) {return raw === '1';}
@@ -143,5 +192,5 @@
   function isFocusShortcut(ev) {
     return !!ev && ev.key === 'f' && !ev.ctrlKey && !ev.metaKey && !ev.altKey && !ev.shiftKey && !isTypingTarget(ev.target);
   }
-  root.FieldCore = {FOCUS_KEY, parseFocusPreference, serializeFocusPreference, toggleFocus, focusProgress, isFocusShortcut, equalAnswers, quotas, shuffle, makeExam, scoreExam, EVENTS, simulateStream, scanModel, runWorkshop, checkPrediction, defaultState, validateProgress};
+  root.FieldCore = {FOCUS_KEY, parseFocusPreference, serializeFocusPreference, toggleFocus, focusProgress, isFocusShortcut, equalAnswers, quotas, shuffle, makeExam, scoreExam, EVENTS, simulateStream, scanModel, runWorkshop, checkPrediction, defaultState, validateProgress, touchStreak, currentStreak, domainMarks, localDate, rewardsHtml};
 })(globalThis);
