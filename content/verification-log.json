@@ -665,5 +665,45 @@
     ],
     "result": "confirmed",
     "note": "Checked Resources exceeded has memory, shuffle and complexity causes, more slots fix only the shuffle case, and a clustered dry run is an upper bound. Skew and join grain advice not checked."
+  },
+  {
+    "topic": "pipeline-slo",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Dataflow data freshness system latency throughput backlog metrics Pub/Sub oldest unacknowledged message age",
+    "sources": [
+      "https://docs.cloud.google.com/dataflow/docs/guides/using-monitoring-intf",
+      "https://docs.cloud.google.com/pubsub/docs/monitoring"
+    ],
+    "result": "confirmed",
+    "note": "Checked Dataflow shows freshness, system latency, throughput and backlog, latency rises when a sink stops accepting writes, Pub/Sub reports oldest unacked age. SLO design and sink permission advice not checked."
+  },
+  {
+    "topic": "recovery",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "BigQuery backup versus replication snapshots cross-region replication regional outage managed disaster recovery Cloud SQL high availability",
+    "sources": [
+      "https://docs.cloud.google.com/architecture/scalable-bigquery-backup-automation",
+      "https://docs.cloud.google.com/bigquery/docs/managed-disaster-recovery",
+      "https://docs.cloud.google.com/sql/docs/mysql/high-availability"
+    ],
+    "result": "updated",
+    "note": "Added that replication alone is not a regional outage plan and managed disaster recovery needs Enterprise Plus. Checked snapshots outlast time travel and HA copies writes. RPO arithmetic not checked."
+  },
+  {
+    "topic": "recovery-runbook",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "BigQuery snapshots exports backup versus replication corrupted data copied to replica hard failover data loss replication latency RPO",
+    "sources": [
+      "https://docs.cloud.google.com/architecture/scalable-bigquery-backup-automation",
+      "https://docs.cloud.google.com/bigquery/docs/managed-disaster-recovery"
+    ],
+    "result": "confirmed",
+    "note": "Checked snapshots are point-in-time backups, replicas copy corrupted data, hard failover can lose unreplicated data. Key availability for encrypted copies and rehearsal design not checked."
   }
 ]
