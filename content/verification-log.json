@@ -920,5 +920,91 @@
     ],
     "result": "confirmed",
     "note": "Checked: serverless CDC and replication with backfill from supported database sources to BigQuery or Cloud Storage. Not checked: per-engine semantics, connectivity and cutover."
+  },
+  {
+    "topic": "service-18",
+    "kind": "service",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Storage Transfer Service overview transfer data Cloud Storage S3 on-premises schedule",
+    "sources": [
+      "https://docs.cloud.google.com/storage-transfer/docs/overview"
+    ],
+    "result": "confirmed",
+    "note": "Checked: managed transfers between object and file stores and Cloud Storage, scheduled and at scale. Not checked: the CDC and proprietary-format caveat, which is site guidance."
+  },
+  {
+    "topic": "service-19",
+    "kind": "service",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Knowledge Catalog formerly Dataplex Universal Catalog metadata discovery lineage",
+    "sources": [
+      "https://docs.cloud.google.com/knowledge-catalog/docs/transition-dataplex-universal-catalog",
+      "https://docs.cloud.google.com/knowledge-catalog/docs/faq"
+    ],
+    "result": "confirmed",
+    "note": "Checked: Knowledge Catalog is the current name for Dataplex Universal Catalog, with discovery, lineage and governance. The card already names both. Not checked: permissions and quality caveat."
+  },
+  {
+    "topic": "service-20",
+    "kind": "service",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Sensitive Data Protection pseudonymization one-way two-way tokens de-identification",
+    "sources": [
+      "https://docs.cloud.google.com/sensitive-data-protection/docs/pseudonymization"
+    ],
+    "result": "confirmed",
+    "note": "Checked: de-identification with one-way hashing versus reversible tokens that need the same key. Not checked: inspection findings directly, and masking details."
+  },
+  {
+    "topic": "service-21",
+    "kind": "service",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Cloud Monitoring metric-threshold and metric-absence alerting policies notification channels",
+    "sources": [
+      "https://docs.cloud.google.com/monitoring/alerts/using-alerting-ui"
+    ],
+    "result": "confirmed",
+    "note": "Checked: metric alerting policies, notification channels, alerts when data stops arriving. Not checked: freshness and backlog metrics per data service, runbooks and CPU advice."
+  },
+  {
+    "topic": "service-22",
+    "kind": "service",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Cloud Audit Logs overview Admin Activity Data Access who did what where and when",
+    "sources": [
+      "https://docs.cloud.google.com/logging/docs/audit"
+    ],
+    "result": "confirmed",
+    "note": "Checked: audit logs answer who did what and when, Data Access logs are off by default except BigQuery. Not checked: operational log retention and sensitive payload handling."
+  },
+  {
+    "topic": "service-23",
+    "kind": "service",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Managed Service for Apache Kafka overview open source Kafka clusters compatibility",
+    "sources": [
+      "https://docs.cloud.google.com/managed-service-for-apache-kafka/docs/overview"
+    ],
+    "result": "confirmed",
+    "note": "Checked: managed open source Kafka clusters, no application code change, topic retention set by the user. Not checked: consumer group behavior and the event contract."
+  },
+  {
+    "topic": "service-24",
+    "kind": "service",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Managed Service for Apache Spark serverless batch workloads interactive sessions",
+    "sources": [
+      "https://docs.cloud.google.com/managed-spark/docs/serverless-overview",
+      "https://docs.cloud.google.com/managed-spark/docs/concepts/serverless-spark-compare"
+    ],
+    "result": "updated",
+    "note": "Checked: Spark batch and interactive sessions without a cluster, now called Managed Service for Apache Spark serverless. Card name shortened to fit the budget. Not checked: runtime and economics."
   }
 ]
