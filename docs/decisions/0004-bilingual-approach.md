@@ -31,6 +31,22 @@ Plan for the later stages, each a separate lazily loaded Spanish file loaded onl
 3. Services and comparisons: one file keyed by service and comparison id.
 4. Imported questions: their Spanish exists only in a separate layer next to the untouched original. `content/imported.json`, the question ids, source keys, review labels and the 25 images are never edited. The Spanish text is a reading aid and is labelled as a translation.
 
+## Lesson overlay format (item 38)
+
+Spanish lesson text is an overlay per domain, not a copy of the lessons. The source is `content/es/lessons-d<N>.json` and the build validates it and writes `data/es/lessons/domain-<N>.json`. The loader asks for it only when the language is Spanish and only for the domain of the lesson being opened (same on-demand pattern as `data/lessons/domain-N.json`). `manifest.esDomains` lists the domains that have an overlay, so no request is made for the others. The overlay changes the release key, so a cached file never mixes with another release.
+
+```json
+{ "least-privilege": { "title": { "es": "Da a cada identidad ...", "src": "3f2a9c01b7de" } } }
+```
+
+- Keys are the lesson id and a stable path such as `sections.2.body`, `exercise.checkpoints.0` or `block.check.choices.1.why`. `src/scripts/lesson-es.js` lists the translatable paths: titles, lead, section titles and bodies, trap, exercise, briefing, review scope, decision card and the lesson block (diagram title, description and node lines, key fact, quick check question, choice texts and reasons). Code, ids, urls, references and keywords are not translatable.
+- `src` is the first 12 hex characters of the sha256 of the English string that was translated.
+- Stale hash rule. If the English text changes, the old hash no longer matches. The build then FAILS for any lesson that has an entry, and in the browser the entry is ignored, the English string is shown and a console warning lists the path. A stale translation never shows silently. A path without an entry also shows English and counts as missing.
+- The build also fails for an unknown lesson or path, an empty Spanish string, a protected product name that is in the English but not in the Spanish, different numbers, a different count of quick check choices or a moved correct choice. Only strings are translated, so the correct choice keeps its index.
+- `node scripts/i18n-skeleton.mjs <domain>` lists every path with its English text, hash and state (ok, missing, stale). With `--merge file.json` it adds plain translations and stamps fresh hashes. Items 39 to 42 reuse it for domains 2 to 5.
+- On a lesson or short session page the Spanish is applied to the lesson object before it renders, so structure, quick check and diagram all show it. Switching language on such a page renders it again. The English text is kept and restored when the language goes back to English. Titles shown in lists before a lesson page opens stay English.
+- English exam terms keep their English form once with the Spanish meaning in parentheses. Product and service names never change. The Spanish needs the owner's review.
+
 ## Alternatives considered
 
 - Rewrite every template to call a `t('key')` function. It is the cleanest long term, but it touches nearly every initial file, adds bytes for English visitors and risks regressions in code that works. The translator layer can be replaced by this later without changing the dictionary content.

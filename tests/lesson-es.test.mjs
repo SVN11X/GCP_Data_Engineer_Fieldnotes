@@ -81,3 +81,10 @@ test('English lesson ids still match the overlay structure',()=>{
  assert.equal(lessons.length,52);
  for(const l of lessons)assert.ok(lessonPaths(l).length>5,l.id);
 });
+test('domain 1 has 100 percent coverage, no Spanish with semicolons or long dashes',()=>{
+ const l=englishLessons(1),o=readOverlay(1),c=coverage(o,l);
+ assert.equal(l.length,9);
+ assert.equal(c.ok,c.total,'domain 1 translated '+c.ok+' of '+c.total);
+ assert.ok(c.total>=254);
+ for(const [id,entries] of Object.entries(o))for(const [p,x] of Object.entries(entries))assert.ok(!/[;–—]/.test(x.es),id+':'+p);
+});

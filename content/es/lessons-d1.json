@@ -714,5 +714,323 @@
    "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
    "src": "65bb82d02b96"
   }
+ },
+ "migration": {
+  "title": {
+   "es": "Migra con un plan de validación y de traspaso (cutover)",
+   "src": "0f5cfe799022"
+  },
+  "lead": {
+   "es": "Estima el tiempo de transferencia antes de elegir el mecanismo.",
+   "src": "0de489c2c222"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "Haz un inventario de los formatos de origen, las tasas de cambio, la capacidad de red, las dependencias y el tiempo de parada aceptable. Una carga completa (full load) mueve los registros que ya existen. La captura de cambios de datos (change data capture, CDC) sigue los cambios posteriores. Concilia (reconcile) los conteos, las sumas de verificación (checksums) o los totales de negocio antes del traspaso.",
+   "src": "fe8f61ababf3"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Usa Datastream para la captura de cambios de bases de datos compatibles, conectores programados para importaciones recurrentes compatibles y Storage Transfer Service para mover objetos o archivos. Considera Transfer Appliance cuando un traslado sin conexión (offline) encaje con el calendario.",
+   "src": "21a654831d76"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "A 20 megabits por segundo, 1 petabyte necesita unos 12.7 años de transferencia continua ideal. Un plazo de seis meses exige otro camino. Ajustar el protocolo no puede cerrar esa diferencia.",
+   "src": "08cd7163d850"
+  },
+  "sections.3.title": {
+   "es": "Haz el inventario antes de elegir un conector",
+   "src": "adba23c961b5"
+  },
+  "sections.3.body": {
+   "es": "Anota el motor y la versión del origen, los formatos, las claves primarias, el volumen de cambios, cómo se comportan las actualizaciones y los borrados, la ruta de red y el límite de tiempo de parada. Un producto de transferencia gestionada con nombre propio no admite todos los orígenes propietarios. Además, migrar una base de datos y cargar datos en un almacén (warehouse) son problemas de destino distintos. Elige solo después de comprobar que la ruta de origen a destino es compatible.",
+   "src": "3568839a9754"
+  },
+  "sections.4.title": {
+   "es": "Separa la instantánea de los cambios posteriores",
+   "src": "89b2d0624f03"
+  },
+  "sections.4.body": {
+   "es": "Un relleno masivo (backfill) mueve el estado que ya existe. La captura de cambios lleva las modificaciones posteriores. Planifica la transición para que los cambios que ocurren durante el backfill no se pierdan ni se apliquen en el orden equivocado. Concilia los conteos de claves y los valores de negocio, y define cómo se representan los borrados. Mantén una decisión de reversión (rollback) hasta que termine la validación.",
+   "src": "22dcb0ccefcd"
+  },
+  "sections.5.title": {
+   "es": "Usa unidades en la estimación de una transferencia",
+   "src": "505afc0486d2"
+  },
+  "sections.5.body": {
+   "es": "Para una estimación de límite inferior: segundos de transferencia = bytes × 8 ÷ bits por segundo. Convierte las unidades de forma coherente y después añade margen por la utilización, la sobrecarga del protocolo, el tráfico que compite y los reintentos. La capacidad anunciada de un enlace no es una garantía de extremo a extremo para la aplicación. Los dispositivos sin conexión añaden tiempo de envío y de manejo, aunque reduzcan el tiempo de transferencia por red.",
+   "src": "8ea700c3e8c6"
+  },
+  "trap": {
+   "es": "Un formato de archivo propietario sin nombre no está admitido automáticamente por un conector de transferencia gestionada.",
+   "src": "beeea5a7678e"
+  },
+  "exercise.prompt": {
+   "es": "Se copia con éxito una instantánea (snapshot) de 10 TB mientras el origen sigue cambiando. ¿Es seguro redirigir producción de inmediato?",
+   "src": "126a588a52c0"
+  },
+  "exercise.answer": {
+   "es": "No, con esa evidencia sola. Verifica la cobertura de la captura de cambios, el retraso hasta ponerse al día (catch-up lag), las actualizaciones y los borrados, la conciliación de negocio, la compatibilidad de los consumidores y una condición de reversión. Que termine una copia masiva no demuestra que el destino represente el estado actual del origen.",
+   "src": "e57adea04c83"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Explica la instantánea frente a CDC.",
+   "src": "d3fd3ae18c3d"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Calcula un límite inferior de transferencia con unidades explícitas.",
+   "src": "12eddc99a581"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Define los criterios de validación y de reversión.",
+   "src": "9b1b2bf90f79"
+  },
+  "briefing.context": {
+   "es": "Un equipo traslada datos de producción mientras la gente sigue usando el sistema antiguo.",
+   "src": "2b3f02c8328d"
+  },
+  "briefing.whyItMatters": {
+   "es": "Un archivo copiado o un estado de transferencia en verde no demuestra que el reemplazo esté listo.",
+   "src": "69e1a025b86d"
+  },
+  "briefing.takeaway": {
+   "es": "Planifica la validación, el traspaso y la reversión antes de cambiar a los lectores.",
+   "src": "e5527084e67a"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Del estado inicial a los cambios posteriores",
+   "src": "db8efb20af05"
+  },
+  "block.diagram.description": {
+   "es": "Una carga completa mueve los registros existentes, la captura de cambios lleva los cambios posteriores y los datos se concilian antes del traspaso.",
+   "src": "29b83233c665"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Carga completa:",
+   "src": "3ceeddea3307"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "registros existentes",
+   "src": "6a5ee441db23"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Captura de cambios:",
+   "src": "64e50d850e82"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "cambios posteriores",
+   "src": "1080466c1ded"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Conciliar y luego traspasar",
+   "src": "ca8433d0ee81"
+  },
+  "block.keyFact": {
+   "es": "Una carga completa mueve los registros que ya existen. La captura de cambios de datos sigue los cambios posteriores.",
+   "src": "55d46d826d18"
+  },
+  "block.check.question": {
+   "es": "A 20 megabits por segundo, 1 petabyte necesita unos 12.7 años. El plazo es de seis meses. ¿Qué cierra la diferencia?",
+   "src": "8644095e5b39"
+  },
+  "block.check.choices.0.text": {
+   "es": "Otro camino de transferencia",
+   "src": "03f703e514bd"
+  },
+  "block.check.choices.0.why": {
+   "es": "Un plazo de seis meses exige otro camino.",
+   "src": "ab2cbd4c50b4"
+  },
+  "block.check.choices.1.text": {
+   "es": "Ajustar el protocolo",
+   "src": "c79b798174a5"
+  },
+  "block.check.choices.1.why": {
+   "es": "Ajustar el protocolo no puede cerrar esa diferencia.",
+   "src": "d4fb3ccef2dd"
+  },
+  "block.check.choices.2.text": {
+   "es": "Omitir la validación antes del traspaso",
+   "src": "9f1e02f03931"
+  },
+  "block.check.choices.2.why": {
+   "es": "Concilia los conteos, las sumas de verificación o los totales de negocio antes del traspaso.",
+   "src": "6abb59181fbd"
+  }
+ },
+ "cdc-cutover": {
+  "title": {
+   "es": "Pasa de una instantánea a un origen que cambia",
+   "src": "cb9773756893"
+  },
+  "lead": {
+   "es": "Planifica las actualizaciones, los borrados, el orden y el traspaso (cutover) como un solo contrato.",
+   "src": "4599b283240e"
+  },
+  "sections.0.title": {
+   "es": "Define el estado inicial y el incremental",
+   "src": "a0fea3277bcf"
+  },
+  "sections.0.body": {
+   "es": "Una instantánea (snapshot) es una representación del origen en un momento o en un límite coherente que el sistema admita. CDC registra los cambios posteriores. La transición debe cubrir las modificaciones que ocurren durante la carga completa. Revisa la semántica de origen que admite el conector. No supongas que las marcas de tiempo de los eventos bastan por sí solas para fijar un orden coherente.",
+   "src": "5662f369003b"
+  },
+  "sections.1.title": {
+   "es": "Diseña cómo se interpreta el destino",
+   "src": "dc523d2c386a"
+  },
+  "sections.1.body": {
+   "es": "Un historial de eventos puede añadir cada cambio observado, mientras que una tabla de estado actual necesita una regla de aplicación que tenga en cuenta la versión. Trata los borrados de forma deliberada. Si llegan varias versiones del origen, una actualización antigua no debe sobrescribir una más nueva solo porque se procesó la última. Deduplica las versiones del origen que compiten antes de un MERGE cuando haga falta.",
+   "src": "8ee0cb70ee87"
+  },
+  "sections.2.title": {
+   "es": "Haz del traspaso una decisión medida",
+   "src": "eccd6148766b"
+  },
+  "sections.2.body": {
+   "es": "Mide el retraso (lag) entre el origen y el destino y compara las invariantes de negocio de ambos. Prueba las consultas de los consumidores con el esquema nuevo. Define qué activaría una reversión (rollback) y cómo se concilian las escrituras que ocurran durante el cambio. Un trabajo de carga masiva en verde es solo una parte de la decisión.",
+   "src": "e8da44eb29e1"
+  },
+  "trap": {
+   "es": "El orden de cambio en el origen y el orden de llegada al procesamiento no son intercambiables.",
+   "src": "948cc06d7a50"
+  },
+  "exercise.prompt": {
+   "es": "La versión 4 de una entidad llega después de la versión 5. ¿Qué debe hacer una combinación (merge) de estado actual?",
+   "src": "eb5ff2242901"
+  },
+  "exercise.answer": {
+   "es": "Debe conservar la versión más nueva aceptada según el contrato de orden del origen que hayas elegido. Una condición de MERGE y un origen deduplicado de antemano deben impedir que la actualización antigua la sobrescriba.",
+   "src": "b253cf887cf0"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Explica el límite entre la instantánea y CDC.",
+   "src": "d2f7b85a595c"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Describe cómo se comportan las actualizaciones y los borrados.",
+   "src": "9080821b672d"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Define la evidencia para el traspaso y la reversión.",
+   "src": "9f4f00b7dead"
+  },
+  "briefing.context": {
+   "es": "Se copia una instantánea de la base de datos a mediodía y después llegan más pedidos. La captura de cambios de datos sigue los cambios posteriores a la instantánea.",
+   "src": "b9044e69cf76"
+  },
+  "briefing.whyItMatters": {
+   "es": "Los lectores pueden perder actualizaciones si la instantánea y los cambios posteriores no se encuentran en un límite coherente.",
+   "src": "bcef299885e9"
+  },
+  "briefing.takeaway": {
+   "es": "Concilia un estado coherente antes de que el consumidor cambie.",
+   "src": "980ed3537e6b"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  }
+ },
+ "transfer-decisions": {
+  "title": {
+   "es": "Elige la herramienta de migración según el contrato de movimiento",
+   "src": "808018f0a1da"
+  },
+  "lead": {
+   "es": "Mide el volumen y el ancho de banda disponible. Después separa el movimiento de objetos, el envío sin conexión y la captura de cambios de bases de datos.",
+   "src": "288f684b18b1"
+  },
+  "sections.0.title": {
+   "es": "Elige según lo que se mueve",
+   "src": "7c15e266a411"
+  },
+  "sections.0.body": {
+   "es": "Storage Transfer Service gestiona las transferencias compatibles de archivos y objetos. Transfer Appliance ofrece una vía de envío físico de datos hacia Cloud Storage. Para una copia puntual (ad hoc), gcloud storage cp es una opción de línea de comandos. Ninguno de estos datos convierte una herramienta de copia de archivos en un lector de registros de bases de datos.",
+   "src": "f7c7a85a07f4"
+  },
+  "sections.1.title": {
+   "es": "Usa una estimación de límite inferior",
+   "src": "1cc6ef0814cb"
+  },
+  "sections.1.body": {
+   "es": "Modelo de planificación de ejemplo: 100 TB (decimal) sobre un enlace sostenido de 1 Gbit/s requieren unos 9.26 días antes de la sobrecarga: bytes × 8 / bits por segundo. La capacidad compartida, los reintentos, la validación y el tráfico de cambios alargan la ventana necesaria. Compara esa ventana con la logística de envío y de carga del dispositivo. No supongas que lo que va sin conexión siempre es más rápido.",
+   "src": "e75d679de733"
+  },
+  "sections.2.title": {
+   "es": "Valida antes de cambiar a los lectores",
+   "src": "4e51e64817a9"
+  },
+  "sections.2.body": {
+   "es": "Para archivos, concilia el número de objetos, las sumas de verificación cuando se apliquen, los nombres y el acceso. Para una base de datos que cambia, elige una vía de migración o de CDC compatible y concilia una instantánea coherente más los cambios posteriores. Datastream y Database Migration Service tienen destinos y casos de uso distintos. Valida el par exacto de origen y destino.",
+   "src": "df5f7932578c"
+  },
+  "trap": {
+   "es": "Una instantánea copiada no incluye los cambios hechos después de esa instantánea.",
+   "src": "4cc00225975a"
+  },
+  "exercise.prompt": {
+   "es": "Una copia puntual y pequeña de una carpeta y un flujo nocturno de archivos locales (on-premises) comparten un destino en Cloud Storage. ¿Tienen que usar la misma herramienta?",
+   "src": "8f5cfdecc6f6"
+  },
+  "exercise.answer": {
+   "es": "No. Considera gcloud storage cp para la copia puntual y un trabajo programado compatible de Storage Transfer Service para el flujo recurrente. En los dos casos, revisa el acceso, la compatibilidad del origen, la conectividad y la validación.",
+   "src": "32081662a2e9"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Nombra el tipo de datos y el destino.",
+   "src": "2c3cabdda058"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Estima la ventana de transferencia con unidades.",
+   "src": "9198d9626262"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Define la conciliación y el traspaso.",
+   "src": "ff7885c976b0"
+  },
+  "briefing.context": {
+   "es": "Se acerca el plazo de una migración y varias herramientas de movimiento de datos parecen similares.",
+   "src": "b16036614ec1"
+  },
+  "briefing.whyItMatters": {
+   "es": "Elegir una herramienta de bases de datos para archivos, o una copia de archivos para cambios continuos, pierde de vista el contrato de movimiento.",
+   "src": "d92a8e5ce1f4"
+  },
+  "briefing.takeaway": {
+   "es": "Nombra el tipo de datos, estima la ventana de transferencia y define la conciliación.",
+   "src": "11513ffc23b0"
+  },
+  "review.scope": {
+   "es": "Las afirmaciones concretas sobre servicios de esta lección original se comprobaron con sus referencias principales. El escenario es un ejemplo.",
+   "src": "9203ccf1a1ce"
+  },
+  "decision.useCase": {
+   "es": "Mover un archivo histórico y después mantener en marcha un flujo programado de archivos.",
+   "src": "d6f84c2b4c32"
+  },
+  "decision.advantage": {
+   "es": "Un contrato de movimiento acota la elección del servicio antes de la implementación.",
+   "src": "4286bbbff52d"
+  },
+  "decision.limitation": {
+   "es": "Tanto el envío físico como las transferencias en línea requieren logística y conciliación.",
+   "src": "b1c46c16e010"
+  }
  }
 }
