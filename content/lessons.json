@@ -5415,6 +5415,81 @@
       "takeaway": "Compare resource lifetime with the work that actually needs it.",
       "minutes": 5,
       "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    },
+    "block": {
+      "minutes": 3,
+      "diagram": {
+        "title": "Judging a cost change",
+        "description": "Measure total work and idle time, check the price model, then confirm the business objective still holds.",
+        "width": 280,
+        "height": 196,
+        "nodes": [
+          {
+            "id": "n0",
+            "lines": [
+              "Measure total work",
+              "and idle time"
+            ],
+            "x": 20,
+            "y": 4,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n1",
+            "lines": [
+              "Check the",
+              "price model"
+            ],
+            "x": 20,
+            "y": 76,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n2",
+            "lines": [
+              "Protect the",
+              "completion target"
+            ],
+            "x": 20,
+            "y": 148,
+            "w": 240,
+            "h": 44
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ]
+      },
+      "keyFact": "Reducing machine size is not an optimization if it violates the completion deadline.",
+      "check": {
+        "question": "A smaller machine saves money but the job now misses its deadline. Is it an optimization?",
+        "choices": [
+          {
+            "text": "Yes, a smaller machine always costs less",
+            "correct": false,
+            "why": "A cheaper instance is not necessarily cheaper per successful business run."
+          },
+          {
+            "text": "No, it breaks the required completion time",
+            "correct": true,
+            "why": "A cost change that violates the required completion time is not a complete solution."
+          },
+          {
+            "text": "Yes, if scanned bytes went down",
+            "correct": false,
+            "why": "Fewer scanned bytes does not guarantee the same drop in a capacity bill."
+          }
+        ]
+      }
     }
   },
   {
@@ -5494,6 +5569,81 @@
       "takeaway": "Separate result size, scan work and the applicable pricing model.",
       "minutes": 5,
       "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    },
+    "block": {
+      "minutes": 3,
+      "diagram": {
+        "title": "Reading query cost",
+        "description": "Use a dry run and fewer columns to cut bytes scanned, and inspect slots for capacity workloads.",
+        "width": 280,
+        "height": 196,
+        "nodes": [
+          {
+            "id": "n0",
+            "lines": [
+              "Dry run and maximum",
+              "bytes billed"
+            ],
+            "x": 20,
+            "y": 4,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n1",
+            "lines": [
+              "Fewer columns,",
+              "filter partitions"
+            ],
+            "x": 20,
+            "y": 76,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n2",
+            "lines": [
+              "Check slots and",
+              "concurrency"
+            ],
+            "x": 20,
+            "y": 148,
+            "w": 240,
+            "h": 44
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ]
+      },
+      "keyFact": "LIMIT 10 is a result-size control, not a universal query-cost ceiling.",
+      "check": {
+        "question": "A non-clustered on-demand query ends with LIMIT 10. Does it read fewer bytes?",
+        "choices": [
+          {
+            "text": "Yes, LIMIT stops the scan after ten rows",
+            "correct": false,
+            "why": "A LIMIT on a non-clustered table does not reduce the bytes read."
+          },
+          {
+            "text": "Yes, it also caps the bill",
+            "correct": false,
+            "why": "LIMIT is a result-size control, not a query-cost ceiling."
+          },
+          {
+            "text": "No, selecting fewer columns and filtering partitions does",
+            "correct": true,
+            "why": "A LIMIT on a non-clustered table does not reduce the bytes read."
+          }
+        ]
+      }
     }
   },
   {
@@ -5575,6 +5725,81 @@
       "takeaway": "Make repeated execution produce the intended state.",
       "minutes": 5,
       "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    },
+    "block": {
+      "minutes": 3,
+      "diagram": {
+        "title": "Safe retries in a DAG",
+        "description": "Separate tasks, a stable run identifier and repeatable writes let a retry rerun only the failed stage.",
+        "width": 280,
+        "height": 196,
+        "nodes": [
+          {
+            "id": "n0",
+            "lines": [
+              "Separate tasks",
+              "per stage"
+            ],
+            "x": 20,
+            "y": 4,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n1",
+            "lines": [
+              "Stable run",
+              "identifier"
+            ],
+            "x": 20,
+            "y": 76,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n2",
+            "lines": [
+              "Repeatable",
+              "writes"
+            ],
+            "x": 20,
+            "y": 148,
+            "w": 240,
+            "h": 44
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ]
+      },
+      "keyFact": "Putting the entire process inside one operator hides the recovery boundaries.",
+      "check": {
+        "question": "A daily process fetches files, decrypts them and runs SQL. How do you build it?",
+        "choices": [
+          {
+            "text": "Separate DAG tasks, so only the failed stage reruns",
+            "correct": true,
+            "why": "Separate tasks preserve evidence of earlier successful stages."
+          },
+          {
+            "text": "One operator that does everything",
+            "correct": false,
+            "why": "One operator hides the recovery boundaries."
+          },
+          {
+            "text": "Catch every error and report success",
+            "correct": false,
+            "why": "Reporting success after an error defeats downstream dependency logic."
+          }
+        ]
+      }
     }
   },
   {
@@ -5653,6 +5878,81 @@
       "takeaway": "Pin the logical interval and make durable side effects safe to repeat.",
       "minutes": 5,
       "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    },
+    "block": {
+      "minutes": 3,
+      "diagram": {
+        "title": "Making a retry safe",
+        "description": "Pin the logical input interval, write with a stable output, and publish only after validation.",
+        "width": 280,
+        "height": 196,
+        "nodes": [
+          {
+            "id": "n0",
+            "lines": [
+              "Pin the logical",
+              "input interval"
+            ],
+            "x": 20,
+            "y": 4,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n1",
+            "lines": [
+              "Idempotent write,",
+              "stable output"
+            ],
+            "x": 20,
+            "y": 76,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n2",
+            "lines": [
+              "Publish after",
+              "validation"
+            ],
+            "x": 20,
+            "y": 148,
+            "w": 240,
+            "h": 44
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ]
+      },
+      "keyFact": "A green DAG does not prove the produced data satisfies the business contract.",
+      "check": {
+        "question": "A daily load succeeds but its notification task fails. What makes the rerun safe?",
+        "choices": [
+          {
+            "text": "Read the latest data on every retry",
+            "correct": false,
+            "why": "A retry that reads latest data can see different inputs."
+          },
+          {
+            "text": "An idempotent write keyed to the interval",
+            "correct": true,
+            "why": "Re-running should not append the same business rows again."
+          },
+          {
+            "text": "Trust the green DAG status",
+            "correct": false,
+            "why": "A green DAG does not prove the data meets the business contract."
+          }
+        ]
+      }
     }
   },
   {
@@ -5732,6 +6032,81 @@
       "takeaway": "Inspect concurrency and allocate capacity against business priorities.",
       "minutes": 5,
       "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    },
+    "block": {
+      "minutes": 3,
+      "diagram": {
+        "title": "Isolating dashboards from ETL",
+        "description": "Assign dashboards and ETL to separate reservations rather than relying on a priority label.",
+        "width": 280,
+        "height": 196,
+        "nodes": [
+          {
+            "id": "n0",
+            "lines": [
+              "Measure usage",
+              "first"
+            ],
+            "x": 20,
+            "y": 4,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n1",
+            "lines": [
+              "Assign a capacity",
+              "pool to dashboards"
+            ],
+            "x": 20,
+            "y": 76,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n2",
+            "lines": [
+              "Put cost-sensitive",
+              "ETL elsewhere"
+            ],
+            "x": 20,
+            "y": 148,
+            "w": 240,
+            "h": 44
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ]
+      },
+      "keyFact": "A budget alert reports spend. It is not a guaranteed automatic spending cap.",
+      "check": {
+        "question": "Dashboards slow down during ETL. What gives them protected capacity?",
+        "choices": [
+          {
+            "text": "Interactive priority on the dashboard queries",
+            "correct": false,
+            "why": "Priority describes execution behavior and does not allocate capacity."
+          },
+          {
+            "text": "A budget alert on the project",
+            "correct": false,
+            "why": "A budget alert reports spend and is not a resource boundary."
+          },
+          {
+            "text": "A separate reservation assignment for dashboards",
+            "correct": true,
+            "why": "Reservation assignments allocate workload capacity."
+          }
+        ]
+      }
     }
   },
   {
@@ -5812,6 +6187,81 @@
       "takeaway": "Use source, stage and sink evidence to test a specific diagnosis.",
       "minutes": 5,
       "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    },
+    "block": {
+      "minutes": 3,
+      "diagram": {
+        "title": "Diagnosing before scaling",
+        "description": "Read the full error and the query plan, form a hypothesis, then make one controlled change.",
+        "width": 280,
+        "height": 196,
+        "nodes": [
+          {
+            "id": "n0",
+            "lines": [
+              "Read the exact error",
+              "and the query plan"
+            ],
+            "x": 20,
+            "y": 4,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n1",
+            "lines": [
+              "Form a specific",
+              "hypothesis"
+            ],
+            "x": 20,
+            "y": 76,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n2",
+            "lines": [
+              "Change one thing,",
+              "compare results"
+            ],
+            "x": 20,
+            "y": 148,
+            "w": 240,
+            "h": 44
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ]
+      },
+      "keyFact": "More slots do not guarantee that every Resources exceeded error disappears.",
+      "check": {
+        "question": "A query fails during a large sort. What do you check first?",
+        "choices": [
+          {
+            "text": "Raise the API request quota",
+            "correct": false,
+            "why": "API request quotas are separate from execution memory."
+          },
+          {
+            "text": "The execution graph and memory pressure",
+            "correct": true,
+            "why": "Reduce the sorted intermediate data or restructure the query."
+          },
+          {
+            "text": "Add more slots and rerun",
+            "correct": false,
+            "why": "More slots do not guarantee that the error disappears."
+          }
+        ]
+      }
     }
   },
   {
@@ -5875,6 +6325,81 @@
       "takeaway": "Use execution evidence to distinguish scan, join and resource contention problems.",
       "minutes": 5,
       "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    },
+    "block": {
+      "minutes": 3,
+      "diagram": {
+        "title": "Locating the slow stage",
+        "description": "Job metadata and the execution graph show whether the query waits, scans, joins, sorts or skews.",
+        "width": 280,
+        "height": 196,
+        "nodes": [
+          {
+            "id": "n0",
+            "lines": [
+              "Job metadata and",
+              "execution graph"
+            ],
+            "x": 20,
+            "y": 4,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n1",
+            "lines": [
+              "Find the stage",
+              "that matters"
+            ],
+            "x": 20,
+            "y": 76,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n2",
+            "lines": [
+              "Test on the same",
+              "input and query"
+            ],
+            "x": 20,
+            "y": 148,
+            "w": 240,
+            "h": 44
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ]
+      },
+      "keyFact": "The first visible red chart is not necessarily the root cause.",
+      "check": {
+        "question": "A query shows Resources exceeded. What is the right first move?",
+        "choices": [
+          {
+            "text": "Reserve more capacity for every failing query",
+            "correct": false,
+            "why": "A reservation is not a universal repair for every failing operator."
+          },
+          {
+            "text": "Raise the API request rate quota",
+            "correct": false,
+            "why": "API request rate quotas are a different constraint from execution memory."
+          },
+          {
+            "text": "Inspect the reason in the execution evidence",
+            "correct": true,
+            "why": "It can indicate different memory, shuffle or planning problems."
+          }
+        ]
+      }
     }
   },
   {
@@ -5955,6 +6480,81 @@
       "takeaway": "Correlate source, stage and sink evidence before changing capacity.",
       "minutes": 5,
       "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    },
+    "block": {
+      "minutes": 4,
+      "diagram": {
+        "title": "Tracing a backlog",
+        "description": "Steady input, failing destination writes and a growing backlog point to the sink, not to worker count.",
+        "width": 280,
+        "height": 196,
+        "nodes": [
+          {
+            "id": "n0",
+            "lines": [
+              "Steady input,",
+              "backlog grows"
+            ],
+            "x": 20,
+            "y": 4,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n1",
+            "lines": [
+              "Inspect write errors,",
+              "permissions, quota"
+            ],
+            "x": 20,
+            "y": 76,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n2",
+            "lines": [
+              "Fix the sink,",
+              "then reconcile"
+            ],
+            "x": 20,
+            "y": 148,
+            "w": 240,
+            "h": 44
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ]
+      },
+      "keyFact": "A healthy transport graph does not prove that the business dataset is complete.",
+      "check": {
+        "question": "Backlog grows, writes fail and worker CPU is modest. What do you do?",
+        "choices": [
+          {
+            "text": "Check write errors, permissions, quota and capacity",
+            "correct": true,
+            "why": "Adding workers cannot repair a denied sink."
+          },
+          {
+            "text": "Add more workers",
+            "correct": false,
+            "why": "Adding workers cannot repair a denied sink."
+          },
+          {
+            "text": "Diagnose from CPU alone",
+            "correct": false,
+            "why": "Correlate stage evidence rather than diagnosing from CPU alone."
+          }
+        ]
+      }
     }
   },
   {
@@ -6037,6 +6637,81 @@
       "takeaway": "State the failure, recovery point and recovery time you need to prove.",
       "minutes": 5,
       "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    },
+    "block": {
+      "minutes": 4,
+      "diagram": {
+        "title": "Recovering to objectives",
+        "description": "State the failure, measure the age of recoverable state, then rehearse the restore.",
+        "width": 280,
+        "height": 196,
+        "nodes": [
+          {
+            "id": "n0",
+            "lines": [
+              "Name the failure",
+              "you recover from"
+            ],
+            "x": 20,
+            "y": 4,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n1",
+            "lines": [
+              "Measure the age of",
+              "recoverable state"
+            ],
+            "x": 20,
+            "y": 76,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n2",
+            "lines": [
+              "Rehearse the",
+              "restore"
+            ],
+            "x": 20,
+            "y": 148,
+            "w": 240,
+            "h": 44
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ]
+      },
+      "keyFact": "Thirty-day backup retention and a thirty-day RPO describe different requirements.",
+      "check": {
+        "question": "A daily export is the only backup. Can it meet a target below twenty-four hours?",
+        "choices": [
+          {
+            "text": "Yes, a copy exists so recovery is covered",
+            "correct": false,
+            "why": "A table copy existing is not a rehearsed recovery procedure."
+          },
+          {
+            "text": "Yes, a multi-region label is enough",
+            "correct": false,
+            "why": "A multi-region label alone is not a complete disaster recovery plan."
+          },
+          {
+            "text": "Not without a safety margin or different replication",
+            "correct": true,
+            "why": "A daily export can leave nearly a day of changes unavailable."
+          }
+        ]
+      }
     }
   },
   {
@@ -6103,6 +6778,81 @@
       "takeaway": "Rehearse the restore and validate the recovered dataset before reopening it.",
       "minutes": 5,
       "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    },
+    "block": {
+      "minutes": 3,
+      "diagram": {
+        "title": "Proving a runbook",
+        "description": "Write the failure-specific steps, measure loss and restoration separately, and rehearse safely.",
+        "width": 280,
+        "height": 196,
+        "nodes": [
+          {
+            "id": "n0",
+            "lines": [
+              "Write the failure-",
+              "specific steps"
+            ],
+            "x": 20,
+            "y": 4,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n1",
+            "lines": [
+              "Measure loss and",
+              "restoration apart"
+            ],
+            "x": 20,
+            "y": 76,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n2",
+            "lines": [
+              "Rehearse and",
+              "record untested"
+            ],
+            "x": 20,
+            "y": 148,
+            "w": 240,
+            "h": 44
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ]
+      },
+      "keyFact": "Replication can reproduce a bad application write. Availability does not replace historical recovery.",
+      "check": {
+        "question": "A backup file exists. Is that a tested runbook?",
+        "choices": [
+          {
+            "text": "Yes, the filename proves it",
+            "correct": false,
+            "why": "Do not count a backup filename as a tested runbook."
+          },
+          {
+            "text": "No, a test must show restoration and validation",
+            "correct": true,
+            "why": "A test should validate totals, access, keys and downstream behavior."
+          },
+          {
+            "text": "Yes, a fast copy proves a short RTO",
+            "correct": false,
+            "why": "A fast copy operation does not prove a short end-to-end objective."
+          }
+        ]
+      }
     }
   }
 ]

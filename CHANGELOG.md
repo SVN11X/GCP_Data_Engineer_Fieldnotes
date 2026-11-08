@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Added lesson blocks to all ten domain 5 lessons, with correct quick-check answers spread over all three positions. Text is derived from the lessons and awaits owner review.
 - Added lesson blocks to all seven domain 4 lessons, with correct quick-check answers spread over all three positions. Text is derived from the lessons and awaits owner review.
 - Added lesson blocks to all ten domain 3 lessons, with correct quick-check answers spread over all three positions. Text is derived from the lessons and awaits owner review.
 - Added lesson blocks to eight domain 2 lessons: pipeline contract, Pub/Sub contracts, processing engine, event time, bad records, streaming semantics, schema evolution and deployment. Text is derived from the lessons and awaits owner review.

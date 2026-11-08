@@ -5,13 +5,13 @@ import '../dist/assets/lesson-block.js';
 const L=globalThis.FieldLessonBlock;
 const lessons=JSON.parse(fs.readFileSync(new URL('../content/lessons.json',import.meta.url),'utf8'));
 const withBlock=lessons.filter(l=>l.block);
-test('blocks cover four domain 1, eight domain 2, ten domain 3 and seven domain 4 lessons only',()=>{
- assert.equal(withBlock.length,29);
+test('blocks cover four domain 1, eight domain 2, ten domain 3 and seven domain 4 and ten domain 5 lessons only',()=>{
+ assert.equal(withBlock.length,39);
  assert.equal(withBlock.filter(l=>l.domain===1).length,4);
  assert.equal(withBlock.filter(l=>l.domain===2).length,8);
  assert.equal(withBlock.filter(l=>l.domain===3).length,10);
  assert.equal(withBlock.filter(l=>l.domain===4).length,7);
- assert.ok(withBlock.every(l=>l.domain<=4));
+ assert.equal(withBlock.filter(l=>l.domain===5).length,10);assert.ok(withBlock.every(l=>l.domain<=5));
 });
 test('every block has valid minutes, a connected diagram, a key fact and a three-choice check',()=>{
  for(const l of withBlock){
