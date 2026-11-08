@@ -998,5 +998,413 @@
    "es": "Usa reintentos acotados con backoff para los fallos transitorios.",
    "src": "0801ffef628e"
   }
+ },
+ "write-contracts": {
+  "title": {
+   "es": "Elige de forma explícita cómo cargar, transmitir y combinar",
+   "src": "97fc2d823cce"
+  },
+  "lead": {
+   "es": "El método de ingesta determina la visibilidad, los reintentos y las responsabilidades sobre el esquema.",
+   "src": "e97139b63372"
+  },
+  "sections.0.title": {
+   "es": "La carga por lotes y el streaming resuelven necesidades de tiempo distintas",
+   "src": "fc21ed0d8aee"
+  },
+  "sections.0.body": {
+   "es": "Los archivos de objetos que llegan de forma recurrente pueden encajar con una carga por lotes (batch load) o con una configuración de transferencia admitida. Un escritor de streaming sirve a otro contrato de frescura. Confirma el formato de archivo, la compresión, la ubicación y el esquema que se admiten. Un nombre de archivo que termina en JSON no demuestra que un archivo comprimido tenga la estructura delimitada por saltos de línea (newline-delimited) que espera el cargador.",
+   "src": "b3a8da3b8179"
+  },
+  "sections.1.title": {
+   "es": "Usa los desplazamientos (offsets) dentro de su límite real",
+   "src": "9ca831d9541f"
+  },
+  "sections.1.body": {
+   "es": "Los offsets bien administrados en los streams de la Storage Write API creados por la aplicación y admitidos pueden hacer identificables los intentos repetidos de añadir datos. El alcance del offset es un stream, no cada mensaje de cada productor para siempre. Los eventos de negocio duplicados que vienen del productor siguen necesitando una identidad adecuada y una interpretación en el destino.",
+   "src": "5aa8d4acd0e1"
+  },
+  "sections.2.title": {
+   "es": "Haz deterministas las actualizaciones del estado actual",
+   "src": "9638236595c7"
+  },
+  "sections.2.body": {
+   "es": "Con MERGE, define la clave de coincidencia y deja filas de origen que sean adecuadas para la semántica de actualización que quieres. Varias coincidencias en el origen pueden causar errores al actualizar una fila de destino. Elegir de forma determinista la última versión es distinto de elegir una fila cualquiera, sobre todo cuando los tiempos de los eventos empatan.",
+   "src": "1ac3b4d78bc7"
+  },
+  "trap": {
+   "es": "El stream predeterminado (default write stream) y los streams de aplicación con offsets administrados no tienen contratos idénticos.",
+   "src": "7097a3f58804"
+  },
+  "exercise.prompt": {
+   "es": "Un lote de origen tiene tres actualizaciones para una misma clave de destino. ¿Qué debes definir antes de MERGE?",
+   "src": "ee9778e9569a"
+  },
+  "exercise.answer": {
+   "es": "Define el orden del origen y la selección del estado actual, deduplica hasta la fila que quieres por clave y decide cómo se manejan las versiones anteriores y los borrados. No supongas que MERGE inventa la regla de negocio.",
+   "src": "96c93064bc68"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Distingue los requisitos de carga y de streaming.",
+   "src": "4cc46b0097c8"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Indica el alcance del offset.",
+   "src": "463b7b80d552"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Define la cardinalidad del origen para MERGE.",
+   "src": "1492d239c258"
+  },
+  "briefing.context": {
+   "es": "Un lote o un stream debe escribir registros en BigQuery y puede necesitar reintentar.",
+   "src": "5ac0fd217a6e"
+  },
+  "briefing.whyItMatters": {
+   "es": "Un append, un merge y una escritura basada en offsets tienen consecuencias distintas al reproducir.",
+   "src": "24b1aa2661df"
+  },
+  "briefing.takeaway": {
+   "es": "Define el estado de destino y el comportamiento ante escrituras repetidas antes de elegir el método de escritura.",
+   "src": "a1767434f8d3"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  }
+ },
+ "ai-enrichment": {
+  "title": {
+   "es": "Enriquece los registros con modelos, con cuidado",
+   "src": "a2592fb8961c"
+  },
+  "lead": {
+   "es": "La salida de un modelo es otra dependencia de datos, con límites de latencia y de calidad.",
+   "src": "551cfd3db79c"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "Una transformación de Beam puede validar registros y enrutar varias salidas. La inferencia (inference) puede añadir una etiqueta predicha. El enriquecimiento generativo también necesita validar la salida estructurada, manejar errores y proteger las entradas sensibles.",
+   "src": "f06d0ba96ecd"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Agrupa las solicitudes donde se admita, controla la concurrencia y prueba el adaptador del modelo que elegiste. No supongas que cualquier endpoint de generación de texto se puede llamar con cualquier configuración de RunInference sin una integración.",
+   "src": "fefd5096e77a"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Con comentarios de clientes, valida el ID del cliente, quita los datos personales que no hacen falta, clasifica el sentimiento y envía a revisión los resultados de inferencia mal formados o fallidos.",
+   "src": "3cf1f4e88a3e"
+  },
+  "sections.3.title": {
+   "es": "Trata el modelo como una dependencia que puede fallar",
+   "src": "4062fd362b56"
+  },
+  "sections.3.body": {
+   "es": "Una llamada HTTP exitosa no demuestra que la clasificación devuelta sea válida. Revisa la salida estructurada, las etiquetas permitidas, los campos que faltan y los errores del servicio. Ten en cuenta la latencia del endpoint y la capacidad de solicitudes al dimensionar una canalización. Controla la concurrencia para que una lentitud temporal de la inferencia no cree un backlog sin límite.",
+   "src": "c1adb2fd2b1e"
+  },
+  "sections.4.title": {
+   "es": "Controla la entrada y la evidencia",
+   "src": "8c577fd0da0a"
+  },
+  "sections.4.body": {
+   "es": "Envía solo la información que la tarea necesita. Separa el texto de documentos que no son de confianza de las instrucciones de procesamiento que sí lo son. Conserva la versión del modelo y del prompt cuando esté permitido, y haz que los resultados se puedan rastrear hasta la entrada. Usa revisión humana donde la aplicación lo exija, en lugar de presentar los valores generados como verdad validada.",
+   "src": "e857ffbb610b"
+  },
+  "sections.5.title": {
+   "es": "Elige dónde va el enriquecimiento",
+   "src": "e80b16ed7c20"
+  },
+  "sections.5.body": {
+   "es": "La inferencia dentro de la canalización puede cumplir un requisito de hacerlo antes de la carga, pero acopla la ingesta a la disponibilidad del modelo. Un enriquecimiento por etapas en el almacén de datos puede simplificar el reprocesamiento cuando se permite tener los datos crudos en ese entorno. Elige a partir del límite de privacidad, el objetivo de latencia, la interfaz de modelo admitida y el comportamiento de recuperación, en lugar de suponer que un solo producto es siempre el mejor.",
+   "src": "c9ab0e27e10d"
+  },
+  "trap": {
+   "es": "Una respuesta del modelo con un formato muy seguro puede aun así ser incorrecta o no cumplir tu esquema.",
+   "src": "df8fa1c179b6"
+  },
+  "exercise.prompt": {
+   "es": "Un endpoint de enriquecimiento devuelve una etiqueta desconocida mientras el estado de la solicitud es exitoso. ¿Qué debe pasar?",
+   "src": "1de63bb871d7"
+  },
+  "exercise.answer": {
+   "es": "Valida la respuesta contra el contrato de salida y envíala a revisión o márcala. Conserva la identidad de la entrada y el contexto del error para un reintento o una reparación controlados. No inventes en silencio una etiqueta de negocio por defecto solo para mantener alta una métrica de éxito.",
+   "src": "970e92118893"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Valida la salida del modelo más allá del éxito de HTTP.",
+   "src": "183ea0d886b1"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Ten en cuenta la latencia y la concurrencia del modelo.",
+   "src": "e06a8bf7de0c"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Compara el enriquecimiento dentro de la canalización con el enriquecimiento por etapas.",
+   "src": "cb2a1dcb42d5"
+  },
+  "briefing.context": {
+   "es": "Una canalización le pide a un modelo que añada una clasificación o extraiga información de cada registro.",
+   "src": "1a71f0287dc8"
+  },
+  "briefing.whyItMatters": {
+   "es": "Los fallos del modelo, la exposición de la privacidad y las salidas que cambian pueden afectar a todo el producto de datos.",
+   "src": "aa996d5fb087"
+  },
+  "briefing.takeaway": {
+   "es": "Trata la salida del modelo como una transformación con versión y validada.",
+   "src": "50df9fb6312d"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  }
+ },
+ "streaming-semantics": {
+  "title": {
+   "es": "Separa la entrega del procesamiento exactly-once",
+   "src": "b1dd6949a181"
+  },
+  "lead": {
+   "es": "Indica qué se procesa una sola vez, dónde pueden originarse los duplicados y qué promete el destino.",
+   "src": "2aa0f27cc9bc"
+  },
+  "sections.0.title": {
+   "es": "Elige un modo de procesamiento de Dataflow",
+   "src": "a1c524e6f233"
+  },
+  "sections.0.body": {
+   "es": "El streaming de Dataflow usa el modo exactly-once (exactamente una vez) de forma predeterminada y también admite el modo at-least-once (al menos una vez). Este último puede reducir el costo y la latencia cuando se acepta el procesamiento duplicado. Trata la decisión como un requisito de corrección antes de optimizar el modo de ejecución.",
+   "src": "8a5a5de20e6a"
+  },
+  "sections.1.title": {
+   "es": "Sigue el identificador",
+   "src": "677f43d9a56f"
+  },
+  "sections.1.body": {
+   "es": "Pub/Sub normalmente entrega al menos una vez. Dataflow puede deduplicar las reentregas, pero una aplicación puede publicar el mismo evento de negocio dos veces como mensajes distintos. Define un ID de evento estable en lugar de equiparar la identidad del mensaje con la identidad del negocio.",
+   "src": "303d6023f81e"
+  },
+  "sections.2.title": {
+   "es": "Revisa el efecto secundario final",
+   "src": "4c5c95900475"
+  },
+  "sections.2.body": {
+   "es": "Escenario original: una canalización llama a un endpoint de pagos externo y después escribe un registro analítico. Una garantía de procesamiento no demuestra que el endpoint no pueda recibir una solicitud repetida. Diseña un contrato de idempotencia en ese endpoint y verifica por separado el método de escritura en el destino.",
+   "src": "1fd74bc912c9"
+  },
+  "trap": {
+   "es": "El procesamiento exactly-once no es una promesa general para efectos secundarios externos cualquiera.",
+   "src": "1b7c8b414642"
+  },
+  "exercise.prompt": {
+   "es": "Se publica una compra repetida con un ID de mensaje nuevo. ¿Basta con la deduplicación de las reentregas del transporte?",
+   "src": "b6f5dddca592"
+  },
+  "exercise.answer": {
+   "es": "No. Conserva un identificador de compra estable y haz que la actualización de negocio sea idempotente. Verifica por separado el comportamiento de la canalización y del destino.",
+   "src": "55f9997d7f3d"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Nombra la identidad del duplicado.",
+   "src": "3285f95b3bdb"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Define el modo de procesamiento.",
+   "src": "b93903b4477e"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Define el comportamiento del destino y del efecto secundario.",
+   "src": "124fde0d2f27"
+  },
+  "briefing.context": {
+   "es": "Una compra se publica dos veces con dos IDs de mensaje después de un reintento de la aplicación.",
+   "src": "77d4e774e0e3"
+  },
+  "briefing.whyItMatters": {
+   "es": "Una garantía a nivel del transporte no identifica de forma automática la misma compra de negocio dos veces.",
+   "src": "d8118df48a7f"
+  },
+  "briefing.takeaway": {
+   "es": "Conserva un identificador de negocio estable y verifica cada límite de efecto secundario.",
+   "src": "6571fc0153ec"
+  },
+  "review.scope": {
+   "es": "Las afirmaciones específicas sobre servicios en esta lección original se comprobaron con sus referencias primarias. El escenario es ilustrativo.",
+   "src": "9203ccf1a1ce"
+  },
+  "decision.useCase": {
+   "es": "Producir agregados de transacciones confiables a partir de un stream que se puede reproducir.",
+   "src": "314b21f4da3b"
+  },
+  "decision.advantage": {
+   "es": "Un contrato de procesamiento explícito hace que la corrección se pueda probar.",
+   "src": "4e42318d9e37"
+  },
+  "decision.limitation": {
+   "es": "Una garantía de ejecución no reemplaza a los IDs de evento ni a las comprobaciones propias de cada destino.",
+   "src": "2f1fd4433e99"
+  },
+  "block.diagram.title": {
+   "es": "Dónde todavía puede ocurrir una repetición",
+   "src": "10ee81e6f247"
+  },
+  "block.diagram.description": {
+   "es": "Pub/Sub entrega al menos una vez, Dataflow puede deduplicar las reentregas y un endpoint de pagos externo aún necesita su propio contrato de idempotencia.",
+   "src": "6e84e05fc9c6"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Pub/Sub entrega",
+   "src": "f821f8d1dd78"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "al menos una vez",
+   "src": "c8ffbf859886"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Dataflow puede deduplicar",
+   "src": "7421b048dad9"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "las reentregas",
+   "src": "0462e3851db7"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "El endpoint de pagos necesita",
+   "src": "0fd21dd0e9bf"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "idempotencia",
+   "src": "f5d39a07e87f"
+  },
+  "block.keyFact": {
+   "es": "Una garantía de procesamiento no demuestra que el endpoint no pueda recibir una solicitud repetida.",
+   "src": "f9d204e26667"
+  },
+  "block.check.question": {
+   "es": "Una canalización llama a un endpoint de pagos externo y después escribe un registro analítico. ¿Qué diseñas?",
+   "src": "11b475f8d604"
+  },
+  "block.check.choices.0.text": {
+   "es": "Un contrato de idempotencia en ese endpoint",
+   "src": "fdb270c0a27f"
+  },
+  "block.check.choices.0.why": {
+   "es": "Una garantía de procesamiento no demuestra que el endpoint no pueda recibir una solicitud repetida.",
+   "src": "f9d204e26667"
+  },
+  "block.check.choices.1.text": {
+   "es": "Nada, porque el modo exactly-once cubre el endpoint",
+   "src": "4948fb8e4c62"
+  },
+  "block.check.choices.1.why": {
+   "es": "El procesamiento exactly-once no es una promesa general para efectos secundarios externos cualquiera.",
+   "src": "1b7c8b414642"
+  },
+  "block.check.choices.2.text": {
+   "es": "Una regla que diga que el ID del mensaje es el ID del negocio",
+   "src": "0418e5ffa4b9"
+  },
+  "block.check.choices.2.why": {
+   "es": "Define un ID de evento estable en lugar de equiparar la identidad del mensaje con la identidad del negocio.",
+   "src": "fccf815116fc"
+  }
+ },
+ "spark-execution": {
+  "title": {
+   "es": "Elige un entorno de ejecución para Spark",
+   "src": "cb558b1fecc2"
+  },
+  "lead": {
+   "es": "Separa la compatibilidad del código de Spark de la decisión de operar un clúster persistente.",
+   "src": "a445517e52ed"
+  },
+  "sections.0.title": {
+   "es": "Compara la ejecución en clúster y la serverless",
+   "src": "efc47360784b"
+  },
+  "sections.0.body": {
+   "es": "La terminología de Dataproc aparece en la guía del examen. La documentación actual también usa Managed Service for Apache Spark. La ejecución serverless admite cargas por lotes enviadas y sesiones interactivas sin un clúster que el usuario aprovisione. El cómputo por lotes escala según la carga de trabajo y se cobra mientras la ejecución está en marcha.",
+   "src": "4efe8ffd0eb2"
+  },
+  "sections.1.title": {
+   "es": "Prueba las dependencias antes de elegir",
+   "src": "1fcc16df3e52"
+  },
+  "sections.1.body": {
+   "es": "Un trabajo que ya existe puede depender de una imagen concreta, de una acción de inicialización, de una biblioteca nativa o de un servicio del clúster. Haz un inventario de esos supuestos antes de pasarlo a la ejecución serverless. Conservar el código de Spark no demuestra que el entorno que lo rodea sea compatible.",
+   "src": "135fa504cb10"
+  },
+  "sections.2.title": {
+   "es": "Usa la forma de la carga de trabajo",
+   "src": "50735a7b9a3f"
+  },
+  "sections.2.body": {
+   "es": "Escenario original: una transformación nocturna aislada en PySpark lee objetos duraderos y no deja ningún estado necesario dentro del clúster. Evalúa primero un trabajo por lotes serverless. Una carga que necesita un componente de Hadoop específico y de larga duración necesita, en cambio, una evaluación de compatibilidad del clúster. Compara el tiempo de ejecución medido, el arranque, los permisos y el costo total.",
+   "src": "044309bb3776"
+  },
+  "trap": {
+   "es": "Serverless no significa que el trabajo no tenga requisitos de entorno de ejecución, de red o de identidad.",
+   "src": "d453529eca39"
+  },
+  "exercise.prompt": {
+   "es": "Un trabajo nocturno de Spark depende de archivos que quedaron en su clúster anterior. ¿Qué debe cambiar antes de usar cómputo desechable?",
+   "src": "7d0195a8096d"
+  },
+  "exercise.answer": {
+   "es": "Mueve las entradas duraderas y los puntos de control (checkpoints) que hacen falta a un almacenamiento persistente adecuado y define rutas explícitas para cada ejecución. Después prueba las dependencias del entorno de ejecución y los permisos.",
+   "src": "43bf1bfa211f"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Separa el ciclo de vida del cómputo de la retención de los datos.",
+   "src": "b4bb99ac46b6"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Haz un inventario de las dependencias del entorno de ejecución.",
+   "src": "0ed8fb9ebe8b"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Mide la ventana de ejecución completa.",
+   "src": "e352c3d1259a"
+  },
+  "briefing.context": {
+   "es": "Una transformación nocturna de Spark necesita cómputo durante una ventana de ejecución limitada.",
+   "src": "b15ed143a65d"
+  },
+  "briefing.whyItMatters": {
+   "es": "Conservar el código no demuestra que sus supuestos de entorno, dependencias y almacenamiento sigan funcionando.",
+   "src": "694cf8e14920"
+  },
+  "briefing.takeaway": {
+   "es": "Elige el entorno de ejecución después de hacer el inventario de los supuestos de la carga de trabajo.",
+   "src": "3350201e6e2b"
+  },
+  "review.scope": {
+   "es": "Las afirmaciones específicas sobre servicios en esta lección original se comprobaron con sus referencias primarias. El escenario es ilustrativo.",
+   "src": "9203ccf1a1ce"
+  },
+  "decision.useCase": {
+   "es": "Ejecutar procesamiento intermitente en PySpark con entradas duraderas en Cloud Storage.",
+   "src": "a673a925028c"
+  },
+  "decision.advantage": {
+   "es": "La ejecución según la carga de trabajo evita mantener un clúster inactivo aprovisionado por el usuario.",
+   "src": "40741328758f"
+  },
+  "decision.limitation": {
+   "es": "La compatibilidad y la economía de la carga de trabajo exigen medición.",
+   "src": "504f8bc15b5c"
+  }
  }
 }
