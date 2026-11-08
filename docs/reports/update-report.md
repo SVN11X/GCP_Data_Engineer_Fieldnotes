@@ -25,7 +25,7 @@ La portada permite comenzar desde cero, probar un cambio concreto o retomar una 
 
 Los tres retos usan escenas originales de SVG y HTML con resultados calculados: duplicados (70 → 60 unidades ilustrativas), filtros (300 → 7 GB en el modelo fijado) y validación (cuatro → dos filas publicadas). Los controles cambian el resultado, los registros y la explicación. No se utilizan animaciones continuas, audio automático ni cuenta regresiva en el recorrido breve; se respeta el movimiento reducido.
 
-Las referencias aportadas orientaron el patrón de aprendizaje por pasos con una acción junto a su explicación. [DESIGN_NOTES.md](DESIGN_NOTES.md) documenta los enlaces, el alcance real de inspección y las decisiones de diseño. No se copiaron sus videos, código ni ilustraciones.
+Las referencias aportadas orientaron el patrón de aprendizaje por pasos con una acción junto a su explicación. [design-notes.md](design-notes.md) documenta los enlaces, el alcance real de inspección y las decisiones de diseño. No se copiaron sus videos, código ni ilustraciones.
 
 ## Investigación y calidad
 
@@ -35,7 +35,7 @@ La investigación alimentó explicaciones y ejercicios originales. Se comprobó 
 
 Se detectaron y trataron tres confusiones relevantes: los cambios de nombres entre la guía y la documentación; la diferencia entre tablas BigLake externas y tablas Iceberg administradas; y el uso indiscriminado de “exactly once” para límites que tienen contratos distintos. No se afirma haber detectado todas las contradicciones semánticas del corpus.
 
-Las 115 URL de referencia respondieron. Eso confirma disponibilidad; no certifica automáticamente cada afirmación del material. El inventario completo de lecciones, objetivos y fuentes está en [CONTENT_INVENTORY.md](CONTENT_INVENTORY.md).
+Las 115 URL de referencia respondieron. Eso confirma disponibilidad; no certifica automáticamente cada afirmación del material. El inventario completo de lecciones, objetivos y fuentes está en [content-inventory.md](content-inventory.md).
 
 ## Preservación de las preguntas y sus imágenes
 
@@ -43,7 +43,7 @@ El usuario confirmó que el dueño le facilitó las 349 preguntas importadas e i
 
 Se incorporaron alternativas de presentación para diez imágenes de texto/código y una tabla, correspondientes a las preguntas #9, #28, #44, #207, #213, #243 y #248. La transcripción se revisó visualmente, conserva la sintaxis de la fuente y es seleccionable, copiable y buscable. No modifica los enunciados, claves ni archivos originales. Cada alternativa permite consultar y ampliar la imagen fuente.
 
-Tres diagramas, una barra visual y diez imágenes diminutas permanecen como imágenes. Las diez miniaturas de 9×6 afectan ocho preguntas y no permiten recuperar detalles; no se inventó contenido. La tabla mantiene las tres agrupaciones y once filas de componentes visibles. [IMAGE_TEXT_AUDIT.md](IMAGE_TEXT_AUDIT.md) enumera los 25 archivos, sus preguntas y el tratamiento aplicado.
+Tres diagramas, una barra visual y diez imágenes diminutas permanecen como imágenes. Las diez miniaturas de 9×6 afectan ocho preguntas y no permiten recuperar detalles; no se inventó contenido. La tabla mantiene las tres agrupaciones y once filas de componentes visibles. [image-text-audit.md](image-text-audit.md) enumera los 25 archivos, sus preguntas y el tratamiento aplicado.
 
 Las 349 importadas son una colección distinta de los 41 cuestionarios parciales del paquete Path 16. Sus estados de revisión y discrepancias originales siguen visibles. Los favoritos e intentos guardados en la primera entrega se recuperan como registros activos, sin duplicarse ni convertirse automáticamente en respuestas verificadas.
 
@@ -51,9 +51,9 @@ Las 349 importadas son una colección distinta de los 41 cuestionarios parciales
 
 `npm run build`, `npm test` y `npm run validate` pasan. Son 30 pruebas de comportamiento, además de la validación de contenido, rutas, archivos, referencias, geometría de diagramas y presupuestos de carga. La medición inicial incluye 427.377 bytes sin comprimir de HTML y recursos. El banco y sus respuestas se cargan por dominio y colección; el inicio conserva un catálogo compacto.
 
-La revisión real en navegador cubrió las 12 lecciones nuevas, búsqueda, comparación, rutas aceptadas/rechazadas, una pregunta nueva, reanudación y puntuación de una sesión cronometrada, un taller conservado, procedencia y marcas de revisión. Se inspeccionaron escritorio, móvil de 360 px y tablet de 768 px, modos claro y oscuro y la subruta de GitHub Pages. En la corrección se comprobaron además los filtros de colección, las cuatro opciones SQL de #243 al reabrirla, el texto copiable de #213, la tabla de #248, sus imágenes originales ampliadas, la búsqueda por un valor de esa tabla y el diagrama de #63. Los cuerpos de móvil y tablet no tuvieron desbordamiento horizontal. [VALIDATION.md](../VALIDATION.md) registra el alcance concreto.
+La revisión real en navegador cubrió las 12 lecciones nuevas, búsqueda, comparación, rutas aceptadas/rechazadas, una pregunta nueva, reanudación y puntuación de una sesión cronometrada, un taller conservado, procedencia y marcas de revisión. Se inspeccionaron escritorio, móvil de 360 px y tablet de 768 px, modos claro y oscuro y la subruta de GitHub Pages. En la corrección se comprobaron además los filtros de colección, las cuatro opciones SQL de #243 al reabrirla, el texto copiable de #213, la tabla de #248, sus imágenes originales ampliadas, la búsqueda por un valor de esa tabla y el diagrama de #63. Los cuerpos de móvil y tablet no tuvieron desbordamiento horizontal. [validation.md](../validation.md) registra el alcance concreto.
 
-La entrega incluye un parche completo V2 desde la base original, una corrección opcional para quien aplicó el primer parche y un ZIP de todos los archivos versionados. Ambos parches se generan desde commits reales y se comprueban con `git am`. Se comprueba `git am` sobre una copia limpia de la base y se compara su árbol con el commit entregado. La recepción de entrega registra los hashes; las instrucciones están en [INSTALLATION.md](../INSTALLATION.md).
+La entrega incluye un parche completo V2 desde la base original, una corrección opcional para quien aplicó el primer parche y un ZIP de todos los archivos versionados. Ambos parches se generan desde commits reales y se comprueban con `git am`. Se comprueba `git am` sobre una copia limpia de la base y se compara su árbol con el commit entregado. La recepción de entrega registra los hashes; las instrucciones están en [installation.md](../installation.md).
 
 ## Limitaciones y pendientes
 

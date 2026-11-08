@@ -34,7 +34,7 @@ For local review, serve `dist/` over HTTP (for example `python -m http.server 80
 
 ## Knowledge and publication
 
-The private Path 16 study pack was used as research input. Its audit reports 15,169 chunks, including 1,854 exact repetitions, and explicitly incomplete interactive and resource coverage. Metadata links help discovery; they do not verify claims. The website publishes original educational material, primary references, an explicit claim ledger and pending issues. It does not publish course copies, complete video transcripts, videos or unrecovered Path 16 provider quizzes. The separate supplied question bank is preserved. See [KNOWLEDGE_REVIEW.md](KNOWLEDGE_REVIEW.md).
+The private Path 16 study pack was used as research input. Its audit reports 15,169 chunks, including 1,854 exact repetitions, and explicitly incomplete interactive and resource coverage. Metadata links help discovery; they do not verify claims. The website publishes original educational material, primary references, an explicit claim ledger and pending issues. It does not publish course copies, complete video transcripts, videos or unrecovered Path 16 provider quizzes. The separate supplied question bank is preserved. See [docs/knowledge-review.md](docs/knowledge-review.md).
 
 The 349 imported questions and 25 source images are preserved byte-for-byte from the original repository. The user explicitly confirmed that the owner supplied this collection and instructed that it must never be removed. `AGENTS.md` records that requirement; the preservation manifest and tests detect accidental loss or alteration. Text alternatives are separate presentation overlays, not replacements for source files. Saved imported bookmarks and attempts remain active, including recovery from exports made with the earlier delivered patch.
 
@@ -42,9 +42,9 @@ The private Path 16 provider quiz resources are a separate research input. Their
 
 No backend, remote search API, tracking, runtime CDN, paid dependency, browser profile or user progress file is included. Progress remains in the browser under the original storage key. The complete original-content study pack is an explicit download rather than an automatic startup request.
 
-The context-first flow and visual-reference inspection scope are documented in [reports/DESIGN_NOTES.md](reports/DESIGN_NOTES.md).
+The context-first flow and visual-reference inspection scope are documented in [docs/reports/design-notes.md](docs/reports/design-notes.md).
 
-See [INSTALLATION.md](INSTALLATION.md), [CHANGELOG.md](CHANGELOG.md), [VALIDATION.md](VALIDATION.md), [reports/CONTENT_INVENTORY.md](reports/CONTENT_INVENTORY.md) and [reports/UPDATE_REPORT.md](reports/UPDATE_REPORT.md).
+See [docs/installation.md](docs/installation.md), [CHANGELOG.md](CHANGELOG.md), [docs/validation.md](docs/validation.md), [docs/reports/content-inventory.md](docs/reports/content-inventory.md) and [docs/reports/update-report.md](docs/reports/update-report.md).
 
 ## License
 
