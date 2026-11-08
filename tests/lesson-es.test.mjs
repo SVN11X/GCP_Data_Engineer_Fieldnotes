@@ -99,9 +99,25 @@ test('domain 2 has 100 percent coverage of translatable strings, notes included,
  assert.deepEqual(validateOverlay(o,l),[]);
  for(const [id,entries] of Object.entries(o))for(const [p,x] of Object.entries(entries))assert.ok(!/[;–—]/.test(x.es),id+':'+p);
 });
-test('every domain 1 and 2 lesson with a log note has a Spanish note under verification.note',()=>{
+test('domain 3 has 100 percent coverage of translatable strings, notes included, and plain Spanish',()=>{
+ const l=englishLessons(3),o=readOverlay(3),c=coverage(o,l);
+ assert.equal(l.length,10);
+ assert.equal(c.ok,c.total,'domain 3 translated '+c.ok+' of '+c.total);
+ assert.ok(c.total>=388);
+ assert.deepEqual(validateOverlay(o,l),[]);
+ for(const [id,entries] of Object.entries(o))for(const [p,x] of Object.entries(entries))assert.ok(!/[;–—]/.test(x.es),id+':'+p);
+});
+test('a stale domain 3 entry fails validation and the LIMIT sentence keeps its qualification',()=>{
+ const l=englishLessons(3),o=structuredClone(readOverlay(3));
+ o['warehouse-model'].trap.src='000000000000';
+ assert.ok(validateOverlay(o,l).some(e=>/warehouse-model:trap: stale/.test(e)));
+ const limit=readOverlay(3)['warehouse-model'].trap.es;
+ assert.ok(/LIMIT/.test(limit)&&/non-clustered/.test(limit),'LIMIT claim is limited to non-clustered tables');
+ assert.ok(/clustering/.test(readOverlay(3)['warehouse-model']['verification.note'].es));
+});
+test('every domain 1, 2 and 3 lesson with a log note has a Spanish note under verification.note',()=>{
  const notes=englishNotes();
- for(const d of [1,2])for(const l of englishLessons(d)){
+ for(const d of [1,2,3])for(const l of englishLessons(d)){
   assert.ok(notes.has(l.id),l.id+' has a log note');
   const x=readOverlay(d)[l.id]['verification.note'];
   assert.equal(x.src,sha12(notes.get(l.id)),l.id);
@@ -130,7 +146,7 @@ test('the Spanish note shows only when its hash matches and otherwise falls back
  assert.ok(V.lineHtml(entry).includes('Checked a thing.'));
 });
 test('the build writes a titles index for all translated lessons and it matches the overlays',()=>{
- const idx=JSON.parse(fs.readFileSync(new URL('../dist/data/es/titles.json',import.meta.url),'utf8')),all=[1,2].flatMap(d=>englishLessons(d));
+ const idx=JSON.parse(fs.readFileSync(new URL('../dist/data/es/titles.json',import.meta.url),'utf8')),all=[1,2,3].flatMap(d=>englishLessons(d));
  assert.deepEqual(Object.keys(idx).sort(),all.map(l=>l.id).sort());
  for(const l of all){
   assert.deepEqual(Object.keys(idx[l.id]),['title','lead']);

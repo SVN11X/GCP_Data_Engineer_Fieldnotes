@@ -1250,5 +1250,325 @@
    "es": "Se comprobaron que las tablas BigLake son de solo lectura, que las tablas administradas de Iceberg usan tu bucket con DML, optimización automática del almacenamiento y exportación de metadatos de Iceberg V2. No se comprobó la seguridad de escritura de los motores externos.",
    "src": "2a96e34ce5a8"
   }
+ },
+ "lake-file-layout": {
+  "title": {
+   "es": "Diseña los archivos del lago para quienes los leen",
+   "src": "ac33cf1bc92f"
+  },
+  "lead": {
+   "es": "Un lago útil necesita conjuntos de datos que se puedan descubrir, una organización de objetos pensada y un contrato de ciclo de vida.",
+   "src": "3d329cff7429"
+  },
+  "sections.0.title": {
+   "es": "Ajusta la organización a las consultas",
+   "src": "d92aa4f7c356"
+  },
+  "sections.0.body": {
+   "es": "Los formatos en columnas, como Parquet, pueden ser útiles para los escaneos analíticos. Organiza los archivos según las dimensiones de filtro más comunes y prueba la distribución de tamaños con el lector que vas a usar. Los archivos diminutos pueden añadir una sobrecarga por objeto. Un solo archivo muy grande puede limitar el paralelismo, según su formato y el lector. Son hipótesis de diseño que debes medir y no umbrales de tamaño universales.",
+   "src": "dcfe4bc72072"
+  },
+  "sections.1.title": {
+   "es": "Separa la retención del costo de recuperación",
+   "src": "51c84dd41214"
+  },
+  "sections.1.body": {
+   "es": "Las clases de Cloud Storage se diferencian en la economía del almacenamiento y del acceso. Las reglas de ciclo de vida automatizan acciones sobre los objetos que cumplen las condiciones y los controles de retención protegen los datos obligatorios. Una tarifa de almacenamiento baja no basta para saber el costo de un acceso frecuente o de un borrado anticipado.",
+   "src": "fb08a281422d"
+  },
+  "sections.2.title": {
+   "es": "Haz visible quién es responsable",
+   "src": "a809ba98143c"
+  },
+  "sections.2.body": {
+   "es": "Escenario original: una fuente diaria sin procesar se convierte en un producto de datos mensual curado. Deja a la vista el contrato de reproducción (replay) de los datos sin procesar, el esquema curado, los resultados de validación y el responsable. Publicar metadatos no da acceso a los datos y no puede demostrar que los registros estén completos.",
+   "src": "f4710deefc7f"
+  },
+  "trap": {
+   "es": "No borres los datos de reproducción sin procesar solo porque exista una tabla curada.",
+   "src": "279fe8e34afd"
+  },
+  "exercise.prompt": {
+   "es": "Un lago es difícil de consultar después de acumular millones de archivos diarios diminutos. ¿Debe el equipo cambiar primero la clase de almacenamiento?",
+   "src": "8e930b663ff4"
+  },
+  "exercise.answer": {
+   "es": "Primero mide la sobrecarga de listar y escanear, el paralelismo del lector y la organización de los archivos. Considera una compactación controlada y una actualización del catálogo, y conserva las obligaciones de reproducción y retención. La clase de almacenamiento afecta otra dimensión del costo.",
+   "src": "55c0cc237299"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Mide con el lector que vas a usar.",
+   "src": "e9af805f3bbc"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Separa el ciclo de vida de la retención legal.",
+   "src": "c5f528b3f347"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Conserva la evidencia de quién es responsable y de la calidad.",
+   "src": "03e00c2dd43a"
+  },
+  "briefing.context": {
+   "es": "Una consulta pierde demasiado tiempo abriendo millones de archivos diminutos del lago.",
+   "src": "3cbb8e8f290f"
+  },
+  "briefing.whyItMatters": {
+   "es": "Una clase de almacenamiento más barata no arregla automáticamente la sobrecarga del lector ni la organización de los archivos.",
+   "src": "4de90d2872d7"
+  },
+  "briefing.takeaway": {
+   "es": "Mide con el lector y conserva la reproducción y la retención cuando cambies la organización.",
+   "src": "4ee575f35196"
+  },
+  "review.scope": {
+   "es": "Las afirmaciones concretas sobre servicios de esta lección original se comprobaron con sus referencias primarias. El escenario es ilustrativo.",
+   "src": "9203ccf1a1ce"
+  },
+  "decision.useCase": {
+   "es": "Publica archivos curados que se puedan consultar y conserva una reproducción controlada de los datos sin procesar.",
+   "src": "76ea5ed94f92"
+  },
+  "decision.advantage": {
+   "es": "Una organización pensada y un catálogo reducen la fricción al descubrir y consultar.",
+   "src": "560a18596242"
+  },
+  "decision.limitation": {
+   "es": "La compactación y la limpieza deben conservar las referencias, la retención y las garantías de reproducción.",
+   "src": "96522cf33245"
+  },
+  "block.diagram.title": {
+   "es": "De la fuente sin procesar al producto de datos",
+   "src": "f465025b1d3d"
+  },
+  "block.diagram.description": {
+   "es": "Una fuente diaria sin procesar se convierte en un producto mensual curado y se mantiene el contrato de reproducción.",
+   "src": "3f0c13ae8a10"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Fuente diaria cruda:",
+   "src": "3a2526d1f375"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "contrato de reproducción",
+   "src": "15a6ec3e5749"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Producto de datos",
+   "src": "9760ec16791d"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "mensual curado",
+   "src": "2419c6ea9aa5"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Responsable, esquema y",
+   "src": "05fd9c1cdf26"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "validación a la vista",
+   "src": "4309d1d1306b"
+  },
+  "block.keyFact": {
+   "es": "No borres los datos de reproducción sin procesar solo porque exista una tabla curada.",
+   "src": "279fe8e34afd"
+  },
+  "block.check.question": {
+   "es": "Una fuente diaria sin procesar se convierte en un producto de datos mensual curado. ¿Qué debe poder descubrirse?",
+   "src": "036f69bc2ea2"
+  },
+  "block.check.choices.0.text": {
+   "es": "Solo la tabla curada, para poder borrar los datos sin procesar",
+   "src": "a8d6c7b55ad0"
+  },
+  "block.check.choices.0.why": {
+   "es": "No borres los datos de reproducción sin procesar solo porque exista una tabla curada.",
+   "src": "279fe8e34afd"
+  },
+  "block.check.choices.1.text": {
+   "es": "El contrato de reproducción, el esquema curado, los resultados de validación y el responsable",
+   "src": "13ff1eb6aa40"
+  },
+  "block.check.choices.1.why": {
+   "es": "Esto mantiene el producto comprensible y reproducible.",
+   "src": "e895c34bc316"
+  },
+  "block.check.choices.2.text": {
+   "es": "Solo los metadatos, como prueba de que los registros están completos",
+   "src": "ba745b918740"
+  },
+  "block.check.choices.2.why": {
+   "es": "Publicar metadatos no puede demostrar que los registros estén completos.",
+   "src": "e756749c5606"
+  },
+  "verification.note": {
+   "es": "Se comprobaron que Parquet es un formato orientado a columnas, que se aconsejan grupos de filas de al menos 16 MiB, que el descubrimiento necesita carpetas con el mismo formato y las duraciones mínimas de las clases. No se comprobaron las afirmaciones sobre el paralelismo con archivos diminutos o enormes.",
+   "src": "98a8e036158f"
+  }
+ },
+ "governance": {
+  "title": {
+   "es": "Da a los equipos distribuidos reglas comunes",
+   "src": "bb3f558167ae"
+  },
+  "lead": {
+   "es": "La propiedad por dominio puede convivir con estándares para toda la organización.",
+   "src": "e82c45a00a5a"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "La gobernanza federada (federated governance) deja que los equipos de cada dominio sean dueños de sus productos de datos, mientras las políticas compartidas definen el descubrimiento, la calidad, la seguridad y el significado. Las entradas del catálogo, el linaje (lineage) y las definiciones de negocio reducen el uso accidental indebido.",
+   "src": "61bf797b8aba"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Identifica para cada producto un responsable, un método de acceso aprobado, reglas de calidad y una expectativa de frescura. Usa las capacidades de la plataforma y no crees un catálogo aparte en una hoja de cálculo para cada equipo.",
+   "src": "ceb187bd94f7"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Marketing y finanzas publican cada uno activos curados. Un catálogo compartido muestra su significado y su linaje, mientras que IAM del almacenamiento y las políticas de las tablas siguen controlando el acceso real.",
+   "src": "d7821c364bb7"
+  },
+  "sections.3.title": {
+   "es": "Define un producto de datos que la gente pueda usar",
+   "src": "fd49c8e3a576"
+  },
+  "sections.3.body": {
+   "es": "Un activo que pertenece a un dominio necesita un responsable, una definición de negocio, un esquema, un método de acceso, una expectativa de actualización y evidencia de calidad. La gobernanza federada añade reglas comunes sin obligar a un equipo central a hacer todas las transformaciones de cada dominio. Publica el contexto suficiente para que los consumidores entiendan qué representa el producto y qué no representa.",
+   "src": "777210372c1a"
+  },
+  "sections.4.title": {
+   "es": "Usa el linaje para investigar el impacto",
+   "src": "473ffe2b2d24"
+  },
+  "sections.4.body": {
+   "es": "El linaje técnico conecta las entradas, las transformaciones y las salidas. Cuando cambia una fuente, úsalo para identificar los consumidores que podrían verse afectados y luego revisa los contratos y las pruebas reales. Una conexión de linaje por sí sola no demuestra que una salida sea correcta, que se pueda usar legalmente o que esté fresca. La calidad de los datos y la autorización siguen siendo evidencias separadas.",
+   "src": "c9a5e53e4791"
+  },
+  "sections.5.title": {
+   "es": "Trata los nombres de productos como algo que cambia con el tiempo",
+   "src": "3b839dc6fb21"
+  },
+  "sections.5.body": {
+   "es": "La guía del examen mantiene los términos Dataplex y Dataplex Catalog, mientras que la documentación actual puede usar Knowledge Catalog. Las notas antiguas pueden mencionar las API y los nombres de roles de Data Catalog. Conserva el concepto de arquitectura, pero verifica la migración actual y las funciones compatibles antes de aplicar una receta operativa antigua.",
+   "src": "ea74e1aa3419"
+  },
+  "trap": {
+   "es": "Los metadatos de gobernanza no dan a los lectores permiso sobre los datos de fondo.",
+   "src": "0060a1bc495c"
+  },
+  "exercise.prompt": {
+   "es": "Un catálogo nuevo escanea automáticamente todas las tablas. ¿Eso implementa la gobernanza federada?",
+   "src": "a560d312fba6"
+  },
+  "exercise.answer": {
+   "es": "Ofrece una parte del descubrimiento, pero aún hacen falta un diseño pensado para la propiedad, la política de acceso, las reglas de calidad, el uso del linaje y los contratos con los consumidores. La responsabilidad de cada dominio y los estándares comunes no se pueden deducir solo porque exista una entrada en el catálogo.",
+   "src": "842065ea2a32"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Describe quién es responsable y qué esperan los consumidores.",
+   "src": "141e062741af"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Usa el linaje para una pregunta concreta sobre el impacto de un cambio.",
+   "src": "bda460313f3e"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Revisa en la documentación actual las funciones que cambiaron de nombre o se retiraron.",
+   "src": "283a9ebac715"
+  },
+  "briefing.context": {
+   "es": "Varios equipos de dominio publican conjuntos de datos que el resto de la organización quiere descubrir y en los que quiere confiar.",
+   "src": "448293e32b7b"
+  },
+  "briefing.whyItMatters": {
+   "es": "Una etiqueta del catálogo por sí sola no puede establecer la calidad de los datos ni reemplazar los permisos de fondo.",
+   "src": "d164d4fc1b90"
+  },
+  "briefing.takeaway": {
+   "es": "Combina reglas comunes con responsables claros de cada producto.",
+   "src": "964d4e405b15"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Propiedad con reglas comunes",
+   "src": "412c70eb0c47"
+  },
+  "block.diagram.description": {
+   "es": "Los equipos de dominio publican productos, un catálogo compartido muestra el significado y el linaje, y IAM y las políticas de tablas controlan el acceso.",
+   "src": "53f6a6404e1a"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "El equipo del dominio",
+   "src": "2bce96eae2c6"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "es dueño del producto",
+   "src": "de428bec39b1"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Catálogo compartido:",
+   "src": "c09920702eb8"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "significado y linaje",
+   "src": "5a81fdf25c10"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "IAM y políticas de tablas",
+   "src": "1e4d39af5842"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "controlan el acceso real",
+   "src": "a5f8df67290d"
+  },
+  "block.keyFact": {
+   "es": "Los metadatos de gobernanza no dan a los lectores permiso sobre los datos de fondo.",
+   "src": "0060a1bc495c"
+  },
+  "block.check.question": {
+   "es": "Marketing y finanzas publican activos curados. ¿Qué controla el acceso real?",
+   "src": "6031350eba0b"
+  },
+  "block.check.choices.0.text": {
+   "es": "La entrada del catálogo compartido",
+   "src": "7ff945666317"
+  },
+  "block.check.choices.0.why": {
+   "es": "Los metadatos de gobernanza no dan a los lectores permiso sobre los datos.",
+   "src": "57d507ed890f"
+  },
+  "block.check.choices.1.text": {
+   "es": "Un catálogo aparte en una hoja de cálculo por equipo",
+   "src": "7d6195539240"
+  },
+  "block.check.choices.1.why": {
+   "es": "Usa las capacidades de la plataforma y no un catálogo aparte en una hoja de cálculo para cada equipo.",
+   "src": "59b2e461f809"
+  },
+  "block.check.choices.2.text": {
+   "es": "IAM del almacenamiento y las políticas de las tablas",
+   "src": "7bf2583756c4"
+  },
+  "block.check.choices.2.why": {
+   "es": "El catálogo compartido muestra el significado y el linaje, y estos siguen controlando el acceso.",
+   "src": "cb396f3035f2"
+  },
+  "verification.note": {
+   "es": "Se comprobaron que Knowledge Catalog es el antiguo Dataplex Universal Catalog, que el linaje rastrea el origen y el impacto posterior y que Data Catalog se está cerrando por fases. La lección ya explica el cambio de nombre. No se comprobó el texto de la guía del examen.",
+   "src": "e1ee05a67e33"
+  }
  }
 }
