@@ -4369,6 +4369,81 @@
       "takeaway": "Balance query efficiency, freshness and authorized access.",
       "minutes": 5,
       "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    },
+    "block": {
+      "minutes": 3,
+      "diagram": {
+        "title": "From query plan to dashboard",
+        "description": "Read the query plan, fix the costly step, then check freshness separately.",
+        "width": 280,
+        "height": 196,
+        "nodes": [
+          {
+            "id": "n0",
+            "lines": [
+              "Read the query plan",
+              "for the costly step"
+            ],
+            "x": 20,
+            "y": 4,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n1",
+            "lines": [
+              "Fix scans, joins",
+              "or repeated work"
+            ],
+            "x": 20,
+            "y": 76,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n2",
+            "lines": [
+              "Check freshness",
+              "separately"
+            ],
+            "x": 20,
+            "y": 148,
+            "w": 240,
+            "h": 44
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ]
+      },
+      "keyFact": "A logical view is a stored query definition, not automatically a stored result cache.",
+      "check": {
+        "question": "Hundreds of users repeatedly sum sales by day. What avoids repeating the same large computation?",
+        "choices": [
+          {
+            "text": "A logical view",
+            "correct": false,
+            "why": "A logical view is a stored query definition, not a stored result."
+          },
+          {
+            "text": "More capacity alone",
+            "correct": false,
+            "why": "Capacity may help resource pressure but does not fix avoidable work."
+          },
+          {
+            "text": "A supported materialized aggregate",
+            "correct": true,
+            "why": "It stores computed results so the same large computation is not repeated."
+          }
+        ]
+      }
     }
   },
   {
@@ -4433,6 +4508,81 @@
       "takeaway": "Compare reusable results against how much staleness the business permits.",
       "minutes": 5,
       "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    },
+    "block": {
+      "minutes": 2,
+      "diagram": {
+        "title": "Three layers that can be stale",
+        "description": "A logical view stores SQL, a materialized view stores supported results, and a report cache stores a response.",
+        "width": 280,
+        "height": 196,
+        "nodes": [
+          {
+            "id": "n0",
+            "lines": [
+              "Logical view:",
+              "SQL definition"
+            ],
+            "x": 20,
+            "y": 4,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n1",
+            "lines": [
+              "Materialized view:",
+              "supported results"
+            ],
+            "x": 20,
+            "y": 76,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n2",
+            "lines": [
+              "Report cache:",
+              "presentation response"
+            ],
+            "x": 20,
+            "y": 148,
+            "w": 240,
+            "h": 44
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ]
+      },
+      "keyFact": "Precomputation is not permission to ignore the business freshness target.",
+      "check": {
+        "question": "A materialized view is refreshed but the report still looks stale. Why?",
+        "choices": [
+          {
+            "text": "They sit at different layers, so one does not repair the others",
+            "correct": true,
+            "why": "Changing one layer does not automatically repair stale data in the others."
+          },
+          {
+            "text": "A materialized view is just a logical view",
+            "correct": false,
+            "why": "A logical view stores SQL while a materialized view stores computed results."
+          },
+          {
+            "text": "Precomputation removes the freshness target",
+            "correct": false,
+            "why": "Precomputation is not permission to ignore the business freshness target."
+          }
+        ]
+      }
     }
   },
   {
@@ -4511,6 +4661,81 @@
       "takeaway": "Keep feature meaning and transformations consistent across the lifecycle.",
       "minutes": 5,
       "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    },
+    "block": {
+      "minutes": 3,
+      "diagram": {
+        "title": "One transformation, two places",
+        "description": "Fit scaling on training data, keep the fitted parameters, and apply them at serving.",
+        "width": 280,
+        "height": 196,
+        "nodes": [
+          {
+            "id": "n0",
+            "lines": [
+              "Fit scaling on",
+              "training data"
+            ],
+            "x": 20,
+            "y": 4,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n1",
+            "lines": [
+              "Keep the fitted",
+              "parameters"
+            ],
+            "x": 20,
+            "y": 76,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n2",
+            "lines": [
+              "Apply the same",
+              "transformation at serving"
+            ],
+            "x": 20,
+            "y": 148,
+            "w": 240,
+            "h": 44
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ]
+      },
+      "keyFact": "A high training score alone is not evidence of useful performance on unseen data.",
+      "check": {
+        "question": "Demand prediction uses scaled prices. How should a single serving request be scaled?",
+        "choices": [
+          {
+            "text": "Recompute statistics on that one request",
+            "correct": false,
+            "why": "Reuse the fitted parameters rather than recomputing them on a single request."
+          },
+          {
+            "text": "Reuse the fitted scaling parameters",
+            "correct": true,
+            "why": "The same transformation must apply in training and serving."
+          },
+          {
+            "text": "Fit statistics on the evaluation data",
+            "correct": false,
+            "why": "Fitting statistics on future evaluation data can leak information."
+          }
+        ]
+      }
     }
   },
   {
@@ -4572,6 +4797,81 @@
       "takeaway": "Choose evaluation measures that reflect the actual failure cost.",
       "minutes": 5,
       "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    },
+    "block": {
+      "minutes": 3,
+      "diagram": {
+        "title": "Judging a model on rare events",
+        "description": "A majority-class baseline can score high accuracy, so compare precision and recall at a chosen threshold.",
+        "width": 280,
+        "height": 196,
+        "nodes": [
+          {
+            "id": "n0",
+            "lines": [
+              "Majority-class",
+              "predictor"
+            ],
+            "x": 20,
+            "y": 4,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n1",
+            "lines": [
+              "High accuracy,",
+              "no rare positives found"
+            ],
+            "x": 20,
+            "y": 76,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n2",
+            "lines": [
+              "Precision and recall",
+              "at the threshold"
+            ],
+            "x": 20,
+            "y": 148,
+            "w": 240,
+            "h": 44
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ]
+      },
+      "keyFact": "A validation score does not guarantee the same error distribution in production.",
+      "check": {
+        "question": "A majority-class predictor shows high accuracy on a rare event. What does that show?",
+        "choices": [
+          {
+            "text": "The model is useful",
+            "correct": false,
+            "why": "Accuracy can hide failure on a rare class."
+          },
+          {
+            "text": "Recall no longer matters",
+            "correct": false,
+            "why": "Precision and recall change with the threshold and carry operational cost."
+          },
+          {
+            "text": "It can find none of the rare positives",
+            "correct": true,
+            "why": "A majority-class predictor can have high accuracy while finding none."
+          }
+        ]
+      }
     }
   },
   {
@@ -4651,6 +4951,92 @@
       "takeaway": "Prepare useful chunks, embeddings and retrieval evidence together.",
       "minutes": 5,
       "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    },
+    "block": {
+      "minutes": 3,
+      "diagram": {
+        "title": "Retrieval before generation",
+        "description": "Chunk the sources, embed with metadata, retrieve permitted chunks, then generate.",
+        "width": 280,
+        "height": 228,
+        "nodes": [
+          {
+            "id": "n0",
+            "lines": [
+              "Chunk source material"
+            ],
+            "x": 20,
+            "y": 4,
+            "w": 240,
+            "h": 34
+          },
+          {
+            "id": "n1",
+            "lines": [
+              "Embed, keep metadata"
+            ],
+            "x": 20,
+            "y": 66,
+            "w": 240,
+            "h": 34
+          },
+          {
+            "id": "n2",
+            "lines": [
+              "Retrieve permitted chunks"
+            ],
+            "x": 20,
+            "y": 128,
+            "w": 240,
+            "h": 34
+          },
+          {
+            "id": "n3",
+            "lines": [
+              "Generate with context"
+            ],
+            "x": 20,
+            "y": 190,
+            "w": 240,
+            "h": 34
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          },
+          {
+            "from": "n2",
+            "to": "n3"
+          }
+        ]
+      },
+      "keyFact": "A vector index improves retrieval performance. It does not guarantee factual or authorized answers.",
+      "check": {
+        "question": "A restricted passage has a vector close to the question. What should happen?",
+        "choices": [
+          {
+            "text": "Enforce access so it is not retrieved for unauthorized users",
+            "correct": true,
+            "why": "The model should not receive a restricted passage simply because its vector is close."
+          },
+          {
+            "text": "Send it, because it is the closest match",
+            "correct": false,
+            "why": "Closeness alone does not justify sending a restricted passage."
+          },
+          {
+            "text": "Rely on the vector index to keep answers authorized",
+            "correct": false,
+            "why": "A vector index improves performance but does not guarantee authorized answers."
+          }
+        ]
+      }
     }
   },
   {
@@ -4715,6 +5101,81 @@
       "takeaway": "Evaluate evidence selection and answer support independently.",
       "minutes": 5,
       "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    },
+    "block": {
+      "minutes": 2,
+      "diagram": {
+        "title": "Three checks for a RAG system",
+        "description": "Test retrieval, test the answer against its evidence, and monitor the document lifecycle.",
+        "width": 280,
+        "height": 196,
+        "nodes": [
+          {
+            "id": "n0",
+            "lines": [
+              "Test retrieval",
+              "on its own"
+            ],
+            "x": 20,
+            "y": 4,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n1",
+            "lines": [
+              "Test the answer",
+              "against the evidence"
+            ],
+            "x": 20,
+            "y": 76,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n2",
+            "lines": [
+              "Monitor the",
+              "document lifecycle"
+            ],
+            "x": 20,
+            "y": 148,
+            "w": 240,
+            "h": 44
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ]
+      },
+      "keyFact": "An embedding is a representation for comparison, not a copy of truth or an authorization decision.",
+      "check": {
+        "question": "A document is deleted or has its access revoked. What must happen?",
+        "choices": [
+          {
+            "text": "Nothing, the old embedding is harmless",
+            "correct": false,
+            "why": "An old embedding can still lead to stale or forbidden context."
+          },
+          {
+            "text": "Update the retrieval representation and its metadata",
+            "correct": true,
+            "why": "Changes, deletions and revocations must reach the retrieval representation."
+          },
+          {
+            "text": "Treat the embedding as the authorization decision",
+            "correct": false,
+            "why": "An embedding is a representation for comparison, not an authorization decision."
+          }
+        ]
+      }
     }
   },
   {
@@ -4796,6 +5257,81 @@
       "takeaway": "Define who may consume which data and under what expectations.",
       "minutes": 5,
       "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    },
+    "block": {
+      "minutes": 3,
+      "diagram": {
+        "title": "Sharing only what is needed",
+        "description": "Expose the required shape, publish an access contract, and plan change and revocation.",
+        "width": 280,
+        "height": 196,
+        "nodes": [
+          {
+            "id": "n0",
+            "lines": [
+              "Expose only the",
+              "required shape"
+            ],
+            "x": 20,
+            "y": 4,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n1",
+            "lines": [
+              "Publish an",
+              "access contract"
+            ],
+            "x": 20,
+            "y": 76,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n2",
+            "lines": [
+              "Plan change and",
+              "revocation"
+            ],
+            "x": 20,
+            "y": 148,
+            "w": 240,
+            "h": 44
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ]
+      },
+      "keyFact": "Sharing a report URL does not automatically authorize the viewer to its underlying data.",
+      "check": {
+        "question": "A partner needs only aggregated regional sales. What do you do?",
+        "choices": [
+          {
+            "text": "Expose the permitted aggregation and publish its contract",
+            "correct": true,
+            "why": "Do not grant broad access to raw customer rows."
+          },
+          {
+            "text": "Grant access to the raw customer rows",
+            "correct": false,
+            "why": "The partner needs only the permitted aggregation."
+          },
+          {
+            "text": "Send a report URL",
+            "correct": false,
+            "why": "A report link does not authorize access to the underlying data."
+          }
+        ]
+      }
     }
   },
   {
