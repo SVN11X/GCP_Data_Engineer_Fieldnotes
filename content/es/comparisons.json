@@ -1,0 +1,186 @@
+{
+ "storage": {
+  "title": {
+   "es": "Dónde guardar estos datos",
+   "src": "7ebc7515f82e"
+  },
+  "question": {
+   "es": "¿Qué servicio de Google Cloud debe guardar estos datos?",
+   "src": "8aa3aba0c5db"
+  },
+  "quickRule": {
+   "es": "Empieza por cómo se leen y se escriben los datos. Después elige el servicio creado para ese patrón de acceso.",
+   "src": "5088ef48d875"
+  },
+  "options.0.chooseWhen": {
+   "es": "Necesitas analizar grandes cantidades de datos con SQL. Sirve para inteligencia de negocio (business intelligence), análisis ad hoc y aprendizaje automático.",
+   "src": "0b2dd074cf5e"
+  },
+  "options.0.beCarefulWhen": {
+   "es": "Tus datos ya están en Bigtable o en Spanner. BigQuery puede consultarlos allí, así que quizá no necesites copiarlos.",
+   "src": "1a90960fe743"
+  },
+  "options.1.chooseWhen": {
+   "es": "Necesitas alto rendimiento de lectura y escritura con baja latencia sobre grandes cantidades de datos con una sola clave. Sirve para series de tiempo, IoT y datos de clics (clickstream).",
+   "src": "014083ff92d0"
+  },
+  "options.1.beCarefulWhen": {
+   "es": "Tu aplicación es pequeña. La documentación dice que Firestore puede ser mejor para aplicaciones pequeñas, y la clave de fila (row key) necesita un diseño cuidadoso.",
+   "src": "9299f29d8f40"
+  },
+  "options.2.chooseWhen": {
+   "es": "Necesitas una base de datos relacional con SQL, consistencia fuerte y escala horizontal. Admite transacciones a gran escala.",
+   "src": "5865c3498dd6"
+  },
+  "options.2.beCarefulWhen": {
+   "es": "Vas a crear la base de datos. En ese momento debes elegir el dialecto GoogleSQL o PostgreSQL.",
+   "src": "31bba14bbb00"
+  },
+  "options.3.chooseWhen": {
+   "es": "Quieres una base de datos administrada de MySQL, PostgreSQL o SQL Server. La documentación la describe como la forma más fácil de migrar tal cual a la nube (lift and shift).",
+   "src": "c5accfecf8cb"
+  },
+  "options.3.beCarefulWhen": {
+   "es": "Necesitas una escala casi ilimitada. Cada instancia de Cloud SQL funciona con una máquina virtual, así que compara con Spanner.",
+   "src": "20c9738bdbbb"
+  },
+  "options.4.chooseWhen": {
+   "es": "Creas aplicaciones móviles o web con documentos flexibles. Es serverless (sin servidores que administrar) y puede sincronizar datos, también sin conexión.",
+   "src": "83ebc9ba2cfd"
+  },
+  "options.4.beCarefulWhen": {
+   "es": "Necesitas análisis sobre todos tus documentos. Para eso, carga los datos en BigQuery.",
+   "src": "daab9225ce3d"
+  },
+  "verification.note": {
+   "es": "Se revisó para qué sirve cada servicio y una precaución por servicio. Cloud Storage se dejó fuera. Hay otras fuentes en cada opción. No se revisaron precios ni límites.",
+   "src": "e7cb17537256"
+  }
+ },
+ "processing": {
+  "title": {
+   "es": "Dataflow, el servicio de Spark o Cloud Data Fusion",
+   "src": "16a8612f455c"
+  },
+  "question": {
+   "es": "¿Qué servicio debe ejecutar este trabajo de procesamiento de datos?",
+   "src": "3b6feef898b6"
+  },
+  "quickRule": {
+   "es": "Dataflow para código nuevo por lotes y de streaming, Spark para trabajos de Spark que ya existen y Data Fusion para pipelines visuales.",
+   "src": "28d06201c5f0"
+  },
+  "options.0.chooseWhen": {
+   "es": "Necesitas pipelines por lotes y de streaming a escala. Es totalmente administrado y usa Apache Beam.",
+   "src": "ef2a21145f5c"
+  },
+  "options.0.beCarefulWhen": {
+   "es": "Hoy tienes trabajos de Spark o Hadoop. Dataflow ejecuta pipelines de Apache Beam, pero el servicio de Spark traslada los proyectos de Spark sin volver a desarrollarlos.",
+   "src": "5fc8b89126b1"
+  },
+  "options.1.chooseWhen": {
+   "es": "Tienes trabajos de Spark o Hadoop para llevar a Google Cloud. Usa clústeres si quieres mucho control, o serverless para pipelines nuevos.",
+   "src": "23765edbabab"
+  },
+  "options.1.beCarefulWhen": {
+   "es": "Eliges clústeres. Dan más control, pero son tu infraestructura y tú debes administrarla. La opción serverless no necesita clúster.",
+   "src": "77fd2b3d9fa0"
+  },
+  "options.2.chooseWhen": {
+   "es": "Quieres crear pipelines ETL o ELT con una herramienta visual de apuntar y hacer clic. Necesita poco código o ninguno.",
+   "src": "0b72a144656a"
+  },
+  "options.2.beCarefulWhen": {
+   "es": "Ejecutas un pipeline. Por defecto, Data Fusion crea un clúster de Spark para cada ejecución, así que también dependes del servicio de Spark.",
+   "src": "174bbb6c7421"
+  },
+  "verification.note": {
+   "es": "Se revisó el caso de uso y una precaución de cada servicio, y el cambio de nombre de Dataproc. No se revisaron precios ni límites. La precaución de Dataflow frente a Spark es una lectura de dos páginas.",
+   "src": "39cf3f0d77ce"
+  }
+ },
+ "messaging": {
+  "title": {
+   "es": "Pub/Sub o Managed Service for Apache Kafka",
+   "src": "f4eb3099882d"
+  },
+  "question": {
+   "es": "¿Qué servicio de mensajería debe llevar estos eventos?",
+   "src": "7f1b5fc24ec1"
+  },
+  "quickRule": {
+   "es": "Pub/Sub es la opción simple por defecto en Google Cloud. Elige Kafka cuando necesites compatibilidad o portabilidad con Kafka.",
+   "src": "a179b763a9da"
+  },
+  "options.0.chooseWhen": {
+   "es": "Quieres un servicio serverless con poco que administrar. Escala por sí solo, también cuando cambia el tamaño de tu carga de trabajo.",
+   "src": "f2eb0dd0d4c7"
+  },
+  "options.0.beCarefulWhen": {
+   "es": "Necesitas compatibilidad con Kafka. Pub/Sub es un servicio distinto con su propia API.",
+   "src": "4e972d33abe7"
+  },
+  "options.1.chooseWhen": {
+   "es": "Tienes cargas de trabajo de Kafka para trasladar con pocos cambios de código. También sirve cuando necesitas la misma API entre nubes o en servidores propios (on-premises).",
+   "src": "abbaa4686664"
+  },
+  "options.1.beCarefulWhen": {
+   "es": "Lo eliges. Debes administrar la capacidad, por ejemplo el tamaño del clúster y el número de particiones.",
+   "src": "1cae0152e401"
+  },
+  "options.2.chooseWhen": {
+   "es": "Algunos de tus sistemas usan Kafka y otros usan servicios de Google Cloud. Los conectores de Kafka Connect pueden unir un clúster de Kafka con Pub/Sub y BigQuery.",
+   "src": "abe998dcd3a2"
+  },
+  "options.2.beCarefulWhen": {
+   "es": "Mezclas los dos. Los clientes de Kafka y los clientes de Pub/Sub no se pueden intercambiar, porque Pub/Sub tiene su propia API.",
+   "src": "cea341ea70e9"
+  },
+  "verification.note": {
+   "es": "Se revisó la guía sobre cuándo elegir cada servicio y el vínculo de Kafka Connect con Pub/Sub. La precaución sobre la API de Pub/Sub viene de la misma página. No se revisaron precios, cuotas ni límites.",
+   "src": "317fbce2fa69"
+  }
+ },
+ "orchestration": {
+  "title": {
+   "es": "Managed Airflow, Workflows o Cloud Scheduler",
+   "src": "ae5009fb3932"
+  },
+  "question": {
+   "es": "¿Qué servicio debe ejecutar y ordenar estos trabajos?",
+   "src": "9a3597f7339f"
+  },
+  "quickRule": {
+   "es": "Airflow para pipelines de datos con muchas tareas, Workflows para encadenar servicios y Scheduler para un simple disparador por hora.",
+   "src": "74661cc3a10f"
+  },
+  "options.0.chooseWhen": {
+   "es": "Orquestas pipelines de datos, sobre todo ETL o ELT. Escribes las tareas y la programación en Python, como archivos DAG.",
+   "src": "9c0a6c28ff28"
+  },
+  "options.0.beCarefulWhen": {
+   "es": "Necesitas pasos muy rápidos. La documentación dice que es mejor para trabajo por lotes que puede esperar unos segundos entre tareas.",
+   "src": "e9cf0a42f8f0"
+  },
+  "options.1.chooseWhen": {
+   "es": "Encadenas servicios basados en HTTP y APIs de Google Cloud en un orden fijo. Es serverless y ejecuta los pasos en milisegundos.",
+   "src": "878227b1381f"
+  },
+  "options.1.beCarefulWhen": {
+   "es": "Procesas datos en pipelines. No tiene cargas de relleno (backfills) ni nuevas ejecuciones de DAG, que Airflow sí tiene.",
+   "src": "50eb568b2aef"
+  },
+  "options.2.chooseWhen": {
+   "es": "Solo necesitas iniciar algo según un horario, como un trabajo cron. No necesita código y puede llamar a endpoints HTTP o a temas de Pub/Sub.",
+   "src": "af75ae9c2178"
+  },
+  "options.2.beCarefulWhen": {
+   "es": "Un trabajo se ejecuta. Puede ejecutarse más de una vez, así que haz que el destino sea seguro al repetirse.",
+   "src": "d72bb87313a3"
+  },
+  "verification.note": {
+   "es": "Se revisó la tabla de comparación de Airflow y Workflows, los destinos de Scheduler y las ejecuciones repetidas, y el cambio de nombre de Cloud Composer. Scheduler no tiene una página oficial de comparación. No se revisaron precios ni límites.",
+   "src": "fc5160972cf8"
+  }
+ }
+}
