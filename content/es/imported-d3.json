@@ -626,5 +626,635 @@
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
   }
+ },
+ "imp-140": {
+  "html": {
+   "es": "Necesitas crear una nueva tabla de transacciones en Cloud Spanner que guarde datos de ventas de productos. Estás decidiendo qué usar como clave primaria. Desde el punto de vista del rendimiento, ¿qué estrategia debes elegir?<br>",
+   "src": "e8653fe5f69d"
+  },
+  "choices.0.html": {
+   "es": "La hora epoch actual",
+   "src": "78d37966ad20"
+  },
+  "choices.1.html": {
+   "es": "Una concatenación del nombre del producto y la hora epoch actual",
+   "src": "a38d7fc602e5"
+  },
+  "choices.2.html": {
+   "es": "Un número identificador único universal aleatorio (UUID versión 4)",
+   "src": "95a1d496be61"
+  },
+  "choices.3.html": {
+   "es": "El número de identificación original del pedido en el sistema de ventas, que es un entero que crece de forma monótona",
+   "src": "b69b82f636b1"
+  },
+  "sourceExplanation": {
+   "es": "Cloud Spanner particiona los datos según la clave primaria para repartir la carga entre los nodos. Las claves que crecen de forma monótona (como la hora epoch o los enteros secuenciales) causan hotspots (puntos calientes) de escritura, porque todas las inserciones nuevas van al final del mismo nodo.\nUsar un UUID versión 4 genera valores aleatorios, lo que asegura una distribución uniforme de las escrituras entre todos los nodos y maximiza el rendimiento de los datos transaccionales.",
+   "src": "4c13e4d82f8e"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-159": {
+  "html": {
+   "es": "Necesitas elegir una base de datos para un proyecto nuevo con estos requisitos:<br>✑ Totalmente administrada<br>✑ Capaz de escalar hacia arriba de forma automática<br>✑ Consistente en las transacciones<br>✑ Capaz de escalar hasta 6 TB<br>✑ Que se pueda consultar con SQL<br>¿Qué base de datos eliges?<br>",
+   "src": "619878e6719f"
+  },
+  "choices.0.html": {
+   "es": "Cloud SQL",
+   "src": "1097c59b4b0a"
+  },
+  "choices.1.html": {
+   "es": "Cloud Bigtable",
+   "src": "5521a117cff5"
+  },
+  "choices.2.html": {
+   "es": "Cloud Spanner",
+   "src": "e4cc4fd25783"
+  },
+  "choices.3.html": {
+   "es": "Cloud Datastore",
+   "src": "f84d6dc000d4"
+  },
+  "sourceExplanation": {
+   "es": "Cloud Spanner es la elección correcta porque es la única base de datos relacional totalmente administrada de GCP que admite el escalado horizontal automático y fluido de la capacidad de cómputo (nodos) junto con el almacenamiento.\nCloud SQL escala el almacenamiento de forma automática, pero requiere intervención manual o automatización propia para escalar la CPU y la memoria, y por eso no cumple el requisito de 'escalar hacia arriba de forma automática' en el cómputo.\nSpanner ofrece consistencia transaccional ACID completa y compatibilidad con SQL estándar, y maneja conjuntos de datos grandes de hasta 6 TB sin necesitar cambios de esquema ni lógica de sharding (fragmentación).",
+   "src": "29de16557bc9"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-160": {
+  "html": {
+   "es": "Trabajas para una empresa empresarial mediana que necesita mover los datos de transacciones de su sistema operativo desde una base de datos local a GCP. La base de datos pesa unos 20<br>TB. ¿Qué base de datos debes elegir?<br>",
+   "src": "d8b22f48db8c"
+  },
+  "choices.0.html": {
+   "es": "Cloud SQL",
+   "src": "1097c59b4b0a"
+  },
+  "choices.1.html": {
+   "es": "Cloud Bigtable",
+   "src": "5521a117cff5"
+  },
+  "choices.2.html": {
+   "es": "Cloud Spanner",
+   "src": "e4cc4fd25783"
+  },
+  "choices.3.html": {
+   "es": "Cloud Datastore",
+   "src": "f84d6dc000d4"
+  },
+  "sourceExplanation": {
+   "es": "La respuesta correcta es Cloud SQL porque es el servicio de base de datos relacional administrado diseñado para migrar bases de datos operativas locales estándar (como MySQL, PostgreSQL o SQL Server).\nAunque los materiales de examen más antiguos indicaban un límite de almacenamiento menor, Cloud SQL admite hasta 64 TB de almacenamiento, lo que cubre el conjunto de datos de 20 TB que se necesita.\nCloud Spanner suele reservarse para escenarios que requieren escalabilidad horizontal global y consistencia estricta entre regiones. Bigtable es una solución NoSQL que no sirve para migrar directamente una base de datos relacional sin un rediseño importante.",
+   "src": "e922dc5a0693"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-161": {
+  "html": {
+   "es": "Necesitas elegir una base de datos para guardar series de tiempo del uso de CPU y memoria de millones de computadoras. Necesitas guardar estos datos en muestras con intervalos de un segundo. Los analistas harán análisis ad hoc en tiempo real sobre la base de datos. Quieres evitar que te cobren por cada consulta ejecutada y asegurar que el diseño del esquema permita el crecimiento futuro del conjunto de datos. ¿Qué base de datos y qué modelo de datos debes elegir?<br>",
+   "src": "8464d7e0fecb"
+  },
+  "choices.0.html": {
+   "es": "Crear una tabla en BigQuery y agregar a la tabla las muestras nuevas de CPU y memoria",
+   "src": "afbe620541b2"
+  },
+  "choices.1.html": {
+   "es": "Crear una tabla ancha en BigQuery, crear una columna para el valor de la muestra de cada segundo y actualizar la fila con el intervalo de cada segundo",
+   "src": "443dde9f5024"
+  },
+  "choices.2.html": {
+   "es": "Crear una tabla angosta en Bigtable con una clave de fila que combine el identificador de la computadora de Computer Engine con la hora de la muestra de cada segundo",
+   "src": "ff7f40886347"
+  },
+  "choices.3.html": {
+   "es": "Crear una tabla ancha en Bigtable con una clave de fila que combine el identificador de la computadora con la hora de la muestra de cada minuto, y combinar los valores de cada segundo como datos de columna.",
+   "src": "8a5218ad9081"
+  },
+  "sourceExplanation": {
+   "es": "Bigtable es la opción adecuada para datos de series de tiempo de alto volumen, porque BigQuery cobra por consulta y eso incumple el requisito de costo.\nUn esquema de tabla angosta (una fila por marca de tiempo) evita superar el tamaño máximo de fila recomendado de Bigtable y simplifica las consultas en comparación con una tabla ancha.\nCombinar el identificador de la computadora y la marca de tiempo en la clave de fila asegura patrones de acceso eficientes para esta carga de trabajo concreta.",
+   "src": "c13d2f5cd45d"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-165": {
+  "html": {
+   "es": "Trabajas para un banco grande que opera en ubicaciones de toda Norteamérica. Estás configurando un sistema de almacenamiento de datos que manejará transacciones de cuentas bancarias. Necesitas cumplir con ACID y poder acceder a los datos con SQL. ¿Qué solución es adecuada?<br>",
+   "src": "ad6d6fac3eff"
+  },
+  "choices.0.html": {
+   "es": "Guardar los datos de las transacciones en Cloud Spanner. Habilitar lecturas obsoletas (stale reads) para reducir la latencia.",
+   "src": "db0ae2a622bb"
+  },
+  "choices.1.html": {
+   "es": "Guardar las transacciones en Cloud Spanner. Usar transacciones de lectura y escritura con bloqueo (locking).",
+   "src": "a4f2dd68b11a"
+  },
+  "choices.2.html": {
+   "es": "Guardar los datos de las transacciones en BigQuery. Deshabilitar la caché de consultas para asegurar la consistencia.",
+   "src": "f5fd035b87ed"
+  },
+  "choices.3.html": {
+   "es": "Guardar los datos de las transacciones en Cloud SQL. Usar una consulta federada de BigQuery para el análisis.",
+   "src": "302d69e48d26"
+  },
+  "sourceExplanation": {
+   "es": "Cloud Spanner es la solución adecuada porque ofrece consistencia global fuerte y cumplimiento completo de ACID en varias regiones, lo cual es crítico para las transacciones bancarias en Norteamérica.\nAdmite acceso con SQL estándar, con lo que cumple el requisito de consulta, y maneja las cargas distribuidas de gran escala mejor que Cloud SQL de una sola región.\nUsar transacciones de lectura y escritura con bloqueo asegura la serializabilidad estricta que se necesita para la integridad de los datos financieros.",
+   "src": "f54bc8b09aef"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-166": {
+  "html": {
+   "es": "Una empresa de envíos tiene datos de seguimiento de paquetes en vivo que se envían en tiempo real a un stream de Apache Kafka. Luego se cargan en BigQuery. Los analistas de tu empresa quieren consultar los datos de seguimiento en BigQuery para analizar tendencias geoespaciales en el ciclo de vida de un paquete. La tabla se creó al principio con partición por fecha de ingesta. Con el tiempo, el tiempo de procesamiento de las consultas ha aumentado. Necesitas implementar un cambio que mejore el rendimiento de las consultas en BigQuery. ¿Qué debes hacer?<br>",
+   "src": "7276bbff40e6"
+  },
+  "choices.0.html": {
+   "es": "Implementar clustering (agrupamiento) en BigQuery sobre la columna de fecha de ingesta.",
+   "src": "02236e714ef3"
+  },
+  "choices.1.html": {
+   "es": "Implementar clustering en BigQuery sobre la columna del ID de seguimiento del paquete.",
+   "src": "98902de8376d"
+  },
+  "choices.2.html": {
+   "es": "Mover los datos más antiguos a archivos de Cloud Storage y crear una tabla de BigQuery que use Cloud Storage como fuente de datos externa.",
+   "src": "381ed752fd1f"
+  },
+  "choices.3.html": {
+   "es": "Volver a crear la tabla con partición de datos por la fecha de entrega del paquete.",
+   "src": "683f38c70935"
+  },
+  "explanation": {
+   "es": "El clustering por el ID de seguimiento del paquete puede reducir los bloques de almacenamiento relevantes para las consultas que filtran por ese ID, y la partición por fecha existente puede seguir sirviendo para la poda por fecha. Hacer clustering por la fecha que ya está particionada suele aportar menos valor para este patrón de acceso. El beneficio depende de los filtros reales de las consultas.",
+   "src": "9eb9766e3aa2"
+  },
+  "reviewNote": {
+   "es": "El razonamiento editorial está vinculado a documentación primaria. La clave importada se conserva por separado.",
+   "src": "c07bc5e656c6"
+  }
+ },
+ "imp-169": {
+  "html": {
+   "es": "Estás migrando una tabla a BigQuery y decidiendo el modelo de datos. Tu tabla guarda información de compras hechas en varias tiendas e incluye datos como la hora de la transacción, los artículos comprados, el ID de la tienda, y la ciudad y el estado donde está la tienda. Consultas esta tabla con frecuencia para ver cuántas unidades de cada artículo se vendieron en los últimos 30 días y para ver tendencias de compra por estado, ciudad y tienda individual. ¿Cómo modelarías esta tabla para obtener el mejor rendimiento de consulta?<br>",
+   "src": "5128269bcb81"
+  },
+  "choices.0.html": {
+   "es": "Particionar por la hora de la transacción y hacer clustering primero por estado, luego por ciudad y luego por ID de tienda.",
+   "src": "ea0a0df94cb8"
+  },
+  "choices.1.html": {
+   "es": "Particionar por la hora de la transacción y hacer clustering primero por ID de tienda, luego por ciudad y luego por estado.",
+   "src": "88d06e838540"
+  },
+  "choices.2.html": {
+   "es": "Clustering de nivel superior primero por estado, luego por ciudad y luego por ID de tienda.",
+   "src": "6a18f9a73c93"
+  },
+  "choices.3.html": {
+   "es": "Clustering de nivel superior primero por ID de tienda, luego por ciudad y luego por estado.",
+   "src": "10cc32fd2fed"
+  },
+  "sourceExplanation": {
+   "es": "Particionar por la hora de la transacción es esencial para filtrar con eficiencia el requisito de 'últimos 30 días' mediante la poda de particiones. Las columnas de clustering deben seguir la jerarquía de agregación de las consultas: empezar por la categoría más amplia (estado) y pasar a las más específicas (ciudad y luego ID de tienda) para sacar el máximo provecho de omitir datos.",
+   "src": "baf2448781db"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-175": {
+  "html": {
+   "es": "Tu empresa está implementando un almacén de datos con BigQuery y te encargaron diseñar el modelo de datos. Mueves tu almacén de datos de ventas local, que tiene un esquema de datos en estrella (star schema), a BigQuery, pero notas problemas de rendimiento al consultar los datos de los últimos 30 días. Según las prácticas recomendadas de Google, ¿qué debes hacer para acelerar la consulta sin aumentar los costos de almacenamiento?<br>",
+   "src": "9f778f6effa7"
+  },
+  "choices.0.html": {
+   "es": "Desnormalizar los datos.",
+   "src": "de20e7a10356"
+  },
+  "choices.1.html": {
+   "es": "Fragmentar (shard) los datos por ID de cliente.",
+   "src": "0f449e11f2c4"
+  },
+  "choices.2.html": {
+   "es": "Materializar los datos dimensionales en vistas.",
+   "src": "fbc941acf55d"
+  },
+  "choices.3.html": {
+   "es": "Particionar los datos por fecha de transacción.",
+   "src": "9819fbc7b812"
+  },
+  "sourceExplanation": {
+   "es": "Particionar la tabla por fecha de transacción limita los escaneos de las consultas solo a las particiones relevantes de 30 días, lo que reduce mucho los costos de procesamiento y mejora la latencia.\nEsta optimización logra mayor velocidad sin aumentar la sobrecarga de almacenamiento, a diferencia de la desnormalización, que puede causar redundancia de datos y facturas de almacenamiento más altas.",
+   "src": "671e002be3c5"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-183": {
+  "html": {
+   "es": "Estás usando Bigtable para guardar y servir datos del mercado de valores de cada uno de los índices principales. Para servir a la aplicación de trading, solo necesitas acceder a los precios de acciones más recientes que llegan en streaming. ¿Cómo debes diseñar tu clave de fila y tus tablas para poder acceder a los datos con la consulta más simple?<br>",
+   "src": "c7c57ed42d39"
+  },
+  "choices.0.html": {
+   "es": "Crear una sola tabla para todos los índices y usar el índice y la marca de tiempo como diseño de la clave de fila.",
+   "src": "048a16c8200a"
+  },
+  "choices.1.html": {
+   "es": "Crear una sola tabla para todos los índices y usar una marca de tiempo invertida como diseño de la clave de fila.",
+   "src": "47a9b5595e02"
+  },
+  "choices.2.html": {
+   "es": "Para cada índice, tener una tabla aparte y usar una marca de tiempo como diseño de la clave de fila.",
+   "src": "89c7744ed49f"
+  },
+  "choices.3.html": {
+   "es": "Para cada índice, tener una tabla aparte y usar una marca de tiempo invertida como diseño de la clave de fila.",
+   "src": "89ae30ef6506"
+  },
+  "explanation": {
+   "es": "Una tabla compartida con un identificador de índice seguido del tiempo permite que una consulta limite un rango de claves de fila para ese índice. Para simplificar el acceso a lo más nuevo primero, considera una marca de tiempo invertida después de ese prefijo de alta cardinalidad, o un patrón de lectura inversa que esté admitido. Evita una clave que empiece solo con la marca de tiempo, porque concentra las escrituras. La A es el diseño de la lista que más se acerca, con esta salvedad sobre el orden de la consulta.",
+   "src": "c0d902779489"
+  },
+  "reviewNote": {
+   "es": "El razonamiento editorial está vinculado a documentación primaria. La clave importada se conserva por separado.",
+   "src": "c07bc5e656c6"
+  }
+ },
+ "imp-188": {
+  "html": {
+   "es": "Tu startup tiene una aplicación web que hoy atiende a los clientes desde una sola región de Asia. Buscas una financiación que le permita a tu startup atender clientes en todo el mundo. Tu objetivo actual es optimizar el costo, y tu objetivo después de la financiación es optimizar la presencia y el rendimiento globales. Debes usar un controlador (driver) nativo de<br>JDBC. ¿Qué debes hacer?<br>",
+   "src": "ac57f3440ed9"
+  },
+  "choices.0.html": {
+   "es": "Usar Cloud Spanner para configurar al principio una instancia de una sola región y luego configurar instancias multirregión de Cloud Spanner después de conseguir la financiación.",
+   "src": "730bb4f94855"
+  },
+  "choices.1.html": {
+   "es": "Usar primero una instancia de alta disponibilidad de Cloud SQL para PostgreSQL y, después de conseguir la financiación, Bigtable con replicación en EE. UU., Europa y Asia.",
+   "src": "91b94c558d5b"
+  },
+  "choices.2.html": {
+   "es": "Usar primero una instancia zonal de Cloud SQL para PostgreSQL y, después de conseguir la financiación, Bigtable en EE. UU., Europa y Asia.",
+   "src": "2daf923330a7"
+  },
+  "choices.3.html": {
+   "es": "Usar primero una instancia zonal de Cloud SQL para PostgreSQL y, después de conseguir la financiación, Cloud SQL para PostgreSQL con configuración de alta disponibilidad.",
+   "src": "e95915d1daaf"
+  },
+  "sourceExplanation": {
+   "es": "Cloud Spanner es el único servicio de base de datos de GCP entre las opciones que ofrece escala global con consistencia fuerte y admite controladores JDBC nativos. Las opciones B y C son incorrectas porque Bigtable no admite controladores JDBC. La opción D es incorrecta porque la configuración de alta disponibilidad de Cloud SQL asegura el tiempo de actividad dentro de una sola región, pero no optimiza la latencia global ni la presencia en varios continentes.",
+   "src": "4975f49a6f44"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-197": {
+  "html": {
+   "es": "Estás diseñando un sistema que requiere una base de datos que cumpla con ACID. Debes asegurar que el sistema requiera la mínima intervención humana en caso de falla.<br>¿Qué debes hacer?<br>",
+   "src": "c32d29998f9c"
+  },
+  "choices.0.html": {
+   "es": "Configurar una instancia de Cloud SQL para MySQL con la recuperación a un momento dado (point-in-time recovery) habilitada.",
+   "src": "4fdee94e2ad3"
+  },
+  "choices.1.html": {
+   "es": "Configurar una instancia de Cloud SQL para PostgreSQL con alta disponibilidad habilitada.",
+   "src": "3a8ecfa610d9"
+  },
+  "choices.2.html": {
+   "es": "Configurar una instancia de Bigtable con más de un clúster.",
+   "src": "a55fc2d2936e"
+  },
+  "choices.3.html": {
+   "es": "Configurar una tabla de BigQuery con configuración multirregión.",
+   "src": "330ae173d3a0"
+  },
+  "sourceExplanation": {
+   "es": "Bigtable es NoSQL y no cumple por completo con ACID, y BigQuery es un almacén de análisis que no sirve para cargas transaccionales generales. Entre las opciones de Cloud SQL, la alta disponibilidad (HA) permite un failover (conmutación por error) automático a una réplica en espera sin intervención humana, mientras que la recuperación a un momento dado (PITR) suele requerir pasos manuales de restauración para recuperar los datos. Por eso, habilitar HA en una instancia de Cloud SQL es lo que mejor cumple a la vez el requisito de ACID y el de mínima intervención.",
+   "src": "daa0f78926d2"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-207": {
+  "html": {
+   "es": "Estás recopilando datos de sensores de IoT de millones de dispositivos de todo el mundo y los guardas en BigQuery. Tu patrón de acceso se basa en datos recientes, filtrados por location_id y device_version con la siguiente consulta:<br><br><img src=\"assets/images/ab3f73505d90839610a8.png\" alt=\"Original diagram for imported question 207. Open the full-size image to inspect the details.\" loading=\"lazy\"><br><br>Quieres optimizar tus consultas en costo y rendimiento. ¿Cómo debes estructurar tus datos?",
+   "src": "187c2f3835e2"
+  },
+  "choices.0.html": {
+   "es": "Particionar los datos de la tabla por create_date, location_id y device_version.",
+   "src": "d3258282bc96"
+  },
+  "choices.1.html": {
+   "es": "Particionar los datos de la tabla por create_date y hacer clustering de los datos de la tabla por location_id y device_version.",
+   "src": "e4511dc2f66d"
+  },
+  "choices.2.html": {
+   "es": "Hacer clustering de los datos de la tabla por create_date, location_id y device_version.",
+   "src": "c4ba57340217"
+  },
+  "choices.3.html": {
+   "es": "Hacer clustering de los datos de la tabla por create_date y particionar por location_id y device_version.",
+   "src": "b3ad68ed93f8"
+  },
+  "sourceExplanation": {
+   "es": "BigQuery admite particionar solo por una columna, que aquí debe ser `create_date` para permitir la poda de particiones en los filtros basados en tiempo. El clustering en hasta cuatro columnas (`location_id` y `device_version`) optimiza más las consultas al ordenar los datos dentro de las particiones, y así BigQuery escanea menos bloques al filtrar por estos atributos.",
+   "src": "e43470c1b778"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-208": {
+  "html": {
+   "es": "Un programa de TV en vivo pide a los espectadores que voten con sus teléfonos móviles. El evento genera un gran volumen de datos durante un período de 3 minutos. Estás a cargo de la &quot;infraestructura de votación&quot; y debes asegurar que la plataforma pueda manejar la carga y que se procesen todos los votos. Debes mostrar resultados parciales mientras la votación está abierta. Cuando la votación se cierra, necesitas contar los votos exactamente una vez y optimizar el costo. ¿Qué debes hacer?<br><br><img src=\"assets/images/7084f71a164395328589.png\" alt=\"Original diagram for imported question 208. Open the full-size image to inspect the details.\" loading=\"lazy\">",
+   "src": "226ccb20d7aa"
+  },
+  "choices.0.html": {
+   "es": "Crear una instancia de Memorystore con configuración de alta disponibilidad (HA).",
+   "src": "52a6e61e0b7a"
+  },
+  "choices.1.html": {
+   "es": "Crear una base de datos de Cloud SQL para PostgreSQL con configuración de alta disponibilidad (HA) y varias réplicas de lectura.",
+   "src": "8ed978324c56"
+  },
+  "choices.2.html": {
+   "es": "Escribir los votos en un tema de Pub/Sub y hacer que Cloud Functions se suscriba a él y escriba los votos en BigQuery.",
+   "src": "c176adcafd5e"
+  },
+  "choices.3.html": {
+   "es": "Escribir los votos en un tema de Pub/Sub y cargarlos en Bigtable y en BigQuery mediante un pipeline de Dataflow. Consultar Bigtable para obtener resultados en tiempo real y BigQuery para análisis posteriores. Apagar la instancia de Bigtable cuando termine la votación.",
+   "src": "bfdae7b9bd43"
+  },
+  "sourceExplanation": {
+   "es": "La opción D es la elección correcta porque cumple todas las restricciones: Pub/Sub maneja el pico de ingesta de alto volumen, Bigtable ofrece lecturas de baja latencia para los resultados parciales en tiempo real durante el evento, y Dataflow asegura el procesamiento exactamente una vez (exactly-once) para tener conteos finales precisos en BigQuery.\n\nApagar la instancia de Bigtable cuando termina la votación optimiza los costos, porque elimina el almacenamiento NoSQL costoso cuando solo se necesita el análisis a largo plazo.",
+   "src": "d6e787928750"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-209": {
+  "html": {
+   "es": "Una empresa de envíos tiene datos de seguimiento de paquetes en vivo que se envían en tiempo real a un stream de Apache Kafka. Luego se cargan en BigQuery. Los analistas de tu empresa quieren consultar los datos de seguimiento en BigQuery para analizar tendencias geoespaciales en el ciclo de vida de un paquete. La tabla se creó al principio con partición por fecha de ingesta. Con el tiempo, el tiempo de procesamiento de las consultas ha aumentado. Necesitas copiar todos los datos a una nueva tabla con clustering (agrupamiento). ¿Qué debes hacer?",
+   "src": "0bbae52253fc"
+  },
+  "choices.0.html": {
+   "es": "Volver a crear la tabla con partición de datos por la fecha de entrega del paquete.",
+   "src": "683f38c70935"
+  },
+  "choices.1.html": {
+   "es": "Implementar clustering en BigQuery sobre la columna del ID de seguimiento del paquete.",
+   "src": "98902de8376d"
+  },
+  "choices.2.html": {
+   "es": "Implementar clustering en BigQuery sobre la columna de fecha de ingesta.",
+   "src": "02236e714ef3"
+  },
+  "choices.3.html": {
+   "es": "Mover los datos más antiguos a archivos de Cloud Storage y crear una tabla de BigQuery que use Cloud Storage como fuente de datos externa.",
+   "src": "381ed752fd1f"
+  },
+  "sourceExplanation": {
+   "es": "Hacer clustering de la tabla por la columna del ID de seguimiento del paquete optimiza el rendimiento de las consultas al colocar juntas, de forma física, las filas de datos relacionadas con cada paquete, lo que apoya de forma directa la necesidad de los analistas de estudiar tendencias geoespaciales dentro del ciclo de vida de los paquetes. La partición por fecha de ingesta se usó al principio, pero no sirve con eficiencia para las consultas que filtran o agrupan por ID de paquete específicos, mientras que el clustering permite que BigQuery omita los bloques de datos irrelevantes durante la ejecución de la consulta.",
+   "src": "be9486e47ce4"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-210": {
+  "html": {
+   "es": "Estás diseñando un data mesh (malla de datos) en Google Cloud con varios equipos de ingeniería de datos distintos que crean productos de datos. El patrón de diseño típico de curaduría de datos consiste en dejar los archivos en Cloud Storage (landing), transformar los datos sin procesar (raw) en Cloud Storage y en datasets de BigQuery, y guardar el producto de datos final curado en datasets de BigQuery. Necesitas configurar Dataplex para asegurar que cada equipo pueda acceder solo a los recursos (assets) necesarios para crear sus productos de datos. También necesitas asegurar que los equipos puedan compartir con facilidad el producto de datos curado. ¿Qué debes hacer?",
+   "src": "d2fb135d36d8"
+  },
+  "choices.0.html": {
+   "es": "1. Crear un solo virtual lake (lago virtual) de Dataplex y crear una sola zone (zona) que contenga los datos de landing, raw y curated.<br>2. Dar a cada equipo de ingeniería de datos acceso al virtual lake.",
+   "src": "c7751726d52c"
+  },
+  "choices.1.html": {
+   "es": "1. Crear un solo virtual lake de Dataplex y crear una sola zone que contenga los datos de landing, raw y curated.<br>2. Crear assets separados para cada producto de datos dentro de la zone.<br>3. Asignar permisos a los equipos de ingeniería de datos en el nivel de la zone.",
+   "src": "411d7409e6fc"
+  },
+  "choices.2.html": {
+   "es": "1. Crear un virtual lake de Dataplex para cada producto de datos y crear una sola zone que contenga los datos de landing, raw y curated.<br>2. Dar a los equipos de ingeniería de datos acceso total al virtual lake asignado a su producto de datos.",
+   "src": "76f958366eb3"
+  },
+  "choices.3.html": {
+   "es": "1. Crear un virtual lake de Dataplex para cada producto de datos y crear varias zones para los datos de landing, raw y curated.<br>2. Dar a los equipos de ingeniería de datos acceso total al virtual lake asignado a su producto de datos.",
+   "src": "aaa1c5589b24"
+  },
+  "sourceExplanation": {
+   "es": "En una arquitectura de Data Mesh en Google Cloud, Dataplex usa Zones (zonas) para separar los datos por etapa del ciclo de vida (Landing, Raw, Curated) y por niveles de calidad y acceso. Crear varias zonas para los datos de landing, raw y curated permite aplicar controles de acceso estrictos, de modo que los equipos solo interactúen con las etapas específicas que necesitan para sus tareas. Asignar un virtual lake dedicado por producto aísla aún más la propiedad, mientras que las funciones para compartir entre lakes permiten distribuir con facilidad los productos de datos curados finales a otros equipos sin exponer los datos intermedios ni los sin procesar.",
+   "src": "a0ff77abc281"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-213": {
+  "html": {
+   "es": "La tabla customer_order de tu empresa en BigQuery guarda el historial de pedidos de 10 millones de clientes, con un tamaño de tabla de 10 PB. Necesitas crear un panel para que el equipo de soporte vea el historial de pedidos. El panel tiene dos filtros, country_name y username. Ambos son de tipo de datos cadena (string) en la tabla de BigQuery. Cuando se aplica un filtro, el panel obtiene el historial de pedidos de la tabla y muestra los resultados de la consulta. Sin embargo, el panel tarda en mostrar los resultados al aplicar los filtros a la siguiente consulta:<br><br><img src=\"assets/images/a947b8821c3294d68bf8.png\" alt=\"Original diagram for imported question 213. Open the full-size image to inspect the details.\" loading=\"lazy\"><br><br>¿Cómo debes rediseñar la tabla de BigQuery para permitir un acceso más rápido?",
+   "src": "4663978dd307"
+  },
+  "choices.0.html": {
+   "es": "Hacer clustering de la tabla por los campos country y username.",
+   "src": "cd13fcadb858"
+  },
+  "choices.1.html": {
+   "es": "Hacer clustering de la tabla por el campo country y particionar por el campo username.",
+   "src": "6c488ff8e9d3"
+  },
+  "choices.2.html": {
+   "es": "Particionar la tabla por los campos country y username.",
+   "src": "9caf383a41fb"
+  },
+  "choices.3.html": {
+   "es": "Particionar la tabla por _PARTITIONTIME.",
+   "src": "5aa832ecbcc9"
+  },
+  "sourceExplanation": {
+   "es": "La partición de BigQuery requiere columnas de tipo DATE, DATETIME, TIMESTAMP o INTEGER RANGE. No admite tipos de datos cadena (string) como claves de partición. Como country_name y username son cadenas, no se pueden usar para particionar, lo que descarta las opciones B, C y D. El clustering es la técnica de optimización correcta aquí, porque organiza los datos dentro de los archivos para que BigQuery omita con rapidez los bloques de datos irrelevantes al filtrar por estas columnas de cadena.",
+   "src": "6385572d8ebf"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-232": {
+  "html": {
+   "es": "Estás en el equipo de gobernanza de datos y estás implementando requisitos de seguridad para implementar recursos. Necesitas asegurar que los recursos se limiten solo a la región europe-west3. Quieres seguir las prácticas recomendadas por Google.<br><br>¿Qué debes hacer?",
+   "src": "9a85cc032d69"
+  },
+  "choices.0.html": {
+   "es": "Definir la restricción de política de la organización constraints/gcp.resourceLocations como in:europe-west3-locations.",
+   "src": "f04a1cb24e34"
+  },
+  "choices.1.html": {
+   "es": "Implementar los recursos con Terraform y aplicar una regla de validación de variables para asegurar que la región sea europe-west3 en todos los recursos.",
+   "src": "fb968db30661"
+  },
+  "choices.2.html": {
+   "es": "Definir la restricción de política de la organización constraints/gcp.resourceLocations como in:eu-locations.",
+   "src": "43c4f1641dff"
+  },
+  "choices.3.html": {
+   "es": "Crear una Cloud Function que supervise todos los recursos creados y destruya de forma automática los que se creen fuera de la región europe-west3.",
+   "src": "38f416afbe6b"
+  },
+  "sourceExplanation": {
+   "es": "Las restricciones de Organization Policy de Google Cloud ofrecen una forma nativa y serverless de hacer cumplir reglas de creación de recursos en toda tu organización. La restricción `constraints/gcp.resourceLocations` limita de forma específica las ubicaciones permitidas para los recursos, y definirla como `in:europe-west3-locations` hace cumplir de forma estricta que los recursos nuevos solo se puedan implementar en la región indicada.\nEste enfoque es mejor que usar la validación con Infrastructure as Code (Terraform) o Cloud Functions reactivas, porque evita la creación de recursos que no cumplen las reglas en el nivel de la API, antes de que ocurra.",
+   "src": "46254490aef2"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-234": {
+  "html": {
+   "es": "Migraste un backend de datos de una aplicación que sirve 10 PB de datos históricos de productos para análisis. Solo el último estado conocido de un producto, que son unos 10 GB de datos, debe servirse mediante una API a las otras aplicaciones. Necesitas elegir una solución de almacenamiento persistente rentable que cubra los requisitos de análisis y el rendimiento de la API de hasta 1000 consultas por segundo (QPS) con una latencia de menos de 1 segundo. ¿Qué debes hacer?",
+   "src": "7b4198d32e45"
+  },
+  "choices.0.html": {
+   "es": "1. Guardar los datos históricos en BigQuery para el análisis.<br>2. Usar una vista materializada para precalcular el último estado de un producto.<br>3. Servir los datos del último estado directamente desde BigQuery a la API.",
+   "src": "06874a117c7d"
+  },
+  "choices.1.html": {
+   "es": "1. Guardar los productos como una colección en Firestore, con cada producto con un conjunto de cambios históricos.<br>2. Usar consultas simples y compuestas para el análisis.<br>3. Servir los datos del último estado directamente desde Firestore a la API.",
+   "src": "6a4dbbc36173"
+  },
+  "choices.2.html": {
+   "es": "1. Guardar los datos históricos en Cloud SQL para el análisis.<br>2. En una tabla aparte, guardar el último estado del producto después de cada cambio del producto.<br>3. Servir los datos del último estado directamente desde Cloud SQL a la API.",
+   "src": "8aebd0e8c78a"
+  },
+  "choices.3.html": {
+   "es": "1. Guardar los datos históricos en BigQuery para el análisis.<br>2. En una tabla de Cloud SQL, guardar el último estado del producto después de cada cambio del producto.<br>3. Servir los datos del último estado directamente desde Cloud SQL a la API.",
+   "src": "9dc72e82ffc0"
+  },
+  "sourceExplanation": {
+   "es": "La opción D es correcta porque aprovecha la herramienta adecuada para cada carga de trabajo: BigQuery es rentable y escalable para analizar 10 PB de datos históricos, y Cloud SQL ofrece el rendimiento de baja latencia y alto volumen que se necesita para servir 1,000 QPS con respuestas de menos de un segundo. Servir el tráfico de la API directamente desde BigQuery (opción A) introduce latencia y costo innecesarios por los tiempos de inicio de las consultas y los modelos de precio bajo demanda, que no están optimizados para el acceso transaccional de alta frecuencia.",
+   "src": "36f9c1ecde3d"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-245": {
+  "html": {
+   "es": "Estás desarrollando un modelo para identificar los factores que llevan a conversiones de ventas para tus clientes. Ya terminaste de procesar tus datos. Quieres continuar con el ciclo de vida del desarrollo del modelo. ¿Qué debes hacer a continuación?",
+   "src": "f5fca9d3b9b5"
+  },
+  "choices.0.html": {
+   "es": "Usar tu modelo para hacer predicciones sobre datos de entrada nuevos de clientes.",
+   "src": "aad401374862"
+  },
+  "choices.1.html": {
+   "es": "Monitorear el rendimiento de tu modelo y hacer los ajustes necesarios.",
+   "src": "9b835169ffb6"
+  },
+  "choices.2.html": {
+   "es": "Definir qué datos se usarán para las pruebas y cuáles para entrenar el modelo.",
+   "src": "99369755707c"
+  },
+  "choices.3.html": {
+   "es": "Probar y evaluar tu modelo con tus datos curados para determinar qué tan bien funciona.",
+   "src": "f95a308827ea"
+  },
+  "sourceExplanation": {
+   "es": "En el ciclo de vida del aprendizaje automático, los datos deben dividirse en conjuntos de entrenamiento y de prueba antes de empezar a entrenar el modelo, para asegurar una evaluación de rendimiento válida. Como el procesamiento de datos está completo pero el entrenamiento no ha empezado, definir estos conjuntos de datos (opción C) es el paso previo necesario. Las opciones A, B y D implican predicción, monitoreo o evaluación, que requieren un modelo entrenado que todavía no existe.",
+   "src": "fdde6a193474"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-247": {
+  "html": {
+   "es": "Tu empresa opera en tres dominios: aerolíneas, hoteles y servicios de transporte con conductor (ride-hailing). Cada dominio tiene dos equipos: analítica y ciencia de datos, que crean activos de datos en BigQuery con la ayuda de un equipo central de plataforma de datos. Sin embargo, como cada dominio evoluciona rápido, el equipo central de plataforma de datos se está volviendo un cuello de botella. Esto causa retrasos para obtener información de los datos y da como resultado datos desactualizados cuando los pipelines no se mantienen al día. Necesitas diseñar una arquitectura de data mesh (malla de datos) con Dataplex para eliminar el cuello de botella. ¿Qué debes hacer?",
+   "src": "3e0ddcc33508"
+  },
+  "choices.0.html": {
+   "es": "1. Crear un lake (lago de datos) por cada equipo. Dentro de cada lake, crear una zone (zona) por cada dominio.<br>2. Asociar cada uno de los datasets de BigQuery creados por los equipos individuales como assets de la zone correspondiente.<br>3. Hacer que el equipo central de plataforma de datos administre los assets de datos de todas las zones.",
+   "src": "f4e268b2ad85"
+  },
+  "choices.1.html": {
+   "es": "1. Crear un lake por cada equipo. Dentro de cada lake, crear una zone por cada dominio.<br>2. Asociar cada uno de los datasets de BigQuery creados por los equipos individuales como assets de la zone correspondiente.<br>3. Indicar a cada dominio que administre los assets de datos de su propia zone.",
+   "src": "d89e8adcb91e"
+  },
+  "choices.2.html": {
+   "es": "1. Crear un lake por cada dominio. Dentro de cada lake, crear una zone por cada equipo.<br>2. Asociar cada uno de los datasets de BigQuery creados por los equipos individuales como assets de la zone correspondiente.<br>3. Indicar a cada dominio que administre los assets de datos de su propio lake.",
+   "src": "7c06f699b9e9"
+  },
+  "choices.3.html": {
+   "es": "1. Crear un lake por cada dominio. Dentro de cada lake, crear una zone por cada equipo.<br>2. Asociar cada uno de los datasets de BigQuery creados por los equipos individuales como assets de la zone correspondiente.<br>3. Hacer que el equipo central de plataforma de datos administre los assets de datos de todos los lakes.",
+   "src": "4e24954e4c17"
+  },
+  "sourceExplanation": {
+   "es": "Los principios de Data Mesh ponen el énfasis en la soberanía orientada a dominios, donde cada dominio de negocio (aerolíneas, hoteles, ride-hailing) actúa como dueño de sus productos de datos. En Dataplex, esto equivale a crear un Lake por dominio para encapsular el contexto de gobernanza y metadatos de ese dominio. Los dominios deben administrar sus propios assets (zonas que representan a los equipos) para eliminar el cuello de botella del equipo central y asegurar actualizaciones a tiempo.",
+   "src": "5deab5914ba3"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-249": {
+  "html": {
+   "es": "Tu equipo está creando una plataforma de data lake (lago de datos) en Google Cloud. Como parte del diseño de los cimientos de datos (data foundation), planeas guardar todos los datos sin procesar en Cloud Storage. Esperas ingerir aproximadamente 25 GB de datos al día y tu departamento de facturación está preocupado por el costo creciente de guardar datos antiguos. Los requisitos actuales del negocio son:<br><br>•\tLos datos antiguos se pueden borrar en cualquier momento.<br>•\tNo hay un patrón de acceso predefinido para los datos antiguos.<br>•\tLos datos antiguos deben estar disponibles al instante cuando se acceda a ellos.<br>•\tNo debe haber ningún cargo por la recuperación de datos.<br><br>¿Qué debes hacer para optimizar el costo?",
+   "src": "b8eb49d9078a"
+  },
+  "choices.0.html": {
+   "es": "Crear el bucket con la función de clase de almacenamiento Autoclass.",
+   "src": "38b836b07a2f"
+  },
+  "choices.1.html": {
+   "es": "Crear una política de Object Lifecycle Management (administración del ciclo de vida de los objetos) para cambiar la clase de almacenamiento de los datos de más de 30 días a nearline, 90 días a coldline y 365 días a la clase de almacenamiento archive. Borrar los datos antiguos según se necesite.",
+   "src": "edcfb76d6098"
+  },
+  "choices.2.html": {
+   "es": "Crear una política de Object Lifecycle Management para cambiar la clase de almacenamiento de los datos de más de 30 días a coldline, de más de 90 días a nearline y 365 días a la clase de almacenamiento archive. Borrar los datos antiguos según se necesite.",
+   "src": "ee4b80e5b8b2"
+  },
+  "choices.3.html": {
+   "es": "Crear una política de Object Lifecycle Management para cambiar la clase de almacenamiento de los datos de más de 30 días a nearline, 45 días a coldline y 60 días a la clase de almacenamiento archive. Borrar los datos antiguos según se necesite.",
+   "src": "5337020685ca"
+  },
+  "sourceExplanation": {
+   "es": "Autoclass es la elección óptima porque pasa los objetos de forma automática a clases de almacenamiento más baratas (Nearline, Coldline o Archive) según los patrones de acceso, sin cargos por recuperación de datos durante la transición.\nLas políticas manuales de Lifecycle Management (opciones B, C y D) no cumplen el requisito de 'ningún cargo por la recuperación de datos', porque pasar objetos a Nearline, Coldline o Archive con reglas de ciclo de vida genera los costos estándar de recuperación.\nAutoclass asegura la optimización de costos y mantiene la disponibilidad instantánea y cero cargos de recuperación para los datos que se mueven entre clases.",
+   "src": "39e318f89708"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
  }
 }
