@@ -32,7 +32,7 @@ Format: `- [ ]` pending, `- [x]` done, `- [x] SKIPPED: reason`, `- [ ] BLOCKED: 
 - [x] 16. G Motion set: dots moving along lesson diagrams (3 short passes, pause button), button feedback, key-fact sweep, reduced-motion fallback, decision 0001.
 - [x] 17. G Gentle rewards: optional streak field under data-engineer-fieldnotes.v1, domain marks derived from completed lessons, calm chip and badges. Tests cover old state, export and restore.
 - [x] 18. G Linked the AwesomeLogos google-cloud-icons collection from the credits page and docs/credits.md. Nothing downloaded or used. Official icons stay out until their terms are confirmed.
-- [ ] BLOCKED: 19. Lucide is ISC and not CC0. Open Peeps and Open Doodles are decorative, which AGENTS.md allows only with a written reason. Which UI icons or illustrations do you want, and where?
+- [x] 19. G Three Lucide icons (ISC) beside the text of the theme, focus and language buttons. No decorative illustrations, by decision 0008. The owner can reverse it.
 - [x] 20. G Manim pilot: one 30 s WebM clip (batch vs streaming), 576 KB, WebP poster, EN and ES captions, native pause control. Decision 0006. The radar note for SVN11X/standards is not part of this repository and stays with the owner.
 - [x] 21. G Convert domain 2 to the lesson block format with diagrams. Done for the 8 most central of 16 lessons, text derived from the lessons, owner review pending.
 - [x] 22. G Convert domain 3 to the lesson block format with diagrams. All 10 lessons have blocks, text derived from the lessons, owner review pending.
