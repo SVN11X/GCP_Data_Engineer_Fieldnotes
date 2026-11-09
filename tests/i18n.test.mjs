@@ -203,3 +203,8 @@ test('lesson titles, question text, service names and source titles never match 
  assert.deepEqual(clash.slice(0,10),[]);
  assert.ok(names.length>300);
 });
+
+test('no render template in src/scripts contains a noscript element',()=>{
+ const dir=new URL('../src/scripts/',import.meta.url);
+ for(const f of fs.readdirSync(dir).filter(f=>f.endsWith('.js')))assert.ok(!/<\/?noscript\b/i.test(fs.readFileSync(new URL(f,dir),'utf8')),f+' has a noscript element inside a script');
+});
