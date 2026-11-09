@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Added a lesson block pilot on four domain 1 lessons: a small diagram, one highlighted key fact and a quick check with an immediate explanation. Nothing is scored or saved, and the text is derived from the lessons and awaits owner review.
 - Added the field-notebook look: warm paper and ink tokens, a key-fact highlighter style, and domain text colors that keep 4.5:1 contrast in both themes. The handwritten font waits for approval.
 - Added a focus mode: a topbar button or the F key hides navigation and search, Escape turns it off, the choice is remembered in the browser, and a thin bar shows progress.
 - Added a type and spacing scale in styles.css: no font below 14 px, 16 px body text, prose capped at 70ch, and size and spacing tokens in :root.

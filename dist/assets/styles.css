@@ -74,3 +74,23 @@ body{background:var(--paper);color:var(--ink)}
 .key-fact{background:var(--key-bg);color:var(--key-ink);padding:0 .25em;border-radius:3px;border-bottom:2px solid var(--key-edge);-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .domain-index{color:color-mix(in srgb,var(--accent) var(--domain-mix),var(--ink));background:color-mix(in srgb,var(--accent) 12%,var(--card));border-color:color-mix(in srgb,var(--accent) 24%,var(--card))}
 .focus-progress{position:fixed;top:0;left:0;right:0;height:4px;background:var(--line);z-index:60}.focus-progress[hidden]{display:none}.focus-progress span{display:block;height:100%;width:0;background:var(--blue);transition:width .3s ease}.focus-toggle{white-space:nowrap;font-size:var(--fs-label);padding:6px 10px}.focus-toggle:focus-visible{outline:3px solid var(--blue);outline-offset:2px}.focus-toggle[aria-pressed=true]{background:var(--pale);border-color:var(--blue)}@media(prefers-reduced-motion:reduce){.focus-progress span{transition:none}}
+
+.lesson-block{margin:18px 0;padding:16px;border:1px solid var(--line);border-radius:10px;background:var(--white)}
+.lb-diagram{display:block;max-width:100%;height:auto;margin:8px auto 4px;color:var(--ink)}
+.lb-node rect{fill:var(--pale);stroke:var(--blue);stroke-width:1.5}
+.lb-node text{fill:var(--ink);font-size:14px;font-family:inherit}
+.lb-edge{stroke:var(--blue);stroke-width:2}
+.lb-head{fill:var(--blue)}
+.lb-fact{font-size:16px;margin:12px 0}
+.lb-question{margin:0 0 8px}
+.lb-choices{display:grid;gap:8px}
+.lb-choice{text-align:left;font:inherit;font-size:16px;color:var(--ink);background:var(--white);border:1px solid var(--line);border-radius:8px;padding:10px 12px;min-height:44px;cursor:pointer}
+.lb-choice:hover{border-color:var(--blue)}
+.lb-choice:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.lb-choice.right{border:2px solid var(--green);background:var(--pale)}
+.lb-choice.wrong{border:2px dashed var(--gold)}
+.lb-feedback{margin:10px 0 0;font-size:16px;min-height:1.5em}
+.lb-feedback.right{color:var(--green);font-weight:650}
+.lesson-block{overflow-x:auto}.lesson-block .lb-diagram{max-width:none}
+@media(max-width:560px){.lesson-block{padding:12px 6px}}
+@media(max-width:560px){.lesson-body{padding-left:12px;padding-right:12px}.lesson-block{padding:12px 4px}}

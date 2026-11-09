@@ -1,0 +1,46 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import '../dist/assets/lesson-block.js';
+const L=globalThis.FieldLessonBlock;
+const lessons=JSON.parse(fs.readFileSync(new URL('../content/lessons.json',import.meta.url),'utf8'));
+const withBlock=lessons.filter(l=>l.block);
+test('the pilot covers four domain 1 lessons only',()=>{
+ assert.equal(withBlock.length,4);
+ assert.ok(withBlock.every(l=>l.domain===1));
+});
+test('every block has valid minutes, a connected diagram, a key fact and a three-choice check',()=>{
+ for(const l of withBlock){
+  const b=l.block,ids=new Set(b.diagram.nodes.map(n=>n.id));
+  assert.ok(Number.isInteger(b.minutes)&&b.minutes>=2&&b.minutes<=5,l.id);
+  assert.ok(b.diagram.nodes.length>=2&&ids.size===b.diagram.nodes.length,l.id);
+  assert.ok(b.diagram.edges.every(x=>ids.has(x.from)&&ids.has(x.to)),l.id);
+  assert.ok(b.diagram.title&&b.diagram.description&&b.diagram.width<=320,l.id);
+  assert.ok(b.keyFact.trim().length>0,l.id);
+  assert.equal(b.check.choices.length,3,l.id);
+  assert.equal(b.check.choices.filter(c=>c.correct===true).length,1,l.id);
+ }
+});
+test('rendering shows diagram, key fact and check, and nothing for lessons without a block',()=>{
+ const html=L.render(withBlock[0]);
+ assert.ok(html.indexOf('<svg')<html.indexOf('key-fact')&&html.indexOf('key-fact')<html.indexOf('lb-choice'));
+ assert.match(html,/role="img"/);
+ assert.equal((html.match(/data-lb-choice=/g)||[]).length,3);
+ assert.equal(L.render(lessons.find(l=>!l.block)),'');
+ assert.equal(L.render(null),'');
+});
+test('answers explain right and wrong choices and are pure',()=>{
+ const l=withBlock[0],before=JSON.stringify(l);
+ const right=l.block.check.choices.findIndex(c=>c.correct);
+ assert.equal(L.answer(l,right).correct,true);
+ assert.match(L.answer(l,right).text,/^Correct\./);
+ const wrong=L.answer(l,(right+1)%3);
+ assert.equal(wrong.correct,false);assert.match(wrong.text,/^Not quite\./);
+ assert.equal(L.answer(l,9),null);
+ assert.equal(JSON.stringify(l),before);
+});
+test('lesson text is escaped in the rendered block',()=>{
+ const l={id:'x',block:{minutes:2,diagram:{title:'<t>',description:'d',width:280,height:100,nodes:[{id:'a',lines:['<b>'],x:0,y:0,w:100,h:40},{id:'b',lines:['c'],x:0,y:60,w:100,h:40}],edges:[{from:'a',to:'b'}]},keyFact:'<i>',check:{question:'q',choices:[{text:'a',correct:true,why:'w'},{text:'b',why:'w'},{text:'c',why:'w'}]}}};
+ const html=L.render(l);
+ assert.ok(!html.includes('<b>')&&!html.includes('<i>')&&!html.includes('<t>'));
+});
