@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- The credits page now lists the font, the render tools and the CC BY 4.0 scope, and links a community collection of Google Cloud logos. Nothing from it is bundled.
 - The review plan page shows the five exam domains and their weights as a loop diagram, drawn from Mermaid text.
 - Thirteen new original scenario questions (numbers 125 to 137) bring every exam objective to at least five, with Spanish text. They appear in the practice bank and lessons but never in timed sessions or the diagnostic, which keep their 124 questions.
 - Two more short clips with English and Spanish captions: partition pruning on "Model the warehouse around its queries" and Pub/Sub to Dataflow to BigQuery on "Separate Pub/Sub delivery, ordering and replay".
