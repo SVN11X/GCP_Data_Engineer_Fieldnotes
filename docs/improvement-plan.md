@@ -82,7 +82,7 @@ Format: `- [ ]` pending, `- [x]` done, `- [x] SKIPPED: reason`, `- [ ] BLOCKED: 
 ## Presentation
 
 - [x] 45. G README rewritten with a status line, the live link and a Standard section. The About panel and topics are left for the owner to apply (command in the pull request).
-- [ ] 46. G Final browser check at four widths, keyboard, touch, reduced motion and dark theme, saved in docs/audit/final.md.
+- [x] 46. G Final browser check saved in docs/audit/final.md. Fixed a 6 px overflow at 1280 px and eight small click targets. Real touch and Web Vitals not measured.
 
 ## Dropped
 

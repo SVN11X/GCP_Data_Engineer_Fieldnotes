@@ -118,3 +118,5 @@ body{background:var(--paper);color:var(--ink)}
 :root{--font-note:Caveat,"Segoe Print","Bradley Hand",cursive}
 .lb-fact{font-family:var(--font-note);font-size:1.375rem;line-height:1.35}
 .lb-video{margin:16px 0}.lb-video video{display:block;width:100%;max-width:640px;height:auto;aspect-ratio:854/480;border:1px solid var(--line);border-radius:6px;background:var(--white)}.lb-video figcaption{max-width:70ch;margin-top:8px;font-size:var(--fs-label);color:var(--muted)}
+@media(min-width:1000px){.topbar{flex-wrap:wrap;height:auto;min-height:82px;padding-block:8px;row-gap:8px}}
+.back-link,.text-link,footer a{display:inline-block;min-height:24px;line-height:24px}summary{min-height:24px}
