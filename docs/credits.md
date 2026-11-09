@@ -11,6 +11,7 @@ Every outside source the site relies on, with its license or terms. The public p
 | Batch versus streaming, partition pruning and Pub/Sub to BigQuery clips | The owner, rendered with Manim Community (MIT) | CC BY 4.0 for the clip. Manim is a render-time tool and is not distributed. | `assets/video/`, `scripts/manim/` |
 | Mermaid CLI, used to render the exam map diagram (a dev tool, not shipped) | The Mermaid contributors | MIT. Source: github.com/mermaid-js/mermaid-cli. | `scripts/diagrams.mjs`, `assets/diagrams/` |
 | Google Cloud product logos, link only | AwesomeLogos community collection | Not downloaded or used. Not an official Google source. Logos are trademarks of Google LLC. | https://github.com/AwesomeLogos/google-cloud-icons/tree/main/docs/images |
+| Lucide icons sun-moon, focus and languages | Lucide Icons and Contributors | ISC, see `LICENSES/ISC-Lucide.txt`. Source: github.com/lucide-icons/lucide. | `assets/icons/` |
 | Imported questions and 25 source images | Supplied by the owner | Not relicensed here. Source answer keys are third-party claims, not official Google answers. | `content/imported.json`, `assets/images/` |
 | Google Cloud documentation, exam guide and certification page | Google LLC | Each page states its own terms. Check the linked page. | Source links in lessons and `content/sources.json` |
 | Google Cloud and product names | Google LLC | Trademarks of Google LLC. This site is independent. | Text throughout |
