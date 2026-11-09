@@ -1,0 +1,4 @@
+# docs.cloud.google.com fails from GitHub Actions runners with "Connection failed" on most runs, even with
+# retries, while the same pages open in a browser. Links there are skipped in CI. Check them by hand or with
+# the Google Developer Knowledge MCP when the content changes.
+^https://docs\.cloud\.google\.com/
