@@ -1,0 +1,16 @@
+WEBVTT
+
+00:00.000 --> 00:03.000
+Partition pruning: reading only the partitions a query needs.
+
+00:03.000 --> 00:05.000
+A table partitioned by date is split into one block per day.
+
+00:05.000 --> 00:11.000
+Without a date filter, the query scans all seven partitions.
+
+00:11.000 --> 00:17.000
+With a filter on the partition column, only the partition for November 3 is scanned: one of seven.
+
+00:17.000 --> 00:22.600
+Filter on the partition column to read fewer partitions and pay less.

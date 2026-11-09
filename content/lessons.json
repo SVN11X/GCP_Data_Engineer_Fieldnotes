@@ -1259,6 +1259,26 @@
             "why": "Preserve a stable business ID and protect external effects."
           }
         ]
+      },
+      "video": {
+        "src": "assets/video/pubsub-to-bigquery.webm",
+        "poster": "assets/video/pubsub-to-bigquery-poster.webp",
+        "width": 854,
+        "height": 480,
+        "title": "Pub/Sub to Dataflow to BigQuery, a 27 second clip",
+        "description": "Events move from a publisher to a Pub/Sub topic, then to a Dataflow job, then into BigQuery. Acknowledgments return from Dataflow to Pub/Sub.",
+        "tracks": [
+          {
+            "lang": "en",
+            "label": "English",
+            "src": "assets/video/pubsub-to-bigquery.en.vtt"
+          },
+          {
+            "lang": "es",
+            "label": "Español",
+            "src": "assets/video/pubsub-to-bigquery.es.vtt"
+          }
+        ]
       }
     }
   },
@@ -3413,6 +3433,26 @@
             "text": "Partition by order date, cluster by customer ID, nest line items",
             "correct": true,
             "why": "This matches the common range filter, the selective access pattern and the reporting model."
+          }
+        ]
+      },
+      "video": {
+        "src": "assets/video/partition-pruning.webm",
+        "poster": "assets/video/partition-pruning-poster.webp",
+        "width": 854,
+        "height": 480,
+        "title": "Partition pruning, a 23 second clip",
+        "description": "A table split into seven daily partitions. A query without a date filter scans all seven. A query filtered on the partition column scans one.",
+        "tracks": [
+          {
+            "lang": "en",
+            "label": "English",
+            "src": "assets/video/partition-pruning.en.vtt"
+          },
+          {
+            "lang": "es",
+            "label": "Español",
+            "src": "assets/video/partition-pruning.es.vtt"
           }
         ]
       }

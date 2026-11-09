@@ -1,0 +1,16 @@
+WEBVTT
+
+00:00.000 --> 00:03.000
+Poda de particiones: leer solo las particiones que una consulta necesita.
+
+00:03.000 --> 00:05.000
+Una tabla particionada por fecha se divide en un bloque por día.
+
+00:05.000 --> 00:11.000
+Sin filtro de fecha, la consulta escanea las siete particiones.
+
+00:11.000 --> 00:17.000
+Con un filtro sobre la columna de partición, solo se escanea la partición del 3 de noviembre: una de siete.
+
+00:17.000 --> 00:22.600
+Filtra por la columna de partición para leer menos particiones y pagar menos.

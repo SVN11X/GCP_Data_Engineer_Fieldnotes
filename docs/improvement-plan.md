@@ -38,7 +38,7 @@ Format: `- [ ]` pending, `- [x]` done, `- [x] SKIPPED: reason`, `- [ ] BLOCKED: 
 - [x] 22. G Convert domain 3 to the lesson block format with diagrams. All 10 lessons have blocks, text derived from the lessons, owner review pending.
 - [x] 23. G Convert domain 4 to the lesson block format with diagrams. All 7 lessons have blocks, text derived from the lessons, owner review pending.
 - [x] 24. G Convert domain 5 to the lesson block format with diagrams. All 10 lessons have blocks, text derived from the lessons, owner review pending.
-- [ ] BLOCKED: 25. Two more Manim clips (Pub/Sub to Dataflow to BigQuery, partition pruning) within the media budget of 10 MB new media in git. Needs your OK to download or install: Manim again, same approval as item 20.
+- [x] 25. G Two more clips: partition pruning (domain 3) and Pub/Sub to Dataflow to BigQuery (domain 2). All three clips and posters total 1.4 MB of the 10 MB media budget.
 
 ## Entry paths, comparisons and questions
 

@@ -71,7 +71,7 @@ test('render ships a flow button and one resting dot per edge, static by default
 });
 test('the video of a lesson block is lazy, captioned in two languages and absent elsewhere',()=>{
  const withVideo=withBlock.filter(l=>l.block.video);
- assert.deepEqual(withVideo.map(l=>l.id),['processing-engine']);
+ assert.deepEqual(withVideo.map(l=>l.id).sort(),['processing-engine','pubsub-contracts','warehouse-model']);
  const html=L.render(withVideo[0]);
  assert.match(html,/<video controls preload="none" width="854" height="480" poster="/);
  assert.doesNotMatch(html,/autoplay/);

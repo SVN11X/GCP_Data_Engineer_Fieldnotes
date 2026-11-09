@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00.000 --> 00:03.000
+A streaming path: Pub/Sub to Dataflow to BigQuery.
+
+00:03.000 --> 00:04.500
+Four steps in a row: publisher, topic, job and table.
+
+00:04.500 --> 00:08.000
+Publishers send events to a Pub/Sub topic.
+
+00:08.000 --> 00:11.600
+Dataflow pulls the events and transforms each one.
+
+00:11.600 --> 00:16.700
+Rows are written to BigQuery and the result starts to grow.
+
+00:16.700 --> 00:21.800
+Dataflow acknowledges each message, so Pub/Sub does not send it again.
+
+00:21.800 --> 00:27.400
+Pub/Sub holds events until they are acknowledged. Dataflow processes them and BigQuery stores the result.

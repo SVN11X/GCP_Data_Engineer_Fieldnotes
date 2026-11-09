@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00.000 --> 00:03.000
+Una ruta de streaming: Pub/Sub, Dataflow y BigQuery.
+
+00:03.000 --> 00:04.500
+Cuatro pasos en fila: publicador, tema, trabajo y tabla.
+
+00:04.500 --> 00:08.000
+Los publicadores envían eventos a un tema de Pub/Sub.
+
+00:08.000 --> 00:11.600
+Dataflow recibe los eventos y transforma cada uno.
+
+00:11.600 --> 00:16.700
+Las filas se escriben en BigQuery y el resultado empieza a crecer.
+
+00:16.700 --> 00:21.800
+Dataflow confirma (ack) cada mensaje, así Pub/Sub no lo vuelve a enviar.
+
+00:21.800 --> 00:27.400
+Pub/Sub guarda los eventos hasta que se confirman. Dataflow los procesa y BigQuery guarda el resultado.
