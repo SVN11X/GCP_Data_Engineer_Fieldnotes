@@ -472,5 +472,467 @@
    "es": "Esta pregunta importada está excluida de la práctica con puntuación. Lee la nota técnica en lugar de memorizar su clave.",
    "src": "5d478c3e8ed1"
   }
+ },
+ "imp-76": {
+  "html": {
+   "es": "Las regulaciones gubernamentales de tu sector exigen que mantengas un registro auditable del acceso a ciertos tipos de datos. Suponiendo que todos los registros que vencen se archivarán correctamente, ¿dónde debes almacenar los datos sujetos a ese mandato?<br>",
+   "src": "5147413a590a"
+  },
+  "choices.0.html": {
+   "es": "Cifrados en Cloud Storage con claves de cifrado suministradas por el usuario. Se entregará una clave de descifrado distinta a cada usuario autorizado.",
+   "src": "0a599f15206a"
+  },
+  "choices.1.html": {
+   "es": "En un conjunto de datos de BigQuery que solo pueda ver el personal autorizado, usando el registro de acceso a datos (Data Access log) para dar la capacidad de auditoría.",
+   "src": "c376e829ffac"
+  },
+  "choices.2.html": {
+   "es": "En Cloud SQL, con nombres de usuario de base de datos distintos para cada usuario. Se usarán los registros de actividad de administración (Admin activity logs) de Cloud SQL para dar la capacidad de auditoría.",
+   "src": "ff773285a910"
+  },
+  "choices.3.html": {
+   "es": "En un bucket de Cloud Storage al que solo pueda acceder un servicio de AppEngine que recoge información del usuario y registra el acceso antes de dar un enlace al bucket.",
+   "src": "b7c18ac74550"
+  },
+  "sourceExplanation": {
+   "es": "La opción B es correcta porque BigQuery ofrece registros de auditoría de acceso a datos (Data Access audit logs) nativos que registran cada consulta de lectura sobre el conjunto de datos, y así cumple el mandato de mantener un registro auditable del acceso.\n\nCloud Storage y Cloud SQL ofrecen sobre todo registros de actividad de administración (Admin Activity logs), que siguen cambios de metadatos como las actualizaciones de IAM o la creación de instancias. Solo BigQuery ofrece visibilidad integrada de quién accedió al contenido real de los datos mediante consultas.",
+   "src": "52cfd64b8c5b"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-80": {
+  "html": {
+   "es": "Caso de estudio de MJTelco -<br><br>Resumen de la empresa -<br>MJTelco es una startup que planea construir redes en mercados de rápido crecimiento y con poca cobertura de servicio en todo el mundo. La empresa tiene patentes de hardware innovador de comunicaciones ópticas. Con base en estas patentes, puede crear muchos enlaces troncales (backbone) fiables y de alta velocidad con hardware barato.<br><br>Antecedentes de la empresa -<br>Fundada por ejecutivos de telecomunicaciones con experiencia, MJTelco usa tecnologías desarrolladas originalmente para superar los retos de comunicación en el espacio. Para su operación es fundamental crear una infraestructura de datos distribuida que impulse el análisis en tiempo real e incorpore aprendizaje automático (machine learning) para optimizar sus topologías de forma continua. Como su hardware es barato, planean sobredesplegar la red, lo que les permite tener en cuenta el efecto de la política regional cambiante sobre la disponibilidad y el costo de las ubicaciones.<br>Sus equipos de gestión y de operaciones están repartidos por todo el mundo, lo que crea una relación de muchos a muchos entre los consumidores de datos y los proveedores en su sistema. Tras pensarlo con cuidado, decidieron que la nube pública es el entorno perfecto para apoyar sus necesidades.<br><br>Concepto de la solución -<br>MJTelco está llevando a cabo con éxito un proyecto de prueba de concepto (proof-of-concept, PoC) en sus laboratorios. Tienen dos necesidades principales:<br>✑ Escalar y reforzar su PoC para soportar muchos más flujos de datos, que se generarán cuando pasen a más de 50,000 instalaciones.<br>✑ Perfeccionar sus ciclos de aprendizaje automático para verificar y mejorar los modelos dinámicos que usan para controlar la definición de la topología.<br>MJTelco también usará tres entornos operativos separados `&quot; desarrollo/pruebas (development/test), preproducción (staging) y producción `&quot; para cubrir las necesidades de hacer experimentos, desplegar funciones nuevas y atender a los clientes de producción.<br><br>Requisitos de negocio -<br>✑ Escalar su entorno de producción con un costo mínimo, creando recursos cuando y donde se necesiten en una comunidad de usuarios de telecomunicaciones distribuida e impredecible.<br>✑ Garantizar la seguridad de sus datos propios para proteger su aprendizaje automático y su análisis de vanguardia.<br>✑ Dar acceso fiable y oportuno a los datos para análisis a investigadores distribuidos<br>✑ Mantener entornos aislados que permitan iterar rápido sus modelos de aprendizaje automático sin afectar a sus clientes.<br><br>Requisitos técnicos -<br>Garantizar el transporte y el almacenamiento seguros y eficientes de los datos de telemetría<br>Escalar rápido las instancias para soportar entre 10,000 y 100,000 proveedores de datos, cada uno con varios flujos.<br>Permitir análisis y presentación sobre tablas de datos que registran hasta 2 años de datos y almacenan aproximadamente 100m registros/día<br>Permitir iterar rápido la infraestructura de monitoreo, centrada en detectar problemas de las canalizaciones de datos (data pipelines), tanto en los flujos de telemetría como en los ciclos de aprendizaje de producción.<br><br>Declaración del CEO -<br>Nuestro modelo de negocio depende de nuestras patentes, del análisis y del aprendizaje automático dinámico. Nuestro hardware barato está organizado para ser muy fiable, y eso nos da ventajas de costo. Necesitamos estabilizar rápido nuestras grandes canalizaciones de datos distribuidas para cumplir nuestros compromisos de fiabilidad y capacidad.<br><br>Declaración del CTO -<br>Nuestros servicios de nube pública deben funcionar como se anuncian. Necesitamos recursos que escalen y mantengan seguros nuestros datos. También necesitamos entornos en los que nuestros científicos de datos puedan estudiar con cuidado y adaptar rápido nuestros modelos. Como dependemos de la automatización para procesar nuestros datos, también necesitamos que nuestros entornos de desarrollo y de pruebas funcionen mientras iteramos.<br><br>Declaración del CFO -<br>El proyecto es demasiado grande para que nosotros mantengamos el hardware y el software necesarios para los datos y el análisis. Además, no podemos pagar un equipo de operaciones que monitoree tantas fuentes de datos, así que dependeremos de la automatización y de la infraestructura. El aprendizaje automático de Google Cloud permitirá a nuestros investigadores cuantitativos trabajar en nuestros problemas de alto valor en lugar de en problemas con nuestras canalizaciones de datos.<br>MJTelco está creando una interfaz personalizada para compartir datos. Tienen estos requisitos:<br>1. Necesitan hacer agregaciones sobre sus conjuntos de datos a escala de petabytes.<br>2. Necesitan escanear filas de un rango de tiempo concreto con un tiempo de respuesta muy rápido (milisegundos).<br>¿Qué combinación de productos de Google Cloud Platform debes recomendar?<br>",
+   "src": "27ab5f5ca19d"
+  },
+  "choices.0.html": {
+   "es": "Cloud Datastore y Cloud Bigtable",
+   "src": "7ac63cf91815"
+  },
+  "choices.1.html": {
+   "es": "Cloud Bigtable y Cloud SQL",
+   "src": "9f7a21d4dc55"
+  },
+  "choices.2.html": {
+   "es": "BigQuery y Cloud Bigtable",
+   "src": "0a50583b4c58"
+  },
+  "choices.3.html": {
+   "es": "BigQuery y Cloud Storage",
+   "src": "da285b49351e"
+  },
+  "sourceExplanation": {
+   "es": "BigQuery es la opción correcta para hacer agregaciones sobre conjuntos de datos a escala de petabytes, gracias a sus capacidades de almacén de datos totalmente administrado y sin servidor (serverless).\nCloud Bigtable ofrece los tiempos de respuesta de baja latencia, a nivel de milisegundos, que hacen falta para escanear filas de un rango de tiempo concreto en un entorno distribuido.\nLas otras opciones fallan porque Cloud Datastore y Cloud SQL no tienen la escala necesaria para análisis de petabytes, mientras que Cloud Storage no está optimizado para consultas rápidas de escaneo de filas.",
+   "src": "b40bfe83617f"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-81": {
+  "html": {
+   "es": "Caso de estudio de MJTelco -<br><br>Resumen de la empresa -<br>MJTelco es una startup que planea construir redes en mercados de rápido crecimiento y con poca cobertura de servicio en todo el mundo. La empresa tiene patentes de hardware innovador de comunicaciones ópticas. Con base en estas patentes, puede crear muchos enlaces troncales (backbone) fiables y de alta velocidad con hardware barato.<br><br>Antecedentes de la empresa -<br>Fundada por ejecutivos de telecomunicaciones con experiencia, MJTelco usa tecnologías desarrolladas originalmente para superar los retos de comunicación en el espacio. Para su operación es fundamental crear una infraestructura de datos distribuida que impulse el análisis en tiempo real e incorpore aprendizaje automático (machine learning) para optimizar sus topologías de forma continua. Como su hardware es barato, planean sobredesplegar la red, lo que les permite tener en cuenta el efecto de la política regional cambiante sobre la disponibilidad y el costo de las ubicaciones.<br>Sus equipos de gestión y de operaciones están repartidos por todo el mundo, lo que crea una relación de muchos a muchos entre los consumidores de datos y los proveedores en su sistema. Tras pensarlo con cuidado, decidieron que la nube pública es el entorno perfecto para apoyar sus necesidades.<br><br>Concepto de la solución -<br>MJTelco está llevando a cabo con éxito un proyecto de prueba de concepto (proof-of-concept, PoC) en sus laboratorios. Tienen dos necesidades principales:<br>✑ Escalar y reforzar su PoC para soportar muchos más flujos de datos, que se generarán cuando pasen a más de 50,000 instalaciones.<br>Perfeccionar sus ciclos de aprendizaje automático para verificar y mejorar los modelos dinámicos que usan para controlar la definición de la topología.<br><img src=\"assets/images/eee8339cc86c53235551.png\" alt=\"Original diagram for imported question 81. Open the full-size image to inspect the details.\" loading=\"lazy\"><br>MJTelco también usará tres entornos operativos separados `&quot; desarrollo/pruebas (development/test), preproducción (staging) y producción `&quot; para cubrir las necesidades de hacer experimentos, desplegar funciones nuevas y atender a los clientes de producción.<br><br>Requisitos de negocio -<br>✑ Escalar su entorno de producción con un costo mínimo, creando recursos cuando y donde se necesiten en una comunidad de usuarios de telecomunicaciones distribuida e impredecible.<br>✑ Garantizar la seguridad de sus datos propios para proteger su aprendizaje automático y su análisis de vanguardia.<br>✑ Dar acceso fiable y oportuno a los datos para análisis a investigadores distribuidos<br>✑ Mantener entornos aislados que permitan iterar rápido sus modelos de aprendizaje automático sin afectar a sus clientes.<br><br>Requisitos técnicos -<br>Garantizar el transporte y el almacenamiento seguros y eficientes de los datos de telemetría<br>Escalar rápido las instancias para soportar entre 10,000 y 100,000 proveedores de datos, cada uno con varios flujos.<br>Permitir análisis y presentación sobre tablas de datos que registran hasta 2 años de datos y almacenan aproximadamente 100m registros/día<br>Permitir iterar rápido la infraestructura de monitoreo, centrada en detectar problemas de las canalizaciones de datos (data pipelines), tanto en los flujos de telemetría como en los ciclos de aprendizaje de producción.<br><br>Declaración del CEO -<br>Nuestro modelo de negocio depende de nuestras patentes, del análisis y del aprendizaje automático dinámico. Nuestro hardware barato está organizado para ser muy fiable, y eso nos da ventajas de costo. Necesitamos estabilizar rápido nuestras grandes canalizaciones de datos distribuidas para cumplir nuestros compromisos de fiabilidad y capacidad.<br><br>Declaración del CTO -<br>Nuestros servicios de nube pública deben funcionar como se anuncian. Necesitamos recursos que escalen y mantengan seguros nuestros datos. También necesitamos entornos en los que nuestros científicos de datos puedan estudiar con cuidado y adaptar rápido nuestros modelos. Como dependemos de la automatización para procesar nuestros datos, también necesitamos que nuestros entornos de desarrollo y de pruebas funcionen mientras iteramos.<br><br>Declaración del CFO -<br>El proyecto es demasiado grande para que nosotros mantengamos el hardware y el software necesarios para los datos y el análisis. Además, no podemos pagar un equipo de operaciones que monitoree tantas fuentes de datos, así que dependeremos de la automatización y de la infraestructura. El aprendizaje automático de Google Cloud permitirá a nuestros investigadores cuantitativos trabajar en nuestros problemas de alto valor en lugar de en problemas con nuestras canalizaciones de datos.<br>Necesitas crear una visualización para los equipos de operaciones con estos requisitos:<br>✑ La telemetría debe incluir los datos de las 50,000 instalaciones de las 6 semanas más recientes (con un muestreo de una vez por minuto)<br>✑ El informe no debe tener más de 3 horas de retraso respecto a los datos en vivo.<br>✑ El informe accionable (actionable) solo debe mostrar los enlaces subóptimos.<br>✑ Los enlaces más subóptimos deben ordenarse arriba.<br>Los enlaces subóptimos se pueden agrupar y filtrar por geografía regional.<br><img src=\"assets/images/864a35b16e7e3df3c536.png\" alt=\"Original diagram for imported question 81. Open the full-size image to inspect the details.\" loading=\"lazy\"><br>✑ El tiempo de respuesta del usuario al cargar el informe debe ser &lt;5 segundos.<br>Creas una fuente de datos para guardar las últimas 6 semanas de datos y creas visualizaciones que permiten a los usuarios ver varios rangos de fechas, regiones geográficas distintas y tipos de instalación únicos. Siempre muestras los datos más recientes sin ningún cambio en tus visualizaciones. Quieres evitar crear y actualizar visualizaciones nuevas cada mes. ¿Qué debes hacer?<br>\n",
+   "src": "acd071e2a8dc"
+  },
+  "choices.0.html": {
+   "es": "Revisar los datos actuales y crear una serie de gráficos y tablas, uno para cada combinación posible de criterios.",
+   "src": "3fc5f0295b1d"
+  },
+  "choices.1.html": {
+   "es": "Revisar los datos actuales y crear un pequeño conjunto de gráficos y tablas generales, vinculados a filtros de criterios que permitan elegir valores.",
+   "src": "7cc7d92613f8"
+  },
+  "choices.2.html": {
+   "es": "Exportar los datos a una hoja de cálculo, crear una serie de gráficos y tablas, uno para cada combinación posible de criterios, y repartirlos en varias pestañas.",
+   "src": "10cc507bda39"
+  },
+  "choices.3.html": {
+   "es": "Cargar los datos en tablas de una base de datos relacional, escribir una aplicación de Google App Engine que consulte todas las filas, resuma los datos según cada criterio y luego muestre los resultados con la API de gráficos y visualización de Google (Google Charts and visualization API).",
+   "src": "2b8fd3273fa8"
+  },
+  "sourceExplanation": {
+   "es": "La opción B es el enfoque correcto porque usa gráficos generales vinculados a filtros dinámicos. Así los usuarios pueden elegir de forma interactiva rangos de fechas, regiones y tipos de instalación sin reconstruir la estructura de la visualización.\nEste método cumple el requisito de evitar crear visualizaciones nuevas cada mes y asegura que siempre se vean los datos más recientes, gracias a consultas parametrizadas en lugar de exportaciones estáticas o combinaciones fijas en el código.",
+   "src": "5bbf668f6f92"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  },
+  "issues.0": {
+   "es": "El archivo subido contiene un marcador de posición ilegible de 9 × 6 píxeles en lugar de al menos un diagrama original.",
+   "src": "aedad8f7314b"
+  }
+ },
+ "imp-82": {
+  "html": {
+   "es": "Caso de estudio de MJTelco -<br><br>Resumen de la empresa -<br>MJTelco es una startup que planea construir redes en mercados de rápido crecimiento y con poca cobertura de servicio en todo el mundo. La empresa tiene patentes de hardware innovador de comunicaciones ópticas. Con base en estas patentes, puede crear muchos enlaces troncales (backbone) fiables y de alta velocidad con hardware barato.<br><br>Antecedentes de la empresa -<br>Fundada por ejecutivos de telecomunicaciones con experiencia, MJTelco usa tecnologías desarrolladas originalmente para superar los retos de comunicación en el espacio. Para su operación es fundamental crear una infraestructura de datos distribuida que impulse el análisis en tiempo real e incorpore aprendizaje automático (machine learning) para optimizar sus topologías de forma continua. Como su hardware es barato, planean sobredesplegar la red, lo que les permite tener en cuenta el efecto de la política regional cambiante sobre la disponibilidad y el costo de las ubicaciones.<br>Sus equipos de gestión y de operaciones están repartidos por todo el mundo, lo que crea una relación de muchos a muchos entre los consumidores de datos y los proveedores en su sistema. Tras pensarlo con cuidado, decidieron que la nube pública es el entorno perfecto para apoyar sus necesidades.<br><br>Concepto de la solución -<br>MJTelco está llevando a cabo con éxito un proyecto de prueba de concepto (proof-of-concept, PoC) en sus laboratorios. Tienen dos necesidades principales:<br>✑ Escalar y reforzar su PoC para soportar muchos más flujos de datos, que se generarán cuando pasen a más de 50,000 instalaciones.<br>✑ Perfeccionar sus ciclos de aprendizaje automático para verificar y mejorar los modelos dinámicos que usan para controlar la definición de la topología.<br>MJTelco también usará tres entornos operativos separados `&quot; desarrollo/pruebas (development/test), preproducción (staging) y producción `&quot; para cubrir las necesidades de hacer experimentos, desplegar funciones nuevas y atender a los clientes de producción.<br><br>Requisitos de negocio -<br>✑ Escalar su entorno de producción con un costo mínimo, creando recursos cuando y donde se necesiten en una comunidad de usuarios de telecomunicaciones distribuida e impredecible.<br>✑ Garantizar la seguridad de sus datos propios para proteger su aprendizaje automático y su análisis de vanguardia.<br>✑ Dar acceso fiable y oportuno a los datos para análisis a investigadores distribuidos<br>✑ Mantener entornos aislados que permitan iterar rápido sus modelos de aprendizaje automático sin afectar a sus clientes.<br><br>Requisitos técnicos -<br>Garantizar el transporte y el almacenamiento seguros y eficientes de los datos de telemetría<br>Escalar rápido las instancias para soportar entre 10,000 y 100,000 proveedores de datos, cada uno con varios flujos.<br>Permitir análisis y presentación sobre tablas de datos que registran hasta 2 años de datos y almacenan aproximadamente 100m registros/día<br>Permitir iterar rápido la infraestructura de monitoreo, centrada en detectar problemas de las canalizaciones de datos (data pipelines), tanto en los flujos de telemetría como en los ciclos de aprendizaje de producción.<br><br>Declaración del CEO -<br>Nuestro modelo de negocio depende de nuestras patentes, del análisis y del aprendizaje automático dinámico. Nuestro hardware barato está organizado para ser muy fiable, y eso nos da ventajas de costo. Necesitamos estabilizar rápido nuestras grandes canalizaciones de datos distribuidas para cumplir nuestros compromisos de fiabilidad y capacidad.<br><br>Declaración del CTO -<br>Nuestros servicios de nube pública deben funcionar como se anuncian. Necesitamos recursos que escalen y mantengan seguros nuestros datos. También necesitamos entornos en los que nuestros científicos de datos puedan estudiar con cuidado y adaptar rápido nuestros modelos. Como dependemos de la automatización para procesar nuestros datos, también necesitamos que nuestros entornos de desarrollo y de pruebas funcionen mientras iteramos.<br><br>Declaración del CFO -<br>El proyecto es demasiado grande para que nosotros mantengamos el hardware y el software necesarios para los datos y el análisis. Además, no podemos pagar un equipo de operaciones que monitoree tantas fuentes de datos, así que dependeremos de la automatización y de la infraestructura. El aprendizaje automático de Google Cloud permitirá a nuestros investigadores cuantitativos trabajar en nuestros problemas de alto valor en lugar de en problemas con nuestras canalizaciones de datos.<br>Teniendo en cuenta los flujos de registros que MJTelco quiere ingerir por día, les preocupa que suba el costo de Google BigQuery. MJTelco te pide que propongas una solución de diseño. Necesitan una sola tabla de datos grande llamada tracking_table. Además, quieren minimizar el costo de las consultas diarias mientras hacen un análisis detallado (fine-grained) de los eventos de cada día. También quieren usar ingestión en streaming. ¿Qué debes hacer?<br>",
+   "src": "069a14efd04c"
+  },
+  "choices.0.html": {
+   "es": "Crear una tabla llamada tracking_table e incluir una columna DATE.",
+   "src": "963bda46b5c1"
+  },
+  "choices.1.html": {
+   "es": "Crear una tabla particionada llamada tracking_table e incluir una columna TIMESTAMP.",
+   "src": "dd2ed8ead5f7"
+  },
+  "choices.2.html": {
+   "es": "Crear tablas fragmentadas (sharded) para cada día siguiendo el patrón tracking_table_YYYYMMDD.",
+   "src": "12b6ab760400"
+  },
+  "choices.3.html": {
+   "es": "Crear una tabla llamada tracking_table con una columna TIMESTAMP para representar el día.",
+   "src": "22a820573895"
+  },
+  "sourceExplanation": {
+   "es": "Para minimizar el costo de las consultas y permitir a la vez un análisis diario detallado en BigQuery, debes usar particionado de tablas. Particionar por una columna TIMESTAMP permite al sistema podar los datos y escanear solo las particiones diarias relevantes durante las consultas, lo que reduce de forma notable los bytes procesados en comparación con escanear una tabla entera o usar fragmentación manual.",
+   "src": "dca81b258855"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-85": {
+  "html": {
+   "es": "Eres jefe de BI en una gran empresa con varias unidades de negocio, cada una con prioridades y presupuestos distintos. Usas precios bajo demanda (on-demand pricing) en<br>BigQuery con una cuota de 2K ranuras (slots) simultáneas bajo demanda por proyecto. A veces los usuarios de tu organización no consiguen ranuras para ejecutar su consulta y necesitas corregirlo. Quieres evitar añadir proyectos nuevos a tu cuenta.<br>¿Qué debes hacer?<br>",
+   "src": "67a0cd6dcc51"
+  },
+  "choices.0.html": {
+   "es": "Convertir tus consultas por lotes (batch) de BQ en consultas interactivas de BQ.",
+   "src": "5c786498a484"
+  },
+  "choices.1.html": {
+   "es": "Crear un proyecto adicional para superar la cuota de 2K bajo demanda por proyecto.",
+   "src": "91994ebdb9b8"
+  },
+  "choices.2.html": {
+   "es": "Cambiar a precios de tarifa plana (flat-rate) y establecer un modelo jerárquico de prioridades para tus proyectos.",
+   "src": "b2cf7b9ac48e"
+  },
+  "choices.3.html": {
+   "es": "Aumentar la cantidad de ranuras simultáneas por proyecto en la página de Cuotas (Quotas) de la Cloud Console.",
+   "src": "7ec94aa90236"
+  },
+  "sourceExplanation": {
+   "es": "Los precios bajo demanda tienen un límite estricto de 2,000 ranuras simultáneas por proyecto que no se puede aumentar desde la página de Cuotas (esto descarta D). Como no se quiere crear proyectos nuevos (esto descarta B), cambiar a precios de tarifa plana permite aprovisionar más ranuras que el tope bajo demanda y asignar prioridades de ranuras concretas a distintas consultas o usuarios. Este modelo jerárquico de prioridades asegura que las cargas de trabajo críticas de las distintas unidades de negocio se ejecuten primero, y resuelve la contención sin reorganizar la organización.",
+   "src": "5a1f4937259b"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-86": {
+  "html": {
+   "es": "Tienes un clúster local (on-prem) de Apache Kafka con temas (topics) que contienen registros de aplicaciones web. Necesitas replicar los datos a Google Cloud para analizarlos en BigQuery y Cloud Storage. El método de replicación preferido es el espejado (mirroring), para evitar desplegar plugins de Kafka Connect.<br>¿Qué debes hacer?<br>",
+   "src": "b5ad74734f69"
+  },
+  "choices.0.html": {
+   "es": "Desplegar un clúster de Kafka en instancias de VM de GCE. Configurar tu clúster local para que replique (mirror) tus temas en el clúster que se ejecuta en GCE. Usar un clúster de Dataproc o un trabajo de Dataflow para leer de Kafka y escribir en GCS.",
+   "src": "711a7783de38"
+  },
+  "choices.1.html": {
+   "es": "Desplegar un clúster de Kafka en instancias de VM de GCE con el conector Pub/Sub Kafka configurado como conector de destino (Sink connector). Usar un clúster de Dataproc o un trabajo de Dataflow para leer de Kafka y escribir en GCS.",
+   "src": "57c04cbad64d"
+  },
+  "choices.2.html": {
+   "es": "Desplegar el conector Pub/Sub Kafka en tu clúster local de Kafka y configurar Pub/Sub como conector de origen (Source connector). Usar un trabajo de Dataflow para leer de Pub/Sub y escribir en GCS.",
+   "src": "9983f10af78e"
+  },
+  "choices.3.html": {
+   "es": "Desplegar el conector Pub/Sub Kafka en tu clúster local de Kafka y configurar Pub/Sub como conector de destino (Sink connector). Usar un trabajo de Dataflow para leer de Pub/Sub y escribir en GCS.",
+   "src": "60c77a8b017a"
+  },
+  "sourceExplanation": {
+   "es": "La pregunta exige explícitamente usar el espejado y evitar desplegar plugins de Kafka Connect. La opción A cumple ambas restricciones al desplegar un clúster de Kafka de destino en VM de GCE para el espejado entre clústeres, y luego usar Dataflow o Dataproc para mover los datos de esa instancia de Kafka administrada a GCS/BigQuery. Las opciones B, C y D dependen todas del conector Pub/Sub Kafka, que obliga a ejecutar Kafka Connect, y así incumplen la restricción indicada.",
+   "src": "4091ab5249bb"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-89": {
+  "html": {
+   "es": "Estás entrenando un modelo para predecir precios de viviendas a partir de un conjunto de datos disponible con propiedades inmobiliarias. Tu plan es entrenar una red neuronal totalmente conectada (fully connected neural net) y has descubierto que el conjunto de datos contiene la latitud y la longitud de la propiedad. Profesionales del sector inmobiliario te han dicho que la ubicación de la propiedad influye mucho en el precio, así que quieres crear una característica (feature) que incorpore esta dependencia física.<br>¿Qué debes hacer?<br>",
+   "src": "39964a3bc90c"
+  },
+  "choices.0.html": {
+   "es": "Dar la latitud y la longitud como vectores de entrada a tu red neuronal.",
+   "src": "836aaa4dfa49"
+  },
+  "choices.1.html": {
+   "es": "Crear una columna numérica a partir de un cruce de características (feature cross) de latitud y longitud.",
+   "src": "b09e52c8b14b"
+  },
+  "choices.2.html": {
+   "es": "Crear un cruce de características de latitud y longitud, discretizarlo (bucketize) a nivel de minuto y usar regularización L1 durante la optimización.",
+   "src": "12154a4f8a23"
+  },
+  "choices.3.html": {
+   "es": "Crear un cruce de características de latitud y longitud, discretizarlo (bucketize) a nivel de minuto y usar regularización L2 durante la optimización.",
+   "src": "3408ddaffda7"
+  },
+  "sourceExplanation": {
+   "es": "Crear un cruce de características y discretizar la latitud y la longitud captura con más eficacia que las entradas sin procesar las relaciones espaciales no lineales que son críticas para los precios de las viviendas.\nSe elige la regularización L1 porque promueve la dispersión (sparsity). Esto permite que el modelo identifique y conserve solo los grupos geográficos (bins) más significativos e ignore los irrelevantes, lo que coincide con el objetivo de aprovechar características de ubicación muy influyentes.",
+   "src": "328b1bc415ce"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-90": {
+  "html": {
+   "es": "Estás desplegando bases de datos SQL MariaDB en instancias de VM de GCE y necesitas configurar monitoreo y alertas. Quieres recopilar métricas como conexiones de red, E/S de disco y estado de la replicación de MariaDB con el mínimo esfuerzo de desarrollo, y usar StackDriver para los paneles y las alertas.<br>¿Qué debes hacer?<br>",
+   "src": "a650c1ce5366"
+  },
+  "choices.0.html": {
+   "es": "Instalar el agente de OpenCensus (OpenCensus Agent) y crear una aplicación personalizada de recopilación de métricas con un exportador de StackDriver.",
+   "src": "76027865ff94"
+  },
+  "choices.1.html": {
+   "es": "Poner las instancias de MariaDB en un grupo de instancias (Instance Group) con una comprobación de estado (Health Check).",
+   "src": "0d9bb85d73fe"
+  },
+  "choices.2.html": {
+   "es": "Instalar el agente de registro de StackDriver (StackDriver Logging Agent) y configurar el plugin in_tail de fluentd para leer los registros de MariaDB.",
+   "src": "add398a990a1"
+  },
+  "choices.3.html": {
+   "es": "Instalar el agente de StackDriver (StackDriver Agent) y configurar el plugin de MySQL.",
+   "src": "65ad6352793f"
+  },
+  "sourceExplanation": {
+   "es": "El agente de Stackdriver Monitoring (ahora parte del conjunto Cloud Operations) incluye un plugin de MySQL ya preparado que es compatible con MariaDB.\nEste plugin recopila automáticamente las métricas necesarias, como las conexiones de red, la E/S de disco y el estado de la replicación, sin necesitar desarrollo personalizado.\nUsar este agente integrado cumple la restricción de 'mínimo esfuerzo de desarrollo' y da una integración directa con los paneles y las alertas de Stackdriver.",
+   "src": "5892763a4f23"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-95": {
+  "html": {
+   "es": "Tienes una canalización de datos que escribe datos en Cloud Bigtable con claves de fila bien diseñadas. Quieres monitorear tu canalización para decidir cuándo aumentar el tamaño de tu clúster de Cloud Bigtable. ¿Qué dos acciones puedes realizar para lograrlo? (Elige dos.)<br>",
+   "src": "0dd7db1e008e"
+  },
+  "choices.0.html": {
+   "es": "Revisar las métricas de Key Visualizer. Aumentar el tamaño del clúster de Cloud Bigtable cuando el índice de presión de lectura (Read pressure index) esté por encima de 100.",
+   "src": "344e7bdcee7c"
+  },
+  "choices.1.html": {
+   "es": "Revisar las métricas de Key Visualizer. Aumentar el tamaño del clúster de Cloud Bigtable cuando el índice de presión de escritura (Write pressure index) esté por encima de 100.",
+   "src": "c253a4a67a37"
+  },
+  "choices.2.html": {
+   "es": "Monitorear la latencia de las operaciones de escritura. Aumentar el tamaño del clúster de Cloud Bigtable cuando haya un aumento sostenido de la latencia de escritura.",
+   "src": "4b430496ab93"
+  },
+  "choices.3.html": {
+   "es": "Monitorear el uso del almacenamiento. Aumentar el tamaño del clúster de Cloud Bigtable cuando el uso supere el 70% de la capacidad máxima.",
+   "src": "86a9755cab59"
+  },
+  "choices.4.html": {
+   "es": "Monitorear la latencia de las operaciones de lectura. Aumentar el tamaño del clúster de Cloud Bigtable si las operaciones de lectura tardan más de 100 ms.",
+   "src": "06e299f65c56"
+  },
+  "sourceExplanation": {
+   "es": "La opción C es correcta porque los aumentos sostenidos de la latencia de escritura indican que el clúster rinde por debajo de lo esperado y no tiene capacidad suficiente para manejar el rendimiento, lo que obliga a escalar hacia arriba. La opción D es correcta porque Google Cloud recomienda agregar nodos cuando el uso del almacenamiento supera el 70% de la capacidad máxima por nodo, para asegurar que haya espacio para los datos nuevos y las tareas de mantenimiento en segundo plano.\nLas opciones A y B son incorrectas porque las claves de fila bien diseñadas reparten la carga de forma uniforme, y eso hace que los índices de presión de Key Visualizer sean menos relevantes para las decisiones generales de escalado en este contexto concreto. La opción E es irrelevante porque el escenario describe una canalización con muchas escrituras, y la latencia de lectura no es el cuello de botella principal para escalar por las escrituras.",
+   "src": "0e692585ea02"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-103": {
+  "html": {
+   "es": "Tienes datos almacenados en BigQuery. Los datos del conjunto de datos de BigQuery deben tener alta disponibilidad. Necesitas definir una estrategia de almacenamiento, copia de seguridad y recuperación para estos datos que minimice el costo. ¿Cómo debes configurar la tabla de BigQuery que tiene un objetivo de punto de recuperación (recovery point objective, RPO) de 30 días?<br>",
+   "src": "692c566a0901"
+  },
+  "choices.0.html": {
+   "es": "Configurar el conjunto de datos de BigQuery como regional. En caso de emergencia, usar una instantánea de un momento dado (point-in-time snapshot) para recuperar los datos.",
+   "src": "5ade8de46f70"
+  },
+  "choices.1.html": {
+   "es": "Configurar el conjunto de datos de BigQuery como regional. Crear una consulta programada para hacer copias de los datos en tablas con un sufijo con la hora de la copia de seguridad. En caso de emergencia, usar la copia de seguridad de la tabla.",
+   "src": "01990f318a76"
+  },
+  "choices.2.html": {
+   "es": "Configurar el conjunto de datos de BigQuery como multirregional (multi-regional). En caso de emergencia, usar una instantánea de un momento dado para recuperar los datos.",
+   "src": "308549cc95e9"
+  },
+  "choices.3.html": {
+   "es": "Configurar el conjunto de datos de BigQuery como multirregional. Crear una consulta programada para hacer copias de los datos en tablas con un sufijo con la hora de la copia de seguridad. En caso de emergencia, usar la copia de seguridad de la tabla.",
+   "src": "0f99819177a2"
+  },
+  "explanation": {
+   "es": "La pregunta confunde un objetivo de punto de recuperación con un horizonte de retención. Una ubicación multirregional no ofrece automáticamente treinta días de recuperación a un momento dado. Define los requisitos de pérdida prevista y de retención, y crea de forma deliberada instantáneas retenidas u otra copia de seguridad adecuada. La respuesta C importada no está justificada por el texto de la pregunta.",
+   "src": "4f93f9ba7c88"
+  },
+  "reviewNote": {
+   "es": "Esta pregunta importada está excluida de la práctica con puntuación. Lee la nota técnica en lugar de memorizar su clave.",
+   "src": "5d478c3e8ed1"
+  }
+ },
+ "imp-104": {
+  "html": {
+   "es": "Usaste Dataprep para crear una receta (recipe) sobre una muestra de datos de una tabla de BigQuery. Quieres reutilizar esta receta en una carga diaria de datos con el mismo esquema, después de que termine el trabajo de carga, que tiene un tiempo de ejecución variable. ¿Qué debes hacer?<br>",
+   "src": "5e0e7baf1a3b"
+  },
+  "choices.0.html": {
+   "es": "Crear una programación cron en Dataprep.",
+   "src": "d904e6e296c2"
+  },
+  "choices.1.html": {
+   "es": "Crear un trabajo cron de App Engine para programar la ejecución del trabajo de Dataprep.",
+   "src": "08eb125f028c"
+  },
+  "choices.2.html": {
+   "es": "Exportar la receta como una plantilla de Dataprep y crear un trabajo en Cloud Scheduler.",
+   "src": "342f24123491"
+  },
+  "choices.3.html": {
+   "es": "Exportar el trabajo de Dataprep como una plantilla de Dataflow e incorporarlo a un trabajo de Composer.",
+   "src": "67922ccddcdd"
+  },
+  "sourceExplanation": {
+   "es": "El requisito de ejecutar la receta solo después de que termine un trabajo de carga con tiempo de ejecución variable exige una orquestación guiada por eventos, y no una programación a hora fija.\nCloud Composer (Airflow) ofrece el control a nivel de DAG que hace falta para monitorear el estado de finalización del trabajo de carga antes de lanzar el paso siguiente.\nLas recetas de Dataprep se pueden exportar como plantillas de Dataflow, que luego se ejecutan mediante operadores de Airflow dentro del entorno de Composer. Así se cumplen tanto la dependencia como el requisito de reutilización.",
+   "src": "8a7989bf5e3f"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-105": {
+  "html": {
+   "es": "Quieres automatizar la ejecución de una canalización de datos de varios pasos que se ejecuta en Google Cloud. La canalización incluye trabajos de Dataproc y de Dataflow que tienen varias dependencias entre sí. Quieres usar servicios administrados donde sea posible y la canalización se ejecutará todos los días. ¿Qué herramienta debes usar?<br>",
+   "src": "12d49434abc3"
+  },
+  "choices.0.html": {
+   "es": "cron",
+   "src": "c374eea599bb"
+  },
+  "choices.1.html": {
+   "es": "Cloud Composer",
+   "src": "4070aa1a2937"
+  },
+  "choices.2.html": {
+   "es": "Cloud Scheduler",
+   "src": "3161a303aaf7"
+  },
+  "choices.3.html": {
+   "es": "Workflow Templates en Dataproc (plantillas de flujo de trabajo)",
+   "src": "a902a7165058"
+  },
+  "sourceExplanation": {
+   "es": "Cloud Composer es un servicio administrado de Apache Airflow diseñado específicamente para orquestar canalizaciones de datos complejas de varios pasos con dependencias intrincadas.\n\nEn cambio, Cloud Scheduler y cron son programadores de tareas simples que no pueden manejar de forma nativa la lógica condicional ni los grafos de dependencias entre servicios distintos como Dataproc y Dataflow.",
+   "src": "674c12ae447e"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-108": {
+  "html": {
+   "es": "Has desarrollado tres trabajos de procesamiento de datos. Uno ejecuta una canalización de Cloud Dataflow que transforma datos subidos a Cloud Storage y escribe los resultados en<br>BigQuery. El segundo ingiere datos de servidores locales y los sube a Cloud Storage. El tercero es una canalización de Cloud Dataflow que obtiene información de proveedores de datos externos y la sube a Cloud Storage. Necesitas poder programar y monitorear la ejecución de estos tres flujos de trabajo y ejecutarlos manualmente cuando haga falta. ¿Qué debes hacer?<br>",
+   "src": "1ecc6310c373"
+  },
+  "choices.0.html": {
+   "es": "Crear un grafo acíclico dirigido (Direct Acyclic Graph) en Cloud Composer para programar y monitorear los trabajos.",
+   "src": "ba25032c9ebf"
+  },
+  "choices.1.html": {
+   "es": "Usar Stackdriver Monitoring y configurar una alerta con una notificación por webhook para lanzar los trabajos.",
+   "src": "2778f4e161ee"
+  },
+  "choices.2.html": {
+   "es": "Desarrollar una aplicación de App Engine para programar los trabajos y consultar su estado mediante llamadas a la API de GCP.",
+   "src": "fc5e735c91f8"
+  },
+  "choices.3.html": {
+   "es": "Configurar trabajos cron en una instancia de Compute Engine para programar y monitorear las canalizaciones mediante llamadas a la API de GCP.",
+   "src": "501e4f596b35"
+  },
+  "sourceExplanation": {
+   "es": "Cloud Composer es el servicio administrado de orquestación de flujos de trabajo diseñado para crear, programar y monitorear canalizaciones de datos en Google Cloud.\nOfrece una interfaz visual para los grafos acíclicos dirigidos (Directed Acyclic Graphs, DAG) que gestionan las dependencias entre trabajos independientes o relacionados, como Cloud Dataflow y scripts personalizados.\nA diferencia de los trabajos cron o de App Engine, ofrece soporte nativo para el monitoreo, los reintentos (retries) y la ejecución manual, sin que tengas que crear y mantener una infraestructura de programación personalizada.",
+   "src": "51a62b71393b"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-109": {
+  "html": {
+   "es": "Tienes Cloud Functions escritas en Node.js que extraen mensajes de Cloud Pub/Sub y envían los datos a BigQuery. Observas que la tasa de procesamiento de mensajes del tema de Pub/Sub es de órdenes de magnitud mayor a la prevista, pero no hay ningún error registrado en Cloud Logging. ¿Cuáles son las dos causas más probables de este problema? (Elige dos.)<br>",
+   "src": "140e0087a130"
+  },
+  "choices.0.html": {
+   "es": "La cuota de rendimiento de los publicadores (publisher) es demasiado pequeña.",
+   "src": "de14304af286"
+  },
+  "choices.1.html": {
+   "es": "El total de mensajes pendientes supera el máximo de 10 MB.",
+   "src": "e49a6500c834"
+  },
+  "choices.2.html": {
+   "es": "El manejo de errores en el código del suscriptor no está tratando bien los errores en tiempo de ejecución.",
+   "src": "d621a9432937"
+  },
+  "choices.3.html": {
+   "es": "El código del suscriptor no puede seguir el ritmo de los mensajes.",
+   "src": "e502971d7348"
+  },
+  "choices.4.html": {
+   "es": "El código del suscriptor no confirma (acknowledge) los mensajes que extrae.",
+   "src": "dec73408bc15"
+  },
+  "sourceExplanation": {
+   "es": "La alta tasa de procesamiento sin errores registrados indica que los mensajes se extraen una y otra vez en lugar de procesarse con éxito. Si el código del suscriptor no confirma los mensajes (E), Pub/Sub los vuelve a entregar, lo que infla de forma artificial el número de extracciones mientras los datos se acumulan en el tema. Además, si el manejo de errores es insuficiente (C), la función puede terminar en silencio o no procesar los datos sin generar los registros de error habituales, lo que lleva a un efecto de acumulación parecido.",
+   "src": "ef0495f93de9"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-114": {
+  "html": {
+   "es": "Tu empresa tiene una iniciativa de nube híbrida. Tienes una canalización de datos compleja que mueve datos entre servicios de proveedores de nube y aprovecha servicios de cada uno de ellos. ¿Qué servicio nativo de la nube debes usar para orquestar toda la canalización?<br>",
+   "src": "18bc4f1b2f19"
+  },
+  "choices.0.html": {
+   "es": "Cloud Dataflow",
+   "src": "77a677df6a02"
+  },
+  "choices.1.html": {
+   "es": "Cloud Composer",
+   "src": "4070aa1a2937"
+  },
+  "choices.2.html": {
+   "es": "Cloud Dataprep",
+   "src": "465d9d042c6e"
+  },
+  "choices.3.html": {
+   "es": "Cloud Dataproc",
+   "src": "d94f597de12e"
+  },
+  "sourceExplanation": {
+   "es": "Cloud Composer es un servicio administrado de orquestación de flujos de trabajo basado en Apache Airflow, diseñado específicamente para crear, programar y monitorear canalizaciones de datos complejas que abarcan varias nubes y entornos locales.\n\nA diferencia de Cloud Dataflow (procesamiento en streaming/por lotes), Dataproc (clústeres de Spark/Hadoop) o Dataprep (preparación de datos), Cloud Composer ofrece la capa de abstracción necesaria para orquestar tareas distribuidas en servicios de distintos proveedores de nube.",
+   "src": "4b69aa90bc17"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
  }
 }
