@@ -534,54 +534,274 @@
   }
  },
  "imp-100": {
+  "html": {
+   "es": "Debes insertar en una tabla de BigQuery datos con resolución de un minuto de 50,000 sensores. Esperas un crecimiento importante del volumen de datos y necesitas que los datos estén disponibles dentro de 1 minuto desde su ingesta, para el análisis en tiempo real de tendencias agregadas. ¿Qué debes hacer?<br>",
+   "src": "142949b2ff1a"
+  },
+  "choices.0.html": {
+   "es": "Usar bq load para cargar un lote de datos de sensores cada 60 segundos.",
+   "src": "ba0aface6351"
+  },
+  "choices.1.html": {
+   "es": "Usar una canalización de Cloud Dataflow para transmitir (stream) los datos a la tabla de BigQuery.",
+   "src": "c09e7125c04c"
+  },
+  "choices.2.html": {
+   "es": "Usar la sentencia INSERT para insertar un lote de datos cada 60 segundos.",
+   "src": "58970e119d1b"
+  },
+  "choices.3.html": {
+   "es": "Usar la sentencia MERGE para aplicar actualizaciones por lotes cada 60 segundos.",
+   "src": "e5257447155b"
+  },
+  "sourceExplanation": {
+   "es": "El requisito de análisis en tiempo real con los datos disponibles en un minuto exige un patrón de ingesta por streaming y no una carga por lotes. \nCloud Dataflow está diseñado para manejar flujos de datos de alto volumen y baja latencia, y puede escalar de forma automática para acomodar un crecimiento importante del volumen de datos de los sensores. \nLas opciones con `bq load`, `INSERT` o `MERGE` son operaciones orientadas a lotes que introducen latencia y no cumplen el requisito de disponibilidad en menos de un minuto.",
+   "src": "5fd9471c8377"
+  },
   "reviewNote": {
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
   }
  },
  "imp-106": {
+  "html": {
+   "es": "Administras un clúster de Cloud Dataproc. Necesitas hacer que un trabajo se ejecute más rápido y minimizar los costos, sin perder el trabajo en curso en tus clústeres. ¿Qué debes hacer?<br>",
+   "src": "1a44bb8dec1c"
+  },
+  "choices.0.html": {
+   "es": "Aumentar el tamaño del clúster con más workers no interrumpibles (non-preemptible).",
+   "src": "9370b50f0638"
+  },
+  "choices.1.html": {
+   "es": "Aumentar el tamaño del clúster con nodos worker interrumpibles (preemptible) y configurarlos para que se retiren de forma forzada (forcefully decommission).",
+   "src": "a8386919125c"
+  },
+  "choices.2.html": {
+   "es": "Aumentar el tamaño del clúster con nodos worker interrumpibles y usar Cloud Stackdriver para activar un script que conserve el trabajo.",
+   "src": "37e9f1b26a2a"
+  },
+  "choices.3.html": {
+   "es": "Aumentar el tamaño del clúster con nodos worker interrumpibles y configurarlos para que usen el retiro gradual (graceful decommissioning).",
+   "src": "d01371916384"
+  },
+  "sourceExplanation": {
+   "es": "Los nodos worker interrumpibles son mucho más baratos que los no interrumpibles, lo que cumple el requisito de minimizar los costos mientras se aumenta el tamaño del clúster para ejecutar el trabajo más rápido.\nConfigurar el retiro gradual asegura que los bloques de datos y las tareas en curso de estos workers se repliquen o se completen de forma segura antes de que se terminen, y evita la pérdida de trabajo.",
+   "src": "61fbed8d37b1"
+  },
   "reviewNote": {
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
   }
  },
  "imp-110": {
+  "html": {
+   "es": "Estás creando una canalización nueva en Google Cloud para transmitir datos de IoT desde Cloud Pub/Sub, a través de Cloud Dataflow, hasta BigQuery. Al obtener una vista previa de los datos, notas que aproximadamente el 2% de los datos parece estar dañado. Necesitas modificar la canalización de Cloud Dataflow para filtrar estos datos dañados. ¿Qué debes hacer?<br>",
+   "src": "c40fec75fb5a"
+  },
+  "choices.0.html": {
+   "es": "Agregar un SideInput que devuelva un valor booleano si el elemento está dañado.",
+   "src": "d302975743f3"
+  },
+  "choices.1.html": {
+   "es": "Agregar una transformación ParDo en Cloud Dataflow para descartar los elementos dañados.",
+   "src": "d034687113be"
+  },
+  "choices.2.html": {
+   "es": "Agregar una transformación Partition en Cloud Dataflow para separar los datos válidos de los datos dañados.",
+   "src": "7754c503fb6b"
+  },
+  "choices.3.html": {
+   "es": "Agregar una transformación GroupByKey en Cloud Dataflow para agrupar todos los datos válidos y descartar el resto.",
+   "src": "787bb46d06c9"
+  },
+  "sourceExplanation": {
+   "es": "La transformación ParDo es el mecanismo estándar de Apache Beam para aplicar lógica a cada elemento, incluido el filtrado.\nAl implementar un DoFn que valida cada registro y solo emite los elementos válidos con emit(), los datos dañados se descartan de forma efectiva sin necesidad de lógica de ramificación adicional.\nPartition sirve para dividir los datos en varias PCollections de salida, lo que es innecesario si el objetivo es simplemente quitar los registros malos, mientras que GroupByKey sirve para la agregación.",
+   "src": "a1bc98c159ab"
+  },
   "reviewNote": {
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
   }
  },
  "imp-113": {
+  "html": {
+   "es": "Eres un minorista que quiere integrar sus capacidades de venta en línea con distintos asistentes domésticos, como Google Home. Necesitas interpretar los comandos de voz de los clientes y emitir un pedido a los sistemas del backend. ¿Qué soluciones debes elegir?<br>",
+   "src": "efa3d175a548"
+  },
+  "choices.0.html": {
+   "es": "Speech-to-Text API",
+   "src": "3b4205016baa"
+  },
+  "choices.1.html": {
+   "es": "Cloud Natural Language API",
+   "src": "862dd6751a59"
+  },
+  "choices.2.html": {
+   "es": "Dialogflow Enterprise Edition",
+   "src": "ebf25b24e4b1"
+  },
+  "choices.3.html": {
+   "es": "AutoML Natural Language",
+   "src": "b0ed193290f9"
+  },
+  "sourceExplanation": {
+   "es": "Dialogflow Enterprise Edition es la opción correcta porque ofrece una solución de interfaz conversacional completa, que maneja tanto el reconocimiento de voz como la comprensión del lenguaje natural (detección de intenciones, o intent detection).\nSpeech-to-Text API solo convierte audio en texto, mientras que Dialogflow interpreta el significado de ese texto para activar acciones concretas del backend, como emitir un pedido.\nPor eso es adecuado para integrarse con asistentes domésticos inteligentes como Google Home y procesar comandos de voz de forma eficaz.",
+   "src": "a989924fcab1"
+  },
   "reviewNote": {
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
   }
  },
  "imp-117": {
+  "html": {
+   "es": "Estás diseñando una canalización de procesamiento de datos. La canalización debe poder escalar de forma automática cuando aumenta la carga. Los mensajes deben procesarse al menos una vez y deben estar ordenados dentro de ventanas (windows) de 1 hora. ¿Cómo debes diseñar la solución?<br>",
+   "src": "9434d1929761"
+  },
+  "choices.0.html": {
+   "es": "Usar Apache Kafka para la ingesta de mensajes y Cloud Dataproc para el análisis en streaming.",
+   "src": "91e5ea360f06"
+  },
+  "choices.1.html": {
+   "es": "Usar Apache Kafka para la ingesta de mensajes y Cloud Dataflow para el análisis en streaming.",
+   "src": "193a52f447db"
+  },
+  "choices.2.html": {
+   "es": "Usar Cloud Pub/Sub para la ingesta de mensajes y Cloud Dataproc para el análisis en streaming.",
+   "src": "40a4bd510de5"
+  },
+  "choices.3.html": {
+   "es": "Usar Cloud Pub/Sub para la ingesta de mensajes y Cloud Dataflow para el análisis en streaming.",
+   "src": "b1c92c72a692"
+  },
+  "sourceExplanation": {
+   "es": "Cloud Pub/Sub es el servicio de ingesta recomendado para las soluciones nativas de Google Cloud, y ofrece escalabilidad automática y garantías de entrega al menos una vez.\nCloud Dataflow está diseñado específicamente para el análisis en streaming, con soporte integrado de ventanas para mantener el orden dentro de intervalos de tiempo definidos (por ejemplo, 1 hora).\nApache Kafka es una opción de terceros que agrega carga de administración, frente a la combinación totalmente administrada de Pub/Sub y Dataflow. Dataproc, por su parte, es más adecuado para el procesamiento por lotes que para el streaming en tiempo real.",
+   "src": "c6ef0f3d42e1"
+  },
   "reviewNote": {
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
   }
  },
  "imp-118": {
+  "html": {
+   "es": "Necesitas configurar el acceso a BigQuery para distintos departamentos de tu empresa. Tu solución debe cumplir estos requisitos:<br>✑ Cada departamento debe tener acceso solo a sus datos.<br>✑ Cada departamento tendrá uno o más líderes que deben poder crear y actualizar tablas y ponerlas a disposición de su equipo.<br>✑ Cada departamento tiene analistas de datos que deben poder consultar los datos pero no modificarlos.<br>¿Cómo debes configurar el acceso a los datos en BigQuery?<br>",
+   "src": "88dfec9241a2"
+  },
+  "choices.0.html": {
+   "es": "Crear un dataset (conjunto de datos) para cada departamento. Asignar a los líderes del departamento el rol de OWNER y asignar a los analistas de datos el rol de WRITER en su dataset.",
+   "src": "82d7d8bd8c84"
+  },
+  "choices.1.html": {
+   "es": "Crear un dataset para cada departamento. Asignar a los líderes del departamento el rol de WRITER y asignar a los analistas de datos el rol de READER en su dataset.",
+   "src": "d78df4fa55f0"
+  },
+  "choices.2.html": {
+   "es": "Crear una tabla para cada departamento. Asignar a los líderes del departamento el rol de Owner y asignar a los analistas de datos el rol de Editor en el proyecto donde está la tabla.",
+   "src": "f1d44a3442c3"
+  },
+  "choices.3.html": {
+   "es": "Crear una tabla para cada departamento. Asignar a los líderes del departamento el rol de Editor y asignar a los analistas de datos el rol de Viewer en el proyecto donde está la tabla.",
+   "src": "6ac7a6cbda5a"
+  },
+  "sourceExplanation": {
+   "es": "Para aplicar el aislamiento de datos a nivel de departamento, debes crear un dataset separado para cada departamento y no compartir tablas a nivel de proyecto. \nLos roles de IAM a nivel de dataset son el mecanismo adecuado para este nivel de detalle: asigna el rol WRITER a los líderes para que puedan crear y actualizar tablas, y asigna el rol READER a los analistas para que solo puedan consultar datos. \nEsto asegura que los líderes tengan el acceso de escritura necesario y que los analistas queden limitados al acceso de solo lectura dentro del dataset de su departamento.",
+   "src": "1efa6fabc2a5"
+  },
   "reviewNote": {
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
   }
  },
  "imp-136": {
+  "html": {
+   "es": "Ejecutas una canalización en Dataflow que recibe mensajes de un tema (topic) de Pub/Sub y escribe los resultados en un dataset de BigQuery en la UE. Ahora tu canalización está en europe-west4 y tiene un máximo de 3 workers, con tipo de instancia n1-standard-1. Notas que en los periodos de mayor carga tu canalización tiene dificultades para procesar los registros a tiempo, cuando los 3 workers están al máximo de uso de CPU. ¿Qué dos acciones puedes tomar para aumentar el rendimiento de tu canalización? (Elige dos.)<br>",
+   "src": "dd59e09e7946"
+  },
+  "choices.0.html": {
+   "es": "Aumentar el número máximo de workers",
+   "src": "4ea2bf7a353a"
+  },
+  "choices.1.html": {
+   "es": "Usar un tipo de instancia más grande para tus workers de Dataflow",
+   "src": "28747c39f72f"
+  },
+  "choices.2.html": {
+   "es": "Cambiar la zona de tu canalización de Dataflow para que se ejecute en us-central1",
+   "src": "2efd1e1e867b"
+  },
+  "choices.3.html": {
+   "es": "Crear una tabla temporal en Bigtable que actúe como búfer para los datos nuevos. Crear un paso nuevo en tu canalización para escribir primero en esta tabla, y luego crear una canalización nueva para escribir de Bigtable a BigQuery",
+   "src": "8b47b3f87f86"
+  },
+  "choices.4.html": {
+   "es": "Crear una tabla temporal en Cloud Spanner que actúe como búfer para los datos nuevos. Crear un paso nuevo en tu canalización para escribir primero en esta tabla, y luego crear una canalización nueva para escribir de Cloud Spanner a BigQuery",
+   "src": "faf19a501b25"
+  },
+  "sourceExplanation": {
+   "es": "El cuello de botella se identifica de forma explícita como el uso máximo de CPU en los tres workers. Aumentar el número máximo de workers (A) agrega capacidad de procesamiento en paralelo para manejar más registros a la vez. Usar un tipo de instancia más grande (B) da más recursos de CPU y memoria por worker, y atiende directamente el problema de saturación.",
+   "src": "53371f735274"
+  },
   "reviewNote": {
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
   }
  },
  "imp-139": {
+  "html": {
+   "es": "Estás creando una canalización de datos nueva para compartir datos entre dos tipos distintos de aplicaciones: generadores de trabajos y ejecutores de trabajos. Tu solución debe escalar para acomodar aumentos de uso y debe permitir agregar aplicaciones nuevas sin afectar de forma negativa el rendimiento de las existentes. ¿Qué debes hacer?<br>",
+   "src": "2c0fe2308502"
+  },
+  "choices.0.html": {
+   "es": "Crear una API con App Engine para recibir y enviar mensajes a las aplicaciones",
+   "src": "9a3d43a1a55b"
+  },
+  "choices.1.html": {
+   "es": "Usar un tema de Cloud Pub/Sub para publicar trabajos y usar suscripciones para ejecutarlos",
+   "src": "a899421b1ccb"
+  },
+  "choices.2.html": {
+   "es": "Crear una tabla en Cloud SQL, e insertar y eliminar filas con la información de los trabajos",
+   "src": "5af6c5cafba8"
+  },
+  "choices.3.html": {
+   "es": "Crear una tabla en Cloud Spanner, e insertar y eliminar filas con la información de los trabajos",
+   "src": "254b664762b6"
+  },
+  "sourceExplanation": {
+   "es": "Cloud Pub/Sub es un servicio de mensajería totalmente administrado y escalable, diseñado para desacoplar sistemas. Permite que los generadores de trabajos (publicadores) y los ejecutores (suscriptores) funcionen de forma independiente. Admite escalado automático ante un mayor uso y permite agregar aplicaciones nuevas con solo crear suscripciones nuevas, sin afectar el rendimiento existente ni exigir cambios de arquitectura.",
+   "src": "cec7a891f2f1"
+  },
   "reviewNote": {
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
   }
  },
  "imp-143": {
+  "html": {
+   "es": "Operas una canalización de streaming de Cloud Dataflow. Tus ingenieros tienen una versión nueva de la canalización con un algoritmo de ventanas y una estrategia de disparadores (triggering) distintos. Quieres actualizar la canalización en ejecución con la versión nueva. Quieres asegurar que no se pierdan datos durante la actualización. ¿Qué debes hacer?<br>",
+   "src": "0093193ca372"
+  },
+  "choices.0.html": {
+   "es": "Actualizar la canalización de Cloud Dataflow en ejecución con la opción --update y --jobName igual al nombre del trabajo existente",
+   "src": "0c6cfe1959a0"
+  },
+  "choices.1.html": {
+   "es": "Actualizar la canalización de Cloud Dataflow en ejecución con la opción --update y --jobName igual a un nombre de trabajo nuevo y único",
+   "src": "6beab0fdccfb"
+  },
+  "choices.2.html": {
+   "es": "Detener la canalización de Cloud Dataflow con la opción Cancel. Crear un trabajo nuevo de Cloud Dataflow con el código actualizado",
+   "src": "257563e6597a"
+  },
+  "choices.3.html": {
+   "es": "Detener la canalización de Cloud Dataflow con la opción Drain. Crear un trabajo nuevo de Cloud Dataflow con el código actualizado",
+   "src": "aac8648fcec8"
+  },
+  "sourceExplanation": {
+   "es": "Según la documentación de Cloud Dataflow, los cambios importantes en los algoritmos de ventanas o en las estrategias de disparadores no son compatibles con las actualizaciones en el lugar y pueden causar resultados impredecibles. Por lo tanto, no puedes usar la opción --update para estos cambios estructurales importantes. Para asegurar que no se pierdan datos durante una transición así, debes detener la canalización existente con la opción Drain, que permite que se cierren las ventanas pendientes y que se procesen los datos en búfer antes de terminar.",
+   "src": "f19ffbc9fb94"
+  },
   "reviewNote": {
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
