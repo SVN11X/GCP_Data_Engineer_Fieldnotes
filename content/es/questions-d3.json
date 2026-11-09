@@ -1090,5 +1090,131 @@
    "es": "El descubrimiento debe ir acompañado de responsable, calidad y autorización.",
    "src": "da504001558d"
   }
+ },
+ "lab-130": {
+  "text": {
+   "es": "En un lago, un equipo deja archivos según llegan y otro equipo publica datos estructurados y validados para los analistas. ¿Qué construcción de Dataplex separa los datos por grado de preparación dentro de un lago?",
+   "src": "4013287a9ba4"
+  },
+  "choices.0.text": {
+   "es": "Zonas, como raw y curated.",
+   "src": "79e29d8e9065"
+  },
+  "choices.0.why": {
+   "es": "Las zonas agrupan los activos por etapa de preparación dentro de un lago.",
+   "src": "44307cc179a7"
+  },
+  "choices.1.text": {
+   "es": "Suscripciones de Pub/Sub.",
+   "src": "1f3884f0df22"
+  },
+  "choices.1.why": {
+   "es": "Las suscripciones entregan mensajes y no organizan datos gobernados.",
+   "src": "f44e6331258d"
+  },
+  "choices.2.text": {
+   "es": "Revisiones de Cloud Run.",
+   "src": "49421a16f61f"
+  },
+  "choices.2.why": {
+   "es": "Las revisiones versionan un servicio y no agrupan activos de datos.",
+   "src": "8be598f4c17e"
+  },
+  "choices.3.text": {
+   "es": "Discos persistentes.",
+   "src": "23149307ba37"
+  },
+  "choices.3.why": {
+   "es": "Los discos son almacenamiento en bloques y no organizan activos de datos.",
+   "src": "fda8ed299d91"
+  },
+  "explanation": {
+   "es": "Las zonas agrupan los activos por etapa de preparación dentro de un lago.",
+   "src": "44307cc179a7"
+  }
+ },
+ "lab-131": {
+  "text": {
+   "es": "Una tabla contiene una columna sensible. La mayoría de los analistas puede consultar la tabla, pero solo un grupo pequeño puede leer esa columna. ¿Qué control de BigQuery corresponde?",
+   "src": "7c7de692a005"
+  },
+  "choices.0.text": {
+   "es": "Un rol Viewer a nivel de conjunto de datos solo para el grupo pequeño.",
+   "src": "f01cfe5cb81b"
+  },
+  "choices.0.why": {
+   "es": "Esto cambia el acceso a todo el conjunto de datos y no a una columna.",
+   "src": "a8b41b1bd24e"
+  },
+  "choices.1.text": {
+   "es": "Una etiqueta de política (policy tag) en la columna, con Fine-Grained Reader para el grupo pequeño.",
+   "src": "9e702a5ac464"
+  },
+  "choices.1.why": {
+   "es": "Las etiquetas de política aplican acceso a nivel de columna además de los permisos del conjunto de datos.",
+   "src": "e0f89e25cd1f"
+  },
+  "choices.2.text": {
+   "es": "Un proyecto separado para cada analista.",
+   "src": "79453fe90457"
+  },
+  "choices.2.why": {
+   "es": "Esto agrega costo y no restringe una columna.",
+   "src": "ee1903be379e"
+  },
+  "choices.3.text": {
+   "es": "Una descripción de la tabla que pida a los analistas no leer la columna.",
+   "src": "70f861642010"
+  },
+  "choices.3.why": {
+   "es": "Una descripción no aplica ningún control de acceso.",
+   "src": "369842da430c"
+  },
+  "explanation": {
+   "es": "Las etiquetas de política aplican acceso a nivel de columna además de los permisos del conjunto de datos.",
+   "src": "e0f89e25cd1f"
+  }
+ },
+ "lab-132": {
+  "text": {
+   "es": "Un cambio en una tabla de origen podría romper los dashboards. El equipo necesita ver qué tablas y trabajos posteriores dependen de ella. ¿Qué capacidad ayuda?",
+   "src": "bd59918e97f7"
+  },
+  "choices.0.text": {
+   "es": "El linaje de datos del catálogo, que muestra cómo se mueven los datos entre orígenes y destinos.",
+   "src": "497eac9a31e4"
+  },
+  "choices.0.why": {
+   "es": "El linaje registra de dónde vienen los datos y adónde se mueven, así que las dependencias posteriores quedan visibles.",
+   "src": "f2d1797edf1b"
+  },
+  "choices.1.text": {
+   "es": "Una reserva más grande de BigQuery.",
+   "src": "f255dfb64f0e"
+  },
+  "choices.1.why": {
+   "es": "La capacidad no muestra dependencias.",
+   "src": "92fe107713b8"
+  },
+  "choices.2.text": {
+   "es": "El control de versiones de objetos de Cloud Storage.",
+   "src": "9fdb7a439434"
+  },
+  "choices.2.why": {
+   "es": "El control de versiones conserva el historial de objetos y no mapea dependencias entre tablas.",
+   "src": "f7a315a4eefd"
+  },
+  "choices.3.text": {
+   "es": "Un tema de dead-letter de Pub/Sub.",
+   "src": "2dabe571a50f"
+  },
+  "choices.3.why": {
+   "es": "Los temas de dead-letter guardan mensajes no entregables y no mapean dependencias.",
+   "src": "8a2282a67160"
+  },
+  "explanation": {
+   "es": "El linaje registra de dónde vienen los datos y adónde se mueven, así que las dependencias posteriores quedan visibles.",
+   "src": "f2d1797edf1b"
+  }
  }
 }

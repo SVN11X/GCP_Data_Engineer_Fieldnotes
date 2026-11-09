@@ -23,3 +23,7 @@ Raise the limit to 500,000 bytes. Keep the catalog limit (`bootBytes < 230000`) 
 ## Consequences
 
 The first load can grow by up to about 50,000 bytes of code and interface text. New work should still prefer on-demand files. To undo it, set the number back to 450000 and move code out of the initial files until the check passes.
+
+## Amendment, 2026-11-09
+
+Thirteen new original questions add 8 KB of catalog entries (id, text, choices, search text). The catalog limit moves from 230,000 to 240,000 bytes. The initial total limit of 500,000 bytes is unchanged and the page still weighs about 468,000 bytes. This changes an owner-approved number, so the owner should confirm it in the pull request.

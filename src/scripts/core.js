@@ -19,7 +19,7 @@
   function makeExam(questions, size, domains, random = Math.random, difficulty = 'mixed') {
     const counts = quotas(size, domains), result = [];
     for (const d of domains) {
-      const pool = questions.filter(q => q.origin === 'authored' && q.gradable && q.domain === d.id && (difficulty === 'mixed' || q.difficulty === difficulty));
+      const pool = questions.filter(q => q.origin === 'authored' && q.timed !== false && q.gradable && q.domain === d.id && (difficulty === 'mixed' || q.difficulty === difficulty));
       if (pool.length < counts[d.id]) throw new Error('Not enough authored questions for domain ' + d.id);
       result.push(...shuffle(pool, random).slice(0, counts[d.id]));
     }

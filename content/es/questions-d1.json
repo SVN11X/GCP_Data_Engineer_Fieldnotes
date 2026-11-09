@@ -1006,5 +1006,131 @@
    "es": "El destino debe reflejar el estado acordado y los cambios antes del cutover.",
    "src": "cde31bb2f61c"
   }
+ },
+ "lab-125": {
+  "text": {
+   "es": "Un productor escribe eventos de pedidos en BigQuery mediante la Storage Write API en un stream de tipo committed. Una solicitud agota el tiempo de espera y el cliente no sabe si las filas se guardaron. ¿Cómo puede reintentar sin crear duplicados?",
+   "src": "fbb0b4a0dd0c"
+  },
+  "choices.0.text": {
+   "es": "Reintentar el append sin offset, porque BigQuery siempre elimina las filas duplicadas.",
+   "src": "b37dae900c3a"
+  },
+  "choices.0.why": {
+   "es": "Sin offsets, un append reintentado puede agregar otra vez las mismas filas.",
+   "src": "65a540b2ba7c"
+  },
+  "choices.1.text": {
+   "es": "Reintentar el append con el mismo offset del stream e ignorar una respuesta ALREADY_EXISTS.",
+   "src": "3740c6f46146"
+  },
+  "choices.1.why": {
+   "es": "Un offset explícito hace idempotente el append. Un offset repetido significa que las filas ya están escritas.",
+   "src": "91a6bf63e9ee"
+  },
+  "choices.2.text": {
+   "es": "Cambiar al stream predeterminado, que da entrega exactly-once.",
+   "src": "77ef4a11fe2c"
+  },
+  "choices.2.why": {
+   "es": "El stream predeterminado da semántica at-least-once, así que los reintentos pueden duplicar filas.",
+   "src": "436a2c8ba3bb"
+  },
+  "choices.3.text": {
+   "es": "Eliminar la tabla y recargar todo desde el origen.",
+   "src": "b148c07a2fc2"
+  },
+  "choices.3.why": {
+   "es": "Es mucho más costoso de lo necesario y pierde el beneficio de los offsets.",
+   "src": "31584344405b"
+  },
+  "explanation": {
+   "es": "Un offset explícito hace idempotente el append. Un offset repetido significa que las filas ya están escritas.",
+   "src": "91a6bf63e9ee"
+  }
+ },
+ "lab-126": {
+  "text": {
+   "es": "Los archivos Parquet se quedan en Cloud Storage. Los analistas los consultan desde BigQuery. El dueño de los datos quiere seguridad a nivel de columna y de fila sin dar a los analistas acceso al bucket. ¿Qué debe crear el dueño?",
+   "src": "3b00e9a1633c"
+  },
+  "choices.0.text": {
+   "es": "Una tabla externa y el rol Storage Object Viewer para los analistas en el bucket.",
+   "src": "183e61b9d3b4"
+  },
+  "choices.0.why": {
+   "es": "El acceso directo al bucket evita los controles detallados que quiere el dueño.",
+   "src": "6d15042beea0"
+  },
+  "choices.1.text": {
+   "es": "Una URL firmada para cada archivo Parquet.",
+   "src": "5ad0616e6a78"
+  },
+  "choices.1.why": {
+   "es": "Las URL firmadas comparten archivos, no acceso gobernado a tablas.",
+   "src": "98b1731e7234"
+  },
+  "choices.2.text": {
+   "es": "Una tabla BigLake sobre los archivos, con políticas de fila y de columna.",
+   "src": "f12f2a032703"
+  },
+  "choices.2.why": {
+   "es": "BigLake delega el acceso mediante una conexión, así que los analistas necesitan acceso a la tabla y no al bucket.",
+   "src": "62c644655979"
+  },
+  "choices.3.text": {
+   "es": "Una copia nocturna de cada archivo en un bucket público.",
+   "src": "a66ebf9eea77"
+  },
+  "choices.3.why": {
+   "es": "Una copia pública elimina el control de acceso.",
+   "src": "074716aab034"
+  },
+  "explanation": {
+   "es": "BigLake delega el acceso mediante una conexión, así que los analistas necesitan acceso a la tabla y no al bucket.",
+   "src": "62c644655979"
+  }
+ },
+ "lab-127": {
+  "text": {
+   "es": "Un equipo ejecuta hoy un pipeline de Dataflow. Quizá deba ejecutar la misma lógica en otro runner más adelante. ¿Qué opción mantiene más portable la lógica del pipeline?",
+   "src": "447b44bb527e"
+  },
+  "choices.0.text": {
+   "es": "Escribir el pipeline con el SDK de Apache Beam y elegir el runner mediante las opciones del pipeline.",
+   "src": "6a5b93a83200"
+  },
+  "choices.0.why": {
+   "es": "El modelo de Beam separa la lógica del pipeline del runner que lo ejecuta.",
+   "src": "6d64975e6d31"
+  },
+  "choices.1.text": {
+   "es": "Llamar directamente a las APIs del servicio Dataflow desde cada transformación.",
+   "src": "c3a3675300a2"
+  },
+  "choices.1.why": {
+   "es": "Las llamadas al servicio dentro de las transformaciones atan la lógica a un solo servicio.",
+   "src": "90cbd1af69cf"
+  },
+  "choices.2.text": {
+   "es": "Reescribir la lógica como consultas programadas de BigQuery.",
+   "src": "d9fb3f924de9"
+  },
+  "choices.2.why": {
+   "es": "Esto cambia el modelo de procesamiento en lugar de mantener portable el pipeline.",
+   "src": "0c7e5eb86e88"
+  },
+  "choices.3.text": {
+   "es": "Guardar el código en un solo notebook.",
+   "src": "2974bfe8024e"
+  },
+  "choices.3.why": {
+   "es": "Un notebook no define un modelo de ejecución portable.",
+   "src": "f7563cbe605a"
+  },
+  "explanation": {
+   "es": "El modelo de Beam separa la lógica del pipeline del runner que lo ejecuta.",
+   "src": "6d64975e6d31"
+  }
  }
 }

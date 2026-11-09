@@ -1006,5 +1006,89 @@
    "es": "Un SLO (objetivo de nivel de servicio) debe especificar qué se mide y dónde.",
    "src": "364282ce2606"
   }
+ },
+ "lab-136": {
+  "text": {
+   "es": "Dos reservas comparten un proyecto de administración, una región y una edición. La reserva de ETL está inactiva por la noche mientras la reserva de dashboards está ocupada y permite compartir slots inactivos. ¿Qué ocurre?",
+   "src": "5a756041314a"
+  },
+  "choices.0.text": {
+   "es": "Las consultas de los dashboards pueden usar los slots inactivos de ETL, y la reserva de ETL los recupera cuando los necesita.",
+   "src": "9190353018e8"
+  },
+  "choices.0.why": {
+   "es": "Por defecto las consultas pueden usar slots inactivos de otras reservas, y el dueño los recupera cuando los pide.",
+   "src": "e63abcc9cbf6"
+  },
+  "choices.1.text": {
+   "es": "Los slots inactivos de ETL se pierden hasta el día siguiente.",
+   "src": "b99941e8f6e8"
+  },
+  "choices.1.why": {
+   "es": "Los slots inactivos no se pierden. Se pueden tomar prestados.",
+   "src": "dea01c34b901"
+  },
+  "choices.2.text": {
+   "es": "Las consultas de los dashboards fallan hasta que empiece ETL.",
+   "src": "1cc36c63deb1"
+  },
+  "choices.2.why": {
+   "es": "Las consultas no fallan porque otros slots estén inactivos.",
+   "src": "f3a7c4dcf0be"
+  },
+  "choices.3.text": {
+   "es": "Los slots de ETL pasan de forma permanente a la reserva de dashboards.",
+   "src": "62196dc6e47b"
+  },
+  "choices.3.why": {
+   "es": "El préstamo es temporal y no cambia el tamaño de las reservas.",
+   "src": "90c83d54b043"
+  },
+  "explanation": {
+   "es": "Por defecto las consultas pueden usar slots inactivos de otras reservas, y el dueño los recupera cuando los pide.",
+   "src": "e63abcc9cbf6"
+  }
+ },
+ "lab-137": {
+  "text": {
+   "es": "Un equipo quiere que un proyecto use una reserva concreta de BigQuery. ¿Qué conecta el proyecto con esa reserva?",
+   "src": "bdf978c451a8"
+  },
+  "choices.0.text": {
+   "es": "Una alerta de presupuesto.",
+   "src": "91cd7a0c9ff8"
+  },
+  "choices.0.why": {
+   "es": "Una alerta de presupuesto informa el gasto y no asigna slots.",
+   "src": "b9eaad3e78b2"
+  },
+  "choices.1.text": {
+   "es": "Una asignación del proyecto, la carpeta o la organización a la reserva.",
+   "src": "9a76ae9f44e0"
+  },
+  "choices.1.why": {
+   "es": "Las asignaciones conectan recursos con una reserva, así sus trabajos usan su capacidad.",
+   "src": "16c2d9dbfd87"
+  },
+  "choices.2.text": {
+   "es": "Una vista materializada.",
+   "src": "036999a6aa1c"
+  },
+  "choices.2.why": {
+   "es": "Una vista materializada guarda resultados precalculados y no asigna capacidad.",
+   "src": "8bd787288853"
+  },
+  "choices.3.text": {
+   "es": "Una política de acceso a nivel de fila.",
+   "src": "0998a5832b87"
+  },
+  "choices.3.why": {
+   "es": "Una política de fila filtra filas y no asigna capacidad.",
+   "src": "8d1160fda679"
+  },
+  "explanation": {
+   "es": "Las asignaciones conectan recursos con una reserva, así sus trabajos usan su capacidad.",
+   "src": "16c2d9dbfd87"
+  }
  }
 }

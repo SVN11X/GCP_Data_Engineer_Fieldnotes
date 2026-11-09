@@ -6795,5 +6795,720 @@
     "issues": [],
     "reviewNote": "Original educational scenario written for this update. Not an official or recalled certification item.",
     "difficulty": "Applied"
+  },
+  {
+    "id": "lab-125",
+    "number": 125,
+    "origin": "authored",
+    "domain": 1,
+    "objective": "1.2",
+    "lesson": "fidelity",
+    "text": "A producer writes order events to BigQuery through the Storage Write API in a committed stream. A request times out and the client cannot tell whether the rows were stored. How can it retry without creating duplicates?",
+    "html": "A producer writes order events to BigQuery through the Storage Write API in a committed stream. A request times out and the client cannot tell whether the rows were stored. How can it retry without creating duplicates?",
+    "choices": [
+      {
+        "letter": "A",
+        "text": "Retry the append without an offset, because BigQuery always removes duplicate rows.",
+        "html": "Retry the append without an offset, because BigQuery always removes duplicate rows.",
+        "why": "Without offsets, a retried append can add the same rows again."
+      },
+      {
+        "letter": "B",
+        "text": "Retry the append with the same stream offset and ignore an ALREADY_EXISTS answer.",
+        "html": "Retry the append with the same stream offset and ignore an ALREADY_EXISTS answer.",
+        "why": "An explicit offset makes the append idempotent. A repeated offset means the rows are already written."
+      },
+      {
+        "letter": "C",
+        "text": "Switch to the default stream, which gives exactly-once delivery.",
+        "html": "Switch to the default stream, which gives exactly-once delivery.",
+        "why": "The default stream gives at-least-once semantics, so retries can duplicate rows."
+      },
+      {
+        "letter": "D",
+        "text": "Delete the table and reload everything from the source.",
+        "html": "Delete the table and reload everything from the source.",
+        "why": "This is far more costly than needed and loses the benefit of offsets."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "sourceAnswer": [],
+    "required": 1,
+    "explanation": "An explicit offset makes the append idempotent. A repeated offset means the rows are already written.",
+    "sourceExplanation": "",
+    "sources": [],
+    "references": [
+      "exactly",
+      "bqmerge"
+    ],
+    "status": "reviewed",
+    "gradable": true,
+    "hasImages": false,
+    "issues": [],
+    "reviewNote": "Original learning scenario. The editorial answer is supported by the linked documentation; this is not an official exam item.",
+    "difficulty": "Applied",
+    "timed": false
+  },
+  {
+    "id": "lab-126",
+    "number": 126,
+    "origin": "authored",
+    "domain": 1,
+    "objective": "1.3",
+    "lesson": "portability",
+    "text": "Parquet files stay in Cloud Storage. Analysts query them from BigQuery. The data owner wants column-level and row-level security without giving analysts access to the bucket. What should the owner create?",
+    "html": "Parquet files stay in Cloud Storage. Analysts query them from BigQuery. The data owner wants column-level and row-level security without giving analysts access to the bucket. What should the owner create?",
+    "choices": [
+      {
+        "letter": "A",
+        "text": "An external table, and the Storage Object Viewer role for analysts on the bucket.",
+        "html": "An external table, and the Storage Object Viewer role for analysts on the bucket.",
+        "why": "Direct bucket access bypasses the fine-grained controls the owner wants."
+      },
+      {
+        "letter": "B",
+        "text": "A signed URL for each Parquet file.",
+        "html": "A signed URL for each Parquet file.",
+        "why": "Signed URLs share files, not governed table access."
+      },
+      {
+        "letter": "C",
+        "text": "A BigLake table over the files, with row and column policies.",
+        "html": "A BigLake table over the files, with row and column policies.",
+        "why": "BigLake delegates access through a connection, so analysts need table access and not bucket access."
+      },
+      {
+        "letter": "D",
+        "text": "A nightly copy of every file into a public bucket.",
+        "html": "A nightly copy of every file into a public bucket.",
+        "why": "A public copy removes access control."
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "sourceAnswer": [],
+    "required": 1,
+    "explanation": "BigLake delegates access through a connection, so analysts need table access and not bucket access.",
+    "sourceExplanation": "",
+    "sources": [],
+    "references": [
+      "biglake",
+      "catalog"
+    ],
+    "status": "reviewed",
+    "gradable": true,
+    "hasImages": false,
+    "issues": [],
+    "reviewNote": "Original learning scenario. The editorial answer is supported by the linked documentation; this is not an official exam item.",
+    "difficulty": "Applied",
+    "timed": false
+  },
+  {
+    "id": "lab-127",
+    "number": 127,
+    "origin": "authored",
+    "domain": 1,
+    "objective": "1.3",
+    "lesson": "portability",
+    "text": "A team runs a Dataflow pipeline today. It may need to run the same logic on another runner later. Which choice keeps the pipeline logic most portable?",
+    "html": "A team runs a Dataflow pipeline today. It may need to run the same logic on another runner later. Which choice keeps the pipeline logic most portable?",
+    "choices": [
+      {
+        "letter": "A",
+        "text": "Write the pipeline with the Apache Beam SDK and choose the runner through pipeline options.",
+        "html": "Write the pipeline with the Apache Beam SDK and choose the runner through pipeline options.",
+        "why": "The Beam model separates pipeline logic from the runner that executes it."
+      },
+      {
+        "letter": "B",
+        "text": "Call Dataflow service APIs directly from every transform.",
+        "html": "Call Dataflow service APIs directly from every transform.",
+        "why": "Service calls inside transforms tie the logic to one service."
+      },
+      {
+        "letter": "C",
+        "text": "Rewrite the logic as scheduled BigQuery queries.",
+        "html": "Rewrite the logic as scheduled BigQuery queries.",
+        "why": "This changes the processing model instead of keeping the pipeline portable."
+      },
+      {
+        "letter": "D",
+        "text": "Keep the code in a single notebook.",
+        "html": "Keep the code in a single notebook.",
+        "why": "A notebook does not define a portable execution model."
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "sourceAnswer": [],
+    "required": 1,
+    "explanation": "The Beam model separates pipeline logic from the runner that executes it.",
+    "sourceExplanation": "",
+    "sources": [],
+    "references": [
+      "beam",
+      "beammodel"
+    ],
+    "status": "reviewed",
+    "gradable": true,
+    "hasImages": false,
+    "issues": [],
+    "reviewNote": "Original learning scenario. The editorial answer is supported by the linked documentation; this is not an official exam item.",
+    "difficulty": "Applied",
+    "timed": false
+  },
+  {
+    "id": "lab-128",
+    "number": 128,
+    "origin": "authored",
+    "domain": 2,
+    "objective": "2.3",
+    "lesson": "deploy-pipeline",
+    "text": "You replace a running streaming Dataflow job with new code that renames one transform. You want to keep the job state. What must you provide with the update?",
+    "html": "You replace a running streaming Dataflow job with new code that renames one transform. You want to keep the job state. What must you provide with the update?",
+    "choices": [
+      {
+        "letter": "A",
+        "text": "A drain request before every update.",
+        "html": "A drain request before every update.",
+        "why": "Draining stops the job and does not carry state to the new job."
+      },
+      {
+        "letter": "B",
+        "text": "A transform name mapping from the old name to the new name.",
+        "html": "A transform name mapping from the old name to the new name.",
+        "why": "Dataflow needs the mapping to match renamed steps during the compatibility check."
+      },
+      {
+        "letter": "C",
+        "text": "A new Pub/Sub topic.",
+        "html": "A new Pub/Sub topic.",
+        "why": "A new topic does not help match renamed transforms."
+      },
+      {
+        "letter": "D",
+        "text": "Nothing, because renamed transforms are matched automatically.",
+        "html": "Nothing, because renamed transforms are matched automatically.",
+        "why": "A renamed transform fails the compatibility check without a mapping."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "sourceAnswer": [],
+    "required": 1,
+    "explanation": "Dataflow needs the mapping to match renamed steps during the compatibility check.",
+    "sourceExplanation": "",
+    "sources": [],
+    "references": [
+      "upgrade",
+      "dfdeploy"
+    ],
+    "status": "reviewed",
+    "gradable": true,
+    "hasImages": false,
+    "issues": [],
+    "reviewNote": "Original learning scenario. The editorial answer is supported by the linked documentation; this is not an official exam item.",
+    "difficulty": "Applied",
+    "timed": false
+  },
+  {
+    "id": "lab-129",
+    "number": 129,
+    "origin": "authored",
+    "domain": 2,
+    "objective": "2.3",
+    "lesson": "deploy-pipeline",
+    "text": "A streaming Dataflow job must stop for maintenance. It must finish processing the data it already read, and it should stop reading new data. Which action fits?",
+    "html": "A streaming Dataflow job must stop for maintenance. It must finish processing the data it already read, and it should stop reading new data. Which action fits?",
+    "choices": [
+      {
+        "letter": "A",
+        "text": "Cancel the job.",
+        "html": "Cancel the job.",
+        "why": "Cancel stops processing immediately, and in-flight data can be lost."
+      },
+      {
+        "letter": "B",
+        "text": "Delete the worker VMs.",
+        "html": "Delete the worker VMs.",
+        "why": "This breaks the job in an uncontrolled way."
+      },
+      {
+        "letter": "C",
+        "text": "Pause the Pub/Sub topic.",
+        "html": "Pause the Pub/Sub topic.",
+        "why": "This does not finish the data already read by the job."
+      },
+      {
+        "letter": "D",
+        "text": "Drain the job.",
+        "html": "Drain the job.",
+        "why": "Drain stops reading new data and finishes buffered and in-flight data before the job ends."
+      }
+    ],
+    "answer": [
+      "D"
+    ],
+    "sourceAnswer": [],
+    "required": 1,
+    "explanation": "Drain stops reading new data and finishes buffered and in-flight data before the job ends.",
+    "sourceExplanation": "",
+    "sources": [],
+    "references": [
+      "dflifecycle",
+      "dfdeploy"
+    ],
+    "status": "reviewed",
+    "gradable": true,
+    "hasImages": false,
+    "issues": [],
+    "reviewNote": "Original learning scenario. The editorial answer is supported by the linked documentation; this is not an official exam item.",
+    "difficulty": "Applied",
+    "timed": false
+  },
+  {
+    "id": "lab-130",
+    "number": 130,
+    "origin": "authored",
+    "domain": 3,
+    "objective": "3.4",
+    "lesson": "governance",
+    "text": "In a lake, one team lands files as they arrive and another team publishes validated, structured data for analysts. Which Dataplex construct separates data by readiness inside a lake?",
+    "html": "In a lake, one team lands files as they arrive and another team publishes validated, structured data for analysts. Which Dataplex construct separates data by readiness inside a lake?",
+    "choices": [
+      {
+        "letter": "A",
+        "text": "Zones, such as raw and curated.",
+        "html": "Zones, such as raw and curated.",
+        "why": "Zones group assets by stage of readiness inside a lake."
+      },
+      {
+        "letter": "B",
+        "text": "Pub/Sub subscriptions.",
+        "html": "Pub/Sub subscriptions.",
+        "why": "Subscriptions deliver messages and do not organize governed data."
+      },
+      {
+        "letter": "C",
+        "text": "Cloud Run revisions.",
+        "html": "Cloud Run revisions.",
+        "why": "Revisions version a service and do not group data assets."
+      },
+      {
+        "letter": "D",
+        "text": "Persistent disks.",
+        "html": "Persistent disks.",
+        "why": "Disks are block storage and do not organize data assets."
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "sourceAnswer": [],
+    "required": 1,
+    "explanation": "Zones group assets by stage of readiness inside a lake.",
+    "sourceExplanation": "",
+    "sources": [],
+    "references": [
+      "catalog",
+      "transition"
+    ],
+    "status": "reviewed",
+    "gradable": true,
+    "hasImages": false,
+    "issues": [],
+    "reviewNote": "Original learning scenario. The editorial answer is supported by the linked documentation; this is not an official exam item.",
+    "difficulty": "Applied",
+    "timed": false
+  },
+  {
+    "id": "lab-131",
+    "number": 131,
+    "origin": "authored",
+    "domain": 3,
+    "objective": "3.4",
+    "lesson": "governance",
+    "text": "A table contains a sensitive column. Most analysts may query the table but only a small group may read that column. Which BigQuery control fits?",
+    "html": "A table contains a sensitive column. Most analysts may query the table but only a small group may read that column. Which BigQuery control fits?",
+    "choices": [
+      {
+        "letter": "A",
+        "text": "A dataset-level Viewer role for the small group only.",
+        "html": "A dataset-level Viewer role for the small group only.",
+        "why": "This changes access to the whole dataset and not to one column."
+      },
+      {
+        "letter": "B",
+        "text": "A policy tag on the column, with Fine-Grained Reader granted to the small group.",
+        "html": "A policy tag on the column, with Fine-Grained Reader granted to the small group.",
+        "why": "Policy tags enforce column-level access on top of dataset permissions."
+      },
+      {
+        "letter": "C",
+        "text": "A separate project for each analyst.",
+        "html": "A separate project for each analyst.",
+        "why": "This adds cost and does not restrict one column."
+      },
+      {
+        "letter": "D",
+        "text": "A table description that asks analysts not to read the column.",
+        "html": "A table description that asks analysts not to read the column.",
+        "why": "A description does not enforce access."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "sourceAnswer": [],
+    "required": 1,
+    "explanation": "Policy tags enforce column-level access on top of dataset permissions.",
+    "sourceExplanation": "",
+    "sources": [],
+    "references": [
+      "column",
+      "mask"
+    ],
+    "status": "reviewed",
+    "gradable": true,
+    "hasImages": false,
+    "issues": [],
+    "reviewNote": "Original learning scenario. The editorial answer is supported by the linked documentation; this is not an official exam item.",
+    "difficulty": "Applied",
+    "timed": false
+  },
+  {
+    "id": "lab-132",
+    "number": 132,
+    "origin": "authored",
+    "domain": 3,
+    "objective": "3.4",
+    "lesson": "governance",
+    "text": "A change to a source table might break dashboards. The team needs to see which downstream tables and jobs depend on it. Which capability helps?",
+    "html": "A change to a source table might break dashboards. The team needs to see which downstream tables and jobs depend on it. Which capability helps?",
+    "choices": [
+      {
+        "letter": "A",
+        "text": "Data lineage in the catalog, which shows how data moves between sources and targets.",
+        "html": "Data lineage in the catalog, which shows how data moves between sources and targets.",
+        "why": "Lineage records where data originates and where it moves, so downstream dependencies are visible."
+      },
+      {
+        "letter": "B",
+        "text": "A larger BigQuery reservation.",
+        "html": "A larger BigQuery reservation.",
+        "why": "Capacity does not show dependencies."
+      },
+      {
+        "letter": "C",
+        "text": "Cloud Storage object versioning.",
+        "html": "Cloud Storage object versioning.",
+        "why": "Versioning keeps object history and does not map table dependencies."
+      },
+      {
+        "letter": "D",
+        "text": "A Pub/Sub dead-letter topic.",
+        "html": "A Pub/Sub dead-letter topic.",
+        "why": "Dead-letter topics hold undeliverable messages and do not map dependencies."
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "sourceAnswer": [],
+    "required": 1,
+    "explanation": "Lineage records where data originates and where it moves, so downstream dependencies are visible.",
+    "sourceExplanation": "",
+    "sources": [],
+    "references": [
+      "catalog",
+      "sharing"
+    ],
+    "status": "reviewed",
+    "gradable": true,
+    "hasImages": false,
+    "issues": [],
+    "reviewNote": "Original learning scenario. The editorial answer is supported by the linked documentation; this is not an official exam item.",
+    "difficulty": "Applied",
+    "timed": false
+  },
+  {
+    "id": "lab-133",
+    "number": 133,
+    "origin": "authored",
+    "domain": 4,
+    "objective": "4.1",
+    "lesson": "analytics",
+    "text": "Dashboards always filter a multi-terabyte events table by event_date and customer_id. Which table design most reduces the bytes scanned?",
+    "html": "Dashboards always filter a multi-terabyte events table by event_date and customer_id. Which table design most reduces the bytes scanned?",
+    "choices": [
+      {
+        "letter": "A",
+        "text": "Cluster by event_date only and leave the table unpartitioned.",
+        "html": "Cluster by event_date only and leave the table unpartitioned.",
+        "why": "Partitioning by the date column allows whole partitions to be skipped, which clustering alone does not match."
+      },
+      {
+        "letter": "B",
+        "text": "Create a new table for every dashboard.",
+        "html": "Create a new table for every dashboard.",
+        "why": "This multiplies storage and maintenance."
+      },
+      {
+        "letter": "C",
+        "text": "Partition by event_date and cluster by customer_id.",
+        "html": "Partition by event_date and cluster by customer_id.",
+        "why": "The date filter prunes partitions and clustering narrows the blocks read inside them."
+      },
+      {
+        "letter": "D",
+        "text": "Export the table to CSV files.",
+        "html": "Export the table to CSV files.",
+        "why": "CSV files lose BigQuery storage optimizations."
+      }
+    ],
+    "answer": [
+      "C"
+    ],
+    "sourceAnswer": [],
+    "required": 1,
+    "explanation": "The date filter prunes partitions and clustering narrows the blocks read inside them.",
+    "sourceExplanation": "",
+    "sources": [],
+    "references": [
+      "partition",
+      "cluster"
+    ],
+    "status": "reviewed",
+    "gradable": true,
+    "hasImages": false,
+    "issues": [],
+    "reviewNote": "Original learning scenario. The editorial answer is supported by the linked documentation; this is not an official exam item.",
+    "difficulty": "Applied",
+    "timed": false
+  },
+  {
+    "id": "lab-134",
+    "number": 134,
+    "origin": "authored",
+    "domain": 4,
+    "objective": "4.3",
+    "lesson": "share",
+    "text": "A team maintains forty views in one dataset. All of them must read tables in a separate source dataset. Authorizing each view one by one is slow and error-prone. Which feature reduces that work?",
+    "html": "A team maintains forty views in one dataset. All of them must read tables in a separate source dataset. Authorizing each view one by one is slow and error-prone. Which feature reduces that work?",
+    "choices": [
+      {
+        "letter": "A",
+        "text": "An authorized dataset, which authorizes the views of one dataset at once.",
+        "html": "An authorized dataset, which authorizes the views of one dataset at once.",
+        "why": "Views in an authorized dataset, including future ones, can access the shared dataset."
+      },
+      {
+        "letter": "B",
+        "text": "Owner access for every viewer on the source dataset.",
+        "html": "Owner access for every viewer on the source dataset.",
+        "why": "This gives far more access than needed."
+      },
+      {
+        "letter": "C",
+        "text": "A copy of the source tables in every project.",
+        "html": "A copy of the source tables in every project.",
+        "why": "Copies add cost and drift."
+      },
+      {
+        "letter": "D",
+        "text": "Public access to the source dataset.",
+        "html": "Public access to the source dataset.",
+        "why": "Public access removes the access contract."
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "sourceAnswer": [],
+    "required": 1,
+    "explanation": "Views in an authorized dataset, including future ones, can access the shared dataset.",
+    "sourceExplanation": "",
+    "sources": [],
+    "references": [
+      "views",
+      "sharing"
+    ],
+    "status": "reviewed",
+    "gradable": true,
+    "hasImages": false,
+    "issues": [],
+    "reviewNote": "Original learning scenario. The editorial answer is supported by the linked documentation; this is not an official exam item.",
+    "difficulty": "Applied",
+    "timed": false
+  },
+  {
+    "id": "lab-135",
+    "number": 135,
+    "origin": "authored",
+    "domain": 4,
+    "objective": "4.3",
+    "lesson": "share",
+    "text": "A publisher shares a dataset through BigQuery sharing. What does a subscriber receive?",
+    "html": "A publisher shares a dataset through BigQuery sharing. What does a subscriber receive?",
+    "choices": [
+      {
+        "letter": "A",
+        "text": "A full copy of the data that is billed as storage to the subscriber.",
+        "html": "A full copy of the data that is billed as storage to the subscriber.",
+        "why": "Subscribing does not replicate the data."
+      },
+      {
+        "letter": "B",
+        "text": "An export of the data in CSV files.",
+        "html": "An export of the data in CSV files.",
+        "why": "Subscribers query the data in BigQuery and do not receive files."
+      },
+      {
+        "letter": "C",
+        "text": "Owner access to the publisher dataset.",
+        "html": "Owner access to the publisher dataset.",
+        "why": "Subscribers do not get ownership of the source."
+      },
+      {
+        "letter": "D",
+        "text": "A read-only linked dataset in the subscriber project that points to the shared data.",
+        "html": "A read-only linked dataset in the subscriber project that points to the shared data.",
+        "why": "The linked dataset is a pointer, so queries read the published data without a copy."
+      }
+    ],
+    "answer": [
+      "D"
+    ],
+    "sourceAnswer": [],
+    "required": 1,
+    "explanation": "The linked dataset is a pointer, so queries read the published data without a copy.",
+    "sourceExplanation": "",
+    "sources": [],
+    "references": [
+      "sharing",
+      "catalog"
+    ],
+    "status": "reviewed",
+    "gradable": true,
+    "hasImages": false,
+    "issues": [],
+    "reviewNote": "Original learning scenario. The editorial answer is supported by the linked documentation; this is not an official exam item.",
+    "difficulty": "Applied",
+    "timed": false
+  },
+  {
+    "id": "lab-136",
+    "number": 136,
+    "origin": "authored",
+    "domain": 5,
+    "objective": "5.3",
+    "lesson": "capacity",
+    "text": "Two reservations share one administration project, region and edition. The ETL reservation sits idle at night while the dashboard reservation is busy and allows idle slot sharing. What happens?",
+    "html": "Two reservations share one administration project, region and edition. The ETL reservation sits idle at night while the dashboard reservation is busy and allows idle slot sharing. What happens?",
+    "choices": [
+      {
+        "letter": "A",
+        "text": "The dashboard queries can use the idle ETL slots, and the ETL reservation reclaims them when it needs them.",
+        "html": "The dashboard queries can use the idle ETL slots, and the ETL reservation reclaims them when it needs them.",
+        "why": "By default queries can use idle slots from other reservations, and the owner reclaims them on demand."
+      },
+      {
+        "letter": "B",
+        "text": "The idle ETL slots are lost until the next day.",
+        "html": "The idle ETL slots are lost until the next day.",
+        "why": "Idle slots are not lost. They can be borrowed."
+      },
+      {
+        "letter": "C",
+        "text": "The dashboard queries fail until ETL starts.",
+        "html": "The dashboard queries fail until ETL starts.",
+        "why": "Queries do not fail because other slots are idle."
+      },
+      {
+        "letter": "D",
+        "text": "The ETL slots move permanently to the dashboard reservation.",
+        "html": "The ETL slots move permanently to the dashboard reservation.",
+        "why": "Borrowing is temporary and does not change reservation sizes."
+      }
+    ],
+    "answer": [
+      "A"
+    ],
+    "sourceAnswer": [],
+    "required": 1,
+    "explanation": "By default queries can use idle slots from other reservations, and the owner reclaims them on demand.",
+    "sourceExplanation": "",
+    "sources": [],
+    "references": [
+      "reservations",
+      "slots"
+    ],
+    "status": "reviewed",
+    "gradable": true,
+    "hasImages": false,
+    "issues": [],
+    "reviewNote": "Original learning scenario. The editorial answer is supported by the linked documentation; this is not an official exam item.",
+    "difficulty": "Applied",
+    "timed": false
+  },
+  {
+    "id": "lab-137",
+    "number": 137,
+    "origin": "authored",
+    "domain": 5,
+    "objective": "5.3",
+    "lesson": "capacity",
+    "text": "A team wants one project to use a specific BigQuery reservation. What connects the project to that reservation?",
+    "html": "A team wants one project to use a specific BigQuery reservation. What connects the project to that reservation?",
+    "choices": [
+      {
+        "letter": "A",
+        "text": "A budget alert.",
+        "html": "A budget alert.",
+        "why": "A budget alert reports spending and does not allocate slots."
+      },
+      {
+        "letter": "B",
+        "text": "An assignment of the project, folder or organization to the reservation.",
+        "html": "An assignment of the project, folder or organization to the reservation.",
+        "why": "Assignments attach resources to a reservation, so their jobs use its capacity."
+      },
+      {
+        "letter": "C",
+        "text": "A materialized view.",
+        "html": "A materialized view.",
+        "why": "A materialized view stores precomputed results and does not allocate capacity."
+      },
+      {
+        "letter": "D",
+        "text": "A row access policy.",
+        "html": "A row access policy.",
+        "why": "A row policy filters rows and does not allocate capacity."
+      }
+    ],
+    "answer": [
+      "B"
+    ],
+    "sourceAnswer": [],
+    "required": 1,
+    "explanation": "Assignments attach resources to a reservation, so their jobs use its capacity.",
+    "sourceExplanation": "",
+    "sources": [],
+    "references": [
+      "reservations",
+      "budget"
+    ],
+    "status": "reviewed",
+    "gradable": true,
+    "hasImages": false,
+    "issues": [],
+    "reviewNote": "Original learning scenario. The editorial answer is supported by the linked documentation; this is not an official exam item.",
+    "difficulty": "Applied",
+    "timed": false
   }
 ]
