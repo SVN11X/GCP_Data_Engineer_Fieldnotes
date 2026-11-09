@@ -1,0 +1,1574 @@
+{
+ "storage-choice": {
+  "title": {
+   "es": "Empieza por el patrón de acceso",
+   "src": "8ebeba0fef9e"
+  },
+  "lead": {
+   "es": "Elige el almacenamiento según las lecturas y escrituras que necesitas, no solo según el tamaño de los datos.",
+   "src": "7e0b2d749b71"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "BigQuery está pensado para grandes escaneos analíticos. Bigtable atiende accesos por clave con alto rendimiento (throughput). Cloud SQL ofrece motores relacionales administrados y Spanner admite transacciones distribuidas con consistencia fuerte. Cloud Storage guarda objetos. Una caché (cache) como Memorystore es una capa de servicio aparte.",
+   "src": "93d65c642dc5"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Pregunta si la aplicación necesita joins, lecturas de una fila, transacciones de varias filas, acceso a documentos o lecturas de objetos. Firestore sirve para aplicaciones basadas en documentos. AlloyDB está pensado para cargas relacionales compatibles con PostgreSQL.",
+   "src": "1a6934bc9795"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Las consultas de sensores necesitan milisegundos y el análisis diario necesita joins. Atiende el acceso por clave desde Bigtable y publica una copia en un almacén (warehouse) para los escaneos analíticos.",
+   "src": "0ab51b1439b5"
+  },
+  "sections.3.title": {
+   "es": "Haz seis preguntas antes de elegir",
+   "src": "2f0466b47206"
+  },
+  "sections.3.body": {
+   "es": "¿Cómo es una solicitud de lectura? ¿Qué escrituras deben ser atómicas juntas? ¿Cuántos datos se leen en cada solicitud? ¿Qué consistencia se necesita? ¿Qué disponibilidad y qué alcance de recuperación hacen falta? ¿Qué compatibilidad con un motor o una API se debe mantener? El volumen de datos por sí solo no responde a estas preguntas. Una solicitud de una fila y un escaneo de un terabyte pueden necesitar almacenes distintos sobre datos relacionados.",
+   "src": "e8161cfecf3c"
+  },
+  "sections.4.title": {
+   "es": "Separa el sistema de registro de la proyección de servicio",
+   "src": "bac762f1ef49"
+  },
+  "sections.4.body": {
+   "es": "Un almacén (warehouse) puede conservar el historial analítico mientras una base de datos por clave atiende las consultas de la aplicación con baja latencia. Una caché puede acelerar valores derivados sin reemplazar su fuente duradera. Cada copia adicional necesita un contrato de actualización, una expectativa de consistencia y un procedimiento de recuperación. Duplicar datos es una responsabilidad de diseño y no una optimización gratis.",
+   "src": "8fe1b9e62be0"
+  },
+  "sections.5.title": {
+   "es": "No generalices las etiquetas de las bases de datos",
+   "src": "ab6cd256a8c1"
+  },
+  "sections.5.body": {
+   "es": "NoSQL no significa que no haya transacciones, y SQL no significa que todos los patrones de consulta sean eficientes. Firestore admite un modelo de documentos y capacidades de transacción. Bigtable da prioridad al acceso por clave y Spanner resuelve las transacciones distribuidas. Revisa el alcance real de las transacciones y la interfaz de acceso en vez de decidir por el nombre de la categoría.",
+   "src": "a73d95c55dec"
+  },
+  "trap": {
+   "es": "Un almacén (warehouse) no es automáticamente la mejor base de datos transaccional para un punto de venta.",
+   "src": "0fb0b97c771b"
+  },
+  "exercise.prompt": {
+   "es": "Una solución necesita lecturas de entidades en milisegundos y joins analíticos diarios entre entidades. ¿Por qué pueden ser razonables dos almacenes?",
+   "src": "aa8a4db1dcc2"
+  },
+  "exercise.answer": {
+   "es": "Las rutas de acceso optimizan trabajos distintos. Una proyección de servicio por clave puede atender cada entidad y el almacén (warehouse) se encarga de los escaneos y los joins. Aun así, el diseño debe explicar cómo se propagan las actualizaciones, qué retraso aceptan los consumidores y cómo se reconstruye la proyección.",
+   "src": "67d0a7aab378"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Describe con detalle cómo son las lecturas y las escrituras.",
+   "src": "a709833aa743"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Nombra el límite transaccional.",
+   "src": "77e31c9774a4"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Distingue el estado duradero de una caché o una proyección.",
+   "src": "fd066dbf138b"
+  },
+  "briefing.context": {
+   "es": "Una aplicación necesita lecturas rápidas por clave y los analistas necesitan joins y agregaciones sobre el historial.",
+   "src": "928bad9cc2bc"
+  },
+  "briefing.whyItMatters": {
+   "es": "Un servicio de almacenamiento puede ser excelente para un patrón de acceso y no servir para el otro.",
+   "src": "7f21cd510353"
+  },
+  "briefing.takeaway": {
+   "es": "Empieza por el requisito crítico de lectura, escritura y consistencia.",
+   "src": "14c9a0e4378d"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Dos rutas sobre datos relacionados",
+   "src": "07a7307677c9"
+  },
+  "block.diagram.description": {
+   "es": "Las consultas de sensores se atienden desde Bigtable y una copia en un almacén (warehouse) atiende los escaneos analíticos.",
+   "src": "13b8a6f4b40a"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Consultas de sensores",
+   "src": "19f2776be756"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "piden milisegundos",
+   "src": "e6a67250369b"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Ruta por clave",
+   "src": "0d39378ff346"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "desde Bigtable",
+   "src": "1bdf4626a7ec"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Copia en almacén",
+   "src": "d11beea1e9cc"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "para escaneos",
+   "src": "4f6a52f09009"
+  },
+  "block.keyFact": {
+   "es": "El volumen de datos por sí solo no dice qué almacén elegir.",
+   "src": "31048857df5b"
+  },
+  "block.check.question": {
+   "es": "Las consultas de sensores necesitan milisegundos y el análisis diario necesita joins. ¿Qué encaja?",
+   "src": "db64d2f8ca8c"
+  },
+  "block.check.choices.0.text": {
+   "es": "Un solo almacén (warehouse) para todo, porque los datos son grandes",
+   "src": "a0c859ce2778"
+  },
+  "block.check.choices.0.why": {
+   "es": "El volumen de datos por sí solo no responde a estas preguntas.",
+   "src": "5e7a06308b15"
+  },
+  "block.check.choices.1.text": {
+   "es": "Atender la ruta por clave desde Bigtable y publicar una copia en un almacén (warehouse)",
+   "src": "9effb1d580c8"
+  },
+  "block.check.choices.1.why": {
+   "es": "La ruta por clave y los escaneos analíticos son necesidades distintas, así que cada una tiene su propio almacén.",
+   "src": "2c1a227afa1e"
+  },
+  "block.check.choices.2.text": {
+   "es": "Una caché como Memorystore como único almacén",
+   "src": "13dd5a732a35"
+  },
+  "block.check.choices.2.why": {
+   "es": "Una caché es una capa de servicio aparte y no reemplaza la fuente duradera.",
+   "src": "0c213f9871f7"
+  },
+  "verification.note": {
+   "es": "Se comprobaron Bigtable como NoSQL de columnas anchas, el modelo de documentos de Firestore, la consistencia fuerte de Spanner a gran escala, la compatibilidad de AlloyDB con PostgreSQL y Cloud SQL como base relacional administrada. No se comprobó el alcance de las transacciones de Spanner.",
+   "src": "d1bafe605ce1"
+  }
+ },
+ "lifecycle": {
+  "title": {
+   "es": "Trata la retención y el costo como controles separados",
+   "src": "604c94abb452"
+  },
+  "lead": {
+   "es": "El almacenamiento barato solo sirve si su comportamiento de acceso y de retención encaja.",
+   "src": "14f4d8bbc23b"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "Las clases de Cloud Storage cambian el costo de almacenar por condiciones de recuperación y de duración mínima. Las reglas de ciclo de vida (lifecycle) pueden cambiar la clase o borrar objetos que cumplen las condiciones. Una política de retención (retention policy) impide borrar hasta que se cumple la edad requerida. Bloquearla es una decisión administrativa con consecuencias.",
+   "src": "f2dd38d3f7b3"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Estima el patrón de acceso en vez de suponer que los datos antiguos nunca se leen. Distingue entre disponibilidad, ubicación geográfica, versionado y retención legal.",
+   "src": "96fdefa0a647"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Un archivo de auditoría casi no se lee y debe seguir inmutable durante años. Elige una clase de archivo adecuada y una política de retención, y luego prueba tu procedimiento de recuperación.",
+   "src": "49356df9447a"
+  },
+  "sections.3.title": {
+   "es": "Separa cuatro decisiones independientes",
+   "src": "fd7b1a8f8c58"
+  },
+  "sections.3.body": {
+   "es": "La geografía del bucket afecta el modelo de ubicación y de disponibilidad. La clase de almacenamiento afecta la economía del almacenamiento y de la recuperación. Las reglas de ciclo de vida automatizan acciones sobre los objetos que cumplen las condiciones. Los controles de retención impiden modificar o borrar antes de tiempo según la política configurada. Elegir una clase de archivo no hace que un objeto sea inmutable ni limita quién puede leerlo.",
+   "src": "27b998d42f66"
+  },
+  "sections.4.title": {
+   "es": "Modela el patrón de acceso real",
+   "src": "c1273dd6700e"
+  },
+  "sections.4.body": {
+   "es": "Estima con qué frecuencia se leen los datos, cuánto tiempo permanecen y cuántos se recuperan. Un costo muy bajo por byte guardado puede perderse por las condiciones de recuperación o de duración mínima. Usa los precios oficiales y las reglas de clase actuales al desplegar. Un escenario de estudio debe identificar las dimensiones de costo importantes y no memorizar una cifra en dólares permanente.",
+   "src": "814cb1d81a95"
+  },
+  "sections.5.title": {
+   "es": "Recuperar necesita más que guardar objetos antiguos",
+   "src": "437672f40581"
+  },
+  "sections.5.body": {
+   "es": "Una organización puede conservar muchas versiones y aun así no tener los permisos, los metadatos o el procedimiento documentado para restaurar el estado que quiere. Ensaya la recuperación y confirma los objetivos de tiempo y de pérdida de datos. Piensa en cómo se diferencian los borrados accidentales, las sobrescrituras y los fallos de región.",
+   "src": "8f2ec945d719"
+  },
+  "trap": {
+   "es": "Una regla de ciclo de vida que borra no anula un requisito de retención activo.",
+   "src": "687316403fb9"
+  },
+  "exercise.prompt": {
+   "es": "Alguien propone una clase de almacenamiento de archivo como la única forma de impedir el borrado durante siete años. ¿Qué falta?",
+   "src": "a2b500f44d36"
+  },
+  "exercise.answer": {
+   "es": "Una política de retención compatible y, si hace falta, un bloqueo o una protección de objetos deben hacer cumplir el periodo mínimo. IAM controla el acceso por separado. La clase de almacenamiento es una decisión económica y no reemplaza la retención obligatoria ni las pruebas de recuperación.",
+   "src": "002d80cae011"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Mantén separadas la geografía, la clase, el ciclo de vida y la retención.",
+   "src": "4d244f8de5d9"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Identifica los costos de recuperación y de borrado anticipado.",
+   "src": "637290676e86"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Define qué debe demostrar una restauración.",
+   "src": "5e2a31b8572e"
+  },
+  "briefing.context": {
+   "es": "Un archivo grande debe conservarse durante años, pero solo una parte pequeña se lee con regularidad.",
+   "src": "df93b5d7a2b3"
+  },
+  "briefing.whyItMatters": {
+   "es": "Los precios de almacenamiento, los costos de recuperación y la retención obligatoria pueden ir en direcciones distintas.",
+   "src": "4fbc3e5212c8"
+  },
+  "briefing.takeaway": {
+   "es": "Separa la optimización de costos de la regla que protege los datos obligatorios.",
+   "src": "be1f3213a71a"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Un archivo de auditoría inmutable",
+   "src": "a12286d0fc36"
+  },
+  "block.diagram.description": {
+   "es": "Un archivo de auditoría usa una clase de archivo y una política de retención, y se prueba el procedimiento de recuperación.",
+   "src": "42ad1ae99eaf"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Archivo de auditoría:",
+   "src": "c18c266a0e79"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "casi no se lee",
+   "src": "475cc732a4cb"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Clase de archivo y",
+   "src": "b9f7232534d9"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "política de retención",
+   "src": "3aa9bfcf86aa"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Prueba el proceso",
+   "src": "ba94c1deae11"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "de recuperación",
+   "src": "0487c249731a"
+  },
+  "block.keyFact": {
+   "es": "Elegir una clase de archivo no hace que un objeto sea inmutable.",
+   "src": "9e72da49e4e2"
+  },
+  "block.check.question": {
+   "es": "Un archivo de auditoría casi no se lee y debe seguir inmutable durante años. ¿Qué encaja?",
+   "src": "819264c14d26"
+  },
+  "block.check.choices.0.text": {
+   "es": "Solo una clase de archivo",
+   "src": "5434b5360336"
+  },
+  "block.check.choices.0.why": {
+   "es": "Una clase de archivo no hace que un objeto sea inmutable ni limita quién puede leerlo.",
+   "src": "3cb599208d8a"
+  },
+  "block.check.choices.1.text": {
+   "es": "Una regla de ciclo de vida que borra",
+   "src": "a1ae3ecaa0bd"
+  },
+  "block.check.choices.1.why": {
+   "es": "Una regla de ciclo de vida que borra no anula un requisito de retención activo.",
+   "src": "687316403fb9"
+  },
+  "block.check.choices.2.text": {
+   "es": "Una clase de archivo y una política de retención, y luego probar la recuperación",
+   "src": "24bea0714dd7"
+  },
+  "block.check.choices.2.why": {
+   "es": "La clase define la economía del almacenamiento y la política de retención impide borrar antes de la edad requerida.",
+   "src": "6e4280acf6f9"
+  },
+  "verification.note": {
+   "es": "Se comprobaron las duraciones mínimas de las clases y las tarifas de recuperación, que la retención bloqueada no se puede deshacer y que el borrado por ciclo de vida espera a que termine la retención. No se comprobaron que la clase de archivo no implica inmutabilidad ni los simulacros de recuperación.",
+   "src": "5e92e8da7515"
+  }
+ },
+ "database-requirements": {
+  "title": {
+   "es": "Elige una base de datos según la consulta y la transacción",
+   "src": "680ce063f0ce"
+  },
+  "lead": {
+   "es": "Empieza por los patrones de acceso, los límites de las transacciones, la compatibilidad del motor y los requisitos de recuperación.",
+   "src": "8a9519947c69"
+  },
+  "sections.0.title": {
+   "es": "Separa las lecturas analíticas de las operativas",
+   "src": "2a7132853d56"
+  },
+  "sections.0.body": {
+   "es": "BigQuery está diseñado para el trabajo analítico sobre muchos registros. Bigtable es una opción para accesos por clave con alto rendimiento (throughput) cuando el diseño de su clave de fila (row key) encaja con la carga. Ninguna de las dos etiquetas demuestra por sí sola la latencia que necesita una aplicación. Crea una carga de trabajo representativa antes de elegir.",
+   "src": "20cd445aa592"
+  },
+  "sections.1.title": {
+   "es": "Indica el requisito relacional",
+   "src": "6193ffde71f5"
+  },
+  "sections.1.body": {
+   "es": "Cloud SQL ofrece motores relacionales conocidos y administrados. AlloyDB es compatible con PostgreSQL. Spanner ofrece una base de datos relacional distribuida con consistencia fuerte. Compara las funciones compatibles, el alcance de las transacciones, la escala y los requisitos de ubicación, y no elijas solo por el tamaño de los datos.",
+   "src": "c61148a52467"
+  },
+  "sections.2.title": {
+   "es": "Usa varios almacenes con responsables claros",
+   "src": "1cfb18812524"
+  },
+  "sections.2.body": {
+   "es": "Escenario original: las transacciones de pago y el análisis histórico de ventas por hora necesitan rutas de acceso distintas. Mantén un sistema de transacciones como fuente oficial y publica datos analíticos validados. Documenta la frescura, la propagación de los borrados y la conciliación entre los sistemas, en vez de exigir que una sola base de datos atienda todas las consultas.",
+   "src": "7015673d1810"
+  },
+  "trap": {
+   "es": "Una tasa de aciertos de caché no es prueba de que se pueda recuperar la fuente duradera.",
+   "src": "0e2eae1fd31d"
+  },
+  "exercise.prompt": {
+   "es": "Un equipo elige BigQuery para el flujo de pago porque guarda un gran volumen. ¿Qué requisitos siguen sin definirse?",
+   "src": "341be07a76c1"
+  },
+  "exercise.answer": {
+   "es": "Mide la latencia de lectura puntual y de escritura, el comportamiento de las transacciones concurrentes, la consistencia, las restricciones compatibles y la recuperación. El volumen por sí solo no elige la base de datos de servicio.",
+   "src": "ddd88113d186"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Nombra la consulta crítica.",
+   "src": "28ca67b6b9a1"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Define los límites de la transacción y de la consistencia.",
+   "src": "353b4a60735d"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Prueba la recuperación y una carga realista.",
+   "src": "3016fa217987"
+  },
+  "briefing.context": {
+   "es": "Un equipo elige la base de datos del pago solo por el tamaño de su historial.",
+   "src": "94a851204309"
+  },
+  "briefing.whyItMatters": {
+   "es": "El volumen no define el contrato de transacciones y de latencia de un pago en vivo.",
+   "src": "f106f447d473"
+  },
+  "briefing.takeaway": {
+   "es": "Nombra la consulta y la transacción críticas antes de elegir la base de datos.",
+   "src": "13d7639c2557"
+  },
+  "review.scope": {
+   "es": "Las afirmaciones concretas sobre servicios de esta lección original se comprobaron con sus referencias primarias. El escenario es ilustrativo.",
+   "src": "9203ccf1a1ce"
+  },
+  "decision.useCase": {
+   "es": "Separa el manejo transaccional de los pedidos del reporte en el almacén (warehouse).",
+   "src": "43ec51cb02b5"
+  },
+  "decision.advantage": {
+   "es": "Los requisitos hacen que las comparaciones entre bases de datos sean concretas y se puedan probar.",
+   "src": "94a69247aba4"
+  },
+  "decision.limitation": {
+   "es": "La descripción general de un servicio no reemplaza la validación con la carga real.",
+   "src": "d3b9dfb8a775"
+  },
+  "block.diagram.title": {
+   "es": "Dos sistemas con responsables claros",
+   "src": "a059023de0fb"
+  },
+  "block.diagram.description": {
+   "es": "Un sistema de transacciones oficial publica datos analíticos validados, y se documentan la frescura y la conciliación.",
+   "src": "bfc071a70b63"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Sistema de",
+   "src": "19deed7b34b1"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "transacciones oficial",
+   "src": "1193d0d30fa3"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Datos analíticos",
+   "src": "eeab9cd4421b"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "validados",
+   "src": "78c7ac40b0dc"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Documenta frescura,",
+   "src": "5f656594aa9d"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "borrado y conciliación",
+   "src": "20c1959fab89"
+  },
+  "block.keyFact": {
+   "es": "Crea una carga de trabajo representativa antes de elegir.",
+   "src": "0b28e97cc367"
+  },
+  "block.check.question": {
+   "es": "Las transacciones de pago y el análisis de ventas por hora necesitan rutas de acceso distintas. ¿Qué mantienes?",
+   "src": "de114e9c6d90"
+  },
+  "block.check.choices.0.text": {
+   "es": "Un sistema de transacciones oficial y datos analíticos validados",
+   "src": "e671d1713b36"
+  },
+  "block.check.choices.0.why": {
+   "es": "Documenta la frescura, la propagación de los borrados y la conciliación entre los sistemas.",
+   "src": "1ef86b6275b6"
+  },
+  "block.check.choices.1.text": {
+   "es": "Una sola base de datos que atienda todas las consultas",
+   "src": "573fbbe011ad"
+  },
+  "block.check.choices.1.why": {
+   "es": "La lección aconseja no exigir que una sola base de datos atienda todas las consultas.",
+   "src": "9a53188ae8ad"
+  },
+  "block.check.choices.2.text": {
+   "es": "Un almacén elegido solo por el tamaño de los datos",
+   "src": "68bfc75c0bb6"
+  },
+  "block.check.choices.2.why": {
+   "es": "Compara las funciones compatibles, el alcance de las transacciones, la escala y la ubicación, y no elijas solo por el tamaño de los datos.",
+   "src": "895386a51542"
+  },
+  "verification.note": {
+   "es": "Se comprobaron los motores relacionales administrados de Cloud SQL, la compatibilidad de AlloyDB con PostgreSQL y la consistencia fuerte de Spanner a gran escala. No se comprobaron el ajuste de la clave de fila de Bigtable ni el patrón de dos almacenes con responsables claros.",
+   "src": "c4c04decd45f"
+  }
+ },
+ "warehouse-model": {
+  "title": {
+   "es": "Modela el almacén (warehouse) según sus consultas",
+   "src": "30914629ac9a"
+  },
+  "lead": {
+   "es": "Reduce el trabajo repetido sin perder el significado de un registro.",
+   "src": "910c43002600"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "Los campos anidados y repetidos pueden representar entidades analíticas relacionadas sin repetir joins. El particionado (partitioning) separa los datos en segmentos y la agrupación en clústeres (clustering) organiza los bloques dentro de una tabla o de una partición. Elegir solo las columnas necesarias también reduce el volumen de escaneo.",
+   "src": "12e504e6bfc6"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Haz que las particiones coincidan con los filtros de rango más comunes y el orden del clustering con los patrones de acceso selectivos. Conserva la identidad del evento y las claves de negocio. No copies la regla de normalización transaccional en cada modelo analítico.",
+   "src": "82fe3008a83c"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Los pedidos se consultan por fecha reciente y por cliente. Particiona por fecha del pedido, agrupa por ID de cliente y deja anidadas las líneas del pedido cuando eso coincida con el modelo del reporte.",
+   "src": "46d126a6be6f"
+  },
+  "sections.3.title": {
+   "es": "Modela la granularidad del negocio antes de optimizar",
+   "src": "094954e29faf"
+  },
+  "sections.3.body": {
+   "es": "Un importe a nivel de pedido no debe sumarse varias veces después de un join que convierte un pedido en muchas líneas. Define las claves y las cardinalidades, y luego elige un modelo que represente la granularidad (grain) del reporte. Los campos anidados y repetidos pueden conservar una relación padre e hijo sin necesitar el mismo join en cada consulta analítica.",
+   "src": "c622d8c02f16"
+  },
+  "sections.4.title": {
+   "es": "Usa filtros que el almacenamiento pueda aprovechar",
+   "src": "ce52a9860d54"
+  },
+  "sections.4.body": {
+   "es": "El particionado ayuda cuando una consulta puede descartar particiones con un predicado adecuado. El clustering puede saltar los bloques que no importan dentro de los datos restantes. El orden de las columnas importa en el clustering de varias columnas. Un filtro que parece selectivo sobre una expresión sin relación no prueba automáticamente que se descartaron las particiones o los bloques previstos. Revisa el plan real y los bytes procesados.",
+   "src": "ac350d191ede"
+  },
+  "sections.5.title": {
+   "es": "Mantén los cambios y el historial a la vista",
+   "src": "cfe1aa40c49b"
+  },
+  "sections.5.body": {
+   "es": "Una tabla de eventos solo de adición (append-only), una dimensión de estado actual y una dimensión histórica responden preguntas distintas. Decide si una actualización sobrescribe la verdad actual o crea una versión nueva. Usa una clave estable y una regla de orden determinista para eliminar duplicados. Elegir al azar entre actualizaciones empatadas puede hacer que una nueva ejecución dé un resultado distinto del anterior.",
+   "src": "78e8ea48675f"
+  },
+  "trap": {
+   "es": "En una tabla sin clustering (non-clustered), LIMIT no reduce por sí solo los bytes que se leen de todas las columnas a las que se hace referencia.",
+   "src": "ab1fb4b802c1"
+  },
+  "exercise.prompt": {
+   "es": "Un reporte filtra treinta días y un ID de cliente, pero aun así escanea mucho más de lo esperado. ¿Qué verificarías?",
+   "src": "dab796324679"
+  },
+  "exercise.answer": {
+   "es": "Revisa la columna de partición y el predicado reales, las columnas seleccionadas, la especificación del clustering y el plan de la consulta. Confirma que el reporte no multiplica filas con joins o con UNNEST. Compara los bytes procesados medidos con la misma entrada y los mismos filtros antes de afirmar que mejoró el diseño del almacenamiento.",
+   "src": "aeff0cbbf173"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Explica la granularidad del reporte.",
+   "src": "17f30a3f880f"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Escribe un predicado que apunte a la partición.",
+   "src": "928aa982188f"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Usa una regla determinista para las filas de estado actual.",
+   "src": "44202d67b106"
+  },
+  "briefing.context": {
+   "es": "Un reporte necesita totales de pedidos por fecha y cliente sin escanear una y otra vez datos que no hacen falta.",
+   "src": "be36a882a448"
+  },
+  "briefing.whyItMatters": {
+   "es": "Una mala granularidad o un mal diseño pueden hacer los resultados más lentos, más caros o incorrectos.",
+   "src": "906fd7aa043d"
+  },
+  "briefing.takeaway": {
+   "es": "Elige la granularidad del negocio y luego un diseño que encaje con las consultas.",
+   "src": "970e4ee95d16"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Un diseño para pedidos recientes por cliente",
+   "src": "865d18b88da9"
+  },
+  "block.diagram.description": {
+   "es": "Los pedidos se particionan por fecha del pedido, se agrupan por ID de cliente y mantienen las líneas anidadas.",
+   "src": "d8d78890c0ce"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Particiona por",
+   "src": "c487f43b0f6e"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "fecha del pedido",
+   "src": "ad8704d65c70"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Agrupa por",
+   "src": "5393acbcbdd6"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "ID de cliente",
+   "src": "be66b4059cf4"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Deja las líneas",
+   "src": "1376fa3db068"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "anidadas",
+   "src": "233562de1a02"
+  },
+  "block.keyFact": {
+   "es": "En una tabla sin clustering (non-clustered), LIMIT no reduce por sí solo los bytes que se leen de todas las columnas a las que se hace referencia.",
+   "src": "ab1fb4b802c1"
+  },
+  "block.check.question": {
+   "es": "Los pedidos se consultan por fecha reciente y por cliente. ¿Qué diseño encaja?",
+   "src": "9e9d17477209"
+  },
+  "block.check.choices.0.text": {
+   "es": "Copiar la normalización transaccional en cada modelo",
+   "src": "bd10e27920e8"
+  },
+  "block.check.choices.0.why": {
+   "es": "No copies la regla de normalización transaccional en cada modelo analítico.",
+   "src": "52e40b56cfdc"
+  },
+  "block.check.choices.1.text": {
+   "es": "Añadir LIMIT para reducir los bytes leídos",
+   "src": "879a378be9a9"
+  },
+  "block.check.choices.1.why": {
+   "es": "En una tabla sin clustering (non-clustered), LIMIT no reduce por sí solo los bytes que se leen de todas las columnas a las que se hace referencia.",
+   "src": "ab1fb4b802c1"
+  },
+  "block.check.choices.2.text": {
+   "es": "Particionar por fecha del pedido, agrupar por ID de cliente y anidar las líneas",
+   "src": "c84ed81193fb"
+  },
+  "block.check.choices.2.why": {
+   "es": "Esto coincide con el filtro de rango común, el patrón de acceso selectivo y el modelo del reporte.",
+   "src": "6661b8a3d0bd"
+  },
+  "verification.note": {
+   "es": "Se confirmaron el descarte de particiones, el orden de las columnas del clustering y ARRAY de STRUCT. Se corrigió la afirmación sobre LIMIT: puede reducir los bytes escaneados en tablas con clustering, por eso ahora el texto dice sin clustering (non-clustered). No se comprobó la deduplicación con MERGE.",
+   "src": "4f1baaa96899"
+  }
+ },
+ "sql-grain": {
+  "title": {
+   "es": "Lee el SQL con la granularidad de la pregunta de negocio",
+   "src": "c70300d350f4"
+  },
+  "lead": {
+   "es": "Los joins, los arrays y las funciones analíticas pueden cambiar lo que significa una fila.",
+   "src": "76def50b4d27"
+  },
+  "sections.0.title": {
+   "es": "Sigue la cardinalidad a lo largo de la consulta",
+   "src": "7a6c362fdb06"
+  },
+  "sections.0.body": {
+   "es": "Un join de uno a muchos repite los campos de la fila padre. Si sumas el total del padre después de esa expansión, puedes multiplicar los ingresos. Agrega antes a una granularidad compatible (pre-aggregate) o elige una representación que conserve la relación. COUNT(DISTINCT parent_id) puede arreglar un conteo, pero no arregla automáticamente todas las sumas de la misma consulta.",
+   "src": "fe1cbdacdea0"
+  },
+  "sections.1.title": {
+   "es": "Usa las funciones analíticas con un propósito claro",
+   "src": "1e8145e94f10"
+  },
+  "sections.1.body": {
+   "es": "ROW_NUMBER puede elegir una observación por clave de negocio si lo combinas con una regla de orden determinista. Un total acumulado usa una partición, un orden y un marco (frame) cuyo significado debe ser explícito. QUALIFY filtra los resultados analíticos y WHERE filtra la relación de filas anterior. Ninguna de estas construcciones elige por ti la clave de negocio correcta.",
+   "src": "fdb7cdccf2cd"
+  },
+  "sections.2.title": {
+   "es": "Maneja los valores desconocidos y las relaciones vacías",
+   "src": "dcf401baec1f"
+  },
+  "sections.2.body": {
+   "es": "NULL no siempre es cero. Puede significar que no está disponible, que no aplica o que no se observó. Un filtro WHERE sobre una columna del lado derecho que admite NULL, después de un LEFT JOIN, puede quitar las filas sin coincidencia. Cuando expandas arrays, verifica cómo afectan los arrays vacíos a la población y a la agregación que esperas. Prueba estos casos con datos de ejemplo muy pequeños y explícitos.",
+   "src": "da766b776899"
+  },
+  "trap": {
+   "es": "SUM(DISTINCT amount) no es una solución general para las filas padre duplicadas.",
+   "src": "849c474a725d"
+  },
+  "exercise.prompt": {
+   "es": "Dos pedidos suman 100 y 80. El primero tiene dos artículos y el segundo uno. ¿Qué devuelve SUM(order_total) después del join con los artículos?",
+   "src": "19eb0b310bd7"
+  },
+  "exercise.answer": {
+   "es": "Las filas del join contienen 100, 100 y 80, y dan 280 en vez del total esperado de 180 a nivel de pedido. Corrige la granularidad o agrega antes. No uses DISTINCT sobre el importe, porque en general no es seguro.",
+   "src": "d79dc78dfaf6"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Predice cómo se multiplican las filas.",
+   "src": "a5ff733f8a40"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Explica un orden determinista de la ventana.",
+   "src": "086dcb2e84d5"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Conserva a propósito los valores faltantes y los registros sin coincidencia.",
+   "src": "aa3b53b52aa0"
+  },
+  "briefing.context": {
+   "es": "Un pedido tiene varias líneas. Un join puede repetir el importe del pedido en cada línea.",
+   "src": "c82f60a2c987"
+  },
+  "briefing.whyItMatters": {
+   "es": "Una consulta SQL correcta en la sintaxis puede multiplicar los ingresos y aun así parecer creíble.",
+   "src": "ab82f3bf3a55"
+  },
+  "briefing.takeaway": {
+   "es": "Indica qué representa una fila antes de hacer joins y sumas.",
+   "src": "a3005430b0b6"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Un join que repite un importe del padre",
+   "src": "090c9da3cbff"
+  },
+  "block.diagram.description": {
+   "es": "Un join de uno a muchos repite el pedido padre, así que sumar su total después puede multiplicar los ingresos.",
+   "src": "6a026400b673"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Una fila de pedido",
+   "src": "dcab4b12a745"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "con un total",
+   "src": "f71b49ac65db"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Join con muchas",
+   "src": "5fa37bca3013"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "filas de líneas",
+   "src": "ebb20d564f3d"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "El total del padre",
+   "src": "fa2e8faf1139"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "se repite",
+   "src": "144d46efdac6"
+  },
+  "block.keyFact": {
+   "es": "Agrega antes a una granularidad compatible o elige una representación que conserve la relación.",
+   "src": "af6a29e61d60"
+  },
+  "block.check.question": {
+   "es": "Un join de uno a muchos repite el importe de un pedido padre y luego se suma. ¿Cuál es el riesgo?",
+   "src": "eb2ba911f688"
+  },
+  "block.check.choices.0.text": {
+   "es": "Se pueden multiplicar los ingresos",
+   "src": "1532f6bffe75"
+  },
+  "block.check.choices.0.why": {
+   "es": "Un join de uno a muchos repite los campos de la fila padre.",
+   "src": "2e7fcd3c6880"
+  },
+  "block.check.choices.1.text": {
+   "es": "SUM(DISTINCT amount) es una solución general",
+   "src": "1a3044060355"
+  },
+  "block.check.choices.1.why": {
+   "es": "SUM(DISTINCT amount) no es una solución general para las filas padre duplicadas.",
+   "src": "849c474a725d"
+  },
+  "block.check.choices.2.text": {
+   "es": "COUNT(DISTINCT parent_id) arregla todas las sumas",
+   "src": "68dff7b5097c"
+  },
+  "block.check.choices.2.why": {
+   "es": "Puede arreglar un conteo, pero no arregla automáticamente todas las sumas de la misma consulta.",
+   "src": "ac0430a0b75e"
+  },
+  "verification.note": {
+   "es": "Se comprobaron que QUALIFY filtra los resultados de las ventanas después de WHERE, que WHERE descarta los resultados NULL, que INNER JOIN o CROSS JOIN con UNNEST descartan las filas con arrays vacíos y que LEFT JOIN las conserva. No se comprobaron la multiplicación de filas en las sumas ni el orden de los empates.",
+   "src": "b2aab247c383"
+  }
+ },
+ "lake": {
+  "title": {
+   "es": "Haz que el lago sea útil, no solo grande",
+   "src": "93894564a77c"
+  },
+  "lead": {
+   "es": "Los archivos sin procesar necesitan esquema, metadatos, reglas de acceso y controles de calidad.",
+   "src": "c4ae442c1831"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "Un lago de datos (lake) guarda objetos duraderos que distintos motores pueden procesar. Los formatos en columnas pueden reducir el trabajo de las lecturas analíticas. BigLake puede dar acceso gobernado a datos externos compatibles y un catálogo hace que los activos se puedan descubrir.",
+   "src": "ea97a2997654"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Separa las etapas de llegada (landing), validada y curada con contratos explícitos. Vigila las particiones desactualizadas y los fallos de descubrimiento. Comprueba qué formatos y ubicaciones son compatibles antes de elegir la ruta de consulta.",
+   "src": "6138acb96f48"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Un equipo necesita objetos de ventas curados y reutilizables. Publica su esquema, su responsable y su objetivo de frescura, y luego valida las particiones que llegan en vez de tratar como confiable cada objeto subido.",
+   "src": "3e7f1739b2ea"
+  },
+  "sections.3.title": {
+   "es": "Organiza las etapas según su contrato",
+   "src": "50ed17d65710"
+  },
+  "sections.3.body": {
+   "es": "Una zona de llegada sin procesar conserva la evidencia tal como se recibió. Una capa validada exige un esquema interpretable y una calidad básica. Un producto curado ofrece un significado listo para el negocio. El número de carpetas no es lo importante. Cada paso de una etapa a la siguiente debe decir qué validación se hizo y si un consumidor puede usar el resultado con seguridad.",
+   "src": "88d740dfb748"
+  },
+  "sections.4.title": {
+   "es": "Elige con cuidado cómo delegar el acceso",
+   "src": "c6bef3faf983"
+  },
+  "sections.4.body": {
+   "es": "Una tabla BigLake puede usar la identidad de una conexión para llegar al almacenamiento externo compatible, mientras los lectores reciben acceso a la tabla. Esto es distinto de dar a cada analista permisos directos sobre los objetos. Los formatos, las ubicaciones, el comportamiento del conector y las funciones de seguridad compatibles deben encajar con la fuente elegida. Una tabla externa normal y un diseño gobernado de acceso delegado no son etiquetas intercambiables.",
+   "src": "b6b86173f6ae"
+  },
+  "sections.5.title": {
+   "es": "Vigila el descubrimiento y la frescura por separado",
+   "src": "f3098ed600e7"
+  },
+  "sections.5.body": {
+   "es": "El descubrimiento de metadatos describe lo que existe. Una comprobación de frescura pregunta si los datos esperados llegaron a tiempo. Un escaneo de descubrimiento exitoso puede convivir con una partición diaria incompleta. Vigila el contrato de entrada y el resultado de la calidad de los datos, y no solo si el servicio de catálogo está funcionando.",
+   "src": "e948b28d0655"
+  },
+  "trap": {
+   "es": "Un catálogo organiza los metadatos. No limpia automáticamente todos los archivos que descubre.",
+   "src": "776855f77b03"
+  },
+  "exercise.prompt": {
+   "es": "Los archivos nuevos se pueden descubrir en el catálogo, pero el reporte de ayer está incompleto. ¿Qué contrato debes examinar?",
+   "src": "137f0e5900d7"
+  },
+  "exercise.answer": {
+   "es": "Revisa las llegadas esperadas, que las particiones estén completas, la calidad de las transformaciones y la frescura del reporte. El descubrimiento funcionó como operación de metadatos. No demostró que estuvieran todos los registros de negocio ni todas las particiones programadas.",
+   "src": "ce139dcb6dfc"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Explica qué garantiza cada etapa del lago.",
+   "src": "02880c1b2807"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Distingue el acceso delegado a la tabla del acceso directo a los objetos.",
+   "src": "dcb0d1ab9e84"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Separa el éxito del descubrimiento de la frescura.",
+   "src": "ea62f24a9006"
+  },
+  "briefing.context": {
+   "es": "Los archivos se acumulan en un bucket, pero nadie sabe qué significan ni si son confiables.",
+   "src": "5a42c713e6d9"
+  },
+  "briefing.whyItMatters": {
+   "es": "Una colección grande de archivos es difícil de reutilizar sin responsable, esquema y evidencia de calidad.",
+   "src": "d2e7f99d902b"
+  },
+  "briefing.takeaway": {
+   "es": "Haz que el lago se pueda descubrir, esté gobernado y sea comprensible para quienes lo leen.",
+   "src": "69178c1d1029"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Etapas de un lago",
+   "src": "a966fec54ec6"
+  },
+  "block.diagram.description": {
+   "es": "Una zona de llegada sin procesar, una capa validada y un producto curado tienen cada uno su propio contrato.",
+   "src": "072bd4f1ba6e"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Llegada sin procesar:",
+   "src": "ed812dfb3423"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "evidencia recibida",
+   "src": "98d83088e401"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Validada:",
+   "src": "c68f9a606b0f"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "esquema y calidad",
+   "src": "fec80315dc4d"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Curada:",
+   "src": "2a981740f3a3"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "lista para el negocio",
+   "src": "d4f25430dd2c"
+  },
+  "block.keyFact": {
+   "es": "Un catálogo organiza los metadatos. No limpia automáticamente todos los archivos que descubre.",
+   "src": "f0af9d74557d"
+  },
+  "block.check.question": {
+   "es": "Un equipo necesita objetos de ventas curados y reutilizables. ¿Qué haces?",
+   "src": "abfb4a48377f"
+  },
+  "block.check.choices.0.text": {
+   "es": "Tratar como confiable cada objeto subido",
+   "src": "c81c8ccdbb6a"
+  },
+  "block.check.choices.0.why": {
+   "es": "Valida las particiones que llegan en vez de confiar en cada objeto subido.",
+   "src": "c761a3aaa72c"
+  },
+  "block.check.choices.1.text": {
+   "es": "Publicar el esquema, el responsable y el objetivo de frescura, y luego validar las particiones",
+   "src": "53f07977a50e"
+  },
+  "block.check.choices.1.why": {
+   "es": "Cada paso de una etapa a otra debe decir qué validación se hizo.",
+   "src": "14f2cc6c5f4b"
+  },
+  "block.check.choices.2.text": {
+   "es": "Confiar en que el catálogo limpie los archivos",
+   "src": "c9109564a8a6"
+  },
+  "block.check.choices.2.why": {
+   "es": "Un catálogo organiza los metadatos y no limpia los archivos automáticamente.",
+   "src": "36100f131c36"
+  },
+  "verification.note": {
+   "es": "Se comprobaron la delegación de BigLake mediante la cuenta de servicio de una conexión, los formatos compatibles y los escaneos de descubrimiento que registran tablas BigLake en el catálogo. No se comprobaron las combinaciones de ubicaciones ni el consejo de vigilar la frescura.",
+   "src": "29eec9c97574"
+  }
+ },
+ "biglake-access": {
+  "title": {
+   "es": "Compara el acceso al lago con el acceso al almacén (warehouse)",
+   "src": "5ed685224161"
+  },
+  "lead": {
+   "es": "Elige dónde se quedan los datos y qué identidad los lee.",
+   "src": "42f10dcda179"
+  },
+  "sections.0.title": {
+   "es": "El almacenamiento nativo y el externo implican trabajo distinto",
+   "src": "412d275ab3f5"
+  },
+  "sections.0.body": {
+   "es": "Una tabla nativa del almacén (warehouse) guarda los datos en el servicio del almacén. Una tabla externa consulta una representación externa compatible. El movimiento de datos, el uso de caché, el formato, la ubicación y las necesidades de rendimiento influyen en la elección. Dejar los archivos fuera no es automáticamente más rápido ni más barato para todas las cargas analíticas que se repiten con frecuencia.",
+   "src": "5e52ebb86c16"
+  },
+  "sections.1.title": {
+   "es": "Explica el acceso delegado",
+   "src": "f74e8e93a2bc"
+  },
+  "sections.1.body": {
+   "es": "Una conexión BigLake puede usar una identidad de servicio para leer el almacenamiento compatible, mientras la autorización de los consumidores se administra en la capa de la tabla. Así se puede evitar el acceso directo y amplio a los objetos para cada analista. La conexión y la política que se usan siguen necesitando permisos explícitos y ubicaciones compatibles.",
+   "src": "a14e719e17a0"
+  },
+  "sections.2.title": {
+   "es": "Entiende los metadatos y la frescura",
+   "src": "1b53cccde8e9"
+  },
+  "sections.2.body": {
+   "es": "La caché de metadatos de archivos (file metadata caching) puede mejorar algunas cargas de consultas externas, pero los metadatos en caché tienen su propio comportamiento de actualización y de funciones compatibles. Un cambio reciente en la organización de los objetos puede no verse enseguida en una vista en caché de los archivos. Elige un contrato de frescura y revisa las limitaciones actuales de la función.",
+   "src": "89d34cce907e"
+  },
+  "trap": {
+   "es": "La definición de una tabla externa no demuestra que todos los lectores tengan el acceso gobernado que necesitan.",
+   "src": "c18eb62f620e"
+  },
+  "exercise.prompt": {
+   "es": "Los analistas deben consultar archivos externos sin recibir acceso directo al bucket. ¿Qué capacidad debes evaluar?",
+   "src": "8760d54b68a1"
+  },
+  "exercise.answer": {
+   "es": "Evalúa una configuración compatible de acceso delegado con BigLake, con una identidad de conexión y controles a nivel de tabla. Verifica los permisos, el formato y la ubicación. No des simplemente a cada analista acceso de visor de objetos para llamarlo delegación.",
+   "src": "a9e49381e31c"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Compara las rutas de acceso nativa y externa.",
+   "src": "6a4f2f795370"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Nombra la identidad que lee los objetos externos.",
+   "src": "8d399d2381e4"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Explica cómo afecta a una consulta la frescura de los metadatos.",
+   "src": "b12bab980467"
+  },
+  "briefing.context": {
+   "es": "Los analistas necesitan consultar datos que ya están en un almacén de objetos sin recibir acceso directo a cada archivo.",
+   "src": "b0b330a50f35"
+  },
+  "briefing.whyItMatters": {
+   "es": "El límite de la tabla solo sirve si la ruta de acceso elegida hace cumplir de verdad su política.",
+   "src": "3bbff8cc363c"
+  },
+  "briefing.takeaway": {
+   "es": "Sigue por separado al lector, la identidad de la conexión y el almacenamiento de fondo.",
+   "src": "78b240dc4ed8"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Acceso delegado al almacenamiento externo",
+   "src": "c62917ea5f11"
+  },
+  "block.diagram.description": {
+   "es": "Los analistas leen una tabla BigLake mientras una identidad de servicio de la conexión lee el almacenamiento compatible.",
+   "src": "9c7ff343ae38"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "El analista lee",
+   "src": "6a931a48bfad"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "la tabla",
+   "src": "fa8e3fd97bea"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "La conexión BigLake",
+   "src": "e7448655ba90"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "usa una identidad",
+   "src": "7b577f7be28f"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Almacenamiento",
+   "src": "c165800065d1"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "externo compatible",
+   "src": "e043fb3feea3"
+  },
+  "block.keyFact": {
+   "es": "La definición de una tabla externa no demuestra que todos los lectores tengan el acceso gobernado que necesitan.",
+   "src": "c18eb62f620e"
+  },
+  "block.check.question": {
+   "es": "¿Cómo pueden los analistas leer almacenamiento externo compatible sin acceso directo y amplio a los objetos?",
+   "src": "c5475b758fbc"
+  },
+  "block.check.choices.0.text": {
+   "es": "Dando a cada analista permisos directos sobre los objetos",
+   "src": "153a3f88c19d"
+  },
+  "block.check.choices.0.why": {
+   "es": "El acceso delegado puede evitar el acceso directo y amplio a los objetos para cada analista.",
+   "src": "8abd2ef7c0ac"
+  },
+  "block.check.choices.1.text": {
+   "es": "Dejando los archivos fuera porque siempre es más rápido",
+   "src": "79a74c097439"
+  },
+  "block.check.choices.1.why": {
+   "es": "Dejar los archivos fuera no es automáticamente más rápido ni más barato para todas las cargas repetidas.",
+   "src": "7a02548ad585"
+  },
+  "block.check.choices.2.text": {
+   "es": "Con una conexión BigLake y el acceso administrado en la capa de la tabla",
+   "src": "d253e731afb6"
+  },
+  "block.check.choices.2.why": {
+   "es": "La conexión lee el almacenamiento y la autorización de los consumidores se administra en la capa de la tabla.",
+   "src": "a666070b09e0"
+  },
+  "verification.note": {
+   "es": "Se comprobaron que las tablas externas necesitan permisos en la tabla y en la fuente, que BigLake delega el acceso, que la caché puede estar desactualizada entre 30 minutos y 7 días con actualización automática o manual y que cargar los datos es más rápido que leerlos de forma externa. No se comprobaron las políticas de columnas.",
+   "src": "f8d9fcafea64"
+  }
+ },
+ "iceberg-contracts": {
+  "title": {
+   "es": "Distingue el acceso externo de BigLake de Iceberg administrado",
+   "src": "5d401ceed40e"
+  },
+  "lead": {
+   "es": "Identifica quién es dueño de los archivos, quién modifica la tabla y qué ruta de acceso hace cumplir la política.",
+   "src": "ea651540d7b0"
+  },
+  "sections.0.title": {
+   "es": "Lee el tipo de tabla",
+   "src": "a4c2870c18b5"
+  },
+  "sections.0.body": {
+   "es": "Las tablas externas de BigLake delegan el acceso compatible al almacén de objetos mediante una conexión. Se puede dar acceso a la tabla a los usuarios sin darles acceso directo a los objetos de fondo. Esas tablas externas son de solo lectura en BigQuery. No generalices esa limitación a todos los productos que tengan BigLake o Iceberg en el nombre.",
+   "src": "1069a9acc128"
+  },
+  "sections.1.title": {
+   "es": "Compara el formato administrado",
+   "src": "4ab3fbe538f3"
+  },
+  "sections.1.body": {
+   "es": "Las tablas administradas de Apache Iceberg en BigQuery guardan los datos en buckets de Cloud Storage que son del cliente y admiten las modificaciones de tabla que indica la documentación. BigQuery administra la optimización del almacenamiento y exporta metadatos de Iceberg para la interoperabilidad. Revisa la lista actual de funciones y limitaciones del tipo exacto de tabla.",
+   "src": "ba3da7701a80"
+  },
+  "sections.2.title": {
+   "es": "Aplica la distinción",
+   "src": "474690e84d95"
+  },
+  "sections.2.body": {
+   "es": "Escenario original: un equipo quiere acceso de lectura gobernado sobre archivos Parquet que ya existen. Compara una tabla externa de BigLake con cargar una tabla nativa. Otro equipo necesita que BigQuery administre las modificaciones de una tabla en formato abierto dentro de su propio bucket. Evalúa Iceberg administrado y prueba las rutas de acceso que admite.",
+   "src": "68bd45806e76"
+  },
+  "trap": {
+   "es": "Las palabras formato abierto no implican que cualquier motor externo pueda escribir con seguridad en la misma tabla administrada.",
+   "src": "fb11fa2e3b60"
+  },
+  "exercise.prompt": {
+   "es": "Un diseño dice que todas las tablas BigLake rechazan DML. ¿Qué precisión falta y debes pedir?",
+   "src": "8ced6daf0153"
+  },
+  "exercise.answer": {
+   "es": "Pide el tipo exacto de tabla. Las tablas de objetos externas de BigLake y las tablas administradas de Apache Iceberg tienen contratos de escritura distintos. Confirma la ruta de modificación que indica la documentación.",
+   "src": "212199921a88"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Identifica el tipo de tabla.",
+   "src": "cd23feadd892"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Separa la propiedad de los archivos de la administración de la tabla.",
+   "src": "d558af976417"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Verifica la ruta que hace cumplir la política.",
+   "src": "0bf5f9d9222b"
+  },
+  "briefing.context": {
+   "es": "Un diseño dice que su tabla del lago se puede consultar y modificar, pero solo nombra BigLake.",
+   "src": "276dd4a9d5f9"
+  },
+  "briefing.whyItMatters": {
+   "es": "El acceso externo y las tablas Iceberg administradas tienen contratos de modificación distintos.",
+   "src": "e976b4e3f785"
+  },
+  "briefing.takeaway": {
+   "es": "Pide el tipo exacto de tabla y las rutas de lectura y escritura que admite.",
+   "src": "4b727c1e7469"
+  },
+  "review.scope": {
+   "es": "Las afirmaciones concretas sobre servicios de esta lección original se comprobaron con sus referencias primarias. El escenario es ilustrativo.",
+   "src": "9203ccf1a1ce"
+  },
+  "decision.useCase": {
+   "es": "Elige un modelo de acceso para un lakehouse con responsables claros de la lectura y de la escritura.",
+   "src": "4711deed7e20"
+  },
+  "decision.advantage": {
+   "es": "El acceso delegado a la tabla puede evitar dar a los consumidores acceso directo a los objetos.",
+   "src": "6dacfde327dd"
+  },
+  "decision.limitation": {
+   "es": "Las capacidades de las tablas externas y de las tablas administradas se deben evaluar por separado.",
+   "src": "7a700ebca6df"
+  },
+  "block.diagram.title": {
+   "es": "Dos tipos de tabla, dos contratos",
+   "src": "cacfe119b1ce"
+  },
+  "block.diagram.description": {
+   "es": "Una tabla externa de BigLake es de solo lectura en BigQuery, mientras que una tabla Iceberg administrada admite las modificaciones que indica la documentación.",
+   "src": "9a6c2cebcbcd"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Tabla en formato abierto",
+   "src": "7edae584e346"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "BigLake externa",
+   "src": "ddcb08cef091"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "solo lectura",
+   "src": "4fed3970dcc0"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Iceberg administrada",
+   "src": "abc81ed1a332"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "con modificaciones",
+   "src": "8e7d0a25009b"
+  },
+  "block.keyFact": {
+   "es": "No generalices el solo lectura a todos los productos con BigLake o Iceberg en el nombre.",
+   "src": "f0a8da6bf863"
+  },
+  "block.check.question": {
+   "es": "Un equipo quiere que BigQuery administre las modificaciones de una tabla en formato abierto dentro de su propio bucket. ¿Qué evalúas?",
+   "src": "5d20c40e6a4a"
+  },
+  "block.check.choices.0.text": {
+   "es": "Iceberg administrado, probando las rutas de acceso que admite",
+   "src": "94e77ad8a505"
+  },
+  "block.check.choices.0.why": {
+   "es": "Las tablas Iceberg administradas guardan los datos en buckets del cliente y admiten las modificaciones que indica la documentación.",
+   "src": "aa578766cd26"
+  },
+  "block.check.choices.1.text": {
+   "es": "Una tabla externa de BigLake",
+   "src": "2d87a47b1205"
+  },
+  "block.check.choices.1.why": {
+   "es": "Esas tablas externas son de solo lectura en BigQuery.",
+   "src": "5cfdcf25b051"
+  },
+  "block.check.choices.2.text": {
+   "es": "Cualquier tabla en formato abierto, porque los motores externos pueden escribir en ella",
+   "src": "c153f465fbff"
+  },
+  "block.check.choices.2.why": {
+   "es": "El formato abierto no implica que cualquier motor externo pueda escribir con seguridad en la misma tabla administrada.",
+   "src": "218ceea39cf3"
+  },
+  "verification.note": {
+   "es": "Se comprobaron que las tablas BigLake son de solo lectura, que las tablas administradas de Iceberg usan tu bucket con DML, optimización automática del almacenamiento y exportación de metadatos de Iceberg V2. No se comprobó la seguridad de escritura de los motores externos.",
+   "src": "2a96e34ce5a8"
+  }
+ },
+ "lake-file-layout": {
+  "title": {
+   "es": "Diseña los archivos del lago para quienes los leen",
+   "src": "ac33cf1bc92f"
+  },
+  "lead": {
+   "es": "Un lago útil necesita conjuntos de datos que se puedan descubrir, una organización de objetos pensada y un contrato de ciclo de vida.",
+   "src": "3d329cff7429"
+  },
+  "sections.0.title": {
+   "es": "Ajusta la organización a las consultas",
+   "src": "d92aa4f7c356"
+  },
+  "sections.0.body": {
+   "es": "Los formatos en columnas, como Parquet, pueden ser útiles para los escaneos analíticos. Organiza los archivos según las dimensiones de filtro más comunes y prueba la distribución de tamaños con el lector que vas a usar. Los archivos diminutos pueden añadir una sobrecarga por objeto. Un solo archivo muy grande puede limitar el paralelismo, según su formato y el lector. Son hipótesis de diseño que debes medir y no umbrales de tamaño universales.",
+   "src": "dcfe4bc72072"
+  },
+  "sections.1.title": {
+   "es": "Separa la retención del costo de recuperación",
+   "src": "51c84dd41214"
+  },
+  "sections.1.body": {
+   "es": "Las clases de Cloud Storage se diferencian en la economía del almacenamiento y del acceso. Las reglas de ciclo de vida automatizan acciones sobre los objetos que cumplen las condiciones y los controles de retención protegen los datos obligatorios. Una tarifa de almacenamiento baja no basta para saber el costo de un acceso frecuente o de un borrado anticipado.",
+   "src": "fb08a281422d"
+  },
+  "sections.2.title": {
+   "es": "Haz visible quién es responsable",
+   "src": "a809ba98143c"
+  },
+  "sections.2.body": {
+   "es": "Escenario original: una fuente diaria sin procesar se convierte en un producto de datos mensual curado. Deja a la vista el contrato de reproducción (replay) de los datos sin procesar, el esquema curado, los resultados de validación y el responsable. Publicar metadatos no da acceso a los datos y no puede demostrar que los registros estén completos.",
+   "src": "f4710deefc7f"
+  },
+  "trap": {
+   "es": "No borres los datos de reproducción sin procesar solo porque exista una tabla curada.",
+   "src": "279fe8e34afd"
+  },
+  "exercise.prompt": {
+   "es": "Un lago es difícil de consultar después de acumular millones de archivos diarios diminutos. ¿Debe el equipo cambiar primero la clase de almacenamiento?",
+   "src": "8e930b663ff4"
+  },
+  "exercise.answer": {
+   "es": "Primero mide la sobrecarga de listar y escanear, el paralelismo del lector y la organización de los archivos. Considera una compactación controlada y una actualización del catálogo, y conserva las obligaciones de reproducción y retención. La clase de almacenamiento afecta otra dimensión del costo.",
+   "src": "55c0cc237299"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Mide con el lector que vas a usar.",
+   "src": "e9af805f3bbc"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Separa el ciclo de vida de la retención legal.",
+   "src": "c5f528b3f347"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Conserva la evidencia de quién es responsable y de la calidad.",
+   "src": "03e00c2dd43a"
+  },
+  "briefing.context": {
+   "es": "Una consulta pierde demasiado tiempo abriendo millones de archivos diminutos del lago.",
+   "src": "3cbb8e8f290f"
+  },
+  "briefing.whyItMatters": {
+   "es": "Una clase de almacenamiento más barata no arregla automáticamente la sobrecarga del lector ni la organización de los archivos.",
+   "src": "4de90d2872d7"
+  },
+  "briefing.takeaway": {
+   "es": "Mide con el lector y conserva la reproducción y la retención cuando cambies la organización.",
+   "src": "4ee575f35196"
+  },
+  "review.scope": {
+   "es": "Las afirmaciones concretas sobre servicios de esta lección original se comprobaron con sus referencias primarias. El escenario es ilustrativo.",
+   "src": "9203ccf1a1ce"
+  },
+  "decision.useCase": {
+   "es": "Publica archivos curados que se puedan consultar y conserva una reproducción controlada de los datos sin procesar.",
+   "src": "76ea5ed94f92"
+  },
+  "decision.advantage": {
+   "es": "Una organización pensada y un catálogo reducen la fricción al descubrir y consultar.",
+   "src": "560a18596242"
+  },
+  "decision.limitation": {
+   "es": "La compactación y la limpieza deben conservar las referencias, la retención y las garantías de reproducción.",
+   "src": "96522cf33245"
+  },
+  "block.diagram.title": {
+   "es": "De la fuente sin procesar al producto de datos",
+   "src": "f465025b1d3d"
+  },
+  "block.diagram.description": {
+   "es": "Una fuente diaria sin procesar se convierte en un producto mensual curado y se mantiene el contrato de reproducción.",
+   "src": "3f0c13ae8a10"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Fuente diaria cruda:",
+   "src": "3a2526d1f375"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "contrato de reproducción",
+   "src": "15a6ec3e5749"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Producto de datos",
+   "src": "9760ec16791d"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "mensual curado",
+   "src": "2419c6ea9aa5"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Responsable, esquema y",
+   "src": "05fd9c1cdf26"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "validación a la vista",
+   "src": "4309d1d1306b"
+  },
+  "block.keyFact": {
+   "es": "No borres los datos de reproducción sin procesar solo porque exista una tabla curada.",
+   "src": "279fe8e34afd"
+  },
+  "block.check.question": {
+   "es": "Una fuente diaria sin procesar se convierte en un producto de datos mensual curado. ¿Qué debe poder descubrirse?",
+   "src": "036f69bc2ea2"
+  },
+  "block.check.choices.0.text": {
+   "es": "Solo la tabla curada, para poder borrar los datos sin procesar",
+   "src": "a8d6c7b55ad0"
+  },
+  "block.check.choices.0.why": {
+   "es": "No borres los datos de reproducción sin procesar solo porque exista una tabla curada.",
+   "src": "279fe8e34afd"
+  },
+  "block.check.choices.1.text": {
+   "es": "El contrato de reproducción, el esquema curado, los resultados de validación y el responsable",
+   "src": "13ff1eb6aa40"
+  },
+  "block.check.choices.1.why": {
+   "es": "Esto mantiene el producto comprensible y reproducible.",
+   "src": "e895c34bc316"
+  },
+  "block.check.choices.2.text": {
+   "es": "Solo los metadatos, como prueba de que los registros están completos",
+   "src": "ba745b918740"
+  },
+  "block.check.choices.2.why": {
+   "es": "Publicar metadatos no puede demostrar que los registros estén completos.",
+   "src": "e756749c5606"
+  },
+  "verification.note": {
+   "es": "Se comprobaron que Parquet es un formato orientado a columnas, que se aconsejan grupos de filas de al menos 16 MiB, que el descubrimiento necesita carpetas con el mismo formato y las duraciones mínimas de las clases. No se comprobaron las afirmaciones sobre el paralelismo con archivos diminutos o enormes.",
+   "src": "98a8e036158f"
+  }
+ },
+ "governance": {
+  "title": {
+   "es": "Da a los equipos distribuidos reglas comunes",
+   "src": "bb3f558167ae"
+  },
+  "lead": {
+   "es": "La propiedad por dominio puede convivir con estándares para toda la organización.",
+   "src": "e82c45a00a5a"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "La gobernanza federada (federated governance) deja que los equipos de cada dominio sean dueños de sus productos de datos, mientras las políticas compartidas definen el descubrimiento, la calidad, la seguridad y el significado. Las entradas del catálogo, el linaje (lineage) y las definiciones de negocio reducen el uso accidental indebido.",
+   "src": "61bf797b8aba"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Identifica para cada producto un responsable, un método de acceso aprobado, reglas de calidad y una expectativa de frescura. Usa las capacidades de la plataforma y no crees un catálogo aparte en una hoja de cálculo para cada equipo.",
+   "src": "ceb187bd94f7"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Marketing y finanzas publican cada uno activos curados. Un catálogo compartido muestra su significado y su linaje, mientras que IAM del almacenamiento y las políticas de las tablas siguen controlando el acceso real.",
+   "src": "d7821c364bb7"
+  },
+  "sections.3.title": {
+   "es": "Define un producto de datos que la gente pueda usar",
+   "src": "fd49c8e3a576"
+  },
+  "sections.3.body": {
+   "es": "Un activo que pertenece a un dominio necesita un responsable, una definición de negocio, un esquema, un método de acceso, una expectativa de actualización y evidencia de calidad. La gobernanza federada añade reglas comunes sin obligar a un equipo central a hacer todas las transformaciones de cada dominio. Publica el contexto suficiente para que los consumidores entiendan qué representa el producto y qué no representa.",
+   "src": "777210372c1a"
+  },
+  "sections.4.title": {
+   "es": "Usa el linaje para investigar el impacto",
+   "src": "473ffe2b2d24"
+  },
+  "sections.4.body": {
+   "es": "El linaje técnico conecta las entradas, las transformaciones y las salidas. Cuando cambia una fuente, úsalo para identificar los consumidores que podrían verse afectados y luego revisa los contratos y las pruebas reales. Una conexión de linaje por sí sola no demuestra que una salida sea correcta, que se pueda usar legalmente o que esté fresca. La calidad de los datos y la autorización siguen siendo evidencias separadas.",
+   "src": "c9a5e53e4791"
+  },
+  "sections.5.title": {
+   "es": "Trata los nombres de productos como algo que cambia con el tiempo",
+   "src": "3b839dc6fb21"
+  },
+  "sections.5.body": {
+   "es": "La guía del examen mantiene los términos Dataplex y Dataplex Catalog, mientras que la documentación actual puede usar Knowledge Catalog. Las notas antiguas pueden mencionar las API y los nombres de roles de Data Catalog. Conserva el concepto de arquitectura, pero verifica la migración actual y las funciones compatibles antes de aplicar una receta operativa antigua.",
+   "src": "ea74e1aa3419"
+  },
+  "trap": {
+   "es": "Los metadatos de gobernanza no dan a los lectores permiso sobre los datos de fondo.",
+   "src": "0060a1bc495c"
+  },
+  "exercise.prompt": {
+   "es": "Un catálogo nuevo escanea automáticamente todas las tablas. ¿Eso implementa la gobernanza federada?",
+   "src": "a560d312fba6"
+  },
+  "exercise.answer": {
+   "es": "Ofrece una parte del descubrimiento, pero aún hacen falta un diseño pensado para la propiedad, la política de acceso, las reglas de calidad, el uso del linaje y los contratos con los consumidores. La responsabilidad de cada dominio y los estándares comunes no se pueden deducir solo porque exista una entrada en el catálogo.",
+   "src": "842065ea2a32"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Describe quién es responsable y qué esperan los consumidores.",
+   "src": "141e062741af"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Usa el linaje para una pregunta concreta sobre el impacto de un cambio.",
+   "src": "bda460313f3e"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Revisa en la documentación actual las funciones que cambiaron de nombre o se retiraron.",
+   "src": "283a9ebac715"
+  },
+  "briefing.context": {
+   "es": "Varios equipos de dominio publican conjuntos de datos que el resto de la organización quiere descubrir y en los que quiere confiar.",
+   "src": "448293e32b7b"
+  },
+  "briefing.whyItMatters": {
+   "es": "Una etiqueta del catálogo por sí sola no puede establecer la calidad de los datos ni reemplazar los permisos de fondo.",
+   "src": "d164d4fc1b90"
+  },
+  "briefing.takeaway": {
+   "es": "Combina reglas comunes con responsables claros de cada producto.",
+   "src": "964d4e405b15"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Propiedad con reglas comunes",
+   "src": "412c70eb0c47"
+  },
+  "block.diagram.description": {
+   "es": "Los equipos de dominio publican productos, un catálogo compartido muestra el significado y el linaje, y IAM y las políticas de tablas controlan el acceso.",
+   "src": "53f6a6404e1a"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "El equipo del dominio",
+   "src": "2bce96eae2c6"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "es dueño del producto",
+   "src": "de428bec39b1"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Catálogo compartido:",
+   "src": "c09920702eb8"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "significado y linaje",
+   "src": "5a81fdf25c10"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "IAM y políticas de tablas",
+   "src": "1e4d39af5842"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "controlan el acceso real",
+   "src": "a5f8df67290d"
+  },
+  "block.keyFact": {
+   "es": "Los metadatos de gobernanza no dan a los lectores permiso sobre los datos de fondo.",
+   "src": "0060a1bc495c"
+  },
+  "block.check.question": {
+   "es": "Marketing y finanzas publican activos curados. ¿Qué controla el acceso real?",
+   "src": "6031350eba0b"
+  },
+  "block.check.choices.0.text": {
+   "es": "La entrada del catálogo compartido",
+   "src": "7ff945666317"
+  },
+  "block.check.choices.0.why": {
+   "es": "Los metadatos de gobernanza no dan a los lectores permiso sobre los datos.",
+   "src": "57d507ed890f"
+  },
+  "block.check.choices.1.text": {
+   "es": "Un catálogo aparte en una hoja de cálculo por equipo",
+   "src": "7d6195539240"
+  },
+  "block.check.choices.1.why": {
+   "es": "Usa las capacidades de la plataforma y no un catálogo aparte en una hoja de cálculo para cada equipo.",
+   "src": "59b2e461f809"
+  },
+  "block.check.choices.2.text": {
+   "es": "IAM del almacenamiento y las políticas de las tablas",
+   "src": "7bf2583756c4"
+  },
+  "block.check.choices.2.why": {
+   "es": "El catálogo compartido muestra el significado y el linaje, y estos siguen controlando el acceso.",
+   "src": "cb396f3035f2"
+  },
+  "verification.note": {
+   "es": "Se comprobaron que Knowledge Catalog es el antiguo Dataplex Universal Catalog, que el linaje rastrea el origen y el impacto posterior y que Data Catalog se está cerrando por fases. La lección ya explica el cambio de nombre. No se comprobó el texto de la guía del examen.",
+   "src": "e1ee05a67e33"
+  }
+ }
+}

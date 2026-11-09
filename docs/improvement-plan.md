@@ -64,7 +64,7 @@ Format: `- [ ]` pending, `- [x]` done, `- [x] SKIPPED: reason`, `- [ ] BLOCKED: 
 - [x] 37b. G Translate the remaining interface chrome to Spanish: Learning path list, lesson page, practice, sources, workshops, English studio, service cards. Page title translated. Body text stays English.
 - [x] 38. G Domain 1 lessons are in Spanish through an overlay (content/es, hash-checked, loaded on demand). 254 strings, owner review pending.
 - [x] 39. G Domain 2 lessons are in Spanish (475 strings, owner review pending). List titles and the verification note now show Spanish too, from a small titles index.
-- [ ] 40. G Translate domain 3 lessons and scenarios to Spanish.
+- [x] 40. G Domain 3 lessons are in Spanish (388 strings, notes included, owner review pending). The titles index now covers domains 1 to 3.
 - [ ] 41. G Translate domain 4 lessons and scenarios to Spanish.
 - [ ] 42. G Translate domain 5 lessons and scenarios to Spanish.
 - [ ] 43. G Translate services, comparisons and workshops to Spanish. The glossary already has 161 Spanish entries.
