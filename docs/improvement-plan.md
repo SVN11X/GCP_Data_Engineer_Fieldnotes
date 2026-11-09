@@ -53,7 +53,7 @@ Format: `- [ ]` pending, `- [x]` done, `- [x] SKIPPED: reason`, `- [ ] BLOCKED: 
 - [x] 30. G Added content/verification-log.json (query, source, date per topic), a lazy lesson-page line and build warnings for gaps and entries over 90 days.
 - [x] 31. G Verified the 9 domain 1 lessons with the MCP: 9 confirmed, 0 updated, 0 unverifiable. No stale claims found, so lesson text is unchanged.
 - [x] 32. G Verified the 16 domain 2 lessons with the MCP: 16 confirmed, 0 updated, 0 unverifiable. No stale claims found, so lesson text is unchanged.
-- [ ] 33. G Verify domain 3 topics with the MCP. Fix stale claims.
+- [x] 33. G Verified the 10 domain 3 lessons with the MCP: 9 confirmed, 1 updated, 0 unverifiable. Fixed the LIMIT cost note to say non-clustered tables.
 - [ ] 34. G Verify domain 4 topics with the MCP. Fix stale claims.
 - [ ] 35. G Verify domain 5 topics with the MCP. Fix stale claims.
 - [ ] 36. G Verify services and comparisons with the MCP. Then make missing verification records fail the build.

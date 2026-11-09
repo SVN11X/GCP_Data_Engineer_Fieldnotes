@@ -359,5 +359,137 @@
     ],
     "result": "confirmed",
     "note": "Checked serverless Spark runs batch workloads and interactive sessions without your own cluster, autoscales, charges while running, and docs use the Managed Service for Apache Spark name. Images not checked."
+  },
+  {
+    "topic": "storage-choice",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Google Cloud database products Bigtable Spanner Cloud SQL Firestore AlloyDB when to use",
+    "sources": [
+      "https://docs.cloud.google.com/docs/databases",
+      "https://cloud.google.com/sql"
+    ],
+    "result": "confirmed",
+    "note": "Checked Bigtable wide-column NoSQL, Firestore document model, Spanner strong consistency at scale, AlloyDB PostgreSQL compatibility, Cloud SQL managed relational. Spanner transaction scope not checked."
+  },
+  {
+    "topic": "lifecycle",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Cloud Storage retention policy lock lifecycle rules storage class minimum duration",
+    "sources": [
+      "https://docs.cloud.google.com/storage/docs/bucket-lock",
+      "https://docs.cloud.google.com/storage/docs/storage-classes"
+    ],
+    "result": "confirmed",
+    "note": "Checked class minimum durations and retrieval fees, locked retention is irreversible, lifecycle delete waits for retention expiry. Archive class not implying immutability and recovery drills not checked."
+  },
+  {
+    "topic": "database-requirements",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Cloud SQL AlloyDB Spanner comparison PostgreSQL compatible managed relational",
+    "sources": [
+      "https://cloud.google.com/products/alloydb",
+      "https://cloud.google.com/sql"
+    ],
+    "result": "confirmed",
+    "note": "Checked Cloud SQL managed relational engines, AlloyDB PostgreSQL compatibility, Spanner strong consistency at scale. Bigtable row-key fit and the two-store ownership pattern were not checked."
+  },
+  {
+    "topic": "warehouse-model",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "BigQuery partitioned clustered tables pruning column order nested repeated fields LIMIT bytes",
+    "sources": [
+      "https://docs.cloud.google.com/bigquery/docs/clustered-tables",
+      "https://docs.cloud.google.com/bigquery/docs/best-practices-costs",
+      "https://docs.cloud.google.com/bigquery/docs/best-practices-performance-nested"
+    ],
+    "result": "updated",
+    "note": "Confirmed pruning, cluster column order, ARRAY of STRUCT. Fixed LIMIT claim: it can cut scanned bytes on clustered tables, so text now says non-clustered. MERGE deduplication not checked."
+  },
+  {
+    "topic": "sql-grain",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "BigQuery QUALIFY clause evaluation order and UNNEST empty array LEFT JOIN",
+    "sources": [
+      "https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/query-syntax",
+      "https://docs.cloud.google.com/bigquery/docs/arrays"
+    ],
+    "result": "confirmed",
+    "note": "Checked QUALIFY filters window results after WHERE, WHERE drops NULL results, INNER or CROSS JOIN UNNEST drops rows with empty arrays, LEFT JOIN keeps them. Join fan-out sums and tie ordering not checked."
+  },
+  {
+    "topic": "lake",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "BigLake tables connection service account access delegation supported formats discovery scan",
+    "sources": [
+      "https://docs.cloud.google.com/bigquery/docs/biglake-intro",
+      "https://docs.cloud.google.com/knowledge-catalog/docs/cloud-storage-discovery"
+    ],
+    "result": "confirmed",
+    "note": "Checked BigLake delegation through a connection service account, supported formats, discovery scans registering BigLake tables in the catalog. Location combinations and freshness monitoring advice not checked."
+  },
+  {
+    "topic": "biglake-access",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "BigLake external tables permissions metadata caching staleness refresh read-only",
+    "sources": [
+      "https://docs.cloud.google.com/bigquery/docs/external-tables",
+      "https://docs.cloud.google.com/bigquery/docs/metadata-caching-external-tables"
+    ],
+    "result": "confirmed",
+    "note": "Checked external tables need table and source permissions, BigLake delegates, cache staleness 30 minutes to 7 days with automatic or manual refresh, loading is faster than external reads. Column policies not checked."
+  },
+  {
+    "topic": "iceberg-contracts",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "BigLake tables read-only Iceberg managed tables BigQuery customer-owned bucket DML metadata export",
+    "sources": [
+      "https://docs.cloud.google.com/bigquery/docs/biglake-intro",
+      "https://docs.cloud.google.com/bigquery/docs/biglake-iceberg-tables-in-bigquery"
+    ],
+    "result": "confirmed",
+    "note": "Checked BigLake tables are read-only, Iceberg managed tables use your bucket with DML, automatic storage optimization and Iceberg V2 metadata export. External engine write safety not checked."
+  },
+  {
+    "topic": "lake-file-layout",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Parquet columnar row group size BigQuery external discovery same format folders storage classes",
+    "sources": [
+      "https://docs.cloud.google.com/bigquery/docs/loading-data-cloud-storage-parquet",
+      "https://docs.cloud.google.com/knowledge-catalog/docs/cloud-storage-discovery",
+      "https://docs.cloud.google.com/storage/docs/storage-classes"
+    ],
+    "result": "confirmed",
+    "note": "Checked Parquet is column-oriented, row groups of at least 16 MiB advised, discovery needs same-format folders, class minimum durations. Tiny-file and huge-file parallelism claims not checked."
+  },
+  {
+    "topic": "governance",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Knowledge Catalog formerly Dataplex Universal Catalog data lineage Data Catalog transition",
+    "sources": [
+      "https://docs.cloud.google.com/knowledge-catalog/docs/about-data-lineage",
+      "https://docs.cloud.google.com/knowledge-catalog/docs/release-notes"
+    ],
+    "result": "confirmed",
+    "note": "Checked Knowledge Catalog is formerly Dataplex Universal Catalog, lineage traces origin and downstream impact, Data Catalog is shutting down in phases. Lesson already explains the rename. Exam guide wording not checked."
   }
 ]

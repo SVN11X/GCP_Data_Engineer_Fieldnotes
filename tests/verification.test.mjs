@@ -12,7 +12,7 @@ const bad=patch=>validateLog([{...good,...patch}],ids);
 
 test('the shipped log is valid and every entry points at a real topic',()=>{
  assert.deepEqual(validateLog(log,ids),[]);
- assert.equal(log.length,27);
+ assert.equal(log.length,37);
  assert.equal(fs.readFileSync(new URL('../dist/data/verification-log.json',import.meta.url),'utf8').trim(),JSON.stringify(log));
 });
 test('the browser copy is not part of the initial page',()=>{
