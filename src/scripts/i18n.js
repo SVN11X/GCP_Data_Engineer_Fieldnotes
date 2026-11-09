@@ -1,6 +1,6 @@
 /* Spanish interface layer. Loaded on demand, only when the language is Spanish.
    It replaces exact English strings (and simple patterns with placeholders) by the values of data/i18n-es.json.
-   Lessons, services, comparisons, workshops and architecture patterns have their own Spanish overlays, applied to the data before it renders, so the translator skips them. Questions and code are skipped on purpose. Original strings are kept so English can be restored without a reload. */
+   Lessons, services, comparisons, workshops and architecture patterns have their own Spanish overlays, applied to the data before it renders, so the translator skips them. Authored questions have their own Spanish overlay too (question-es.js). Imported questions and code are skipped on purpose. Original strings are kept so English can be restored without a reload. */
 (function(root){
 'use strict';
 const ATTRS=['aria-label','title','placeholder','alt'];
@@ -232,13 +232,13 @@ function stop(){
 function report(){
  if(!st.c)return null;
  st.covered=isCovered();
- const found=new Map(),left=new Map(),CE=root.FieldContentEs,STUDY=HARD[3][0];let translatedCount=0;const note=name=>left.set(name,(left.get(name)||0)+1);
+ const found=new Map(),left=new Map(),CE=root.FieldContentEs,QE=root.FieldQuestionEs,STUDY=HARD[3][0];let translatedCount=0;const note=name=>left.set(name,(left.get(name)||0)+1);
  const add=(kind,attr,orig,el,node)=>{
   const core=plain(orig);
   if(!/[A-Za-z]{2}/.test(core)||el.closest('script,style,noscript'))return;
   if(unscoped(el))return note('route not translated yet');
   if(skipped(el,kind==='attr')||(node&&lessonTitle(node))){
-   const region=regionOf(el,true)||'text left in English on purpose',state=region===STUDY&&CE?overlayState(core,CE.applied,CE.gaps):null;
+   const region=regionOf(el,true)||'text left in English on purpose',state=(region===STUDY&&CE?overlayState(core,CE.applied,CE.gaps):null)||(QE?QE.stateOf(core):null);
    if(state==='translated'){translatedCount++;return;}
    if(state){const id='overlay|'+kind+'|'+attr+'|'+core,hit=found.get(id);if(hit)hit.count++;else found.set(id,{kind,attr,text:core,count:1,reason:state});return;}
    return note(region);
@@ -246,6 +246,9 @@ function report(){
   const info={},out=resolve(core,st.c,0,info);
   if(out!==null){if(info.fallback)note('text captured inside a pattern');return;}
   if(fromOverlay(core,root.FieldLessonEs&&root.FieldLessonEs.seen))return;
+  const qs=QE?QE.stateOf(core):null;
+  if(qs==='translated'){translatedCount++;return;}
+  if(qs){const id='overlay|'+kind+'|'+attr+'|'+core,hit=found.get(id);if(hit)hit.count++;else found.set(id,{kind,attr,text:core,count:1,reason:qs});return;}
   const soft=regionOf(el,true);
   if(soft)return note(soft);
   const id=kind+'|'+attr+'|'+core,hit=found.get(id);
