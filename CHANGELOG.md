@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- The 90 imported questions of domain 4 now read in Spanish (640 strings, all with a source hash), with the same label and swap-to-original control as domains 1 to 3. Source keys, IDs, images and progress are unchanged. The Spanish needs the owner's review.
 - The 61 imported questions of domain 3 now read in Spanish (434 strings, all with a source hash), with the same label and swap-to-original control as domains 1 and 2. Source keys, IDs, review labels, images and progress are untouched.
 - The 53 imported questions of domain 2 now read in Spanish (383 strings, all with a source hash), with the same label and swap-to-original control as domain 1. Source keys, IDs, images and progress are untouched.
 - The 57 imported questions of domain 1 now read in Spanish (412 strings, all with a source hash) with the label "Traducción al español de una pregunta aportada" and a control to swap to the untouched English original. Source keys, review labels, images and scoring are unchanged. The Spanish needs the owner's review.
