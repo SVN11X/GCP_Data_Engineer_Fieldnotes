@@ -71,6 +71,12 @@ Format: `- [ ]` pending, `- [x]` done, `- [x] SKIPPED: reason`, `- [ ] BLOCKED: 
 - [x] 43b. G Remaining routes are in Spanish: quick challenges, labs, resources, exam chrome and the sources notes. A raw noscript text bug on #architectures is fixed.
 - [x] 43c. G Fix the remaining Spanish gaps on #resources and make FieldI18n.report() accurate on overlay-translated pages.
 - [x] 43d. G Apply the Spanish services overlay on #resources and make report() list overlay gaps honestly.
+- [x] 44a. G Translate the 124 original (authored) questions to Spanish in per-domain overlays with source hashes. Answers, choice ids, keys and scoring are unchanged. Owner review pending.
+- [ ] 44b. G Spanish overlay for the 57 imported questions of domain 1. The source, keys, review labels and images stay untouched.
+- [ ] 44c. G Spanish overlay for the 53 imported questions of domain 2, same rules as 44b.
+- [ ] 44d. G Spanish overlay for the 61 imported questions of domain 3, same rules as 44b.
+- [ ] 44e. G Spanish overlay for the 90 imported questions of domain 4, same rules as 44b.
+- [ ] 44f. G Spanish overlay for the 88 imported questions of domain 5, same rules as 44b.
 - [ ] 44. G Spanish layer for the 349 imported questions in content/imported-es.json. imported.json stays untouched, unreadable image text is not translated, one batch per domain.
 
 ## Presentation

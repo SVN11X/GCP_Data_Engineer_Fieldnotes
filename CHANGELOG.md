@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- The 124 original practice questions now read in Spanish (1,240 strings: question, choices, reasons and explanation) in practice, the question page, timed practice, the diagnostic and quick challenges. Each domain has its own overlay with source hashes that loads only for Spanish visitors. Answers, keys, order and scoring are unchanged. The Spanish needs the owner's review.
 - The service decision table on the resources page now reads in Spanish. The language report counts overlay text as translated and lists English left by a missing or stale overlay entry with its reason.
 - The resources page now shows source-kind labels ("Fuente primaria") and workshop titles in Spanish. The language report no longer lists overlay-translated text as missing.
 - Quick challenges, the three labs, the resources page, the exam setup and result chrome and the notes on the sources page now read in Spanish. Resources and the sources notes use overlay files with source hashes. Question text stays English until its own stage. Fixed a raw noscript paragraph that showed as text on the architecture explorer.
