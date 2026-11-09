@@ -2308,5 +2308,399 @@
    "es": "El razonamiento editorial está enlazado a documentación primaria. La clave importada se conserva por separado.",
    "src": "c07bc5e656c6"
   }
+ },
+ "imp-292": {
+  "html": {
+   "es": "Tienes terabytes de datos de comportamiento de clientes que llegan a diario desde Google Analytics a BigQuery. La información de tus clientes, como sus preferencias, está alojada en una base de datos de Cloud SQL for MySQL. Tu base de datos de CRM está alojada en una instancia de Cloud SQL for PostgreSQL. El equipo de marketing quiere usar la información de tus clientes de las dos bases de datos y los datos de comportamiento para crear campañas de marketing dirigidas a clientes activos del año. Necesitas asegurarte de que el equipo de marketing pueda ejecutar las campañas más de 100 veces al día en días normales y hasta 300 durante las ofertas. Al mismo tiempo, quieres mantener al mínimo la carga sobre las bases de datos de Cloud SQL. ¿Qué debes hacer?",
+   "src": "c9a0f39c8b4d"
+  },
+  "choices.0.html": {
+   "es": "Crea conexiones de BigQuery a ambas bases de datos de Cloud SQL. Usa consultas federadas de BigQuery sobre las dos bases de datos y los datos de Google Analytics en BigQuery para ejecutar estas consultas.",
+   "src": "e490ba66b27a"
+  },
+  "choices.1.html": {
+   "es": "Crea un trabajo de Apache Spark con Dataproc Serverless que consulte ambas bases de datos de Cloud SQL y los datos de Google Analytics en BigQuery para estas consultas.",
+   "src": "80ada7fc52d5"
+  },
+  "choices.2.html": {
+   "es": "Crea flujos (streams) en Datastream para replicar las tablas necesarias de ambas bases de datos de Cloud SQL a BigQuery y ejecuta estas consultas allí.",
+   "src": "ce8a9e249f2f"
+  },
+  "choices.3.html": {
+   "es": "Crea un clúster de Dataproc con Trino para establecer conexiones con ambas bases de datos de Cloud SQL y con BigQuery, y ejecutar las consultas.",
+   "src": "d8b40f564390"
+  },
+  "sourceExplanation": {
+   "es": "La opción C es correcta porque Datastream usa captura de datos de cambios (CDC) para replicar datos de Cloud SQL a BigQuery, lo que mantiene sincronizado el conjunto de datos analítico y descarga el procesamiento de consultas. Esta arquitectura hace que las consultas de gran volumen se ejecuten en BigQuery, optimizado para análisis, y así minimiza la carga sobre las instancias operativas de Cloud SQL, como se pide.",
+   "src": "1c77a7d88050"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-299": {
+  "html": {
+   "es": "Tienes un proceso previo que escribe datos en Cloud Storage. Luego, un trabajo de Apache Spark que se ejecuta en Dataproc lee esos datos. Estos trabajos se ejecutan en la región us-central1, pero los datos podrían almacenarse en cualquier lugar de Estados Unidos. Necesitas un proceso de recuperación ante un fallo catastrófico de una sola región. Necesitas un enfoque con un máximo de 15 minutos de pérdida de datos (RPO=15 min). Quieres asegurarte de que haya una latencia mínima al leer los datos. ¿Qué debes hacer?",
+   "src": "72f4ccee999f"
+  },
+  "choices.0.html": {
+   "es": "1. Crea dos buckets regionales de Cloud Storage, uno en la región us-central1 y otro en la región us-south1.<br>2. Haz que el proceso previo escriba los datos en el bucket de us-central1. Usa el Storage Transfer Service para copiar los datos cada hora del bucket de us-central1 al de us-south1.<br>3. Ejecuta el clúster de Dataproc en una zona de la región us-central1, leyendo del bucket de esa región.<br>4. En caso de fallo regional, vuelve a desplegar tus clústeres de Dataproc en la región us-south1 y lee del bucket de esa región.",
+   "src": "5a08dbcff54d"
+  },
+  "choices.1.html": {
+   "es": "1. Crea un bucket de Cloud Storage en la multirregión US.<br>2. Ejecuta el clúster de Dataproc en una zona de la región us-central1, leyendo los datos del bucket de la multirregión US.<br>3. En caso de fallo regional, vuelve a desplegar el clúster de Dataproc en la región us-central2 y sigue leyendo del mismo bucket.",
+   "src": "09fda0b869dc"
+  },
+  "choices.2.html": {
+   "es": "1. Crea un bucket birregional de Cloud Storage en las regiones us-central1 y us-south1.<br>2. Habilita la replicación turbo.<br>3. Ejecuta el clúster de Dataproc en una zona de la región us-central1, leyendo del bucket de la región us-south1.<br>4. En caso de fallo regional, vuelve a desplegar tu clúster de Dataproc en la región us-south1 y sigue leyendo del mismo bucket.",
+   "src": "cee96ee72583"
+  },
+  "choices.3.html": {
+   "es": "1. Crea un bucket birregional de Cloud Storage en las regiones us-central1 y us-south1.<br>2. Habilita la replicación turbo.<br>3. Ejecuta el clúster de Dataproc en una zona de la región us-central1, leyendo del bucket de la misma región.<br>4. En caso de fallo regional, vuelve a desplegar los clústeres de Dataproc en la región us-south1 y lee del mismo bucket.",
+   "src": "9b0001c27a50"
+  },
+  "sourceExplanation": {
+   "es": "Un bucket birregional con replicación turbo asegura que los datos se sincronicen casi en tiempo real (normalmente en 30 segundos), lo que cumple el estricto RPO de 15 minutos.\nEjecutar el clúster de Dataproc y leer del bucket en la misma región principal minimiza la latencia de red y da el mejor rendimiento.\nSi falla la región, volver a desplegar el clúster en la región secundaria le permite seguir leyendo del mismo bucket, lógicamente consistente, sin pérdida de datos.",
+   "src": "a717bc28af67"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-302": {
+  "html": {
+   "es": "Trabajas para una empresa agrícola. Tienes una tabla de BigQuery llamada sensors, de unos 500 MB, que contiene la lista de tus 5000 sensores, con columnas de id, nombre y ubicación. Esta tabla se actualiza cada hora. Cada sensor genera una métrica cada 30 segundos junto con una marca de tiempo, que quieres almacenar en BigQuery. Quieres ejecutar una consulta analítica sobre los datos una vez por semana con fines de monitoreo. También quieres minimizar los costos. ¿Qué modelo de datos debes usar?",
+   "src": "62df569fcd9b"
+  },
+  "choices.0.html": {
+   "es": "1. Crea una columna metrics en la tabla sensors.<br>2. Define el tipo RECORD y el modo REPEATED para la columna metrics.<br>3. Usa una instrucción UPDATE cada 30 segundos para añadir las métricas nuevas.",
+   "src": "6a450e9adc5d"
+  },
+  "choices.1.html": {
+   "es": "1. Crea una columna metrics en la tabla sensors.<br>2. Define el tipo RECORD y el modo REPEATED para la columna metrics.<br>3. Usa una instrucción INSERT cada 30 segundos para añadir las métricas nuevas.",
+   "src": "0714ff50eaca"
+  },
+  "choices.2.html": {
+   "es": "1. Crea una tabla metrics particionada por marca de tiempo.<br>2. Crea en la tabla metrics una columna sensorId que apunte a la columna id de la tabla sensors.<br>3. Usa una instrucción INSERT cada 30 segundos para añadir las métricas nuevas a la tabla metrics.<br>4. Une las dos tablas, si hace falta, al ejecutar la consulta analítica.",
+   "src": "5171c05debac"
+  },
+  "choices.3.html": {
+   "es": "1. Crea una tabla metrics particionada por marca de tiempo.<br>2. Crea en la tabla metrics una columna sensorId que apunte a la columna id de la tabla sensors.<br>3. Usa una instrucción UPDATE cada 30 segundos para añadir las métricas nuevas a la tabla metrics.<br>4. Une las dos tablas, si hace falta, al ejecutar la consulta analítica.",
+   "src": "8fef4795f371"
+  },
+  "sourceExplanation": {
+   "es": "La opción C es correcta porque particionar la tabla metrics por marca de tiempo permite la poda de particiones en las consultas semanales y reduce mucho el costo.\nUsar instrucciones INSERT es el método estándar de solo adición para series temporales en BigQuery, mientras que los UPDATE son costosos y no se recomiendan.\nLa tabla sensors es pequeña (500 MB), así que unirla con la tabla metrics particionada durante el análisis es eficiente y mantiene un esquema normalizado.",
+   "src": "7e4e1c3b6701"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-308": {
+  "html": {
+   "es": "Estás migrando una gran cantidad de archivos desde un endpoint HTTPS público a Cloud Storage. Los archivos están protegidos contra el acceso no autorizado con URL firmadas. Creaste un archivo TSV con la lista de URL de los objetos y empezaste un trabajo de transferencia con el Storage Transfer Service. Notas que el trabajo estuvo en ejecución mucho tiempo y al final falló. Al revisar los registros del trabajo de transferencia ves que iba bien hasta cierto punto y luego falló por errores HTTP 403 en los archivos restantes. Verificaste que no hubo cambios en el sistema de origen. Necesitas corregir el problema para reanudar el proceso de migración. ¿Qué debes hacer?",
+   "src": "11bfa87a7739"
+  },
+  "choices.0.html": {
+   "es": "Configura Cloud Storage FUSE y monta el bucket de Cloud Storage en una instancia de Compute Engine. Quita los archivos completados del archivo TSV. Usa un script de shell que recorra el archivo TSV y descargue las URL restantes en el punto de montaje de FUSE.",
+   "src": "80a20a971964"
+  },
+  "choices.1.html": {
+   "es": "Renueva el certificado TLS del endpoint HTTPS. Quita los archivos completados del archivo TSV y vuelve a ejecutar el trabajo del Storage Transfer Service.",
+   "src": "92fc66e3e0fe"
+  },
+  "choices.2.html": {
+   "es": "Crea un archivo TSV nuevo para los archivos restantes generando URL firmadas con un período de validez más largo. Divide el archivo TSV en varios archivos más pequeños y envíalos como trabajos separados del Storage Transfer Service en paralelo.",
+   "src": "a4535dcccfd8"
+  },
+  "choices.3.html": {
+   "es": "Actualiza las sumas de verificación de los archivos en el archivo TSV de MD5 a SHA256. Quita los archivos completados del archivo TSV y vuelve a ejecutar el trabajo del Storage Transfer Service.",
+   "src": "e17afb81bd45"
+  },
+  "sourceExplanation": {
+   "es": "Los errores HTTP 403 indican que las URL firmadas usadas para acceder a los archivos de origen han caducado, ya que no se cambiaron los permisos del sistema de origen. Generar URL firmadas nuevas con un período de validez más largo asegura que el Storage Transfer Service pueda autenticarse y obtener los archivos restantes sin fallos de autorización. Dividir la carga en trabajos más pequeños ayuda a manejar mejor posibles tiempos de espera o límites de frecuencia al reanudar el proceso.",
+   "src": "0db726ff8da8"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-318": {
+  "html": {
+   "es": "Usas BigQuery con un conjunto de datos regional que incluye una tabla con los volúmenes de ventas diarios. Esta tabla se actualiza varias veces al día. Necesitas proteger la tabla de ventas ante fallos regionales con un objetivo de punto de recuperación (RPO) de menos de 24 horas, manteniendo los costos al mínimo. ¿Qué debes hacer?",
+   "src": "f9153ee1b058"
+  },
+  "choices.0.html": {
+   "es": "Programa una exportación diaria de la tabla a un bucket de Cloud Storage dual o multirregional.",
+   "src": "b6254b6ee33b"
+  },
+  "choices.1.html": {
+   "es": "Programa una copia diaria del conjunto de datos a una región de respaldo.",
+   "src": "bda0ec6ac2c7"
+  },
+  "choices.2.html": {
+   "es": "Programa una instantánea diaria de BigQuery de la tabla.",
+   "src": "14aef6d492cc"
+  },
+  "choices.3.html": {
+   "es": "Modifica el trabajo de ETL para cargar los datos tanto en la región actual como en otra región de respaldo.",
+   "src": "2699878cc1b2"
+  },
+  "sourceExplanation": {
+   "es": "La opción A es correcta porque exportar a un bucket de Cloud Storage dual o multirregional protege ante fallos regionales al replicar los datos en varias ubicaciones.\nEn cambio, las instantáneas de BigQuery (opción C) y la copia a otra región única (opción B) no garantizan por sí mismas el mismo nivel de redundancia multirregional o pueden generar mayores costos de almacenamiento y administración.\nExportar solo la tabla necesaria es más económico que duplicar todo el conjunto de datos o modificar los pipelines de ETL para una replicación en tiempo real.",
+   "src": "fb64e45e0bbb"
+  },
+  "explanation": {
+   "es": "Una exportación diaria puede acercarse a un día completo de cambios perdidos antes de contar la duración de la exportación, los retrasos o las ejecuciones omitidas. Por eso no garantiza por sí sola un RPO estricto por debajo de veinticuatro horas. Elige una programación con margen o un diseño adecuado de replicación y recuperación, y pruébalo.",
+   "src": "ab79656c3a96"
+  },
+  "reviewNote": {
+   "es": "Esta pregunta importada está excluida de la práctica con puntuación. Lee la nota técnica en lugar de memorizar su clave.",
+   "src": "5d478c3e8ed1"
+  }
+ },
+ "imp-321": {
+  "html": {
+   "es": "Tu empresa tiene activos de datos en varios buckets de Cloud Storage y conjuntos de datos de BigQuery que contienen datos sin procesar y procesados. El requisito es establecer un marco unificado de gobernanza de datos que permita descubrir metadatos de forma centralizada, monitorear la calidad de los datos y aplicar políticas de seguridad coherentes en estos almacenes de datos, sin mover ni duplicar físicamente los datos. Necesitas implementar una solución que logre esta gobernanza federada. ¿Qué debes hacer?",
+   "src": "9520293a1ea2"
+  },
+  "choices.0.html": {
+   "es": "1. Exporta los metadatos de Dataplex Universal Catalog con un trabajo de exportación de metadatos.<br>2. Implementa Dataproc Metastore para administrar los esquemas de las tablas y Apache Hive metastore para descubrir metadatos.<br>3. Administra la seguridad con una combinación de seguridad a nivel de fila de BigQuery y políticas de Cloud Storage.",
+   "src": "0dc53eb012c6"
+  },
+  "choices.1.html": {
+   "es": "1. Usa Dataplex para organizar los conjuntos de datos de BigQuery y los buckets de Cloud Storage en lagos y zonas.<br>2. Usa Dataplex para el descubrimiento automatizado de metadatos, la administración centralizada de políticas de seguridad, la generación de perfiles de datos y las tareas de calidad de datos.",
+   "src": "173717319504"
+  },
+  "choices.2.html": {
+   "es": "1. Despliega una base de datos centralizada de Cloud SQL para almacenar metadatos extraídos de BigQuery y Cloud Storage con scripts personalizados.<br>2. Integra la base de datos con Looker Studio para descubrir y visualizar los datos.<br>3. Implementa un motor de políticas personalizado con funciones de Cloud Run activadas por cambios en las políticas de IAM para aplicar seguridad coherente en todos los proyectos.",
+   "src": "98d7a1cff46b"
+  },
+  "choices.3.html": {
+   "es": "1. Crea un panel de Looker Studio sobre las vistas INFORMATION_SCHEMA de BigQuery para visualizar y monitorear la calidad de los datos.<br>2. Administra la seguridad con políticas de IAM a nivel de proyecto, complementadas con vistas autorizadas de BigQuery para un control de acceso granular.",
+   "src": "50b5a2940541"
+  },
+  "explanation": {
+   "es": "La capacidad prevista es la gobernanza federada entre el lago y el almacén: descubrimiento, metadatos, calidad y coordinación de políticas sin copiar cada objeto. La opción de gobernanza administrada que aparece en la lista es la que mejor encaja. La guía usa la terminología de Dataplex, y la documentación actual también usa Knowledge Catalog. Los permisos reales sobre los datos aún deben configurarse en los recursos subyacentes.",
+   "src": "e66e30718f33"
+  },
+  "reviewNote": {
+   "es": "El razonamiento editorial está enlazado a documentación primaria. La clave importada se conserva por separado.",
+   "src": "c07bc5e656c6"
+  }
+ },
+ "imp-324": {
+  "html": {
+   "es": "Tu empresa de servicios financieros tiene un proceso diario crítico de conciliación con varios pasos distintos: obtener datos de un servidor SFTP externo, descifrar los archivos, cargarlos en Cloud Storage y, por último, ejecutar una serie de transformaciones SQL en BigQuery. Cada paso tiene dependencias estrictas y el proceso completo debe avisarte si no termina a las 7:00 AM. La intervención manual ante fallos es costosa y retrasa los informes de cumplimiento. Necesitas una solución muy observable y robusta que permita volver a ejecutar fácilmente pasos individuales si ocurren errores. ¿Qué debes hacer?",
+   "src": "c819f9635dcb"
+  },
+  "choices.0.html": {
+   "es": "Desarrolla un DAG de Cloud Composer con un único PythonOperator que ejecute un script de Python que corra cada paso en secuencia, con manejo de errores y reintentos. Sube los scripts a la carpeta de DAG del entorno de Cloud Composer y configúralo para que se ejecute a diario.",
+   "src": "82cc73b98c17"
+  },
+  "choices.1.html": {
+   "es": "Implementa un DAG de Cloud Composer, con cada paso definido como una tarea separada que use los operadores de Airflow adecuados, y programa el DAG para que se ejecute a diario.",
+   "src": "88f3c90f12b9"
+  },
+  "choices.2.html": {
+   "es": "Define un DAG de Cloud Composer que orqueste los pasos de obtención por SFTP y descifrado, y luego usa Cloud Scheduler para activar un trabajo de Dataflow aparte que maneje la carga en Cloud Storage y las transformaciones de BigQuery, programado para ejecutarse a diario.",
+   "src": "398f7dbc89bf"
+  },
+  "choices.3.html": {
+   "es": "Crea un DAG de Cloud Composer con un único BashOperator que ejecute un script de shell principal, que a su vez llame a scripts individuales para cada paso del pipeline. Sube los scripts a la carpeta de DAG del entorno de Cloud Composer y configúralo para que se ejecute a diario.",
+   "src": "84942682aea8"
+  },
+  "explanation": {
+   "es": "Las tareas de Airflow separadas exponen cada dependencia y crean límites independientes de reintento y reejecución. Un único operador de Python o de shell oculta esas etapas. Programar el DAG es solo una parte de la solución: configura por separado el monitoreo de la hora límite de finalización y la notificación para cumplir el requisito de las 7:00 AM.",
+   "src": "e63f1e207e9d"
+  },
+  "reviewNote": {
+   "es": "El razonamiento editorial está enlazado a documentación primaria. La clave importada se conserva por separado.",
+   "src": "c07bc5e656c6"
+  }
+ },
+ "imp-326": {
+  "html": {
+   "es": "Tu equipo ejecuta a diario una consulta analítica compleja que procesa terabytes de datos. Hace poco, después de ejecutarse durante 20 minutos, la consulta falla con un error \"Resources exceeded\". Necesitas resolver este problema. ¿Qué debes hacer?",
+   "src": "42ef51dd0c0a"
+  },
+  "choices.0.html": {
+   "es": "Pasa de BigQuery bajo demanda a reservas de slots.",
+   "src": "3520fa21aab7"
+  },
+  "choices.1.html": {
+   "es": "Analiza la sintaxis de SQL en busca de errores.",
+   "src": "065b7d434695"
+  },
+  "choices.2.html": {
+   "es": "Aumenta el límite máximo de tamaño de tabla.",
+   "src": "05cc34a88dd9"
+  },
+  "choices.3.html": {
+   "es": "Aumenta la cuota de solicitudes a la API de BigQuery de tu proyecto.",
+   "src": "41ab5ca78cee"
+  },
+  "explanation": {
+   "es": "Resources exceeded no es un diagnóstico único. Una ordenación que usa mucha memoria, un plan demasiado complejo o un cuello de botella en el shuffle pueden requerir reescribir la consulta y no más slots. Revisa primero el error completo y el grafo de ejecución. Una reserva puede ayudar con algunos problemas de capacidad, pero no se garantiza que corrija este fallo poco especificado.",
+   "src": "0595b85c843c"
+  },
+  "reviewNote": {
+   "es": "Esta pregunta importada está excluida de la práctica con puntuación. Lee la nota técnica en lugar de memorizar su clave.",
+   "src": "5d478c3e8ed1"
+  }
+ },
+ "imp-334": {
+  "html": {
+   "es": "Necesitas orquestar un pipeline con varios servicios de Google Cloud: un trabajo por lotes de Dataflow, luego un trabajo de consulta de BigQuery y después una predicción por lotes de Vertex AI. La lógica es secuencial. Quieres una solución de orquestación ligera y sin servidor, con una carga operativa mínima. ¿Qué servicio debes usar?",
+   "src": "1aa7c6231e85"
+  },
+  "choices.0.html": {
+   "es": "Elige Cloud Composer.",
+   "src": "54f3c298999c"
+  },
+  "choices.1.html": {
+   "es": "Elige Compute Engine con cron.",
+   "src": "998c2d5d2038"
+  },
+  "choices.2.html": {
+   "es": "Elige Dataproc con Apache Oozie.",
+   "src": "2c32457933b5"
+  },
+  "choices.3.html": {
+   "es": "Elige Cloud Workflows.",
+   "src": "8f823603771d"
+  },
+  "sourceExplanation": {
+   "es": "Cloud Workflows es la elección correcta porque ofrece un servicio de orquestación ligero y totalmente sin servidor, diseñado específicamente para encadenar llamadas secuenciales a APIs con una carga operativa mínima.\n\nEn cambio, Cloud Composer (opción A) se ejecuta sobre Apache Airflow, que requiere administrar una infraestructura subyacente y es más pesado de lo que se pide.\n\nCompute Engine (opción B) y Dataproc/Oozie (opción C) implican una administración considerable de servidores y no son soluciones modernas de orquestación sin servidor.",
+   "src": "c737ac74b503"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-339": {
+  "html": {
+   "es": "Monitoreas y optimizas la instancia de BigQuery de tu equipo. Notas que un informe diario concreto que usa una operación JOIN grande es lento de forma constante. Quieres examinar el plan de ejecución de la consulta para identificar lo más rápido posible los posibles cuellos de botella dentro del JOIN. ¿Qué debes hacer?",
+   "src": "5c6bb7925325"
+  },
+  "choices.0.html": {
+   "es": "Usa el comando bg query --dry_run para revisar el número estimado de bytes leídos y la sintaxis de la consulta.",
+   "src": "98777f7b7181"
+  },
+  "choices.1.html": {
+   "es": "Ejecuta una consulta sobre la vista INFORMATION_SCHEMA.JOBS_BY_PROJECT filtrando por job_ID y analiza total_bytes_processed.",
+   "src": "c05f8aed62ee"
+  },
+  "choices.2.html": {
+   "es": "Revisa los registros de auditoría de BigQuery en Cloud Logging.",
+   "src": "8bd186242aa8"
+  },
+  "choices.3.html": {
+   "es": "Aprovecha la vista de historial de consultas de BigQuery y analiza el grafo de ejecución.",
+   "src": "fee726d7cdf3"
+  },
+  "sourceExplanation": {
+   "es": "La vista de historial de consultas de BigQuery da acceso directo al plan de ejecución y al grafo de ejecución de los trabajos ya ejecutados.\nAnalizar este grafo visual permite identificar cuellos de botella concretos, como el sesgo de datos o etapas de shuffle ineficientes, dentro de la operación JOIN.\nEsto es más eficaz que las ejecuciones de prueba (que solo muestran la sintaxis y los bytes) o los registros de auditoría (que carecen de métricas detalladas de ejecución).",
+   "src": "9e8151e94755"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-340": {
+  "html": {
+   "es": "Tu empresa almacena datos operativos de ventas vitales en un conjunto de datos de BigQuery en us-central1. Tu empresa exige un plan de recuperación ante desastres para restaurar estos datos en us-east1 con un objetivo de punto de recuperación (RPO) de 24 horas y un objetivo de tiempo de recuperación (RTO) de 4 horas si us-central1 sufre una caída. Necesitas implementar el plan de recuperación ante desastres manteniendo al mínimo los costos y la complejidad. ¿Qué debes hacer?",
+   "src": "9a71e76b1563"
+  },
+  "choices.0.html": {
+   "es": "Configura consultas continuas y Pub/Sub para transmitir los cambios de datos de las tablas de BigQuery de us-central1 a us-east1.",
+   "src": "f26fbceb396e"
+  },
+  "choices.1.html": {
+   "es": "Exporta manualmente los datos a un archivo CSV en un bucket multirregional de Cloud Storage a diario y usa bq load para restaurarlos en us-east1.",
+   "src": "5c7a2cba8f5d"
+  },
+  "choices.2.html": {
+   "es": "Configura la replicación de conjuntos de datos entre regiones de BigQuery de ns-central1 a us-east1.",
+   "src": "9e641bd0650a"
+  },
+  "choices.3.html": {
+   "es": "Toma instantáneas diarias de las tablas de BigQuery en us-central1.",
+   "src": "b1a8eb2e5c22"
+  },
+  "sourceExplanation": {
+   "es": "BigQuery admite la replicación automática de conjuntos de datos entre regiones, que simplifica la recuperación ante desastres al mantener un conjunto de datos en espera en la región de destino (us-east1).\nEsta función cumple los requisitos de RPO y RTO y minimiza la complejidad operativa y el costo frente a las exportaciones manuales o las arquitecturas de streaming personalizadas.",
+   "src": "77330b65ddf9"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-344": {
+  "html": {
+   "es": "Estás construyendo un sistema para procesar transacciones financieras. El sistema debe manejar un alto rendimiento de operaciones de usuarios simultáneas y cada operación requiere lecturas y escrituras de baja latencia en registros individuales. Necesitas identificar una solución de almacenamiento que garantice el cumplimiento de ACID para las transacciones procesadas. Quieres un servicio administrado de Google Cloud. ¿Qué debes hacer?",
+   "src": "b0c5ce98ddaf"
+  },
+  "choices.0.html": {
+   "es": "Elige Bigtable.",
+   "src": "358a361273dc"
+  },
+  "choices.1.html": {
+   "es": "Elige BigQuery.",
+   "src": "dfd5eeeb5739"
+  },
+  "choices.2.html": {
+   "es": "Elige Cloud Storage.",
+   "src": "4806d9ac4d71"
+  },
+  "choices.3.html": {
+   "es": "Elige Spanner.",
+   "src": "04bdca1786fc"
+  },
+  "sourceExplanation": {
+   "es": "Cloud Spanner es el único servicio de base de datos administrado de Google Cloud de la lista que ofrece escalabilidad horizontal global y mantiene un estricto cumplimiento de ACID y consistencia fuerte. Bigtable ofrece alto rendimiento pero usa consistencia eventual, BigQuery está diseñado para análisis y no para cargas transaccionales, y Cloud Storage carece de soporte de transacciones relacionales.",
+   "src": "621833f71745"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-345": {
+  "html": {
+   "es": "Estás preparando datos para servir un modelo de predicción de demanda de ventas. Los datos de entrenamiento pasan por varios pasos de preprocesamiento, como escalar las características numéricas y aplicar codificación one-hot a las características categóricas. El modelo está desplegado en Vertex AI Endpoints. Necesitas evitar el sesgo entre el entrenamiento y el servicio (training-serving skew) y asegurar predicciones precisas en producción. Quieres una solución fácil de implementar.<br><br>¿Qué debes hacer?",
+   "src": "5f59dd978260"
+  },
+  "choices.0.html": {
+   "es": "Implementa un controlador personalizado dentro del Vertex AI Endpoint que haga automáticamente las transformaciones de datos antes de que el modelo haga una predicción.",
+   "src": "1846fe7f52ff"
+  },
+  "choices.1.html": {
+   "es": "Replica en el pipeline de inferencia exactamente la misma lógica de preprocesamiento que se usó durante el entrenamiento del modelo.",
+   "src": "ea3eda60a744"
+  },
+  "choices.2.html": {
+   "es": "Guarda los datos sin procesar ni transformar en un bucket de Cloud Storage aparte, exclusivamente para el servicio.",
+   "src": "fe32fa9e3c1e"
+  },
+  "choices.3.html": {
+   "es": "Asegúrate de que los datos de servicio sean una muestra aleatoria más pequeña de los datos de entrenamiento.",
+   "src": "a6dfc34e601f"
+  },
+  "sourceExplanation": {
+   "es": "El sesgo entre entrenamiento y servicio surge cuando el preprocesamiento aplicado a los datos de entrenamiento difiere del aplicado a los datos de inferencia. Para asegurar predicciones precisas, debes replicar exactamente la misma lógica de transformación (escalado y codificación one-hot) en el pipeline de producción. Así las características de entrada que recibe el modelo coinciden con la distribución y el formato que aprendió durante el entrenamiento.",
+   "src": "2a8a3bfafb19"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
  }
 }
