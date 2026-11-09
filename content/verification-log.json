@@ -148,5 +148,216 @@
     ],
     "result": "confirmed",
     "note": "Checked Storage Transfer Service sources, Transfer Appliance shipping, gcloud storage cp, and that Database Migration Service and Datastream target different destinations."
+  },
+  {
+    "topic": "pubsub-contracts",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Pub/Sub exactly-once delivery, ordering keys, seek and snapshot lifetime",
+    "sources": [
+      "https://docs.cloud.google.com/pubsub/docs/ordering",
+      "https://docs.cloud.google.com/pubsub/docs/exactly-once-delivery",
+      "https://docs.cloud.google.com/pubsub/docs/replay-overview"
+    ],
+    "result": "confirmed",
+    "note": "Checked ordering is per key and region only, seek to a past time needs retained messages, and snapshots expire with the backlog (max 7 days). Duplicate business events and the exactly-once scope not checked in depth."
+  },
+  {
+    "topic": "managed-kafka",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Managed Service for Apache Kafka overview and compatibility",
+    "sources": [
+      "https://docs.cloud.google.com/managed-service-for-apache-kafka/docs/overview"
+    ],
+    "result": "confirmed",
+    "note": "Checked that brokers are provisioned from the vCPU and memory you set, topic retention is the user's choice and Kafka clients run unchanged. Pub/Sub versus Kafka consumer group differences not checked."
+  },
+  {
+    "topic": "processing-engine",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Dataflow, Dataform and Data Fusion overview and purpose",
+    "sources": [
+      "https://docs.cloud.google.com/dataflow/docs/overview",
+      "https://docs.cloud.google.com/dataform/docs/overview",
+      "https://docs.cloud.google.com/data-fusion/docs/concepts/overview",
+      "https://cloud.google.com/products/managed-service-for-apache-spark"
+    ],
+    "result": "confirmed",
+    "note": "Checked Dataflow runs Beam batch and streaming, Dataform manages SQL in BigQuery, Data Fusion is visual, and the product page is titled Managed Service for Apache Spark (formerly Dataproc). Composer not checked."
+  },
+  {
+    "topic": "dataflow-bottlenecks",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Dataflow troubleshoot bottlenecks hot key key parallelism autoscaling",
+    "sources": [
+      "https://docs.cloud.google.com/dataflow/docs/guides/troubleshoot-bottlenecks",
+      "https://docs.cloud.google.com/dataflow/docs/guides/troubleshoot-autoscaling"
+    ],
+    "result": "confirmed",
+    "note": "Checked hot keys are processed serially per key, few keys cap scaling, raising max workers helps only when vCPUs are the limit, and key salting needs a later aggregation step. Fusion details not checked."
+  },
+  {
+    "topic": "event-time",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Dataflow windows, watermarks and late data in streaming pipelines",
+    "sources": [
+      "https://docs.cloud.google.com/dataflow/docs/concepts/streaming-pipelines",
+      "https://docs.cloud.google.com/dataflow/docs/concepts/beam-programming-model"
+    ],
+    "result": "confirmed",
+    "note": "Checked fixed, sliding and session windows, that the watermark is an estimate and late data is data behind it, and that triggers decide when results are emitted. Allowed lateness and SQL window functions not checked."
+  },
+  {
+    "topic": "beam-triggers",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Dataflow triggers, watermarks and exactly-once late data behavior",
+    "sources": [
+      "https://docs.cloud.google.com/dataflow/docs/concepts/streaming-pipelines",
+      "https://docs.cloud.google.com/dataflow/docs/concepts/exactly-once"
+    ],
+    "result": "confirmed",
+    "note": "Checked default trigger fires at the watermark, completeness cannot be guaranteed and late records may be dropped. Early panes, accumulation modes and sink handling of cumulative panes not checked."
+  },
+  {
+    "topic": "bad-records",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Pub/Sub dead-letter topic maximum delivery attempts approximate; RunInference dead-letter",
+    "sources": [
+      "https://docs.cloud.google.com/pubsub/docs/dead-letter-topics",
+      "https://docs.cloud.google.com/dataflow/docs/notebooks/custom_remote_inference"
+    ],
+    "result": "confirmed",
+    "note": "Checked the dead-letter attempt limit is approximate and best effort, and that remote calls need backoff and a dead-letter output. Data Fusion standardization and quarantine design not checked."
+  },
+  {
+    "topic": "write-contracts",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "BigQuery load JSON from Cloud Storage, Storage Write API offsets and MERGE source matches",
+    "sources": [
+      "https://docs.cloud.google.com/bigquery/docs/loading-data-cloud-storage-json",
+      "https://docs.cloud.google.com/bigquery/docs/write-api-streaming",
+      "https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/dml-syntax"
+    ],
+    "result": "confirmed",
+    "note": "Checked JSON loads must be newline delimited, offsets give exactly-once only within an application-created stream, and MERGE errors when several source rows match one target row. Transfer service not checked."
+  },
+  {
+    "topic": "ai-enrichment",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Dataflow RunInference batching, remote inference and dead-letter handling",
+    "sources": [
+      "https://docs.cloud.google.com/dataflow/docs/machine-learning/runinference-best-practices",
+      "https://docs.cloud.google.com/dataflow/docs/notebooks/custom_remote_inference"
+    ],
+    "result": "confirmed",
+    "note": "Checked RunInference batches inputs, remote calls need backoff and a dead-letter output, and Vertex AI handlers need JSON input. Text-generation adapter limits and privacy advice not checked."
+  },
+  {
+    "topic": "streaming-semantics",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Dataflow exactly-once versus at-least-once streaming mode and Pub/Sub deduplication",
+    "sources": [
+      "https://docs.cloud.google.com/dataflow/docs/guides/streaming-modes",
+      "https://docs.cloud.google.com/dataflow/docs/concepts/streaming-with-cloud-pubsub",
+      "https://docs.cloud.google.com/dataflow/docs/concepts/exactly-once"
+    ],
+    "result": "confirmed",
+    "note": "Checked exactly-once is the default, at-least-once is optional, Dataflow dedupes by message ID, and custom DoFn side effects can repeat. Idempotency design for payment endpoints not checked."
+  },
+  {
+    "topic": "beam-portability",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Apache Beam model, Dataflow as Beam runner and bounded versus unbounded collections",
+    "sources": [
+      "https://docs.cloud.google.com/dataflow/docs/concepts/beam-programming-model",
+      "https://docs.cloud.google.com/dataflow/docs/overview"
+    ],
+    "result": "confirmed",
+    "note": "Checked Beam pipelines are transforms over bounded or unbounded collections, Dataflow executes Beam pipelines, and Beam can run on other runners. Connector parity across runners not checked."
+  },
+  {
+    "topic": "schema-evolution",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "BigQuery change column mode REQUIRED to NULLABLE and add columns",
+    "sources": [
+      "https://docs.cloud.google.com/bigquery/docs/managing-table-schemas"
+    ],
+    "result": "confirmed",
+    "note": "Checked REQUIRED to NULLABLE is the only mode change, NULLABLE to REQUIRED needs a recreated table, and added columns must be NULLABLE or REPEATED. Per ingestion method rules and rollout advice not checked."
+  },
+  {
+    "topic": "dataform-quality",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Dataform assertions, dependOnDependencyAssertions and incremental tables",
+    "sources": [
+      "https://docs.cloud.google.com/dataform/docs/test-data",
+      "https://docs.cloud.google.com/dataform/docs/dependencies"
+    ],
+    "result": "confirmed",
+    "note": "Checked assertions are queries returning violating rows, built-in nonNull, uniqueKey and rowConditions exist, and dependencies must include assertions explicitly. Incremental lookback and backfill advice not checked."
+  },
+  {
+    "topic": "pipeline-contract",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Dataflow Shared VPC subnet Compute Network User and worker versus submitter identities",
+    "sources": [
+      "https://docs.cloud.google.com/dataflow/docs/guides/specifying-networks",
+      "https://docs.cloud.google.com/dataflow/docs/concepts/access-control",
+      "https://docs.cloud.google.com/dataflow/docs/guides/read-from-kafka"
+    ],
+    "result": "confirmed",
+    "note": "Checked that Shared VPC needs the subnet shared with the Dataflow service account plus Compute Network User, worker and submitter roles differ, and workers need a network path to Kafka. Private DNS, routes not checked."
+  },
+  {
+    "topic": "deploy-pipeline",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Dataflow update streaming job compatibility, drain versus cancel, replacement job",
+    "sources": [
+      "https://docs.cloud.google.com/dataflow/docs/guides/updating-a-pipeline",
+      "https://docs.cloud.google.com/dataflow/docs/guides/upgrade-guide"
+    ],
+    "result": "confirmed",
+    "note": "Checked compatible updates keep state, incompatible ones need stop and replace, cancel can lose in-flight data and drain is preferred, and big windowing changes are unpredictable. Source retention not checked."
+  },
+  {
+    "topic": "spark-execution",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Managed Service for Apache Spark serverless batch workloads and interactive sessions",
+    "sources": [
+      "https://docs.cloud.google.com/managed-spark/docs/serverless-overview"
+    ],
+    "result": "confirmed",
+    "note": "Checked serverless Spark runs batch workloads and interactive sessions without your own cluster, autoscales, charges while running, and docs use the Managed Service for Apache Spark name. Images not checked."
   }
 ]
