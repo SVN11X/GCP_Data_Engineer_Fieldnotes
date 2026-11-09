@@ -1,0 +1,674 @@
+{
+ "lab-42": {
+  "text": {
+   "es": "Una carga de trabajo semanal de Spark se ejecuta durante treinta minutos y no tiene otros usuarios en el clúster. ¿Qué debe compararse con un clúster que funciona de forma permanente?",
+   "src": "0ad1079d0ae8"
+  },
+  "choices.0.text": {
+   "es": "Borrar los datos de entrada para reducir los requisitos de procesamiento.",
+   "src": "5bb7088e9fd3"
+  },
+  "choices.0.why": {
+   "es": "Quitar los datos necesarios cambia el resultado de negocio.",
+   "src": "7a6e481647fa"
+  },
+  "choices.1.text": {
+   "es": "Dar a todos los usuarios la administración del clúster.",
+   "src": "0b72e0694103"
+  },
+  "choices.1.why": {
+   "es": "Ampliar los permisos no resuelve la capacidad inactiva.",
+   "src": "7551b7b73563"
+  },
+  "choices.2.text": {
+   "es": "Cómputo basado en trabajos o efímero, con almacenamiento duradero aparte.",
+   "src": "eaf438319d09"
+  },
+  "choices.2.why": {
+   "es": "El trabajo intermitente puede no necesitar capacidad de clúster funcionando de forma continua.",
+   "src": "8c5e8d2d9bf6"
+  },
+  "choices.3.text": {
+   "es": "Dejar el clúster inactivo seis días a la semana por defecto.",
+   "src": "a9ef86ad5554"
+  },
+  "choices.3.why": {
+   "es": "Los recursos inactivos pueden agregar costos innecesarios.",
+   "src": "e986a257744b"
+  },
+  "explanation": {
+   "es": "El trabajo intermitente puede no necesitar capacidad de clúster funcionando de forma continua.",
+   "src": "8c5e8d2d9bf6"
+  }
+ },
+ "lab-43": {
+  "text": {
+   "es": "Un flujo de trabajo diario obtiene, descifra, carga y transforma archivos. Necesitas volver a ejecutar las etapas que fallen de forma independiente. ¿Cómo debe estructurarse el DAG (grafo acíclico dirigido)?",
+   "src": "603c618dcda0"
+  },
+  "choices.0.text": {
+   "es": "Una sola tarea opaca que contenga todo el proceso.",
+   "src": "02fd8d8b30c7"
+  },
+  "choices.0.why": {
+   "es": "Un único límite oculta qué etapa se puede volver a ejecutar con seguridad.",
+   "src": "260bed3cfe60"
+  },
+  "choices.1.text": {
+   "es": "Tareas no relacionadas, sin orden.",
+   "src": "0ca9a4902463"
+  },
+  "choices.1.why": {
+   "es": "Eso ignora las dependencias estrictas.",
+   "src": "21e7e318ce0a"
+  },
+  "choices.2.text": {
+   "es": "Solo una actualización del dashboard.",
+   "src": "ebe6af14f6f1"
+  },
+  "choices.2.why": {
+   "es": "Una actualización no orquesta las etapas de procesamiento de archivos.",
+   "src": "b6402ff77497"
+  },
+  "choices.3.text": {
+   "es": "Tareas dependientes y separadas para las etapas de recuperación que tengan sentido.",
+   "src": "161a9b0f35d6"
+  },
+  "choices.3.why": {
+   "es": "Los límites de las tareas muestran las dependencias y permiten reintentos o nuevas ejecuciones específicas.",
+   "src": "7daf1316f1e5"
+  },
+  "explanation": {
+   "es": "Los límites de las tareas muestran las dependencias y permiten reintentos o nuevas ejecuciones específicas.",
+   "src": "7daf1316f1e5"
+  }
+ },
+ "lab-44": {
+  "text": {
+   "es": "Necesitas una coordinación serverless ligera de unas pocas llamadas a API de servicios con pasos condicionales. ¿Qué opción encaja mejor?",
+   "src": "c7326844560f"
+  },
+  "choices.0.text": {
+   "es": "Workflows.",
+   "src": "15d70e27f028"
+  },
+  "choices.0.why": {
+   "es": "Workflows coordina llamadas a servicios sin requerir un entorno administrado de Airflow.",
+   "src": "207fe17a8900"
+  },
+  "choices.1.text": {
+   "es": "Una row key de Bigtable.",
+   "src": "e24138945439"
+  },
+  "choices.1.why": {
+   "es": "Una row key define el acceso a los datos, no la orquestación de servicios.",
+   "src": "1689d8491d16"
+  },
+  "choices.2.text": {
+   "es": "Una transición de clase de almacenamiento.",
+   "src": "ec7db2726755"
+  },
+  "choices.2.why": {
+   "es": "Una transición de objetos no es una orquestación condicional general.",
+   "src": "6ed8458fca5c"
+  },
+  "choices.3.text": {
+   "es": "Una vista materializada.",
+   "src": "036999a6aa1c"
+  },
+  "choices.3.why": {
+   "es": "Un resultado SQL precalculado no coordina llamadas arbitrarias a API.",
+   "src": "93cde3a80897"
+  },
+  "explanation": {
+   "es": "Workflows coordina llamadas a servicios sin requerir un entorno administrado de Airflow.",
+   "src": "207fe17a8900"
+  }
+ },
+ "lab-45": {
+  "text": {
+   "es": "Un ETL pesado nocturno compite con dashboards sensibles a la latencia. ¿Qué puede crear un límite de cómputo deliberado?",
+   "src": "2883998506f6"
+  },
+  "choices.0.text": {
+   "es": "Usar un mismo grupo de capacidad compartida sin análisis.",
+   "src": "7c6fabddd5fc"
+  },
+  "choices.0.why": {
+   "es": "Esto no resuelve la contención indicada.",
+   "src": "949550d66c48"
+  },
+  "choices.1.text": {
+   "es": "Reservas separadas de BigQuery y asignaciones adecuadas.",
+   "src": "300b19157260"
+  },
+  "choices.1.why": {
+   "es": "Los límites de las reservas permiten que las cargas de trabajo reciban asignaciones de cómputo separadas.",
+   "src": "1108fe623f2f"
+  },
+  "choices.2.text": {
+   "es": "Solo cambiar el nombre para mostrar de cada consulta.",
+   "src": "a7bb6b7779b0"
+  },
+  "choices.2.why": {
+   "es": "Un nombre para mostrar no asigna capacidad.",
+   "src": "1814162d4e75"
+  },
+  "choices.3.text": {
+   "es": "Solo un correo de presupuesto.",
+   "src": "57953d0dc306"
+  },
+  "choices.3.why": {
+   "es": "Una notificación no aísla el cómputo.",
+   "src": "cb4df4edae7b"
+  },
+  "explanation": {
+   "es": "Los límites de las reservas permiten que las cargas de trabajo reciban asignaciones de cómputo separadas.",
+   "src": "1108fe623f2f"
+  }
+ },
+ "lab-46": {
+  "text": {
+   "es": "¿Qué afirmación sobre una alerta de presupuesto en la nube es correcta?",
+   "src": "bf3381d572a5"
+  },
+  "choices.0.text": {
+   "es": "Hace que la salida de red (egress) sea gratis.",
+   "src": "cb43c412ba4d"
+  },
+  "choices.0.why": {
+   "es": "Una notificación no cambia los precios.",
+   "src": "70c014f89660"
+  },
+  "choices.1.text": {
+   "es": "Crea automáticamente una réplica entre regiones.",
+   "src": "17649e730db5"
+  },
+  "choices.1.why": {
+   "es": "Una alerta no define una configuración de replicación.",
+   "src": "d96f77977fa8"
+  },
+  "choices.2.text": {
+   "es": "Da una notificación y no es por sí misma un tope de gasto garantizado.",
+   "src": "aba709ab0b0b"
+  },
+  "choices.2.why": {
+   "es": "Una alerta de presupuesto informa sobre el gasto o activa su gestión. No es una aplicación automática y estricta sobre los recursos.",
+   "src": "cf8c92cb68a5"
+  },
+  "choices.3.text": {
+   "es": "Siempre detiene todos los servicios en el presupuesto exacto.",
+   "src": "e64d4327841a"
+  },
+  "choices.3.why": {
+   "es": "Eso no es lo que garantiza una alerta por sí sola.",
+   "src": "154852723e14"
+  },
+  "explanation": {
+   "es": "Una alerta de presupuesto informa sobre el gasto o activa su gestión. No es una aplicación automática y estricta sobre los recursos.",
+   "src": "cf8c92cb68a5"
+  }
+ },
+ "lab-47": {
+  "text": {
+   "es": "Una consulta de BigQuery falla con un mensaje de Resources exceeded relacionado con la memoria. ¿Qué debes revisar antes de comprar capacidad?",
+   "src": "5e6daca950a2"
+  },
+  "choices.0.text": {
+   "es": "Solo la ortografía del nombre para mostrar de la tabla.",
+   "src": "3ae4d13bd506"
+  },
+  "choices.0.why": {
+   "es": "Un nombre para mostrar no diagnostica la memoria de ejecución.",
+   "src": "27679c1e9017"
+  },
+  "choices.1.text": {
+   "es": "Una cuota de solicitudes de API no relacionada, por defecto.",
+   "src": "6b7b69cbb3fc"
+  },
+  "choices.1.why": {
+   "es": "Las cuotas de solicitudes y la memoria de ejecución son restricciones distintas.",
+   "src": "05cc7cc0b789"
+  },
+  "choices.2.text": {
+   "es": "Solo el color de fondo del dashboard.",
+   "src": "a36f63ead959"
+  },
+  "choices.2.why": {
+   "es": "La presentación no explica un fallo de ejecución de la consulta.",
+   "src": "3d11cd646342"
+  },
+  "choices.3.text": {
+   "es": "El error completo y el grafo de ejecución para las operaciones costosas.",
+   "src": "33b725ccd58c"
+  },
+  "choices.3.why": {
+   "es": "La etapa que falla distingue entre memoria, ordenamiento, shuffle y otras causas que necesitan remedios distintos.",
+   "src": "d5d90c8b3dee"
+  },
+  "explanation": {
+   "es": "La etapa que falla distingue entre memoria, ordenamiento, shuffle y otras causas que necesitan remedios distintos.",
+   "src": "d5d90c8b3dee"
+  }
+ },
+ "lab-48": {
+  "text": {
+   "es": "Un sistema no debe perder más de quince minutos de datos después de una falla. ¿Qué objetivo describe ese límite?",
+   "src": "9420930339b2"
+  },
+  "choices.0.text": {
+   "es": "Objetivo de punto de recuperación (recovery point objective, RPO).",
+   "src": "111e38f519a1"
+  },
+  "choices.0.why": {
+   "es": "El RPO se refiere a la cantidad de pérdida de datos recuperable, medida en tiempo.",
+   "src": "f36c62edc29e"
+  },
+  "choices.1.text": {
+   "es": "Objetivo de tiempo de recuperación (recovery time objective, RTO).",
+   "src": "f5ecaf6a7d3f"
+  },
+  "choices.1.why": {
+   "es": "El RTO se refiere a cuánto puede tardar la restauración del servicio.",
+   "src": "471e3190605e"
+  },
+  "choices.2.text": {
+   "es": "El color de la actualización de la caché del dashboard.",
+   "src": "650e2c33c618"
+  },
+  "choices.2.why": {
+   "es": "Eso no tiene relación con los requisitos de recuperación.",
+   "src": "70f91c6bfb9e"
+  },
+  "choices.3.text": {
+   "es": "El número máximo de columnas SQL.",
+   "src": "3c97e735e35f"
+  },
+  "choices.3.why": {
+   "es": "El ancho del esquema no expresa un objetivo de pérdida basado en tiempo.",
+   "src": "284a0033ccd0"
+  },
+  "explanation": {
+   "es": "El RPO se refiere a la cantidad de pérdida de datos recuperable, medida en tiempo.",
+   "src": "f36c62edc29e"
+  }
+ },
+ "lab-49": {
+  "text": {
+   "es": "Necesitas un estado de una tabla de BigQuery, de solo lectura y retenido, más allá de la ventana de time travel. ¿Qué función debes evaluar?",
+   "src": "5604eeb41b8e"
+  },
+  "choices.0.text": {
+   "es": "Solo cambiar el intervalo de actualización del dashboard.",
+   "src": "5705deb41a74"
+  },
+  "choices.0.why": {
+   "es": "El momento de la actualización no retiene un estado de tabla del almacén.",
+   "src": "d08abb1eb39c"
+  },
+  "choices.1.text": {
+   "es": "Un snapshot de tabla con la retención requerida.",
+   "src": "a85f7b7cdfd5"
+  },
+  "choices.1.why": {
+   "es": "Un snapshot conserva un estado elegido de la tabla más allá de la retención normal de consultas históricas.",
+   "src": "009ae77f4aa5"
+  },
+  "choices.2.text": {
+   "es": "Suponer que time travel dura indefinidamente.",
+   "src": "7c7bf67d6151"
+  },
+  "choices.2.why": {
+   "es": "Time travel tiene una ventana de retención limitada.",
+   "src": "b476d9bc5b14"
+  },
+  "choices.3.text": {
+   "es": "Solo cambiar el nombre de la tabla de origen.",
+   "src": "9c5a9f8c234d"
+  },
+  "choices.3.why": {
+   "es": "Un cambio de nombre no conserva el estado original.",
+   "src": "71afa207966a"
+  },
+  "explanation": {
+   "es": "Un snapshot conserva un estado elegido de la tabla más allá de la retención normal de consultas históricas.",
+   "src": "009ae77f4aa5"
+  }
+ },
+ "lab-50": {
+  "text": {
+   "es": "Un equipo programa una copia de seguridad diaria y afirma tener un RPO estricto de menos de veinticuatro horas. ¿Qué se debe comprobar?",
+   "src": "a801eee881bc"
+  },
+  "choices.0.text": {
+   "es": "Nada: cualquier programación diaria es una garantía universal.",
+   "src": "a9593152d7e8"
+  },
+  "choices.0.why": {
+   "es": "Las etiquetas de una programación no tienen en cuenta el tiempo de finalización ni los fallos.",
+   "src": "0bc6ec9390d5"
+  },
+  "choices.1.text": {
+   "es": "Solo el número de usuarios del dashboard.",
+   "src": "fe7c96a51e65"
+  },
+  "choices.1.why": {
+   "es": "La cantidad de usuarios no valida el límite de pérdida de la copia de seguridad.",
+   "src": "c5952f81504f"
+  },
+  "choices.2.text": {
+   "es": "Los intervalos de las copias, los retrasos de finalización y los fallos frente al límite real de pérdida.",
+   "src": "64118a652cb7"
+  },
+  "choices.2.why": {
+   "es": "Una programación diaria por sí sola no garantiza un límite estricto de menos de un día ante retrasos o ejecuciones omitidas.",
+   "src": "eb0541e41662"
+  },
+  "choices.3.text": {
+   "es": "Solo que el trabajo de copia tenga un nombre amigable.",
+   "src": "92f6ae74f139"
+  },
+  "choices.3.why": {
+   "es": "Los nombres no demuestran garantías de recuperación.",
+   "src": "8624ff709072"
+  },
+  "explanation": {
+   "es": "Una programación diaria por sí sola no garantiza un límite estricto de menos de un día ante retrasos o ejecuciones omitidas.",
+   "src": "eb0541e41662"
+  }
+ },
+ "lab-92": {
+  "text": {
+   "es": "Un trabajo semanal de Spark necesita treinta minutos de procesamiento, y los datos deben sobrevivir a la eliminación del cómputo. ¿Qué comparación es la más relevante para el costo de operación?",
+   "src": "c4161076ec9d"
+  },
+  "choices.0.text": {
+   "es": "Borrar filas de entrada necesarias para reducir el tiempo de ejecución, afirmando el mismo resultado de negocio.",
+   "src": "2a083d053377"
+  },
+  "choices.0.why": {
+   "es": "Eso cambia la carga de trabajo en lugar de optimizar el mismo requisito.",
+   "src": "cb2d357697c7"
+  },
+  "choices.1.text": {
+   "es": "Usar el precio más bajo por máquina sin comparar la finalización ni los fallos.",
+   "src": "67fe57658c21"
+  },
+  "choices.1.why": {
+   "es": "Un precio unitario menor no significa necesariamente un costo menor por ejecución exitosa.",
+   "src": "b2b9da0189c7"
+  },
+  "choices.2.text": {
+   "es": "Mantener un clúster permanente inactivo y considerar solo su utilización máxima.",
+   "src": "2f29e36a251f"
+  },
+  "choices.2.why": {
+   "es": "El tiempo inactivo afecta la comparación de costo completa.",
+   "src": "f262eaacc4c8"
+  },
+  "choices.3.text": {
+   "es": "Ejecución basada en trabajos o efímera, con entrada y salida duraderas separadas de los workers.",
+   "src": "32cceced62cc"
+  },
+  "choices.3.why": {
+   "es": "El trabajo intermitente puede evitar capacidad de clúster inactiva innecesaria y conservar los datos.",
+   "src": "d7da76004806"
+  },
+  "explanation": {
+   "es": "Compara el costo total por ejecución de negocio exitosa con los mismos supuestos de datos, plazo y confiabilidad. Separa el estado duradero del ciclo de vida del cómputo antes de decidir cuánto tiempo debe existir la capacidad.",
+   "src": "ed84881fda7c"
+  }
+ },
+ "lab-93": {
+  "text": {
+   "es": "Una optimización de consulta reduce 80% los bytes lógicos escaneados. El equipo usa cómputo basado en capacidad. ¿Qué conclusión sobre el costo se justifica?",
+   "src": "0525d755c61d"
+  },
+  "choices.0.text": {
+   "es": "Todo cargo de la nube debe bajar exactamente 80%.",
+   "src": "51012ba7f050"
+  },
+  "choices.0.why": {
+   "es": "El almacenamiento, la red, la configuración de capacidad y otro trabajo no escalan todos con esa medición.",
+   "src": "2e658d7dfaf3"
+  },
+  "choices.1.text": {
+   "es": "La consulta hace menos trabajo de lectura medido, pero el gasto real de capacidad debe evaluarse según su modelo de facturación y de utilización.",
+   "src": "aaa4416d1e68"
+  },
+  "choices.1.why": {
+   "es": "Una reducción porcentual de los bytes no es automáticamente la misma reducción porcentual en una factura de capacidad.",
+   "src": "d4a152395b72"
+  },
+  "choices.2.text": {
+   "es": "La salida de negocio puede cambiar libremente mientras bajen los bytes escaneados.",
+   "src": "b9467ecb7ca0"
+  },
+  "choices.2.why": {
+   "es": "Una optimización debe conservar el resultado requerido.",
+   "src": "cd29b6010afe"
+  },
+  "choices.3.text": {
+   "es": "La optimización no puede afectar ningún uso útil de recursos porque se usa capacidad.",
+   "src": "5029c2e88cda"
+  },
+  "choices.3.why": {
+   "es": "Hacer menos trabajo aún puede mejorar la eficiencia aunque la facturación no sea directamente por byte escaneado.",
+   "src": "a4e2de60c4ba"
+  },
+  "explanation": {
+   "es": "Mantén explícitos la unidad medida y el modelo de facturación. Reducir el trabajo de escaneo es evidencia útil, pero el ahorro real depende de cómo se configura y se consume la capacidad junto con otros cargos.",
+   "src": "22134eda2aee"
+  }
+ },
+ "lab-94": {
+  "text": {
+   "es": "Un backfill diario de un DAG del mes pasado consulta CURRENT_DATE y agrega datos a la salida de hoy. ¿Qué dos cambios favorecen la repetibilidad? (Elige 2.)",
+   "src": "84cad139295a"
+  },
+  "choices.0.text": {
+   "es": "Agregar más reintentos y seguir anexando salida arbitraria del día actual.",
+   "src": "14df7b39c729"
+  },
+  "choices.0.why": {
+   "es": "Eso repite más veces el mismo error semántico.",
+   "src": "b7d24a27d6a3"
+  },
+  "choices.1.text": {
+   "es": "Capturar todo error de tarea e informar éxito a los consumidores posteriores.",
+   "src": "8f718051a8ee"
+  },
+  "choices.1.why": {
+   "es": "Eso oculta datos inválidos o faltantes y anula la evidencia para recuperar.",
+   "src": "d8a682eae795"
+  },
+  "choices.2.text": {
+   "es": "Pasar de forma explícita el intervalo lógico de entrada previsto.",
+   "src": "ce2734fd64cc"
+  },
+  "choices.2.why": {
+   "es": "Una ejecución retrasada o histórica debe procesar el intervalo de negocio pedido.",
+   "src": "396e9bb065b1"
+  },
+  "choices.3.text": {
+   "es": "Usar un límite definido e idempotente de combinación (merge) o de reemplazo para ese intervalo.",
+   "src": "295cad744210"
+  },
+  "choices.3.why": {
+   "es": "Volver a ejecutar el mismo intervalo no debe duplicar a ciegas la salida de negocio.",
+   "src": "b0dd5bf70b59"
+  },
+  "explanation": {
+   "es": "Un reintento y un backfill deben tener una identidad de entrada y un efecto de salida explícitos. Los intervalos lógicos y las escrituras repetibles evitan que una nueva ejecución cambie en silencio su alcance de fechas o duplique el resultado.",
+   "src": "52a2b3d5e92b"
+  }
+ },
+ "lab-95": {
+  "text": {
+   "es": "Un flujo de conciliación obtiene, descifra, carga, transforma y valida archivos. Operaciones necesita reintentos independientes y fallos de dependencias visibles. ¿Qué disposición de tareas encaja mejor?",
+   "src": "b5aa00385b87"
+  },
+  "choices.0.text": {
+   "es": "Un operador opaco que captura todas las excepciones y devuelve éxito.",
+   "src": "942b2a889020"
+  },
+  "choices.0.why": {
+   "es": "Eso oculta tanto la etapa que falla como si la salida se puede usar.",
+   "src": "1ce83e557fbe"
+  },
+  "choices.1.text": {
+   "es": "Tareas separadas con sentido, con dependencias explícitas y efectos repetibles.",
+   "src": "8c8e22ea144e"
+  },
+  "choices.1.why": {
+   "es": "Los límites de recuperación independientes hacen observables los fallos y las nuevas ejecuciones.",
+   "src": "a655111ae4a2"
+  },
+  "choices.2.text": {
+   "es": "Usar la actualización de una caché de reportes como todo el flujo de procesamiento.",
+   "src": "ab563ecedb37"
+  },
+  "choices.2.why": {
+   "es": "Actualizar la presentación no ejecuta ni valida estas etapas de datos.",
+   "src": "668e13bdc7f0"
+  },
+  "choices.3.text": {
+   "es": "Lanzar todas las etapas al mismo tiempo, sin dependencias de datos.",
+   "src": "ed0d04094b32"
+  },
+  "choices.3.why": {
+   "es": "No se conserva el orden requerido.",
+   "src": "e067b5a65607"
+  },
+  "explanation": {
+   "es": "Los límites de las tareas deben representar puntos reales de recuperación y de validación. Un flujo de trabajo es robusto cuando sus dependencias y efectos se pueden probar, no solo cuando tiene una programación diaria.",
+   "src": "977647b6d55a"
+  }
+ },
+ "lab-96": {
+  "text": {
+   "es": "Dashboards interactivos compiten con un ETL pesado en un grupo compartido de BigQuery. ¿Qué dos hechos son los más relevantes antes de diseñar el aislamiento? (Elige 2.)",
+   "src": "12a6a13c9096"
+  },
+  "choices.0.text": {
+   "es": "El uso real de slots, la contención y el comportamiento de las consultas de las cargas de trabajo.",
+   "src": "2173b7343809"
+  },
+  "choices.0.why": {
+   "es": "El diseño de capacidad debe basarse en evidencia de ejecución medida.",
+   "src": "9ac9375d79ba"
+  },
+  "choices.1.text": {
+   "es": "Que la palabra interactivo garantiza una asignación de cómputo dedicada.",
+   "src": "cd25e6a3f2ff"
+  },
+  "choices.1.why": {
+   "es": "La prioridad de los trabajos y una reserva de capacidad son controles distintos.",
+   "src": "6e1eafeeed93"
+  },
+  "choices.2.text": {
+   "es": "Que una alerta de presupuesto reserva automáticamente suficientes slots para el dashboard.",
+   "src": "5c1371c7a4cc"
+  },
+  "choices.2.why": {
+   "es": "Una notificación de gasto no asigna capacidad de ejecución.",
+   "src": "085baf5cce10"
+  },
+  "choices.3.text": {
+   "es": "Las asignaciones de reservas y la configuración de capacidad para los proyectos o cargas de trabajo previstos.",
+   "src": "47be94d24c60"
+  },
+  "choices.3.why": {
+   "es": "Las asignaciones definen el límite de recursos, no una etiqueta para mostrar.",
+   "src": "c55d13321900"
+  },
+  "explanation": {
+   "es": "Usa mediciones para distinguir la contención de un SQL deficiente y luego configura una asignación deliberada donde haga falta. Las etiquetas de prioridad y las notificaciones de presupuesto no establecen por sí solas recursos dedicados para el dashboard.",
+   "src": "46225ba0eddb"
+  }
+ },
+ "lab-97": {
+  "text": {
+   "es": "Una consulta falla con un mensaje de Resources exceeded relacionado con la memoria durante un ordenamiento grande. ¿Qué acción siguiente tiene más respaldo?",
+   "src": "6e15e417cb6b"
+  },
+  "choices.0.text": {
+   "es": "Aumentar una cuota de solicitudes de API no relacionada, sin examinar la etapa.",
+   "src": "2669eb8b568e"
+  },
+  "choices.0.why": {
+   "es": "Las tasas de solicitudes de API y la memoria de ejecución son restricciones distintas.",
+   "src": "05c8dddd0301"
+  },
+  "choices.1.text": {
+   "es": "Cambiar el nombre del dataset y tratarlo como evidencia de que el cálculo cambió.",
+   "src": "434cd3196194"
+  },
+  "choices.1.why": {
+   "es": "El nombre para mostrar no repara el ordenamiento costoso.",
+   "src": "d1b1050f8598"
+  },
+  "choices.2.text": {
+   "es": "Inspeccionar los detalles del error y el grafo de ejecución, y probar una reducción del trabajo intermedio del ordenamiento que conserve el resultado.",
+   "src": "7b467e7c70e6"
+  },
+  "choices.2.why": {
+   "es": "El operador que falla y el tamaño intermedio orientan el remedio.",
+   "src": "4f809f76ab7c"
+  },
+  "choices.3.text": {
+   "es": "Suponer que comprar cualquier reserva garantiza el éxito de todas las formas de consulta.",
+   "src": "793a6955b786"
+  },
+  "choices.3.why": {
+   "es": "Más capacidad no es una reparación universal para todos los operadores ni para la complejidad del plan.",
+   "src": "5f8533b12033"
+  },
+  "explanation": {
+   "es": "Una falla específica requiere un diagnóstico específico. Inspecciona la operación que usa la memoria y prueba la estructura de la consulta antes de atribuir el problema a una falta genérica de capacidad.",
+   "src": "f374269d3ad8"
+  }
+ },
+ "lab-98": {
+  "text": {
+   "es": "Un pipeline sigue en ejecución con un uso promedio bajo de CPU, pero la frescura de la salida empeora y crece el backlog de cuarentena. ¿Qué dos dimensiones de monitoreo se deben agregar o priorizar? (Elige 2.)",
+   "src": "36bdfe2b9907"
+  },
+  "choices.0.text": {
+   "es": "El backlog de registros rechazados, sus causas y quién es responsable de repararlos y reproducirlos.",
+   "src": "3f0b10677bc5"
+  },
+  "choices.0.why": {
+   "es": "Una ruta de fallos que crece puede esconderse detrás de un estado saludable del proceso principal.",
+   "src": "570898081b35"
+  },
+  "choices.1.text": {
+   "es": "La frescura de negocio y la completitud esperada de los datos.",
+   "src": "8203ad77f959"
+  },
+  "choices.1.why": {
+   "es": "Un proceso en ejecución no prueba que la salida requerida llegó a tiempo.",
+   "src": "6a748e561615"
+  },
+  "choices.2.text": {
+   "es": "Solo el conteo total de workers como medida completa de calidad.",
+   "src": "bf84d9e1f1d6"
+  },
+  "choices.2.why": {
+   "es": "El conteo de workers no describe si se están entregando datos de negocio válidos.",
+   "src": "f67e72a75f49"
+  },
+  "choices.3.text": {
+   "es": "Quitar los registros con error para que desaparezca el gráfico del backlog.",
+   "src": "7d8346dd2c5f"
+  },
+  "choices.3.why": {
+   "es": "Borrar evidencia oculta la falla en lugar de repararla.",
+   "src": "9f05f1e87af2"
+  },
+  "explanation": {
+   "es": "Observa el contrato de datos de negocio junto con la infraestructura. La frescura, la completitud y los errores sin resolver revelan fallas que pueden convivir con un estado saludable del proceso o con un uso promedio moderado de CPU.",
+   "src": "7d4a0947e719"
+  }
+ }
+}
