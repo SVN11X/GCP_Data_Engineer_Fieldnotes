@@ -4,7 +4,7 @@
 const D=globalThis.FIELDNOTES_DATA,C=globalThis.FieldCore,$=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 if(!D||!C||!globalThis.FieldLoader||!globalThis.FieldStudyUI||!globalThis.FieldAttention){$('#main').innerHTML='<h1>The study pack could not load.</h1><p>Keep the assets folder beside index.html, then reload.</p>';return;}
 const KEY='data-engineer-fieldnotes.v1',Q=Object.fromEntries(D.questions.map(q=>[q.id,q])),L=Object.fromEntries(D.lessons.map(l=>[l.id,l])),G=Object.fromEntries(D.glossary.map(g=>[g.id,g]));
-const loader=globalThis.FieldLoader.create(D,fetch.bind(window),document.baseURI);
+const loader=globalThis.FieldLoader.create(D,fetch.bind(window),document.baseURI,()=>lang);
 const e=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const doclink=(id)=>{const s=D.sources[id];return s?`<a href="${e(s.url)}" target="_blank" rel="noopener noreferrer">${e(s.title)} ↗</a>`:'';};
 const sourceKind=s=>s.kind==='community'?'Community · secondary':s.kind==='provider-course'?'Provider course':'Primary source';
@@ -25,7 +25,7 @@ function setFocus(on){focusMode=on;try{localStorage.setItem(C.FOCUS_KEY,C.serial
 let lang='en';try{lang=C.parseLang(localStorage.getItem(C.LANG_KEY));}catch{}
 let i18nLoad;
 function applyLang(){document.documentElement.lang=lang;$('#lang-toggle').setAttribute('aria-pressed',String(lang==='es'));if(lang!=='es'){globalThis.FieldI18n?.stop();return;}i18nLoad=i18nLoad||new Promise((ok,no)=>{const s=document.createElement('script');s.src='assets/i18n.js?v='+D.release;s.onload=ok;s.onerror=no;document.head.append(s);}).catch(x=>{i18nLoad=null;throw x;});i18nLoad.then(()=>lang==='es'&&globalThis.FieldI18n.start(D.release)).catch(()=>{});}
-function setLang(next){lang=next;try{localStorage.setItem(C.LANG_KEY,C.serializeLang(next));}catch{}applyLang();}
+function setLang(next){lang=next;try{localStorage.setItem(C.LANG_KEY,C.serializeLang(next));}catch{}applyLang();if(route==='learn'||route==='focus')render(false);}
 let renderVersion=0,currentView='',examReady=!state.exam;
 function applyTheme(){const preference=state.theme||'system';document.documentElement.dataset.theme=preference==='system'?(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):preference;$('#theme-toggle').textContent='Theme: '+preference;$('#theme-toggle').setAttribute('aria-label','Color theme: '+preference+'. Change theme');}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch{if(!storageWarned){storageWarned=true;toast('Browser storage is unavailable. Export progress before closing this page.');}}}

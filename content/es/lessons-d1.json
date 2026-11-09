@@ -1,0 +1,1036 @@
+{
+ "least-privilege": {
+  "title": {
+   "es": "Da a cada identidad solo el acceso que necesita",
+   "src": "73b74ec4effa"
+  },
+  "lead": {
+   "es": "Empieza por saber quién actúa, qué recurso interviene y qué operación hace falta.",
+   "src": "2a83b1e2de1d"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "IAM asigna roles a los principales (principals) sobre los recursos. Una cuenta de servicio (service account) es la identidad de una carga de trabajo (workload). Separa producción de desarrollo y da los permisos de las personas a través de grupos. Así es más fácil gestionar los cambios de miembros.",
+   "src": "67a78df2962d"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Da el rol más estrecho que sea útil, en el alcance de recurso adecuado. Prefiere las identidades asociadas a la carga de trabajo o la suplantación (impersonation) antes que descargar claves de larga duración. Las restricciones de red no sustituyen los permisos de identidad.",
+   "src": "9ef1af02750a"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Un proceso de carga nocturno lee un bucket y escribe en un dataset. Da esos permisos a su cuenta de servicio. La persona que lo ejecuta no necesita seguir como Project Owner.",
+   "src": "a7a3d5c439a9"
+  },
+  "sections.3.title": {
+   "es": "Separa cuatro identidades",
+   "src": "a7a296f43dc1"
+  },
+  "sections.3.body": {
+   "es": "Identifica a la persona o la automatización que envía el trabajo, la identidad de la carga de trabajo que lee los datos, el agente de servicio (service agent) que gestiona la infraestructura y el consumidor final. Pueden necesitar permisos distintos. Una cuenta de servicio no es un conjunto de credenciales. Es el principal. Una clave es solo una forma de autenticarse como ese principal.",
+   "src": "c40e33eb051b"
+  },
+  "sections.4.title": {
+   "es": "Sigue el permiso a través de la jerarquía",
+   "src": "e64cac2bf0f3"
+  },
+  "sections.4.body": {
+   "es": "Un permiso local y estrecho no anula un permiso heredado más amplio. Revisa el acceso de la organización, de las carpetas y del proyecto antes de concluir que producción está aislada. Dar acceso a un grupo facilita gestionar a los miembros, pero el propio grupo también debe estar controlado. Audita tanto las asignaciones de roles como quién puede cambiar los miembros.",
+   "src": "c08944c24a9f"
+  },
+  "sections.5.title": {
+   "es": "Prefiere credenciales de corta duración cuando sea posible",
+   "src": "2b3fb3bb8cb5"
+  },
+  "sections.5.body": {
+   "es": "Para una carga de trabajo externa de CI, la federación (federation) puede cambiar una identidad externa de confianza por credenciales de Google de corta duración. Para una carga que ya se ejecuta en Google Cloud, una identidad asociada suele ser un punto de partida más simple. El permiso de suplantación es muy poderoso. Si lo das de forma amplia, puede anular permisos de datos que por lo demás son estrechos.",
+   "src": "6c1d6620b5f1"
+  },
+  "trap": {
+   "es": "Un rol Editor en todo el proyecto expone más de lo que necesitan un lector de bucket y un escritor de dataset.",
+   "src": "8a1ec7295d89"
+  },
+  "exercise.prompt": {
+   "es": "Quien envía un trabajo tiene permiso para iniciar Dataflow, pero los workers no pueden leer un bucket. ¿Qué cadena de permisos debes revisar?",
+   "src": "1a259b6bff44"
+  },
+  "exercise.answer": {
+   "es": "Revisa la cuenta de servicio del worker que de verdad está asociada al trabajo y sus permisos efectivos sobre el bucket. Comprueba también que quien envía el trabajo puede usar esa identidad. Dar más permisos de proyecto a la persona no demuestra que el worker haya ganado acceso de lectura.",
+   "src": "3eec4b3b6c6e"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Nombra el principal que accede a cada recurso.",
+   "src": "0ca36af60476"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Distingue el acceso heredado de una asignación local (binding).",
+   "src": "14690a1b6be9"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Explica por qué una clave descargada no es un rol de IAM.",
+   "src": "b3f69ebcef17"
+  },
+  "briefing.context": {
+   "es": "Un proceso de carga programado necesita un bucket y un dataset. No debería poder cambiar todos los recursos de la empresa.",
+   "src": "2e76b4c1e04e"
+  },
+  "briefing.whyItMatters": {
+   "es": "Si se usa mal el trabajo, sus permisos determinan cuántos datos se pueden exponer o cambiar.",
+   "src": "154858de28a9"
+  },
+  "briefing.takeaway": {
+   "es": "Nombra la identidad que actúa, la operación que necesita y el alcance de recurso más estrecho que sea útil.",
+   "src": "d6125cf97db5"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Mínimo privilegio para un proceso de carga nocturno",
+   "src": "aa17b30324b1"
+  },
+  "block.diagram.description": {
+   "es": "La cuenta de servicio de un proceso de carga nocturno lee un bucket y escribe en un dataset. No tiene ningún rol para todo el proyecto.",
+   "src": "9b1a26b0cee3"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Proceso de carga",
+   "src": "135eeeb4b1a8"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "cuenta de servicio",
+   "src": "d7da08389824"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Lee un",
+   "src": "73df924ab902"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "bucket",
+   "src": "c5879b8d250c"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Escribe en un",
+   "src": "9dceb40208e3"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "dataset",
+   "src": "b277fd623676"
+  },
+  "block.keyFact": {
+   "es": "Da el rol más estrecho que sea útil, en el alcance de recurso adecuado.",
+   "src": "f7d7e671c338"
+  },
+  "block.check.question": {
+   "es": "Un proceso de carga nocturno lee un bucket y escribe en un dataset. ¿Qué permiso encaja?",
+   "src": "d739e08b8f70"
+  },
+  "block.check.choices.0.text": {
+   "es": "Permisos sobre el bucket y el dataset para su cuenta de servicio",
+   "src": "4164350c66c9"
+  },
+  "block.check.choices.0.why": {
+   "es": "El trabajo recibe solo los permisos que necesita. La persona que lo ejecuta no necesita seguir como Project Owner.",
+   "src": "869cd2a9630a"
+  },
+  "block.check.choices.1.text": {
+   "es": "Project Owner para la persona que lo ejecuta",
+   "src": "8c4127e16e5b"
+  },
+  "block.check.choices.1.why": {
+   "es": "La persona que ejecuta el trabajo no necesita seguir como Project Owner.",
+   "src": "d99b06c88c38"
+  },
+  "block.check.choices.2.text": {
+   "es": "Un rol Editor en todo el proyecto",
+   "src": "48f382bb6f57"
+  },
+  "block.check.choices.2.why": {
+   "es": "Un rol Editor en todo el proyecto expone más de lo que necesitan un lector de bucket y un escritor de dataset.",
+   "src": "8a1ec7295d89"
+  }
+ },
+ "identity-boundaries": {
+  "title": {
+   "es": "Sigue las identidades en un pipeline privado",
+   "src": "a71dedf2906a"
+  },
+  "lead": {
+   "es": "Encuentra el principal real y la ruta de red en cada frontera.",
+   "src": "c09cf1777ba2"
+  },
+  "sections.0.title": {
+   "es": "Crea un mapa de identidades",
+   "src": "65e0f8b61f1e"
+  },
+  "sections.0.body": {
+   "es": "Haz una lista con la persona o el proceso de CI que envía el trabajo, el agente de servicio (service agent) que crea los recursos, la cuenta del worker y las identidades de quienes leen los datos después. Para cada operación, escribe principal, acción y recurso. Así evitas un error de diagnóstico muy común. Es cambiar el rol de quien envía el trabajo cuando el que falla al leer los datos es un worker.",
+   "src": "8d2dcd5cd513"
+  },
+  "sections.1.title": {
+   "es": "Después crea un mapa de red",
+   "src": "8bb4b69c9737"
+  },
+  "sections.1.body": {
+   "es": "Para cada endpoint, comprueba la resolución de nombres, la ruta, los controles de firewall y la configuración de acceso privado que admite el servicio. Llegar a una API no es lo mismo que tener autorización para usarla. Una VPC compartida (Shared VPC) añade la administración de subredes del proyecto host, además de la administración de trabajos del proyecto de servicio.",
+   "src": "67e59bef8501"
+  },
+  "sections.2.title": {
+   "es": "Usa la mínima evidencia para acotar el fallo",
+   "src": "ced9e708f53b"
+  },
+  "sections.2.body": {
+   "es": "Identifica si el error es una denegación de autorización, un fallo de resolución de nombres, una conexión rechazada o un tiempo de espera agotado (timeout). Sigue la configuración real del worker. No supongas que usa una identidad por defecto. Usa mecanismos de autenticación de corta duración cuando convenga y mantén los secretos fuera del código, de los logs y de los notebooks.",
+   "src": "38484e614f1a"
+  },
+  "trap": {
+   "es": "Dar Project Owner a todo el mundo puede ocultar la frontera que necesitas entender.",
+   "src": "b6ca7777c776"
+  },
+  "exercise.prompt": {
+   "es": "El trabajo se inicia, las lecturas del origen funcionan y las escrituras en BigQuery fallan con un error de acceso. ¿Qué frontera debes mirar primero?",
+   "src": "cae4c5481f06"
+  },
+  "exercise.answer": {
+   "es": "Revisa los permisos de escritura en el destino (sink) de la identidad que hace la escritura, junto con el dataset y la configuración del trabajo. Que el trabajo se inicie y lea su origen ya es evidencia sobre otras fronteras.",
+   "src": "1ba9cee945c4"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Asigna un principal a cada operación.",
+   "src": "d12a40a25e39"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Separa la autorización de la conectividad.",
+   "src": "dfa2d4fb8795"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Mantén las credenciales fuera de la salida de diagnóstico.",
+   "src": "17836baa916b"
+  },
+  "briefing.context": {
+   "es": "Una persona puede iniciar un trabajo, pero los workers que se ejecutan no pueden leer su entrada. Actúan con identidades distintas.",
+   "src": "46d64abf73e7"
+  },
+  "briefing.whyItMatters": {
+   "es": "Dar más acceso a la persona puede dejar sin resolver el fallo real del worker.",
+   "src": "abcccf28b703"
+  },
+  "briefing.takeaway": {
+   "es": "Sigue la identidad que hace cada lectura y cada escritura.",
+   "src": "a36ded9fdc09"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  }
+ },
+ "protect-data": {
+  "title": {
+   "es": "Protege los valores, las claves y la frontera",
+   "src": "10ebf4e4e775"
+  },
+  "lead": {
+   "es": "El cifrado, la autorización y la minimización de datos resuelven partes distintas del problema.",
+   "src": "75b972b3455f"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "CMEK (claves de cifrado gestionadas por el cliente) da a tu organización el control de las claves de cifrado. No hace que todos los usuarios estén autorizados. Sensitive Data Protection puede inspeccionar y transformar valores privados antes de que los reciban los analistas.",
+   "src": "b9b24db9ab5f"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Usa políticas de filas (row policies) para los registros permitidos y políticas de columnas (column policies) para los campos restringidos. Usa un perímetro de servicio (service perimeter) para reducir la exfiltración entre las APIs compatibles. Comprueba los requisitos de residencia de datos (residency) tanto para el procesamiento como para el almacenamiento.",
+   "src": "3c725e6b4247"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Los agentes de soporte necesitan los clientes activos y los analistas necesitan todos los clientes, pero sin los documentos de identidad. Combina un filtro de filas para soporte con columnas sensibles protegidas o transformadas para los analistas.",
+   "src": "17d71a2c0721"
+  },
+  "sections.3.title": {
+   "es": "Elige el control según lo que deba cambiar",
+   "src": "62544ee189f5"
+  },
+  "sections.3.body": {
+   "es": "Las políticas de filas restringen registros. Las políticas de columnas restringen campos. El enmascaramiento (masking) cambia la representación que recibe un lector autorizado. La desidentificación (de-identification) transforma los datos mismos. Una vista autorizada (authorized view) expone el resultado de una consulta elegida. El cifrado protege los datos con un modelo de gestión de claves. No decide qué filas de negocio debe ver un analista. Combina controles cuando el requisito abarca estas capas.",
+   "src": "ea9444977899"
+  },
+  "sections.4.title": {
+   "es": "Mantén los permisos separados de la geografía",
+   "src": "42e6a78a182f"
+  },
+  "sections.4.body": {
+   "es": "Elegir la ubicación de un dataset y limitar la creación de recursos son cosas distintas. Revisa también dónde ocurren el procesamiento, el almacenamiento temporal (staging), las exportaciones y las copias de recuperación. Una etiqueta regional no demuestra que se cumplan todos los requisitos legales. Y un perímetro de servicio no sustituye a la ubicación real del dataset.",
+   "src": "b66193dea412"
+  },
+  "sections.5.title": {
+   "es": "Sigue quién es dueño de las claves y cómo se recuperan",
+   "src": "66a01b8e73e0"
+  },
+  "sections.5.body": {
+   "es": "Con CMEK, el servicio que cifra debe tener permiso para usar la clave correspondiente, y la ubicación de la clave debe ser compatible con el servicio. Planifica el acceso a las claves y su recuperación junto con el plan de recuperación de datos. Borrar una clave compartida puede afectar a más registros de los que querías. El borrado criptográfico por persona exige elegir con cuidado la granularidad de las claves.",
+   "src": "d87967fe6a75"
+  },
+  "trap": {
+   "es": "Una regla de firewall por sí sola no puede expresar qué columnas de BigQuery puede leer un usuario.",
+   "src": "d368cb00eeac"
+  },
+  "exercise.prompt": {
+   "es": "Los analistas necesitan todos los pedidos con los identificadores enmascarados. Los investigadores de fraude necesitan los identificadores originales solo para sus casos. ¿Qué debe distinguir tu diseño?",
+   "src": "22b2e5641bdb"
+  },
+  "exercise.answer": {
+   "es": "Distingue las filas permitidas, el acceso a columnas o a valores enmascarados, y la identidad de cada lector. Define qué usuarios pueden obtener los valores originales y revisa los permisos heredados. Un único rol de proyecto o un ajuste de cifrado del bucket no puede expresar todas estas condiciones de negocio.",
+   "src": "52f4510e25b3"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Relaciona una restricción de registros con la seguridad por filas.",
+   "src": "3b341eff5c75"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Explica la diferencia entre enmascarar y cambiar el dataset almacenado.",
+   "src": "3b572697c819"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Incluye el almacenamiento temporal y las copias de seguridad en una decisión de residencia.",
+   "src": "793ba5628842"
+  },
+  "briefing.context": {
+   "es": "Un dataset de clientes útil contiene valores que algunos lectores nunca deben ver.",
+   "src": "15b2fe1c6176"
+  },
+  "briefing.whyItMatters": {
+   "es": "Las reglas de acceso, el cifrado y las transformaciones de privacidad protegen partes distintas del mismo recorrido de los datos.",
+   "src": "c89bd9458063"
+  },
+  "briefing.takeaway": {
+   "es": "Identifica el valor, la identidad y la frontera de acceso antes de elegir un control de seguridad.",
+   "src": "681a3724a1e8"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Controles para distintas partes del problema de datos",
+   "src": "92c171f25ca2"
+  },
+  "block.diagram.description": {
+   "es": "Los datos de clientes se pueden proteger con políticas de filas, que restringen registros, y con políticas de columnas, que restringen campos.",
+   "src": "adef948814b4"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Datos de clientes",
+   "src": "91d3d9beb714"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Política de filas:",
+   "src": "17d550c07bf2"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "restringe registros",
+   "src": "434a73fd51e9"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Política de columnas:",
+   "src": "649ea2ad1541"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "restringe campos",
+   "src": "9facc22d4467"
+  },
+  "block.keyFact": {
+   "es": "El cifrado protege los datos con un modelo de gestión de claves. No decide qué filas de negocio debe ver un analista.",
+   "src": "2a1a95c48460"
+  },
+  "block.check.question": {
+   "es": "Los analistas necesitan todos los clientes, pero no deben ver los documentos de identidad. ¿Qué control restringe esos campos?",
+   "src": "b11921d50f71"
+  },
+  "block.check.choices.0.text": {
+   "es": "Políticas de filas",
+   "src": "8254715cc907"
+  },
+  "block.check.choices.0.why": {
+   "es": "Las políticas de filas restringen registros, no campos.",
+   "src": "703393195a7f"
+  },
+  "block.check.choices.1.text": {
+   "es": "Políticas de columnas",
+   "src": "b54864b2f21a"
+  },
+  "block.check.choices.1.why": {
+   "es": "Las políticas de columnas restringen campos, así que las columnas protegidas pueden contener valores sensibles.",
+   "src": "48e8e6684b0e"
+  },
+  "block.check.choices.2.text": {
+   "es": "Una regla de firewall",
+   "src": "6bcd46bdd2e8"
+  },
+  "block.check.choices.2.why": {
+   "es": "Una regla de firewall por sí sola no puede expresar qué columnas de BigQuery puede leer un usuario.",
+   "src": "d368cb00eeac"
+  }
+ },
+ "region-recovery-design": {
+  "title": {
+   "es": "Elige ubicaciones según la residencia y la recuperación",
+   "src": "1523f311a072"
+  },
+  "lead": {
+   "es": "Un requisito geográfico necesita un mapa claro de las copias de los datos y de las operaciones.",
+   "src": "19fe49db332c"
+  },
+  "sections.0.title": {
+   "es": "Haz una lista de todos los lugares donde existen los datos",
+   "src": "6332877a263b"
+  },
+  "sections.0.body": {
+   "es": "Incluye la captura en el origen, los archivos de almacenamiento temporal (staging), los workers de procesamiento, los datasets del almacén (warehouse), las salidas temporales, los logs de diagnóstico y las copias de recuperación. Pregunta si el requisito cubre el almacenamiento, el procesamiento o ambos. No supongas que un único ajuste regional del dataset limita a todos los demás servicios de la ruta.",
+   "src": "fea5e26352ae"
+  },
+  "sections.1.title": {
+   "es": "Compara la geografía permitida con los dominios de fallo",
+   "src": "1dd7d57c6756"
+  },
+  "sections.1.body": {
+   "es": "Una regla que limita todas las copias a una sola región puede chocar con la petición de recuperarse de la pérdida total de esa región. Muestra esa restricción de forma explícita y compara los diseños compatibles. Una etiqueta multirregión (multi-region) no se debe tratar como garantía de un comportamiento de conmutación por error (failover) concreto ni de un tiempo de recuperación cero.",
+   "src": "f0d31fce0626"
+  },
+  "sections.2.title": {
+   "es": "Valida el acceso en el entorno de recuperación",
+   "src": "b5bcda162922"
+  },
+  "sections.2.body": {
+   "es": "El destino necesita claves, roles, cuotas y dependencias que se puedan usar, y un procedimiento para redirigir a los consumidores. Prueba con una copia de recuperación controlada y compara los totales de negocio recuperados. Documenta qué modelo de fallo, qué objetivo de pérdida y qué objetivo de restauración respalda realmente la evidencia.",
+   "src": "3f90989df6e4"
+  },
+  "trap": {
+   "es": "La ubicación, la jurisdicción, la disponibilidad y la retención de copias de seguridad están relacionadas, pero son requisitos distintos.",
+   "src": "e1a7b346d756"
+  },
+  "exercise.prompt": {
+   "es": "Una política permite solo una región, pero el plan de recuperación ante desastres que piden exige otra región. ¿Cuál es la respuesta correcta de diseño?",
+   "src": "59baa863fbfa"
+  },
+  "exercise.answer": {
+   "es": "Muestra las restricciones que chocan y consigue un alcance de recuperación aprobado. No pongas en silencio una copia prohibida en otro sitio ni finjas que una copia en la misma región cubre la pérdida de la región.",
+   "src": "403127ad3136"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Haz un inventario de las copias de staging y de recuperación.",
+   "src": "6e35cc83c897"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Distingue la geografía permitida de la disponibilidad.",
+   "src": "868c1ddc0f58"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Prueba los permisos de recuperación, además de los datos.",
+   "src": "f62732dd3486"
+  },
+  "briefing.context": {
+   "es": "Una empresa necesita que los datos se queden en una ubicación aprobada y que se puedan recuperar después de un fallo.",
+   "src": "7d26692eae66"
+  },
+  "briefing.whyItMatters": {
+   "es": "Elegir una región por comodidad puede chocar con los requisitos de residencia o de recuperación.",
+   "src": "f666498db4c5"
+  },
+  "briefing.takeaway": {
+   "es": "Elige una ubicación y un plan de recuperación según restricciones explícitas.",
+   "src": "4012cf788f19"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  }
+ },
+ "fidelity": {
+  "title": {
+   "es": "Haz que la corrección sea parte de la arquitectura",
+   "src": "4e3206cd4f0e"
+  },
+  "lead": {
+   "es": "Un pipeline que termina puede entregar un resultado incorrecto.",
+   "src": "04c0e7380f43"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "Define un contrato de datos (data contract): campos obligatorios, rangos válidos, identificadores únicos y frescura. Una operación idempotente (idempotent) tiene el mismo efecto si se repite con la misma entrada. Las transacciones ACID mantienen coherentes los cambios relacionados de una base de datos.",
+   "src": "ff1c9402214b"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Comprueba los conteos y los totales de negocio, además del esquema. Pon en cuarentena los registros mal formados y guarda el motivo del error. Prueba con un conjunto de datos fijo y representativo antes de cambiar una transformación de producción.",
+   "src": "cb4981813e5d"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Un reintento de pago llega dos veces. Guarda un ID de evento estable y haz que la escritura sea idempotente. Después concilia (reconcile) los totales finales. El procesamiento exactly-once por sí solo no protege una llamada cualquiera a una API externa.",
+   "src": "cca0c0aef902"
+  },
+  "sections.3.title": {
+   "es": "Define la granularidad y las invariantes",
+   "src": "742bb3d3326c"
+  },
+  "sections.3.body": {
+   "es": "La granularidad (grain) describe qué representa una fila: un pedido, una línea de pedido o una observación de evento. Define una clave de negocio estable en esa granularidad. Después, las reglas de calidad deben proteger los valores obligatorios, la unicidad, los rangos válidos y las relaciones. Concilia un total financiero y no solo el número de filas. Dos conteos iguales pueden esconder valores duplicados o dañados.",
+   "src": "a668efb07b4c"
+  },
+  "sections.4.title": {
+   "es": "Separa el transporte, el procesamiento y los efectos de negocio",
+   "src": "7023ec8e31d4"
+  },
+  "sections.4.body": {
+   "es": "La entrega at-least-once puede repetir un mensaje. Un motor de procesamiento puede deduplicar su salida gestionada y aun así reintentar el código del usuario. Un destino puede admitir escrituras idempotentes sin que una llamada a una API ajena sea transaccional. Indica la garantía en cada frontera. No describas todo el flujo de negocio con una sola etiqueta exactly-once.",
+   "src": "5c36c05285ec"
+  },
+  "sections.5.title": {
+   "es": "Haz que la repetición (replay) sea segura antes de necesitarla",
+   "src": "f6ce2be22163"
+  },
+  "sections.5.body": {
+   "es": "Un ID de evento estable reconoce las repeticiones. Una regla de orden o de versión decide qué actualización es la más reciente. Guarda la evidencia original y el motivo de los registros rechazados. Decide si una repetición reemplaza una partición, combina por clave (merge) o añade una observación con versión explícita. Añadir sin pensar la salida de una nueva ejecución puede duplicar el resultado.",
+   "src": "abaf2964182c"
+  },
+  "trap": {
+   "es": "No consideres que un mensaje confirmado (acknowledged) equivale a una transacción de negocio externa completada.",
+   "src": "3511682f5af2"
+  },
+  "exercise.prompt": {
+   "es": "Un informe tiene el número correcto de filas pero el doble de ingresos. ¿Qué dos comprobaciones añadirías?",
+   "src": "3daf67d9e293"
+  },
+  "exercise.answer": {
+   "es": "Comprueba la granularidad y la cardinalidad de los joins. Después concilia los totales de negocio con el origen. Un join de uno a muchos puede multiplicar los ingresos a nivel de pedido sin cambiar una métrica de conteo que no tiene relación. Usa claves estables y prueba las nuevas ejecuciones contra el mismo total esperado.",
+   "src": "81818f234dad"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Indica la granularidad antes de diseñar una clave.",
+   "src": "f69474619fc2"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Nombra la frontera exacta de una garantía de entrega.",
+   "src": "c32035c5091f"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Define qué debe cambiar una repetición.",
+   "src": "453a47ccdc43"
+  },
+  "briefing.context": {
+   "es": "Un mensaje de compra llega dos veces después de un reintento. El panel (dashboard) debe seguir mostrando una sola compra.",
+   "src": "e3f3e7a09d14"
+  },
+  "briefing.whyItMatters": {
+   "es": "Un pipeline que termina bien puede publicar un total de negocio incorrecto si cuenta eventos repetidos.",
+   "src": "7d785cd78fab"
+  },
+  "briefing.takeaway": {
+   "es": "Protege la identidad de negocio y concilia el resultado, no solo el estado del trabajo.",
+   "src": "9ad4373f3977"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Cómo hacer segura una repetición de pago",
+   "src": "77d64e55794a"
+  },
+  "block.diagram.description": {
+   "es": "Un ID de evento estable alimenta una escritura idempotente y después se concilian los totales finales.",
+   "src": "f3dad308b395"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "ID de evento estable",
+   "src": "544d3f2009f5"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Escritura idempotente",
+   "src": "cce76b6d93b0"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Totales conciliados",
+   "src": "e7a9d57fb59a"
+  },
+  "block.keyFact": {
+   "es": "Concilia un total financiero y no solo el número de filas. Dos conteos iguales pueden esconder valores duplicados o dañados.",
+   "src": "62a38458c5cb"
+  },
+  "block.check.question": {
+   "es": "Un reintento de pago llega dos veces. ¿Qué ayuda más?",
+   "src": "87d046df4379"
+  },
+  "block.check.choices.0.text": {
+   "es": "Añadir sin pensar la salida de la nueva ejecución",
+   "src": "fb406be07dd6"
+  },
+  "block.check.choices.0.why": {
+   "es": "Añadir sin pensar la salida de una nueva ejecución puede duplicar el resultado.",
+   "src": "6c4a56627bcc"
+  },
+  "block.check.choices.1.text": {
+   "es": "Solo el procesamiento exactly-once",
+   "src": "5cf71a2cbd0a"
+  },
+  "block.check.choices.1.why": {
+   "es": "El procesamiento exactly-once por sí solo no protege una llamada cualquiera a una API externa.",
+   "src": "19205e5bb0c3"
+  },
+  "block.check.choices.2.text": {
+   "es": "Un ID de evento estable y una escritura idempotente",
+   "src": "c3fbb0bbbf11"
+  },
+  "block.check.choices.2.why": {
+   "es": "Después concilia los totales finales para confirmar el resultado.",
+   "src": "b97bd488ab62"
+  }
+ },
+ "portability": {
+  "title": {
+   "es": "Diseña pensando en el próximo requisito",
+   "src": "4fd1e91804cf"
+  },
+  "lead": {
+   "es": "Mantén los datos fáciles de encontrar y toma decisiones deliberadas sobre la portabilidad.",
+   "src": "e0a1a805ac9d"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "Separa los datos duraderos del cómputo temporal. Los formatos abiertos (open formats) permiten que varios motores de procesamiento usen los mismos objetos. Un catálogo (catalog) guarda el significado de negocio y los metadatos técnicos. El linaje (lineage) explica de dónde viene una salida.",
+   "src": "23d7f88dbb7b"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Elige formatos, regiones e interfaces según las restricciones reales del negocio. Un formato de archivo portable no hace portables, por sí solo, los permisos, la orquestación ni el código de la aplicación.",
+   "src": "17e9a2e63a02"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Un equipo reutiliza datos en Spark y en un almacén (warehouse). Mantén una zona de aterrizaje documentada en almacenamiento de objetos y gobierna los activos de forma central. No copies un dataset sin documentar para cada herramienta.",
+   "src": "0c8d6abc40d8"
+  },
+  "sections.3.title": {
+   "es": "La portabilidad tiene varias capas",
+   "src": "a916887e6c23"
+  },
+  "sections.3.body": {
+   "es": "Un formato de archivo abierto y legible ayuda a que distintos motores consuman los datos, pero no transfiere las asignaciones de IAM, la conectividad privada, la programación ni la semántica de SQL. Separa el contrato de datos duradero del entorno de ejecución. Registra la disposición de las particiones, los esquemas, sus cambios y quién es el responsable, para que otro motor pueda reproducir la interpretación.",
+   "src": "c9ff5e94ed0c"
+  },
+  "sections.4.title": {
+   "es": "Mantén el descubrimiento conectado con la gobernanza",
+   "src": "9b02e3e399f6"
+  },
+  "sections.4.body": {
+   "es": "Un catálogo puede describir activos y linaje en toda una plataforma. No es automáticamente la autoridad que da acceso a cada objeto subyacente. Un buen contrato de producto de datos identifica al responsable, el significado de negocio, la vía de acceso, la frescura esperada y las comprobaciones de calidad. Un dataset descubierto puede seguir siendo inutilizable si faltan esos detalles.",
+   "src": "c7afafddf6e6"
+  },
+  "sections.5.title": {
+   "es": "Elige un límite de migración medido",
+   "src": "ac24111e157e"
+  },
+  "sections.5.body": {
+   "es": "Conserva una aplicación Spark existente cuando el negocio necesite un traslado rápido con pocos cambios. Reescribirlo todo como SQL de almacén puede ser una optimización posterior y no un requisito previo. Al contrario, mantener un clúster persistente solo para una transformación SQL pequeña puede añadir trabajo operativo innecesario.",
+   "src": "9523584810bb"
+  },
+  "trap": {
+   "es": "La guía dice Dataplex. La documentación actual también usa Knowledge Catalog. Aprende la capacidad de gobernanza además del nombre.",
+   "src": "62e32dea1c33"
+  },
+  "exercise.prompt": {
+   "es": "Un equipo dice que exportar Parquet hace portable toda su plataforma. ¿Qué falta?",
+   "src": "0cc8b0d6c9e6"
+  },
+  "exercise.answer": {
+   "es": "El formato de archivo resuelve la legibilidad de los datos. El equipo debe tener en cuenta también la evolución del esquema, la autorización, los catálogos, las rutas de red, la semántica de las transformaciones y la orquestación. La portabilidad es un conjunto de contratos probados. No es una propiedad que garantice la extensión de un archivo.",
+   "src": "bba7212d0766"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Separa la portabilidad de los datos de la portabilidad de la aplicación.",
+   "src": "31d9559bb267"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Describe el contrato de un producto de datos (data product).",
+   "src": "e87fdc8c2bc6"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Nombra un motivo para modernizar después de una migración.",
+   "src": "4644c42415ea"
+  },
+  "briefing.context": {
+   "es": "Una plataforma de datos que funciona debe dar servicio el año próximo a otro equipo, a otro motor o a otra ubicación.",
+   "src": "ae55ca3ca806"
+  },
+  "briefing.whyItMatters": {
+   "es": "Las dependencias ocultas pueden convertir una migración futura en un rediseño costoso.",
+   "src": "8ec4f68dd6cb"
+  },
+  "briefing.takeaway": {
+   "es": "Mantén el contrato de datos separado de los detalles de ejecución que se pueden reemplazar.",
+   "src": "50a0e3a962b7"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  }
+ },
+ "migration": {
+  "title": {
+   "es": "Migra con un plan de validación y de traspaso (cutover)",
+   "src": "0f5cfe799022"
+  },
+  "lead": {
+   "es": "Estima el tiempo de transferencia antes de elegir el mecanismo.",
+   "src": "0de489c2c222"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "Haz un inventario de los formatos de origen, las tasas de cambio, la capacidad de red, las dependencias y el tiempo de parada aceptable. Una carga completa (full load) mueve los registros que ya existen. La captura de cambios de datos (change data capture, CDC) sigue los cambios posteriores. Concilia (reconcile) los conteos, las sumas de verificación (checksums) o los totales de negocio antes del traspaso.",
+   "src": "fe8f61ababf3"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Usa Datastream para la captura de cambios de bases de datos compatibles, conectores programados para importaciones recurrentes compatibles y Storage Transfer Service para mover objetos o archivos. Considera Transfer Appliance cuando un traslado sin conexión (offline) encaje con el calendario.",
+   "src": "21a654831d76"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "A 20 megabits por segundo, 1 petabyte necesita unos 12.7 años de transferencia continua ideal. Un plazo de seis meses exige otro camino. Ajustar el protocolo no puede cerrar esa diferencia.",
+   "src": "08cd7163d850"
+  },
+  "sections.3.title": {
+   "es": "Haz el inventario antes de elegir un conector",
+   "src": "adba23c961b5"
+  },
+  "sections.3.body": {
+   "es": "Anota el motor y la versión del origen, los formatos, las claves primarias, el volumen de cambios, cómo se comportan las actualizaciones y los borrados, la ruta de red y el límite de tiempo de parada. Un producto de transferencia gestionada con nombre propio no admite todos los orígenes propietarios. Además, migrar una base de datos y cargar datos en un almacén (warehouse) son problemas de destino distintos. Elige solo después de comprobar que la ruta de origen a destino es compatible.",
+   "src": "3568839a9754"
+  },
+  "sections.4.title": {
+   "es": "Separa la instantánea de los cambios posteriores",
+   "src": "89b2d0624f03"
+  },
+  "sections.4.body": {
+   "es": "Un relleno masivo (backfill) mueve el estado que ya existe. La captura de cambios lleva las modificaciones posteriores. Planifica la transición para que los cambios que ocurren durante el backfill no se pierdan ni se apliquen en el orden equivocado. Concilia los conteos de claves y los valores de negocio, y define cómo se representan los borrados. Mantén una decisión de reversión (rollback) hasta que termine la validación.",
+   "src": "22dcb0ccefcd"
+  },
+  "sections.5.title": {
+   "es": "Usa unidades en la estimación de una transferencia",
+   "src": "505afc0486d2"
+  },
+  "sections.5.body": {
+   "es": "Para una estimación de límite inferior: segundos de transferencia = bytes × 8 ÷ bits por segundo. Convierte las unidades de forma coherente y después añade margen por la utilización, la sobrecarga del protocolo, el tráfico que compite y los reintentos. La capacidad anunciada de un enlace no es una garantía de extremo a extremo para la aplicación. Los dispositivos sin conexión añaden tiempo de envío y de manejo, aunque reduzcan el tiempo de transferencia por red.",
+   "src": "8ea700c3e8c6"
+  },
+  "trap": {
+   "es": "Un formato de archivo propietario sin nombre no está admitido automáticamente por un conector de transferencia gestionada.",
+   "src": "beeea5a7678e"
+  },
+  "exercise.prompt": {
+   "es": "Se copia con éxito una instantánea (snapshot) de 10 TB mientras el origen sigue cambiando. ¿Es seguro redirigir producción de inmediato?",
+   "src": "126a588a52c0"
+  },
+  "exercise.answer": {
+   "es": "No, con esa evidencia sola. Verifica la cobertura de la captura de cambios, el retraso hasta ponerse al día (catch-up lag), las actualizaciones y los borrados, la conciliación de negocio, la compatibilidad de los consumidores y una condición de reversión. Que termine una copia masiva no demuestra que el destino represente el estado actual del origen.",
+   "src": "e57adea04c83"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Explica la instantánea frente a CDC.",
+   "src": "d3fd3ae18c3d"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Calcula un límite inferior de transferencia con unidades explícitas.",
+   "src": "12eddc99a581"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Define los criterios de validación y de reversión.",
+   "src": "9b1b2bf90f79"
+  },
+  "briefing.context": {
+   "es": "Un equipo traslada datos de producción mientras la gente sigue usando el sistema antiguo.",
+   "src": "2b3f02c8328d"
+  },
+  "briefing.whyItMatters": {
+   "es": "Un archivo copiado o un estado de transferencia en verde no demuestra que el reemplazo esté listo.",
+   "src": "69e1a025b86d"
+  },
+  "briefing.takeaway": {
+   "es": "Planifica la validación, el traspaso y la reversión antes de cambiar a los lectores.",
+   "src": "e5527084e67a"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Del estado inicial a los cambios posteriores",
+   "src": "db8efb20af05"
+  },
+  "block.diagram.description": {
+   "es": "Una carga completa mueve los registros existentes, la captura de cambios lleva los cambios posteriores y los datos se concilian antes del traspaso.",
+   "src": "29b83233c665"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Carga completa:",
+   "src": "3ceeddea3307"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "registros existentes",
+   "src": "6a5ee441db23"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Captura de cambios:",
+   "src": "64e50d850e82"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "cambios posteriores",
+   "src": "1080466c1ded"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Conciliar y luego traspasar",
+   "src": "ca8433d0ee81"
+  },
+  "block.keyFact": {
+   "es": "Una carga completa mueve los registros que ya existen. La captura de cambios de datos sigue los cambios posteriores.",
+   "src": "55d46d826d18"
+  },
+  "block.check.question": {
+   "es": "A 20 megabits por segundo, 1 petabyte necesita unos 12.7 años. El plazo es de seis meses. ¿Qué cierra la diferencia?",
+   "src": "8644095e5b39"
+  },
+  "block.check.choices.0.text": {
+   "es": "Otro camino de transferencia",
+   "src": "03f703e514bd"
+  },
+  "block.check.choices.0.why": {
+   "es": "Un plazo de seis meses exige otro camino.",
+   "src": "ab2cbd4c50b4"
+  },
+  "block.check.choices.1.text": {
+   "es": "Ajustar el protocolo",
+   "src": "c79b798174a5"
+  },
+  "block.check.choices.1.why": {
+   "es": "Ajustar el protocolo no puede cerrar esa diferencia.",
+   "src": "d4fb3ccef2dd"
+  },
+  "block.check.choices.2.text": {
+   "es": "Omitir la validación antes del traspaso",
+   "src": "9f1e02f03931"
+  },
+  "block.check.choices.2.why": {
+   "es": "Concilia los conteos, las sumas de verificación o los totales de negocio antes del traspaso.",
+   "src": "6abb59181fbd"
+  }
+ },
+ "cdc-cutover": {
+  "title": {
+   "es": "Pasa de una instantánea a un origen que cambia",
+   "src": "cb9773756893"
+  },
+  "lead": {
+   "es": "Planifica las actualizaciones, los borrados, el orden y el traspaso (cutover) como un solo contrato.",
+   "src": "4599b283240e"
+  },
+  "sections.0.title": {
+   "es": "Define el estado inicial y el incremental",
+   "src": "a0fea3277bcf"
+  },
+  "sections.0.body": {
+   "es": "Una instantánea (snapshot) es una representación del origen en un momento o en un límite coherente que el sistema admita. CDC registra los cambios posteriores. La transición debe cubrir las modificaciones que ocurren durante la carga completa. Revisa la semántica de origen que admite el conector. No supongas que las marcas de tiempo de los eventos bastan por sí solas para fijar un orden coherente.",
+   "src": "5662f369003b"
+  },
+  "sections.1.title": {
+   "es": "Diseña cómo se interpreta el destino",
+   "src": "dc523d2c386a"
+  },
+  "sections.1.body": {
+   "es": "Un historial de eventos puede añadir cada cambio observado, mientras que una tabla de estado actual necesita una regla de aplicación que tenga en cuenta la versión. Trata los borrados de forma deliberada. Si llegan varias versiones del origen, una actualización antigua no debe sobrescribir una más nueva solo porque se procesó la última. Deduplica las versiones del origen que compiten antes de un MERGE cuando haga falta.",
+   "src": "8ee0cb70ee87"
+  },
+  "sections.2.title": {
+   "es": "Haz del traspaso una decisión medida",
+   "src": "eccd6148766b"
+  },
+  "sections.2.body": {
+   "es": "Mide el retraso (lag) entre el origen y el destino y compara las invariantes de negocio de ambos. Prueba las consultas de los consumidores con el esquema nuevo. Define qué activaría una reversión (rollback) y cómo se concilian las escrituras que ocurran durante el cambio. Un trabajo de carga masiva en verde es solo una parte de la decisión.",
+   "src": "e8da44eb29e1"
+  },
+  "trap": {
+   "es": "El orden de cambio en el origen y el orden de llegada al procesamiento no son intercambiables.",
+   "src": "948cc06d7a50"
+  },
+  "exercise.prompt": {
+   "es": "La versión 4 de una entidad llega después de la versión 5. ¿Qué debe hacer una combinación (merge) de estado actual?",
+   "src": "eb5ff2242901"
+  },
+  "exercise.answer": {
+   "es": "Debe conservar la versión más nueva aceptada según el contrato de orden del origen que hayas elegido. Una condición de MERGE y un origen deduplicado de antemano deben impedir que la actualización antigua la sobrescriba.",
+   "src": "b253cf887cf0"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Explica el límite entre la instantánea y CDC.",
+   "src": "d2f7b85a595c"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Describe cómo se comportan las actualizaciones y los borrados.",
+   "src": "9080821b672d"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Define la evidencia para el traspaso y la reversión.",
+   "src": "9f4f00b7dead"
+  },
+  "briefing.context": {
+   "es": "Se copia una instantánea de la base de datos a mediodía y después llegan más pedidos. La captura de cambios de datos sigue los cambios posteriores a la instantánea.",
+   "src": "b9044e69cf76"
+  },
+  "briefing.whyItMatters": {
+   "es": "Los lectores pueden perder actualizaciones si la instantánea y los cambios posteriores no se encuentran en un límite coherente.",
+   "src": "bcef299885e9"
+  },
+  "briefing.takeaway": {
+   "es": "Concilia un estado coherente antes de que el consumidor cambie.",
+   "src": "980ed3537e6b"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  }
+ },
+ "transfer-decisions": {
+  "title": {
+   "es": "Elige la herramienta de migración según el contrato de movimiento",
+   "src": "808018f0a1da"
+  },
+  "lead": {
+   "es": "Mide el volumen y el ancho de banda disponible. Después separa el movimiento de objetos, el envío sin conexión y la captura de cambios de bases de datos.",
+   "src": "288f684b18b1"
+  },
+  "sections.0.title": {
+   "es": "Elige según lo que se mueve",
+   "src": "7c15e266a411"
+  },
+  "sections.0.body": {
+   "es": "Storage Transfer Service gestiona las transferencias compatibles de archivos y objetos. Transfer Appliance ofrece una vía de envío físico de datos hacia Cloud Storage. Para una copia puntual (ad hoc), gcloud storage cp es una opción de línea de comandos. Ninguno de estos datos convierte una herramienta de copia de archivos en un lector de registros de bases de datos.",
+   "src": "f7c7a85a07f4"
+  },
+  "sections.1.title": {
+   "es": "Usa una estimación de límite inferior",
+   "src": "1cc6ef0814cb"
+  },
+  "sections.1.body": {
+   "es": "Modelo de planificación de ejemplo: 100 TB (decimal) sobre un enlace sostenido de 1 Gbit/s requieren unos 9.26 días antes de la sobrecarga: bytes × 8 / bits por segundo. La capacidad compartida, los reintentos, la validación y el tráfico de cambios alargan la ventana necesaria. Compara esa ventana con la logística de envío y de carga del dispositivo. No supongas que lo que va sin conexión siempre es más rápido.",
+   "src": "e75d679de733"
+  },
+  "sections.2.title": {
+   "es": "Valida antes de cambiar a los lectores",
+   "src": "4e51e64817a9"
+  },
+  "sections.2.body": {
+   "es": "Para archivos, concilia el número de objetos, las sumas de verificación cuando se apliquen, los nombres y el acceso. Para una base de datos que cambia, elige una vía de migración o de CDC compatible y concilia una instantánea coherente más los cambios posteriores. Datastream y Database Migration Service tienen destinos y casos de uso distintos. Valida el par exacto de origen y destino.",
+   "src": "df5f7932578c"
+  },
+  "trap": {
+   "es": "Una instantánea copiada no incluye los cambios hechos después de esa instantánea.",
+   "src": "4cc00225975a"
+  },
+  "exercise.prompt": {
+   "es": "Una copia puntual y pequeña de una carpeta y un flujo nocturno de archivos locales (on-premises) comparten un destino en Cloud Storage. ¿Tienen que usar la misma herramienta?",
+   "src": "8f5cfdecc6f6"
+  },
+  "exercise.answer": {
+   "es": "No. Considera gcloud storage cp para la copia puntual y un trabajo programado compatible de Storage Transfer Service para el flujo recurrente. En los dos casos, revisa el acceso, la compatibilidad del origen, la conectividad y la validación.",
+   "src": "32081662a2e9"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Nombra el tipo de datos y el destino.",
+   "src": "2c3cabdda058"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Estima la ventana de transferencia con unidades.",
+   "src": "9198d9626262"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Define la conciliación y el traspaso.",
+   "src": "ff7885c976b0"
+  },
+  "briefing.context": {
+   "es": "Se acerca el plazo de una migración y varias herramientas de movimiento de datos parecen similares.",
+   "src": "b16036614ec1"
+  },
+  "briefing.whyItMatters": {
+   "es": "Elegir una herramienta de bases de datos para archivos, o una copia de archivos para cambios continuos, pierde de vista el contrato de movimiento.",
+   "src": "d92a8e5ce1f4"
+  },
+  "briefing.takeaway": {
+   "es": "Nombra el tipo de datos, estima la ventana de transferencia y define la conciliación.",
+   "src": "11513ffc23b0"
+  },
+  "review.scope": {
+   "es": "Las afirmaciones concretas sobre servicios de esta lección original se comprobaron con sus referencias principales. El escenario es un ejemplo.",
+   "src": "9203ccf1a1ce"
+  },
+  "decision.useCase": {
+   "es": "Mover un archivo histórico y después mantener en marcha un flujo programado de archivos.",
+   "src": "d6f84c2b4c32"
+  },
+  "decision.advantage": {
+   "es": "Un contrato de movimiento acota la elección del servicio antes de la implementación.",
+   "src": "4286bbbff52d"
+  },
+  "decision.limitation": {
+   "es": "Tanto el envío físico como las transferencias en línea requieren logística y conciliación.",
+   "src": "b1c46c16e010"
+  }
+ }
+}
