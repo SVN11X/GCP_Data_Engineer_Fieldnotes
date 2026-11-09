@@ -10,7 +10,7 @@ Source scenes for the short silent clips on lesson pages. The rendered files liv
 Run in a Python virtual environment outside this repository with `manim` installed. Set `INTER_TTF` to a local copy of Inter (SIL OFL 1.1) so the labels use the site's body font. Then:
 
 ```
-manim -ql --format=webm -o batch_vs_streaming scripts/manim/batch_vs_streaming.py BatchVsStreaming
+manim -ql --format=webm -o partition_pruning scripts/manim/partition_pruning.py PartitionPruning
 ```
 
-Copy the `.webm` to `assets/video/batch-vs-streaming.webm` and a frame at 23 s as the WebP poster. The captions in `assets/video/*.vtt` follow the scene timing: title 0 s, nodes 3 s, batch 5.5 s, streaming 14.2 s, summary 24.9 s, end 29.9 s. Keep each clip at 1 MB or less.
+Copy the `.webm` to `assets/video/` and a frame as the WebP poster. The captions in `content/captions/*.vtt` follow the scene timing, so rerun the scene and check them after any change. Keep each clip at 1 MB or less.
