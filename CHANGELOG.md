@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Added a notice in the footer that the site is independent and not affiliated with Google, and a credit line to the Google Cloud documentation on every lesson.
+- Added a Credits page with the licenses and terms of everything the site relies on, linked from the footer.
 
 ## 2.1.0 — 2026-11-08
 

@@ -14,7 +14,7 @@ Format: `- [ ]` pending, `- [x]` done, `- [x] SKIPPED: reason`, `- [ ] BLOCKED: 
 - [x] 6. G Add an MIT LICENSE for code, excluding content/imported.json and the 25 source images (done).
 - [ ] BLOCKED: 6b. G Which license should the original written content use, for example CC BY 4.0? Until you choose, the README says it is still to be chosen.
 - [x] 7. G Footer and About notice: not affiliated with or endorsed by Google, trademarks of Google LLC. Credit line on every lesson. The CC BY 4.0 claim is not stated, because the license of cloud.google.com pages could not be verified.
-- [ ] 8. G LICENSES/ folder and credits page for every third-party asset with license and reason. Keep CSP default-src 'self'.
+- [x] 8. G LICENSES/ folder, docs/credits.md and a public credits.html page listing every outside source with its license. CSP default-src stays self. Later asset items add their own rows.
 - [ ] 9. G Commit package-lock.json. Run the pinned standard check and gitleaks in CI after radar review. Keep minimal workflow permissions.
 
 ## Domains, type and visual system
