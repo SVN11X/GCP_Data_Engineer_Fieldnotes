@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Added a Spanish interface behind a new ES / EN switch in the top bar. The choice has its own saved key, the translator and its dictionary load only for Spanish visitors, product names stay in English and the English help toggle works as before. This stage covers the navigation, footer, home, orientation, diagnostic, review, comparison pages, progress and short sessions. Lessons and questions come later. The Spanish text needs owner review (decision 0004).
 - Added four service comparisons at #review/compare: where to store data, Dataflow versus the Spark service versus Data Fusion, Pub/Sub versus Managed Kafka, and Airflow versus Workflows versus Scheduler. Each option cites Google documentation and has a verification log entry. The page, styles and data load on demand.
 - Verified the 28 service cards against Google documentation through the Developer Knowledge MCP and logged each check. 25 were confirmed and 3 updated to the current Managed Service for Apache Spark and Airflow names. A lesson or service without a log entry now fails the build.
 - Verified the nine remaining domain 5 lessons against Google documentation through the Developer Knowledge MCP and logged each check. Seven were confirmed and two updated: repeatability now names Managed Service for Apache Airflow (formerly Cloud Composer) and recovery says cross-region replication alone is not a regional outage plan.

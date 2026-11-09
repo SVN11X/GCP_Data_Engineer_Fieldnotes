@@ -22,6 +22,10 @@ let focusMode=false;try{focusMode=C.parseFocusPreference(localStorage.getItem(C.
 function focusFraction(){if(route==='focus')return C.focusProgress((state.focus?.step||0)+1,4);if(route==='learn')return C.focusProgress(state.completed.length,D.lessons.length);return null;}
 function updateFocus(){const on=focusMode,bar=$('#focus-progress'),f=on?focusFraction():null;document.body.classList.toggle('focus-session',route==='focus'||on);$('#focus-toggle').setAttribute('aria-pressed',String(on));$('#focus-status').textContent=on?'on':'off';bar.hidden=f===null;if(f!==null){bar.setAttribute('aria-valuenow',String(Math.round(f*100)));bar.firstElementChild.style.width=f*100+'%';}}
 function setFocus(on){focusMode=on;try{localStorage.setItem(C.FOCUS_KEY,C.serializeFocusPreference(on));}catch{}updateFocus();}
+let lang='en';try{lang=C.parseLang(localStorage.getItem(C.LANG_KEY));}catch{}
+let i18nLoad;
+function applyLang(){document.documentElement.lang=lang;$('#lang-toggle').setAttribute('aria-pressed',String(lang==='es'));if(lang!=='es'){globalThis.FieldI18n?.stop();return;}i18nLoad=i18nLoad||new Promise((ok,no)=>{const s=document.createElement('script');s.src='assets/i18n.js?v='+D.release;s.onload=ok;s.onerror=no;document.head.append(s);}).catch(x=>{i18nLoad=null;throw x;});i18nLoad.then(()=>lang==='es'&&globalThis.FieldI18n.start(D.release)).catch(()=>{});}
+function setLang(next){lang=next;try{localStorage.setItem(C.LANG_KEY,C.serializeLang(next));}catch{}applyLang();}
 let renderVersion=0,currentView='',examReady=!state.exam;
 function applyTheme(){const preference=state.theme||'system';document.documentElement.dataset.theme=preference==='system'?(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):preference;$('#theme-toggle').textContent='Theme: '+preference;$('#theme-toggle').setAttribute('aria-label','Color theme: '+preference+'. Change theme');}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch{if(!storageWarned){storageWarned=true;toast('Browser storage is unavailable. Export progress before closing this page.');}}}
@@ -240,6 +244,7 @@ $('#theme-toggle').addEventListener('click',()=>{const themes=['system','light',
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change',applyTheme);
 $('#english-toggle').addEventListener('click',()=>{state.english=!state.english;save();render(false);toast(state.english?'English help is on. Tap underlined terms.':'English help is off. The wordbook is still available.');});
 $('#focus-toggle').addEventListener('click',()=>setFocus(C.toggleFocus(focusMode)));
+$('#lang-toggle').addEventListener('click',()=>setLang(C.toggleLang(lang)));
 $('#menu-toggle').addEventListener('click',()=>{const open=document.body.classList.toggle('nav-open');$('#menu-toggle').setAttribute('aria-expanded',String(open));if(open)$('#navigation a').focus();});
 document.addEventListener('keydown',ev=>{
  if(C.isFocusShortcut(ev)&&!ev.target.closest('dialog')){ev.preventDefault();setFocus(C.toggleFocus(focusMode));}
@@ -251,5 +256,6 @@ document.addEventListener('keydown',ev=>{
 window.addEventListener('hashchange',()=>render(true));
 setInterval(()=>{if(examReady&&state.exam&&!state.exam.finished){if(state.exam.deadline<=Date.now()){finishExam();if(route==='exam')render(false);else toast('Your timed session has ended. Review it in Timed practice.');}else{const el=$('#exam-timer');if(el){el.textContent=timeLeft(state.exam.deadline);el.classList.toggle('urgent',state.exam.deadline-Date.now()<300000);}}}},1000);
 if(state.exam)loader.ensure('exam').then(()=>{examReady=true;}).catch(()=>toast('Your timed session will resume after its questions can load. Open Timed practice to retry.'));
+applyLang();
 render(false);
 })();

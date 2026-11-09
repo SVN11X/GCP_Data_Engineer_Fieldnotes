@@ -46,6 +46,12 @@ write('verification-log',verificationLog);
 const comparisons=read('comparisons'),comparisonErrors=validateComparisons(comparisons,verificationLog,logIds.lesson);
 if(comparisonErrors.length)throw new Error('Invalid content/comparisons.json:\n'+comparisonErrors.join('\n'));
 write('comparisons',comparisons);
+// Spanish interface dictionary: validated, then served as a demand-loaded file that only Spanish visitors request.
+await import('../src/scripts/i18n.js');
+const i18nRaw=fs.readFileSync(path.join(root,'content','i18n-es.json'),'utf8'),i18nDict=JSON.parse(i18nRaw);
+const i18nErrors=[...globalThis.FieldI18n.validate(i18nDict),...globalThis.FieldI18n.duplicateKeys(i18nRaw).map(k=>'duplicate key "'+k+'"')];
+if(i18nErrors.length)throw new Error('Invalid content/i18n-es.json:'+String.fromCharCode(10)+i18nErrors.join(String.fromCharCode(10)));
+write('i18n-es',i18nDict);
 // BUILD_DATE (YYYY-MM-DD) makes the 90 day rule reproducible in tests.
 for(const line of warnings(verificationLog,logIds,process.env.BUILD_DATE||new Date().toISOString().slice(0,10)))console.warn('WARNING: '+line);
 const normalize=s=>String(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();

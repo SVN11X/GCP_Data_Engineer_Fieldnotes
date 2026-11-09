@@ -73,7 +73,10 @@ body{background:var(--paper);color:var(--ink)}
 .sidebar,.topbar,.panel,.domain-card,.path-section,.lesson-body,.study-side,.question-card,.vocab-card,.flashcard,.source-card,.stat,.exam-config,.question-row{background:var(--card);border-color:var(--line)}
 .key-fact{background:var(--key-bg);color:var(--key-ink);padding:0 .25em;border-radius:3px;border-bottom:2px solid var(--key-edge);-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .domain-index{color:color-mix(in srgb,var(--accent) var(--domain-mix),var(--ink));background:color-mix(in srgb,var(--accent) 12%,var(--card));border-color:color-mix(in srgb,var(--accent) 24%,var(--card))}
-.focus-progress{position:fixed;top:0;left:0;right:0;height:4px;background:var(--line);z-index:60}.focus-progress[hidden]{display:none}.focus-progress span{display:block;height:100%;width:0;background:var(--blue);transition:width .3s ease}.focus-toggle{white-space:nowrap;font-size:var(--fs-label);padding:6px 10px}.focus-toggle:focus-visible{outline:3px solid var(--blue);outline-offset:2px}.focus-toggle[aria-pressed=true]{background:var(--pale);border-color:var(--blue)}@media(prefers-reduced-motion:reduce){.focus-progress span{transition:none}}
+.focus-progress{position:fixed;top:0;left:0;right:0;height:4px;background:var(--line);z-index:60}.focus-progress[hidden]{display:none}.focus-progress span{display:block;height:100%;width:0;background:var(--blue);transition:width .3s ease}.focus-toggle{white-space:nowrap;font-size:var(--fs-label);padding:6px 10px}.focus-toggle:focus-visible{outline:3px solid var(--blue);outline-offset:2px}.focus-toggle[aria-pressed=true]{background:var(--pale);border-color:var(--blue)}
+.lang-toggle{min-width:44px;min-height:44px;white-space:nowrap;font-size:var(--fs-label);padding:6px 10px}
+.lang-toggle:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.lang-toggle[aria-pressed=true]{background:var(--pale);border-color:var(--blue)}@media(prefers-reduced-motion:reduce){.focus-progress span{transition:none}}
 
 .lesson-block{margin:18px 0;padding:16px;border:1px solid var(--line);border-radius:10px;background:var(--white)}
 .lb-diagram{display:block;max-width:100%;height:auto;margin:8px auto 4px;color:var(--ink)}

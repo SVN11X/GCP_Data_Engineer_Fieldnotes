@@ -60,7 +60,7 @@ Format: `- [ ]` pending, `- [x]` done, `- [x] SKIPPED: reason`, `- [ ] BLOCKED: 
 
 ## Bilingual
 
-- [ ] 37. G Spanish interface on top of the English help toggle, keeping its saved state and A2 vocabulary help. Product names stay in English. Decision record.
+- [x] 37. G Spanish interface: ES / EN switch, lazy translator and dictionary for the shell, English help untouched, product names kept. Spanish text needs owner review. Decision 0004.
 - [ ] 38. G Translate domain 1 lessons and scenarios to Spanish.
 - [ ] 39. G Translate domain 2 lessons and scenarios to Spanish.
 - [ ] 40. G Translate domain 3 lessons and scenarios to Spanish.
