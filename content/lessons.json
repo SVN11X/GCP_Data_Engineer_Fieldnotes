@@ -359,14 +359,14 @@
         "question": "Analysts need all customers but must not see national IDs. Which control restricts those fields?",
         "choices": [
           {
-            "text": "Column policies",
-            "correct": true,
-            "why": "Column policies restrict fields, so protected columns can hold sensitive values."
-          },
-          {
             "text": "Row policies",
             "correct": false,
             "why": "Row policies restrict records, not fields."
+          },
+          {
+            "text": "Column policies",
+            "correct": true,
+            "why": "Column policies restrict fields, so protected columns can hold sensitive values."
           },
           {
             "text": "A firewall rule",
@@ -575,9 +575,9 @@
         "question": "A payment retry arrives twice. What helps most?",
         "choices": [
           {
-            "text": "A stable event ID and an idempotent write",
-            "correct": true,
-            "why": "Then reconcile the final totals to confirm the result."
+            "text": "Blindly appending the rerun output",
+            "correct": false,
+            "why": "Blindly appending rerun output can double the result."
           },
           {
             "text": "Exactly-once processing alone",
@@ -585,9 +585,9 @@
             "why": "Exactly-once processing alone does not protect an arbitrary external API call."
           },
           {
-            "text": "Blindly appending the rerun output",
-            "correct": false,
-            "why": "Blindly appending rerun output can double the result."
+            "text": "A stable event ID and an idempotent write",
+            "correct": true,
+            "why": "Then reconcile the final totals to confirm the result."
           }
         ]
       }
@@ -1050,6 +1050,79 @@
       "takeaway": "Define the source, sink, identity and acceptable output first.",
       "minutes": 5,
       "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    },
+    "block": {
+      "minutes": 2,
+      "diagram": {
+        "title": "The route of a record",
+        "description": "A source emits records, transforms change them, and a sink stores or serves the result.",
+        "width": 280,
+        "height": 176,
+        "nodes": [
+          {
+            "id": "s",
+            "lines": [
+              "Source emits records"
+            ],
+            "x": 20,
+            "y": 4,
+            "w": 240,
+            "h": 34
+          },
+          {
+            "id": "t",
+            "lines": [
+              "Transforms change them"
+            ],
+            "x": 20,
+            "y": 66,
+            "w": 240,
+            "h": 34
+          },
+          {
+            "id": "k",
+            "lines": [
+              "Sink stores or",
+              "serves the result"
+            ],
+            "x": 20,
+            "y": 128,
+            "w": 240,
+            "h": 44
+          }
+        ],
+        "edges": [
+          {
+            "from": "s",
+            "to": "t"
+          },
+          {
+            "from": "t",
+            "to": "k"
+          }
+        ]
+      },
+      "keyFact": "Verify that workers can reach both data endpoints and required Google APIs.",
+      "check": {
+        "question": "Dataflow reads Kafka on premises and writes BigQuery. An existing private connection may let KafkaIO read directly. What does that avoid?",
+        "choices": [
+          {
+            "text": "The need for IAM permissions",
+            "correct": false,
+            "why": "Private workers still need an appropriate subnet, API access and IAM permissions."
+          },
+          {
+            "text": "An extra message bridge and its latency",
+            "correct": true,
+            "why": "An existing private connection may let KafkaIO read directly, avoiding an extra message bridge and its latency."
+          },
+          {
+            "text": "The need to specify the schema",
+            "correct": false,
+            "why": "The pipeline contract still specifies latency, throughput, schema and delivery behavior."
+          }
+        ]
+      }
     }
   },
   {
@@ -1115,6 +1188,78 @@
       "takeaway": "Describe delivery, event identity and replay as separate contracts.",
       "minutes": 5,
       "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    },
+    "block": {
+      "minutes": 2,
+      "diagram": {
+        "title": "A retry becomes two messages",
+        "description": "A publisher retry can submit the same logical order as two distinct messages.",
+        "width": 280,
+        "height": 166,
+        "nodes": [
+          {
+            "id": "r",
+            "lines": [
+              "Publisher retry"
+            ],
+            "x": 20,
+            "y": 4,
+            "w": 240,
+            "h": 34
+          },
+          {
+            "id": "m",
+            "lines": [
+              "Two distinct messages"
+            ],
+            "x": 20,
+            "y": 66,
+            "w": 240,
+            "h": 34
+          },
+          {
+            "id": "o",
+            "lines": [
+              "Same logical order"
+            ],
+            "x": 20,
+            "y": 128,
+            "w": 240,
+            "h": 34
+          }
+        ],
+        "edges": [
+          {
+            "from": "r",
+            "to": "m"
+          },
+          {
+            "from": "m",
+            "to": "o"
+          }
+        ]
+      },
+      "keyFact": "Preserve a stable business ID and protect external effects.",
+      "check": {
+        "question": "A publisher retry submits the same logical order twice. What should you preserve?",
+        "choices": [
+          {
+            "text": "Nothing, because exactly-once pull merges the two",
+            "correct": false,
+            "why": "A supported exactly-once pull subscription does not automatically recognize two different message IDs as the same business order."
+          },
+          {
+            "text": "Nothing, because message IDs already identify the order",
+            "correct": false,
+            "why": "A publisher retry can submit the same logical order as distinct messages."
+          },
+          {
+            "text": "A stable business ID",
+            "correct": true,
+            "why": "Preserve a stable business ID and protect external effects."
+          }
+        ]
+      }
     }
   },
   {
@@ -1277,6 +1422,81 @@
       "takeaway": "Match the existing code, transformations and workload shape to the execution engine.",
       "minutes": 5,
       "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    },
+    "block": {
+      "minutes": 2,
+      "diagram": {
+        "title": "Moving Spark jobs under a deadline",
+        "description": "Move durable inputs to Cloud Storage and keep the Spark execution model before any later SQL rewrite.",
+        "width": 280,
+        "height": 196,
+        "nodes": [
+          {
+            "id": "j",
+            "lines": [
+              "Hundreds of",
+              "Spark jobs"
+            ],
+            "x": 20,
+            "y": 4,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "c",
+            "lines": [
+              "Inputs in",
+              "Cloud Storage"
+            ],
+            "x": 20,
+            "y": 76,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "s",
+            "lines": [
+              "Keep the Spark model,",
+              "rewrite to SQL later"
+            ],
+            "x": 20,
+            "y": 148,
+            "w": 240,
+            "h": 44
+          }
+        ],
+        "edges": [
+          {
+            "from": "j",
+            "to": "c"
+          },
+          {
+            "from": "c",
+            "to": "s"
+          }
+        ]
+      },
+      "keyFact": "Use existing workload compatibility as a constraint.",
+      "check": {
+        "question": "A team has hundreds of Spark jobs and a short migration deadline. What is the lesson's approach?",
+        "choices": [
+          {
+            "text": "Move durable inputs to Cloud Storage and keep the Spark execution model",
+            "correct": true,
+            "why": "This keeps the existing model and leaves a later SQL rewrite for after the deadline."
+          },
+          {
+            "text": "Rewrite every job as SQL first",
+            "correct": false,
+            "why": "The lesson plans a SQL rewrite later, not before the deadline."
+          },
+          {
+            "text": "Pick the engine described as serverless",
+            "correct": false,
+            "why": "Serverless, managed and real time are not complete architectures. Compare compatibility first."
+          }
+        ]
+      }
     }
   },
   {
@@ -1423,6 +1643,81 @@
       "takeaway": "Choose the timestamp and late-arrival policy deliberately.",
       "minutes": 5,
       "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    },
+    "block": {
+      "minutes": 3,
+      "diagram": {
+        "title": "A late click and its window",
+        "description": "A click created at minute 2 arrives after a click created at minute 9 and belongs to the earlier event-time window.",
+        "width": 280,
+        "height": 196,
+        "nodes": [
+          {
+            "id": "a",
+            "lines": [
+              "Click made",
+              "at minute 2"
+            ],
+            "x": 20,
+            "y": 4,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "b",
+            "lines": [
+              "Arrives after the",
+              "minute 9 click"
+            ],
+            "x": 20,
+            "y": 76,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "w",
+            "lines": [
+              "Earlier window,",
+              "if still open"
+            ],
+            "x": 20,
+            "y": 148,
+            "w": 240,
+            "h": 44
+          }
+        ],
+        "edges": [
+          {
+            "from": "a",
+            "to": "b"
+          },
+          {
+            "from": "b",
+            "to": "w"
+          }
+        ]
+      },
+      "keyFact": "A watermark estimates event-time progress. It is not a guarantee that every earlier event arrived.",
+      "check": {
+        "question": "A click created at minute 2 arrives after one created at minute 9. Where does it belong?",
+        "choices": [
+          {
+            "text": "The window of its arrival time",
+            "correct": false,
+            "why": "Preserve source timestamps rather than replacing them with processing time."
+          },
+          {
+            "text": "The earlier event-time window, if it still accepts data",
+            "correct": true,
+            "why": "It belongs to the earlier event-time window, if that window is still allowed to accept data."
+          },
+          {
+            "text": "Nowhere, because the watermark guarantees completeness",
+            "correct": false,
+            "why": "A watermark is not a guarantee that every earlier event arrived."
+          }
+        ]
+      }
     }
   },
   {
@@ -1569,6 +1864,81 @@
       "takeaway": "Give invalid data an explicit, restricted exception path and repair owner.",
       "minutes": 5,
       "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    },
+    "block": {
+      "minutes": 2,
+      "diagram": {
+        "title": "Valid rows and a dead-letter output",
+        "description": "Valid rows go to the warehouse. Rejected records go to a dead-letter output with the original payload, error type and event identifier.",
+        "width": 280,
+        "height": 160,
+        "nodes": [
+          {
+            "id": "r",
+            "lines": [
+              "Incoming",
+              "record"
+            ],
+            "x": 20,
+            "y": 8,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "v",
+            "lines": [
+              "Valid rows",
+              "to warehouse"
+            ],
+            "x": 2,
+            "y": 100,
+            "w": 136,
+            "h": 44
+          },
+          {
+            "id": "d",
+            "lines": [
+              "Dead-letter",
+              "output"
+            ],
+            "x": 142,
+            "y": 100,
+            "w": 136,
+            "h": 44
+          }
+        ],
+        "edges": [
+          {
+            "from": "r",
+            "to": "v"
+          },
+          {
+            "from": "r",
+            "to": "d"
+          }
+        ]
+      },
+      "keyFact": "Separate valid rows from a dead-letter output containing the original payload, error type and event identifier.",
+      "check": {
+        "question": "A temporary API outage makes some records fail. What fits?",
+        "choices": [
+          {
+            "text": "Treat it as permanent invalid data",
+            "correct": false,
+            "why": "Distinguish permanent invalid data from temporary service errors."
+          },
+          {
+            "text": "Repeat the record indefinitely",
+            "correct": false,
+            "why": "Repeating permanent bad input indefinitely consumes capacity and blocks useful work."
+          },
+          {
+            "text": "Bounded retry with backoff",
+            "correct": true,
+            "why": "Use bounded retry with backoff for transient failures."
+          }
+        ]
+      }
     }
   },
   {
@@ -1791,6 +2161,81 @@
       "takeaway": "Preserve a stable business identifier and verify every side-effect boundary.",
       "minutes": 5,
       "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    },
+    "block": {
+      "minutes": 2,
+      "diagram": {
+        "title": "Where a repeat can still happen",
+        "description": "Pub/Sub delivers at least once, Dataflow can deduplicate redeliveries, and an external payment endpoint still needs its own idempotency contract.",
+        "width": 280,
+        "height": 196,
+        "nodes": [
+          {
+            "id": "p",
+            "lines": [
+              "Pub/Sub delivers",
+              "at least once"
+            ],
+            "x": 20,
+            "y": 4,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "d",
+            "lines": [
+              "Dataflow can dedupe",
+              "redeliveries"
+            ],
+            "x": 20,
+            "y": 76,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "e",
+            "lines": [
+              "Payment endpoint needs",
+              "idempotency"
+            ],
+            "x": 20,
+            "y": 148,
+            "w": 240,
+            "h": 44
+          }
+        ],
+        "edges": [
+          {
+            "from": "p",
+            "to": "d"
+          },
+          {
+            "from": "d",
+            "to": "e"
+          }
+        ]
+      },
+      "keyFact": "A processing guarantee is not proof that the endpoint cannot receive a repeated request.",
+      "check": {
+        "question": "A pipeline calls an external payment endpoint and then writes an analytical record. What do you design?",
+        "choices": [
+          {
+            "text": "An idempotency contract at that endpoint",
+            "correct": true,
+            "why": "A processing guarantee is not proof that the endpoint cannot receive a repeated request."
+          },
+          {
+            "text": "Nothing, because exactly-once mode covers the endpoint",
+            "correct": false,
+            "why": "Exactly-once processing is not a blanket promise for arbitrary external side effects."
+          },
+          {
+            "text": "A rule that the message ID is the business ID",
+            "correct": false,
+            "why": "Define a stable event ID rather than equating message identity with business identity."
+          }
+        ]
+      }
     }
   },
   {
@@ -2018,6 +2463,80 @@
       "takeaway": "Test old and new records and define what absent values mean.",
       "minutes": 5,
       "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    },
+    "block": {
+      "minutes": 2,
+      "diagram": {
+        "title": "Old orders meet a new field",
+        "description": "A new discount field is absent from old orders, so old and new producers and consumers need testing.",
+        "width": 280,
+        "height": 186,
+        "nodes": [
+          {
+            "id": "o",
+            "lines": [
+              "Old orders:",
+              "no discount field"
+            ],
+            "x": 20,
+            "y": 4,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n",
+            "lines": [
+              "New discount field"
+            ],
+            "x": 20,
+            "y": 76,
+            "w": 240,
+            "h": 34
+          },
+          {
+            "id": "t",
+            "lines": [
+              "Test old and new",
+              "producers and consumers"
+            ],
+            "x": 20,
+            "y": 138,
+            "w": 240,
+            "h": 44
+          }
+        ],
+        "edges": [
+          {
+            "from": "o",
+            "to": "n"
+          },
+          {
+            "from": "n",
+            "to": "t"
+          }
+        ]
+      },
+      "keyFact": "Zero, unknown and not applicable represent different facts.",
+      "check": {
+        "question": "Which BigQuery schema change requires a table recreation?",
+        "choices": [
+          {
+            "text": "Relaxing REQUIRED to NULLABLE",
+            "correct": false,
+            "why": "This is the relaxing direction, which differs from changing NULLABLE to REQUIRED."
+          },
+          {
+            "text": "Changing NULLABLE to REQUIRED",
+            "correct": true,
+            "why": "Relaxing REQUIRED to NULLABLE differs from changing NULLABLE to REQUIRED, which requires a table recreation."
+          },
+          {
+            "text": "Adding a field",
+            "correct": false,
+            "why": "BigQuery supports adding fields under documented mode and operation rules."
+          }
+        ]
+      }
     }
   },
   {
@@ -2098,6 +2617,92 @@
       "takeaway": "Test state, connector and replay assumptions before replacement.",
       "minutes": 5,
       "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    },
+    "block": {
+      "minutes": 3,
+      "diagram": {
+        "title": "Replacing an incompatible job",
+        "description": "For an incompatible windowing change, retain the source messages, drain the old job, start the replacement and reconcile outputs.",
+        "width": 280,
+        "height": 228,
+        "nodes": [
+          {
+            "id": "r",
+            "lines": [
+              "Retain source messages"
+            ],
+            "x": 20,
+            "y": 4,
+            "w": 240,
+            "h": 34
+          },
+          {
+            "id": "d",
+            "lines": [
+              "Drain the old job"
+            ],
+            "x": 20,
+            "y": 66,
+            "w": 240,
+            "h": 34
+          },
+          {
+            "id": "s",
+            "lines": [
+              "Start the replacement"
+            ],
+            "x": 20,
+            "y": 128,
+            "w": 240,
+            "h": 34
+          },
+          {
+            "id": "c",
+            "lines": [
+              "Reconcile outputs"
+            ],
+            "x": 20,
+            "y": 190,
+            "w": 240,
+            "h": 34
+          }
+        ],
+        "edges": [
+          {
+            "from": "r",
+            "to": "d"
+          },
+          {
+            "from": "d",
+            "to": "s"
+          },
+          {
+            "from": "s",
+            "to": "c"
+          }
+        ]
+      },
+      "keyFact": "Draining processes in-flight work. Canceling may discard it.",
+      "check": {
+        "question": "A windowing change is incompatible. What is the path?",
+        "choices": [
+          {
+            "text": "Cancel the old job at once",
+            "correct": false,
+            "why": "Draining processes in-flight work. Canceling may discard it."
+          },
+          {
+            "text": "Set a flag so the update is compatible",
+            "correct": false,
+            "why": "A deployment flag is not proof of semantic compatibility."
+          },
+          {
+            "text": "Retain the source messages, drain the old job, start the replacement, reconcile outputs",
+            "correct": true,
+            "why": "This is the scenario in the lesson."
+          }
+        ]
+      }
     }
   },
   {
