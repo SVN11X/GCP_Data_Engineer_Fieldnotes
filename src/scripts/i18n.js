@@ -5,7 +5,7 @@
 'use strict';
 const ATTRS=['aria-label','title','placeholder','alt'];
 /* Routes whose chrome (labels, buttons, filters, notices) is translated. Their study content comes from its own overlay and question text stays English, see HARD. */
-const COVERED=['home','missions','lab','exam','orientation','diagnostic','review','progress','focus','learn','practice','workshops','english','compare','architectures','sources'];
+const COVERED=['home','missions','lab','exam','resources','orientation','diagnostic','review','progress','focus','learn','practice','workshops','english','compare','architectures','sources'];
 /* Content that stays in English on purpose until its own stage. It is never translated and report() counts it as skipped. */
 const HARD=[
  ['code','pre,code,.code,textarea,script,style,noscript'],
