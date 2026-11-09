@@ -23,5 +23,130 @@
     ],
     "result": "confirmed",
     "note": "Three editions: Standard, Enterprise and Enterprise Plus; editions are a property of compute, not storage; changing the edition of a reservation means deleting and recreating it."
+  },
+  {
+    "topic": "least-privilege",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Service account impersonation versus keys, and Workload Identity Federation short-lived credentials",
+    "sources": [
+      "https://docs.cloud.google.com/iam/docs/service-account-creds",
+      "https://docs.cloud.google.com/iam/docs/service-account-impersonation",
+      "https://docs.cloud.google.com/iam/docs/best-practices-for-using-workload-identity-federation"
+    ],
+    "result": "confirmed",
+    "note": "Checked that impersonation and attached identities give short-lived credentials, lower risk than keys, and that federation exchanges external credentials for short-lived Google tokens."
+  },
+  {
+    "topic": "identity-boundaries",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Dataflow worker service account permissions and actAs for the job creator",
+    "sources": [
+      "https://docs.cloud.google.com/dataflow/docs/concepts/security-and-permissions"
+    ],
+    "result": "confirmed",
+    "note": "Checked that workers use the worker service account, the submitter needs actAs on it, and private workers need Private Google Access. Shared VPC host subnet detail not checked."
+  },
+  {
+    "topic": "protect-data",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "BigQuery row-level and column-level security, masking, and VPC Service Controls exfiltration",
+    "sources": [
+      "https://docs.cloud.google.com/bigquery/docs/column-level-security-intro",
+      "https://docs.cloud.google.com/bigquery/docs/row-level-security-intro",
+      "https://docs.cloud.google.com/vpc-service-controls/docs/overview",
+      "https://docs.cloud.google.com/bigquery/docs/customer-managed-encryption"
+    ],
+    "result": "confirmed",
+    "note": "Checked row policies, column policy tags, masking on top of row security, perimeters against exfiltration, and that CMEK needs the service account to hold the key role. Key deletion scope not checked."
+  },
+  {
+    "topic": "region-recovery-design",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "BigQuery multi-region failover, cross-region replication and managed disaster recovery",
+    "sources": [
+      "https://docs.cloud.google.com/bigquery/docs/reliability-intro",
+      "https://docs.cloud.google.com/bigquery/docs/data-replication",
+      "https://docs.cloud.google.com/bigquery/docs/managed-disaster-recovery"
+    ],
+    "result": "confirmed",
+    "note": "Checked that a multi-region gives no cross-region redundancy, that replication or managed DR is needed for regional loss, and that hard failover can lose data."
+  },
+  {
+    "topic": "fidelity",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Dataflow exactly-once processing and Pub/Sub at-least-once delivery",
+    "sources": [
+      "https://docs.cloud.google.com/dataflow/docs/concepts/exactly-once",
+      "https://docs.cloud.google.com/dataflow/docs/concepts/streaming-with-cloud-pubsub"
+    ],
+    "result": "confirmed",
+    "note": "Checked that Pub/Sub delivers at least once, Dataflow deduplicates its managed output, and user code such as external calls can run more than once. Dataform and MERGE advice not checked."
+  },
+  {
+    "topic": "portability",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Dataplex Universal Catalog renamed Knowledge Catalog, and Spark migration to Dataproc",
+    "sources": [
+      "https://docs.cloud.google.com/knowledge-catalog/docs/release-notes",
+      "https://docs.cloud.google.com/knowledge-catalog/docs/transition-dataplex-universal-catalog",
+      "https://docs.cloud.google.com/managed-spark/docs/concepts/serverless-spark-compare"
+    ],
+    "result": "confirmed",
+    "note": "Checked the Dataplex to Knowledge Catalog rename and that clusters suit migrating Spark with minimal code changes. Open-format portability advice is the site's own teaching."
+  },
+  {
+    "topic": "migration",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Datastream CDC and backfill, Storage Transfer Service, Transfer Appliance",
+    "sources": [
+      "https://docs.cloud.google.com/datastream/docs/overview",
+      "https://docs.cloud.google.com/datastream/docs/faq",
+      "https://docs.cloud.google.com/storage-transfer/docs/overview",
+      "https://docs.cloud.google.com/transfer-appliance/docs/4.0/overview"
+    ],
+    "result": "confirmed",
+    "note": "Checked Datastream backfill plus CDC and its sources, Storage Transfer Service sources, and Transfer Appliance for offline moves. The transfer time arithmetic is the site's own math."
+  },
+  {
+    "topic": "cdc-cutover",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Datastream backfill and CDC into BigQuery",
+    "sources": [
+      "https://docs.cloud.google.com/datastream/docs/faq",
+      "https://docs.cloud.google.com/datastream/docs/manage-backfill-for-the-objects-of-a-stream"
+    ],
+    "result": "confirmed",
+    "note": "Checked that Datastream combines a historical backfill snapshot with ongoing CDC and merges changes into BigQuery. Version ordering and cutover rules are the site's own teaching."
+  },
+  {
+    "topic": "transfer-decisions",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Storage Transfer Service, Transfer Appliance, gcloud storage cp, Database Migration Service versus Datastream",
+    "sources": [
+      "https://docs.cloud.google.com/storage-transfer/docs/overview",
+      "https://docs.cloud.google.com/transfer-appliance/docs/4.0/overview",
+      "https://docs.cloud.google.com/sdk/gcloud/reference/storage/cp",
+      "https://docs.cloud.google.com/database-migration/docs/overview"
+    ],
+    "result": "confirmed",
+    "note": "Checked Storage Transfer Service sources, Transfer Appliance shipping, gcloud storage cp, and that Database Migration Service and Datastream target different destinations."
   }
 ]
