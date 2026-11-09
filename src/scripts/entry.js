@@ -18,7 +18,7 @@ root.FieldEntry={create({D,C,e,tag,render,setPracticeDomain}){
   if(!path&&skipped)return `<p class="entry-skipped"><button type="button" class="button small" data-action="entry-again">Choose your path</button></p>`;
   if(!path)return `<section class="entry-panel" aria-labelledby="entry-question"><div class="eyebrow">START HERE</div><h2 id="entry-question">Do you know the exam?</h2><p>Pick one path. You can switch at any time.</p><div class="entry-choices"><button type="button" class="button primary entry-big" data-action="entry-new"><b>I am new to the exam</b><span>Short guide and a study route</span></button><button type="button" class="button primary entry-big" data-action="entry-know"><b>I already know the exam</b><span>10 questions to find your weakest domain</span></button></div><button type="button" class="button quiet" data-action="entry-skip">Skip for now</button></section>`;
   const isNew=path==='new';
-  return `<section class="entry-panel entry-chosen" aria-label="Your chosen path"><div><div class="mini-label">YOUR PATH</div><p class="entry-path-name">${e(label(path))}</p></div><div class="entry-actions"><a class="button primary" href="#${isNew?'orientation':'diagnostic'}">${isNew?'Open the orientation':'Start the diagnostic'} →</a>${switchButton()}</div></section>`;
+  return `<section class="entry-panel entry-chosen" aria-label="Your chosen path"><div><div class="mini-label">YOUR PATH</div><p class="entry-path-name">${e(label(path))}</p></div><div class="entry-actions"><a class="button primary" href="#${isNew?'orientation':'diagnostic'}">${isNew?'Open the orientation':'Start the diagnostic'} →</a>${isNew?'':'<a class="button" href="#review">Fast review plan</a>'}${switchButton()}</div></section>`;
  }
  function orientation(){
   sync('new');
@@ -46,11 +46,18 @@ root.FieldEntry={create({D,C,e,tag,render,setPracticeDomain}){
   const s=C.scoreDiagnostic(ids,machine.answers,Q,D.domains),w=D.domains.find(d=>d.id===s.weakest);
   const rows=D.domains.map(d=>{const r=s.domains[d.id];return `<li><span class="entry-domain-name">${d.id}. ${e(d.name)}</span><span class="entry-weight">${r.correct} of ${r.total}</span><span class="entry-bar" aria-hidden="true"><i style="width:${r.total?100*r.correct/r.total:0}%"></i></span></li>`;}).join('');
   const lessons=w?D.lessons.filter(l=>l.domain===w.id):[];
-  return `<div class="entry-page"><div class="eyebrow">DIAGNOSTIC RESULT</div><h1>You answered ${s.correct} of ${s.total} correctly.</h1><p class="lead">This is a short check, not an exam score. Nothing was saved.</p><section class="lesson-section"><h2>Score by domain</h2><ul class="entry-domains">${rows}</ul></section>${w?`<section class="entry-panel entry-chosen"><div><div class="mini-label">YOUR WEAKEST DOMAIN</div><p class="entry-path-name">Domain ${w.id}: ${e(w.name)}</p><p class="small muted">Ties go to the domain with the higher exam weight.</p></div><div class="entry-actions"><button type="button" class="button primary" data-action="dx-practice" data-id="${w.id}">Practice this domain →</button></div></section><section class="lesson-section"><h2>Lessons for this domain</h2><ol class="entry-lessons">${lessons.map(l=>`<li><a href="#learn/${e(l.id)}">${e(l.title)}</a></li>`).join('')}</ol></section>`:''}<div class="entry-actions"><button type="button" class="button" data-action="dx-back">← Back to question ${SIZE}</button><button type="button" class="button" data-action="dx-restart">Try 10 new questions</button>${switchButton()}</div></div>`;
+  return `<div class="entry-page"><div class="eyebrow">DIAGNOSTIC RESULT</div><h1>You answered ${s.correct} of ${s.total} correctly.</h1><p class="lead">This is a short check, not an exam score. Nothing was saved.</p><section class="lesson-section"><h2>Score by domain</h2><ul class="entry-domains">${rows}</ul></section>${w?`<section class="entry-panel entry-chosen"><div><div class="mini-label">YOUR WEAKEST DOMAIN</div><p class="entry-path-name">Domain ${w.id}: ${e(w.name)}</p><p class="small muted">Ties go to the domain with the higher exam weight.</p></div><div class="entry-actions"><button type="button" class="button primary" data-action="dx-practice" data-id="${w.id}">Practice this domain →</button></div></section><section class="lesson-section"><h2>Lessons for this domain</h2><ol class="entry-lessons">${lessons.map(l=>`<li><a href="#learn/${e(l.id)}">${e(l.title)}</a></li>`).join('')}</ol></section>`:''}<div class="entry-actions"><a class="button primary" href="#review">Fast review plan →</a><button type="button" class="button" data-action="dx-back">← Back to question ${SIZE}</button><button type="button" class="button" data-action="dx-restart">Try 10 new questions</button>${switchButton()}</div></div>`;
+ }
+ const lazy=(t,f)=>new Promise((ok,no)=>{const el=document.createElement(t);if(t==='link'){el.rel='stylesheet';el.href='assets/'+f+'?v='+D.release;}else el.src='assets/'+f+'?v='+D.release;el.onload=ok;el.onerror=no;document.head.append(el);});
+ let R,loading;
+ async function review(id){
+  if(!R){loading=loading||Promise.all([lazy('link','review.css'),lazy('script','review-core.js')]).then(()=>lazy('script','review.js')).catch(x=>{loading=null;throw x;});await loading;R=globalThis.FieldReview.create({D,C,e});}
+  const n=Number(id);return Number.isInteger(n)&&n>=1&&n<=5?R.summary(n):R.plan();
  }
  function onAction(button){
   const a=button.dataset.action;
   switch(a){
+   case'review-hours':R.onAction(button);render(false);return true;
    case'entry-new':machine=C.entryStart();send({type:'choose-new'});store('new');go('#orientation');return true;
    case'entry-know':machine=C.entryStart();send({type:'choose-know'});ids=[];store('know');go('#diagnostic');return true;
    case'entry-skip':skipped=true;render(false);return true;
@@ -67,6 +74,6 @@ root.FieldEntry={create({D,C,e,tag,render,setPracticeDomain}){
   }
   return false;
  }
- return {panel,orientation,diagnostic,onAction};
+ return {panel,orientation,diagnostic,review,onAction};
 }};
 })(globalThis);
