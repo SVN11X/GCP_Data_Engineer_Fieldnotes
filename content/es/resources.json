@@ -1,0 +1,260 @@
+{
+ "resources": {
+  "standard.experience": {
+   "es": "Más de 3 años en la industria, incluido más de 1 año diseñando y administrando soluciones de Google Cloud. Es experiencia recomendada, no un requisito formal.",
+   "src": "258ad2a4cfdf"
+  },
+  "standard.validity": {
+   "es": "2 años",
+   "src": "7dab2372ff90"
+  },
+  "renewal.eligibility": {
+   "es": "Personas con la certificación vigente, dentro de la ventana de renovación que corresponda. Los cursos o insignias de renovación designados en Google Skills son otra opción oficial, con sus propias reglas de elegibilidad y vigencia.",
+   "src": "d21726bc14bb"
+  },
+  "items.0.title": {
+   "es": "Empieza con la guía oficial del examen estándar",
+   "src": "32394975e9cb"
+  },
+  "items.0.type": {
+   "es": "Guía oficial",
+   "src": "1ca8bcc7de56"
+  },
+  "items.0.access": {
+   "es": "PDF público",
+   "src": "650434e87d72"
+  },
+  "items.0.use": {
+   "es": "Usa los objetivos numerados para encontrar lo que te falta. Este sitio usa por defecto los pesos del examen estándar.",
+   "src": "c97040de0879"
+  },
+  "items.0.caution": {
+   "es": "La guía de renovación pone el énfasis en otros temas. No mezcles sus porcentajes en un plan de estudio para el primer examen.",
+   "src": "33687598e86d"
+  },
+  "items.1.title": {
+   "es": "Confirma la logística y los requisitos del examen",
+   "src": "213fc733b17c"
+  },
+  "items.1.type": {
+   "es": "Certificación oficial",
+   "src": "ee2688f6776b"
+  },
+  "items.1.access": {
+   "es": "Información pública. La inscripción es aparte.",
+   "src": "2c08538d33e5"
+  },
+  "items.1.use": {
+   "es": "Revisa el formato, el idioma, las tarifas, la experiencia recomendada y las reglas vigentes de inscripción o renovación.",
+   "src": "73be13b5a26a"
+  },
+  "items.1.caution": {
+   "es": "Las tarifas de aquí están en dólares estadounidenses (USD), antes de impuestos. Confirma las condiciones oficiales de inscripción.",
+   "src": "1dc7a654a052"
+  },
+  "items.2.title": {
+   "es": "Sigue la ruta de preparación de Google Skills",
+   "src": "b3fa634b2fea"
+  },
+  "items.2.type": {
+   "es": "Capacitación oficial",
+   "src": "545fe92ed5f8"
+  },
+  "items.2.access": {
+   "es": "Se necesita una cuenta para participar. El acceso a los laboratorios puede requerir créditos o una suscripción.",
+   "src": "d45f4860ffd9"
+  },
+  "items.2.use": {
+   "es": "Usa los cursos, los laboratorios y las insignias de habilidades como práctica complementaria de estos capítulos escritos.",
+   "src": "849d4ad14359"
+  },
+  "items.2.caution": {
+   "es": "La disponibilidad de las actividades y las condiciones de acceso pueden cambiar. Confirma en la página vigente del proveedor. El material extraído es una fuente de investigación y no prueba que la cobertura sea completa.",
+   "src": "42f2783454bc"
+  },
+  "items.3.title": {
+   "es": "Usa la ruta para socios si cumples los requisitos",
+   "src": "f3ad10044a54"
+  },
+  "items.3.type": {
+   "es": "Capacitación oficial para socios",
+   "src": "243850c91538"
+  },
+  "items.3.access": {
+   "es": "Acceso y inicio de sesión de socios",
+   "src": "84b9181013f6"
+  },
+  "items.3.use": {
+   "es": "La URL de socios aportada lleva a la ruta de Professional Data Engineer en Google Skills for Partners.",
+   "src": "ace5dc0a3878"
+  },
+  "items.3.caution": {
+   "es": "La disponibilidad de las actividades y las condiciones de acceso pueden cambiar. Confirma en la página vigente del proveedor. El material extraído es una fuente de investigación y no prueba que la cobertura sea completa.",
+   "src": "42f2783454bc"
+  },
+  "items.4.title": {
+   "es": "Lee las arquitecturas de referencia después de aprender los servicios",
+   "src": "f06eea703691"
+  },
+  "items.4.type": {
+   "es": "Arquitectura oficial",
+   "src": "db63d8193eb0"
+  },
+  "items.4.access": {
+   "es": "Documentación pública",
+   "src": "ce8729db607b"
+  },
+  "items.4.use": {
+   "es": "Compara patrones completos con los requisitos del negocio y con los modos de falla.",
+   "src": "9dae563b81fe"
+  },
+  "items.4.caution": {
+   "es": "Es una colección. No es la guía numerada del examen.",
+   "src": "c436e02ae3e7"
+  },
+  "items.5.title": {
+   "es": "Revisa las ventajas y desventajas entre servicios",
+   "src": "7c4101baec7b"
+  },
+  "items.5.type": {
+   "es": "Arquitectura oficial",
+   "src": "db63d8193eb0"
+  },
+  "items.5.access": {
+   "es": "Documentación pública",
+   "src": "ce8729db607b"
+  },
+  "items.5.use": {
+   "es": "Revisa juntas las decisiones de seguridad, confiabilidad, operación, rendimiento y costo.",
+   "src": "91fe72215e23"
+  },
+  "items.5.caution": {
+   "es": "Usa el marco como guía de diseño. El alcance del estudio lo define la guía del examen estándar.",
+   "src": "553094a1222f"
+  },
+  "items.6.title": {
+   "es": "Preparación opcional de Google Cloud en Coursera",
+   "src": "c1c39ebaa4cf"
+  },
+  "items.6.type": {
+   "es": "Capacitación de un proveedor",
+   "src": "34056c3f8d04"
+  },
+  "items.6.access": {
+   "es": "Inscripción con el proveedor. Revisa las condiciones vigentes del curso y de los laboratorios.",
+   "src": "35c47996777d"
+  },
+  "items.6.use": {
+   "es": "La página del proveedor indica el programa de preparación de Google Cloud para la certificación Cloud Data Engineer.",
+   "src": "55452801f593"
+  },
+  "items.6.caution": {
+   "es": "El certificado de haber terminado un curso es distinto de aprobar el examen de la certificación Professional Data Engineer.",
+   "src": "598554fdb464"
+  },
+  "items.7.title": {
+   "es": "Notas personales opcionales en GitHub",
+   "src": "06b32aa1728e"
+  },
+  "items.7.type": {
+   "es": "Notas de la comunidad",
+   "src": "1828955e9264"
+  },
+  "items.7.access": {
+   "es": "Repositorio público",
+   "src": "68f4e1485d33"
+  },
+  "items.7.use": {
+   "es": "Usa la organización de temas de otra persona como lectura de apoyo secundaria.",
+   "src": "2e89e9fb3ad6"
+  },
+  "items.7.caution": {
+   "es": "El repositorio hace referencia a una cuenta de preparación y a datos de entrega antiguos. Verifica la logística del examen y las afirmaciones técnicas con fuentes oficiales vigentes. Sus notas no se incorporan como claves de respuesta con autoridad.",
+   "src": "747c17bed415"
+  },
+  "plan.0.title": {
+   "es": "1. Mapea los requisitos",
+   "src": "c325fecf8113"
+  },
+  "plan.0.outcome": {
+   "es": "Explica las restricciones de identidad, ubicación, privacidad, transferencia y recuperación antes de nombrar un producto.",
+   "src": "cdc7a5816555"
+  },
+  "plan.1.title": {
+   "es": "2. Haz que los datos del almacén sean confiables",
+   "src": "8433d7e2884f"
+  },
+  "plan.1.outcome": {
+   "es": "Predice la granularidad de las filas, los duplicados, las reglas de nulos y el comportamiento del estado actual al repetir una ejecución.",
+   "src": "9a588c1fc58e"
+  },
+  "plan.2.title": {
+   "es": "3. Sigue el flujo de datos (stream)",
+   "src": "89c24df36c32"
+  },
+  "plan.2.outcome": {
+   "es": "Describe por separado la entrega, el tiempo del evento, la retención, los triggers, las correcciones del destino (sink) y el reemplazo.",
+   "src": "8f08a57e2969"
+  },
+  "plan.3.title": {
+   "es": "4. Gobierna y comparte la plataforma",
+   "src": "635276da1704"
+  },
+  "plan.3.outcome": {
+   "es": "Elige una vía de acceso compatible y explica la responsabilidad, la calidad, el costo y lo que esperan los consumidores.",
+   "src": "e373b46e421f"
+  },
+  "plan.4.title": {
+   "es": "5. Evalúa el resultado analítico",
+   "src": "cc43834a1512"
+  },
+  "plan.4.outcome": {
+   "es": "Mide la actualidad y la utilidad. Distingue la evidencia de recuperación, de generación y de evaluación del modelo.",
+   "src": "b3c9de364152"
+  },
+  "plan.5.title": {
+   "es": "6. Opera y ensaya la recuperación",
+   "src": "d5e229f63643"
+  },
+  "plan.5.outcome": {
+   "es": "Usa diagnósticos por etapa, operaciones repetibles y un runbook (guía de operación) de recuperación para cada falla.",
+   "src": "154f2e33fdfa"
+  },
+  "verificationNotes.0": {
+   "es": "Las URL de Skills Boost aportadas redirigen a Google Skills y a Google Skills for Partners.",
+   "src": "97ca4b2f5177"
+  },
+  "verificationNotes.1": {
+   "es": "La URL aportada del Architecture Framework ahora usa el nombre Well-Architected Framework.",
+   "src": "3ee7aaaf9cb5"
+  },
+  "verificationNotes.2": {
+   "es": "Las guías estándar y de renovación son documentos PDF válidos y distintos, con pesos diferentes.",
+   "src": "9979e29cdc2e"
+  },
+  "verificationNotes.3": {
+   "es": "No se aportó ninguna URL de hoja de datos de GitHub ni ningún curso de Udemy. Este sitio ofrece su propia guía de campo con referencias y marca el repositorio comunitario verificado como lectura secundaria.",
+   "src": "18ca30ff8b79"
+  },
+  "verificationNotes.4": {
+   "es": "La revisión de disponibilidad comprueba que una URL responda. No comprueba cada afirmación de cada curso externo o nota personal.",
+   "src": "deb19707d9ff"
+  },
+  "verificationNotes.5": {
+   "es": "Las 349 claves de respuesta importadas conservan su estado de revisión anterior. El material de aprendizaje ampliado no convierte una clave de terceros sin revisar en una respuesta oficial.",
+   "src": "b436d1b19981"
+  },
+  "verificationNotes.6": {
+   "es": "Actualización del 2026-11-07: el registro de afirmaciones identifica las afirmaciones de fuentes primarias que se volvieron a comprobar. Las lecciones anteriores conservan su fecha de revisión previa. Que un enlace esté disponible no certifica cada afirmación. El archivo Path 16 aportado está incompleto y no se republican textos de cursos, transcripciones ni cuestionarios del proveedor.",
+   "src": "2ab307ac665d"
+  },
+  "audit.method": {
+   "es": "Solicitud HTTP GET pública, con redirecciones y sin acceso a cuentas.",
+   "src": "325e9f514937"
+  },
+  "audit.scope": {
+   "es": "Solo la disponibilidad de la URL. No valida todas las afirmaciones de un recurso enlazado.",
+   "src": "60c016938b82"
+  }
+ }
+}

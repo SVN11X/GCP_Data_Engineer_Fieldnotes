@@ -5,7 +5,7 @@
 'use strict';
 const ATTRS=['aria-label','title','placeholder','alt'];
 /* Routes whose chrome (labels, buttons, filters, notices) is translated. Their study content comes from its own overlay and question text stays English, see HARD. */
-const COVERED=['home','orientation','diagnostic','review','progress','focus','learn','practice','workshops','english','compare','architectures','sources'];
+const COVERED=['home','missions','lab','exam','resources','orientation','diagnostic','review','progress','focus','learn','practice','workshops','english','compare','architectures','sources'];
 /* Content that stays in English on purpose until its own stage. It is never translated and report() counts it as skipped. */
 const HARD=[
  ['code','pre,code,.code,textarea,script,style,noscript'],
@@ -22,7 +22,7 @@ const SOFT=[
 ];
 const SKIP=HARD.map(r=>r[1]).join(',');
 /* Interface pieces that sit inside skipped content, such as the image buttons or the quick check label. They are translated. */
-const ALLOW='.lb-feedback,.lb-question>strong,.image-transcription figcaption,.image-transcription caption,.image-transcription>button,.image-transcription summary,.image-caption,.asset-warning,.asset-warning a,.choice-result';
+const ALLOW='.lb-feedback,.lb-question>strong,.image-transcription figcaption,.image-transcription caption,.image-transcription>button,.image-transcription summary,.image-caption,.asset-warning,.asset-warning a,.choice-result,.mission-scene text,.mission-scene title,.mission-scene desc';
 const ALLOW_ATTR=ALLOW+',.image-open,.term';
 const SITE=' '+String.fromCharCode(183)+' Data Engineer Fieldnotes';
 const NUMERIC=/^(n|a|b|c|total|count|min|minutes|days|best|done|pct|weight|earned|step|size|hours)\d*$/;

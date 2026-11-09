@@ -1,4 +1,4 @@
-/* Spanish overlays for services, comparisons, workshops and architecture patterns. Loaded on demand with lesson-es.js, only when the language is Spanish.
+/* Spanish overlays for services, comparisons, workshops, architecture patterns, the resources page and the sources notes. Loaded on demand with lesson-es.js, only when the language is Spanish.
    An overlay maps item id -> path -> {es, src}. src is the first 12 hex chars of the sha256 of the English string it translates.
    A stale or missing entry falls back to English, so a changed English text never shows an old translation.
    Names, ids, urls, code, fixtures and simulation values are not translatable. */
@@ -23,6 +23,22 @@ const PATHS={
   for(const k of ['title','goal','success','failure','scope'])add(k,a[k]);
   each(a.nodes,(n,i)=>{for(const k of ['label','caption','detail'])add('nodes.'+i+'.'+k,n[k]);});
   each(a.edges,(x,i)=>add('edges.'+i+'.label',x.label));
+ },
+ /* The resources page is one item with the id "resources". The loader links the source audit method and scope under "audit". */
+ resources(r,add){
+  add('standard.experience',r.standard&&r.standard.experience);add('standard.validity',r.standard&&r.standard.validity);add('renewal.eligibility',r.renewal&&r.renewal.eligibility);
+  each(r.items,(x,i)=>{for(const k of ['title','type','access','use','caution'])add('items.'+i+'.'+k,x[k]);});
+  each(r.plan,(x,i)=>{add('plan.'+i+'.title',x.title);add('plan.'+i+'.outcome',x.outcome);});
+  each(r.verificationNotes,(t,i)=>add('verificationNotes.'+i,t));
+  add('audit.method',r.audit&&r.audit.method);add('audit.scope',r.audit&&r.audit.scope);
+ },
+ /* The sources page notes are one item with the id "sources". The loader wraps the lazy knowledge audit and verification files in it. */
+ sources(x,add){
+  const a=x.knowledgeAudit||{},v=x.verification||{};
+  each(a.findings,(f,i)=>{add('knowledgeAudit.findings.'+i+'.title',f.title);add('knowledgeAudit.findings.'+i+'.detail',f.detail);});
+  add('knowledgeAudit.extractionRepository.scope',a.extractionRepository&&a.extractionRepository.scope);
+  add('verification.method',v.method);
+  each(v.claims,(c,i)=>{add('verification.claims.'+i+'.claim',c.claim);add('verification.claims.'+i+'.note',c.note);});
  }
 };
 const KINDS=Object.keys(PATHS);

@@ -68,13 +68,14 @@
       if(route==='practice'&&id){const question=data.questions.find(q=>q.id===id);if(question)await(question.origin==='imported'?importedQuestions(question.domain):questions(question.domain));}
       if((route==='practice'&&!id)||route==='progress')await importedCatalog();
       if(['diagnostic','exam','review'].includes(route))await Promise.all(data.domains.map(d=>route==='review'?lessons(d.id):questions(d.id)));
+      if(route==='resources'){data.resources.id='resources';data.resources.audit=data.sourceAudit;await localizeContent('resources',[data.resources]);}
       if(route==='compare')await localizeContent('services',data.services);
       if(route==='workshops'){await load(data.manifest.workshops,v=>merge(data.workshops,v));await localizeContent('workshops',data.workshops);}
       if(route==='architectures'){await load(data.manifest.architectures,v=>{data.architectures=v;});await localizeContent('architectures',data.architectures);}
       if(route==='sources')await Promise.all([
         load(data.manifest.knowledgeAudit,v=>{data.knowledgeAudit=v;}),
         load(data.manifest.verification,v=>{data.verification=v;})
-      ]);
+      ]).then(()=>localizeContent('sources',[{id:'sources',knowledgeAudit:data.knowledgeAudit,verification:data.verification}]));
       if(route==='search')await load(data.manifest.search,v=>{
         if(v.release!==data.release)throw new Error('This page and its search index have different versions. Reload the page.');
         data.searchIndex=v.documents;

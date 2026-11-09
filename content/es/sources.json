@@ -1,0 +1,188 @@
+{
+ "sources": {
+  "knowledgeAudit.findings.0.title": {
+   "es": "Repeticiones exactas",
+   "src": "9f012b1e5995"
+  },
+  "knowledgeAudit.findings.0.detail": {
+   "es": "Se contaron 1,854 fragmentos de texto repetidos. El índice del paquete coincide. La navegación repetida y las fuentes que se solapan hacen que el total de fragmentos no sea una cuenta de conceptos distintos.",
+   "src": "d0810e18c3ce"
+  },
+  "knowledgeAudit.findings.1.title": {
+   "es": "Cobertura de cursos interactivos",
+   "src": "c6d5357cd850"
+  },
+  "knowledgeAudit.findings.1.detail": {
+   "es": "Las 59 lecciones Rise probadas tienen evidencia, pero el paquete marca de forma explícita que la cobertura profunda está incompleta. Visitar los controles no prueba que se haya capturado cada estado.",
+   "src": "f657262fb233"
+  },
+  "knowledgeAudit.findings.2.title": {
+   "es": "Cuestionarios del proveedor",
+   "src": "e11a54c585d3"
+  },
+  "knowledgeAudit.findings.2.detail": {
+   "es": "41 recursos de cuestionario son parciales y la auditoría profunda no informa de preguntas visibles. No se publica ni se reconstruye ningún cuestionario del proveedor.",
+   "src": "9b590b91c9a6"
+  },
+  "knowledgeAudit.findings.3.title": {
+   "es": "Transcripciones automáticas",
+   "src": "210991b737c0"
+  },
+  "knowledgeAudit.findings.3.detail": {
+   "es": "Según el índice, 131 videos tienen transcripción. La precisión del reconocimiento automático de voz (ASR) no se valida de forma automática. Los 260 fragmentos de transcripción son material de investigación, no citas verificadas.",
+   "src": "fc95bda8d273"
+  },
+  "knowledgeAudit.findings.4.title": {
+   "es": "Posibles conflictos de terminología",
+   "src": "2852e8d62b69"
+  },
+  "knowledgeAudit.findings.4.detail": {
+   "es": "La guía usa Dataproc, Cloud Composer y Dataplex. Las referencias vigentes también usan managed Spark, managed Airflow y Knowledge Catalog. Se conservan los alias para navegar el examen.",
+   "src": "37d71da11cbb"
+  },
+  "knowledgeAudit.findings.5.title": {
+   "es": "Conflicto de tipos de tabla resuelto",
+   "src": "1f5029cbb785"
+  },
+  "knowledgeAudit.findings.5.detail": {
+   "es": "Las tablas externas BigLake de solo lectura deben distinguirse de las tablas administradas de Apache Iceberg, que tienen mutaciones documentadas. La nueva lección y la nueva comparación nombran el tipo exacto.",
+   "src": "f2fcb7f4a42b"
+  },
+  "knowledgeAudit.findings.6.title": {
+   "es": "Límites de las garantías",
+   "src": "47c9c60d18c3"
+  },
+  "knowledgeAudit.findings.6.detail": {
+   "es": "La entrega de Pub/Sub, el procesamiento de Dataflow, la identidad del evento de negocio y los efectos en destinos externos se describen por separado. No se afirma una garantía general de exactly-once de extremo a extremo.",
+   "src": "17d7d3ad4fe5"
+  },
+  "knowledgeAudit.findings.7.title": {
+   "es": "Completitud semántica",
+   "src": "a233a044d2ef"
+  },
+  "knowledgeAudit.findings.7.detail": {
+   "es": "No se afirma ninguna detección exhaustiva de contradicciones, análisis de casi duplicados, corrección de ASR ni validación completa del estado de los cursos. Las afirmaciones publicadas críticas se siguen por separado en verification.json.",
+   "src": "aa38b1ac87ec"
+  },
+  "knowledgeAudit.extractionRepository.scope": {
+   "es": "Se consultaron el código del extractor y el README. El ZIP adjunto es la referencia para esta auditoría, no el informe de ejemplo del repositorio.",
+   "src": "22b97d218153"
+  },
+  "verification.method": {
+   "es": "Lectura editorial de la documentación primaria indicada para estas afirmaciones específicas. La disponibilidad HTTP se registra aparte. No se implica ninguna validación de ASR ni validación exhaustiva de los cursos.",
+   "src": "ca089b0b8695"
+  },
+  "verification.claims.0.claim": {
+   "es": "La guía estándar lista cinco dominios y 19 objetivos. Los pesos estándar siguen siendo 22/25/20/15/18.",
+   "src": "eb9e0c01f830"
+  },
+  "verification.claims.0.note": {
+   "es": "Se volvieron a leer el PDF de la guía v4.2 y la página de la certificación el 2026-11-08. Los títulos de las secciones, los títulos de los objetivos del 1.1 al 5.5 y los pesos (cerca de 22, 25, 20, 15 y 18 por ciento) coinciden con el sitio. La guía no está en el corpus de Google Developer Knowledge MCP, así que se comprobó directamente. Las etiquetas de cobertura independientes no garantizan que estés listo para el examen.",
+   "src": "3baa25acdc44"
+  },
+  "verification.claims.1.claim": {
+   "es": "Managed Kafka crea los brokers a partir de los recursos configurados. La retención de los temas sigue siendo una decisión de cada carga de trabajo.",
+   "src": "23bb5cb443a7"
+  },
+  "verification.claims.1.note": {
+   "es": "No se copiaron límites fijos, promesas de rendimiento ni precios.",
+   "src": "0b0b07c874d3"
+  },
+  "verification.claims.2.claim": {
+   "es": "Serverless Spark admite cargas por lotes y sesiones interactivas sin un clúster aprovisionado por el usuario.",
+   "src": "49b8e651c30c"
+  },
+  "verification.claims.2.note": {
+   "es": "Aun así hay que probar la compatibilidad de las dependencias propias de cada clúster.",
+   "src": "75c772ff7101"
+  },
+  "verification.claims.3.claim": {
+   "es": "Dataflow en streaming usa por defecto el modo exactly-once y admite el modo at-least-once. Las publicaciones de negocio distintas necesitan una identidad estable.",
+   "src": "3d765c45dcc5"
+  },
+  "verification.claims.3.note": {
+   "es": "Los efectos secundarios externos y las garantías de escritura del destino son aparte.",
+   "src": "29f38bbefd15"
+  },
+  "verification.claims.4.claim": {
+   "es": "El acceso a objetos externos con BigLake está delegado y es de solo lectura en BigQuery. Iceberg administrado tiene mutaciones documentadas.",
+   "src": "ab84ce6cde16"
+  },
+  "verification.claims.4.note": {
+   "es": "No se afirma que cualquier escritor externo sea compatible.",
+   "src": "7a5ad8c7c816"
+  },
+  "verification.claims.5.claim": {
+   "es": "LIMIT en tablas de BigQuery sin clustering no reduce los bytes leídos. Las ejecuciones de prueba (dry runs) y el máximo de bytes facturados cumplen funciones distintas como protección.",
+   "src": "da8e4e7d253d"
+  },
+  "verification.claims.5.note": {
+   "es": "Las estimaciones tienen límites. Los modelos de lectura locales no predicen las facturas reales.",
+   "src": "c36005fbbdd0"
+  },
+  "verification.claims.6.claim": {
+   "es": "Pasar de REQUIRED a NULLABLE es una relajación. Para convertir un campo NULLABLE existente en REQUIRED hay que volver a crear la tabla.",
+   "src": "99a0bf23e081"
+  },
+  "verification.claims.6.note": {
+   "es": "Verifica la tabla y el método de ingesta exactos antes de implementarlo.",
+   "src": "a6f78ede46b2"
+  },
+  "verification.claims.7.claim": {
+   "es": "Managed Airflow coordina las tareas de un DAG. Las tareas repetibles deben fijar los intervalos de entrada y usar reintentos seguros.",
+   "src": "b0b50c1dfd38"
+  },
+  "verification.claims.7.note": {
+   "es": "Los nombres actuales de los productos administrados se muestran junto a la terminología de la guía del examen.",
+   "src": "b91ef5a59f77"
+  },
+  "verification.claims.8.claim": {
+   "es": "Storage Transfer Service gestiona las rutas de archivos y objetos compatibles. Transfer Appliance ofrece el envío físico. cp permite copias puntuales.",
+   "src": "af50ca68bd7c"
+  },
+  "verification.claims.8.note": {
+   "es": "La compatibilidad del origen, la logística y la conciliación son parte de la decisión.",
+   "src": "4f7e0b203e57"
+  },
+  "verification.claims.9.claim": {
+   "es": "Los motores operativos y los almacenes analíticos tienen contratos de transacción y de acceso distintos.",
+   "src": "9a25bfe6842c"
+  },
+  "verification.claims.9.note": {
+   "es": "No se promete ninguna latencia, disponibilidad, precio ni compatibilidad general.",
+   "src": "211621725d06"
+  },
+  "verification.claims.10.claim": {
+   "es": "La latencia, la actualidad y el atraso del sistema en Dataflow son distintos de la antigüedad del atraso de una suscripción de Pub/Sub.",
+   "src": "7f6b690b89e5"
+  },
+  "verification.claims.10.note": {
+   "es": "Que haya visibilidad de las métricas, o huecos en ellas, no prueba que los datos de negocio estén completos.",
+   "src": "c108e421337d"
+  },
+  "verification.claims.11.claim": {
+   "es": "Las colecciones y transformaciones de Beam distinguen la entrada acotada, la agrupación por tiempo de evento y la emisión de resultados.",
+   "src": "72843227cd1e"
+  },
+  "verification.claims.11.note": {
+   "es": "El comportamiento del runner y las correcciones del destino siguen necesitando pruebas.",
+   "src": "2049732e50f6"
+  },
+  "verification.claims.12.claim": {
+   "es": "Las clases de Cloud Storage, la automatización del ciclo de vida y la protección de retención responden a requisitos distintos.",
+   "src": "0fe6a8e381cb"
+  },
+  "verification.claims.12.note": {
+   "es": "Las sugerencias sobre tamaño de archivo y compactación son hipótesis originales de carga de trabajo, sin umbrales universales.",
+   "src": "60eb76bb2348"
+  },
+  "verification.claims.13.claim": {
+   "es": "Los permisos de identidad de la carga de trabajo, el acceso delegado a tablas y el descubrimiento de metadatos son límites distintos.",
+   "src": "982e0bf803fa"
+  },
+  "verification.claims.13.note": {
+   "es": "Un límite de red o una entrada de catálogo no es un permiso sobre los datos.",
+   "src": "0d253a778cf2"
+  }
+ }
+}

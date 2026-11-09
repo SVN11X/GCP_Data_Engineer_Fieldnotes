@@ -7,12 +7,12 @@ import {KINDS,contentPaths,validateContentOverlay,status,coverage,merge,readOver
 import '../dist/assets/loader.js';
 const CE=globalThis.FieldContentEs;
 const read=f=>JSON.parse(fs.readFileSync(new URL('../'+f,import.meta.url),'utf8'));
-const COUNTS={services:28,comparisons:4,workshops:12,architectures:4};
+const COUNTS={services:28,comparisons:4,workshops:12,architectures:4,resources:1,sources:1};
 const entry=(kind,item,p,es)=>({es,src:sha12(new Map(contentPaths(kind,item)).get(p))});
 const demoComparison=()=>({id:'demo',title:'Where to store 3 things',question:'Which one?',quickRule:'Use BigQuery first.',options:[{name:'A',chooseWhen:'You need BigQuery.',beCarefulWhen:'It may cost 5 units.',sources:['https://cloud.google.com/x']},{name:'B',chooseWhen:'You need B.',beCarefulWhen:'Careful.',sources:[]}],verification:{note:'Checked 2 pages.'}});
 
-test('the four overlay kinds exist, are listed and have the expected item counts',()=>{
- assert.deepEqual([...KINDS],['services','comparisons','workshops','architectures']);
+test('the six overlay kinds exist, are listed and have the expected item counts',()=>{
+ assert.deepEqual([...KINDS],['services','comparisons','workshops','architectures','resources','sources']);
  assert.deepEqual(overlayKinds(),[...KINDS]);
  for(const k of KINDS)assert.equal(englishItems(k).length,COUNTS[k],k);
 });
