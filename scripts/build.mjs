@@ -34,6 +34,7 @@ fs.cpSync(path.join(root,'src/scripts'),path.join(output,'assets'),{recursive:tr
 fs.copyFileSync(path.join(root,'src/styles/styles.css'),path.join(output,'assets/styles.css'));
 for(const css of ['entry','review','compare'])fs.copyFileSync(path.join(root,'src/styles/'+css+'.css'),path.join(output,'assets/'+css+'.css'));
 fs.cpSync(path.join(root,'assets'),path.join(output,'assets'),{recursive:true,filter:keep});
+fs.cpSync(path.join(root,'content/captions'),path.join(output,'assets/video'),{recursive:true,filter:keep});
 const write=(name,value)=>fs.writeFileSync(path.join(dataDir,name+'.json'),JSON.stringify(value)+'\n');
 // Content-derived release keys prevent mixing a cached catalog with another release.
 // Spanish lesson overlays (content/es/lessons-d<N>.json): a stale, unknown or unsafe entry fails the build. Missing entries fall back to English.

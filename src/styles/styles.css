@@ -117,3 +117,4 @@ body{background:var(--paper);color:var(--ink)}
 @font-face{font-family:Caveat;src:url(fonts/caveat-latin.woff2) format("woff2");font-weight:400 700;font-display:swap}
 :root{--font-note:Caveat,"Segoe Print","Bradley Hand",cursive}
 .lb-fact{font-family:var(--font-note);font-size:1.375rem;line-height:1.35}
+.lb-video{margin:16px 0}.lb-video video{display:block;width:100%;max-width:640px;height:auto;aspect-ratio:854/480;border:1px solid var(--line);border-radius:6px;background:var(--white)}.lb-video figcaption{max-width:70ch;margin-top:8px;font-size:var(--fs-label);color:var(--muted)}

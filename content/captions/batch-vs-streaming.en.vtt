@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00.000 --> 00:03.000
+Two ways to process data: batch or streaming.
+
+00:03.000 --> 00:05.500
+Both read from a source, run in Dataflow and end in BigQuery.
+
+00:05.500 --> 00:12.200
+Batch: files pile up in Cloud Storage first, then one Dataflow job processes them together.
+
+00:12.200 --> 00:14.200
+BigQuery receives one result after the whole run.
+
+00:14.200 --> 00:22.600
+Streaming: events arrive through Pub/Sub and Dataflow processes each one as it arrives.
+
+00:22.600 --> 00:24.900
+BigQuery keeps updating within seconds.
+
+00:24.900 --> 00:29.900
+Batch means finite data with results after the run. Streaming means unbounded data with results in seconds.

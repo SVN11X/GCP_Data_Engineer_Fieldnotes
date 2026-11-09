@@ -19,10 +19,15 @@ function diagram(d,id){
  const boxes=d.nodes.map(n=>{const first=n.y+n.h/2-(n.lines.length-1)*9+5;return `<g class="lb-node"><rect x="${n.x}" y="${n.y}" width="${n.w}" height="${n.h}" rx="6"/>${n.lines.map((t,i)=>`<text x="${n.x+n.w/2}" y="${first+i*18}" text-anchor="middle">${esc(t)}</text>`).join('')}</g>`;}).join('');
  return `<svg class="lb-diagram" data-flow="done" role="img" aria-labelledby="${mark}-t ${mark}-d" width="${d.width}" height="${d.height}" viewBox="0 0 ${d.width} ${d.height}"><title id="${mark}-t">${esc(d.title)}</title><desc id="${mark}-d">${esc(d.description)}</desc><defs><marker id="${mark}" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path class="lb-head" d="M0,0 L8,4 L0,8 z"/></marker></defs>${edges}${dots}${boxes}</svg>`;
 }
+function video(v){
+ if(!v)return '';
+ const tracks=v.tracks.map(t=>`<track kind="captions" srclang="${esc(t.lang)}" label="${esc(t.label)}" src="${esc(t.src)}">`).join('');
+ return `<figure class="lb-video"><video controls preload="none" width="${v.width}" height="${v.height}" poster="${esc(v.poster)}" aria-label="${esc(v.title)}"><source src="${esc(v.src)}" type="video/webm">${tracks}Your browser cannot play this video. ${esc(v.description)}</video><figcaption>${esc(v.title)}. It starts only when you press play and has captions in English and Spanish. ${esc(v.description)}</figcaption></figure>`;
+}
 function render(l){
  const b=l&&l.block;if(!b)return '';
  const c=b.check,q='lb-q-'+l.id;
- return `<section class="lesson-block" aria-label="Quick lesson, about ${b.minutes} minutes"><div class="mini-label">QUICK LESSON · ABOUT ${b.minutes} MINUTES</div>${diagram(b.diagram,l.id)}<button type="button" class="button small lb-flow" data-lb-flow>Play data flow</button><p class="lb-fact"><span class="key-fact" data-english>${esc(b.keyFact)}</span></p><div class="lb-check" role="group" aria-labelledby="${q}"><p id="${q}" class="lb-question" data-english><strong>Quick check:</strong> ${esc(c.question)}</p><div class="lb-choices">${c.choices.map((x,i)=>`<button type="button" class="lb-choice" data-lb-choice="${i}" data-english>${esc(x.text)}</button>`).join('')}</div><p class="lb-feedback" role="status" aria-live="polite" data-english></p></div></section>`;
+ return `<section class="lesson-block" aria-label="Quick lesson, about ${b.minutes} minutes"><div class="mini-label">QUICK LESSON · ABOUT ${b.minutes} MINUTES</div>${diagram(b.diagram,l.id)}<button type="button" class="button small lb-flow" data-lb-flow>Play data flow</button>${video(b.video)}<p class="lb-fact"><span class="key-fact" data-english>${esc(b.keyFact)}</span></p><div class="lb-check" role="group" aria-labelledby="${q}"><p id="${q}" class="lb-question" data-english><strong>Quick check:</strong> ${esc(c.question)}</p><div class="lb-choices">${c.choices.map((x,i)=>`<button type="button" class="lb-choice" data-lb-choice="${i}" data-english>${esc(x.text)}</button>`).join('')}</div><p class="lb-feedback" role="status" aria-live="polite" data-english></p></div></section>`;
 }
 function answer(l,index){
  const x=l&&l.block&&l.block.check.choices[index];

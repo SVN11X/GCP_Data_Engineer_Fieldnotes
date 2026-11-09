@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00.000 --> 00:03.000
+Dos formas de procesar datos: por lotes (batch) o en flujo continuo (streaming).
+
+00:03.000 --> 00:05.500
+Ambas leen de un origen, se ejecutan en Dataflow y terminan en BigQuery.
+
+00:05.500 --> 00:12.200
+Batch: los archivos se acumulan primero en Cloud Storage y luego un solo trabajo de Dataflow los procesa juntos.
+
+00:12.200 --> 00:14.200
+BigQuery recibe un resultado después de toda la ejecución.
+
+00:14.200 --> 00:22.600
+Streaming: los eventos llegan por Pub/Sub y Dataflow procesa cada uno apenas llega.
+
+00:22.600 --> 00:24.900
+BigQuery se actualiza de forma continua, en segundos.
+
+00:24.900 --> 00:29.900
+Batch significa datos finitos con resultados al terminar la ejecución. Streaming significa datos sin fin con resultados en segundos.

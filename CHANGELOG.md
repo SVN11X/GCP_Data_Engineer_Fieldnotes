@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- The lesson "Choose the engine that fits the work" has a 30 second silent clip on batch versus streaming (576 KB). It starts only when you press play and has English and Spanish captions.
 - Original written content is now licensed CC BY 4.0, and lesson key facts use the self-hosted Caveat handwriting font (73 KB, OFL). No request goes to another host.
 - The 88 imported questions of domain 5 now read in Spanish (632 strings, all with a source hash), with the same label and swap-to-original control as domains 1 to 4. All 349 imported questions now have a Spanish overlay. Source keys, IDs, images and progress are unchanged. The Spanish needs the owner's review.
 - The 90 imported questions of domain 4 now read in Spanish (640 strings, all with a source hash), with the same label and swap-to-original control as domains 1 to 3. Source keys, IDs, images and progress are unchanged. The Spanish needs the owner's review.

@@ -1496,6 +1496,26 @@
             "why": "Serverless, managed and real time are not complete architectures. Compare compatibility first."
           }
         ]
+      },
+      "video": {
+        "src": "assets/video/batch-vs-streaming.webm",
+        "poster": "assets/video/batch-vs-streaming-poster.webp",
+        "width": 854,
+        "height": 480,
+        "title": "Batch or streaming, a 30 second clip",
+        "description": "Two rows from source to BigQuery through Dataflow. In the batch row, data piles up in Cloud Storage and one run produces one result. In the streaming row, each event moves through as it arrives and the result keeps updating.",
+        "tracks": [
+          {
+            "lang": "en",
+            "label": "English",
+            "src": "assets/video/batch-vs-streaming.en.vtt"
+          },
+          {
+            "lang": "es",
+            "label": "Español",
+            "src": "assets/video/batch-vs-streaming.es.vtt"
+          }
+        ]
       }
     }
   },
