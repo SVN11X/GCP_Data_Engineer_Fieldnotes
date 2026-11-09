@@ -1,0 +1,1640 @@
+{
+ "imp-3": {
+  "html": {
+   "es": "Diseñaste una base de datos de historias clínicas de pacientes como proyecto piloto para cubrir unos cientos de pacientes en tres clínicas. Tu diseño usaba una sola tabla para representar a todos los pacientes y sus visitas, y usabas autouniones (self-joins) para generar los informes. El uso de recursos del servidor era del 50%. Desde entonces, el alcance del proyecto ha crecido. Ahora la base de datos debe almacenar 100 veces más historias clínicas. Ya no puedes ejecutar los informes, porque tardan demasiado o dan errores por falta de recursos de cómputo. ¿Cómo debes ajustar el diseño de la base de datos?<br>",
+   "src": "ffd99a8e3548"
+  },
+  "choices.0.html": {
+   "es": "Agrega capacidad (memoria y espacio en disco) al servidor de la base de datos, en un orden de 200.",
+   "src": "d1f7b7f9cc47"
+  },
+  "choices.1.html": {
+   "es": "Divide las tablas en tablas más pequeñas según rangos de fechas (shard) y genera informes solo con rangos de fechas predefinidos.",
+   "src": "5a592f748c83"
+  },
+  "choices.2.html": {
+   "es": "Normaliza la tabla maestra de historias clínicas en una tabla de pacientes y una tabla de visitas, y crea las otras tablas necesarias para evitar las autouniones.",
+   "src": "8a8cfca86fa5"
+  },
+  "choices.3.html": {
+   "es": "Particiona la tabla en tablas más pequeñas, una para cada clínica. Ejecuta las consultas sobre los pares de tablas pequeñas y usa uniones (unions) para los informes consolidados.",
+   "src": "3281cd2ad41b"
+  },
+  "sourceExplanation": {
+   "es": "El diseño actual escala mal porque una sola tabla maneja pacientes y visitas, con autouniones ineficientes. Normalizar el esquema en tablas separadas para pacientes y visitas elimina la redundancia de datos y quita el cuello de botella de rendimiento de las autouniones. Así la base de datos puede manejar el mayor volumen de forma eficiente. Agregar hardware (opción A) no corrige fallos de diseño. Dividir o particionar por fecha o por clínica (opciones B y D) agrega complejidad innecesaria y no resuelve el problema estructural de fondo.",
+   "src": "a48e5e64c456"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-6": {
+  "html": {
+   "es": "Tu app del clima consulta una base de datos cada 15 minutos para obtener la temperatura actual. El frontend funciona con Google App Engine y atiende a millones de usuarios. ¿Cómo debes diseñar el frontend para responder a un fallo de la base de datos?<br>",
+   "src": "25787a3a5a7a"
+  },
+  "choices.0.html": {
+   "es": "Emitir un comando para reiniciar los servidores de la base de datos.",
+   "src": "93584e368886"
+  },
+  "choices.1.html": {
+   "es": "Reintentar la consulta con retroceso exponencial (exponential backoff), hasta un máximo de 15 minutos.",
+   "src": "d5a378f2ae15"
+  },
+  "choices.2.html": {
+   "es": "Reintentar la consulta cada segundo hasta que la base de datos vuelva a estar en línea, para minimizar la antigüedad de los datos.",
+   "src": "ba377a40c8ae"
+  },
+  "choices.3.html": {
+   "es": "Reducir la frecuencia de las consultas a una vez por hora hasta que la base de datos vuelva a estar en línea.",
+   "src": "b6a2345854ff"
+  },
+  "sourceExplanation": {
+   "es": "La opción B es correcta porque el retroceso exponencial truncado (truncated exponential backoff) es la práctica recomendada estándar para manejar fallos transitorios de bases de datos en aplicaciones de Google App Engine. Esta estrategia evita saturar con demasiados intentos de conexión a una base de datos que no responde, y permite la recuperación final sin bloqueos indefinidos.\n\nEn cambio, la opción C crea un problema de estampida (thundering herd) que puede impedir la recuperación, la opción D da datos demasiado antiguos para una app del clima, y la opción A es una tarea operativa fuera del alcance de la lógica del frontend.",
+   "src": "5ca3ef2a8398"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-9": {
+  "html": {
+   "es": "Tu empresa usa tablas comodín (WILDCARD tables) para consultar datos de varias tablas con nombres parecidos. La sentencia SQL falla ahora con el siguiente error:<br><img src=\"assets/images/0c8e1f5f248c8b5a1208.png\" alt=\"Original diagram for imported question 9. Open the full-size image to inspect the details.\" loading=\"lazy\"><br>¿Qué nombre de tabla hará que la sentencia SQL funcione correctamente?<br>\n",
+   "src": "3e3a75226bdc"
+  },
+  "choices.0.html": {
+   "es": "&#x27;bigquery-public-data.noaa_gsod.gsod&#x27;",
+   "src": "ab9385697073"
+  },
+  "choices.1.html": {
+   "es": "bigquery-public-data.noaa_gsod.gsod*",
+   "src": "148b06545238"
+  },
+  "choices.2.html": {
+   "es": "&#x27;bigquery-public-data.noaa_gsod.gsod&#x27;*",
+   "src": "a322f67034fe"
+  },
+  "choices.3.html": {
+   "es": "&#x27;bigquery-public-data.noaa_gsod.gsod*`",
+   "src": "61793a4ebb77"
+  },
+  "sourceExplanation": {
+   "es": "En BigQuery, las referencias a tablas comodín (por ejemplo, `gsod*`) deben ir entre acentos graves (backticks) para evitar errores de sintaxis causados por el carácter especial `*`.\nLa opción D es la correcta porque usa bien los acentos graves alrededor de todo el dataset.table_id, con el asterisco incluido dentro.",
+   "src": "8725fd990ecd"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-10": {
+  "html": {
+   "es": "Tu empresa trabaja en un sector muy regulado. Uno de tus requisitos es asegurar que cada usuario tenga acceso solo a la cantidad mínima de información que necesita para hacer su trabajo. Quieres aplicar este requisito con Google BigQuery. ¿Qué tres enfoques puedes usar? (Elige tres.)<br>",
+   "src": "4755a6959706"
+  },
+  "choices.0.html": {
+   "es": "Desactivar las escrituras en ciertas tablas.",
+   "src": "2e725499ee03"
+  },
+  "choices.1.html": {
+   "es": "Restringir el acceso a las tablas por rol.",
+   "src": "d9f4da57db42"
+  },
+  "choices.2.html": {
+   "es": "Asegurar que los datos estén cifrados en todo momento.",
+   "src": "20bccbbe1fd7"
+  },
+  "choices.3.html": {
+   "es": "Restringir el acceso a la API de BigQuery a los usuarios aprobados.",
+   "src": "867d173aca5f"
+  },
+  "choices.4.html": {
+   "es": "Separar los datos en varias tablas o bases de datos.",
+   "src": "dab971bf39ef"
+  },
+  "choices.5.html": {
+   "es": "Usar Google Stackdriver Audit Logging para detectar infracciones de las políticas.",
+   "src": "ab9056efb42c"
+  },
+  "sourceExplanation": {
+   "es": "Para aplicar el principio de mínimo privilegio (least privilege) en BigQuery, debes restringir el acceso de forma activa y estructurar los datos para un control detallado.\nRestringir el acceso a las tablas por rol (B) asegura que los usuarios tengan solo los permisos necesarios para sus funciones. \nSeparar los datos en varias tablas o datasets (E) permite controles de acceso más finos y evita que los usuarios vean información sensible que no les corresponde. \nRestringir el acceso a la API de BigQuery a los usuarios aprobados (D) limita el grupo de personas que pueden consultar datos. \nLas opciones A, C y F son incorrectas porque el estado de solo lectura sigue implicando acceso más allá del mínimo necesario, el cifrado es una medida de transparencia por defecto y no un control de acceso, y el registro de auditoría detecta el acceso no autorizado en lugar de prevenirlo.",
+   "src": "a3217f069862"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-11": {
+  "html": {
+   "es": "Estás diseñando un sistema de abandono de cesta para una empresa de comercio electrónico. El sistema enviará un mensaje a un usuario según estas reglas:<br>✑ El usuario no ha tenido interacción en el sitio durante 1 hora<br>Ha agregado a la cesta productos por más de $30<br><img src=\"assets/images/486c134d63ae0bade25b.png\" alt=\"Original diagram for imported question 11. Open the full-size image to inspect the details.\" loading=\"lazy\"><br>✑ No ha completado una transacción<br>Usas Google Cloud Dataflow para procesar los datos y decidir si se debe enviar un mensaje. ¿Cómo debes diseñar la canalización (pipeline)?<br>\n",
+   "src": "da0a65127783"
+  },
+  "choices.0.html": {
+   "es": "Usar una ventana de tiempo fija (fixed-time window) con una duración de 60 minutos.",
+   "src": "002f81b0ed08"
+  },
+  "choices.1.html": {
+   "es": "Usar una ventana de tiempo deslizante (sliding time window) con una duración de 60 minutos.",
+   "src": "1bf4ce260d6e"
+  },
+  "choices.2.html": {
+   "es": "Usar una ventana de sesión (session window) con un intervalo de inactividad (gap) de 60 minutos.",
+   "src": "c0adadae3e65"
+  },
+  "choices.3.html": {
+   "es": "Usar una ventana global (global window) con un disparador (trigger) basado en tiempo, con un retraso de 60 minutos.",
+   "src": "98b6b15be54b"
+  },
+  "sourceExplanation": {
+   "es": "Las ventanas de sesión son la opción correcta porque agrupan los eventos de forma dinámica en sesiones, según los periodos de actividad e inactividad. Con un intervalo de 60 minutos, el sistema identifica a los usuarios que dejaron de interactuar durante una hora, y así puedes evaluar el estado de su cesta en ese momento exacto. Las ventanas fijas o deslizantes impondrían límites de tiempo rígidos sin relación con el comportamiento del usuario, y las ventanas globales no tienen el aislamiento de sesión integrado que se necesita aquí.",
+   "src": "4dac8a137f90"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  },
+  "issues.0": {
+   "es": "El archivo subido contiene un marcador de posición ilegible de 9 × 6 píxeles en lugar de al menos un diagrama original.",
+   "src": "aedad8f7314b"
+  }
+ },
+ "imp-20": {
+  "html": {
+   "es": "Trabajas para un fabricante de automóviles y configuraste una canalización de datos (data pipeline) con Google Cloud Pub/Sub para capturar eventos anómalos de sensores. Usas una suscripción push en Cloud Pub/Sub que llama a un endpoint HTTPS personalizado, que creaste para actuar sobre esos eventos anómalos cuando ocurren. Tu endpoint<br>HTTPS personalizado recibe una cantidad excesiva de mensajes duplicados. ¿Cuál es la causa más probable de estos mensajes duplicados?<br>",
+   "src": "40d11a05d6a5"
+  },
+  "choices.0.html": {
+   "es": "El cuerpo del mensaje del evento del sensor es demasiado grande.",
+   "src": "ac104ff20488"
+  },
+  "choices.1.html": {
+   "es": "Tu endpoint personalizado tiene un certificado SSL vencido.",
+   "src": "18e8f1c9f0d1"
+  },
+  "choices.2.html": {
+   "es": "Se publican demasiados mensajes en el tema (topic) de Cloud Pub/Sub.",
+   "src": "74a4413ae558"
+  },
+  "choices.3.html": {
+   "es": "Tu endpoint personalizado no confirma los mensajes dentro del plazo de confirmación (acknowledgement deadline).",
+   "src": "23e48776bb16"
+  },
+  "sourceExplanation": {
+   "es": "Google Cloud Pub/Sub garantiza la entrega al menos una vez (at-least-once) y vuelve a entregar los mensajes si el endpoint push no envía una respuesta HTTP 200 válida dentro del plazo de confirmación.\nSi el endpoint personalizado no confirma los mensajes a tiempo, Pub/Sub los trata como no procesados y reintenta la entrega, lo que produce duplicados.",
+   "src": "5beacba04726"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-21": {
+  "html": {
+   "es": "Tu empresa usa un sistema propio para enviar datos de inventario cada 6 horas a un servicio de ingesta de datos en la nube. Los datos transmitidos incluyen una carga útil (payload) de varios campos y la marca de tiempo de la transmisión. Si hay dudas sobre una transmisión, el sistema vuelve a transmitir los datos. ¿Cómo debes deduplicar los datos de la forma más eficiente?<br>",
+   "src": "4f18b4244133"
+  },
+  "choices.0.html": {
+   "es": "Asignar identificadores únicos globales (GUID) a cada entrada de datos.",
+   "src": "1b2633d963f2"
+  },
+  "choices.1.html": {
+   "es": "Calcular el valor hash de cada entrada de datos y compararlo con todos los datos históricos.",
+   "src": "8d38923cd117"
+  },
+  "choices.2.html": {
+   "es": "Almacenar cada entrada de datos como clave primaria en una base de datos aparte y aplicar un índice.",
+   "src": "c91268ab73c2"
+  },
+  "choices.3.html": {
+   "es": "Mantener una tabla de base de datos para guardar el valor hash y otros metadatos de cada entrada de datos.",
+   "src": "9dcc73b415cf"
+  },
+  "sourceExplanation": {
+   "es": "Asignar un identificador único global (GUID) a cada entrada de datos es el método más eficiente porque permite detectar duplicados en tiempo constante, con búsquedas indexadas o restricciones de la base de datos.\nLos enfoques basados en hash (opciones B y D) son ineficientes o poco fiables aquí. Si el hash incluye la marca de tiempo de la transmisión, crea valores únicos para las retransmisiones. Si no la incluye, hay riesgo de colisión entre estados de inventario distintos en momentos distintos.",
+   "src": "68d114b80740"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-23": {
+  "html": {
+   "es": "Vas a desplegar 10,000 dispositivos nuevos de Internet de las cosas (IoT) para recopilar datos de temperatura en tus almacenes de todo el mundo. Necesitas procesar, almacenar y analizar estos conjuntos de datos muy grandes en tiempo real. ¿Qué debes hacer?<br>",
+   "src": "3eecb33a8879"
+  },
+  "choices.0.html": {
+   "es": "Enviar los datos a Google Cloud Datastore y luego exportarlos a BigQuery.",
+   "src": "2b05b8960c58"
+  },
+  "choices.1.html": {
+   "es": "Enviar los datos a Google Cloud Pub/Sub, transmitir de Cloud Pub/Sub a Google Cloud Dataflow y almacenar los datos en Google BigQuery.",
+   "src": "4acaa714b1f4"
+  },
+  "choices.2.html": {
+   "es": "Enviar los datos a Cloud Storage y luego crear un clúster de Apache Hadoop en Google Cloud Dataproc cuando se necesite, cada vez que haya que hacer un análisis.",
+   "src": "912ef2831cf1"
+  },
+  "choices.3.html": {
+   "es": "Exportar los registros por lotes (batch) a Google Cloud Storage, luego crear una instancia de Google Cloud SQL, importar los datos desde Cloud Storage y ejecutar un análisis cuando se necesite.",
+   "src": "c3d746a7150a"
+  },
+  "sourceExplanation": {
+   "es": "La opción B es la respuesta correcta porque usa una arquitectura de streaming diseñada para el procesamiento en tiempo real de conjuntos de datos grandes. Cloud Pub/Sub ingiere los datos de IoT de alto volumen, Cloud Dataflow procesa el flujo en tiempo real y BigQuery almacena y analiza los resultados de forma eficiente.\n\nLas opciones A, C y D dependen del procesamiento por lotes o de mecanismos de almacenamiento menos adecuados (Datastore, Hadoop/Dataproc bajo demanda, Cloud SQL), que no cumplen el requisito de análisis en tiempo real de conjuntos de datos muy grandes.",
+   "src": "51943dc2752a"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-31": {
+  "html": {
+   "es": "Tienes una canalización de streaming de Google Cloud Dataflow en ejecución, con una suscripción de Google Cloud Pub/Sub como fuente. Necesitas actualizar el código de modo que la nueva canalización de Cloud Dataflow sea incompatible con la versión actual. No quieres perder ningún dato al hacer esta actualización. ¿Qué debes hacer?<br>",
+   "src": "dc3a233b79d1"
+  },
+  "choices.0.html": {
+   "es": "Actualizar la canalización actual y usar la bandera drain.",
+   "src": "0ca9603a7a96"
+  },
+  "choices.1.html": {
+   "es": "Actualizar la canalización actual y proporcionar el objeto JSON de mapeo de transformaciones (transform mapping).",
+   "src": "efd24a902813"
+  },
+  "choices.2.html": {
+   "es": "Crear una canalización nueva con la misma suscripción de Cloud Pub/Sub y cancelar la canalización anterior.",
+   "src": "45fced71f49f"
+  },
+  "choices.3.html": {
+   "es": "Crear una canalización nueva con una suscripción nueva de Cloud Pub/Sub y cancelar la canalización anterior.",
+   "src": "e964a94b4c20"
+  },
+  "sourceExplanation": {
+   "es": "Como el código nuevo es incompatible con la canalización actual, no es posible una actualización directa con el mapeo de transformaciones (opción B), porque esa actualización exige compatibilidad.\nCancelar la canalización de inmediato (opciones C y D) arriesga la pérdida de datos de los elementos en proceso.\nLa bandera drain detiene la ingesta de mensajes nuevos y deja que la canalización termine de procesar todos los datos en búfer y en proceso. Así se asegura que no se pierdan datos durante la transición.",
+   "src": "30e9b41702b2"
+  },
+  "explanation": {
+   "es": "La guía actual distingue entre una actualización en el lugar compatible y un reemplazo incompatible. Haz drain del trabajo anterior y planifica el reemplazo y la retención de la fuente. La redacción “update ... use the drain flag” no describe una actualización incompatible completa y segura. Ninguna de estas opciones cortas establece todas las garantías necesarias.",
+   "src": "c4ead366ab2b"
+  },
+  "reviewNote": {
+   "es": "Esta pregunta importada está excluida de la práctica con puntuación. Lee la nota técnica en lugar de memorizar su clave.",
+   "src": "5d478c3e8ed1"
+  }
+ },
+ "imp-43": {
+  "html": {
+   "es": "Trabajas para una cadena grande de restaurantes de comida rápida con más de 400,000 empleados. Guardas la información de los empleados en Google BigQuery, en una tabla Users con un campo FirstName y un campo LastName. Un miembro de TI está creando una aplicación y te pide modificar el esquema y los datos en BigQuery para que la aplicación pueda consultar un campo FullName. Ese campo debe contener, para cada empleado, el valor del campo FirstName, un espacio y el valor del campo LastName. ¿Cómo puedes poner esos datos a disposición y minimizar el costo?<br>",
+   "src": "92cf12bad12a"
+  },
+  "choices.0.html": {
+   "es": "Crear una vista (view) en BigQuery que concatene los valores de los campos FirstName y LastName para producir FullName.",
+   "src": "3124027d3168"
+  },
+  "choices.1.html": {
+   "es": "Agregar una columna nueva llamada FullName a la tabla Users. Ejecutar una sentencia UPDATE que actualice la columna FullName de cada usuario con la concatenación de los valores de FirstName y LastName.",
+   "src": "2f4907725747"
+  },
+  "choices.2.html": {
+   "es": "Crear un trabajo de Google Cloud Dataflow que consulte en BigQuery toda la tabla Users, concatene el valor de FirstName y el de LastName de cada usuario, y cargue los valores correctos de FirstName, LastName y FullName en una tabla nueva de BigQuery.",
+   "src": "f696e06e497d"
+  },
+  "choices.3.html": {
+   "es": "Usar BigQuery para exportar los datos de la tabla a un archivo CSV. Crear un trabajo de Google Cloud Dataproc que procese el archivo CSV y genere un archivo CSV nuevo con los valores correctos de FirstName, LastName y FullName. Ejecutar un trabajo de carga de BigQuery para cargar el archivo CSV nuevo en BigQuery.",
+   "src": "a4414c723ec4"
+  },
+  "sourceExplanation": {
+   "es": "Crear una vista (opción A) es la solución más rentable porque evita costos de almacenamiento adicionales por datos redundantes.\nA diferencia de las tablas físicas, las vistas no almacenan datos sino que dan una representación lógica que calcula FullName cuando se necesita, a partir de los campos FirstName y LastName existentes.\nLas opciones B, C y D implican crear columnas o tablas nuevas, lo que aumenta el uso de almacenamiento y la carga de procesamiento, y no cumple el requisito de minimizar el costo.",
+   "src": "0a236c428ecc"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-45": {
+  "html": {
+   "es": "Trabajas para una planta de manufactura que agrupa los archivos de registro de las aplicaciones en un solo archivo de registro una vez al día, a las 2:00 AM. Escribiste un trabajo de Google Cloud<br>Dataflow para procesar ese archivo de registro. Debes asegurarte de que el archivo de registro se procese una vez al día de la forma más económica posible. ¿Qué debes hacer?<br>",
+   "src": "4edb3a038c54"
+  },
+  "choices.0.html": {
+   "es": "Cambiar el trabajo de procesamiento para usar Google Cloud Dataproc.",
+   "src": "c533c47f8f37"
+  },
+  "choices.1.html": {
+   "es": "Iniciar el trabajo de Cloud Dataflow de forma manual cada mañana al llegar a la oficina.",
+   "src": "f4d3380ee058"
+  },
+  "choices.2.html": {
+   "es": "Crear un trabajo cron con Google App Engine Cron Service para ejecutar el trabajo de Cloud Dataflow.",
+   "src": "38f9e8494d37"
+  },
+  "choices.3.html": {
+   "es": "Configurar el trabajo de Cloud Dataflow como un trabajo de streaming para que procese los datos del registro de inmediato.",
+   "src": "d88a6330133d"
+  },
+  "sourceExplanation": {
+   "es": "Para procesar el archivo de registro de forma económica y fiable una vez al día, se necesita automatización. Así se evitan los costos de trabajo manual y el error humano.\nUsar Google App Engine Cron Service (o Cloud Scheduler en las arquitecturas modernas) da una forma administrada y automática de activar el trabajo de Dataflow a la hora indicada, sin necesidad de aprovisionar infraestructura para el programador mismo.",
+   "src": "09d520307ba1"
+  },
+  "explanation": {
+   "es": "Esta pregunta nombra App Engine Cron. Compara las opciones actuales de programación y orquestación con la carga de trabajo, en lugar de memorizar una afirmación histórica sobre cuál es el servicio más barato.",
+   "src": "9165d90981f7"
+  },
+  "reviewNote": {
+   "es": "Esta pregunta importada está excluida de la práctica con puntuación. Lee la nota técnica en lugar de memorizar su clave.",
+   "src": "5d478c3e8ed1"
+  }
+ },
+ "imp-48": {
+  "html": {
+   "es": "Tu empresa carga archivos de valores separados por comas (CSV) en Google BigQuery. Los datos se importan por completo con éxito, pero los datos importados no coinciden byte a byte con el archivo de origen. ¿Cuál es la causa más probable de este problema?<br>",
+   "src": "0fa000f47e59"
+  },
+  "choices.0.html": {
+   "es": "Los datos CSV cargados en BigQuery no están marcados como CSV.",
+   "src": "136f2f391d23"
+  },
+  "choices.1.html": {
+   "es": "Los datos CSV tienen filas no válidas que se omitieron en la importación.",
+   "src": "536e24cff377"
+  },
+  "choices.2.html": {
+   "es": "Los datos CSV cargados en BigQuery no usan la codificación (encoding) predeterminada de BigQuery.",
+   "src": "55fb3b97088d"
+  },
+  "choices.3.html": {
+   "es": "Los datos CSV no pasaron por una fase de ETL antes de cargarse en BigQuery.",
+   "src": "7e17bdb6d5f0"
+  },
+  "sourceExplanation": {
+   "es": "BigQuery usa por defecto la codificación UTF-8 en las importaciones de CSV. Si el archivo de origen usa otra codificación (por ejemplo, ISO-8859-1), BigQuery intenta convertirlo a UTF-8. Eso cambia la representación de bytes de fondo, pero los datos se cargan con éxito igualmente. Esta conversión hace que los datos importados no coincidan byte a byte con el archivo de origen.",
+   "src": "26de6e4bd7ef"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-53": {
+  "html": {
+   "es": "Usas Google BigQuery como tu almacén de datos (data warehouse). Tus usuarios informan de que la siguiente consulta simple se ejecuta muy lenta, sin importar cuándo la ejecuten:<br>SELECT country, state, city FROM [myproject:mydataset.mytable] GROUP BY country<br>Revisas el plan de consulta (query plan) y ves el siguiente resultado en la sección Read de Stage:1:<br><img src=\"assets/images/c49feb8746ff4ab526bb.jpg\" alt=\"Original diagram for imported question 53. Open the full-size image to inspect the details.\" loading=\"lazy\"><br>¿Cuál es la causa más probable del retraso de esta consulta?<br>\n",
+   "src": "58f9607e69ae"
+  },
+  "choices.0.html": {
+   "es": "Los usuarios ejecutan demasiadas consultas concurrentes en el sistema",
+   "src": "030b39daf5ac"
+  },
+  "choices.1.html": {
+   "es": "La tabla [myproject:mydataset.mytable] tiene demasiadas particiones",
+   "src": "89a5f88c2ed9"
+  },
+  "choices.2.html": {
+   "es": "Las columnas state o city de la tabla [myproject:mydataset.mytable] tienen demasiados valores NULL",
+   "src": "b97ee7ed3d83"
+  },
+  "choices.3.html": {
+   "es": "La mayoría de las filas de la tabla [myproject:mydataset.mytable] tienen el mismo valor en la columna country, lo que causa un sesgo de datos (data skew)",
+   "src": "c3f5424dc06c"
+  },
+  "sourceExplanation": {
+   "es": "La imagen del plan de consulta indica un desequilibrio importante en las etapas de procesamiento, que es una señal típica de sesgo de datos (data skew).\nCuando la mayoría de las filas comparten el mismo valor de clave (por ejemplo, 'country'), BigQuery no puede repartir el trabajo de forma pareja entre los workers durante la fase de mezcla (shuffle). Algunos nodos procesan así muchos más datos que otros.\nEsta distribución desigual obliga a la consulta a esperar a que termine el worker más lento. Por eso se observa el retraso, sin importar la concurrencia ni la cantidad de particiones.",
+   "src": "d2a31ec6b2d3"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-54": {
+  "html": {
+   "es": "Tu aplicación de subastas distribuida globalmente permite a los usuarios pujar por artículos. A veces, los usuarios hacen pujas idénticas casi al mismo tiempo, y distintos servidores de aplicaciones procesan esas pujas. Cada evento de puja contiene el artículo, el monto, el usuario y la marca de tiempo. Quieres reunir esos eventos de puja en un solo lugar en tiempo real para determinar qué usuario pujó primero. ¿Qué debes hacer?<br>",
+   "src": "d061beb7094a"
+  },
+  "choices.0.html": {
+   "es": "Crear un archivo en un sistema de archivos compartido y hacer que los servidores de aplicaciones escriban en él todos los eventos de puja. Procesar el archivo con Apache Hadoop para identificar qué usuario pujó primero.",
+   "src": "6b81a6ca0b2f"
+  },
+  "choices.1.html": {
+   "es": "Hacer que cada servidor de aplicaciones escriba los eventos de puja en Cloud Pub/Sub cuando ocurran. Enviar (push) los eventos desde Cloud Pub/Sub a un endpoint personalizado que escriba la información del evento de puja en Cloud SQL.",
+   "src": "f7f691981c08"
+  },
+  "choices.2.html": {
+   "es": "Configurar una base de datos MySQL para que cada servidor de aplicaciones escriba en ella los eventos de puja. Consultar periódicamente cada una de esas bases de datos MySQL distribuidas y actualizar una base de datos MySQL maestra con la información de los eventos de puja.",
+   "src": "27d4c3a3dbc9"
+  },
+  "choices.3.html": {
+   "es": "Hacer que cada servidor de aplicaciones escriba los eventos de puja en Google Cloud Pub/Sub cuando ocurran. Usar una suscripción pull para extraer los eventos de puja con Google Cloud Dataflow. Dar la puja de cada artículo al usuario del evento de puja que se procese primero.",
+   "src": "e992332e973c"
+  },
+  "explanation": {
+   "es": "La clave D importada no es una regla segura para decidir cuál fue la puja más temprana. Los retrasos de red y los reintentos pueden cambiar el orden de procesamiento. Conserva las marcas de tiempo de los eventos, define cómo tratar el tiempo del evento y un criterio de desempate determinista, y usa una decisión transaccional donde haga falta. El ordenamiento de Pub/Sub conserva un orden de publicación compatible, pero no establece un orden universal por tiempo del evento.",
+   "src": "02c62d5f020d"
+  },
+  "reviewNote": {
+   "es": "Esta pregunta importada está excluida de la práctica con puntuación. Lee la nota técnica en lugar de memorizar su clave.",
+   "src": "5d478c3e8ed1"
+  }
+ },
+ "imp-56": {
+  "html": {
+   "es": "Activaste la integración gratuita entre Firebase Analytics y Google BigQuery. Firebase ahora crea automáticamente una tabla nueva cada día en BigQuery con el formato app_events_YYYYMMDD. Quieres consultar todas las tablas de los últimos 30 días en SQL heredado (legacy SQL). ¿Qué debes hacer?<br>",
+   "src": "21177ea5739b"
+  },
+  "choices.0.html": {
+   "es": "Usar la función TABLE_DATE_RANGE",
+   "src": "fef4f16a9957"
+  },
+  "choices.1.html": {
+   "es": "Usar la pseudocolumna WHERE_PARTITIONTIME",
+   "src": "38ef8e2fa60d"
+  },
+  "choices.2.html": {
+   "es": "Usar WHERE date BETWEEN YYYY-MM-DD AND YYYY-MM-DD",
+   "src": "38db8f3ce18e"
+  },
+  "choices.3.html": {
+   "es": "Usar SELECT IF.(date &gt;= YYYY-MM-DD AND date &lt;= YYYY-MM-DD",
+   "src": "39988abdb3cf"
+  },
+  "sourceExplanation": {
+   "es": "La pregunta especifica de forma explícita el uso de Legacy SQL. En el dialecto Legacy SQL de BigQuery, la función TABLE_DATE_RANGE() es el método designado para consultar un rango de tablas que siguen una convención de nombres con sufijos de fecha (por ejemplo, app_events_YYYYMMDD). Standard SQL usa decoradores de partición o la pseudocolumna `_TABLE_SUFFIX`, pero Legacy SQL depende de esta función específica de comodín de tablas para expandir la lista de tablas de forma dinámica.",
+   "src": "f542b9d2b6bc"
+  },
+  "explanation": {
+   "es": "El enunciado pide de forma explícita SQL heredado (legacy SQL). TABLE_DATE_RANGE es sintaxis histórica. Aprende el filtrado con comodines de GoogleSQL y las tablas particionadas para las implementaciones nuevas.",
+   "src": "e52c11b5c022"
+  },
+  "reviewNote": {
+   "es": "Esta pregunta importada está excluida de la práctica con puntuación. Lee la nota técnica en lugar de memorizar su clave.",
+   "src": "5d478c3e8ed1"
+  }
+ },
+ "imp-88": {
+  "html": {
+   "es": "Tu equipo es responsable de desarrollar y mantener los ETL de tu empresa. Uno de tus trabajos de Dataflow falla por algunos errores en los datos de entrada, y necesitas mejorar la fiabilidad de la canalización (incluida la capacidad de reprocesar todos los datos que fallen).<br>¿Qué debes hacer?<br>",
+   "src": "070b34235f1b"
+  },
+  "choices.0.html": {
+   "es": "Agregar un paso de filtrado para omitir este tipo de errores en el futuro y extraer las filas erróneas de los registros.",
+   "src": "b66c63011864"
+  },
+  "choices.1.html": {
+   "es": "Agregar un bloque try&quot;¦ catch a tu DoFn que transforma los datos y extraer las filas erróneas de los registros.",
+   "src": "d733db4760fd"
+  },
+  "choices.2.html": {
+   "es": "Agregar un bloque try&quot;¦ catch a tu DoFn que transforma los datos y escribir las filas erróneas en Pub/Sub PubSub directamente desde el DoFn.",
+   "src": "5dee3ab93c4d"
+  },
+  "choices.3.html": {
+   "es": "Agregar un bloque try&quot;¦ catch a tu DoFn que transforma los datos y usar un sideOutput para crear una PCollection que se pueda guardar en Pub/Sub más tarde.",
+   "src": "db33abfcd6ae"
+  },
+  "sourceExplanation": {
+   "es": "Usar un bloque try-catch dentro del DoFn permite que la canalización maneje los errores de elementos individuales sin que falle todo el trabajo. Los sideOutputs son el mecanismo correcto de Apache Beam para enviar los registros erróneos a una PCollection aparte, para su procesamiento posterior, por ejemplo escribirlos en Pub/Sub con PubsubIO.\nEscribir en Pub/Sub directamente desde dentro del DoFn (opción C) es un antipatrón (anti-pattern) que evita los conectores de IO de Beam y puede causar cuellos de botella de rendimiento o fugas de recursos.",
+   "src": "88834da512bd"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-94": {
+  "html": {
+   "es": "Estás diseñando una canalización de Apache Beam para enriquecer datos de Cloud Pub/Sub con datos de referencia estáticos de BigQuery. Los datos de referencia son lo bastante pequeños para caber en la memoria de un solo worker. La canalización debe escribir los resultados enriquecidos en BigQuery para su análisis. ¿Qué tipo de trabajo y qué transformaciones debe usar esta canalización?<br>",
+   "src": "9184b748434c"
+  },
+  "choices.0.html": {
+   "es": "Trabajo por lotes (batch), PubSubIO, side-inputs",
+   "src": "3394b4080be0"
+  },
+  "choices.1.html": {
+   "es": "Trabajo de streaming, PubSubIO, JdbcIO, side-outputs",
+   "src": "5c57cdac5eb6"
+  },
+  "choices.2.html": {
+   "es": "Trabajo de streaming, PubSubIO, BigQueryIO, side-inputs",
+   "src": "36f05895583d"
+  },
+  "choices.3.html": {
+   "es": "Trabajo de streaming, PubSubIO, BigQueryIO, side-outputs",
+   "src": "f58aa5bc7ca0"
+  },
+  "sourceExplanation": {
+   "es": "La canalización procesa datos continuos de Cloud Pub/Sub, por lo que necesita un trabajo de streaming con PubSubIO para la ingesta.\nLos side-inputs son el patrón correcto para enriquecer los datos de la PCollection principal con datos de referencia pequeños y estáticos, cargados en memoria desde BigQuery.",
+   "src": "8ecc1ef9815a"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-100": {
+  "html": {
+   "es": "Debes insertar en una tabla de BigQuery datos con resolución de un minuto de 50,000 sensores. Esperas un crecimiento importante del volumen de datos y necesitas que los datos estén disponibles dentro de 1 minuto desde su ingesta, para el análisis en tiempo real de tendencias agregadas. ¿Qué debes hacer?<br>",
+   "src": "142949b2ff1a"
+  },
+  "choices.0.html": {
+   "es": "Usar bq load para cargar un lote de datos de sensores cada 60 segundos.",
+   "src": "ba0aface6351"
+  },
+  "choices.1.html": {
+   "es": "Usar una canalización de Cloud Dataflow para transmitir (stream) los datos a la tabla de BigQuery.",
+   "src": "c09e7125c04c"
+  },
+  "choices.2.html": {
+   "es": "Usar la sentencia INSERT para insertar un lote de datos cada 60 segundos.",
+   "src": "58970e119d1b"
+  },
+  "choices.3.html": {
+   "es": "Usar la sentencia MERGE para aplicar actualizaciones por lotes cada 60 segundos.",
+   "src": "e5257447155b"
+  },
+  "sourceExplanation": {
+   "es": "El requisito de análisis en tiempo real con los datos disponibles en un minuto exige un patrón de ingesta por streaming y no una carga por lotes. \nCloud Dataflow está diseñado para manejar flujos de datos de alto volumen y baja latencia, y puede escalar de forma automática para acomodar un crecimiento importante del volumen de datos de los sensores. \nLas opciones con `bq load`, `INSERT` o `MERGE` son operaciones orientadas a lotes que introducen latencia y no cumplen el requisito de disponibilidad en menos de un minuto.",
+   "src": "5fd9471c8377"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-106": {
+  "html": {
+   "es": "Administras un clúster de Cloud Dataproc. Necesitas hacer que un trabajo se ejecute más rápido y minimizar los costos, sin perder el trabajo en curso en tus clústeres. ¿Qué debes hacer?<br>",
+   "src": "1a44bb8dec1c"
+  },
+  "choices.0.html": {
+   "es": "Aumentar el tamaño del clúster con más workers no interrumpibles (non-preemptible).",
+   "src": "9370b50f0638"
+  },
+  "choices.1.html": {
+   "es": "Aumentar el tamaño del clúster con nodos worker interrumpibles (preemptible) y configurarlos para que se retiren de forma forzada (forcefully decommission).",
+   "src": "a8386919125c"
+  },
+  "choices.2.html": {
+   "es": "Aumentar el tamaño del clúster con nodos worker interrumpibles y usar Cloud Stackdriver para activar un script que conserve el trabajo.",
+   "src": "37e9f1b26a2a"
+  },
+  "choices.3.html": {
+   "es": "Aumentar el tamaño del clúster con nodos worker interrumpibles y configurarlos para que usen el retiro gradual (graceful decommissioning).",
+   "src": "d01371916384"
+  },
+  "sourceExplanation": {
+   "es": "Los nodos worker interrumpibles son mucho más baratos que los no interrumpibles, lo que cumple el requisito de minimizar los costos mientras se aumenta el tamaño del clúster para ejecutar el trabajo más rápido.\nConfigurar el retiro gradual asegura que los bloques de datos y las tareas en curso de estos workers se repliquen o se completen de forma segura antes de que se terminen, y evita la pérdida de trabajo.",
+   "src": "61fbed8d37b1"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-110": {
+  "html": {
+   "es": "Estás creando una canalización nueva en Google Cloud para transmitir datos de IoT desde Cloud Pub/Sub, a través de Cloud Dataflow, hasta BigQuery. Al obtener una vista previa de los datos, notas que aproximadamente el 2% de los datos parece estar dañado. Necesitas modificar la canalización de Cloud Dataflow para filtrar estos datos dañados. ¿Qué debes hacer?<br>",
+   "src": "c40fec75fb5a"
+  },
+  "choices.0.html": {
+   "es": "Agregar un SideInput que devuelva un valor booleano si el elemento está dañado.",
+   "src": "d302975743f3"
+  },
+  "choices.1.html": {
+   "es": "Agregar una transformación ParDo en Cloud Dataflow para descartar los elementos dañados.",
+   "src": "d034687113be"
+  },
+  "choices.2.html": {
+   "es": "Agregar una transformación Partition en Cloud Dataflow para separar los datos válidos de los datos dañados.",
+   "src": "7754c503fb6b"
+  },
+  "choices.3.html": {
+   "es": "Agregar una transformación GroupByKey en Cloud Dataflow para agrupar todos los datos válidos y descartar el resto.",
+   "src": "787bb46d06c9"
+  },
+  "sourceExplanation": {
+   "es": "La transformación ParDo es el mecanismo estándar de Apache Beam para aplicar lógica a cada elemento, incluido el filtrado.\nAl implementar un DoFn que valida cada registro y solo emite los elementos válidos con emit(), los datos dañados se descartan de forma efectiva sin necesidad de lógica de ramificación adicional.\nPartition sirve para dividir los datos en varias PCollections de salida, lo que es innecesario si el objetivo es simplemente quitar los registros malos, mientras que GroupByKey sirve para la agregación.",
+   "src": "a1bc98c159ab"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-113": {
+  "html": {
+   "es": "Eres un minorista que quiere integrar sus capacidades de venta en línea con distintos asistentes domésticos, como Google Home. Necesitas interpretar los comandos de voz de los clientes y emitir un pedido a los sistemas del backend. ¿Qué soluciones debes elegir?<br>",
+   "src": "efa3d175a548"
+  },
+  "choices.0.html": {
+   "es": "Speech-to-Text API",
+   "src": "3b4205016baa"
+  },
+  "choices.1.html": {
+   "es": "Cloud Natural Language API",
+   "src": "862dd6751a59"
+  },
+  "choices.2.html": {
+   "es": "Dialogflow Enterprise Edition",
+   "src": "ebf25b24e4b1"
+  },
+  "choices.3.html": {
+   "es": "AutoML Natural Language",
+   "src": "b0ed193290f9"
+  },
+  "sourceExplanation": {
+   "es": "Dialogflow Enterprise Edition es la opción correcta porque ofrece una solución de interfaz conversacional completa, que maneja tanto el reconocimiento de voz como la comprensión del lenguaje natural (detección de intenciones, o intent detection).\nSpeech-to-Text API solo convierte audio en texto, mientras que Dialogflow interpreta el significado de ese texto para activar acciones concretas del backend, como emitir un pedido.\nPor eso es adecuado para integrarse con asistentes domésticos inteligentes como Google Home y procesar comandos de voz de forma eficaz.",
+   "src": "a989924fcab1"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-117": {
+  "html": {
+   "es": "Estás diseñando una canalización de procesamiento de datos. La canalización debe poder escalar de forma automática cuando aumenta la carga. Los mensajes deben procesarse al menos una vez y deben estar ordenados dentro de ventanas (windows) de 1 hora. ¿Cómo debes diseñar la solución?<br>",
+   "src": "9434d1929761"
+  },
+  "choices.0.html": {
+   "es": "Usar Apache Kafka para la ingesta de mensajes y Cloud Dataproc para el análisis en streaming.",
+   "src": "91e5ea360f06"
+  },
+  "choices.1.html": {
+   "es": "Usar Apache Kafka para la ingesta de mensajes y Cloud Dataflow para el análisis en streaming.",
+   "src": "193a52f447db"
+  },
+  "choices.2.html": {
+   "es": "Usar Cloud Pub/Sub para la ingesta de mensajes y Cloud Dataproc para el análisis en streaming.",
+   "src": "40a4bd510de5"
+  },
+  "choices.3.html": {
+   "es": "Usar Cloud Pub/Sub para la ingesta de mensajes y Cloud Dataflow para el análisis en streaming.",
+   "src": "b1c92c72a692"
+  },
+  "sourceExplanation": {
+   "es": "Cloud Pub/Sub es el servicio de ingesta recomendado para las soluciones nativas de Google Cloud, y ofrece escalabilidad automática y garantías de entrega al menos una vez.\nCloud Dataflow está diseñado específicamente para el análisis en streaming, con soporte integrado de ventanas para mantener el orden dentro de intervalos de tiempo definidos (por ejemplo, 1 hora).\nApache Kafka es una opción de terceros que agrega carga de administración, frente a la combinación totalmente administrada de Pub/Sub y Dataflow. Dataproc, por su parte, es más adecuado para el procesamiento por lotes que para el streaming en tiempo real.",
+   "src": "c6ef0f3d42e1"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-118": {
+  "html": {
+   "es": "Necesitas configurar el acceso a BigQuery para distintos departamentos de tu empresa. Tu solución debe cumplir estos requisitos:<br>✑ Cada departamento debe tener acceso solo a sus datos.<br>✑ Cada departamento tendrá uno o más líderes que deben poder crear y actualizar tablas y ponerlas a disposición de su equipo.<br>✑ Cada departamento tiene analistas de datos que deben poder consultar los datos pero no modificarlos.<br>¿Cómo debes configurar el acceso a los datos en BigQuery?<br>",
+   "src": "88dfec9241a2"
+  },
+  "choices.0.html": {
+   "es": "Crear un dataset (conjunto de datos) para cada departamento. Asignar a los líderes del departamento el rol de OWNER y asignar a los analistas de datos el rol de WRITER en su dataset.",
+   "src": "82d7d8bd8c84"
+  },
+  "choices.1.html": {
+   "es": "Crear un dataset para cada departamento. Asignar a los líderes del departamento el rol de WRITER y asignar a los analistas de datos el rol de READER en su dataset.",
+   "src": "d78df4fa55f0"
+  },
+  "choices.2.html": {
+   "es": "Crear una tabla para cada departamento. Asignar a los líderes del departamento el rol de Owner y asignar a los analistas de datos el rol de Editor en el proyecto donde está la tabla.",
+   "src": "f1d44a3442c3"
+  },
+  "choices.3.html": {
+   "es": "Crear una tabla para cada departamento. Asignar a los líderes del departamento el rol de Editor y asignar a los analistas de datos el rol de Viewer en el proyecto donde está la tabla.",
+   "src": "6ac7a6cbda5a"
+  },
+  "sourceExplanation": {
+   "es": "Para aplicar el aislamiento de datos a nivel de departamento, debes crear un dataset separado para cada departamento y no compartir tablas a nivel de proyecto. \nLos roles de IAM a nivel de dataset son el mecanismo adecuado para este nivel de detalle: asigna el rol WRITER a los líderes para que puedan crear y actualizar tablas, y asigna el rol READER a los analistas para que solo puedan consultar datos. \nEsto asegura que los líderes tengan el acceso de escritura necesario y que los analistas queden limitados al acceso de solo lectura dentro del dataset de su departamento.",
+   "src": "1efa6fabc2a5"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-136": {
+  "html": {
+   "es": "Ejecutas una canalización en Dataflow que recibe mensajes de un tema (topic) de Pub/Sub y escribe los resultados en un dataset de BigQuery en la UE. Ahora tu canalización está en europe-west4 y tiene un máximo de 3 workers, con tipo de instancia n1-standard-1. Notas que en los periodos de mayor carga tu canalización tiene dificultades para procesar los registros a tiempo, cuando los 3 workers están al máximo de uso de CPU. ¿Qué dos acciones puedes tomar para aumentar el rendimiento de tu canalización? (Elige dos.)<br>",
+   "src": "dd59e09e7946"
+  },
+  "choices.0.html": {
+   "es": "Aumentar el número máximo de workers",
+   "src": "4ea2bf7a353a"
+  },
+  "choices.1.html": {
+   "es": "Usar un tipo de instancia más grande para tus workers de Dataflow",
+   "src": "28747c39f72f"
+  },
+  "choices.2.html": {
+   "es": "Cambiar la zona de tu canalización de Dataflow para que se ejecute en us-central1",
+   "src": "2efd1e1e867b"
+  },
+  "choices.3.html": {
+   "es": "Crear una tabla temporal en Bigtable que actúe como búfer para los datos nuevos. Crear un paso nuevo en tu canalización para escribir primero en esta tabla, y luego crear una canalización nueva para escribir de Bigtable a BigQuery",
+   "src": "8b47b3f87f86"
+  },
+  "choices.4.html": {
+   "es": "Crear una tabla temporal en Cloud Spanner que actúe como búfer para los datos nuevos. Crear un paso nuevo en tu canalización para escribir primero en esta tabla, y luego crear una canalización nueva para escribir de Cloud Spanner a BigQuery",
+   "src": "faf19a501b25"
+  },
+  "sourceExplanation": {
+   "es": "El cuello de botella se identifica de forma explícita como el uso máximo de CPU en los tres workers. Aumentar el número máximo de workers (A) agrega capacidad de procesamiento en paralelo para manejar más registros a la vez. Usar un tipo de instancia más grande (B) da más recursos de CPU y memoria por worker, y atiende directamente el problema de saturación.",
+   "src": "53371f735274"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-139": {
+  "html": {
+   "es": "Estás creando una canalización de datos nueva para compartir datos entre dos tipos distintos de aplicaciones: generadores de trabajos y ejecutores de trabajos. Tu solución debe escalar para acomodar aumentos de uso y debe permitir agregar aplicaciones nuevas sin afectar de forma negativa el rendimiento de las existentes. ¿Qué debes hacer?<br>",
+   "src": "2c0fe2308502"
+  },
+  "choices.0.html": {
+   "es": "Crear una API con App Engine para recibir y enviar mensajes a las aplicaciones",
+   "src": "9a3d43a1a55b"
+  },
+  "choices.1.html": {
+   "es": "Usar un tema de Cloud Pub/Sub para publicar trabajos y usar suscripciones para ejecutarlos",
+   "src": "a899421b1ccb"
+  },
+  "choices.2.html": {
+   "es": "Crear una tabla en Cloud SQL, e insertar y eliminar filas con la información de los trabajos",
+   "src": "5af6c5cafba8"
+  },
+  "choices.3.html": {
+   "es": "Crear una tabla en Cloud Spanner, e insertar y eliminar filas con la información de los trabajos",
+   "src": "254b664762b6"
+  },
+  "sourceExplanation": {
+   "es": "Cloud Pub/Sub es un servicio de mensajería totalmente administrado y escalable, diseñado para desacoplar sistemas. Permite que los generadores de trabajos (publicadores) y los ejecutores (suscriptores) funcionen de forma independiente. Admite escalado automático ante un mayor uso y permite agregar aplicaciones nuevas con solo crear suscripciones nuevas, sin afectar el rendimiento existente ni exigir cambios de arquitectura.",
+   "src": "cec7a891f2f1"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-143": {
+  "html": {
+   "es": "Operas una canalización de streaming de Cloud Dataflow. Tus ingenieros tienen una versión nueva de la canalización con un algoritmo de ventanas y una estrategia de disparadores (triggering) distintos. Quieres actualizar la canalización en ejecución con la versión nueva. Quieres asegurar que no se pierdan datos durante la actualización. ¿Qué debes hacer?<br>",
+   "src": "0093193ca372"
+  },
+  "choices.0.html": {
+   "es": "Actualizar la canalización de Cloud Dataflow en ejecución con la opción --update y --jobName igual al nombre del trabajo existente",
+   "src": "0c6cfe1959a0"
+  },
+  "choices.1.html": {
+   "es": "Actualizar la canalización de Cloud Dataflow en ejecución con la opción --update y --jobName igual a un nombre de trabajo nuevo y único",
+   "src": "6beab0fdccfb"
+  },
+  "choices.2.html": {
+   "es": "Detener la canalización de Cloud Dataflow con la opción Cancel. Crear un trabajo nuevo de Cloud Dataflow con el código actualizado",
+   "src": "257563e6597a"
+  },
+  "choices.3.html": {
+   "es": "Detener la canalización de Cloud Dataflow con la opción Drain. Crear un trabajo nuevo de Cloud Dataflow con el código actualizado",
+   "src": "aac8648fcec8"
+  },
+  "sourceExplanation": {
+   "es": "Según la documentación de Cloud Dataflow, los cambios importantes en los algoritmos de ventanas o en las estrategias de disparadores no son compatibles con las actualizaciones en el lugar y pueden causar resultados impredecibles. Por lo tanto, no puedes usar la opción --update para estos cambios estructurales importantes. Para asegurar que no se pierdan datos durante una transición así, debes detener la canalización existente con la opción Drain, que permite que se cierren las ventanas pendientes y que se procesen los datos en búfer antes de terminar.",
+   "src": "f19ffbc9fb94"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-145": {
+  "html": {
+   "es": "Recibes cada mes archivos de datos en formato CSV de un tercero. Necesitas depurar estos datos, pero cada tres meses cambia el esquema de los archivos. Tus requisitos para implementar estas transformaciones incluyen:<br>✑ Ejecutar las transformaciones según un calendario<br>✑ Permitir que analistas que no son desarrolladores modifiquen las transformaciones<br>✑ Ofrecer una herramienta gráfica para diseñar las transformaciones<br>¿Qué debes hacer?<br>",
+   "src": "d8830cbfa374"
+  },
+  "choices.0.html": {
+   "es": "Usar Dataprep by Trifacta para crear y mantener las recetas (recipes) de transformación, y ejecutarlas de forma programada",
+   "src": "7ed9071778fd"
+  },
+  "choices.1.html": {
+   "es": "Cargar los datos CSV de cada mes en BigQuery y escribir una consulta SQL para transformar los datos a un esquema estándar. Combinar las tablas transformadas con una consulta SQL",
+   "src": "da4197c27d09"
+  },
+  "choices.2.html": {
+   "es": "Ayudar a los analistas a escribir una canalización de Dataflow en Python para hacer la transformación. El código de Python debe guardarse en un sistema de control de versiones y modificarse cuando cambie el esquema de los datos entrantes",
+   "src": "4b9617900b87"
+  },
+  "choices.3.html": {
+   "es": "Usar Apache Spark en Dataproc para inferir el esquema del archivo CSV antes de crear un Dataframe. Luego implementar las transformaciones en Spark SQL antes de escribir los datos en Cloud Storage y cargarlos en BigQuery",
+   "src": "daf710cafe96"
+  },
+  "sourceExplanation": {
+   "es": "El requisito de que analistas que no son desarrolladores modifiquen las transformaciones con una herramienta gráfica apunta directamente a Dataprep by Trifacta. \nA diferencia de las soluciones basadas en SQL o Python (BigQuery, Dataflow, Spark), Dataprep ofrece una interfaz visual donde los usuarios pueden crear y editar 'recipes' (recetas) sin escribir código. \nAdemás, estas recetas se pueden ejecutar según un calendario mediante Cloud Scheduler, lo que cumple el requisito de automatización.",
+   "src": "af86e1054bf6"
+  },
+  "explanation": {
+   "es": "La pregunta usa el nombre histórico de Dataprep. Vuelve a revisar los productos de preparación visual de datos y las opciones de implementación que tienen soporte actualmente.",
+   "src": "49aec4608479"
+  },
+  "reviewNote": {
+   "es": "Esta pregunta importada está excluida de la práctica con puntuación. Lee la nota técnica en lugar de memorizar su clave.",
+   "src": "5d478c3e8ed1"
+  }
+ },
+ "imp-155": {
+  "html": {
+   "es": "Tu empresa está eligiendo un sistema para centralizar la ingesta y la entrega de datos. Estás considerando sistemas de mensajería y de integración de datos para cubrir los requisitos. Los requisitos clave son:<br>✑ La capacidad de buscar un desplazamiento (offset) concreto en un tema (topic), incluso hasta el inicio de todos los datos capturados<br>✑ Soporte de semántica de publicación y suscripción (publish/subscribe) en cientos de temas<br><br>Mantener el orden por clave -<br><img src=\"assets/images/4e85222d4c68108414c8.png\" alt=\"Original diagram for imported question 155. Open the full-size image to inspect the details.\" loading=\"lazy\"><br>¿Qué sistema debes elegir?<br>\n",
+   "src": "b08439678879"
+  },
+  "choices.0.html": {
+   "es": "Apache Kafka",
+   "src": "b953bd92180f"
+  },
+  "choices.1.html": {
+   "es": "Cloud Storage",
+   "src": "2ec3eb563477"
+  },
+  "choices.2.html": {
+   "es": "Dataflow",
+   "src": "1b81c3984347"
+  },
+  "choices.3.html": {
+   "es": "Firebase Cloud Messaging",
+   "src": "32890cd0bb9c"
+  },
+  "sourceExplanation": {
+   "es": "Apache Kafka es la única opción que admite de forma nativa buscar desplazamientos específicos dentro de los temas, una función esencial para reproducir datos históricos. También ofrece una semántica sólida de publicación y suscripción en cientos de temas, y garantiza el orden por clave mediante la asignación de la clave de partición.",
+   "src": "ce26e5c1b64d"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  },
+  "issues.0": {
+   "es": "El archivo subido contiene un marcador de posición ilegible de 9 × 6 píxeles en lugar de al menos un diagrama original.",
+   "src": "aedad8f7314b"
+  }
+ },
+ "imp-170": {
+  "html": {
+   "es": "Estás actualizando el código de un suscriptor de un feed de Pub/Sub. Te preocupa que, al desplegarlo, el suscriptor pueda confirmar mensajes por error y eso cause pérdida de mensajes. Tu suscriptor no está configurado para retener los mensajes confirmados. ¿Qué debes hacer para asegurar que puedas recuperarte de errores después del despliegue?<br>",
+   "src": "30123423f2a8"
+  },
+  "choices.0.html": {
+   "es": "Configurar el emulador de Pub/Sub en tu máquina local. Validar el comportamiento de la nueva lógica del suscriptor antes de desplegarla en producción.",
+   "src": "61aaebe94df7"
+  },
+  "choices.1.html": {
+   "es": "Crear una instantánea (snapshot) de Pub/Sub antes de desplegar el código nuevo del suscriptor. Usar una operación Seek para volver a entregar los mensajes que quedaron disponibles después de crear la instantánea.",
+   "src": "b2e6750d7902"
+  },
+  "choices.2.html": {
+   "es": "Usar Cloud Build para tu despliegue. Si ocurre un error después del despliegue, usar una operación Seek para ubicar una marca de tiempo registrada por Cloud Build al inicio del despliegue.",
+   "src": "7eec5a13c3cc"
+  },
+  "choices.3.html": {
+   "es": "Habilitar el dead-lettering (cola de mensajes no entregados) en el tema de Pub/Sub para capturar los mensajes que no se confirman con éxito. Si ocurre un error después del despliegue, volver a entregar los mensajes capturados por la cola de mensajes no entregados (dead-letter queue).",
+   "src": "637d15024ab6"
+  },
+  "sourceExplanation": {
+   "es": "Crear una instantánea antes del despliegue captura el estado de la suscripción en ese momento. Si el código nuevo confirma mensajes por error (y hace que se quiten de la cola), la operación Seek sobre la instantánea devuelve al consumidor al estado anterior al despliegue. Así se pueden volver a entregar todos los mensajes publicados desde que se tomó la instantánea.\n\nLas otras opciones fallan porque el dead-lettering (D) solo captura los mensajes que fallan al procesarse o que no se confirman, mientras que las instantáneas atienden específicamente la pérdida de mensajes por una confirmación prematura. Buscar por marca de tiempo (C) es un método de recuperación, pero exige retener los mensajes confirmados en la suscripción o el tema, y la pregunta dice que eso no está configurado.",
+   "src": "ba18c1de2717"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-173": {
+  "html": {
+   "es": "Estás diseñando una canalización que publica eventos de una aplicación en un tema de Pub/Sub. Aunque el orden de los mensajes no es importante, necesitas poder agregar los eventos en intervalos de una hora que no se superponen (disjoint), antes de cargar los resultados en BigQuery para su análisis. ¿Qué tecnología debes usar para procesar y cargar estos datos en<br>BigQuery y asegurar que escale con grandes volúmenes de eventos?<br>",
+   "src": "1685d710f96b"
+  },
+  "choices.0.html": {
+   "es": "Crear una Cloud Function que haga el procesamiento de datos necesario y se ejecute con el disparador de Pub/Sub cada vez que se publique un mensaje nuevo en el tema.",
+   "src": "bf36b48ff489"
+  },
+  "choices.1.html": {
+   "es": "Programar una Cloud Function para que se ejecute cada hora, extraiga todos los mensajes disponibles del tema de Pub/Sub y haga las agregaciones necesarias.",
+   "src": "99455aa0f7ab"
+  },
+  "choices.2.html": {
+   "es": "Programar un trabajo por lotes de Dataflow para que se ejecute cada hora, extraiga todos los mensajes disponibles del tema de Pub/Sub y haga las agregaciones necesarias.",
+   "src": "26e7f7db8367"
+  },
+  "choices.3.html": {
+   "es": "Crear un trabajo de streaming de Dataflow que lea de forma continua del tema de Pub/Sub y haga las agregaciones necesarias con ventanas fijas sin superposición (tumbling windows).",
+   "src": "4b411083c037"
+  },
+  "sourceExplanation": {
+   "es": "El requisito de 'escalar con grandes volúmenes' exige una arquitectura de streaming capaz de manejar una ingesta continua de alto rendimiento, sin la latencia ni las limitaciones de recuperación propias de consultar por lotes cada hora. Cloud Pub/Sub está diseñado para flujos de datos en tiempo real, por lo que Dataflow Streaming es la opción adecuada para procesar estos eventos a medida que llegan. Las tumbling windows se definen específicamente como intervalos de tiempo de duración fija que no se superponen (por ejemplo, cada hora), lo que coincide perfectamente con la lógica de agregación requerida.",
+   "src": "3c3453c042ca"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-178": {
+  "html": {
+   "es": "Estás probando una canalización de Dataflow para ingerir y transformar archivos de texto. Los archivos están comprimidos en gzip, los errores se escriben en una cola de mensajes no entregados (dead-letter queue) y usas<br>SideInputs para unir datos. Notaste que la canalización tarda más en completarse de lo esperado. ¿Qué debes hacer para acelerar el trabajo de Dataflow?<br>",
+   "src": "f2a779ad5793"
+  },
+  "choices.0.html": {
+   "es": "Cambiar a archivos Avro comprimidos.",
+   "src": "d1e47c766d0e"
+  },
+  "choices.1.html": {
+   "es": "Reducir el tamaño del lote.",
+   "src": "67c328335870"
+  },
+  "choices.2.html": {
+   "es": "Reintentar los registros que producen un error.",
+   "src": "b88707af09c7"
+  },
+  "choices.3.html": {
+   "es": "Usar CoGroupByKey en lugar del SideInput.",
+   "src": "249fcdc6c7c0"
+  },
+  "sourceExplanation": {
+   "es": "La pregunta destaca de forma específica el uso de SideInputs como un posible cuello de botella de rendimiento. Aunque los SideInputs son eficientes para conjuntos de datos pequeños, exigen cargar toda la PCollection en la memoria de cada worker. Eso puede degradar mucho el rendimiento y causar tiempos de espera agotados si los datos son grandes o cambian con frecuencia.\n\nCoGroupByKey es la alternativa recomendada para unir conjuntos de datos cuando los datos del side input no caben de forma eficiente en la memoria, porque procesa la unión en la etapa de mezcla (shuffle) de la canalización y no depende de una caché global. Este cambio permite que Dataflow escale la operación de unión de forma horizontal entre los workers y así acelere la finalización del trabajo.",
+   "src": "a212ace08f30"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-181": {
+  "html": {
+   "es": "Necesitas dar a los usuarios nuevos de un sitio web un identificador único global (GUID) con un servicio que recibe puntos de datos y devuelve un GUID. Estos datos vienen de sistemas internos y externos mediante llamadas HTTP que harás con microservicios dentro de tu canalización. Habrá decenas de miles de mensajes por segundo, que pueden ser multihilo (multi-threaded). Y te preocupa la contrapresión (backpressure) en el sistema. ¿Cómo debes diseñar tu canalización para minimizar esa contrapresión?<br>",
+   "src": "3f55336a361b"
+  },
+  "choices.0.html": {
+   "es": "Llamar al servicio por HTTP.",
+   "src": "0990518d6446"
+  },
+  "choices.1.html": {
+   "es": "Crear la canalización de forma estática en la definición de la clase.",
+   "src": "acb8f2801780"
+  },
+  "choices.2.html": {
+   "es": "Crear un objeto nuevo en el método startBundle de DoFn.",
+   "src": "29b95b180310"
+  },
+  "choices.3.html": {
+   "es": "Agrupar el trabajo en lotes de incrementos de diez segundos.",
+   "src": "d8047e1f5d89"
+  },
+  "sourceExplanation": {
+   "es": "Procesar decenas de miles de mensajes por segundo con llamadas HTTP síncronas individuales crea una contrapresión importante, por la alta latencia y los límites de concurrencia. Agrupar las solicitudes en incrementos de tiempo reduce el total de llamadas a APIs externas, suaviza los picos de carga y evita que el servicio externo se convierta en un cuello de botella.",
+   "src": "511b7e0521d2"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-184": {
+  "html": {
+   "es": "Estás creando un almacén de datos solo para informes, donde los datos se transmiten a BigQuery con la API de streaming. Siguiendo las mejores prácticas de Google, tienes una tabla de preparación (staging) y una tabla de producción para los datos. ¿Cómo debes diseñar la carga de datos para asegurar que haya un solo conjunto de datos maestro, sin afectar el rendimiento de la ingesta ni de los informes?<br>",
+   "src": "7f73dcd25ac8"
+  },
+  "choices.0.html": {
+   "es": "Tener una tabla de preparación con un modelo de solo anexar (append-only) y luego actualizar la tabla de producción cada tres horas con los cambios escritos en la tabla de preparación.",
+   "src": "be730e334b55"
+  },
+  "choices.1.html": {
+   "es": "Tener una tabla de preparación con un modelo de solo anexar y luego actualizar la tabla de producción cada noventa minutos con los cambios escritos en la tabla de preparación.",
+   "src": "ee4d886dc820"
+  },
+  "choices.2.html": {
+   "es": "Tener una tabla de preparación que pase los datos preparados a la tabla de producción y borre el contenido de la tabla de preparación cada tres horas.",
+   "src": "eeb8bceadc6c"
+  },
+  "choices.3.html": {
+   "es": "Tener una tabla de preparación que pase los datos preparados a la tabla de producción y borre el contenido de la tabla de preparación cada treinta minutos.",
+   "src": "a145f32d212a"
+  },
+  "sourceExplanation": {
+   "es": "El diseño correcto consiste en pasar los datos de la tabla de preparación a la de producción y vaciar la de preparación, porque mantener una tabla de preparación de solo anexar lleva a un crecimiento sin límite y a problemas de rendimiento. Las mejores prácticas de Google recomiendan un intervalo de tres horas para este proceso, porque el búfer de streaming de BigQuery retiene los datos hasta 90 minutos (rara vez más). Así, 3 horas bastan para asegurar que todas las filas transmitidas estén disponibles para operaciones DML como DELETE o MERGE, sin fallar por bloqueos del búfer.",
+   "src": "5a057dc42717"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-192": {
+  "html": {
+   "es": "Estás implementando un chatbot para ayudar a un minorista en línea a agilizar su servicio al cliente. El chatbot debe poder responder tanto a consultas de texto como de voz.<br>Buscas una opción de poco código o sin código, y quieres poder entrenar fácilmente al chatbot para que dé respuestas a palabras clave. ¿Qué debes hacer?<br>",
+   "src": "73b295580da5"
+  },
+  "choices.0.html": {
+   "es": "Usar la Cloud Speech-to-Text API para crear una aplicación de Python en App Engine.",
+   "src": "08388acab88f"
+  },
+  "choices.1.html": {
+   "es": "Usar la Cloud Speech-to-Text API para crear una aplicación de Python en una instancia de Compute Engine.",
+   "src": "b3785372e9bd"
+  },
+  "choices.2.html": {
+   "es": "Usar Dialogflow para las consultas simples y la Cloud Speech-to-Text API para las consultas complejas.",
+   "src": "b85481319103"
+  },
+  "choices.3.html": {
+   "es": "Usar Dialogflow para implementar el chatbot, definiendo los intents (intenciones) a partir de las consultas más comunes recopiladas.",
+   "src": "57134c54bcd4"
+  },
+  "sourceExplanation": {
+   "es": "Dialogflow es una plataforma de IA conversacional de poco código que maneja de forma nativa entradas de texto y de voz mediante APIs integradas de voz a texto y de texto a voz, lo que elimina la necesidad de código de aplicación personalizado. Definir intents permite asociar palabras clave y consultas de usuarios con respuestas concretas, lo que cumple directamente el requisito de entrenar al chatbot con las consultas habituales.",
+   "src": "2ab9c04a9d00"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-193": {
+  "html": {
+   "es": "Una empresa aeroespacial usa un formato de datos propio para guardar sus datos de vuelo. Necesitas conectar esta nueva fuente de datos a BigQuery y transmitir los datos a<br>BigQuery. Quieres importar los datos a BigQuery de forma eficiente y consumiendo la menor cantidad posible de recursos. ¿Qué debes hacer?<br>",
+   "src": "a8d4fdb3c650"
+  },
+  "choices.0.html": {
+   "es": "Escribir un script de shell que active una Cloud Function que haga trabajos ETL por lotes periódicos sobre la nueva fuente de datos.",
+   "src": "0d164351f491"
+  },
+  "choices.1.html": {
+   "es": "Usar una canalización estándar de Dataflow para guardar los datos sin procesar en BigQuery y transformar el formato más tarde, cuando se usen los datos.",
+   "src": "4914cfc410a7"
+  },
+  "choices.2.html": {
+   "es": "Usar Apache Hive para escribir un trabajo de Dataproc que transmita los datos a BigQuery en formato CSV.",
+   "src": "cb84bb560976"
+  },
+  "choices.3.html": {
+   "es": "Usar un conector personalizado de Apache Beam para escribir una canalización de Dataflow que transmita los datos a BigQuery en formato Avro.",
+   "src": "670f1d44a1c7"
+  },
+  "sourceExplanation": {
+   "es": "La opción D es correcta porque Dataflow ofrece procesamiento de streaming administrado y con escalado automático, esencial para una ingesta eficiente con un desperdicio mínimo de recursos.\nComo la fuente tiene un formato propio, se necesita un conector personalizado de Apache Beam para analizarla antes de transmitirla a BigQuery en un formato optimizado y favorable a las columnas, como Avro.\nLas opciones A y C usan enfoques por lotes o de clústeres manuales que no tienen eficiencia en tiempo real, y la opción B aplaza transformaciones necesarias, lo que incumple el requisito de importación eficiente.",
+   "src": "1d149f00da2f"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-195": {
+  "html": {
+   "es": "Tu empresa quiere poder recuperar conjuntos de resultados grandes de información médica de tu sistema actual, que tiene más de 10 TB en la base de datos, y guardar los datos en tablas nuevas para consultarlos después. La base de datos debe tener una arquitectura de bajo mantenimiento y ser accesible con SQL. Necesitas implementar una solución rentable que pueda dar soporte al análisis de datos de conjuntos de resultados grandes. ¿Qué debes hacer?<br>",
+   "src": "2b533f338481"
+  },
+  "choices.0.html": {
+   "es": "Usar Cloud SQL, pero primero organizar los datos en tablas. Usar JOIN en las consultas para recuperar los datos.",
+   "src": "4fcc304f9cd3"
+  },
+  "choices.1.html": {
+   "es": "Usar BigQuery como almacén de datos (data warehouse). Definir destinos de salida para guardar en caché las consultas grandes.",
+   "src": "f206fa37fdd4"
+  },
+  "choices.2.html": {
+   "es": "Usar un clúster de MySQL instalado en un grupo de instancias administrado de Compute Engine para lograr escalabilidad.",
+   "src": "0e918dd60461"
+  },
+  "choices.3.html": {
+   "es": "Usar Cloud Spanner para replicar los datos entre regiones. Normalizar los datos en una serie de tablas.",
+   "src": "06255d32428d"
+  },
+  "sourceExplanation": {
+   "es": "BigQuery es un almacén de datos totalmente administrado, diseñado para análisis a gran escala. Ofrece una arquitectura de bajo mantenimiento que elimina la carga de administrar infraestructura. Admite SQL estándar y consultas rentables sobre conjuntos de datos masivos (más de 10 TB), con mecanismos de caché integrados para las consultas repetidas. En cambio, Cloud SQL y MySQL administrado por ti son bases de datos transaccionales que no están optimizadas para este volumen de cargas de trabajo analíticas, y Cloud Spanner sirve sobre todo para transacciones globales de baja latencia y no para análisis masivos.",
+   "src": "e37e99ca8c89"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-205": {
+  "html": {
+   "es": "Tienes una aplicación de procesamiento de datos que se ejecuta en Google Kubernetes Engine (GKE). Los contenedores deben iniciarse con sus configuraciones más recientes disponibles desde un registro de contenedores (container registry). Tus nodos de GKE necesitan tener GPU, SSD locales y 8 Gbps de ancho de banda. Quieres aprovisionar de forma eficiente la infraestructura de procesamiento de datos y administrar el proceso de despliegue. ¿Qué debes hacer?",
+   "src": "68423731825e"
+  },
+  "choices.0.html": {
+   "es": "Usar scripts de inicio de Compute Engine para extraer las imágenes de contenedor y usar comandos de gcloud para aprovisionar la infraestructura.",
+   "src": "d6917268d166"
+  },
+  "choices.1.html": {
+   "es": "Usar Cloud Build para programar un trabajo con Terraform build que aprovisione la infraestructura y la inicie con las imágenes de contenedor más actuales.",
+   "src": "c696350c9a8b"
+  },
+  "choices.2.html": {
+   "es": "Usar GKE para escalar los contenedores de forma automática y usar comandos de gcloud para aprovisionar la infraestructura.",
+   "src": "3c067b30ddee"
+  },
+  "choices.3.html": {
+   "es": "Usar Dataflow para aprovisionar la canalización de datos y usar Cloud Scheduler para ejecutar el trabajo.",
+   "src": "67c2d7711b81"
+  },
+  "sourceExplanation": {
+   "es": "La opción B es el enfoque más eficiente porque combina la infraestructura como código (Infrastructure as Code, con Terraform) con la automatización de CI/CD (con Cloud Build) para manejar tanto el aprovisionamiento de la infraestructura como la administración del despliegue. Terraform asegura que los nodos de GKE se aprovisionen con las configuraciones de hardware específicas necesarias, como GPU, SSD locales y ancho de banda de red. Por su parte, Cloud Build automatiza el proceso de despliegue y asegura que los contenedores se inicien con las imágenes más recientes del registro, sin intervención manual.",
+   "src": "0ed2cfd816c5"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-221": {
+  "html": {
+   "es": "Guardas y analizas tus datos relacionales en BigQuery en Google Cloud, con todos los datos en regiones de EE. UU. También tienes varios almacenes de objetos (object stores) en Microsoft Azure y Amazon Web Services (AWS), también en regiones de EE. UU. Quieres consultar todos tus datos en BigQuery cada día moviendo la menor cantidad posible de datos. ¿Qué debes hacer?",
+   "src": "f0683acf6ef8"
+  },
+  "choices.0.html": {
+   "es": "Usar BigQuery Data Transfer Service para cargar archivos de Azure y AWS en BigQuery.",
+   "src": "2f8f7a173b0b"
+  },
+  "choices.1.html": {
+   "es": "Crear una canalización de Dataflow para ingerir archivos de Azure y AWS en BigQuery.",
+   "src": "f1efc798acf0"
+  },
+  "choices.2.html": {
+   "es": "Cargar archivos de AWS y Azure en Cloud Storage con los argumentos de gsutil rsync de Cloud Shell.",
+   "src": "b90b6d766e02"
+  },
+  "choices.3.html": {
+   "es": "Usar la funcionalidad BigQuery Omni y las tablas BigLake para consultar archivos en Azure y AWS.",
+   "src": "83a559af3854"
+  },
+  "sourceExplanation": {
+   "es": "El requisito es minimizar el movimiento de datos al consultar los datos relacionales de BigQuery junto con almacenes de objetos externos en Azure y AWS. Las opciones A, B y C implican copiar o transferir físicamente los datos a Google Cloud, lo que incumple la restricción de movimiento mínimo. BigQuery Omni permite consultas federadas entre nubes, de modo que puedes analizar los datos en Azure Blob Storage y Amazon S3 directamente, sin ingesta, lo que cumple el objetivo.",
+   "src": "5d95d5d112e7"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-223": {
+  "html": {
+   "es": "Estás creando una solución ELT en BigQuery con Dataform. Necesitas hacer comprobaciones de unicidad y de valores nulos en tus tablas finales. ¿Qué debes hacer para integrar estas comprobaciones en tu canalización de forma eficiente?",
+   "src": "fbd07bac0402"
+  },
+  "choices.0.html": {
+   "es": "Crear funciones definidas por el usuario (UDF) de BigQuery.",
+   "src": "febdf5cef005"
+  },
+  "choices.1.html": {
+   "es": "Crear tareas de calidad de datos de Dataplex.",
+   "src": "eef2289a9378"
+  },
+  "choices.2.html": {
+   "es": "Incluir aserciones (assertions) de Dataform en tu código.",
+   "src": "e912d7d97604"
+  },
+  "choices.3.html": {
+   "es": "Escribir un procedimiento almacenado basado en Spark.",
+   "src": "90df250df0c9"
+  },
+  "sourceExplanation": {
+   "es": "Dataform incluye una función nativa llamada assertions (aserciones), que permite definir pruebas basadas en SQL para la calidad de los datos dentro de tu código de transformación.\nEstas aserciones están diseñadas específicamente para hacer comprobaciones como la unicidad y la validación de valores nulos directamente en tablas o vistas.\nUsar aserciones asegura una integración eficiente porque se ejecutan de forma automática durante la ejecución de la canalización, sin necesidad de herramientas externas ni de UDF personalizadas.",
+   "src": "e6bd05f29875"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-224": {
+  "html": {
+   "es": "Un servidor web envía eventos de clic como mensajes a un tema de Pub/Sub. El servidor web incluye en los mensajes un atributo eventTimestamp, que es la hora en que ocurrió el clic. Tienes un trabajo de streaming de Dataflow que lee de este tema de Pub/Sub mediante una suscripción, aplica algunas transformaciones y escribe el resultado en otro tema de Pub/Sub para que lo use el departamento de publicidad. El departamento de publicidad necesita recibir cada mensaje dentro de los 30 segundos posteriores al clic correspondiente, pero informa que recibe los mensajes tarde. El retraso del sistema (system lag) de tu trabajo de Dataflow es de unos 5 segundos, y la actualidad de los datos (data freshness) es de unos 40 segundos. Al inspeccionar algunos mensajes, se ve que hay como máximo 1 segundo de retraso entre su eventTimestamp y su publishTime. ¿Cuál es el problema y qué debes hacer?",
+   "src": "0232c8dbe658"
+  },
+  "choices.0.html": {
+   "es": "El departamento de publicidad causa retrasos al consumir los mensajes. Trabaja con el departamento de publicidad para corregirlo.",
+   "src": "f9b7da003178"
+  },
+  "choices.1.html": {
+   "es": "Los mensajes de tu trabajo de Dataflow tardan más de 30 segundos en procesarse. Optimiza tu trabajo o aumenta el número de workers para corregirlo.",
+   "src": "a146e576ca2c"
+  },
+  "choices.2.html": {
+   "es": "Los mensajes de tu trabajo de Dataflow se procesan en menos de 30 segundos, pero tu trabajo no puede seguir el ritmo de la acumulación de mensajes pendientes (backlog) en la suscripción de Pub/Sub. Optimiza tu trabajo o aumenta el número de workers para corregirlo.",
+   "src": "bd601e6923b1"
+  },
+  "choices.3.html": {
+   "es": "El servidor web no envía los mensajes a Pub/Sub con suficiente rapidez. Trabaja con el equipo del servidor web para corregirlo.",
+   "src": "d56d8ad6444f"
+  },
+  "sourceExplanation": {
+   "es": "La actualidad de los datos (data freshness) mide el retraso entre el momento del evento y el fin del procesamiento, mientras que el retraso del sistema (system lag) mide solo la duración del procesamiento activo. \nComo la actualidad de los datos es alta (40 s) pero el retraso del sistema es bajo (5 s), los mensajes individuales se procesan rápido. Esto indica que hay una gran acumulación de mensajes pendientes en la suscripción y que la ejecución por mensaje no es lenta. \nEl trabajo no puede ingerir mensajes nuevos tan rápido como llegan, y eso acumula retraso. Por eso, aumentar el rendimiento con optimización o con más workers resuelve la acumulación.",
+   "src": "25917ecf6ff4"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-228": {
+  "html": {
+   "es": "Tienes una canalización de streaming que ingiere datos de Pub/Sub en producción. Necesitas actualizar esta canalización con una lógica de negocio mejorada. Debes asegurar que la canalización actualizada vuelva a procesar los dos días anteriores de mensajes de Pub/Sub entregados. ¿Qué debes hacer? (Elige dos.)",
+   "src": "214399574814"
+  },
+  "choices.0.html": {
+   "es": "Usar la bandera clear-retry-policy de la suscripción de Pub/Sub",
+   "src": "80e725c88cf4"
+  },
+  "choices.1.html": {
+   "es": "Usar una captura de Pub/Sub Snapshot dos días antes del despliegue.",
+   "src": "c33425668fdf"
+  },
+  "choices.2.html": {
+   "es": "Crear una suscripción nueva de Pub/Sub dos días antes del despliegue.",
+   "src": "6e2436b42067"
+  },
+  "choices.3.html": {
+   "es": "Usar la bandera retain-acked-messages de la suscripción de Pub/Sub.",
+   "src": "9a6eaf77d948"
+  },
+  "choices.4.html": {
+   "es": "Usar Pub/Sub Seek con una marca de tiempo.",
+   "src": "d41eefadda96"
+  },
+  "explanation": {
+   "es": "Para reproducir mensajes ya confirmados según una marca de tiempo, retén esos mensajes durante el historial necesario y luego haz seek hasta la hora requerida. El par previsto es D y E. Habilitar la retención ahora no puede recuperar mensajes que ya se descartaron. Configura la retención antes del periodo que planeas reproducir.",
+   "src": "888aa8dda2ec"
+  },
+  "reviewNote": {
+   "es": "El razonamiento editorial está vinculado a documentación primaria. La clave importada se conserva por separado.",
+   "src": "c07bc5e656c6"
+  },
+  "issues.0": {
+   "es": "La pregunta pide 2 opciones, pero la clave importada contiene 1.",
+   "src": "0ddc5cc390bc"
+  }
+ },
+ "imp-246": {
+  "html": {
+   "es": "Tienes un dataset de BigQuery que incluye las direcciones postales de clientes. Quieres recuperar todas las apariciones de direcciones postales del dataset. ¿Qué debes hacer?",
+   "src": "a40773c1530b"
+  },
+  "choices.0.html": {
+   "es": "Escribir una consulta SQL en BigQuery con REGEXP_CONTAINS sobre todas las tablas de tu dataset para encontrar las filas donde aparece la palabra “street”.",
+   "src": "a43b72879b2a"
+  },
+  "choices.1.html": {
+   "es": "Crear un trabajo de inspección profunda (deep inspection) en cada tabla de tu dataset con Cloud Data Loss Prevention y crear una plantilla de inspección que incluya el infoType STREET_ADDRESS.",
+   "src": "7a36418ae22b"
+  },
+  "choices.2.html": {
+   "es": "Crear una configuración de análisis de descubrimiento (discovery scan) en tu organización con Cloud Data Loss Prevention y crear una plantilla de inspección que incluya el infoType STREET_ADDRESS.",
+   "src": "aeaf0f50e31d"
+  },
+  "choices.3.html": {
+   "es": "Crear un trabajo de desidentificación (de-identification) en Cloud Data Loss Prevention y usar la transformación de enmascaramiento (masking).",
+   "src": "94d9571ebc02"
+  },
+  "sourceExplanation": {
+   "es": "Cloud Data Loss Prevention (Cloud DLP) es el servicio especializado para identificar y clasificar datos sensibles. Ofrece detectores infoType predefinidos, como STREET_ADDRESS, mucho más precisos que una simple coincidencia con expresiones regulares. Crear un trabajo de inspección con esta plantilla permite analizar tus tablas de BigQuery y obtener metadatos sobre dónde aparecen estas direcciones, sin alterar los datos.",
+   "src": "6b2aa6178c11"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-248": {
+  "html": {
+   "es": "Registros de muestra de dataset.inventory_vm:<br><br><img src=\"assets/images/e2f4b76a2f2a21b880f3.png\" alt=\"Original diagram for imported question 248. Open the full-size image to inspect the details.\" loading=\"lazy\"><br><br>Tienes un inventario de datos de VM guardado en la tabla de BigQuery. Quieres preparar los datos para informes regulares de la forma más rentable. Necesitas excluir de tu informe las filas de VM con menos de 8 vCPU. ¿Qué debes hacer?",
+   "src": "3eeb9fa884a5"
+  },
+  "choices.0.html": {
+   "es": "Crear una vista (view) con un filtro que elimine las filas con menos de 8 vCPU y usar el operador UNNEST.",
+   "src": "8755a4217fe4"
+  },
+  "choices.1.html": {
+   "es": "Crear una vista materializada (materialized view) con un filtro que elimine las filas con menos de 8 vCPU y usar la expresión de tabla común (common table expression) WITH.",
+   "src": "8f4a041bc924"
+  },
+  "choices.2.html": {
+   "es": "Crear una vista con un filtro que elimine las filas con menos de 8 vCPU y usar la expresión de tabla común WITH.",
+   "src": "81f0f3b4c358"
+  },
+  "choices.3.html": {
+   "es": "Usar Dataflow para procesar por lotes y escribir el resultado en otra tabla de BigQuery.",
+   "src": "a24666de505c"
+  },
+  "sourceExplanation": {
+   "es": "Los datos de vCPU están dentro de una estructura anidada en la columna `components`, por lo que hace falta el operador UNNEST para aplanarla y acceder a ella al filtrar. \nUna vista estándar es más rentable que una vista materializada porque evita los costos de almacenamiento de los resultados precalculados. Eso es lo óptimo para informes regulares, donde la frecuencia de las consultas no justifica esa carga adicional.",
+   "src": "9aff16d8127b"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-259": {
+  "html": {
+   "es": "Tus usuarios de negocio necesitan una forma de limpiar y preparar los datos antes de usarlos en el análisis. Tus usuarios de negocio tienen menos conocimientos técnicos y prefieren trabajar con interfaces gráficas para definir sus transformaciones. Después de transformar los datos, los usuarios de negocio quieren hacer su análisis directamente en una hoja de cálculo. Necesitas recomendar una solución que puedan usar. ¿Qué debes hacer?",
+   "src": "179dcfa05d72"
+  },
+  "choices.0.html": {
+   "es": "Usar Dataprep para limpiar los datos y escribir los resultados en BigQuery. Analizar los datos con Connected Sheets.",
+   "src": "e2b1bc8b17dc"
+  },
+  "choices.1.html": {
+   "es": "Usar Dataprep para limpiar los datos y escribir los resultados en BigQuery. Analizar los datos con Looker Studio.",
+   "src": "84253e467543"
+  },
+  "choices.2.html": {
+   "es": "Usar Dataflow para limpiar los datos y escribir los resultados en BigQuery. Analizar los datos con Connected Sheets.",
+   "src": "d47b0f8d2b72"
+  },
+  "choices.3.html": {
+   "es": "Usar Dataflow para limpiar los datos y escribir los resultados en BigQuery. Analizar los datos con Looker Studio.",
+   "src": "a9025f7fa7d5"
+  },
+  "sourceExplanation": {
+   "es": "Dataprep (Trifacta) ofrece la interfaz gráfica que necesitan los usuarios menos técnicos para limpiar y preparar los datos, mientras que Dataflow es un servicio de procesamiento de streaming y por lotes centrado en el código.\nConnected Sheets permite analizar los datos directamente en una interfaz de hoja de cálculo al vincularla con BigQuery, lo que cumple el requisito específico de que los usuarios de negocio prefieren trabajar en hojas de cálculo.",
+   "src": "359547df0b38"
+  },
+  "explanation": {
+   "es": "Este elemento combina un producto histórico de preparación de datos con análisis en hojas de cálculo. Vuelve a revisar los conectores de preparación y de hojas de cálculo que tienen soporte actualmente.",
+   "src": "132e4d627305"
+  },
+  "reviewNote": {
+   "es": "Esta pregunta importada está excluida de la práctica con puntuación. Lee la nota técnica en lugar de memorizar su clave.",
+   "src": "5d478c3e8ed1"
+  }
+ },
+ "imp-268": {
+  "html": {
+   "es": "Creaste una versión nueva de una canalización de ingesta de datos en streaming de Dataflow que lee de Pub/Sub y escribe en BigQuery. La versión anterior de la canalización, que se ejecuta en producción, usa una ventana de 5 minutos para el procesamiento. Necesitas desplegar la versión nueva de la canalización sin perder datos, sin crear inconsistencias y sin aumentar la latencia de procesamiento en más de 10 minutos. ¿Qué debes hacer?",
+   "src": "8e314678245e"
+  },
+  "choices.0.html": {
+   "es": "Actualizar la canalización anterior con el código de la canalización nueva.",
+   "src": "6fdc755a811a"
+  },
+  "choices.1.html": {
+   "es": "Tomar una instantánea (snapshot) de la canalización anterior, detenerla y luego iniciar la canalización nueva desde la instantánea.",
+   "src": "1d634e426a82"
+  },
+  "choices.2.html": {
+   "es": "Hacer drain de la canalización anterior y luego iniciar la canalización nueva.",
+   "src": "1eb07da0607a"
+  },
+  "choices.3.html": {
+   "es": "Cancelar la canalización anterior y luego iniciar la canalización nueva.",
+   "src": "f0eb8632ce3b"
+  },
+  "sourceExplanation": {
+   "es": "Hacer drain de la canalización detiene el procesamiento de datos nuevos y deja que se procesen los registros en proceso. Así se evita la pérdida de datos y se asegura la consistencia. \nCancelar causa una terminación inmediata que puede llevar a pérdida de datos, y actualizar el código directamente exige un ciclo de instantánea y reinicio que, según la implementación, puede introducir retrasos más largos o problemas de estado. \nLa opción C es el procedimiento estándar para transiciones seguras sin perder los datos en tránsito.",
+   "src": "c04a5eeede58"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-276": {
+  "html": {
+   "es": "Estás diseñando una canalización de Dataflow para un trabajo de procesamiento por lotes. Quieres mitigar varios fallos de zona (zonal failures) en el momento de enviar el trabajo. ¿Qué debes hacer?",
+   "src": "848001e077bc"
+  },
+  "choices.0.html": {
+   "es": "Enviar canalizaciones duplicadas en dos zonas distintas con la bandera --zone.",
+   "src": "56a2cd2da130"
+  },
+  "choices.1.html": {
+   "es": "Definir la ubicación de preparación (staging location) de la canalización como un bucket regional de Cloud Storage.",
+   "src": "5bddbdf8029b"
+  },
+  "choices.2.html": {
+   "es": "Especificar una región de workers con la bandera --region.",
+   "src": "52664f7d189c"
+  },
+  "choices.3.html": {
+   "es": "Crear un disparador de Eventarc para volver a enviar el trabajo en caso de un fallo de zona al enviar el trabajo.",
+   "src": "b1c0f1e9b0a0"
+  },
+  "sourceExplanation": {
+   "es": "Usar la bandera --region permite que Dataflow distribuya de forma automática los recursos de workers entre varias zonas dentro de esa región.\nEsta distribución automática mitiga el riesgo de fallos de zona, porque si una zona se cae, los workers de otras zonas pueden seguir procesando o reanudar la ejecución.",
+   "src": "e90d2491ff83"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-279": {
+  "html": {
+   "es": "Quieres guardar las tablas compartidas de tu equipo en un solo dataset para que varios analistas accedan fácilmente a los datos. Quieres que estos datos se puedan leer pero que los analistas no los puedan modificar. Al mismo tiempo, quieres dar a los analistas espacios de trabajo individuales en el mismo proyecto, donde puedan crear y guardar tablas para su propio uso, sin que otros analistas puedan acceder a esas tablas. ¿Qué debes hacer?",
+   "src": "4f29656f69d3"
+  },
+  "choices.0.html": {
+   "es": "Dar a los analistas el rol BigQuery Data Viewer a nivel de proyecto. Crear otro dataset y dar a los analistas el rol BigQuery Data Editor en ese dataset.",
+   "src": "3fe092f68f8f"
+  },
+  "choices.1.html": {
+   "es": "Dar a los analistas el rol BigQuery Data Viewer a nivel de proyecto. Crear un dataset para cada analista y dar a cada analista el rol BigQuery Data Editor a nivel de proyecto.",
+   "src": "b407bf88df60"
+  },
+  "choices.2.html": {
+   "es": "Dar a los analistas el rol BigQuery Data Viewer en el dataset compartido. Crear un dataset para cada analista y dar a cada analista el rol BigQuery Data Editor a nivel de dataset, en el dataset que se le asignó.",
+   "src": "ed1fead0fb09"
+  },
+  "choices.3.html": {
+   "es": "Dar a los analistas el rol BigQuery Data Viewer en el dataset compartido. Crear otro dataset y dar a los analistas el rol BigQuery Data Editor en ese dataset.",
+   "src": "5079f61c9db2"
+  },
+  "sourceExplanation": {
+   "es": "Asignar el rol BigQuery Data Viewer en el dataset compartido asegura que los analistas puedan leer las tablas comunes del equipo pero no modificarlas. Crear datasets individuales para cada analista y dar el rol Data Editor a nivel de dataset ofrece espacios de trabajo privados donde pueden crear y guardar tablas personales sin que otros analistas accedan a ellas.",
+   "src": "15759d650a4c"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-280": {
+  "html": {
+   "es": "Ejecutas una canalización de streaming con Dataflow y usas ventanas deslizantes (hopping windows) para agrupar los datos a medida que llegan. Notaste que algunos datos llegan tarde pero no se marcan como datos tardíos, lo que produce agregaciones inexactas más adelante. Necesitas encontrar una solución que te permita capturar los datos tardíos en la ventana adecuada. ¿Qué debes hacer?",
+   "src": "dbc465d7c92b"
+  },
+  "choices.0.html": {
+   "es": "Usar marcas de agua (watermarks) para definir la ventana esperada de llegada de datos. Permitir los datos tardíos a medida que lleguen.",
+   "src": "ffeb78b77736"
+  },
+  "choices.1.html": {
+   "es": "Cambiar tu función de ventanas a ventanas fijas sin superposición (tumbling windows) para evitar periodos de ventana superpuestos.",
+   "src": "b5fd8befce5e"
+  },
+  "choices.2.html": {
+   "es": "Cambiar tu función de ventanas a ventanas de sesión (session windows) para definir tus ventanas según cierta actividad.",
+   "src": "8c0d43e8a152"
+  },
+  "choices.3.html": {
+   "es": "Ampliar tu ventana deslizante para que los datos tardíos tengan más tiempo de llegar dentro de la agrupación.",
+   "src": "87a30def2c98"
+  },
+  "sourceExplanation": {
+   "es": "En Apache Beam y Dataflow, las marcas de agua (watermarks) siguen el avance del tiempo de evento para determinar cuándo se considera completa una ventana.\nAl configurar la canalización para permitir datos tardíos (por ejemplo, con AllowedLateness o con modos de acumulación como ACCUMULATING), los elementos que llegan después de que avanza la marca de agua se pueden procesar y agregar a las agregaciones de ventana existentes.\nEsto asegura que los registros que llegan tarde se asignen correctamente a las ventanas deslizantes que les corresponden, en lugar de descartarse o ignorarse.",
+   "src": "51eca72c1e67"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-289": {
+  "html": {
+   "es": "Tienes datos en BigQuery que se usan para generar informes de tu empresa. Notaste que algunos campos del informe ejecutivo semanal no cumplen el formato según los estándares de la empresa. Por ejemplo, los errores de los informes incluyen distintos formatos de teléfono y distintos identificadores de código de país. Este problema es frecuente, así que necesitas crear un trabajo recurrente para normalizar los datos. Quieres una solución rápida que no requiera programar. ¿Qué debes hacer?",
+   "src": "78cd4b66ea38"
+  },
+  "choices.0.html": {
+   "es": "Usar Cloud Data Fusion y Wrangler para normalizar los datos y configurar un trabajo recurrente.",
+   "src": "d0a0bf7ee4a6"
+  },
+  "choices.1.html": {
+   "es": "Usar Dataflow SQL para crear un trabajo que normalice los datos y, después de la primera ejecución del trabajo, programar la canalización para que se ejecute de forma recurrente.",
+   "src": "c24549331595"
+  },
+  "choices.2.html": {
+   "es": "Crear un trabajo de Spark y enviarlo a Dataproc Serverless.",
+   "src": "9ad63b410b05"
+  },
+  "choices.3.html": {
+   "es": "Usar BigQuery y GoogleSQL para normalizar los datos y programar consultas recurrentes en BigQuery.",
+   "src": "9bd2e12224ad"
+  },
+  "sourceExplanation": {
+   "es": "La pregunta exige de forma explícita una solución 'sin programar'. Cloud Data Fusion con Wrangler ofrece una interfaz visual y sin código para la transformación y la programación de datos, lo que cumple esta restricción. Las opciones B, C y D implican escribir código SQL o de Spark, lo que contradice el requisito de 'sin programar', aunque sean enfoques técnicos válidos para normalizar datos.",
+   "src": "49278cc87d4f"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-290": {
+  "html": {
+   "es": "Estás diseñando un sistema de mensajería con Pub/Sub para procesar datos de clickstream, con una aplicación consumidora controlada por eventos que usa una suscripción push. Necesitas configurar el sistema de mensajería para que sea lo bastante fiable para manejar una caída temporal de la aplicación consumidora. También necesitas que el sistema de mensajería guarde los mensajes de entrada que el suscriptor no pueda consumir. El sistema debe reintentar los mensajes fallidos de forma gradual, para no sobrecargar la aplicación consumidora, y guardar los mensajes fallidos en un tema después de un máximo de 10 reintentos. ¿Cómo debes configurar la suscripción de Pub/Sub?",
+   "src": "c090c6bee240"
+  },
+  "choices.0.html": {
+   "es": "Aumentar el plazo de confirmación (acknowledgement deadline) a 10 minutos.",
+   "src": "b0abb3739288"
+  },
+  "choices.1.html": {
+   "es": "Usar la reentrega inmediata como política de reintento de la suscripción y configurar los mensajes no entregados (dead lettering) hacia un tema distinto, con un máximo de 10 intentos de entrega.",
+   "src": "212eb8c021e2"
+  },
+  "choices.2.html": {
+   "es": "Usar el retroceso exponencial (exponential backoff) como política de reintento de la suscripción y configurar los mensajes no entregados hacia el mismo tema de origen, con un máximo de 10 intentos de entrega.",
+   "src": "01cf8437b590"
+  },
+  "choices.3.html": {
+   "es": "Usar el retroceso exponencial como política de reintento de la suscripción y configurar los mensajes no entregados hacia un tema distinto, con un máximo de 10 intentos de entrega.",
+   "src": "bd0a6cc2d9bf"
+  },
+  "sourceExplanation": {
+   "es": "El retroceso exponencial es necesario para aumentar poco a poco los retrasos entre reintentos, y así evitar que la aplicación consumidora se sature durante la recuperación. El dead lettering debe enviar los mensajes fallidos a un tema aparte después de 10 intentos, para aislarlos de los flujos de procesamiento exitosos y asegurar que se guarden como se pidió.",
+   "src": "f6117ad4b33a"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-301": {
+  "html": {
+   "es": "Estás diseñando una solución de transformación de datos para BigQuery. Tus desarrolladores dominan SQL y quieren usar la técnica de desarrollo ELT. Además, tus desarrolladores necesitan un entorno de programación intuitivo y la capacidad de administrar SQL como código. Necesitas identificar una solución para que tus desarrolladores creen estas canalizaciones. ¿Qué debes hacer?",
+   "src": "611b02349db1"
+  },
+  "choices.0.html": {
+   "es": "Usar Dataform para crear, administrar y programar canalizaciones de SQL.",
+   "src": "4f1c700cc62c"
+  },
+  "choices.1.html": {
+   "es": "Usar trabajos de Dataflow para leer datos de Pub/Sub, transformarlos y cargarlos en BigQuery.",
+   "src": "e293251789ab"
+  },
+  "choices.2.html": {
+   "es": "Usar Data Fusion para crear y ejecutar canalizaciones ETL.",
+   "src": "5922c456111e"
+  },
+  "choices.3.html": {
+   "es": "Usar Cloud Composer para cargar datos y ejecutar canalizaciones de SQL con los operadores de trabajos de BigQuery.",
+   "src": "44ab21a70309"
+  },
+  "sourceExplanation": {
+   "es": "Dataform está diseñado específicamente para flujos de trabajo ELT dentro de BigQuery, y permite que los desarrolladores que dominan SQL definan transformaciones con la sintaxis estándar de SQL. Ofrece un entorno integrado con Git que trata el SQL como código, lo que cumple el requisito de control de versiones y de una experiencia de programación intuitiva. En cambio, Dataflow usa Apache Beam (Java y Python), Data Fusion se centra en ETL basado en interfaz gráfica, y Cloud Composer orquesta tareas pero no ofrece la interfaz nativa de creación de SQL como código que se pidió.",
+   "src": "eeda818d6e72"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-311": {
+  "html": {
+   "es": "Tu empresa química necesita revisar manualmente la documentación de los pedidos de clientes. Usas una suscripción pull en Pub/Sub para que los agentes de ventas obtengan los detalles del pedido. Debes asegurar que no se procesen pedidos dos veces con distintos agentes de ventas y que no se agregue más complejidad a este flujo de trabajo. ¿Qué debes hacer?",
+   "src": "706b96ce60da"
+  },
+  "choices.0.html": {
+   "es": "Usar una transformación Deduplicate PTransform en Dataflow antes de enviar los mensajes a los agentes de ventas.",
+   "src": "fd7de5a49d72"
+  },
+  "choices.1.html": {
+   "es": "Crear una base de datos transaccional que supervise los mensajes pendientes.",
+   "src": "187dd401c4ba"
+  },
+  "choices.2.html": {
+   "es": "Usar la entrega exactamente una vez (exactly-once delivery) de Pub/Sub en tu suscripción pull.",
+   "src": "ef6119e72330"
+  },
+  "choices.3.html": {
+   "es": "Crear una suscripción push nueva de Pub/Sub para supervisar los pedidos procesados en el sistema del agente.",
+   "src": "49d966b522aa"
+  },
+  "sourceExplanation": {
+   "es": "Cloud Pub/Sub ofrece una función de entrega exactamente una vez, diseñada específicamente para garantizar que un suscriptor reciba y procese un mensaje exactamente una vez. Así evita el procesamiento duplicado sin necesitar una lógica externa compleja de deduplicación. Esto cumple directamente el requisito de evitar el doble procesamiento y de minimizar la complejidad agregada al flujo de trabajo, frente a implementar comprobaciones transaccionales personalizadas o canalizaciones de Dataflow.",
+   "src": "60694f454b1f"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-349": {
+  "html": {
+   "es": "Usas Dataflow para crear una canalización de datos en streaming que analiza la actividad de clics de los usuarios en un sitio web desde Pub/Sub. Necesitas calcular el número de clics de cada visita de un usuario al sitio. Una visita al sitio se define como un periodo de actividad seguido de 30 minutos de inactividad de un usuario específico. ¿Qué debes hacer?",
+   "src": "56912af41453"
+  },
+  "choices.0.html": {
+   "es": "Usar ventanas fijas sin superposición (tumbling windows) con una ventana de 30 minutos.",
+   "src": "deb3a8e22d6c"
+  },
+  "choices.1.html": {
+   "es": "Usar ventanas deslizantes (hopping windows) con una ventana de 30 minutos y un periodo de 1 minuto.",
+   "src": "87f58964c2c5"
+  },
+  "choices.2.html": {
+   "es": "Usar ventanas deslizantes con una ventana de 30 minutos y un periodo de 30 minutos.",
+   "src": "e15fb0683fba"
+  },
+  "choices.3.html": {
+   "es": "Usar ventanas de sesión (session windows) con una duración de intervalo de inactividad (gap) de 30 minutos.",
+   "src": "d2e57e51e612"
+  },
+  "sourceExplanation": {
+   "es": "Las ventanas de sesión están diseñadas específicamente para agrupar eventos por actividad y separarlos por periodos de inactividad. \nComo una visita al sitio se define como actividad seguida de 30 minutos de inactividad, configurar ventanas de sesión con un intervalo de 30 minutos captura correctamente estos límites. \nLas ventanas fijas sin superposición y las deslizantes usan intervalos de tiempo fijos sin importar cuándo llegan los datos, por lo que no sirven para sesiones de duración variable.",
+   "src": "d27d5612d505"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ }
+}
