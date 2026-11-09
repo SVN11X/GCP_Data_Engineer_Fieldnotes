@@ -1396,5 +1396,467 @@
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
   }
+ },
+ "imp-185": {
+  "html": {
+   "es": "Lanzas un nuevo trabajo por lotes en Dataflow. El trabajo se inicia correctamente, procesa unos pocos elementos y de pronto falla y se cierra. Abres la<br>interfaz de monitoreo de Dataflow y encuentras errores relacionados con un DoFn concreto de tu pipeline. ¿Cuál es la causa más probable de los errores?<br>",
+   "src": "09c70817f3e1"
+  },
+  "choices.0.html": {
+   "es": "Validación del trabajo",
+   "src": "5c14616a450a"
+  },
+  "choices.1.html": {
+   "es": "Excepciones en el código de los workers",
+   "src": "3afa57688abe"
+  },
+  "choices.2.html": {
+   "es": "Construcción del grafo o del pipeline",
+   "src": "111d9ae0e4da"
+  },
+  "choices.3.html": {
+   "es": "Permisos insuficientes",
+   "src": "37e6815bb7fd"
+  },
+  "sourceExplanation": {
+   "es": "Que el trabajo se inicie bien y procese elementos descarta problemas de validación, de construcción o de permisos, que impedirían que la ejecución llegara a la etapa de procesamiento de datos. Como el fallo está ligado a un DoFn concreto durante la ejecución, indica excepciones no controladas en la lógica del código del worker al procesar los datos.",
+   "src": "2c09bd7ca986"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-186": {
+  "html": {
+   "es": "Tu nuevo cliente ha pedido informes diarios que muestren su consumo neto de recursos de cómputo de Google Cloud y quién los usó. Necesitas generar estos informes diarios de forma rápida y eficiente. ¿Qué debes hacer?<br>",
+   "src": "a8e392aedc83"
+  },
+  "choices.0.html": {
+   "es": "Exporta a diario los datos de Cloud Logging a BigQuery. Crea vistas que filtren por proyecto, tipo de registro, recurso y usuario.",
+   "src": "4b6a523695c8"
+  },
+  "choices.1.html": {
+   "es": "Filtra los datos en Cloud Logging por proyecto, recurso y usuario, y luego exporta los datos en formato CSV.",
+   "src": "93f43ad50c58"
+  },
+  "choices.2.html": {
+   "es": "Filtra los datos en Cloud Logging por proyecto, tipo de registro, recurso y usuario, y luego importa los datos en BigQuery.",
+   "src": "2f34c1a06267"
+  },
+  "choices.3.html": {
+   "es": "Exporta los datos de Cloud Logging a Cloud Storage en formato CSV. Depura los datos con Dataprep, filtrando por proyecto, recurso y usuario.",
+   "src": "9a35c6be01fe"
+  },
+  "sourceExplanation": {
+   "es": "Exportar los datos de Cloud Logging a BigQuery mediante un sink (respuesta A) es la práctica recomendada para analizar registros de forma escalable y consultable.\nBigQuery permite agregar y filtrar de forma eficiente con vistas SQL sobre registros estructurados, mientras que las exportaciones CSV a Cloud Storage (respuestas B y D) requieren procesamiento externo y carecen de capacidades analíticas nativas.\nLa respuesta C propone importar después de filtrar, pero exportar directamente a BigQuery conserva todos los registros sin procesar y da más flexibilidad para los informes.",
+   "src": "767d864bf9c1"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-198": {
+  "html": {
+   "es": "Estás implementando la programación de pipelines de flujo de trabajo con herramientas de código abierto y Google Kubernetes Engine (GKE). Quieres usar un servicio administrado de Google para simplificar y automatizar la tarea. También debes tener en cuenta las consideraciones de red de VPC compartida. ¿Qué debes hacer?<br>",
+   "src": "a7eba73a81f1"
+  },
+  "choices.0.html": {
+   "es": "Usa Dataflow para tus pipelines de flujo de trabajo. Usa activadores de Cloud Run para la programación.",
+   "src": "84dd7b2fcf1b"
+  },
+  "choices.1.html": {
+   "es": "Usa Dataflow para tus pipelines de flujo de trabajo. Usa scripts de shell para programar los flujos de trabajo.",
+   "src": "52cf051c47af"
+  },
+  "choices.2.html": {
+   "es": "Usa Cloud Composer en una configuración de VPC compartida. Coloca los recursos de Cloud Composer en el proyecto host.",
+   "src": "0401537bd730"
+  },
+  "choices.3.html": {
+   "es": "Usa Cloud Composer en una configuración de VPC compartida. Coloca los recursos de Cloud Composer en el proyecto de servicio.",
+   "src": "f5feef57b0e4"
+  },
+  "sourceExplanation": {
+   "es": "Cloud Composer es un servicio administrado de Apache Airflow diseñado para orquestar flujos de datos complejos y DAG. Al integrarlo con VPC compartida, la documentación de Google Cloud indica que el entorno de Cloud Composer debe crearse en el proyecto de servicio, que luego se conecta a los recursos de red del proyecto host.",
+   "src": "d4ba0c8c8347"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-199": {
+  "html": {
+   "es": "Usas BigQuery y Data Studio para diseñar un panel orientado a clientes que muestra grandes cantidades de datos agregados. Esperas un alto volumen de usuarios simultáneos. Necesitas optimizar el panel para ofrecer visualizaciones rápidas con la mínima latencia. ¿Qué debes hacer?<br>",
+   "src": "07640f65a876"
+  },
+  "choices.0.html": {
+   "es": "Usa BigQuery BI Engine con vistas materializadas.",
+   "src": "07532e5053d1"
+  },
+  "choices.1.html": {
+   "es": "Usa BigQuery BI Engine con vistas lógicas.",
+   "src": "1949b59e3b04"
+  },
+  "choices.2.html": {
+   "es": "Usa BigQuery BI Engine con datos en streaming.",
+   "src": "17226cbfd6cd"
+  },
+  "choices.3.html": {
+   "es": "Usa BigQuery BI Engine con vistas autorizadas.",
+   "src": "bcf7fd811dbf"
+  },
+  "sourceExplanation": {
+   "es": "BigQuery BI Engine guarda en memoria los resultados de las consultas para dar respuestas de baja latencia a usuarios simultáneos. Las vistas materializadas lo optimizan aún más, porque precalculan y almacenan datos agregados, de modo que las consultas del panel sobre conjuntos de datos grandes se ejecutan al instante contra el resultado en caché y no recorren las tablas sin procesar.",
+   "src": "e3e82d9e0bd6"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-201": {
+  "html": {
+   "es": "Necesitas migrar una base de datos Redis de un centro de datos local a una instancia de Memorystore for Redis. Quieres seguir las prácticas recomendadas por Google y hacer la migración con el mínimo costo, tiempo y esfuerzo. ¿Qué debes hacer?<br>",
+   "src": "aa5ed372ef33"
+  },
+  "choices.0.html": {
+   "es": "Haz una copia de seguridad RDB de la base de datos Redis, usa la utilidad gsutil para copiar el archivo RDB a un bucket de Cloud Storage y luego importa el archivo RDB en la instancia de Memorystore for Redis.",
+   "src": "291b02fdb006"
+  },
+  "choices.1.html": {
+   "es": "Crea una instancia secundaria de la base de datos Redis en una instancia de Compute Engine y luego haz un cambio en vivo.",
+   "src": "cab2f95b69e3"
+  },
+  "choices.2.html": {
+   "es": "Crea un trabajo de Dataflow que lea la base de datos Redis del centro de datos local y escriba los datos en una instancia de Memorystore for Redis.",
+   "src": "e83cc69c09d1"
+  },
+  "choices.3.html": {
+   "es": "Escribe un script de shell para migrar los datos de Redis y crea una nueva instancia de Memorystore for Redis.",
+   "src": "f3ba1924bd48"
+  },
+  "sourceExplanation": {
+   "es": "El método recomendado para migrar datos a Memorystore for Redis con el mínimo esfuerzo es la función nativa de importación, que requiere una instantánea RDB guardada en un bucket de Cloud Storage.\nEste enfoque aprovecha las capacidades del servicio administrado de Google en lugar de construir una lógica de migración propia o scripts manuales, lo que reduce la carga operativa y el costo.",
+   "src": "48f766dd55ab"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-211": {
+  "html": {
+   "es": "Usas BigQuery con un conjunto de datos multirregional que incluye una tabla con los volúmenes de ventas diarios. Esta tabla se actualiza varias veces al día. Necesitas proteger la tabla de ventas ante fallos regionales con un objetivo de punto de recuperación (RPO) de menos de 24 horas, manteniendo los costos al mínimo. ¿Qué debes hacer?",
+   "src": "519f5f5bed45"
+  },
+  "choices.0.html": {
+   "es": "Programa una exportación diaria de la tabla a un bucket de Cloud Storage dual o multirregional.",
+   "src": "b6254b6ee33b"
+  },
+  "choices.1.html": {
+   "es": "Programa una copia diaria del conjunto de datos a una región de respaldo.",
+   "src": "bda0ec6ac2c7"
+  },
+  "choices.2.html": {
+   "es": "Programa una instantánea diaria de BigQuery de la tabla.",
+   "src": "14aef6d492cc"
+  },
+  "choices.3.html": {
+   "es": "Modifica el trabajo de ETL para cargar los datos tanto en la región actual como en otra región de respaldo.",
+   "src": "2699878cc1b2"
+  },
+  "sourceExplanation": {
+   "es": "Las instantáneas de tablas de BigQuery deben estar en la misma región que la tabla de origen, así que no protegen ante un fallo regional total. Para cumplir un RPO de menos de 24 horas con el menor costo, programar una exportación diaria a un bucket de Cloud Storage dual o multirregional da redundancia geográfica fuera de BigQuery, sin el mayor gasto de la replicación activa entre regiones.",
+   "src": "8130629c31d2"
+  },
+  "explanation": {
+   "es": "Una exportación diaria puede acercarse a un día completo de cambios perdidos antes de contar la duración de la exportación, los retrasos o las ejecuciones omitidas. Por eso no garantiza por sí sola un RPO estricto por debajo de veinticuatro horas. Elige una programación con margen o un diseño adecuado de replicación y recuperación, y pruébalo.",
+   "src": "ab79656c3a96"
+  },
+  "reviewNote": {
+   "es": "Esta pregunta importada está excluida de la práctica con puntuación. Lee la nota técnica en lugar de memorizar su clave.",
+   "src": "5d478c3e8ed1"
+  }
+ },
+ "imp-212": {
+  "html": {
+   "es": "Estás depurando tu pipeline de Dataflow que procesa datos de Cloud Storage a BigQuery. Has descubierto que los nodos worker de Dataflow no pueden comunicarse entre sí. Tu equipo de redes usa etiquetas de red de Google Cloud para definir las reglas de firewall. Necesitas identificar el problema siguiendo las prácticas de seguridad de red recomendadas por Google. ¿Qué debes hacer?",
+   "src": "1d8ae709479a"
+  },
+  "choices.0.html": {
+   "es": "Comprueba si tu pipeline de Dataflow tiene una etiqueta de red personalizada.",
+   "src": "b1fa2a6ea8a8"
+  },
+  "choices.1.html": {
+   "es": "Comprueba si hay una regla de firewall que permita el tráfico por los puertos TCP 12345 y 12346 para la etiqueta de red de Dataflow.",
+   "src": "00f3b851ae73"
+  },
+  "choices.2.html": {
+   "es": "Comprueba si hay una regla de firewall que permita el tráfico por los puertos TCP 12345 y 12346 en la subred que usan los workers de Dataflow.",
+   "src": "c60dae46831d"
+  },
+  "choices.3.html": {
+   "es": "Comprueba si tu pipeline de Dataflow se desplegó con la opción de dirección IP externa habilitada.",
+   "src": "8836685660f2"
+  },
+  "sourceExplanation": {
+   "es": "Los nodos worker de Dataflow necesitan puertos TCP concretos (12345 y 12346) para la comunicación interna. Google recomienda usar etiquetas de red para definir las reglas de firewall en lugar de depender solo de las subredes, porque da un control de acceso más granular y seguro.\nPor lo tanto, debes verificar que exista una regla de firewall que permita el tráfico por estos puertos dirigida específicamente a la etiqueta de red de Dataflow.",
+   "src": "dda080b349ed"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-214": {
+  "html": {
+   "es": "Tienes una instancia de Memorystore for Redis de nivel Standard desplegada en producción. Necesitas simular una conmutación por error de Redis en la situación de recuperación ante desastres más realista y asegurarte de que no afecte a los datos de producción. ¿Qué debes hacer?",
+   "src": "1afa1f19ea0f"
+  },
+  "choices.0.html": {
+   "es": "Crea una instancia de Memorystore for Redis de nivel Standard en el entorno de desarrollo. Inicia una conmutación por error manual con el modo de protección de datos limited-data-loss.",
+   "src": "f109d86c72df"
+  },
+  "choices.1.html": {
+   "es": "Crea una instancia de Memorystore for Redis de nivel Standard en un entorno de desarrollo. Inicia una conmutación por error manual con el modo de protección de datos force-data-loss.",
+   "src": "7cca96fba0e4"
+  },
+  "choices.2.html": {
+   "es": "Aumenta en una réplica la instancia de Redis del entorno de producción. Inicia una conmutación por error manual con el modo de protección de datos force-data-loss.",
+   "src": "a1f5e619bccb"
+  },
+  "choices.3.html": {
+   "es": "Inicia una conmutación por error manual con el modo de protección de datos limited-data-loss en la instancia de Memorystore for Redis del entorno de producción.",
+   "src": "7663c4ba29ed"
+  },
+  "sourceExplanation": {
+   "es": "Para no afectar a los datos de producción, la simulación de la conmutación por error debe hacerse en un entorno de desarrollo aislado y no en producción. Se elige el modo 'force-data-loss' porque simula una caída total y un reinicio completo de la instancia, lo que representa mejor un escenario de recuperación ante desastres que el modo limited-data-loss.",
+   "src": "1ed9919bbc40"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-218": {
+  "html": {
+   "es": "Tienes una instancia de Cloud SQL for PostgreSQL en la Region’ con una réplica de lectura en la Region2 y otra réplica de lectura en la Region3. Un evento inesperado en la Region’ exige hacer una recuperación ante desastres promoviendo una réplica de lectura en la Region2. Necesitas asegurarte de que tu aplicación tenga la misma capacidad de base de datos disponible antes de cambiar las conexiones. ¿Qué debes hacer?",
+   "src": "b9b8c5369486"
+  },
+  "choices.0.html": {
+   "es": "Habilita la alta disponibilidad zonal en la instancia principal. Crea una nueva réplica de lectura en una región nueva.",
+   "src": "78bcaf307af2"
+  },
+  "choices.1.html": {
+   "es": "Crea una réplica de lectura en cascada a partir de la réplica de lectura existente en la Region3.",
+   "src": "ef693763f1b1"
+  },
+  "choices.2.html": {
+   "es": "Crea dos réplicas de lectura nuevas a partir de la nueva instancia principal, una en la Region3 y otra en una región nueva.",
+   "src": "453d8864fa74"
+  },
+  "choices.3.html": {
+   "es": "Crea una nueva réplica de lectura en la Region1, promuévela a instancia principal y habilita la alta disponibilidad zonal.",
+   "src": "ba71f6f46ba9"
+  },
+  "sourceExplanation": {
+   "es": "Promover la réplica de la Region2 establece una nueva instancia principal, pero la réplica original de la Region3 no puede resincronizarse automáticamente con esta nueva fuente sin intervención. Para recuperar la capacidad y la redundancia necesarias de la base de datos, debes crear réplicas de lectura nuevas a partir de la instancia principal promovida. La opción C lo logra creando réplicas en la Region3 y en otra región, lo que asegura la distribución de la carga y la tolerancia a fallos.",
+   "src": "daeb313a99d1"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-219": {
+  "html": {
+   "es": "Orquestas pipelines de ETL con Cloud Composer. Una de las tareas del grafo acíclico dirigido (DAG) de Apache Airflow depende de un servicio de terceros. Quieres recibir una notificación cuando la tarea no se complete con éxito. ¿Qué debes hacer?",
+   "src": "b05eddf43113"
+  },
+  "choices.0.html": {
+   "es": "Asigna una función con la lógica de notificación al parámetro on_retry_callback del operador responsable de la tarea en riesgo.",
+   "src": "9983256c2363"
+  },
+  "choices.1.html": {
+   "es": "Configura una alerta de Cloud Monitoring sobre la métrica sla_missed asociada a la tarea en riesgo para que active una notificación.",
+   "src": "c67032473544"
+  },
+  "choices.2.html": {
+   "es": "Asigna una función con la lógica de notificación al parámetro on_failure_callback del operador responsable de la tarea en riesgo.",
+   "src": "307b68084cc8"
+  },
+  "choices.3.html": {
+   "es": "Asigna una función con la lógica de notificación al parámetro sla_miss_callback del operador responsable de la tarea en riesgo.",
+   "src": "327c017bc7bf"
+  },
+  "sourceExplanation": {
+   "es": "En Apache Airflow (Cloud Composer), el parámetro `on_failure_callback` está pensado específicamente para ejecutar una función personalizada cuando una tarea falla. Así se asegura una notificación inmediata del fallo, mientras que `on_retry_callback` se activa durante los reintentos y las llamadas de retorno de SLA solo se activan si se incumplen los acuerdos de nivel de servicio.",
+   "src": "1344750fc678"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-227": {
+  "html": {
+   "es": "Transmites datos de pedidos con un pipeline de Dataflow y escribes el resultado agregado en Memorystore. Aprovisionaste una instancia de Memorystore for Redis de nivel Basic con 4 GB de capacidad, que usan 40 clientes con acceso de solo lectura. Esperas que el número de clientes de solo lectura aumente de forma significativa hasta unos cientos y necesitas poder atender esa demanda. Quieres asegurarte de que la disponibilidad de lectura y escritura no se vea afectada y de que cualquier cambio se pueda desplegar rápido. ¿Qué debes hacer?",
+   "src": "72ef4416d20c"
+  },
+  "choices.0.html": {
+   "es": "Crea una nueva instancia de Memorystore for Redis de nivel Standard. Define la capacidad en 4 GB y la réplica de lectura en No read replicas (solo alta disponibilidad). Elimina la instancia anterior.",
+   "src": "f7055e347bc1"
+  },
+  "choices.1.html": {
+   "es": "Crea una nueva instancia de Memorystore for Redis de nivel Standard. Define la capacidad en 5 GB y crea varias réplicas de lectura. Elimina la instancia anterior.",
+   "src": "cfc13460f050"
+  },
+  "choices.2.html": {
+   "es": "Crea una nueva instancia de Memorystore for Memcached. Define un mínimo de tres nodos y 4 GB de memoria por nodo. Modifica el pipeline de Dataflow y todos los clientes para que usen la instancia de Memcached. Elimina la instancia anterior.",
+   "src": "67464699f0a1"
+  },
+  "choices.3.html": {
+   "es": "Crea varias instancias nuevas de Memorystore for Redis de nivel Basic (4 GB de capacidad). Modifica el pipeline de Dataflow y los clientes nuevos para que usen todas las instancias.",
+   "src": "f5482865e302"
+  },
+  "sourceExplanation": {
+   "es": "El nivel Standard admite alta disponibilidad y réplicas de lectura, que se necesitan para repartir la mayor carga de lectura entre cientos de clientes sin afectar al rendimiento de escritura. Agregar réplicas de lectura descarga el tráfico de lectura del nodo principal y asegura la escalabilidad y la disponibilidad.\n\nLa opción B lo implementa correctamente al aprovisionar una instancia de nivel Standard con varias réplicas de lectura.",
+   "src": "239594ec0de7"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-230": {
+  "html": {
+   "es": "Necesitas modernizar tu estrategia de datos local actual. Tu organización usa actualmente:<br>•\tClústeres de Apache Hadoop para procesar varios conjuntos de datos grandes, con el sistema de archivos distribuido de Hadoop (HDFS) local para la replicación de datos.<br>•\tApache Airflow para orquestar cientos de pipelines de ETL con miles de pasos de trabajo.<br><br>Necesitas montar una nueva arquitectura en Google Cloud que pueda manejar tus cargas de trabajo de Hadoop y que requiera los mínimos cambios en tus procesos de orquestación actuales. ¿Qué debes hacer?",
+   "src": "e1546bbb46ca"
+  },
+  "choices.0.html": {
+   "es": "Usa Bigtable para tus cargas de trabajo grandes, con conexiones a Cloud Storage para cubrir los casos de uso de HDFS. Orquesta tus pipelines con Cloud Composer.",
+   "src": "f9dab20090a9"
+  },
+  "choices.1.html": {
+   "es": "Usa Dataproc para migrar los clústeres de Hadoop a Google Cloud y Cloud Storage para cubrir los casos de uso de HDFS. Orquesta tus pipelines con Cloud Composer.",
+   "src": "0fafa5865ed8"
+  },
+  "choices.2.html": {
+   "es": "Usa Dataproc para migrar los clústeres de Hadoop a Google Cloud y Cloud Storage para cubrir los casos de uso de HDFS. Convierte tus pipelines de ETL a Dataflow.",
+   "src": "f690ff376252"
+  },
+  "choices.3.html": {
+   "es": "Usa Dataproc para migrar tus clústeres de Hadoop a Google Cloud y Cloud Storage para cubrir los casos de uso de HDFS. Usa Cloud Data Fusion para diseñar y desplegar tus pipelines de ETL de forma visual.",
+   "src": "32ee99d6fb53"
+  },
+  "sourceExplanation": {
+   "es": "Google Dataproc es el servicio administrado diseñado para ejecutar Apache Hadoop, Spark y otros motores de procesamiento de datos, y permite migrar directamente las cargas de trabajo de Hadoop existentes con cambios mínimos en el código.\nCloud Storage actúa como el almacenamiento de objetos escalable y duradero que reemplaza al HDFS local para estas cargas de trabajo.\nCloud Composer es el servicio administrado de Apache Airflow de Google Cloud, por lo que los procesos de orquestación requieren pocas modificaciones, ya que es compatible de forma nativa con los DAG de Airflow existentes.",
+   "src": "657b92ec70f2"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-231": {
+  "html": {
+   "es": "Desplegaste hace poco varios trabajos de procesamiento de datos en tu entorno de Cloud Composer 2. Notas que algunas tareas fallan en Apache Airflow. En el panel de monitoreo ves un aumento del uso total de memoria de los workers y hubo expulsiones de pods de workers. Necesitas resolver estos errores. ¿Qué debes hacer? (Elige dos.)",
+   "src": "a324f6edcb2a"
+  },
+  "choices.0.html": {
+   "es": "Aumenta el intervalo de análisis de los archivos del grafo acíclico dirigido (DAG).",
+   "src": "ab383ab33f44"
+  },
+  "choices.1.html": {
+   "es": "Aumenta el tamaño del entorno de Cloud Composer 2 de mediano a grande.",
+   "src": "b9985c349b8c"
+  },
+  "choices.2.html": {
+   "es": "Aumenta el número máximo de workers y reduce la concurrencia de los workers.",
+   "src": "506efe5170a7"
+  },
+  "choices.3.html": {
+   "es": "Aumenta la memoria disponible para los workers de Airflow.",
+   "src": "a8c9e6311f40"
+  },
+  "choices.4.html": {
+   "es": "Aumenta la memoria disponible para el triggerer de Airflow.",
+   "src": "a290d7e6c938"
+  },
+  "explanation": {
+   "es": "Las expulsiones de workers con alto uso de memoria apuntan a presión de memoria en los workers. Reducir la concurrencia de los workers o repartir las tareas entre más workers disminuye la carga por worker, y más memoria en los workers da más margen. La pareja prevista es C y D. Aumentar la memoria del triggerer no resuelve directamente las expulsiones de pods de workers.",
+   "src": "4f5bd757815e"
+  },
+  "reviewNote": {
+   "es": "El razonamiento editorial está enlazado a documentación primaria. La clave importada se conserva por separado.",
+   "src": "c07bc5e656c6"
+  },
+  "issues.0": {
+   "es": "El enunciado pide 2 opciones pero la clave importada contiene 1.",
+   "src": "0ddc5cc390bc"
+  }
+ },
+ "imp-233": {
+  "html": {
+   "es": "Eres administrador de BigQuery y das soporte a un equipo de consumidores de datos que ejecutan consultas ad hoc y informes derivados en herramientas como Looker. Todos los datos y usuarios están reunidos en un único proyecto de la organización. Hace poco notaste lentitud en los resultados de las consultas y quieres investigar dónde ocurren las demoras. Crees que puede haber colas de trabajos o contención de slots cuando los usuarios ejecutan trabajos, lo que ralentiza el acceso a los resultados. Necesitas investigar la información de los trabajos de consulta y determinar dónde se ve afectado el rendimiento. ¿Qué debes hacer?",
+   "src": "4b25156bf6cc"
+  },
+  "choices.0.html": {
+   "es": "Usa reservas de slots para tu proyecto, de modo que tengas suficiente capacidad de procesamiento de consultas y puedas asignar los slots disponibles a las consultas más lentas.",
+   "src": "1e5fa78085a8"
+  },
+  "choices.1.html": {
+   "es": "Usa Cloud Monitoring para ver las métricas de BigQuery y configura alertas que te avisen cuando se use cierto porcentaje de slots.",
+   "src": "d476cecc5ccc"
+  },
+  "choices.2.html": {
+   "es": "Usa los gráficos de recursos administrativos disponibles para determinar cómo se usan los slots y cómo rinden los trabajos a lo largo del tiempo. Ejecuta una consulta sobre INFORMATION_SCHEMA para revisar el rendimiento de las consultas.",
+   "src": "87eeb18fb92b"
+  },
+  "choices.3.html": {
+   "es": "Usa Cloud Logging para determinar si algún usuario o consumidor derivado está cambiando o eliminando permisos de acceso sobre recursos etiquetados.",
+   "src": "6e0390fe405f"
+  },
+  "sourceExplanation": {
+   "es": "Los gráficos de recursos administrativos dan una visualización de alto nivel del uso de slots y de las tendencias de rendimiento de los trabajos, lo que ayuda a identificar patrones de contención.\nConsultar INFORMATION_SCHEMA (como `INFORMATION_SCHEMA.JOBS` o `JOB_SUMMARY_BY_USAGE`) da datos granulares sobre la ejecución de cada consulta, incluidos el tiempo en cola y el consumo de slots, lo que permite diagnosticar con precisión las demoras.",
+   "src": "5a2dd7dd21d4"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-235": {
+  "html": {
+   "es": "Quieres programar una serie de trabajos secuenciales de carga y transformación. Un proceso previo añadirá archivos de datos a un bucket de Cloud Storage. No hay un horario fijo para la llegada de los datos nuevos. Después, se activa un trabajo de Dataproc que hace algunas transformaciones y escribe los datos en BigQuery. A continuación debes ejecutar más trabajos de transformación en BigQuery. Los trabajos de transformación son distintos para cada tabla. Estos trabajos pueden tardar horas en completarse. Necesitas determinar el flujo de trabajo más eficiente y fácil de mantener para procesar cientos de tablas y ofrecer los datos más recientes a tus usuarios finales. ¿Qué debes hacer?",
+   "src": "89a4e545f369"
+  },
+  "choices.0.html": {
+   "es": "1. Crea un grafo acíclico dirigido (DAG) de Apache Airflow en Cloud Composer con tareas secuenciales que usen los operadores de Cloud Storage, Dataproc y BigQuery.<br>2. Usa un único DAG compartido para todas las tablas que deban pasar por el pipeline.<br>3. Programa el DAG para que se ejecute cada hora.",
+   "src": "87af74ef8175"
+  },
+  "choices.1.html": {
+   "es": "1. Crea un grafo acíclico dirigido (DAG) de Apache Airflow en Cloud Composer con tareas secuenciales que usen los operadores de Cloud Storage, Dataproc y BigQuery.<br>2. Crea un DAG independiente para cada tabla que deba pasar por el pipeline.<br>3. Programa los DAG para que se ejecuten cada hora.",
+   "src": "68fe7a6a8840"
+  },
+  "choices.2.html": {
+   "es": "1. Crea un grafo acíclico dirigido (DAG) de Apache Airflow en Cloud Composer con tareas secuenciales que usen los operadores de Dataproc y BigQuery.<br>2. Usa un único DAG compartido para todas las tablas que deban pasar por el pipeline.<br>3. Usa un activador de objetos de Cloud Storage para lanzar una Cloud Function que active el DAG.",
+   "src": "57057b68125a"
+  },
+  "choices.3.html": {
+   "es": "1. Crea un grafo acíclico dirigido (DAG) de Apache Airflow en Cloud Composer con tareas secuenciales que usen los operadores de Dataproc y BigQuery.<br>2. Crea un DAG independiente para cada tabla que deba pasar por el pipeline.<br>3. Usa un activador de objetos de Cloud Storage para lanzar una Cloud Function que active el DAG.",
+   "src": "e6de135f91a9"
+  },
+  "sourceExplanation": {
+   "es": "La opción D es correcta porque usa un activador basado en eventos (notificación de Cloud Storage mediante una Cloud Function) para manejar datos sin horario fijo, lo que asegura los datos más recientes. También usa un DAG independiente para cada tabla, para atender el requisito de que los trabajos de transformación son distintos en cada una.",
+   "src": "20f7f0648e84"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
  }
 }
