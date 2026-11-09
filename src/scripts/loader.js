@@ -1,4 +1,4 @@
-/* Same-origin, demand-loaded content. No framework or remote search service. */
+/* Same-origin, demand-loaded content. */
 (function(root){
   'use strict';
   function create(data, fetcher, baseURL) {
@@ -27,7 +27,7 @@
         const lesson=data.lessons.find(l=>l.id===(id||'pipeline-contract'))||data.lessons.find(l=>l.id==='pipeline-contract');
         if(lesson)await Promise.all([lessons(lesson.domain),questions(lesson.domain)]);
       }
-      if(route==='learn'&&id){const lesson=data.lessons.find(l=>l.id===id);if(lesson)await lessons(lesson.domain);}
+      if(route==='learn'&&id){pending.get('v')||pending.set('v',add('script','verification.js').catch(()=>{}));const lesson=data.lessons.find(l=>l.id===id);if(lesson)await lessons(lesson.domain);}
       if(route==='practice'&&id){const question=data.questions.find(q=>q.id===id);if(question)await(question.origin==='imported'?importedQuestions(question.domain):questions(question.domain));}
       if((route==='practice'&&!id)||route==='progress')await importedCatalog();
       if(['diagnostic','exam','review'].includes(route))await Promise.all(data.domains.map(d=>route==='review'?lessons(d.id):questions(d.id)));

@@ -4,6 +4,7 @@ import {fileURLToPath} from 'node:url';
 import vm from 'node:vm';
 import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
+import {validateLog} from './verification-log.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),dist=path.join(root,'dist');
 const pack=JSON.parse(fs.readFileSync(path.join(dist,'data/study-pack.json'),'utf8'));
 assert.equal(pack.version,2);assert.equal(pack.lessons.length,52);assert.equal(pack.questions.length,473);
@@ -85,6 +86,9 @@ for(const d of pack.domains)for(const key of ['lessons','questions']){
 const index=JSON.parse(fs.readFileSync(path.join(dist,'data/search-index.json'),'utf8'));
 assert.equal(index.release,boot.release);assert.equal(new Set(index.documents.map(d=>d.type+':'+d.id)).size,index.documents.length);
 for(const document of index.documents){assert.ok(document.href.startsWith('#'));assert.ok(document.search);}
+const vlog=JSON.parse(fs.readFileSync(path.join(dist,'data/verification-log.json'),'utf8'));
+assert.deepEqual(validateLog(vlog,{lesson:pack.lessons.map(l=>l.id),service:pack.services.map(x=>x.id),comparison:[]}),[],'Verification log');
+assert.ok(fs.existsSync(path.join(dist,'assets/verification.js')));assert.ok(!html.includes('verification.js'),'verification.js must stay lazy');
 const metrics=JSON.parse(fs.readFileSync(path.join(dist,'data/build-metrics.json'),'utf8'));
 assert.ok(metrics.bootBytes<230000,'Catalog payload budget');
 const initialAssets=[...html.matchAll(/(?:src|href)="(assets\/[^"#]+)"/g)].map(m=>m[1]);
