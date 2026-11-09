@@ -1258,5 +1258,257 @@
    "es": "Un efecto secundario remoto necesita su propio comportamiento ante solicitudes repetidas.",
    "src": "7f81afbbdb67"
   }
+ },
+ "lab-107": {
+  "text": {
+   "es": "Un lote de PySpark nocturno y aislado usa entradas duraderas en Cloud Storage y no necesita estado local del clúster. ¿Qué opción merece una evaluación?",
+   "src": "c32a58468c33"
+  },
+  "choices.0.text": {
+   "es": "Ejecución por lotes de Serverless for Apache Spark.",
+   "src": "9d444bbe9465"
+  },
+  "choices.0.why": {
+   "es": "La ejecución de Spark basada en la carga de trabajo coincide con la forma indicada. Aun así hay que probar las dependencias.",
+   "src": "e32eecbb456a"
+  },
+  "choices.1.text": {
+   "es": "Un clúster permanente solo para conservar archivos temporales.",
+   "src": "8c6124ad4ff2"
+  },
+  "choices.1.why": {
+   "es": "La premisa no requiere estado local persistente en el clúster.",
+   "src": "03748b1ca337"
+  },
+  "choices.2.text": {
+   "es": "Usar una clave de ordenamiento de Pub/Sub para ofrecer el runtime de Spark.",
+   "src": "74c6424eb9e2"
+  },
+  "choices.2.why": {
+   "es": "Las claves de ordenamiento gobiernan el orden de los mensajes, no ejecutan una carga de trabajo de Spark.",
+   "src": "46a75d03ed84"
+  },
+  "choices.3.text": {
+   "es": "Pasar el trabajo a una aserción de Dataform sin traducir su lógica de PySpark.",
+   "src": "32a6a710359d"
+  },
+  "choices.3.why": {
+   "es": "Una aserción de calidad en SQL de un almacén no reemplaza directamente transformaciones arbitrarias de PySpark.",
+   "src": "60e770046358"
+  },
+  "explanation": {
+   "es": "La ejecución de Spark basada en la carga de trabajo coincide con la forma indicada. Aun así hay que probar las dependencias.",
+   "src": "e32eecbb456a"
+  }
+ },
+ "lab-108": {
+  "text": {
+   "es": "Una migración de Spark conserva el código fuente sin cambios. ¿Qué afirmación se justifica?",
+   "src": "11fe4d83680e"
+  },
+  "choices.0.text": {
+   "es": "Todas las dependencias de runtime están necesariamente admitidas.",
+   "src": "0b057d0457f2"
+  },
+  "choices.0.why": {
+   "es": "Conservar el código fuente no establece la compatibilidad del runtime.",
+   "src": "66a74e87395d"
+  },
+  "choices.1.text": {
+   "es": "La red ya no importa.",
+   "src": "b087ccb7c828"
+  },
+  "choices.1.why": {
+   "es": "El trabajo igual necesita acceso a sus entradas y destinos.",
+   "src": "33561caaf611"
+  },
+  "choices.2.text": {
+   "es": "El entorno y los conectores igual necesitan pruebas de compatibilidad.",
+   "src": "9e4be648becd"
+  },
+  "choices.2.why": {
+   "es": "Los supuestos de runtime, de conectores y de identidad requieren validación.",
+   "src": "46417d93d974"
+  },
+  "choices.3.text": {
+   "es": "Todos los archivos históricos se migran automáticamente.",
+   "src": "aa6d41c9c6d9"
+  },
+  "choices.3.why": {
+   "es": "Ejecutar código no implica que se hayan movido los datos de origen.",
+   "src": "30caf898f465"
+  },
+  "explanation": {
+   "es": "Los supuestos de runtime, de conectores y de identidad requieren validación.",
+   "src": "46417d93d974"
+  }
+ },
+ "lab-109": {
+  "text": {
+   "es": "En una agregación de Beam sin límite (unbounded), ¿qué concepto agrupa eventos mientras otro controla cuándo se emiten los resultados?",
+   "src": "cb9966d7f7e3"
+  },
+  "choices.0.text": {
+   "es": "Un trigger agrupa eventos. Una ventana controla cada emisión.",
+   "src": "dc13fe127f76"
+  },
+  "choices.0.why": {
+   "es": "Esto invierte los roles de la agrupación y de la emisión de resultados.",
+   "src": "2d79e0c54edd"
+  },
+  "choices.1.text": {
+   "es": "Una ventana (window) agrupa eventos. Un trigger controla la emisión.",
+   "src": "409d5e02581d"
+  },
+  "choices.1.why": {
+   "es": "Las ventanas y los triggers responden dos preguntas de tiempo distintas.",
+   "src": "658bd4c5beb3"
+  },
+  "choices.2.text": {
+   "es": "Un tema agrupa ventanas de tiempo de evento. Una suscripción define todos los triggers de Beam.",
+   "src": "e0aad2b70847"
+  },
+  "choices.2.why": {
+   "es": "Los recursos de transporte no definen el contrato completo de ventanas y triggers de Beam.",
+   "src": "6d09c3aa4940"
+  },
+  "choices.3.text": {
+   "es": "Un worker agrupa cada evento por orden de llegada. El autoescalado controla la emisión.",
+   "src": "1538c1cef288"
+  },
+  "choices.3.why": {
+   "es": "Escalar recursos no es la política de agrupación por tiempo de evento ni de emisión de resultados.",
+   "src": "9507744367a5"
+  },
+  "explanation": {
+   "es": "Las ventanas y los triggers responden dos preguntas de tiempo distintas.",
+   "src": "658bd4c5beb3"
+  }
+ },
+ "lab-110": {
+  "text": {
+   "es": "Un equipo cambia de runner de Beam. ¿Cuál es la conclusión adecuada sobre el modelo reutilizable?",
+   "src": "6ab9c6a2ca04"
+  },
+  "choices.0.text": {
+   "es": "Todo runner debe tener el mismo comportamiento y rendimiento en los conectores.",
+   "src": "f6f4d6e0cddb"
+  },
+  "choices.0.why": {
+   "es": "Un modelo común no promete un comportamiento idéntico de la implementación.",
+   "src": "8777b1cac05b"
+  },
+  "choices.1.text": {
+   "es": "Se pueden borrar todas las pruebas.",
+   "src": "01e68c2a6e80"
+  },
+  "choices.1.why": {
+   "es": "Cambiar de runner introduce supuestos de ejecución que hay que probar.",
+   "src": "4d843c0ee78b"
+  },
+  "choices.2.text": {
+   "es": "El modelo de negocio se puede reutilizar, con pruebas de las capacidades del runner de destino y de los sinks.",
+   "src": "2b35b831b939"
+  },
+  "choices.2.why": {
+   "es": "Reutilizar el modelo y verificar la implementación se complementan.",
+   "src": "c3873a7262f7"
+  },
+  "choices.3.text": {
+   "es": "Las marcas de tiempo de los eventos dejan de importar.",
+   "src": "abc9dcade55f"
+  },
+  "choices.3.why": {
+   "es": "La semántica del tiempo de evento sigue afectando los resultados sin límite.",
+   "src": "b5c0c65f9073"
+  },
+  "explanation": {
+   "es": "Reutilizar el modelo y verificar la implementación se complementan.",
+   "src": "c3873a7262f7"
+  }
+ },
+ "lab-111": {
+  "text": {
+   "es": "Los pedidos más antiguos no tienen un campo nuevo de descuento. ¿Qué revisión conserva mejor el significado?",
+   "src": "bbca75ed1705"
+  },
+  "choices.0.text": {
+   "es": "Reemplazar cada ausencia por cero sin consultar el contrato.",
+   "src": "14933fe25863"
+  },
+  "choices.0.why": {
+   "es": "El cero codifica un valor específico que puede no estar justificado.",
+   "src": "6a5d0130e551"
+  },
+  "choices.1.text": {
+   "es": "Verificar si la ausencia significa desconocido, sin descuento o no aplicable.",
+   "src": "49fbc4540c0f"
+  },
+  "choices.1.why": {
+   "es": "El contrato de datos debe definir la semántica de los valores faltantes.",
+   "src": "adf4d9931b1b"
+  },
+  "choices.2.text": {
+   "es": "Marcar el campo como obligatorio y suponer que las filas históricas se completan automáticamente.",
+   "src": "4027c99070db"
+  },
+  "choices.2.why": {
+   "es": "Un contrato más estricto no crea los hechos de negocio históricos que faltan.",
+   "src": "f84bc418ea87"
+  },
+  "choices.3.text": {
+   "es": "Suponer que un JSON aceptado prueba el significado previsto.",
+   "src": "b05b77824cba"
+  },
+  "choices.3.why": {
+   "es": "Que el análisis (parsing) tenga éxito no establece la semántica de negocio.",
+   "src": "846f7d8af424"
+  },
+  "explanation": {
+   "es": "El contrato de datos debe definir la semántica de los valores faltantes.",
+   "src": "adf4d9931b1b"
+  }
+ },
+ "lab-112": {
+  "text": {
+   "es": "¿Qué cambio del modo de una columna existente de BigQuery está documentado como relajación (relaxation)?",
+   "src": "21322c32f167"
+  },
+  "choices.0.text": {
+   "es": "NULLABLE a REQUIRED.",
+   "src": "5b709dcdc6c8"
+  },
+  "choices.0.why": {
+   "es": "Hacer obligatoria una columna que ya admite nulos no es una relajación.",
+   "src": "fb9276419935"
+  },
+  "choices.1.text": {
+   "es": "REPEATED a REQUIRED directamente.",
+   "src": "196e30f0cf05"
+  },
+  "choices.1.why": {
+   "es": "Esta no es la operación de relajación documentada.",
+   "src": "e305bffa4118"
+  },
+  "choices.2.text": {
+   "es": "REQUIRED a NULLABLE.",
+   "src": "538c1d85af09"
+  },
+  "choices.2.why": {
+   "es": "La relajación permite que valores antes obligatorios pasen a admitir nulos.",
+   "src": "4fd0b3bc1d8b"
+  },
+  "choices.3.text": {
+   "es": "Cualquier modo a cualquier otro modo sin restricciones.",
+   "src": "0bb9336bea0a"
+  },
+  "choices.3.why": {
+   "es": "Las modificaciones de modo tienen restricciones documentadas.",
+   "src": "2bbc8a23d4b3"
+  },
+  "explanation": {
+   "es": "La relajación permite que valores antes obligatorios pasen a admitir nulos.",
+   "src": "4fd0b3bc1d8b"
+  }
  }
 }
