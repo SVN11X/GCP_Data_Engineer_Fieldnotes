@@ -1,0 +1,484 @@
+{
+ "imp-1": {
+  "html": {
+   "es": "Tu empresa creó un modelo de red neuronal (neural network) de TensorFlow con muchas neuronas y capas. El modelo se ajusta bien a los datos de entrenamiento. Sin embargo, rinde mal cuando se prueba con datos nuevos. ¿Qué método puedes usar para resolver esto?<br>",
+   "src": "b34d3e4e8e6b"
+  },
+  "choices.0.html": {
+   "es": "Threading (uso de hilos)",
+   "src": "9178d6c96180"
+  },
+  "choices.1.html": {
+   "es": "Serialization (serialización)",
+   "src": "ae017bb2f2c8"
+  },
+  "choices.2.html": {
+   "es": "Métodos de dropout (Dropout Methods)",
+   "src": "694a625e9725"
+  },
+  "choices.3.html": {
+   "es": "Reducción de dimensionalidad (Dimensionality Reduction)",
+   "src": "1c93c8c44dc7"
+  },
+  "sourceExplanation": {
+   "es": "Los síntomas descritos, buen rendimiento con los datos de entrenamiento pero mal rendimiento con datos nuevos, son la definición de sobreajuste (overfitting). Dropout es una técnica de regularización que evita el sobreajuste desactivando neuronas al azar durante el entrenamiento. Esto obliga a la red a aprender características más robustas y mejora la generalización. Threading mejora la velocidad de cálculo, la serialización sirve para guardar el modelo y la reducción de dimensionalidad modifica las características de entrada. Ninguna de ellas resuelve directamente el problema estructural de sobreajuste causado por una complejidad excesiva del modelo.",
+   "src": "c4e3df05cecf"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-2": {
+  "html": {
+   "es": "Estás creando un modelo para hacer recomendaciones de ropa. Sabes que es probable que las preferencias de moda de un usuario cambien con el tiempo, así que creas una canalización de datos (data pipeline) para enviar datos nuevos al modelo a medida que están disponibles. ¿Cómo debes usar estos datos para entrenar el modelo?<br>",
+   "src": "470481941569"
+  },
+  "choices.0.html": {
+   "es": "Reentrenar el modelo de forma continua solo con los datos nuevos.",
+   "src": "168c4823d262"
+  },
+  "choices.1.html": {
+   "es": "Reentrenar el modelo de forma continua con una combinación de los datos existentes y los datos nuevos.",
+   "src": "01ede34d36cf"
+  },
+  "choices.2.html": {
+   "es": "Entrenar con los datos existentes y usar los datos nuevos como conjunto de prueba.",
+   "src": "f1035997f2fd"
+  },
+  "choices.3.html": {
+   "es": "Entrenar con los datos nuevos y usar los datos existentes como conjunto de prueba.",
+   "src": "c41311f82a2b"
+  },
+  "sourceExplanation": {
+   "es": "La opción B es correcta porque reentrenar con una combinación de datos históricos y nuevos permite que el modelo se adapte a los cambios en las preferencias de los usuarios, sin sufrir un olvido catastrófico de los patrones aprendidos antes. Entrenar solo con datos nuevos (opción A) corre el riesgo de perder capacidad de generalización. Usar un conjunto de datos solo para entrenar o solo para probar (opciones C y D) incumple los protocolos de validación adecuados y lleva a métricas de rendimiento sesgadas.",
+   "src": "fecd3f6f24e9"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-4": {
+  "html": {
+   "es": "Creas un informe importante para tu equipo grande en Google Data Studio 360. El informe usa Google BigQuery como fuente de datos. Notas que las visualizaciones no muestran los datos que tienen menos de 1 hora. ¿Qué debes hacer?<br>",
+   "src": "9f1bccfdf3f7"
+  },
+  "choices.0.html": {
+   "es": "Desactivar el almacenamiento en caché (caching) en la configuración del informe.",
+   "src": "ed3bfdfe6274"
+  },
+  "choices.1.html": {
+   "es": "Desactivar el almacenamiento en caché en BigQuery editando los detalles de la tabla.",
+   "src": "45ee202c95ac"
+  },
+  "choices.2.html": {
+   "es": "Actualizar la pestaña del navegador que muestra las visualizaciones.",
+   "src": "5458c232db29"
+  },
+  "choices.3.html": {
+   "es": "Borrar el historial del navegador de la última hora y luego volver a cargar la pestaña que muestra las visualizaciones.",
+   "src": "b8f4e4bdb27b"
+  },
+  "sourceExplanation": {
+   "es": "Google Data Studio (Looker Studio) guarda en caché los datos de BigQuery hasta una hora por defecto, para reducir la carga de consultas y mejorar el rendimiento. Para que las visualizaciones reflejen datos de menos de una hora, debes desactivar este mecanismo de caché en la configuración del informe. Así el conector ejecuta una consulta nueva en BigQuery cada vez que el informe se carga o se actualiza.",
+   "src": "ffc110d34c49"
+  },
+  "explanation": {
+   "es": "El original usa Data Studio 360 y configuraciones históricas de caché. Revisa los controles actuales de frescura de los paneles antes de aplicar esta opción.",
+   "src": "d3b4b50eb93d"
+  },
+  "reviewNote": {
+   "es": "Esta pregunta importada está excluida de la práctica con puntuación. Lee la nota técnica en lugar de memorizar su clave.",
+   "src": "5d478c3e8ed1"
+  }
+ },
+ "imp-5": {
+  "html": {
+   "es": "Un cliente externo te entrega un volcado diario de datos de su base de datos. Los datos llegan a Google Cloud Storage GCS como archivos de valores separados por comas<br>(CSV). Quieres analizar estos datos en Google BigQuery, pero los datos podrían tener filas con formato incorrecto o dañadas. ¿Cómo debes construir esta canalización?<br>",
+   "src": "05219ab2dc1e"
+  },
+  "choices.0.html": {
+   "es": "Usar fuentes de datos federadas (federated data sources) y revisar los datos en la consulta SQL.",
+   "src": "5db04e96ceec"
+  },
+  "choices.1.html": {
+   "es": "Activar el monitoreo de BigQuery en Google Stackdriver y crear una alerta.",
+   "src": "e71e16e3c3dc"
+  },
+  "choices.2.html": {
+   "es": "Importar los datos a BigQuery con la CLI de gcloud y establecer max_bad_records en 0.",
+   "src": "88b143b3ec21"
+  },
+  "choices.3.html": {
+   "es": "Ejecutar una canalización por lotes de Google Cloud Dataflow para importar los datos a BigQuery y enviar los errores a otra tabla de errores (dead-letter table) para analizarlos.",
+   "src": "2b6be3981196"
+  },
+  "sourceExplanation": {
+   "es": "La opción D es correcta porque Dataflow ofrece un marco ETL robusto, capaz de validar los registros durante la ingesta. Al enviar las filas mal formadas a una tabla de errores (dead-letter table), la canalización asegura que solo entren datos limpios a BigQuery para el análisis y conserva los detalles del error para depurar. Las opciones A y C no manejan bien los datos dañados (A no tiene lógica de limpieza y C rechaza por completo los registros malos). La opción B sirve solo para monitoreo, no para procesar datos.",
+   "src": "59c5d6566341"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-7": {
+  "html": {
+   "es": "Estás creando un modelo para predecir precios de viviendas. Por restricciones de presupuesto, debes ejecutarlo en una sola máquina virtual con recursos limitados. ¿Qué algoritmo de aprendizaje debes usar?<br>",
+   "src": "8cbe7b96f6b9"
+  },
+  "choices.0.html": {
+   "es": "Regresión lineal (Linear regression)",
+   "src": "57de715a4f13"
+  },
+  "choices.1.html": {
+   "es": "Clasificación logística (Logistic classification)",
+   "src": "f059afac3c66"
+  },
+  "choices.2.html": {
+   "es": "Red neuronal recurrente (Recurrent neural network)",
+   "src": "87288fb4ebe2"
+  },
+  "choices.3.html": {
+   "es": "Red neuronal prealimentada (Feedforward neural network)",
+   "src": "ec74b988a4e1"
+  },
+  "sourceExplanation": {
+   "es": "La tarea consiste en predecir precios de viviendas. Es un problema de regresión, que requiere un algoritmo con salida numérica continua, y eso descarta la clasificación logística. Entre las opciones restantes, la regresión lineal es ligera y eficiente en términos de cálculo, así que es ideal para entornos con recursos limitados. Las redes neuronales (RNN y prealimentada) son mucho más complejas y costosas de calcular, y a menudo requieren hardware especializado como GPU, que supera las restricciones de una sola máquina virtual.",
+   "src": "8819b7341b2b"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-14": {
+  "html": {
+   "es": "Quieres usar una base de datos con información sobre muestras de tejido para clasificar muestras futuras como normales o mutadas. Estás evaluando un método de detección de anomalías no supervisado (unsupervised anomaly detection) para clasificar las muestras de tejido. ¿Qué dos características apoyan este método? (Elige dos.)<br>",
+   "src": "c8c54dcc204c"
+  },
+  "choices.0.html": {
+   "es": "Hay muy pocos casos de mutaciones en comparación con las muestras normales.",
+   "src": "1e8cc3b9c967"
+  },
+  "choices.1.html": {
+   "es": "Hay aproximadamente el mismo número de muestras normales y mutadas en la base de datos.",
+   "src": "3d8c982b32a2"
+  },
+  "choices.2.html": {
+   "es": "Esperas que las mutaciones futuras tengan características diferentes a las de las muestras mutadas de la base de datos.",
+   "src": "751dc7b2733d"
+  },
+  "choices.3.html": {
+   "es": "Esperas que las mutaciones futuras tengan características similares a las de las muestras mutadas de la base de datos.",
+   "src": "d278e0a96c6f"
+  },
+  "choices.4.html": {
+   "es": "Ya tienes etiquetas en la base de datos que indican qué muestras están mutadas y cuáles son normales.",
+   "src": "694c219d6dac"
+  },
+  "sourceExplanation": {
+   "es": "La detección de anomalías no supervisada se basa en el supuesto de que las anomalías son eventos raros. Por eso la opción A es correcta, ya que refleja el desequilibrio de clases típico de estos conjuntos de datos.\nLa opción C también es correcta porque los métodos no supervisados modelan la distribución de los datos normales. Detectan cualquier desviación significativa de esa norma, sin importar si las mutaciones futuras se parecen a patrones de mutación anteriores o muestran características nuevas.",
+   "src": "91fb7e697ed5"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-15": {
+  "html": {
+   "es": "Necesitas almacenar y analizar publicaciones de redes sociales en Google BigQuery a un ritmo de 10,000 mensajes por minuto, casi en tiempo real. Al principio, diseñas la aplicación para usar inserciones en streaming (streaming inserts) para cada publicación. Tu aplicación también hace agregaciones de datos justo después de las inserciones en streaming. Descubres que las consultas posteriores a las inserciones en streaming no muestran consistencia fuerte (strong consistency), y que los informes de esas consultas podrían no incluir los datos en tránsito. ¿Cómo puedes ajustar el diseño de tu aplicación?<br>",
+   "src": "ba06f5c82411"
+  },
+  "choices.0.html": {
+   "es": "Reescribir la aplicación para cargar los datos acumulados cada 2 minutos.",
+   "src": "313aaa885093"
+  },
+  "choices.1.html": {
+   "es": "Convertir el código de inserción en streaming en una carga por lotes para mensajes individuales.",
+   "src": "9c659a793038"
+  },
+  "choices.2.html": {
+   "es": "Cargar el mensaje original en Google Cloud SQL y exportar la tabla cada hora a BigQuery mediante inserciones en streaming.",
+   "src": "85013207b779"
+  },
+  "choices.3.html": {
+   "es": "Estimar la latencia promedio de disponibilidad de los datos después de las inserciones en streaming y ejecutar siempre las consultas después de esperar el doble de ese tiempo.",
+   "src": "76d7f1144a43"
+  },
+  "sourceExplanation": {
+   "es": "Las inserciones en streaming de BigQuery ofrecen consistencia eventual (eventual consistency). Esto significa que los datos pueden no estar disponibles de inmediato para consultas debido al almacenamiento en búfer interno.\nLa opción D es la respuesta correcta en el contexto de esta pregunta de examen porque propone ajustar la lógica de la aplicación para esperar un periodo mayor que la latencia estimada (por ejemplo, el doble del promedio) antes de ejecutar consultas, de modo que los datos ya se hayan volcado y sean visibles.\nEste enfoque reconoce el retraso propio de las inserciones en streaming sin cambiar a cargas por lotes ni a bases de datos externas, lo que incumpliría el requisito de casi tiempo real.",
+   "src": "0dcd06d5b2a4"
+  },
+  "explanation": {
+   "es": "Esperar el doble de un promedio observado no fija un límite para la frescura en el peor caso ni demuestra consistencia fuerte. Diseña según la visibilidad de escritura documentada, los contratos de entrega y las comprobaciones explícitas de que los datos están completos. No trates un retraso promedio como una garantía. La clave original se conserva solo para comparar.",
+   "src": "cf275bd99300"
+  },
+  "reviewNote": {
+   "es": "Esta pregunta importada está excluida de la práctica con puntuación. Lee la nota técnica en lugar de memorizar su clave.",
+   "src": "5d478c3e8ed1"
+  }
+ },
+ "imp-17": {
+  "html": {
+   "es": "Tu empresa está migrando su clúster de Apache Hadoop de 30 nodos a la nube. Quiere reutilizar los trabajos de Hadoop que ya creó y reducir al mínimo posible la administración del clúster. También quiere poder conservar los datos más allá de la vida del clúster. ¿Qué debes hacer?<br>",
+   "src": "14f686a21aca"
+  },
+  "choices.0.html": {
+   "es": "Crear un trabajo de Google Cloud Dataflow para procesar los datos.",
+   "src": "e4ec72148c56"
+  },
+  "choices.1.html": {
+   "es": "Crear un clúster de Google Cloud Dataproc que use discos persistentes para HDFS.",
+   "src": "34f48d100a6c"
+  },
+  "choices.2.html": {
+   "es": "Crear un clúster de Hadoop en Google Compute Engine que use discos persistentes.",
+   "src": "46b3e735c927"
+  },
+  "choices.3.html": {
+   "es": "Crear un clúster de Cloud Dataproc que use el conector de Google Cloud Storage.",
+   "src": "9ce669b7d7eb"
+  },
+  "choices.4.html": {
+   "es": "Crear un clúster de Hadoop en Google Compute Engine que use discos Local SSD.",
+   "src": "80219836d79e"
+  },
+  "sourceExplanation": {
+   "es": "Cloud Dataproc es el servicio administrado diseñado para ejecutar trabajos existentes de Hadoop y Spark con una carga mínima de administración del clúster. Al usar el conector de Google Cloud Storage en lugar de HDFS local, los datos se conservan en Cloud Storage con independencia del ciclo de vida del clúster. Así se cumple el requisito de retención de datos a largo plazo.\nLa opción A (Dataflow) requiere reescribir los trabajos, mientras que las opciones C y E usan instancias de Compute Engine administradas por ti.",
+   "src": "de931c4c0354"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-18": {
+  "html": {
+   "es": "Los responsables de negocio de tu empresa te dieron una base de datos de transacciones bancarias. Cada fila contiene el ID de usuario, el tipo de transacción, la ubicación de la transacción y el monto de la transacción. Te piden investigar qué tipo de aprendizaje automático (machine learning) se puede aplicar a los datos. ¿Qué tres aplicaciones de aprendizaje automático puedes usar? (Elige tres.)<br>",
+   "src": "78940a0f5c27"
+  },
+  "choices.0.html": {
+   "es": "Aprendizaje supervisado (supervised learning) para determinar qué transacciones tienen más probabilidad de ser fraudulentas.",
+   "src": "d97883e14cd8"
+  },
+  "choices.1.html": {
+   "es": "Aprendizaje no supervisado (unsupervised learning) para determinar qué transacciones tienen más probabilidad de ser fraudulentas.",
+   "src": "b000e0ee48b6"
+  },
+  "choices.2.html": {
+   "es": "Agrupamiento (clustering) para dividir las transacciones en N categorías según la similitud de sus características.",
+   "src": "d11d800aabaf"
+  },
+  "choices.3.html": {
+   "es": "Aprendizaje supervisado para predecir la ubicación de una transacción.",
+   "src": "284bfc24eb24"
+  },
+  "choices.4.html": {
+   "es": "Aprendizaje por refuerzo (reinforcement learning) para predecir la ubicación de una transacción.",
+   "src": "a557b73a6542"
+  },
+  "choices.5.html": {
+   "es": "Aprendizaje no supervisado para predecir la ubicación de una transacción.",
+   "src": "49aaa99eca38"
+  },
+  "sourceExplanation": {
+   "es": "El aprendizaje no supervisado es adecuado para detectar fraude (B) cuando los datos históricos no tienen etiquetas explícitas de transacciones fraudulentas, porque permite que el modelo identifique anomalías o valores atípicos.\nEl agrupamiento (C) es una técnica no supervisada que agrupa transacciones según la similitud de sus características, como el monto y los patrones de ubicación, sin categorías predefinidas.\nEl aprendizaje supervisado puede predecir la ubicación de las transacciones (D) porque el conjunto de datos contiene datos históricos etiquetados que relacionan los ID de usuario y los tipos de transacción con resultados geográficos concretos.",
+   "src": "b167ff171cd8"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-19": {
+  "html": {
+   "es": "Los servidores de Apache Hadoop locales (on-premises) de tu empresa están llegando al final de su vida útil, y TI decidió migrar el clúster a Google Cloud Dataproc. Una migración equivalente del clúster requeriría 50 TB de Google Persistent Disk por nodo. Al CIO le preocupa el costo de usar tanto almacenamiento en bloques. Quieres reducir al mínimo el costo de almacenamiento de la migración. ¿Qué debes hacer?<br>",
+   "src": "dba61d3eab17"
+  },
+  "choices.0.html": {
+   "es": "Poner los datos en Google Cloud Storage.",
+   "src": "118544a76853"
+  },
+  "choices.1.html": {
+   "es": "Usar máquinas virtuales (VM) interrumpibles (preemptible) para el clúster de Cloud Dataproc.",
+   "src": "ec6cb2fed13b"
+  },
+  "choices.2.html": {
+   "es": "Ajustar el clúster de Cloud Dataproc para que tenga justo el disco necesario para todos los datos.",
+   "src": "73a373f6c874"
+  },
+  "choices.3.html": {
+   "es": "Migrar parte de los datos fríos a Google Cloud Storage y dejar solo los datos calientes en Persistent Disk.",
+   "src": "87c0e11a118d"
+  },
+  "sourceExplanation": {
+   "es": "Google Cloud Dataproc está diseñado para usar Google Cloud Storage (GCS) como almacenamiento principal de datos. Esto elimina la necesidad de tener costosos Persistent Disk locales en cada nodo. GCS tiene costos por TB mucho menores que el almacenamiento en bloques y escala de forma automática sin aprovisionamiento manual. Usar VM interrumpibles (opción B) reduce los costos de cómputo, pero no resuelve el alto costo de los 50 TB de almacenamiento necesarios por nodo.",
+   "src": "57094c2bcd42"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-27": {
+  "html": {
+   "es": "Estás creando un modelo para predecir si lloverá o no en un día determinado. Tienes miles de características de entrada (features) y quieres ver si puedes mejorar la velocidad de entrenamiento quitando algunas, con el mínimo efecto en la precisión del modelo. ¿Qué puedes hacer?<br>",
+   "src": "710d2e1c7e13"
+  },
+  "choices.0.html": {
+   "es": "Eliminar las características que están muy correlacionadas con las etiquetas de salida.",
+   "src": "0d15808ca9fc"
+  },
+  "choices.1.html": {
+   "es": "Combinar las características muy codependientes en una sola característica representativa.",
+   "src": "460fbd1e6b76"
+  },
+  "choices.2.html": {
+   "es": "En lugar de introducir cada característica por separado, promediar sus valores en lotes de 3.",
+   "src": "20f5b584b919"
+  },
+  "choices.3.html": {
+   "es": "Quitar las características que tienen valores nulos en más del 50% de los registros de entrenamiento.",
+   "src": "e1a0a3ae6f2a"
+  },
+  "sourceExplanation": {
+   "es": "Combinar características muy codependientes (correlacionadas) reduce la multicolinealidad y la dimensionalidad del conjunto de datos, lo que acelera el entrenamiento sin una pérdida significativa de información predictiva.\nQuitar las características correlacionadas con la salida (A) empeoraría la precisión, porque son predictores valiosos.\nPromediar lotes arbitrarios (C) destruye la especificidad de las características. Y descartar las características con >50% de nulos (D) elimina señales que podrían ser útiles y que se podrían imputar.",
+   "src": "6573ba43d883"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-46": {
+  "html": {
+   "es": "Trabajas para una consultora económica que ayuda a las empresas a identificar tendencias económicas a medida que ocurren. Como parte de tu análisis, usas Google BigQuery para correlacionar datos de clientes con los precios promedio de los 100 bienes más comunes que se venden, entre ellos pan, gasolina, leche y otros. Los precios promedio de estos bienes se actualizan cada 30 minutos. Quieres asegurarte de que estos datos se mantengan actualizados para poder combinarlos con otros datos en BigQuery de la forma más barata posible.<br>¿Qué debes hacer?<br>",
+   "src": "c685ad870dc3"
+  },
+  "choices.0.html": {
+   "es": "Cargar los datos cada 30 minutos en una nueva tabla particionada de BigQuery.",
+   "src": "a127a48b87e6"
+  },
+  "choices.1.html": {
+   "es": "Almacenar y actualizar los datos en un bucket regional de Google Cloud Storage y crear una fuente de datos federada en BigQuery",
+   "src": "549bdb208904"
+  },
+  "choices.2.html": {
+   "es": "Almacenar los datos en Google Cloud Datastore. Usar Google Cloud Dataflow para consultar BigQuery y combinar los datos de forma programática con los datos almacenados en Cloud Datastore",
+   "src": "8533672480ff"
+  },
+  "choices.3.html": {
+   "es": "Almacenar los datos en un archivo de un bucket regional de Google Cloud Storage. Usar Cloud Dataflow para consultar BigQuery y combinar los datos de forma programática con los datos almacenados en Google Cloud Storage.",
+   "src": "812eed9f8167"
+  },
+  "sourceExplanation": {
+   "es": "La opción B es correcta porque usa las fuentes de datos externas de BigQuery (consultas federadas) para hacer referencia a datos de Google Cloud Storage sin cargarlos.\nEste enfoque elimina el costo y la latencia de volver a cargar o enviar los datos en streaming cada 30 minutos, y cumple el requisito de un análisis barato y actualizado.\nLa documentación de Google Cloud recomienda de forma explícita las tablas externas para pequeñas cantidades de datos que cambian con frecuencia y que se combinan con otras tablas de BigQuery.",
+   "src": "578cdf67e55c"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-51": {
+  "html": {
+   "es": "Estás entrenando un clasificador de spam. Notas que hay sobreajuste (overfitting) con los datos de entrenamiento. ¿Qué tres acciones puedes tomar para resolver este problema? (Elige tres.)<br>",
+   "src": "495b1f141cde"
+  },
+  "choices.0.html": {
+   "es": "Conseguir más ejemplos de entrenamiento",
+   "src": "55682d32d8f4"
+  },
+  "choices.1.html": {
+   "es": "Reducir el número de ejemplos de entrenamiento",
+   "src": "6d40e6fc9ec1"
+  },
+  "choices.2.html": {
+   "es": "Usar un conjunto más pequeño de características",
+   "src": "f2bfb1c0d70a"
+  },
+  "choices.3.html": {
+   "es": "Usar un conjunto más grande de características",
+   "src": "b417570878a6"
+  },
+  "choices.4.html": {
+   "es": "Aumentar los parámetros de regularización",
+   "src": "8b83f457b337"
+  },
+  "choices.5.html": {
+   "es": "Disminuir los parámetros de regularización",
+   "src": "2871fd42f43a"
+  },
+  "sourceExplanation": {
+   "es": "El sobreajuste ocurre cuando un modelo aprende el ruido en lugar del patrón de fondo, lo que lleva a una varianza alta.\nConseguir más ejemplos de entrenamiento (A) da un conjunto de datos más representativo y ayuda al modelo a generalizar mejor con datos que no ha visto.\nUsar un conjunto más pequeño de características (C) reduce la complejidad del modelo y evita que se ajuste a correlaciones falsas del conjunto de entrenamiento.\nAumentar los parámetros de regularización (E) añade una penalización a los pesos grandes, limita la capacidad del modelo y reduce el sobreajuste.",
+   "src": "941a85ded079"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-61": {
+  "html": {
+   "es": "Tu equipo de análisis quiere crear un modelo estadístico sencillo para determinar qué clientes tienen más probabilidad de volver a trabajar con tu empresa, según algunas métricas distintas. Quieren ejecutar el modelo en Apache Spark, con datos almacenados en Google Cloud Storage, y tú recomendaste usar Google Cloud<br>Dataproc para ejecutar este trabajo. Las pruebas mostraron que esta carga de trabajo se puede ejecutar en aproximadamente 30 minutos en un clúster de 15 nodos, y que deja los resultados en Google<br>BigQuery. El plan es ejecutar esta carga de trabajo cada semana. ¿Cómo debes optimizar el clúster para reducir el costo?<br>",
+   "src": "bf3db75448ed"
+  },
+  "choices.0.html": {
+   "es": "Migrar la carga de trabajo a Google Cloud Dataflow",
+   "src": "a6fe3f2e4f43"
+  },
+  "choices.1.html": {
+   "es": "Usar máquinas virtuales (VM) interrumpibles (pre-emptible) para el clúster",
+   "src": "861d430d1f5c"
+  },
+  "choices.2.html": {
+   "es": "Usar un nodo con más memoria para que el trabajo se ejecute más rápido",
+   "src": "7ff922da2de9"
+  },
+  "choices.3.html": {
+   "es": "Usar SSD en los nodos trabajadores para que el trabajo se ejecute más rápido",
+   "src": "78541ab25cdd"
+  },
+  "sourceExplanation": {
+   "es": "Las VM interrumpibles (preemptible) ofrecen costos mucho más bajos (hasta un 80% de descuento) que las instancias estándar, así que son ideales para optimizar costos.\nComo la carga de trabajo es un trabajo por lotes finito que se ejecuta en unos 30 minutos, puede tolerar posibles interrupciones si se programan reintentos cuando se interrumpa.",
+   "src": "32018560610f"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-62": {
+  "html": {
+   "es": "Tu empresa recibe datos de eventos por lotes y en streaming. Quieres procesar los datos con Google Cloud Dataflow durante un periodo predecible.<br>Sin embargo, te das cuenta de que en algunos casos los datos pueden llegar tarde o desordenados. ¿Cómo debes diseñar tu canalización de Cloud Dataflow para manejar los datos que llegan tarde o desordenados?<br>",
+   "src": "978939ca2236"
+  },
+  "choices.0.html": {
+   "es": "Definir una sola ventana global para capturar todos los datos.",
+   "src": "33b87c64d357"
+  },
+  "choices.1.html": {
+   "es": "Definir ventanas deslizantes (sliding windows) para capturar todos los datos retrasados.",
+   "src": "2b03136a87db"
+  },
+  "choices.2.html": {
+   "es": "Usar marcas de agua (watermarks) y marcas de tiempo para capturar los datos retrasados.",
+   "src": "0df2338f97b5"
+  },
+  "choices.3.html": {
+   "es": "Asegurar que cada tipo de fuente de datos (streaming o por lotes) tenga una marca de tiempo y usar las marcas de tiempo para definir la lógica de los datos retrasados.",
+   "src": "371cda315a74"
+  },
+  "sourceExplanation": {
+   "es": "Cloud Dataflow usa marcas de tiempo para asignar a cada elemento un tiempo del evento, y usa marcas de agua para estimar cuándo se han procesado todos los datos hasta una marca de tiempo determinada.\nLas marcas de agua manejan específicamente los datos que llegan tarde o desordenados, porque definen el retraso permitido. Así la canalización procesa los datos dentro de una ventana de tiempo predecible y acepta los retrasos.",
+   "src": "57c762686623"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ }
+}
