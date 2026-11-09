@@ -1,0 +1,532 @@
+{
+ "imp-3": {
+  "html": {
+   "es": "Diseñaste una base de datos de historias clínicas de pacientes como proyecto piloto para cubrir unos cientos de pacientes en tres clínicas. Tu diseño usaba una sola tabla para representar a todos los pacientes y sus visitas, y usabas autouniones (self-joins) para generar los informes. El uso de recursos del servidor era del 50%. Desde entonces, el alcance del proyecto ha crecido. Ahora la base de datos debe almacenar 100 veces más historias clínicas. Ya no puedes ejecutar los informes, porque tardan demasiado o dan errores por falta de recursos de cómputo. ¿Cómo debes ajustar el diseño de la base de datos?<br>",
+   "src": "ffd99a8e3548"
+  },
+  "choices.0.html": {
+   "es": "Agrega capacidad (memoria y espacio en disco) al servidor de la base de datos, en un orden de 200.",
+   "src": "d1f7b7f9cc47"
+  },
+  "choices.1.html": {
+   "es": "Divide las tablas en tablas más pequeñas según rangos de fechas (shard) y genera informes solo con rangos de fechas predefinidos.",
+   "src": "5a592f748c83"
+  },
+  "choices.2.html": {
+   "es": "Normaliza la tabla maestra de historias clínicas en una tabla de pacientes y una tabla de visitas, y crea las otras tablas necesarias para evitar las autouniones.",
+   "src": "8a8cfca86fa5"
+  },
+  "choices.3.html": {
+   "es": "Particiona la tabla en tablas más pequeñas, una para cada clínica. Ejecuta las consultas sobre los pares de tablas pequeñas y usa uniones (unions) para los informes consolidados.",
+   "src": "3281cd2ad41b"
+  },
+  "sourceExplanation": {
+   "es": "El diseño actual escala mal porque una sola tabla maneja pacientes y visitas, con autouniones ineficientes. Normalizar el esquema en tablas separadas para pacientes y visitas elimina la redundancia de datos y quita el cuello de botella de rendimiento de las autouniones. Así la base de datos puede manejar el mayor volumen de forma eficiente. Agregar hardware (opción A) no corrige fallos de diseño. Dividir o particionar por fecha o por clínica (opciones B y D) agrega complejidad innecesaria y no resuelve el problema estructural de fondo.",
+   "src": "a48e5e64c456"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-6": {
+  "html": {
+   "es": "Tu app del clima consulta una base de datos cada 15 minutos para obtener la temperatura actual. El frontend funciona con Google App Engine y atiende a millones de usuarios. ¿Cómo debes diseñar el frontend para responder a un fallo de la base de datos?<br>",
+   "src": "25787a3a5a7a"
+  },
+  "choices.0.html": {
+   "es": "Emitir un comando para reiniciar los servidores de la base de datos.",
+   "src": "93584e368886"
+  },
+  "choices.1.html": {
+   "es": "Reintentar la consulta con retroceso exponencial (exponential backoff), hasta un máximo de 15 minutos.",
+   "src": "d5a378f2ae15"
+  },
+  "choices.2.html": {
+   "es": "Reintentar la consulta cada segundo hasta que la base de datos vuelva a estar en línea, para minimizar la antigüedad de los datos.",
+   "src": "ba377a40c8ae"
+  },
+  "choices.3.html": {
+   "es": "Reducir la frecuencia de las consultas a una vez por hora hasta que la base de datos vuelva a estar en línea.",
+   "src": "b6a2345854ff"
+  },
+  "sourceExplanation": {
+   "es": "La opción B es correcta porque el retroceso exponencial truncado (truncated exponential backoff) es la práctica recomendada estándar para manejar fallos transitorios de bases de datos en aplicaciones de Google App Engine. Esta estrategia evita saturar con demasiados intentos de conexión a una base de datos que no responde, y permite la recuperación final sin bloqueos indefinidos.\n\nEn cambio, la opción C crea un problema de estampida (thundering herd) que puede impedir la recuperación, la opción D da datos demasiado antiguos para una app del clima, y la opción A es una tarea operativa fuera del alcance de la lógica del frontend.",
+   "src": "5ca3ef2a8398"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-9": {
+  "html": {
+   "es": "Tu empresa usa tablas comodín (WILDCARD tables) para consultar datos de varias tablas con nombres parecidos. La sentencia SQL falla ahora con el siguiente error:<br><img src=\"assets/images/0c8e1f5f248c8b5a1208.png\" alt=\"Original diagram for imported question 9. Open the full-size image to inspect the details.\" loading=\"lazy\"><br>¿Qué nombre de tabla hará que la sentencia SQL funcione correctamente?<br>\n",
+   "src": "3e3a75226bdc"
+  },
+  "choices.0.html": {
+   "es": "&#x27;bigquery-public-data.noaa_gsod.gsod&#x27;",
+   "src": "ab9385697073"
+  },
+  "choices.1.html": {
+   "es": "bigquery-public-data.noaa_gsod.gsod*",
+   "src": "148b06545238"
+  },
+  "choices.2.html": {
+   "es": "&#x27;bigquery-public-data.noaa_gsod.gsod&#x27;*",
+   "src": "a322f67034fe"
+  },
+  "choices.3.html": {
+   "es": "&#x27;bigquery-public-data.noaa_gsod.gsod*`",
+   "src": "61793a4ebb77"
+  },
+  "sourceExplanation": {
+   "es": "En BigQuery, las referencias a tablas comodín (por ejemplo, `gsod*`) deben ir entre acentos graves (backticks) para evitar errores de sintaxis causados por el carácter especial `*`.\nLa opción D es la correcta porque usa bien los acentos graves alrededor de todo el dataset.table_id, con el asterisco incluido dentro.",
+   "src": "8725fd990ecd"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-10": {
+  "html": {
+   "es": "Tu empresa trabaja en un sector muy regulado. Uno de tus requisitos es asegurar que cada usuario tenga acceso solo a la cantidad mínima de información que necesita para hacer su trabajo. Quieres aplicar este requisito con Google BigQuery. ¿Qué tres enfoques puedes usar? (Elige tres.)<br>",
+   "src": "4755a6959706"
+  },
+  "choices.0.html": {
+   "es": "Desactivar las escrituras en ciertas tablas.",
+   "src": "2e725499ee03"
+  },
+  "choices.1.html": {
+   "es": "Restringir el acceso a las tablas por rol.",
+   "src": "d9f4da57db42"
+  },
+  "choices.2.html": {
+   "es": "Asegurar que los datos estén cifrados en todo momento.",
+   "src": "20bccbbe1fd7"
+  },
+  "choices.3.html": {
+   "es": "Restringir el acceso a la API de BigQuery a los usuarios aprobados.",
+   "src": "867d173aca5f"
+  },
+  "choices.4.html": {
+   "es": "Separar los datos en varias tablas o bases de datos.",
+   "src": "dab971bf39ef"
+  },
+  "choices.5.html": {
+   "es": "Usar Google Stackdriver Audit Logging para detectar infracciones de las políticas.",
+   "src": "ab9056efb42c"
+  },
+  "sourceExplanation": {
+   "es": "Para aplicar el principio de mínimo privilegio (least privilege) en BigQuery, debes restringir el acceso de forma activa y estructurar los datos para un control detallado.\nRestringir el acceso a las tablas por rol (B) asegura que los usuarios tengan solo los permisos necesarios para sus funciones. \nSeparar los datos en varias tablas o datasets (E) permite controles de acceso más finos y evita que los usuarios vean información sensible que no les corresponde. \nRestringir el acceso a la API de BigQuery a los usuarios aprobados (D) limita el grupo de personas que pueden consultar datos. \nLas opciones A, C y F son incorrectas porque el estado de solo lectura sigue implicando acceso más allá del mínimo necesario, el cifrado es una medida de transparencia por defecto y no un control de acceso, y el registro de auditoría detecta el acceso no autorizado en lugar de prevenirlo.",
+   "src": "a3217f069862"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-11": {
+  "html": {
+   "es": "Estás diseñando un sistema de abandono de cesta para una empresa de comercio electrónico. El sistema enviará un mensaje a un usuario según estas reglas:<br>✑ El usuario no ha tenido interacción en el sitio durante 1 hora<br>Ha agregado a la cesta productos por más de $30<br><img src=\"assets/images/486c134d63ae0bade25b.png\" alt=\"Original diagram for imported question 11. Open the full-size image to inspect the details.\" loading=\"lazy\"><br>✑ No ha completado una transacción<br>Usas Google Cloud Dataflow para procesar los datos y decidir si se debe enviar un mensaje. ¿Cómo debes diseñar la canalización (pipeline)?<br>\n",
+   "src": "da0a65127783"
+  },
+  "choices.0.html": {
+   "es": "Usar una ventana de tiempo fija (fixed-time window) con una duración de 60 minutos.",
+   "src": "002f81b0ed08"
+  },
+  "choices.1.html": {
+   "es": "Usar una ventana de tiempo deslizante (sliding time window) con una duración de 60 minutos.",
+   "src": "1bf4ce260d6e"
+  },
+  "choices.2.html": {
+   "es": "Usar una ventana de sesión (session window) con un intervalo de inactividad (gap) de 60 minutos.",
+   "src": "c0adadae3e65"
+  },
+  "choices.3.html": {
+   "es": "Usar una ventana global (global window) con un disparador (trigger) basado en tiempo, con un retraso de 60 minutos.",
+   "src": "98b6b15be54b"
+  },
+  "sourceExplanation": {
+   "es": "Las ventanas de sesión son la opción correcta porque agrupan los eventos de forma dinámica en sesiones, según los periodos de actividad e inactividad. Con un intervalo de 60 minutos, el sistema identifica a los usuarios que dejaron de interactuar durante una hora, y así puedes evaluar el estado de su cesta en ese momento exacto. Las ventanas fijas o deslizantes impondrían límites de tiempo rígidos sin relación con el comportamiento del usuario, y las ventanas globales no tienen el aislamiento de sesión integrado que se necesita aquí.",
+   "src": "4dac8a137f90"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  },
+  "issues.0": {
+   "es": "El archivo subido contiene un marcador de posición ilegible de 9 × 6 píxeles en lugar de al menos un diagrama original.",
+   "src": "aedad8f7314b"
+  }
+ },
+ "imp-20": {
+  "html": {
+   "es": "Trabajas para un fabricante de automóviles y configuraste una canalización de datos (data pipeline) con Google Cloud Pub/Sub para capturar eventos anómalos de sensores. Usas una suscripción push en Cloud Pub/Sub que llama a un endpoint HTTPS personalizado, que creaste para actuar sobre esos eventos anómalos cuando ocurren. Tu endpoint<br>HTTPS personalizado recibe una cantidad excesiva de mensajes duplicados. ¿Cuál es la causa más probable de estos mensajes duplicados?<br>",
+   "src": "40d11a05d6a5"
+  },
+  "choices.0.html": {
+   "es": "El cuerpo del mensaje del evento del sensor es demasiado grande.",
+   "src": "ac104ff20488"
+  },
+  "choices.1.html": {
+   "es": "Tu endpoint personalizado tiene un certificado SSL vencido.",
+   "src": "18e8f1c9f0d1"
+  },
+  "choices.2.html": {
+   "es": "Se publican demasiados mensajes en el tema (topic) de Cloud Pub/Sub.",
+   "src": "74a4413ae558"
+  },
+  "choices.3.html": {
+   "es": "Tu endpoint personalizado no confirma los mensajes dentro del plazo de confirmación (acknowledgement deadline).",
+   "src": "23e48776bb16"
+  },
+  "sourceExplanation": {
+   "es": "Google Cloud Pub/Sub garantiza la entrega al menos una vez (at-least-once) y vuelve a entregar los mensajes si el endpoint push no envía una respuesta HTTP 200 válida dentro del plazo de confirmación.\nSi el endpoint personalizado no confirma los mensajes a tiempo, Pub/Sub los trata como no procesados y reintenta la entrega, lo que produce duplicados.",
+   "src": "5beacba04726"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-21": {
+  "html": {
+   "es": "Tu empresa usa un sistema propio para enviar datos de inventario cada 6 horas a un servicio de ingesta de datos en la nube. Los datos transmitidos incluyen una carga útil (payload) de varios campos y la marca de tiempo de la transmisión. Si hay dudas sobre una transmisión, el sistema vuelve a transmitir los datos. ¿Cómo debes deduplicar los datos de la forma más eficiente?<br>",
+   "src": "4f18b4244133"
+  },
+  "choices.0.html": {
+   "es": "Asignar identificadores únicos globales (GUID) a cada entrada de datos.",
+   "src": "1b2633d963f2"
+  },
+  "choices.1.html": {
+   "es": "Calcular el valor hash de cada entrada de datos y compararlo con todos los datos históricos.",
+   "src": "8d38923cd117"
+  },
+  "choices.2.html": {
+   "es": "Almacenar cada entrada de datos como clave primaria en una base de datos aparte y aplicar un índice.",
+   "src": "c91268ab73c2"
+  },
+  "choices.3.html": {
+   "es": "Mantener una tabla de base de datos para guardar el valor hash y otros metadatos de cada entrada de datos.",
+   "src": "9dcc73b415cf"
+  },
+  "sourceExplanation": {
+   "es": "Asignar un identificador único global (GUID) a cada entrada de datos es el método más eficiente porque permite detectar duplicados en tiempo constante, con búsquedas indexadas o restricciones de la base de datos.\nLos enfoques basados en hash (opciones B y D) son ineficientes o poco fiables aquí. Si el hash incluye la marca de tiempo de la transmisión, crea valores únicos para las retransmisiones. Si no la incluye, hay riesgo de colisión entre estados de inventario distintos en momentos distintos.",
+   "src": "68d114b80740"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-23": {
+  "html": {
+   "es": "Vas a desplegar 10,000 dispositivos nuevos de Internet de las cosas (IoT) para recopilar datos de temperatura en tus almacenes de todo el mundo. Necesitas procesar, almacenar y analizar estos conjuntos de datos muy grandes en tiempo real. ¿Qué debes hacer?<br>",
+   "src": "3eecb33a8879"
+  },
+  "choices.0.html": {
+   "es": "Enviar los datos a Google Cloud Datastore y luego exportarlos a BigQuery.",
+   "src": "2b05b8960c58"
+  },
+  "choices.1.html": {
+   "es": "Enviar los datos a Google Cloud Pub/Sub, transmitir de Cloud Pub/Sub a Google Cloud Dataflow y almacenar los datos en Google BigQuery.",
+   "src": "4acaa714b1f4"
+  },
+  "choices.2.html": {
+   "es": "Enviar los datos a Cloud Storage y luego crear un clúster de Apache Hadoop en Google Cloud Dataproc cuando se necesite, cada vez que haya que hacer un análisis.",
+   "src": "912ef2831cf1"
+  },
+  "choices.3.html": {
+   "es": "Exportar los registros por lotes (batch) a Google Cloud Storage, luego crear una instancia de Google Cloud SQL, importar los datos desde Cloud Storage y ejecutar un análisis cuando se necesite.",
+   "src": "c3d746a7150a"
+  },
+  "sourceExplanation": {
+   "es": "La opción B es la respuesta correcta porque usa una arquitectura de streaming diseñada para el procesamiento en tiempo real de conjuntos de datos grandes. Cloud Pub/Sub ingiere los datos de IoT de alto volumen, Cloud Dataflow procesa el flujo en tiempo real y BigQuery almacena y analiza los resultados de forma eficiente.\n\nLas opciones A, C y D dependen del procesamiento por lotes o de mecanismos de almacenamiento menos adecuados (Datastore, Hadoop/Dataproc bajo demanda, Cloud SQL), que no cumplen el requisito de análisis en tiempo real de conjuntos de datos muy grandes.",
+   "src": "51943dc2752a"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-31": {
+  "reviewNote": {
+   "es": "Esta pregunta importada está excluida de la práctica con puntuación. Lee la nota técnica en lugar de memorizar su clave.",
+   "src": "5d478c3e8ed1"
+  }
+ },
+ "imp-43": {
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-45": {
+  "reviewNote": {
+   "es": "Esta pregunta importada está excluida de la práctica con puntuación. Lee la nota técnica en lugar de memorizar su clave.",
+   "src": "5d478c3e8ed1"
+  }
+ },
+ "imp-48": {
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-53": {
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-54": {
+  "reviewNote": {
+   "es": "Esta pregunta importada está excluida de la práctica con puntuación. Lee la nota técnica en lugar de memorizar su clave.",
+   "src": "5d478c3e8ed1"
+  }
+ },
+ "imp-56": {
+  "reviewNote": {
+   "es": "Esta pregunta importada está excluida de la práctica con puntuación. Lee la nota técnica en lugar de memorizar su clave.",
+   "src": "5d478c3e8ed1"
+  }
+ },
+ "imp-88": {
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-94": {
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-100": {
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-106": {
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-110": {
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-113": {
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-117": {
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-118": {
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-136": {
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-139": {
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-143": {
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-145": {
+  "reviewNote": {
+   "es": "Esta pregunta importada está excluida de la práctica con puntuación. Lee la nota técnica en lugar de memorizar su clave.",
+   "src": "5d478c3e8ed1"
+  }
+ },
+ "imp-155": {
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  },
+  "issues.0": {
+   "es": "El archivo subido contiene un marcador de posición ilegible de 9 × 6 píxeles en lugar de al menos un diagrama original.",
+   "src": "aedad8f7314b"
+  }
+ },
+ "imp-170": {
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-173": {
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-178": {
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-181": {
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-184": {
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-192": {
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-193": {
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-195": {
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-205": {
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-221": {
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-223": {
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-224": {
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-228": {
+  "reviewNote": {
+   "es": "El razonamiento editorial está vinculado a documentación primaria. La clave importada se conserva por separado.",
+   "src": "c07bc5e656c6"
+  },
+  "issues.0": {
+   "es": "La pregunta pide 2 opciones, pero la clave importada contiene 1.",
+   "src": "0ddc5cc390bc"
+  }
+ },
+ "imp-246": {
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-248": {
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-259": {
+  "reviewNote": {
+   "es": "Esta pregunta importada está excluida de la práctica con puntuación. Lee la nota técnica en lugar de memorizar su clave.",
+   "src": "5d478c3e8ed1"
+  }
+ },
+ "imp-268": {
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-276": {
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-279": {
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-280": {
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-289": {
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-290": {
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-301": {
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-311": {
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-349": {
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ }
+}
