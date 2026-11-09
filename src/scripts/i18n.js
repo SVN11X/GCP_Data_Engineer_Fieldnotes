@@ -46,6 +46,13 @@ function compile(dict){
 }
 /* True when the text was written by a Spanish overlay (seen = set of whitespace-collapsed overlay values). Such text is translated, never missing. */
 function fromOverlay(core,seen){return !!seen&&typeof seen.has==='function'&&seen.has(plain(core));}
+/* Where text inside the study-content region stands: 'translated' (an overlay wrote it), a reason string (an overlay exists but the text stayed English), or null (intentionally skipped). */
+function overlayState(core,applied,gaps){
+ const t=plain(core);
+ if(applied&&typeof applied.has==='function'&&applied.has(t))return 'translated';
+ if(gaps&&typeof gaps.get==='function'&&gaps.has(t))return gaps.get(t);
+ return null;
+}
 /* Returns the Spanish text, or null when the string has no entry. Whitespace around the string is kept by translate(). */
 function resolve(core,c,depth=0,info){
  if(!core)return null;
@@ -225,12 +232,17 @@ function stop(){
 function report(){
  if(!st.c)return null;
  st.covered=isCovered();
- const found=new Map(),left=new Map(),note=name=>left.set(name,(left.get(name)||0)+1);
+ const found=new Map(),left=new Map(),CE=root.FieldContentEs,STUDY=HARD[3][0];let translatedCount=0;const note=name=>left.set(name,(left.get(name)||0)+1);
  const add=(kind,attr,orig,el,node)=>{
   const core=plain(orig);
   if(!/[A-Za-z]{2}/.test(core)||el.closest('script,style,noscript'))return;
   if(unscoped(el))return note('route not translated yet');
-  if(skipped(el,kind==='attr')||(node&&lessonTitle(node)))return note(regionOf(el,true)||'text left in English on purpose');
+  if(skipped(el,kind==='attr')||(node&&lessonTitle(node))){
+   const region=regionOf(el,true)||'text left in English on purpose',state=region===STUDY&&CE?overlayState(core,CE.applied,CE.gaps):null;
+   if(state==='translated'){translatedCount++;return;}
+   if(state){const id='overlay|'+kind+'|'+attr+'|'+core,hit=found.get(id);if(hit)hit.count++;else found.set(id,{kind,attr,text:core,count:1,reason:state});return;}
+   return note(region);
+  }
   const info={},out=resolve(core,st.c,0,info);
   if(out!==null){if(info.fallback)note('text captured inside a pattern');return;}
   if(fromOverlay(core,root.FieldLessonEs&&root.FieldLessonEs.seen))return;
@@ -247,7 +259,7 @@ function report(){
   for(const name of ATTRS)if(n.hasAttribute(name))add('attr',name,map&&map[name]?map[name].orig:n.getAttribute(name),n,null);
  }
  const skippedList=[...left].map(([region,count])=>({region,count})),total=skippedList.reduce((t,x)=>t+x.count,0);
- return {route:(root.location&&root.location.hash)||'#home',covered:st.covered,partial:st.covered&&total>0,missing:[...found.values()],skipped:skippedList,skippedCount:total};
+ return {route:(root.location&&root.location.hash)||'#home',covered:st.covered,partial:st.covered&&total>0,missing:[...found.values()],translatedCount,skipped:skippedList,skippedCount:total};
 }
-root.FieldI18n={compile,resolve,fromOverlay,translate,translateTitle,regionOf,validate,duplicateKeys,start,stop,report,ATTRS,COVERED,HARD,SOFT,SKIP};
+root.FieldI18n={compile,resolve,fromOverlay,overlayState,translate,translateTitle,regionOf,validate,duplicateKeys,start,stop,report,ATTRS,COVERED,HARD,SOFT,SKIP};
 })(globalThis);

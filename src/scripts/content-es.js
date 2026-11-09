@@ -48,6 +48,8 @@ function paths(kind,item){
  return out;
 }
 const english={};
+/* Spanish text this file wrote (applied) and English text it left in place while Spanish was on (gaps: text -> reason), whitespace collapsed. FieldI18n.report() reads them. */
+const applied=new Set(),gaps=new Map(),flat=t=>String(t).replace(/\s+/g,' ').trim();
 /* English text per path. A workshop can first be a short list entry and later the full item, so new paths are added when they appear. */
 function baseOf(kind,item){const b=english[kind+':'+item.id]||(english[kind+':'+item.id]={});for(const [p,v] of paths(kind,item))if(!(p in b))b[p]=v;return b;}
 /* Puts Spanish (on=true) or English (on=false) into the given items. Returns the stale paths that fell back to English. */
@@ -55,17 +57,19 @@ async function apply(kind,items,overlay,on){
  const L=root.FieldLessonEs,stale=[];
  for(const item of items){
   const base=baseOf(kind,item);
-  for(const p in base)L.setAt(item,p,base[p]);
-  const entries=on&&overlay?overlay[item.id]:null;if(!entries)continue;
-  for(const p in entries){
-   const x=entries[p];if(!(p in base)||!x||typeof x.es!=='string'||!x.es.trim())continue;
+  for(const p in base){L.setAt(item,p,base[p]);if(!on){applied.delete(flat(base[p]));gaps.delete(flat(base[p]));}}
+  if(!on)continue;
+  const entries=overlay?overlay[item.id]:null;
+  for(const p in base){
+   const x=entries&&entries[p],ok=x&&typeof x.es==='string'&&x.es.trim();
+   if(!ok){gaps.set(flat(base[p]),overlay?'no entry in the overlay':'overlay not loaded');continue;}
    const h=await L.hash12(base[p]);
-   if(h!==null&&h!==x.src){stale.push(item.id+':'+p);continue;}
-   L.setAt(item,p,x.es);L.note(x.es);
+   if(h!==null&&h!==x.src){stale.push(item.id+':'+p);gaps.set(flat(base[p]),'stale source hash');continue;}
+   L.setAt(item,p,x.es);L.note(x.es);applied.add(flat(x.es));gaps.delete(flat(base[p]));
   }
  }
  if(stale.length&&root.console)root.console.warn('Stale Spanish '+kind+' text fell back to English: '+stale.join(', '));
  return stale;
 }
-root.FieldContentEs={KINDS,paths,apply};
+root.FieldContentEs={KINDS,paths,apply,applied,gaps};
 })(globalThis);
