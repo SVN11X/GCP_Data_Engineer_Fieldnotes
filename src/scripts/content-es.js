@@ -61,7 +61,7 @@ async function apply(kind,items,overlay,on){
    const x=entries[p];if(!(p in base)||!x||typeof x.es!=='string'||!x.es.trim())continue;
    const h=await L.hash12(base[p]);
    if(h!==null&&h!==x.src){stale.push(item.id+':'+p);continue;}
-   L.setAt(item,p,x.es);
+   L.setAt(item,p,x.es);L.note(x.es);
   }
  }
  if(stale.length&&root.console)root.console.warn('Stale Spanish '+kind+' text fell back to English: '+stale.join(', '));

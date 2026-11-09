@@ -240,3 +240,36 @@ test('every Spanish string added for the remaining routes avoids semicolons and 
  const bad=Object.entries({...dict.strings,...dict.patterns}).filter(([,v])=>/[;–—]/.test(v));
  assert.deepEqual(bad,[]);
 });
+
+test('source-kind labels on the resources page all have a Spanish entry',()=>{
+ const t=x=>I.translate(x,c);
+ assert.equal(t('Primary source'),'Fuente primaria');
+ assert.equal(t('Provider course'),'Curso del proveedor');
+ assert.equal(t('Community '+String.fromCharCode(183)+' secondary'),'Comunidad '+String.fromCharCode(183)+' secundaria');
+});
+
+test('text written by an overlay is recognised, real English leftovers are not',async()=>{
+ await import('../dist/assets/lesson-es.js');
+ await import('../dist/assets/content-es.js');
+ const L=globalThis.FieldLessonEs,E=globalThis.FieldContentEs,seen=new Set(['Guía oficial','La guía pone el énfasis en la raíz.']);
+ assert.equal(I.fromOverlay('Guía oficial',seen),true);
+ assert.equal(I.fromOverlay('  La guía pone el\n  énfasis en la raíz. ',seen),true);
+ assert.equal(I.fromOverlay('Map the failing permission boundary',seen),false);
+ assert.equal(I.fromOverlay('Guía oficial',null),false);
+ assert.equal(I.fromOverlay('Guía oficial',undefined),false);
+ const english='Dedupe without guessing',es='Elimina duplicados sin adivinar',h=await L.hash12(english);
+ const item={id:'w1',title:english};
+ await E.apply('workshops',[item],{w1:{title:{es,src:h}}},true);
+ assert.equal(item.title,es);
+ assert.equal(I.fromOverlay(es,L.seen),true);
+ assert.equal(I.fromOverlay(english,L.seen),false);
+ const stale={id:'w2',title:'Old text'};
+ await E.apply('workshops',[stale],{w2:{title:{es:'Texto viejo',src:'000000000000'}}},true);
+ assert.equal(stale.title,'Old text');
+ assert.equal(I.fromOverlay('Texto viejo',L.seen),false);
+});
+
+test('the resources route also localizes the workshop titles it lists',()=>{
+ const src=read('src/scripts/loader.js');
+ assert.match(src,/route==='resources'\)\{[^\n]*localizeContent\('workshops',data\.workshops\)/);
+});

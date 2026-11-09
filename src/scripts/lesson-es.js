@@ -30,6 +30,9 @@ async function hash12(text){
  if(!cache.has(text)){const d=await subtle.digest('SHA-256',new TextEncoder().encode(text));cache.set(text,[...new Uint8Array(d)].slice(0,6).map(b=>b.toString(16).padStart(2,'0')).join(''));}
  return cache.get(text);
 }
+/* Spanish text that came from an overlay, whitespace collapsed. FieldI18n.report() uses it to tell overlay text from a real English leftover. */
+const seen=new Set();
+const note=t=>{seen.add(String(t).replace(/\s+/g,' ').trim());};
 const english={};
 /* English text per path. A lesson object can first be a short list entry and later the full lesson, so new paths are added when they appear. */
 function baseOf(l){const b=english[l.id]||(english[l.id]={});for(const [p,v] of paths(l))if(!(p in b))b[p]=v;return b;}
@@ -44,7 +47,7 @@ async function apply(lessons,overlay,on){
    const x=entries[p];if(!(p in base)||!x||typeof x.es!=='string'||!x.es.trim())continue;
    const h=await hash12(base[p]);
    if(h!==null&&h!==x.src){stale.push(l.id+':'+p);continue;}
-   setAt(l,p,x.es);
+   setAt(l,p,x.es);note(x.es);
   }
  }
  if(stale.length&&root.console)root.console.warn('Stale Spanish lesson text fell back to English: '+stale.join(', '));
@@ -60,9 +63,9 @@ async function applyTitles(lessons,titles,on){
    l[k]=base[k];
    const x=entries?.[k];if(!x||typeof x.es!=='string'||!x.es.trim())continue;
    const h=await hash12(base[k]);
-   if(h===null||h===x.src)l[k]=x.es;
+   if(h===null||h===x.src){l[k]=x.es;note(x.es);}
   }
  }
 }
-root.FieldLessonEs={paths,setAt,hash12,apply,applyTitles};
+root.FieldLessonEs={paths,setAt,hash12,apply,applyTitles,seen,note};
 })(globalThis);

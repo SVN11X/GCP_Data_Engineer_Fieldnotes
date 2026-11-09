@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- The resources page now shows source-kind labels ("Fuente primaria") and workshop titles in Spanish. The language report no longer lists overlay-translated text as missing.
 - Quick challenges, the three labs, the resources page, the exam setup and result chrome and the notes on the sources page now read in Spanish. Resources and the sources notes use overlay files with source hashes. Question text stays English until its own stage. Fixed a raw noscript paragraph that showed as text on the architecture explorer.
 - The 28 service cards, the 4 service comparisons (with their Spanish verification notes), the 12 workshops and the 4 architecture patterns now read in Spanish (about 400 strings). Each has its own overlay that loads only for Spanish visitors and only on its page, and the architecture page chrome is translated. Service names stay in English. The Spanish needs the owner's review.
 - Domain 5 lessons now read in Spanish (389 strings): cost, capacity, retries, diagnosis, SLOs and recovery, with the Spanish verification notes. Lesson titles in lists now show Spanish for all 52 lessons. The Spanish needs the owner's review.
