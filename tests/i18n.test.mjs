@@ -95,7 +95,7 @@ test('every English string in the dictionary exists in the client source or the 
  // image-text.js builds these four from 'Selectable ' + kind + ' from the original image' and 'Copy ' + kind.
  const composed=new Set(['Selectable text from the original image','Selectable table from the original image','Copy text','Copy table',
   // Built from a condition and two literals in app.js, attention.js and study-ui.js.
-  'Value units · no events yet','Accepted into its event-time window.','Accepted into its event-time window despite its delay.','{concept} Rule enabled. The result is {n} {unit}.','{concept} Rule disabled. The result is {n} {unit}.']);
+  'Value units · no events yet','Accepted into its event-time window.','Accepted into its event-time window despite its delay.','{concept} Rule enabled. The result is {n} {unit}.','{concept} Rule disabled. The result is {n} {unit}.','Question {n}, answered, current']);
  assert.ok(text.includes('Selectable ${t.kind===')&&text.includes('from the original image')&&text.includes('Copy ${t.kind==='));
  for(const k of Object.keys(dict.strings))if(!composed.has(k)&&!text.includes(strip(k)))missing.push(k);
  for(const k of Object.keys(dict.patterns))if(!composed.has(k))for(const part of k.split(/\{\w+\}/).map(strip).filter(x=>x.length>2))if(!text.includes(part)&&!part.split(' ').every(w=>text.includes(w)))missing.push(k+' -> '+part);
@@ -174,8 +174,8 @@ test('workshop, English studio, sources and compare chrome patterns',()=>{
  for(const [en,es] of [['Use when','Úsalo cuando'],['Strength','Fortaleza'],['Check the limitation','Revisa la limitación'],['Storage','Almacenamiento'],['Orchestration','Orquestación']])assert.equal(t(en),es);
 });
 test('covered routes include the chrome added in this stage and nothing unreviewed',()=>{
- for(const route of ['learn','practice','workshops','english','compare','architectures','sources','home','progress','missions','lab'])assert.ok(I.COVERED.includes(route),route);
- for(const route of ['resources','exam','search'])assert.ok(!I.COVERED.includes(route),route+' is not translated yet');
+ for(const route of ['learn','practice','workshops','english','compare','architectures','sources','home','progress','missions','lab','exam'])assert.ok(I.COVERED.includes(route),route);
+ for(const route of ['resources','search'])assert.ok(!I.COVERED.includes(route),route+' is not translated yet');
 });
 test('skipped regions are named and the Spanish-text region excludes the page root',()=>{
  const has=sel=>({closest:s=>s.split(',').includes(sel)?{}:null});
