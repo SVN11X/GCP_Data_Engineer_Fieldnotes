@@ -1834,5 +1834,455 @@
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
   }
+ },
+ "imp-229": {
+  "html": {
+   "es": "Actualmente usas una herramienta basada en SQL para visualizar tus datos almacenados en BigQuery. Las visualizaciones de datos requieren el uso de uniones externas (outer joins) y funciones analíticas. Las visualizaciones deben basarse en datos que no tengan más de 4 horas de antigüedad. Los usuarios de negocio se quejan de que las visualizaciones tardan demasiado en generarse. Quieres mejorar el rendimiento de las consultas de visualización y reducir al mínimo la carga de mantenimiento de la canalización de preparación de datos. ¿Qué debes hacer?",
+   "src": "97a7b0ad8e5b"
+  },
+  "choices.0.html": {
+   "es": "Crear vistas materializadas (materialized views) con la opción allow_non_incremental_definition establecida en true para las consultas de visualización. Especificar el parámetro max_staleness en 4 horas y el parámetro enable_refresh en true. Hacer referencia a las vistas materializadas en la herramienta de visualización de datos.",
+   "src": "c217c1dcbe8d"
+  },
+  "choices.1.html": {
+   "es": "Crear vistas para las consultas de visualización. Hacer referencia a las vistas en la herramienta de visualización de datos.",
+   "src": "c715d922315b"
+  },
+  "choices.2.html": {
+   "es": "Crear una instancia de Cloud Function para exportar los resultados de las consultas de visualización como archivos parquet a un bucket de Cloud Storage. Usar Cloud Scheduler para activar la Cloud Function cada 4 horas. Hacer referencia a los archivos parquet en la herramienta de visualización de datos.",
+   "src": "8e7051977e3a"
+  },
+  "choices.3.html": {
+   "es": "Crear vistas materializadas para las consultas de visualización. Usar la capacidad de actualizaciones incrementales de las vistas materializadas de BigQuery para manejar los datos modificados de forma automática. Hacer referencia a las vistas materializadas en la herramienta de visualización de datos.",
+   "src": "3c03340d939d"
+  },
+  "sourceExplanation": {
+   "es": "Las vistas materializadas incrementales estándar de BigQuery no admiten OUTER JOINs ni funciones analíticas. Para permitir estas consultas complejas y reducir al mínimo la carga de mantenimiento, debes crear vistas materializadas no incrementales con la opción `allow_non_incremental_definition`.\nAl establecer `max_staleness` en 4 horas y activar la actualización automática, BigQuery recalcula periódicamente el contenido de la vista, lo que asegura mejoras de rendimiento sin necesidad de administrar la canalización de forma manual.",
+   "src": "1a24140e8696"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-243": {
+  "html": {
+   "es": "Estás preparando datos que tu equipo de aprendizaje automático usará para entrenar un modelo con BigQueryML. Quieren predecir el precio por pie cuadrado de bienes inmuebles. Los datos de entrenamiento tienen una columna para el precio y una columna para el número de pies cuadrados. Otra columna de características llamada ‘feature1’ contiene valores nulos por datos que faltan. Quieres reemplazar los nulos por ceros para conservar más puntos de datos. ¿Qué consulta debes usar?",
+   "src": "df9a9c46b6bf"
+  },
+  "choices.0.html": {
+   "es": "<img src=\"assets/images/c419afa5b850f34044da.png\" alt=\"Original diagram for imported question 243. Open the full-size image to inspect the details.\" loading=\"lazy\"><br>",
+   "src": "fbcbc53e7650"
+  },
+  "choices.1.html": {
+   "es": "<img src=\"assets/images/d86000254687563f3bde.png\" alt=\"Original diagram for imported question 243. Open the full-size image to inspect the details.\" loading=\"lazy\"><br>",
+   "src": "bff78259af4e"
+  },
+  "choices.2.html": {
+   "es": "<img src=\"assets/images/7e5b2a7681e6b722fbeb.png\" alt=\"Original diagram for imported question 243. Open the full-size image to inspect the details.\" loading=\"lazy\"><br>",
+   "src": "312050a9d7eb"
+  },
+  "choices.3.html": {
+   "es": "<img src=\"assets/images/7b852b6f96e70e0b3ea2.png\" alt=\"Original diagram for imported question 243. Open the full-size image to inspect the details.\" loading=\"lazy\">",
+   "src": "85a2e9f38eaa"
+  },
+  "explanation": {
+   "es": "La opción C reemplaza los valores nulos de feature1 con IFNULL y además calcula price_per_sqft. La opción A solo reemplaza feature1 y omite el cálculo del objetivo. Las opciones B y D eliminan las filas que contienen nulos en lugar de conservarlas. Esta explicación se añadió después de inspeccionar visualmente las cuatro imágenes originales de SQL.",
+   "src": "11470a2145da"
+  },
+  "reviewNote": {
+   "es": "El razonamiento editorial está vinculado a documentación primaria. La clave importada se conserva por separado.",
+   "src": "c07bc5e656c6"
+  }
+ },
+ "imp-244": {
+  "html": {
+   "es": "Distintos equipos de tu organización almacenan datos de clientes y de rendimiento en BigQuery. Cada equipo necesita mantener el control total de los datos que recopila, poder consultar los datos dentro de sus proyectos y poder intercambiar sus datos con otros equipos. Necesitas implementar una solución para toda la organización, reduciendo al mínimo las tareas operativas y los costos. ¿Qué debes hacer?",
+   "src": "dcd70baf4c6a"
+  },
+  "choices.0.html": {
+   "es": "Pedir a cada equipo que cree vistas autorizadas (authorized views) de sus datos. Conceder el rol biquery.jobUser a cada equipo.",
+   "src": "36a9a71a334a"
+  },
+  "choices.1.html": {
+   "es": "Crear una consulta programada de BigQuery para replicar todos los datos de clientes en los proyectos de los equipos.",
+   "src": "c57bcb5f9fda"
+  },
+  "choices.2.html": {
+   "es": "Pedir a cada equipo que publique sus datos en Analytics Hub. Indicar a los otros equipos que se suscriban a ellos.",
+   "src": "32c2cbb291ea"
+  },
+  "choices.3.html": {
+   "es": "Permitir que cada equipo cree vistas materializadas de los datos a los que necesita acceder en sus proyectos.",
+   "src": "353b462ccdeb"
+  },
+  "sourceExplanation": {
+   "es": "BigQuery Analytics Hub es la solución designada para compartir datos de forma controlada entre proyectos, manteniendo la propiedad del productor. Permite a los equipos publicar conjuntos de datos como productos de datos, y a los consumidores suscribirse y consultar sin duplicar datos ni administrar permisos de IAM complejos. Este enfoque reduce al mínimo la carga operativa y los costos de almacenamiento, porque elimina la necesidad de replicación manual o de canalizaciones ETL.",
+   "src": "7d89c180a2a1"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-253": {
+  "html": {
+   "es": "Estás desplegando una canalización por lotes en Dataflow. Esta canalización lee datos de Cloud Storage, los transforma y luego los escribe en BigQuery. El equipo de seguridad activó una restricción de la organización en Google Cloud que exige que todas las instancias de Compute Engine usen solo direcciones IP internas y ninguna dirección IP externa. ¿Qué debes hacer?",
+   "src": "b5f4c9738171"
+  },
+  "choices.0.html": {
+   "es": "Asegurar que tus trabajadores tengan etiquetas de red (network tags) para acceder a Cloud Storage y BigQuery. Usar Dataflow con solo direcciones IP internas.",
+   "src": "646ccf858d62"
+  },
+  "choices.1.html": {
+   "es": "Asegurar que las reglas de firewall permitan el acceso a Cloud Storage y BigQuery. Usar Dataflow con solo IP internas.",
+   "src": "38fe3bc11895"
+  },
+  "choices.2.html": {
+   "es": "Crear un perímetro de VPC Service Controls que contenga la red de VPC y añadir Dataflow, Cloud Storage y BigQuery como servicios permitidos en el perímetro. Usar Dataflow con solo direcciones IP internas.",
+   "src": "a0ae2b599978"
+  },
+  "choices.3.html": {
+   "es": "Asegurar que Private Google Access esté activado en la subred. Usar Dataflow con solo direcciones IP internas.",
+   "src": "531bbc86c601"
+  },
+  "sourceExplanation": {
+   "es": "La restricción exige que los trabajadores de Dataflow (instancias de Compute Engine) no tengan direcciones IP externas y que aun así puedan acceder a servicios de Google como Cloud Storage y BigQuery.\nPrivate Google Access permite que las VM con solo IP internas lleguen a las API y los servicios de Google mediante la interfaz privada de la VPC, y así se cumple este requisito sin violar la política de la organización.\nVPC Service Controls restringe el acceso según la pertenencia al perímetro, pero no habilita la conectividad de las instancias sin IP externas. Las reglas de firewall y las etiquetas por sí solas no pueden dar la ruta necesaria a las API de Google.",
+   "src": "dfe4ffaec3cf"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-254": {
+  "html": {
+   "es": "Estás ejecutando una canalización de streaming de Dataflow, con Streaming Engine y Horizontal Autoscaling activados. Estableciste el número máximo de trabajadores en 1000. La entrada de tu canalización son mensajes de Pub/Sub con notificaciones de Cloud Storage. Una de las transformaciones de la canalización lee archivos CSV y emite un elemento por cada línea del CSV. El rendimiento del trabajo es bajo, la canalización usa solo 10 trabajadores y notas que el escalador automático no pone en marcha más trabajadores. ¿Qué debes hacer para mejorar el rendimiento?",
+   "src": "d8c77958449f"
+  },
+  "choices.0.html": {
+   "es": "Activar Vertical Autoscaling para que la canalización use trabajadores más grandes.",
+   "src": "1ba8e3058f67"
+  },
+  "choices.1.html": {
+   "es": "Cambiar el código de la canalización e introducir un paso Reshuffle para evitar la fusión (fusion).",
+   "src": "633e7e988255"
+  },
+  "choices.2.html": {
+   "es": "Actualizar el trabajo para aumentar el número máximo de trabajadores.",
+   "src": "26b15c4661fb"
+  },
+  "choices.3.html": {
+   "es": "Usar Dataflow Prime y activar Right Fitting para aumentar los recursos de los trabajadores.",
+   "src": "5d510cee548a"
+  },
+  "sourceExplanation": {
+   "es": "La optimización de fusión (fusion) de Dataflow combina varias transformaciones en una sola etapa de ejecución, lo que puede limitar el paralelismo si el paso fusionado no es paralelo en los datos (por ejemplo, entradas laterales acotadas o procesamiento de archivos). Introducir un paso Reshuffle rompe esta fusión, lo que permite distribuir los pasos posteriores no acotados entre más trabajadores y hace posible que Horizontal Autoscaling aumente la escala.",
+   "src": "8208d397a0aa"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-261": {
+  "html": {
+   "es": "Quieres migrar tu almacén de datos de Teradata existente a BigQuery. Quieres mover los datos históricos a BigQuery con el método más eficiente que requiera la menor cantidad de programación, pero el espacio de almacenamiento local de tu almacén de datos existente es limitado. ¿Qué debes hacer?",
+   "src": "b809d49a7630"
+  },
+  "choices.0.html": {
+   "es": "Usar el BigQuery Data Transfer Service con el controlador Java Database Connectivity (JDBC) y una conexión FastExport.",
+   "src": "f66731cea54b"
+  },
+  "choices.1.html": {
+   "es": "Crear un script de exportación de Teradata Parallel Transporter (TPT) para exportar los datos históricos e importarlos a BigQuery con la herramienta de línea de comandos bq.",
+   "src": "b837f2f125fc"
+  },
+  "choices.2.html": {
+   "es": "Usar el BigQuery Data Transfer Service con la utilidad tbuild de Teradata Parallel Transporter (TPT).",
+   "src": "2c0464e7cf14"
+  },
+  "choices.3.html": {
+   "es": "Crear un script para exportar los datos históricos y subirlos por lotes a Cloud Storage. Configurar una instancia del BigQuery Data Transfer Service de Cloud Storage a BigQuery.",
+   "src": "9e0798d18f6e"
+  },
+  "sourceExplanation": {
+   "es": "La pregunta especifica que el espacio de almacenamiento local del sistema Teradata existente es limitado. FastExport, cuando se usa con el controlador JDBC, admite el envío directo de datos en streaming a BigQuery mediante el BigQuery Data Transfer Service, y así elimina la necesidad de escribir archivos de datos intermedios en el disco local.\nEn cambio, TPT (Teradata Parallel Transporter) normalmente requiere generar archivos locales (incluso si se optimiza con tbuild) o depende del espacio de búfer local, por lo que es menos adecuado cuando el almacenamiento local es una restricción estricta. La documentación de Google sobre la migración de Teradata recomienda de forma explícita el método JDBC/FastExport cuando las restricciones de almacenamiento local impiden usar TPT o exportaciones basadas en archivos. Este enfoque también cumple el requisito de programación mínima al aprovechar el Data Transfer Service administrado.",
+   "src": "d9c56c23b1f5"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-266": {
+  "html": {
+   "es": "Estás construyendo una canalización de Dataflow en streaming que ingiere datos de nivel de ruido de cientos de sensores colocados cerca de obras de construcción en una ciudad. Los sensores miden el nivel de ruido cada diez segundos y envían esos datos a la canalización cuando los niveles superan los 70 dBA. Necesitas detectar el nivel de ruido promedio de un sensor cuando se reciben datos durante más de 30 minutos, pero la ventana termina cuando no se han recibido datos durante 15 minutos. ¿Qué debes hacer?",
+   "src": "247545bd4c35"
+  },
+  "choices.0.html": {
+   "es": "Usar ventanas de sesión (session windows) con una duración de intervalo (gap) de 15 minutos.",
+   "src": "c76e9abdbb9b"
+  },
+  "choices.1.html": {
+   "es": "Usar ventanas de sesión con una duración de intervalo de 30 minutos.",
+   "src": "d2e57e51e612"
+  },
+  "choices.2.html": {
+   "es": "Usar ventanas saltantes (hopping windows) con una ventana de 15 minutos y un periodo de treinta minutos.",
+   "src": "0d666d88299a"
+  },
+  "choices.3.html": {
+   "es": "Usar ventanas fijas (tumbling windows) con una ventana de 15 minutos y un operador .withAllowedLateness de quince minutos.",
+   "src": "dadb40cdfad2"
+  },
+  "sourceExplanation": {
+   "es": "Las ventanas de sesión son dinámicas e ideales para agrupar eventos según ráfagas de actividad seguidas de inactividad. Al establecer la duración del intervalo en 15 minutos, la ventana se cierra automáticamente cuando no se reciben datos durante ese periodo, y así se cumple la condición de cierre específica.\nEste enfoque también admite un procesamiento de duración variable. Si los datos siguen llegando sin un intervalo de 15 minutos durante más de 30 minutos, la ventana de sesión permanece abierta y acumula todos los elementos correctamente.",
+   "src": "f81a73055daa"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-277": {
+  "html": {
+   "es": "Estás diseñando un sistema en tiempo real para una aplicación de transporte con conductor que identifica las zonas con alta demanda de viajes para redirigir de forma eficaz a los conductores disponibles y cubrir la demanda. El sistema ingiere datos de varias fuentes en Pub/Sub, procesa los datos y almacena los resultados para visualización y análisis en paneles en tiempo real. Las fuentes de datos incluyen actualizaciones de ubicación de los conductores cada 5 segundos y eventos de reserva de los pasajeros desde la aplicación. El procesamiento de datos implica la agregación en tiempo real de los datos de oferta y demanda de los últimos 30 segundos, cada 2 segundos, y el almacenamiento de los resultados en un sistema de baja latencia para visualización. ¿Qué debes hacer?",
+   "src": "b587c2435de2"
+  },
+  "choices.0.html": {
+   "es": "Agrupar los datos con una ventana fija (tumbling window) en una canalización de Dataflow y escribir los datos agregados en Memorystore.",
+   "src": "3bb38a271eee"
+  },
+  "choices.1.html": {
+   "es": "Agrupar los datos con una ventana saltante (hopping window) en una canalización de Dataflow y escribir los datos agregados en Memorystore.",
+   "src": "dd328da16550"
+  },
+  "choices.2.html": {
+   "es": "Agrupar los datos con una ventana de sesión (session window) en una canalización de Dataflow y escribir los datos agregados en BigQuery.",
+   "src": "b466a7901336"
+  },
+  "choices.3.html": {
+   "es": "Agrupar los datos con una ventana saltante en una canalización de Dataflow y escribir los datos agregados en BigQuery.",
+   "src": "cc772913e4f8"
+  },
+  "sourceExplanation": {
+   "es": "Se requiere una ventana saltante porque el requisito especifica agregar datos de los últimos 30 segundos cada 2 segundos, lo que implica intervalos de tiempo que se superponen. Memorystore (Redis) es el destino de almacenamiento adecuado por su baja latencia, lo que asegura la visualización y el análisis en tiempo real.",
+   "src": "4c46aa96f21e"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-282": {
+  "html": {
+   "es": "Usas un trabajo de streaming de Dataflow para leer mensajes de un bus de mensajes que no admite entrega exactamente una vez (exactly-once). Luego tu trabajo aplica algunas transformaciones y carga el resultado en BigQuery. Quieres asegurar que tus datos se envíen en streaming a BigQuery con semántica de entrega exactamente una vez. Esperas que tu rendimiento de ingesta en BigQuery sea de unos 1.5 GB por segundo. ¿Qué debes hacer?",
+   "src": "e1a3df3d2d90"
+  },
+  "choices.0.html": {
+   "es": "Usar la BigQuery Storage Write API y asegurar que tu tabla de BigQuery de destino sea regional.",
+   "src": "8cbeb891b9c6"
+  },
+  "choices.1.html": {
+   "es": "Usar la BigQuery Storage Write API y asegurar que tu tabla de BigQuery de destino sea multirregional.",
+   "src": "ebef3144945d"
+  },
+  "choices.2.html": {
+   "es": "Usar la BigQuery Streaming API y asegurar que tu tabla de BigQuery de destino sea regional.",
+   "src": "a14c76620cf4"
+  },
+  "choices.3.html": {
+   "es": "Usar la BigQuery Streaming API y asegurar que tu tabla de BigQuery de destino sea multirregional.",
+   "src": "c900bb769293"
+  },
+  "sourceExplanation": {
+   "es": "La BigQuery Storage Write API admite semántica de entrega exactamente una vez mediante flujos de confirmación (commit streams), a diferencia de las inserciones en streaming estándar, que ofrecen al menos una vez. Para manejar el rendimiento requerido de 1.5 GB/s, es necesaria una tabla multirregional, porque las tablas regionales están limitadas a aproximadamente 300 MB/s, mientras que las tablas multirregionales admiten hasta 3 GB/s.",
+   "src": "d8d3dc0f15db"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-286": {
+  "html": {
+   "es": "Tienes miles de trabajos de Apache Spark que se ejecutan en tu clúster local de Apache Hadoop. Quieres migrar los trabajos a Google Cloud. Quieres usar servicios administrados para ejecutar tus trabajos en lugar de mantener tú mismo un clúster de Hadoop de larga duración. Tienes un plazo ajustado y quieres mantener los cambios de código al mínimo. ¿Qué debes hacer?",
+   "src": "9881a9237f5b"
+  },
+  "choices.0.html": {
+   "es": "Mover tus datos a BigQuery. Convertir tus scripts de Spark a un enfoque de procesamiento basado en SQL.",
+   "src": "4a68d212b4f5"
+  },
+  "choices.1.html": {
+   "es": "Reescribir tus trabajos en Apache Beam. Ejecutar tus trabajos en Dataflow.",
+   "src": "c94b1d5f9943"
+  },
+  "choices.2.html": {
+   "es": "Copiar tus datos a discos de Compute Engine. Administrar y ejecutar tus trabajos directamente en esas instancias.",
+   "src": "3774f5a0b292"
+  },
+  "choices.3.html": {
+   "es": "Mover tus datos a Cloud Storage. Ejecutar tus trabajos en Dataproc.",
+   "src": "771156777549"
+  },
+  "sourceExplanation": {
+   "es": "Dataproc es el servicio totalmente administrado de Apache Hadoop y Spark de Google Cloud, diseñado para ejecutar cargas de trabajo existentes con cambios mínimos de código.\nMover los datos a Cloud Storage y ejecutar los trabajos en Dataproc cumple el requisito de usar un servicio administrado y evita la refactorización importante que requerirían BigQuery o Dataflow.",
+   "src": "6fff232cb92a"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-291": {
+  "html": {
+   "es": "Diseñaste un almacén de datos en BigQuery para analizar datos de ventas. Quieres una solución de autoservicio, de bajo mantenimiento y rentable para compartir el conjunto de datos de ventas con otras unidades de negocio de tu organización. ¿Qué debes hacer?",
+   "src": "39f8f23d95f1"
+  },
+  "choices.0.html": {
+   "es": "Crear un intercambio privado (private exchange) de Analytics Hub y publicar el conjunto de datos de ventas.",
+   "src": "e56963a16154"
+  },
+  "choices.1.html": {
+   "es": "Permitir que los proyectos de las otras unidades de negocio accedan a las vistas autorizadas del conjunto de datos de ventas.",
+   "src": "e79339e30fcb"
+  },
+  "choices.2.html": {
+   "es": "Crear y compartir vistas con los usuarios de las otras unidades de negocio.",
+   "src": "7814d7d31022"
+  },
+  "choices.3.html": {
+   "es": "Usar el BigQuery Data Transfer Service para crear una programación que copie el conjunto de datos de ventas a los proyectos de las otras unidades de negocio.",
+   "src": "f8779faf0479"
+  },
+  "sourceExplanation": {
+   "es": "Analytics Hub está diseñado específicamente como una plataforma centralizada para compartir y descubrir datos dentro de una organización, lo que cubre directamente el requisito de una solución de autoservicio.\nAl publicar conjuntos de datos mediante Analytics Hub, simplificas la administración del control de acceso y reduces la carga de mantenimiento en comparación con administrar permisos de IAM individuales o copias manuales.\nEste enfoque asegura la rentabilidad porque permite que los consumidores consulten los datos originales sin duplicar el almacenamiento.",
+   "src": "9b11aa50f1d6"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-305": {
+  "html": {
+   "es": "Tu organización usa una estrategia de almacenamiento de datos multinube, con datos en Cloud Storage y datos en buckets de almacenamiento S3 de Amazon Web Services (AWS). Todos los datos están en regiones de EE. UU. Quieres consultar datos actualizados con BigQuery, sin importar en qué nube estén almacenados. Necesitas permitir que los usuarios consulten las tablas desde BigQuery sin dar acceso directo a los datos de los buckets de almacenamiento. ¿Qué debes hacer?",
+   "src": "90e1bd470e49"
+  },
+  "choices.0.html": {
+   "es": "Configurar una conexión de BigQuery Omni a los datos del bucket de AWS S3. Crear tablas BigLake sobre los datos de Cloud Storage y S3 y consultar los datos directamente con BigQuery.",
+   "src": "2d0a27ae0558"
+  },
+  "choices.1.html": {
+   "es": "Configurar una conexión de BigQuery Omni a los datos del bucket de AWS S3. Crear tablas externas sobre los datos de Cloud Storage y S3 y consultar los datos directamente con BigQuery.",
+   "src": "ebc14deaa008"
+  },
+  "choices.2.html": {
+   "es": "Usar el Storage Transfer Service para copiar datos de los buckets de AWS S3 a buckets de Cloud Storage. Crear tablas BigLake sobre los datos de Cloud Storage y consultar los datos directamente con BigQuery.",
+   "src": "61c4b6d276ee"
+  },
+  "choices.3.html": {
+   "es": "Usar el Storage Transfer Service para copiar datos de los buckets de AWS S3 a buckets de Cloud Storage. Crear tablas externas sobre los datos de Cloud Storage y consultar los datos directamente con BigQuery.",
+   "src": "8a8d3cc57b1d"
+  },
+  "sourceExplanation": {
+   "es": "BigQuery Omni permite consultar directamente los datos almacenados en Amazon S3 sin moverlos a Google Cloud. Para consultar estos datos externos de forma segura y eficiente, debes crear tablas BigLake, que dan una abstracción lógica sobre el almacenamiento remoto y mantienen los datos en su ubicación original. Las tablas externas tradicionales no admiten conexiones de AWS S3 en este contexto, por lo que la opción A es el enfoque correcto.",
+   "src": "8d4870749f52"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-310": {
+  "html": {
+   "es": "Necesitas mirar datos de BigQuery de una tabla específica varias veces al día. La tabla subyacente que consultas tiene un tamaño de varios petabytes, pero quieres filtrar tus datos y dar agregaciones sencillas a los usuarios posteriores. Quieres ejecutar consultas más rápido y obtener información actualizada más pronto. ¿Qué debes hacer?",
+   "src": "64902a04fe3e"
+  },
+  "choices.0.html": {
+   "es": "Ejecutar una consulta programada para extraer los datos necesarios a intervalos específicos a diario.",
+   "src": "14caecd6207a"
+  },
+  "choices.1.html": {
+   "es": "Usar una consulta en caché (cached query) para acelerar el tiempo de obtención de resultados.",
+   "src": "99e4f6d7828d"
+  },
+  "choices.2.html": {
+   "es": "Limitar las columnas de la consulta que se extraen en el resultado final.",
+   "src": "4dc76ae17cd4"
+  },
+  "choices.3.html": {
+   "es": "Crear una vista materializada (materialized view) basada en la consulta que se ejecuta.",
+   "src": "f4e43e88f94a"
+  },
+  "sourceExplanation": {
+   "es": "Las vistas materializadas de BigQuery son tablas precalculadas que guardan los resultados de una consulta y se actualizan automáticamente cuando cambian los datos subyacentes. Esto cubre directamente la necesidad de un rendimiento de consulta más rápido con datos a escala de petabytes y asegura información actualizada sin volver a analizar de forma repetida la enorme tabla de origen.",
+   "src": "4208ef8113c0"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-312": {
+  "html": {
+   "es": "Estás migrando tu almacén de datos local a BigQuery. Como parte de la migración, quieres facilitar la colaboración entre equipos para sacar el mayor valor de los datos de la organización. Necesitas diseñar una arquitectura que permita a los equipos de la organización publicar, descubrir y suscribirse de forma segura a datos de solo lectura en modo de autoservicio. Necesitas reducir al mínimo los costos y a la vez maximizar la actualidad de los datos. ¿Qué debes hacer?",
+   "src": "3496af75d9f2"
+  },
+  "choices.0.html": {
+   "es": "Usar Analytics Hub para facilitar el uso compartido de datos.",
+   "src": "7ca7095b9af7"
+  },
+  "choices.1.html": {
+   "es": "Crear conjuntos de datos autorizados (authorized datasets) para publicar los datos compartidos en el proyecto del equipo suscriptor.",
+   "src": "0aae161e5d08"
+  },
+  "choices.2.html": {
+   "es": "Crear un conjunto de datos nuevo para compartir en el proyecto de cada equipo. Conceder al equipo suscriptor el rol bigquery.dataViewer en el conjunto de datos.",
+   "src": "dc7b9ff0f2d7"
+  },
+  "choices.3.html": {
+   "es": "Usar el BigQuery Data Transfer Service para copiar conjuntos de datos a un proyecto centralizado de BigQuery para compartirlos.",
+   "src": "f7846aa8b701"
+  },
+  "sourceExplanation": {
+   "es": "Analytics Hub está diseñado específicamente para permitir el uso compartido de datos seguro y de autoservicio entre equipos sin duplicar datos, lo que reduce al mínimo los costos de almacenamiento.\nAl suscribirse a los conjuntos de datos publicados, los consumidores acceden a los datos en vivo del publicador, lo que asegura la máxima actualidad en comparación con mecanismos de copia como el Data Transfer Service.",
+   "src": "f249ba94198b"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-313": {
+  "html": {
+   "es": "Quieres migrar un trabajo por lotes de Apache Spark 3 desde un entorno local a Google Cloud. Necesitas cambiar el trabajo lo mínimo posible para que lea de Cloud Storage y escriba el resultado en BigQuery. Tu trabajo está optimizado para Spark, donde cada ejecutor (executor) tiene 8 vCPU y 16 GB de memoria, y quieres poder elegir configuraciones similares. Quieres reducir al mínimo el esfuerzo de instalación y administración para ejecutar tu trabajo. ¿Qué debes hacer?",
+   "src": "064194c156ba"
+  },
+  "choices.0.html": {
+   "es": "Ejecutar el trabajo como parte de un despliegue en un nuevo clúster de Google Kubernetes Engine.",
+   "src": "62392f190469"
+  },
+  "choices.1.html": {
+   "es": "Ejecutar el trabajo desde una nueva VM de Compute Engine.",
+   "src": "a08503fb9d9c"
+  },
+  "choices.2.html": {
+   "es": "Ejecutar el trabajo en un nuevo clúster de Dataproc.",
+   "src": "ea368d44917e"
+  },
+  "choices.3.html": {
+   "es": "Ejecutar como un trabajo de Dataproc Serverless.",
+   "src": "7f97580fe3c4"
+  },
+  "sourceExplanation": {
+   "es": "Dataproc Serverless es la opción óptima porque reduce al mínimo el esfuerzo de instalación y administración, ya que elimina la necesidad de administrar la infraestructura del clúster.\nA diferencia de los clústeres estándar de Dataproc, Serverless permite especificar configuraciones de recursos precisas para los ejecutores, como el número de vCPU y de memoria, lo que cumple el requisito de mantener ajustes de optimización similares.",
+   "src": "0bf5285ee2ce"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
  }
 }
