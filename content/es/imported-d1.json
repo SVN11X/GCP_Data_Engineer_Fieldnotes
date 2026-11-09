@@ -1,0 +1,1764 @@
+{
+ "imp-12": {
+  "html": {
+   "es": "Tu empresa procesa datos para varios clientes distintos. Cada cliente prefiere usar su propio conjunto de herramientas de análisis, y algunos permiten el acceso directo con consultas (queries) mediante Google BigQuery. Debes proteger los datos para que los clientes no puedan ver los datos de otros clientes. Quieres asegurar un acceso adecuado a los datos.<br>¿Qué tres pasos debes seguir? (Elige tres.)<br>",
+   "src": "28c1317ac1f0"
+  },
+  "choices.0.html": {
+   "es": "Carga los datos en particiones (partitions) distintas.",
+   "src": "7bed8e94a226"
+  },
+  "choices.1.html": {
+   "es": "Carga los datos en un dataset (conjunto de datos) distinto para cada cliente.",
+   "src": "8855bcd6e9a9"
+  },
+  "choices.2.html": {
+   "es": "Pon el dataset de BigQuery de cada cliente en una tabla (table) distinta.",
+   "src": "463c0509a012"
+  },
+  "choices.3.html": {
+   "es": "Restringe el dataset de un cliente a los usuarios aprobados.",
+   "src": "6c3d594694bd"
+  },
+  "choices.4.html": {
+   "es": "Permite que solo una cuenta de servicio (service account) acceda a los datasets.",
+   "src": "4c21b3eb9199"
+  },
+  "choices.5.html": {
+   "es": "Usa los roles de IAM (Identity and Access Management) adecuados para los usuarios de cada cliente.",
+   "src": "0ae65e651b1c"
+  },
+  "sourceExplanation": {
+   "es": "Para aislar los datos de cada cliente en BigQuery, debes cargar los datos de cada cliente en un dataset separado (B), porque los datasets son las unidades principales para el control de acceso. Después debes restringir el acceso a esos datasets y dar acceso solo a los usuarios o grupos aprobados (D). Por último, aplicar roles de IAM específicos (F) te permite definir permisos detallados para esos usuarios, de modo que solo accedan a los datos de su propio cliente y no a los de otros.",
+   "src": "aa56001fdf63"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-24": {
+  "html": {
+   "es": "Llevas unos días cargando datos de archivos de valores separados por comas (CSV) en la tabla CLICK_STREAM de Google BigQuery. La columna DT guarda la hora epoch (epoch time) de los eventos de clic. Por comodidad, elegiste un esquema simple en el que todos los campos son de tipo STRING. Ahora quieres calcular la duración de las sesiones web de los usuarios que visitan tu sitio y quieres cambiar su tipo de datos a TIMESTAMP. Quieres minimizar el esfuerzo de migración sin hacer que las consultas futuras sean costosas en cómputo. ¿Qué debes hacer?<br>",
+   "src": "bf63fe928d45"
+  },
+  "choices.0.html": {
+   "es": "Elimina la tabla CLICK_STREAM y vuelve a crearla de modo que la columna DT sea de tipo TIMESTAMP. Vuelve a cargar los datos.",
+   "src": "742fb3e00a2b"
+  },
+  "choices.1.html": {
+   "es": "Añade a la tabla CLICK_STREAM una columna TS de tipo TIMESTAMP y completa los valores numéricos a partir de la columna TS en cada fila. A partir de ahora, usa la columna TS en lugar de la columna DT.",
+   "src": "467f302c36de"
+  },
+  "choices.2.html": {
+   "es": "Crea una vista (view) CLICK_STREAM_V en la que las cadenas de texto de la columna DT se conviertan (cast) en valores TIMESTAMP. A partir de ahora, usa la vista CLICK_STREAM_V en lugar de la tabla CLICK_STREAM.",
+   "src": "d5a8ba928336"
+  },
+  "choices.3.html": {
+   "es": "Añade dos columnas a la tabla CLICK STREAM: TS de tipo TIMESTAMP e IS_NEW de tipo BOOLEAN. Vuelve a cargar todos los datos en modo append (añadir al final). En cada fila añadida, pon el valor de IS_NEW en true. Para las consultas futuras, usa la columna TS en lugar de la columna DT, con una cláusula WHERE que asegure que el valor de IS_NEW debe ser true.",
+   "src": "917fb576a833"
+  },
+  "choices.4.html": {
+   "es": "Crea una consulta que devuelva todas las filas de la tabla CLICK_STREAM y que use la función integrada para convertir las cadenas de la columna DT en valores TIMESTAMP. Ejecuta la consulta con una tabla de destino NEW_CLICK_STREAM, en la que la columna TS sea de tipo TIMESTAMP. A partir de ahora, usa la tabla NEW_CLICK_STREAM en lugar de la tabla CLICK_STREAM. En el futuro, los datos nuevos se cargan en la tabla NEW_CLICK_STREAM.",
+   "src": "bf504be20dff"
+  },
+  "sourceExplanation": {
+   "es": "La opción E es la correcta porque crea una tabla nueva con el tipo de datos TIMESTAMP correcto, al convertir los valores de texto durante la carga. Así, las consultas futuras no tienen el costo de cómputo de convertir en tiempo de ejecución. Usar una vista (opción C) obligaría a convertir los textos en timestamps cada vez que se consulta la vista, y eso haría costosos los cálculos futuros, algo que el enunciado pide evitar.",
+   "src": "17df63621117"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-26": {
+  "html": {
+   "es": "Trabajas en un proyecto sensible con datos privados de usuarios. Has creado un proyecto en Google Cloud Platform para alojar tu trabajo de forma interna. Un consultor externo va a ayudar a programar una transformación compleja en un pipeline (canalización) de Google Cloud Dataflow de tu proyecto. ¿Cómo debes proteger la privacidad de los usuarios?<br>",
+   "src": "c0dd8f9f6f4d"
+  },
+  "choices.0.html": {
+   "es": "Dale al consultor el rol Viewer en el proyecto.",
+   "src": "19f4b1f8c3d0"
+  },
+  "choices.1.html": {
+   "es": "Dale al consultor el rol Cloud Dataflow Developer en el proyecto.",
+   "src": "de7ffd85f2b8"
+  },
+  "choices.2.html": {
+   "es": "Crea una cuenta de servicio (service account) y permite que el consultor inicie sesión con ella.",
+   "src": "c532b3c335ec"
+  },
+  "choices.3.html": {
+   "es": "Crea una muestra anonimizada de los datos para que el consultor trabaje con ella en un proyecto distinto.",
+   "src": "2363587c5de4"
+  },
+  "sourceExplanation": {
+   "es": "El objetivo principal es proteger la privacidad de los usuarios y, a la vez, permitir que un consultor externo desarrolle una lógica de transformación compleja.\nDar acceso al proyecto de producción, incluso con roles limitados, arriesga la exposición de datos sensibles por medio de registros (logs) o de la depuración (debugging).\nCrear una muestra anonimizada en un proyecto separado y aislado asegura que el consultor pueda validar su código sin ver nunca datos privados de usuarios.",
+   "src": "dc5685059d33"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-34": {
+  "html": {
+   "es": "Caso de estudio de Flowlogistic -<br><br>Resumen de la empresa -<br>Flowlogistic es un proveedor líder de logística y de cadena de suministro. Ayuda a empresas de todo el mundo a gestionar sus recursos y a transportarlos a su destino final. La empresa ha crecido con rapidez y ha ampliado su oferta para incluir transporte por tren, camión, avión y barco.<br><br>Antecedentes de la empresa -<br>La empresa empezó como una empresa regional de camiones y después se expandió a otros mercados de logística. Como no han actualizado su infraestructura, gestionar y seguir los pedidos y los envíos se ha convertido en un cuello de botella (bottleneck). Para mejorar las operaciones, Flowlogistic desarrolló una tecnología propia para seguir los envíos en tiempo real a nivel de paquete. Sin embargo, no puede ponerla en marcha porque su pila tecnológica, basada en Apache Kafka, no soporta el volumen de procesamiento. Además, Flowlogistic quiere analizar más a fondo sus pedidos y envíos para decidir cómo desplegar mejor sus recursos.<br><br>Concepto de la solución -<br>Flowlogistic quiere implementar dos conceptos en la nube:<br>✑ Usar su tecnología propia en un sistema de seguimiento de inventario en tiempo real que indique la ubicación de sus cargas<br>✑ Hacer análisis de todos sus pedidos y registros de envíos, que contienen datos estructurados y no estructurados, para decidir cómo desplegar mejor los recursos y en qué mercados expandirse. También quieren usar análisis predictivo para saber antes cuándo se retrasará un envío.<br><br>Entorno técnico actual -<br>La arquitectura de Flowlogistic está en un solo centro de datos:<br>✑ Bases de datos<br>8 servidores físicos en 2 clústeres<br>- SQL Server: datos de usuarios, inventario, datos estáticos<br>3 servidores físicos<br>- Cassandra: metadatos, mensajes de seguimiento<br>10 servidores Kafka: agregación de mensajes de seguimiento e inserción por lotes<br>✑ Servidores de aplicaciones: interfaz para clientes, middleware para pedidos y aduanas<br>60 máquinas virtuales en 20 servidores físicos<br>- Tomcat: servicios Java<br>- Nginx: contenido estático<br>- Servidores por lotes (batch)<br>✑ Dispositivos de almacenamiento<br>- iSCSI para los hosts de máquinas virtuales (VM)<br>- Red de área de almacenamiento Fibre Channel (FC SAN): almacenamiento de SQL Server<br>- Almacenamiento conectado a la red (NAS): almacenamiento de imágenes, registros y copias de seguridad<br>✑ 10 servidores Apache Hadoop /Spark<br>- Data Lake central<br>- Cargas de trabajo de análisis de datos<br>✑ 20 servidores diversos<br>- Jenkins, monitoreo, hosts bastión,<br><br>Requisitos de negocio -<br>Crear un entorno confiable y reproducible con una escala equivalente a la de producción.<br><img src=\"assets/images/1a5925d364a48b03eddf.png\" alt=\"Original diagram for imported question 34. Open the full-size image to inspect the details.\" loading=\"lazy\"><br>✑ Agregar los datos en un Data Lake centralizado para analizarlos<br>✑ Usar datos históricos para hacer análisis predictivo de los envíos futuros<br>✑ Seguir con precisión cada envío en todo el mundo usando tecnología propia<br>✑ Mejorar la agilidad del negocio y la velocidad de innovación con un aprovisionamiento rápido de recursos nuevos<br>✑ Analizar y optimizar la arquitectura para que rinda bien en la nube<br>✑ Migrar por completo a la nube si se cumplen todos los demás requisitos<br><br>Requisitos técnicos -<br>✑ Manejar datos de streaming y por lotes<br>✑ Migrar las cargas de trabajo de Hadoop existentes<br>✑ Asegurar que la arquitectura sea escalable y elástica para atender las demandas cambiantes de la empresa.<br>✑ Usar servicios administrados siempre que sea posible<br>✑ Cifrar los datos en tránsito y en reposo<br>✑ Conectar una VPN entre el centro de datos de producción y el entorno de la nube<br><br>Declaración del CEO -<br>Hemos crecido tan rápido que no poder actualizar nuestra infraestructura frena de verdad nuestro crecimiento y nuestra eficiencia. Somos eficientes para mover envíos por el mundo, pero somos ineficientes para mover datos.<br>Necesitamos organizar nuestra información para entender con más facilidad dónde están nuestros clientes y qué envían.<br><br>Declaración del CTO -<br>Las TI nunca han sido una prioridad para nosotros, así que, al crecer nuestros datos, no hemos invertido lo suficiente en tecnología. Tengo un buen equipo para gestionar las TI, pero está tan ocupado gestionando nuestra infraestructura que no consigo que haga lo que de verdad importa, como organizar nuestros datos, crear los análisis y descubrir cómo implementar la tecnología de seguimiento del CFO.<br><br>Declaración del CFO -<br>Parte de nuestra ventaja competitiva es que nos penalizamos a nosotros mismos por los envíos y entregas tardíos. Saber dónde están nuestros envíos en todo momento tiene una relación directa con nuestros resultados y nuestra rentabilidad. Además, no quiero comprometer capital en construir un entorno de servidores.<br>Flowlogistic quiere usar Google BigQuery como su sistema principal de análisis, pero aún tiene cargas de trabajo de Apache Hadoop y Spark que no puede pasar a<br>BigQuery. Flowlogistic no sabe cómo almacenar los datos que son comunes a ambas cargas de trabajo. ¿Qué debería hacer?<br>\n",
+   "src": "50a6d92ad227"
+  },
+  "choices.0.html": {
+   "es": "Guarda los datos comunes en BigQuery como tablas particionadas (partitioned tables).",
+   "src": "27ee47666520"
+  },
+  "choices.1.html": {
+   "es": "Guarda los datos comunes en BigQuery y expón vistas autorizadas (authorized views).",
+   "src": "cbc65da15726"
+  },
+  "choices.2.html": {
+   "es": "Guarda los datos comunes codificados como Avro en Google Cloud Storage.",
+   "src": "d52d1835bf1d"
+  },
+  "choices.3.html": {
+   "es": "Guarda los datos comunes en el almacenamiento HDFS de un clúster de Google Cloud Dataproc.",
+   "src": "682f319104df"
+  },
+  "sourceExplanation": {
+   "es": "Google Cloud Storage (GCS) funciona como el data lake central de Google Cloud Platform y ofrece una capa de almacenamiento unificada para BigQuery y para Dataproc (Hadoop/Spark).\nAvro es un formato de serialización de código abierto que ambos sistemas admiten de forma nativa, y permite que lean los mismos datos comunes sin duplicarlos ni usar configuraciones complejas de conectores.\nGuardar los datos en tablas de BigQuery (A/B) crea silos para las cargas de trabajo de Hadoop, mientras que HDFS en Dataproc (D) es efímero y no sirve para un almacenamiento compartido a largo plazo entre distintos motores de procesamiento.",
+   "src": "3b7e73a66f5d"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  },
+  "issues.0": {
+   "es": "El archivo subido contiene un marcador de posición ilegible de 9 × 6 píxeles en lugar de al menos un diagrama original.",
+   "src": "aedad8f7314b"
+  }
+ },
+ "imp-35": {
+  "html": {
+   "es": "Caso de estudio de Flowlogistic -<br><br>Resumen de la empresa -<br>Flowlogistic es un proveedor líder de logística y de cadena de suministro. Ayuda a empresas de todo el mundo a gestionar sus recursos y a transportarlos a su destino final. La empresa ha crecido con rapidez y ha ampliado su oferta para incluir transporte por tren, camión, avión y barco.<br><br>Antecedentes de la empresa -<br>La empresa empezó como una empresa regional de camiones y después se expandió a otros mercados de logística. Como no han actualizado su infraestructura, gestionar y seguir los pedidos y los envíos se ha convertido en un cuello de botella (bottleneck). Para mejorar las operaciones, Flowlogistic desarrolló una tecnología propia para seguir los envíos en tiempo real a nivel de paquete. Sin embargo, no puede ponerla en marcha porque su pila tecnológica, basada en Apache Kafka, no soporta el volumen de procesamiento. Además, Flowlogistic quiere analizar más a fondo sus pedidos y envíos para decidir cómo desplegar mejor sus recursos.<br><br>Concepto de la solución -<br>Flowlogistic quiere implementar dos conceptos en la nube:<br>✑ Usar su tecnología propia en un sistema de seguimiento de inventario en tiempo real que indique la ubicación de sus cargas<br>✑ Hacer análisis de todos sus pedidos y registros de envíos, que contienen datos estructurados y no estructurados, para decidir cómo desplegar mejor los recursos y en qué mercados expandirse. También quieren usar análisis predictivo para saber antes cuándo se retrasará un envío.<br><br>Entorno técnico actual -<br>La arquitectura de Flowlogistic está en un solo centro de datos:<br>✑ Bases de datos<br>8 servidores físicos en 2 clústeres<br>- SQL Server: datos de usuarios, inventario, datos estáticos<br>3 servidores físicos<br>- Cassandra: metadatos, mensajes de seguimiento<br>10 servidores Kafka: agregación de mensajes de seguimiento e inserción por lotes<br>✑ Servidores de aplicaciones: interfaz para clientes, middleware para pedidos y aduanas<br>60 máquinas virtuales en 20 servidores físicos<br>- Tomcat: servicios Java<br>- Nginx: contenido estático<br>- Servidores por lotes (batch)<br>✑ Dispositivos de almacenamiento<br>- iSCSI para los hosts de máquinas virtuales (VM)<br>- Red de área de almacenamiento Fibre Channel (FC SAN): almacenamiento de SQL Server<br>- Almacenamiento conectado a la red (NAS): almacenamiento de imágenes, registros y copias de seguridad<br>✑ 10 servidores Apache Hadoop /Spark<br>- Data Lake central<br>- Cargas de trabajo de análisis de datos<br>✑ 20 servidores diversos<br>- Jenkins, monitoreo, hosts bastión,<br><br>Requisitos de negocio -<br>✑ Crear un entorno confiable y reproducible con una escala equivalente a la de producción.<br>✑ Agregar los datos en un Data Lake centralizado para analizarlos<br>✑ Usar datos históricos para hacer análisis predictivo de los envíos futuros<br>✑ Seguir con precisión cada envío en todo el mundo usando tecnología propia<br>✑ Mejorar la agilidad del negocio y la velocidad de innovación con un aprovisionamiento rápido de recursos nuevos<br>✑ Analizar y optimizar la arquitectura para que rinda bien en la nube<br>✑ Migrar por completo a la nube si se cumplen todos los demás requisitos<br><br>Requisitos técnicos -<br>✑ Manejar datos de streaming y por lotes<br>✑ Migrar las cargas de trabajo de Hadoop existentes<br>✑ Asegurar que la arquitectura sea escalable y elástica para atender las demandas cambiantes de la empresa.<br>✑ Usar servicios administrados siempre que sea posible<br>✑ Cifrar los datos en tránsito y en reposo<br>✑ Conectar una VPN entre el centro de datos de producción y el entorno de la nube<br><br>Declaración del CEO -<br>Hemos crecido tan rápido que no poder actualizar nuestra infraestructura frena de verdad nuestro crecimiento y nuestra eficiencia. Somos eficientes para mover envíos por el mundo, pero somos ineficientes para mover datos.<br>Necesitamos organizar nuestra información para entender con más facilidad dónde están nuestros clientes y qué envían.<br><br>Declaración del CTO -<br>Las TI nunca han sido una prioridad para nosotros, así que, al crecer nuestros datos, no hemos invertido lo suficiente en tecnología. Tengo un buen equipo para gestionar las TI, pero está tan ocupado gestionando nuestra infraestructura que no consigo que haga lo que de verdad importa, como organizar nuestros datos, crear los análisis y descubrir cómo implementar la tecnología de seguimiento del CFO.<br><br>Declaración del CFO -<br>Parte de nuestra ventaja competitiva es que nos penalizamos a nosotros mismos por los envíos y entregas tardíos. Saber dónde están nuestros envíos en todo momento tiene una relación directa con nuestros resultados y nuestra rentabilidad. Además, no quiero comprometer capital en construir un entorno de servidores.<br>La dirección de Flowlogistic ha determinado que los servidores Apache Kafka actuales no pueden manejar el volumen de datos de su sistema de seguimiento de inventario en tiempo real.<br>Debes construir un sistema nuevo en Google Cloud Platform (GCP) que alimente el software propio de seguimiento. El sistema debe poder ingerir datos de una variedad de fuentes globales, procesarlos y consultarlos en tiempo real, y almacenarlos de forma confiable. ¿Qué combinación de productos de GCP debes elegir?<br>",
+   "src": "f03688959a0a"
+  },
+  "choices.0.html": {
+   "es": "Cloud Pub/Sub, Cloud Dataflow y Cloud Storage",
+   "src": "2c7826fb48f5"
+  },
+  "choices.1.html": {
+   "es": "Cloud Pub/Sub, Cloud Dataflow y Local SSD",
+   "src": "3d986d9fef6b"
+  },
+  "choices.2.html": {
+   "es": "Cloud Pub/Sub, Cloud SQL y Cloud Storage",
+   "src": "b877e4e2f8bf"
+  },
+  "choices.3.html": {
+   "es": "Cloud Load Balancing, Cloud Dataflow y Cloud Storage",
+   "src": "3dc9553f22eb"
+  },
+  "sourceExplanation": {
+   "es": "Cloud Pub/Sub es el servicio de ingesta correcto para datos de streaming en tiempo real, de gran volumen y de fuentes globales, y reemplaza a Kafka. Cloud Dataflow ofrece la capacidad necesaria de procesamiento distribuido de streaming y por lotes para manejar la carga de análisis en tiempo real. Google Cloud Storage (o BigQuery) ofrece un almacenamiento escalable y confiable para los datos procesados, mientras que Cloud SQL no tiene la escalabilidad necesaria para este volumen y Local SSD no es una solución de almacenamiento administrado y duradero.",
+   "src": "63854dd0a883"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-36": {
+  "html": {
+   "es": "Caso de estudio de Flowlogistic -<br><br>Resumen de la empresa -<br>Flowlogistic es un proveedor líder de logística y de cadena de suministro. Ayuda a empresas de todo el mundo a gestionar sus recursos y a transportarlos a su destino final. La empresa ha crecido con rapidez y ha ampliado su oferta para incluir transporte por tren, camión, avión y barco.<br><br>Antecedentes de la empresa -<br>La empresa empezó como una empresa regional de camiones y después se expandió a otros mercados de logística. Como no han actualizado su infraestructura, gestionar y seguir los pedidos y los envíos se ha convertido en un cuello de botella (bottleneck). Para mejorar las operaciones, Flowlogistic desarrolló una tecnología propia para seguir los envíos en tiempo real a nivel de paquete. Sin embargo, no puede ponerla en marcha porque su pila tecnológica, basada en Apache Kafka, no soporta el volumen de procesamiento. Además, Flowlogistic quiere analizar más a fondo sus pedidos y envíos para decidir cómo desplegar mejor sus recursos.<br><br>Concepto de la solución -<br>Flowlogistic quiere implementar dos conceptos en la nube:<br>Usar su tecnología propia en un sistema de seguimiento de inventario en tiempo real que indique la ubicación de sus cargas<br><img src=\"assets/images/8df97e881639e0c5037e.png\" alt=\"Original diagram for imported question 36. Open the full-size image to inspect the details.\" loading=\"lazy\"><br>✑ Hacer análisis de todos sus pedidos y registros de envíos, que contienen datos estructurados y no estructurados, para decidir cómo desplegar mejor los recursos y en qué mercados expandirse. También quieren usar análisis predictivo para saber antes cuándo se retrasará un envío.<br><br>Entorno técnico actual -<br>La arquitectura de Flowlogistic está en un solo centro de datos:<br>✑ Bases de datos<br>8 servidores físicos en 2 clústeres<br>- SQL Server: datos de usuarios, inventario, datos estáticos<br>3 servidores físicos<br>- Cassandra: metadatos, mensajes de seguimiento<br>10 servidores Kafka: agregación de mensajes de seguimiento e inserción por lotes<br>✑ Servidores de aplicaciones: interfaz para clientes, middleware para pedidos y aduanas<br>60 máquinas virtuales en 20 servidores físicos<br>- Tomcat: servicios Java<br>- Nginx: contenido estático<br>- Servidores por lotes (batch)<br>✑ Dispositivos de almacenamiento<br>- iSCSI para los hosts de máquinas virtuales (VM)<br>- Red de área de almacenamiento Fibre Channel (FC SAN): almacenamiento de SQL Server<br>- Almacenamiento conectado a la red (NAS): almacenamiento de imágenes, registros y copias de seguridad<br>✑ 10 servidores Apache Hadoop /Spark<br>- Data Lake central<br>- Cargas de trabajo de análisis de datos<br>✑ 20 servidores diversos<br>- Jenkins, monitoreo, hosts bastión,<br><br>Requisitos de negocio -<br>✑ Crear un entorno confiable y reproducible con una escala equivalente a la de producción.<br>✑ Agregar los datos en un Data Lake centralizado para analizarlos<br>✑ Usar datos históricos para hacer análisis predictivo de los envíos futuros<br>✑ Seguir con precisión cada envío en todo el mundo usando tecnología propia<br>✑ Mejorar la agilidad del negocio y la velocidad de innovación con un aprovisionamiento rápido de recursos nuevos<br>✑ Analizar y optimizar la arquitectura para que rinda bien en la nube<br>✑ Migrar por completo a la nube si se cumplen todos los demás requisitos<br><br>Requisitos técnicos -<br>Manejar datos de streaming y por lotes<br><img src=\"assets/images/0be795ba26c85bfaa856.png\" alt=\"Original diagram for imported question 36. Open the full-size image to inspect the details.\" loading=\"lazy\"><br>✑ Migrar las cargas de trabajo de Hadoop existentes<br>✑ Asegurar que la arquitectura sea escalable y elástica para atender las demandas cambiantes de la empresa.<br>✑ Usar servicios administrados siempre que sea posible<br>✑ Cifrar los datos en tránsito y en reposo<br>✑ Conectar una VPN entre el centro de datos de producción y el entorno de la nube<br><br>Declaración del CEO -<br>Hemos crecido tan rápido que no poder actualizar nuestra infraestructura frena de verdad nuestro crecimiento y nuestra eficiencia. Somos eficientes para mover envíos por el mundo, pero somos ineficientes para mover datos.<br>Necesitamos organizar nuestra información para entender con más facilidad dónde están nuestros clientes y qué envían.<br><br>Declaración del CTO -<br>Las TI nunca han sido una prioridad para nosotros, así que, al crecer nuestros datos, no hemos invertido lo suficiente en tecnología. Tengo un buen equipo para gestionar las TI, pero está tan ocupado gestionando nuestra infraestructura que no consigo que haga lo que de verdad importa, como organizar nuestros datos, crear los análisis y descubrir cómo implementar la tecnología de seguimiento del CFO.<br><br>Declaración del CFO -<br>Parte de nuestra ventaja competitiva es que nos penalizamos a nosotros mismos por los envíos y entregas tardíos. Saber dónde están nuestros envíos en todo momento tiene una relación directa con nuestros resultados y nuestra rentabilidad. Además, no quiero comprometer capital en construir un entorno de servidores.<br>El CEO de Flowlogistic quiere conocer rápido a su base de clientes para que su equipo de ventas esté mejor informado en el terreno. Este equipo no es muy técnico, así que compró una herramienta de visualización para simplificar la creación de informes de BigQuery. Sin embargo, se sienten abrumados por todos los datos de la tabla y gastan mucho dinero en consultas para encontrar los datos que necesitan. Quieres resolver su problema de la forma más rentable (cost-effective). ¿Qué debes hacer?<br>",
+   "src": "5cab591d6d16"
+  },
+  "choices.0.html": {
+   "es": "Exporta los datos a una Google Sheet para su visualización.",
+   "src": "14f5b39380bf"
+  },
+  "choices.1.html": {
+   "es": "Crea una tabla adicional solo con las columnas necesarias.",
+   "src": "d17aeac8b8db"
+  },
+  "choices.2.html": {
+   "es": "Crea una vista (view) sobre la tabla para presentarla a la herramienta de visualización.",
+   "src": "256241d1933e"
+  },
+  "choices.3.html": {
+   "es": "Crea roles de IAM (Identity and Access Management) sobre las columnas adecuadas, para que solo ellas aparezcan en una consulta.",
+   "src": "e87b3c75792c"
+  },
+  "sourceExplanation": {
+   "es": "El equipo de ventas se siente abrumado por el volumen de datos y paga costos altos porque consulta columnas innecesarias.\n\nCrear una vista (opción C) presenta un esquema simplificado con solo las columnas relevantes. Así se reducen los datos que escanea cada consulta y baja el costo.\n\nA diferencia de una tabla nueva (opción B), una vista no guarda datos duplicados ni necesita mantenimiento para actualizarse. Así el equipo de ventas siempre accede a información actual, sin costos adicionales de almacenamiento ni de ETL.",
+   "src": "a26f2500c10f"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  },
+  "issues.0": {
+   "es": "El archivo subido contiene un marcador de posición ilegible de 9 × 6 píxeles en lugar de al menos un diagrama original.",
+   "src": "aedad8f7314b"
+  }
+ },
+ "imp-37": {
+  "html": {
+   "es": "Caso de estudio de Flowlogistic -<br><br>Resumen de la empresa -<br>Flowlogistic es un proveedor líder de logística y de cadena de suministro. Ayuda a empresas de todo el mundo a gestionar sus recursos y a transportarlos a su destino final. La empresa ha crecido con rapidez y ha ampliado su oferta para incluir transporte por tren, camión, avión y barco.<br><br>Antecedentes de la empresa -<br>La empresa empezó como una empresa regional de camiones y después se expandió a otros mercados de logística. Como no han actualizado su infraestructura, gestionar y seguir los pedidos y los envíos se ha convertido en un cuello de botella (bottleneck). Para mejorar las operaciones, Flowlogistic desarrolló una tecnología propia para seguir los envíos en tiempo real a nivel de paquete. Sin embargo, no puede ponerla en marcha porque su pila tecnológica, basada en Apache Kafka, no soporta el volumen de procesamiento. Además, Flowlogistic quiere analizar más a fondo sus pedidos y envíos para decidir cómo desplegar mejor sus recursos.<br><br>Concepto de la solución -<br>Flowlogistic quiere implementar dos conceptos en la nube:<br>✑ Usar su tecnología propia en un sistema de seguimiento de inventario en tiempo real que indique la ubicación de sus cargas<br>✑ Hacer análisis de todos sus pedidos y registros de envíos, que contienen datos estructurados y no estructurados, para decidir cómo desplegar mejor los recursos y en qué mercados expandirse. También quieren usar análisis predictivo para saber antes cuándo se retrasará un envío.<br><br>Entorno técnico actual -<br>La arquitectura de Flowlogistic está en un solo centro de datos:<br>✑ Bases de datos<br>8 servidores físicos en 2 clústeres<br>- SQL Server: datos de usuarios, inventario, datos estáticos<br>3 servidores físicos<br>- Cassandra: metadatos, mensajes de seguimiento<br>10 servidores Kafka: agregación de mensajes de seguimiento e inserción por lotes<br>✑ Servidores de aplicaciones: interfaz para clientes, middleware para pedidos y aduanas<br>60 máquinas virtuales en 20 servidores físicos<br>- Tomcat: servicios Java<br>- Nginx: contenido estático<br>- Servidores por lotes (batch)<br>✑ Dispositivos de almacenamiento<br>- iSCSI para los hosts de máquinas virtuales (VM)<br>- Red de área de almacenamiento Fibre Channel (FC SAN): almacenamiento de SQL Server<br>- Almacenamiento conectado a la red (NAS): almacenamiento de imágenes, registros y copias de seguridad<br>✑ 10 servidores Apache Hadoop /Spark<br>- Data Lake central<br>- Cargas de trabajo de análisis de datos<br>✑ 20 servidores diversos<br>- Jenkins, monitoreo, hosts bastión,<br><br>Requisitos de negocio -<br>✑ Crear un entorno confiable y reproducible con una escala equivalente a la de producción.<br>✑ Agregar los datos en un Data Lake centralizado para analizarlos<br>✑ Usar datos históricos para hacer análisis predictivo de los envíos futuros<br>✑ Seguir con precisión cada envío en todo el mundo usando tecnología propia<br>✑ Mejorar la agilidad del negocio y la velocidad de innovación con un aprovisionamiento rápido de recursos nuevos<br>✑ Analizar y optimizar la arquitectura para que rinda bien en la nube<br>✑ Migrar por completo a la nube si se cumplen todos los demás requisitos<br><br>Requisitos técnicos -<br>✑ Manejar datos de streaming y por lotes<br>✑ Migrar las cargas de trabajo de Hadoop existentes<br>✑ Asegurar que la arquitectura sea escalable y elástica para atender las demandas cambiantes de la empresa.<br>✑ Usar servicios administrados siempre que sea posible<br>✑ Cifrar los datos en tránsito y en reposo<br>✑ Conectar una VPN entre el centro de datos de producción y el entorno de la nube<br><br>Declaración del CEO -<br>Hemos crecido tan rápido que no poder actualizar nuestra infraestructura frena de verdad nuestro crecimiento y nuestra eficiencia. Somos eficientes para mover envíos por el mundo, pero somos ineficientes para mover datos.<br>Necesitamos organizar nuestra información para entender con más facilidad dónde están nuestros clientes y qué envían.<br><br>Declaración del CTO -<br>Las TI nunca han sido una prioridad para nosotros, así que, al crecer nuestros datos, no hemos invertido lo suficiente en tecnología. Tengo un buen equipo para gestionar las TI, pero está tan ocupado gestionando nuestra infraestructura que no consigo que haga lo que de verdad importa, como organizar nuestros datos, crear los análisis y descubrir cómo implementar la tecnología de seguimiento del CFO.<br><br>Declaración del CFO -<br>Parte de nuestra ventaja competitiva es que nos penalizamos a nosotros mismos por los envíos y entregas tardíos. Saber dónde están nuestros envíos en todo momento tiene una relación directa con nuestros resultados y nuestra rentabilidad. Además, no quiero comprometer capital en construir un entorno de servidores.<br>Flowlogistic está poniendo en marcha su sistema de seguimiento de inventario en tiempo real. Todos los dispositivos de seguimiento enviarán mensajes de seguimiento de paquetes, que ahora irán a un solo<br>tema (topic) de Google Cloud Pub/Sub en lugar del clúster de Apache Kafka. Después, una aplicación suscriptora procesará los mensajes para generar informes en tiempo real y los guardará en<br>Google BigQuery para análisis histórico. Quieres asegurar que los datos de los paquetes se puedan analizar a lo largo del tiempo.<br>¿Qué enfoque debes seguir?<br>",
+   "src": "d9683be13af8"
+  },
+  "choices.0.html": {
+   "es": "Añade la marca de tiempo (timestamp) a cada mensaje en la aplicación suscriptora de Cloud Pub/Sub cuando los reciba.",
+   "src": "23d4fcc99f47"
+  },
+  "choices.1.html": {
+   "es": "Añade la marca de tiempo y el ID del paquete (Package ID) al mensaje saliente de cada dispositivo publicador cuando lo envíe a Cloud Pub/Sub.",
+   "src": "f47c5c38444b"
+  },
+  "choices.2.html": {
+   "es": "Usa la función NOW () de BigQuery para registrar la hora del evento.",
+   "src": "5f418a4dc119"
+  },
+  "choices.3.html": {
+   "es": "Usa la marca de tiempo (timestamp) generada automáticamente por Cloud Pub/Sub para ordenar los datos.",
+   "src": "e806c4dbea74"
+  },
+  "sourceExplanation": {
+   "es": "Para analizar con precisión los datos de los paquetes a lo largo del tiempo, la marca de tiempo debe reflejar cuándo ocurrió realmente el evento en el origen, no cuándo se recibió o se procesó. Añadir la marca de tiempo y el ID del paquete al mensaje saliente de cada dispositivo publicador asegura que la hora original del evento se conserve en los atributos del mensaje, sin importar la latencia de la red ni los retrasos de procesamiento en Pub/Sub o en BigQuery.",
+   "src": "3190b8091c5d"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-42": {
+  "html": {
+   "es": "Tu empresa ha crecido rápido hace poco y ahora ingiere datos a un ritmo mucho mayor que antes. Administras los trabajos de análisis por lotes diarios de MapReduce en Apache Hadoop. Sin embargo, el aumento reciente de datos ha hecho que los trabajos por lotes se retrasen. Te pidieron recomendar formas en que el equipo de desarrollo pueda aumentar la capacidad de respuesta del análisis sin aumentar los costos. ¿Qué debes recomendarles?<br>",
+   "src": "df6bad038cb9"
+  },
+  "choices.0.html": {
+   "es": "Reescribe el trabajo en Pig.",
+   "src": "f9aa04f3830d"
+  },
+  "choices.1.html": {
+   "es": "Reescribe el trabajo en Apache Spark.",
+   "src": "591141336d88"
+  },
+  "choices.2.html": {
+   "es": "Aumenta el tamaño del clúster de Hadoop.",
+   "src": "6e938420478f"
+  },
+  "choices.3.html": {
+   "es": "Reduce el tamaño del clúster de Hadoop, pero además reescribe el trabajo en Hive.",
+   "src": "924d9fe9cac6"
+  },
+  "sourceExplanation": {
+   "es": "Apache Spark ofrece un rendimiento mucho mejor que MapReduce porque procesa los datos en memoria en lugar de escribir los resultados intermedios en disco. Esto permite un análisis por lotes más rápido sin costos adicionales de hardware, y resuelve de forma directa el problema de la capacidad de respuesta respetando el límite de presupuesto.",
+   "src": "ab9f73faadd3"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-52": {
+  "html": {
+   "es": "Estás implementando buenas prácticas de seguridad en tu pipeline de datos. Actualmente ejecutas los trabajos manualmente como Project Owner. Quieres automatizar estos trabajos: tomar archivos por lotes nocturnos con información no pública de Google Cloud Storage, procesarlos con un trabajo de Spark en Scala en un clúster de Google Cloud<br>Dataproc y depositar los resultados en Google BigQuery.<br>¿Cómo debes ejecutar esta carga de trabajo de forma segura?<br>",
+   "src": "0f1c622ec9f2"
+  },
+  "choices.0.html": {
+   "es": "Restringe el bucket de Google Cloud Storage para que solo tú puedas ver los archivos",
+   "src": "bb015e412fc5"
+  },
+  "choices.1.html": {
+   "es": "Dale el rol Project Owner a una cuenta de servicio y ejecuta el trabajo con ella",
+   "src": "2de46a7f0a42"
+  },
+  "choices.2.html": {
+   "es": "Usa una cuenta de servicio con permiso para leer los archivos por lotes y para escribir en BigQuery",
+   "src": "b1a27554e66e"
+  },
+  "choices.3.html": {
+   "es": "Usa una cuenta de usuario con el rol Project Viewer en el clúster de Cloud Dataproc para leer los archivos por lotes y escribir en BigQuery",
+   "src": "46f53a509e3b"
+  },
+  "sourceExplanation": {
+   "es": "La opción C respeta el principio de mínimo privilegio (least privilege) porque le da a una cuenta de servicio solo los permisos específicos que necesita: leer de Google Cloud Storage y escribir en BigQuery.\nAsignar el rol Project Owner (opción B) rompe las buenas prácticas de seguridad, porque da un acceso administrativo excesivo e innecesario.\nLas opciones A y D son incorrectas porque restringir el acceso solo al usuario impide la automatización, y el rol Viewer no tiene los permisos de escritura necesarios para BigQuery.",
+   "src": "e069201cef94"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-55": {
+  "html": {
+   "es": "Tu organización lleva 6 meses recopilando y analizando datos en Google BigQuery. La mayoría de los datos analizados está en una tabla particionada por tiempo llamada events_partitioned. Para reducir el costo de las consultas, tu organización creó una vista llamada events, que consulta solo los últimos 14 días de datos. La vista está descrita en SQL heredado (legacy SQL). El mes que viene, las aplicaciones existentes se conectarán a BigQuery para leer los datos de events mediante una conexión ODBC. Debes asegurar que las aplicaciones puedan conectarse. ¿Qué dos acciones debes realizar? (Elige dos.)<br>",
+   "src": "4733bae02bc3"
+  },
+  "choices.0.html": {
+   "es": "Crea una vista nueva sobre events con SQL estándar (standard SQL)",
+   "src": "273d3e70467a"
+  },
+  "choices.1.html": {
+   "es": "Crea una tabla particionada nueva con una consulta de SQL estándar",
+   "src": "ed74b08b2de6"
+  },
+  "choices.2.html": {
+   "es": "Crea una vista nueva sobre events_partitioned con SQL estándar",
+   "src": "6004b913ddcf"
+  },
+  "choices.3.html": {
+   "es": "Crea una cuenta de servicio (service account) para que la conexión ODBC la use en la autenticación",
+   "src": "948fece2b0b1"
+  },
+  "choices.4.html": {
+   "es": "Crea un rol de Google Cloud Identity and Access Management (Cloud IAM) para la conexión ODBC y comparte &quot;events&quot;",
+   "src": "769c9204aba6"
+  },
+  "sourceExplanation": {
+   "es": "La opción C es correcta porque el driver ODBC de BigQuery usa SQL estándar (Standard SQL), y una vista definida en SQL heredado (Legacy SQL) no se puede referenciar desde consultas de SQL estándar. Por eso hace falta una vista nueva de SQL estándar sobre la tabla particionada de origen.\nLa opción D es correcta porque el driver ODBC de Simba para BigQuery admite la autenticación con cuentas de servicio de Google, que ofrece un mecanismo seguro para que las aplicaciones se conecten sin usar credenciales de usuarios individuales.",
+   "src": "857def2c13bc"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-58": {
+  "html": {
+   "es": "Diseñas un sistema para analizar datos sísmicos. Tu proceso de extracción, transformación y carga (ETL) se ejecuta como una serie de trabajos de MapReduce en un clúster de Apache Hadoop. El proceso de ETL tarda días en procesar un conjunto de datos porque algunos pasos son costosos en cómputo. Entonces descubres que se omitió un paso de calibración de sensores. ¿Cómo debes cambiar tu proceso de ETL para hacer la calibración de sensores de forma sistemática en el futuro?<br>",
+   "src": "b40d5e667dcd"
+  },
+  "choices.0.html": {
+   "es": "Modifica los trabajos transformMapReduce para aplicar la calibración de sensores antes de hacer cualquier otra cosa.",
+   "src": "935383093ace"
+  },
+  "choices.1.html": {
+   "es": "Introduce un trabajo de MapReduce nuevo que aplique la calibración de sensores a los datos sin procesar (raw) y asegura que todos los demás trabajos de MapReduce se encadenen después de este.",
+   "src": "1ce1f3ed1493"
+  },
+  "choices.2.html": {
+   "es": "Añade los datos de calibración de sensores a la salida del proceso de ETL y documenta que todos los usuarios deben aplicar la calibración de sensores por su cuenta.",
+   "src": "29ea84d174ca"
+  },
+  "choices.3.html": {
+   "es": "Desarrolla, mediante simulación, un algoritmo que prediga la varianza de los datos de salida del último trabajo de MapReduce a partir de los factores de calibración, y aplica la corrección a todos los datos.",
+   "src": "453e827b0072"
+  },
+  "sourceExplanation": {
+   "es": "Introducir un trabajo de MapReduce dedicado a la calibración de sensores asegura que la calidad de los datos se trate de forma sistemática al inicio del pipeline, y evita que los trabajos posteriores, que son costosos, procesen datos sin calibrar.\nModificar los trabajos de transformación existentes (opción A) requeriría cambios en varios pasos de cómputo, y aumentaría la complejidad y el costo de mantenimiento sin aislar la lógica de corrección.",
+   "src": "6d0118f6942e"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-64": {
+  "html": {
+   "es": "Estás integrando una de las aplicaciones internas de TI de tu empresa con Google BigQuery, para que los usuarios puedan consultar BigQuery desde la interfaz de la aplicación. No quieres que cada usuario se autentique en BigQuery y no quieres darles acceso al dataset. Debes acceder a BigQuery desde tu aplicación de TI de forma segura. ¿Qué debes hacer?<br>",
+   "src": "4aa594f1926a"
+  },
+  "choices.0.html": {
+   "es": "Crea grupos para tus usuarios y dale a esos grupos acceso al dataset",
+   "src": "d8b474a2adce"
+  },
+  "choices.1.html": {
+   "es": "Intégrate con una plataforma de inicio de sesión único (SSO) y pasa las credenciales de cada usuario junto con la solicitud de consulta",
+   "src": "a0a7e1343a6a"
+  },
+  "choices.2.html": {
+   "es": "Crea una cuenta de servicio y dale acceso al dataset a esa cuenta. Usa la clave privada de la cuenta de servicio para acceder al dataset",
+   "src": "37fe9fc60ee2"
+  },
+  "choices.3.html": {
+   "es": "Crea un usuario ficticio (dummy user) y dale acceso al dataset a ese usuario. Guarda el nombre de usuario y la contraseña de ese usuario en un archivo del sistema de archivos y usa esas credenciales para acceder al dataset de BigQuery",
+   "src": "c58292074566"
+  },
+  "sourceExplanation": {
+   "es": "Las cuentas de servicio son la identidad designada para la autenticación entre máquinas en Google Cloud, y permiten que una aplicación acceda a BigQuery sin necesitar credenciales de usuarios individuales ni acceso directo al dataset para los usuarios finales.\nLa opción C cumple el requisito porque usa la clave privada de la cuenta de servicio para una autenticación segura y programática, y mantiene a los usuarios individuales alejados de la infraestructura de datos subyacente.",
+   "src": "e3b2e78dbc60"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-66": {
+  "html": {
+   "es": "Configuras una inserción de datos en streaming en un clúster de Redis mediante un clúster de Kafka. Ambos clústeres se ejecutan en instancias de Compute Engine. Debes cifrar los datos en reposo con claves de cifrado que puedas crear, rotar y destruir según necesites. ¿Qué debes hacer?<br>",
+   "src": "4a0ec0ce7099"
+  },
+  "choices.0.html": {
+   "es": "Crea una cuenta de servicio dedicada y usa el cifrado en reposo para referenciar los datos almacenados en las instancias de tu clúster de Compute Engine como parte de tus llamadas al servicio de la API.",
+   "src": "6901a500ed01"
+  },
+  "choices.1.html": {
+   "es": "Crea claves de cifrado en Cloud Key Management Service. Usa esas claves para cifrar tus datos en todas las instancias del clúster de Compute Engine.",
+   "src": "53b146d86ca2"
+  },
+  "choices.2.html": {
+   "es": "Crea claves de cifrado de forma local. Sube tus claves de cifrado a Cloud Key Management Service. Usa esas claves para cifrar tus datos en todas las instancias del clúster de Compute Engine.",
+   "src": "88fd271226f1"
+  },
+  "choices.3.html": {
+   "es": "Crea claves de cifrado en Cloud Key Management Service. Referencia esas claves en tus llamadas al servicio de la API cuando accedas a los datos de las instancias de tu clúster de Compute Engine.",
+   "src": "fe61b839f35f"
+  },
+  "sourceExplanation": {
+   "es": "Cloud Key Management Service (KMS) te permite crear, rotar y destruir claves criptográficas y mantener el control total sobre ellas.\nPara cifrar datos en reposo en instancias de Compute Engine con estas claves de cifrado administradas por el cliente (CMEK), debes indicar el ID de recurso de la clave de KMS al crear los discos persistentes.\nLa opción B identifica correctamente que se crean las claves en Cloud KMS y que se usan para cifrar los datos de las instancias, mientras que la opción D sugiere de forma incorrecta referenciar las claves solo en las llamadas a la API y no para el cifrado a nivel de almacenamiento.",
+   "src": "9320e8e95ad2"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-78": {
+  "html": {
+   "es": "Eres responsable de escribir los pipelines de ETL de tu empresa para que se ejecuten en un clúster de Apache Hadoop. El pipeline necesitará algo de checkpointing (puntos de control) y pipelines que se dividan. ¿Qué método debes usar para escribir los pipelines?<br>",
+   "src": "63c6d132adfb"
+  },
+  "choices.0.html": {
+   "es": "PigLatin con Pig",
+   "src": "0e1a9e97fc6b"
+  },
+  "choices.1.html": {
+   "es": "HiveQL con Hive",
+   "src": "dbf3018ea2f5"
+  },
+  "choices.2.html": {
+   "es": "Java con MapReduce",
+   "src": "b9eb1f39a994"
+  },
+  "choices.3.html": {
+   "es": "Python con MapReduce",
+   "src": "4b9bef6b5922"
+  },
+  "sourceExplanation": {
+   "es": "Apache Pig está diseñado específicamente para escribir pipelines de ETL en Hadoop y admite de forma nativa el checkpointing (guardar resultados intermedios en disco) y la división y unión de flujos de datos. MapReduce (Java/Python) ofrece un control de bajo nivel, pero Pig ofrece abstracciones de más alto nivel, optimizadas para la definición declarativa de los flujos de transformación de datos complejos que describe el escenario.",
+   "src": "3d81742f6cb7"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-83": {
+  "html": {
+   "es": "Caso de estudio de Flowlogistic -<br><br>Resumen de la empresa -<br>Flowlogistic es un proveedor líder de logística y de cadena de suministro. Ayuda a empresas de todo el mundo a gestionar sus recursos y a transportarlos a su destino final. La empresa ha crecido con rapidez y ha ampliado su oferta para incluir transporte por tren, camión, avión y barco.<br><br>Antecedentes de la empresa -<br>La empresa empezó como una empresa regional de camiones y después se expandió a otros mercados de logística. Como no han actualizado su infraestructura, gestionar y seguir los pedidos y los envíos se ha convertido en un cuello de botella (bottleneck). Para mejorar las operaciones, Flowlogistic desarrolló una tecnología propia para seguir los envíos en tiempo real a nivel de paquete. Sin embargo, no puede ponerla en marcha porque su pila tecnológica, basada en Apache Kafka, no soporta el volumen de procesamiento. Además, Flowlogistic quiere analizar más a fondo sus pedidos y envíos para decidir cómo desplegar mejor sus recursos.<br><br>Concepto de la solución -<br>Flowlogistic quiere implementar dos conceptos en la nube:<br>✑ Usar su tecnología propia en un sistema de seguimiento de inventario en tiempo real que indique la ubicación de sus cargas<br>✑ Hacer análisis de todos sus pedidos y registros de envíos, que contienen datos estructurados y no estructurados, para decidir cómo desplegar mejor los recursos y en qué mercados expandirse. También quieren usar análisis predictivo para saber antes cuándo se retrasará un envío.<br><br>Entorno técnico actual -<br>La arquitectura de Flowlogistic está en un solo centro de datos:<br>✑ Bases de datos<br>- 8 servidores físicos en 2 clústeres<br>- SQL Server: datos de usuarios, inventario, datos estáticos<br>- 3 servidores físicos<br>- Cassandra: metadatos, mensajes de seguimiento<br>10 servidores Kafka: agregación de mensajes de seguimiento e inserción por lotes<br>✑ Servidores de aplicaciones: interfaz para clientes, middleware para pedidos y aduanas<br>- 60 máquinas virtuales en 20 servidores físicos<br>- Tomcat: servicios Java<br>- Nginx: contenido estático<br>- Servidores por lotes (batch)<br>✑ Dispositivos de almacenamiento<br>- iSCSI para los hosts de máquinas virtuales (VM)<br>- Red de área de almacenamiento Fibre Channel (FC SAN): almacenamiento de SQL Server<br>Almacenamiento conectado a la red (NAS): almacenamiento de imágenes, registros y copias de seguridad<br>✑ 10 servidores Apache Hadoop /Spark<br>- Data Lake central<br>- Cargas de trabajo de análisis de datos<br>✑ 20 servidores diversos<br>- Jenkins, monitoreo, hosts bastión,<br><br>Requisitos de negocio -<br>✑ Crear un entorno confiable y reproducible con una escala equivalente a la de producción.<br>✑ Agregar los datos en un Data Lake centralizado para analizarlos<br>✑ Usar datos históricos para hacer análisis predictivo de los envíos futuros<br>✑ Seguir con precisión cada envío en todo el mundo usando tecnología propia<br>✑ Mejorar la agilidad del negocio y la velocidad de innovación con un aprovisionamiento rápido de recursos nuevos<br>✑ Analizar y optimizar la arquitectura para que rinda bien en la nube<br>✑ Migrar por completo a la nube si se cumplen todos los demás requisitos<br><br>Requisitos técnicos -<br>✑ Manejar datos de streaming y por lotes<br>✑ Migrar las cargas de trabajo de Hadoop existentes<br>✑ Asegurar que la arquitectura sea escalable y elástica para atender las demandas cambiantes de la empresa.<br>✑ Usar servicios administrados siempre que sea posible<br>✑ Cifrar los datos en tránsito y en reposo<br>Conectar una VPN entre el centro de datos de producción y el entorno de la nube<br><br>Declaración del CEO -<br>Hemos crecido tan rápido que no poder actualizar nuestra infraestructura frena de verdad nuestro crecimiento y nuestra eficiencia. Somos eficientes para mover envíos por el mundo, pero somos ineficientes para mover datos.<br>Necesitamos organizar nuestra información para entender con más facilidad dónde están nuestros clientes y qué envían.<br><br>Declaración del CTO -<br>Las TI nunca han sido una prioridad para nosotros, así que, al crecer nuestros datos, no hemos invertido lo suficiente en tecnología. Tengo un buen equipo para gestionar las TI, pero está tan ocupado gestionando nuestra infraestructura que no consigo que haga lo que de verdad importa, como organizar nuestros datos, crear los análisis y descubrir cómo implementar la tecnología de seguimiento del CFO.<br><br>Declaración del CFO -<br>Parte de nuestra ventaja competitiva es que nos penalizamos a nosotros mismos por los envíos y entregas tardíos. Saber dónde están nuestros envíos en todo momento tiene una relación directa con nuestros resultados y nuestra rentabilidad. Además, no quiero comprometer capital en construir un entorno de servidores.<br>La dirección de Flowlogistic ha determinado que los servidores Apache Kafka actuales no pueden manejar el volumen de datos de su sistema de seguimiento de inventario en tiempo real.<br>Debes construir un sistema nuevo en Google Cloud Platform (GCP) que alimente el software propio de seguimiento. El sistema debe poder ingerir datos de una variedad de fuentes globales, procesarlos y consultarlos en tiempo real, y almacenarlos de forma confiable. ¿Qué combinación de productos de GCP debes elegir?<br>",
+   "src": "e28b1e6cc71a"
+  },
+  "choices.0.html": {
+   "es": "Cloud Pub/Sub, Cloud Dataflow y Cloud Storage",
+   "src": "2c7826fb48f5"
+  },
+  "choices.1.html": {
+   "es": "Cloud Pub/Sub, Cloud Dataflow y Local SSD",
+   "src": "3d986d9fef6b"
+  },
+  "choices.2.html": {
+   "es": "Cloud Pub/Sub, Cloud SQL y Cloud Storage",
+   "src": "b877e4e2f8bf"
+  },
+  "choices.3.html": {
+   "es": "Cloud Load Balancing, Cloud Dataflow y Cloud Storage",
+   "src": "3dc9553f22eb"
+  },
+  "choices.4.html": {
+   "es": "Cloud Dataflow, Cloud SQL y Cloud Storage",
+   "src": "1f86ae9ad621"
+  },
+  "sourceExplanation": {
+   "es": "Cloud Pub/Sub es el reemplazo correcto de Apache Kafka para manejar la ingesta de gran volumen desde fuentes globales. Cloud Dataflow ofrece las capacidades de procesamiento de streaming necesarias para transformar y analizar los datos en tiempo real. Cloud Storage ofrece almacenamiento de objetos duradero y escalable para conservar de forma confiable los datos procesados.",
+   "src": "e0130da31846"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-87": {
+  "html": {
+   "es": "Has migrado un trabajo de Hadoop de un clúster local (on-prem) a dataproc y GCS. Tu trabajo de Spark es una carga de trabajo analítica complicada que consiste en muchas operaciones de shuffling (reorganización de datos) y los datos iniciales son archivos Parquet (de 200-400 MB de tamaño cada uno en promedio). Ves cierta pérdida de rendimiento después de la migración a Dataproc, así que quieres optimizarlo. Debes tener en cuenta que tu organización es muy sensible a los costos, así que quieres seguir usando Dataproc con preemptibles (con solo 2 workers no preemptibles) para esta carga de trabajo.<br>¿Qué debes hacer?<br>",
+   "src": "7b2936715f72"
+  },
+  "choices.0.html": {
+   "es": "Aumenta el tamaño de tus archivos Parquet para asegurar que midan 1 GB como mínimo.",
+   "src": "16f04742c6ef"
+  },
+  "choices.1.html": {
+   "es": "Cambia al formato TFRecords (aprox. 200MB por archivo) en lugar de archivos Parquet.",
+   "src": "5f1fc73993ee"
+  },
+  "choices.2.html": {
+   "es": "Cambia de HDD a SSD, copia los datos iniciales de GCS a HDFS, ejecuta el trabajo de Spark y copia los resultados de vuelta a GCS.",
+   "src": "ef9436840789"
+  },
+  "choices.3.html": {
+   "es": "Cambia de HDD a SSD y modifica (override) la configuración de las VM preemptibles para aumentar el tamaño del disco de arranque.",
+   "src": "a05ed0ef7d18"
+  },
+  "sourceExplanation": {
+   "es": "La opción D es correcta porque la carga de trabajo tiene mucho shuffling, que usa mucha E/S (I/O) y se beneficia mucho de los SSD frente a los HDD en las operaciones de disco local. Además, las VM preemptibles tienen por defecto discos de arranque más pequeños, que pueden convertirse en un cuello de botella durante las fases de shuffle, así que modificar esta configuración para aumentar el tamaño del disco optimiza el rendimiento sin romper la restricción de costos de usar preemptibles.\n\nLa opción C es incorrecta porque tiene costos importantes de transferencia de datos y latencia al mover datos hacia dentro y fuera de HDFS. Las opciones A y B son menos efectivas: aunque el tamaño de los archivos importa, el rango actual de 200-400MB suele ser aceptable para Parquet, y cambiar de formato o aumentar un poco el tamaño no resuelve el cuello de botella principal de E/S de las operaciones de shuffle en nodos preemptibles.",
+   "src": "a8f527a1165c"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-101": {
+  "html": {
+   "es": "Necesitas copiar millones de registros sensibles de pacientes de una base de datos relacional a BigQuery. El tamaño total de la base de datos es de 10 TB. Debes diseñar una solución que sea segura y eficiente en tiempo. ¿Qué debes hacer?<br>",
+   "src": "a91f4dd11041"
+  },
+  "choices.0.html": {
+   "es": "Exporta los registros de la base de datos como un archivo Avro. Sube el archivo a GCS con gsutil y después carga el archivo Avro en BigQuery con la interfaz web de BigQuery en la consola de GCP.",
+   "src": "59788852e2b4"
+  },
+  "choices.1.html": {
+   "es": "Exporta los registros de la base de datos como un archivo Avro. Copia el archivo en un Transfer Appliance y envíalo a Google, y después carga el archivo Avro en BigQuery con la interfaz web de BigQuery en la consola de GCP.",
+   "src": "c307650851c1"
+  },
+  "choices.2.html": {
+   "es": "Exporta los registros de la base de datos a un archivo CSV. Crea una URL pública para el archivo CSV y después usa Storage Transfer Service para mover el archivo a Cloud Storage. Carga el archivo CSV en BigQuery con la interfaz web de BigQuery en la consola de GCP.",
+   "src": "c3ca004c8747"
+  },
+  "choices.3.html": {
+   "es": "Exporta los registros de la base de datos como un archivo Avro. Crea una URL pública para el archivo Avro y después usa Storage Transfer Service para mover el archivo a Cloud Storage. Carga el archivo Avro en BigQuery con la interfaz web de BigQuery en la consola de GCP.",
+   "src": "fe963c228772"
+  },
+  "sourceExplanation": {
+   "es": "Las opciones C y D son incorrectas porque implican crear URL públicas para datos sensibles de pacientes, lo que rompe las buenas prácticas de seguridad. Entre A y B, la opción A es la correcta porque usa herramientas estándar nativas de la nube (gsutil y la interfaz web de BigQuery) para una transferencia segura y cifrada en tránsito, y es eficiente en tiempo para 10 TB de datos. La opción B es incorrecta porque Transfer Appliance está pensado para conjuntos de datos de varios petabytes, donde la transferencia por red tardaría semanas. Para 10 TB, el trabajo logístico de enviar hardware lo hace mucho menos eficiente en tiempo que una transferencia en línea.",
+   "src": "0ff06cd7d96e"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-107": {
+  "html": {
+   "es": "Trabajas para una empresa de envíos que usa escáneres de mano para leer las etiquetas de los envíos. Tu empresa tiene normas estrictas de privacidad de datos que exigen que los escáneres solo transmitan números de seguimiento cuando se envían eventos a temas (topics) de Kafka. Una actualización reciente de software hizo que los escáneres transmitieran por error información de identificación personal (PII) de los destinatarios a los sistemas de análisis, lo que rompe las reglas de privacidad de los usuarios. Quieres construir rápido una solución escalable con servicios administrados nativos de la nube para evitar que la PII llegue a los sistemas de análisis. ¿Qué debes hacer?<br>",
+   "src": "e8c4fb5faa98"
+  },
+  "choices.0.html": {
+   "es": "Crea una vista autorizada (authorized view) en BigQuery para restringir el acceso a las tablas con datos sensibles.",
+   "src": "a974ea94bde3"
+  },
+  "choices.1.html": {
+   "es": "Instala una herramienta de validación de datos de terceros en máquinas virtuales de Compute Engine para revisar si los datos entrantes tienen información sensible.",
+   "src": "e6e9c7bdabc4"
+  },
+  "choices.2.html": {
+   "es": "Usa Cloud Logging para analizar los datos que pasan por todo el pipeline y así identificar transacciones que puedan contener información sensible.",
+   "src": "4ff39c911c61"
+  },
+  "choices.3.html": {
+   "es": "Crea una Cloud Function que lea los temas y llame a la API de Cloud Data Loss Prevention (Cloud DLP). Usa las etiquetas y los niveles de confianza para dejar pasar los datos o ponerlos en cuarentena en un bucket para revisarlos.",
+   "src": "40d71248c7e4"
+  },
+  "sourceExplanation": {
+   "es": "Cloud Data Loss Prevention (Cloud DLP) es el servicio específico de Google Cloud diseñado para descubrir y proteger de forma automática información sensible como la PII. Si integras una Cloud Function que invoque la API de DLP sobre los datos que entran por Kafka, puedes inspeccionar por programación los mensajes en busca de etiquetas de contenido sensible y niveles de confianza en tiempo real.\nEste enfoque sin servidor (serverless) permite aplicar de inmediato las políticas de privacidad, al poner en cuarentena los datos que no las cumplen antes de que lleguen a los sistemas de análisis, y así cumple el requisito de una solución rápida, escalable y nativa de la nube.",
+   "src": "f3e1a8fab6a6"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-121": {
+  "html": {
+   "es": "Actualmente tienes un solo clúster de Kafka local (on-premises) en un centro de datos de la región us-east, responsable de ingerir mensajes de dispositivos IoT de todo el mundo.<br>Como grandes partes del planeta tienen mala conectividad a internet, los mensajes a veces se acumulan en el borde (edge), llegan todos de golpe y causan un pico de carga en tu<br>clúster de Kafka. Esto se está volviendo difícil de gestionar y demasiado caro. ¿Cuál es la arquitectura nativa de la nube recomendada por Google para este escenario?<br>",
+   "src": "f844ad69f6c2"
+  },
+  "choices.0.html": {
+   "es": "Edge TPUs como dispositivos sensores para almacenar y transmitir los mensajes.",
+   "src": "7dc7bddad08f"
+  },
+  "choices.1.html": {
+   "es": "Cloud Dataflow conectado al clúster de Kafka para escalar el procesamiento de los mensajes entrantes.",
+   "src": "d8c6af3f56fd"
+  },
+  "choices.2.html": {
+   "es": "Una puerta de enlace IoT (IoT gateway) conectada a Cloud Pub/Sub, con Cloud Dataflow para leer y procesar los mensajes de Cloud Pub/Sub.",
+   "src": "4323bf1cd12d"
+  },
+  "choices.3.html": {
+   "es": "Un clúster de Kafka virtualizado en Compute Engine en us-east con Cloud Load Balancing para conectar con los dispositivos de todo el mundo.",
+   "src": "e5f67413f430"
+  },
+  "sourceExplanation": {
+   "es": "La opción C es la arquitectura nativa de la nube recomendada por Google porque reemplaza el Kafka local por Cloud Pub/Sub, que ofrece puntos de ingesta globales para reducir los problemas de conectividad y los picos de carga.\nCloud Dataflow ofrece procesamiento de streaming sin servidor y con autoescalado, que maneja de forma eficiente volúmenes de mensajes variables sin gestionar clústeres manualmente.",
+   "src": "2542d12874bb"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-131": {
+  "html": {
+   "es": "A medida que tu organización amplía su uso de GCP, muchos equipos han empezado a crear sus propios proyectos. Los proyectos se multiplican aún más para acomodar distintas etapas de despliegue y distintas audiencias. Cada proyecto requiere configuraciones únicas de control de acceso. El equipo central de TI necesita acceso a todos los proyectos.<br>Además, los datos de los buckets de Cloud Storage y de los datasets de BigQuery deben compartirse para usarse en otros proyectos de forma ad hoc. Quieres simplificar la gestión del control de acceso minimizando el número de políticas. ¿Qué dos pasos debes seguir? (Elige dos.)<br>",
+   "src": "4c37589a56b4"
+  },
+  "choices.0.html": {
+   "es": "Usa Cloud Deployment Manager para automatizar la asignación de accesos.",
+   "src": "7bc3e57b3149"
+  },
+  "choices.1.html": {
+   "es": "Introduce una jerarquía de recursos (resource hierarchy) para aprovechar la herencia de las políticas de control de acceso.",
+   "src": "4683d943c9cc"
+  },
+  "choices.2.html": {
+   "es": "Crea grupos distintos para los diversos equipos y especifica los grupos en las políticas de Cloud IAM.",
+   "src": "19e5c29b4c0b"
+  },
+  "choices.3.html": {
+   "es": "Usa solo cuentas de servicio al compartir datos de los buckets de Cloud Storage y de los datasets de BigQuery.",
+   "src": "3c025218a669"
+  },
+  "choices.4.html": {
+   "es": "Para cada bucket de Cloud Storage o dataset de BigQuery, decide qué proyectos necesitan acceso. Encuentra a todos los miembros activos que tienen acceso a esos proyectos y crea una política de Cloud IAM que dé acceso a todos esos usuarios.",
+   "src": "6ba57f87500f"
+  },
+  "sourceExplanation": {
+   "es": "Para minimizar el número de políticas y simplificar la gestión, debes usar grupos de Cloud Identity para reunir a los usuarios con roles parecidos, lo que reduce la complejidad de las asignaciones a usuarios individuales.\nAdemás, implementar una jerarquía de recursos (organizaciones y carpetas) permite que las políticas de control de acceso definidas en los niveles altos se hereden hacia los proyectos, lo que reduce mucho la redundancia de políticas.",
+   "src": "721a32b0fd6a"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-133": {
+  "html": {
+   "es": "Un científico de datos ha creado un modelo de BigQuery ML y te pide crear un pipeline de ML para servir predicciones. Tienes una aplicación con API REST que debe servir predicciones para un ID de usuario individual con una latencia menor de 100 milisegundos. Usas la siguiente consulta para generar predicciones: SELECT predicted_label, user_id FROM ML.PREDICT (MODEL 'dataset.model', table user_features). ¿Cómo debes crear el pipeline de ML?<br>",
+   "src": "7f9661b9d99d"
+  },
+  "choices.0.html": {
+   "es": "Añade una cláusula WHERE a la consulta y dale el rol BigQuery Data Viewer a la cuenta de servicio de la aplicación.",
+   "src": "11980f26c58b"
+  },
+  "choices.1.html": {
+   "es": "Crea una Authorized View con la consulta indicada. Comparte con la cuenta de servicio de la aplicación el dataset que contiene la vista.",
+   "src": "33bbf6f38637"
+  },
+  "choices.2.html": {
+   "es": "Crea un pipeline de Dataflow con BigQueryIO para leer los resultados de la consulta. Dale el rol Dataflow Worker a la cuenta de servicio de la aplicación.",
+   "src": "16108bfd44a5"
+  },
+  "choices.3.html": {
+   "es": "Crea un pipeline de Dataflow con BigQueryIO para leer de la consulta las predicciones de todos los usuarios. Escribe los resultados en Bigtable con BigtableIO. Dale el rol Bigtable Reader a la cuenta de servicio de la aplicación para que la aplicación pueda leer en Bigtable las predicciones de usuarios individuales.",
+   "src": "6e0c2e9e182b"
+  },
+  "sourceExplanation": {
+   "es": "Las predicciones de BigQuery ML tienen una latencia de ejecución de consulta que normalmente supera el requisito estricto de menos de 100 ms para búsquedas de usuarios individuales.\nLa opción D usa Dataflow para procesar las predicciones por lotes y las guarda en Bigtable, una base de datos NoSQL optimizada para lecturas de una sola fila con baja latencia.\nEsta arquitectura separa el cómputo pesado de la capa de servicio, y asegura que la API REST pueda obtener las predicciones de usuarios concretos dentro del tiempo requerido.",
+   "src": "50cc8ce84d0c"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-141": {
+  "html": {
+   "es": "A los analistas de datos de tu empresa se les ha asignado el rol Owner de Cloud IAM en sus proyectos, para que puedan trabajar con varios productos de GCP en ellos. Tu organización exige conservar durante 6 meses todos los registros de acceso a datos de BigQuery. Debes asegurar que solo el personal de auditoría de tu empresa pueda acceder a los registros de acceso a datos de todos los proyectos. ¿Qué debes hacer?<br>",
+   "src": "ccb28275e454"
+  },
+  "choices.0.html": {
+   "es": "Activa los registros de acceso a datos (data access logs) en el proyecto de cada analista de datos. Restringe el acceso a Stackdriver Logging con roles de Cloud IAM.",
+   "src": "a74ade8b31ca"
+  },
+  "choices.1.html": {
+   "es": "Exporta los registros de acceso a datos con un sink de exportación a nivel de proyecto a un bucket de Cloud Storage de los proyectos de los analistas de datos. Restringe el acceso al bucket de Cloud Storage.",
+   "src": "351367fda8da"
+  },
+  "choices.2.html": {
+   "es": "Exporta los registros de acceso a datos con un sink de exportación a nivel de proyecto a un bucket de Cloud Storage de proyectos recién creados para los registros de auditoría. Restringe el acceso al proyecto con los registros exportados.",
+   "src": "45f346a3a6cf"
+  },
+  "choices.3.html": {
+   "es": "Exporta los registros de acceso a datos con un sink de exportación agregado (aggregated export sink) a un bucket de Cloud Storage de un proyecto recién creado para los registros de auditoría. Restringe el acceso al proyecto que contiene los registros exportados.",
+   "src": "eb5b29014d28"
+  },
+  "sourceExplanation": {
+   "es": "Un sink de exportación agregado permite exportar los registros de varios proyectos, carpetas o de toda la organización a un único destino, y así cumple de forma eficiente el requisito de reunir los registros de acceso de todos los proyectos.\nAl exportar estos registros a un bucket de Cloud Storage de un proyecto separado dedicado a los registros de auditoría, te aseguras de que los analistas de datos con el rol Owner en sus propios proyectos no puedan acceder a los datos de auditoría sensibles.\nRestringir el acceso de IAM en este proyecto central de auditoría asegura que solo el personal de auditoría autorizado pueda ver los registros conservados durante 6 meses.",
+   "src": "41a59a90fd28"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-149": {
+  "html": {
+   "es": "Estás migrando tu almacén de datos a BigQuery. Has migrado todos tus datos a tablas de un dataset. Varios usuarios de tu organización usarán los datos. Solo deben ver ciertas tablas según el equipo al que pertenecen. ¿Cómo debes configurar los permisos de los usuarios?<br>",
+   "src": "682ae05ab9d2"
+  },
+  "choices.0.html": {
+   "es": "Asigna a los usuarios o grupos acceso de data viewer a nivel de tabla para cada tabla",
+   "src": "107d368e0676"
+  },
+  "choices.1.html": {
+   "es": "Crea vistas SQL para cada equipo en el mismo dataset donde están los datos y asigna a los usuarios o grupos acceso de data viewer a las vistas SQL",
+   "src": "3cd4ed749750"
+  },
+  "choices.2.html": {
+   "es": "Crea vistas autorizadas (authorized views) para cada equipo en el mismo dataset donde están los datos y asigna a los usuarios o grupos acceso de data viewer a las vistas autorizadas",
+   "src": "75e5f78a29d4"
+  },
+  "choices.3.html": {
+   "es": "Crea vistas autorizadas para cada equipo en datasets creados para cada equipo. Asigna a las vistas autorizadas acceso de data viewer al dataset donde están los datos. Asigna a los usuarios o grupos acceso de data viewer a los datasets donde están las vistas autorizadas",
+   "src": "78d7ac86f1bd"
+  },
+  "sourceExplanation": {
+   "es": "La opción A es el método más directo y eficiente para aislar datos a nivel de fila o de columna en BigQuery moderno. Como los controles de acceso a nivel de tabla permiten dar a grupos concretos acceso solo a ciertas tablas de un dataset, los usuarios solo verán las tablas que se les asignan de forma explícita, y así se cumple el requisito sin sobrecarga innecesaria. Aunque la opción D describe un patrón válido con vistas autorizadas, añade complejidad porque exige datasets separados y crear vistas, cuando bastan permisos simples a nivel de tabla.",
+   "src": "9248c79bf7c2"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-162": {
+  "html": {
+   "es": "Quieres archivar datos en Cloud Storage. Como algunos datos son muy sensibles, quieres usar el enfoque `Trust No One` (TNO) para cifrar tus datos e impedir que el personal del proveedor de la nube los descifre. ¿Qué debes hacer?<br>",
+   "src": "43f946c34cd3"
+  },
+  "choices.0.html": {
+   "es": "Usa gcloud kms keys create para crear una clave simétrica. Después usa gcloud kms encrypt para cifrar cada archivo de archivado con la clave y con datos autenticados adicionales (AAD) únicos. Usa gsutil cp para subir cada archivo cifrado al bucket de Cloud Storage y guarda los AAD fuera de Google Cloud.",
+   "src": "aa721dcc70b6"
+  },
+  "choices.1.html": {
+   "es": "Usa gcloud kms keys create para crear una clave simétrica. Después usa gcloud kms encrypt para cifrar cada archivo de archivado con la clave. Usa gsutil cp para subir cada archivo cifrado al bucket de Cloud Storage. Destruye a mano la clave usada antes para el cifrado y rota la clave una vez.",
+   "src": "42e8b258b9f4"
+  },
+  "choices.2.html": {
+   "es": "Especifica una clave de cifrado suministrada por el cliente (CSEK) en el archivo de configuración .boto. Usa gsutil cp para subir cada archivo de archivado al bucket de Cloud Storage. Guarda la CSEK en Cloud Memorystore como almacenamiento permanente del secreto.",
+   "src": "5437613eee00"
+  },
+  "choices.3.html": {
+   "es": "Especifica una clave de cifrado suministrada por el cliente (CSEK) en el archivo de configuración .boto. Usa gsutil cp para subir cada archivo de archivado al bucket de Cloud Storage. Guarda la CSEK en un proyecto distinto al que solo pueda acceder el equipo de seguridad.",
+   "src": "2c87ea874337"
+  },
+  "sourceExplanation": {
+   "es": "El modelo 'Trust No One' (TNO) asegura que el proveedor de la nube no pueda acceder a tus datos, lo que exige usar claves de cifrado suministradas por el cliente (CSEK), donde Google Cloud nunca guarda las claves.\nEntre las opciones con CSEK, guardar la clave en un proyecto distinto al que solo accede el equipo de seguridad la aísla del acceso operativo general y evita la exposición accidental o el descifrado no autorizado por parte de personal que no es de seguridad.",
+   "src": "7d6177e13093"
+  },
+  "explanation": {
+   "es": "Las claves de cifrado del lado del servidor suministradas por el cliente no implican que el proveedor nunca pueda descifrar los datos durante el procesamiento. Si el requisito es de verdad que el proveedor nunca reciba datos en texto plano ni claves, evalúa un diseño de cifrado del lado del cliente (client-side encryption) y sus limitaciones para las consultas. La afirmación importada “Trust No One” es más fuerte que el mecanismo descrito.",
+   "src": "99b55038d7e1"
+  },
+  "reviewNote": {
+   "es": "Esta pregunta importada está excluida de la práctica con puntuación. Lee la nota técnica en lugar de memorizar su clave.",
+   "src": "5d478c3e8ed1"
+  }
+ },
+ "imp-168": {
+  "html": {
+   "es": "Trabajas para una institución financiera que permite a los clientes registrarse en línea. Cuando se registran clientes nuevos, sus datos de usuario se envían a Pub/Sub antes de ingerirse en<br>BigQuery. Por motivos de seguridad, decides ocultar (redact) el número de identificación emitido por el gobierno de tus clientes, y permitir a la vez que los representantes de atención al cliente vean los valores originales cuando sea necesario. ¿Qué debes hacer?<br>",
+   "src": "f378ea16279e"
+  },
+  "choices.0.html": {
+   "es": "Usa el cifrado AEAD integrado de BigQuery para cifrar la columna SSN. Guarda las claves en una tabla nueva que solo puedan ver los usuarios con permiso.",
+   "src": "4dc60e14ab0c"
+  },
+  "choices.1.html": {
+   "es": "Usa la seguridad a nivel de columna de BigQuery. Configura los permisos de la tabla para que solo los miembros del grupo de usuarios Customer Service puedan ver la columna SSN.",
+   "src": "5eb82e57bed3"
+  },
+  "choices.2.html": {
+   "es": "Antes de cargar los datos en BigQuery, usa Cloud Data Loss Prevention (DLP) para reemplazar los valores de entrada por un hash criptográfico.",
+   "src": "80bd6f040fde"
+  },
+  "choices.3.html": {
+   "es": "Antes de cargar los datos en BigQuery, usa Cloud Data Loss Prevention (DLP) para reemplazar los valores de entrada por un token de cifrado criptográfico que conserva el formato (format-preserving encryption).",
+   "src": "e7de4e79bfe1"
+  },
+  "sourceExplanation": {
+   "es": "El requisito indica ocultar los datos y permitir a la vez que los usuarios autorizados vean los valores originales. La opción C es incorrecta porque el hash criptográfico es irreversible y impide recuperar los SSN originales. La opción D usa Cloud DLP con cifrado que conserva el formato (Format-Preserving Encryption, FPE) antes de la ingesta, lo que cifra de forma predeterminada los datos sensibles, conserva su formato para el análisis y permite que los representantes de atención al cliente autorizados los descifren.",
+   "src": "13fe69c95ee0"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-179": {
+  "html": {
+   "es": "Estás construyendo un motor de predicción en tiempo real que envía en streaming archivos, que pueden contener datos de PII (información de identificación personal), a Cloud Storage y finalmente a BigQuery. Quieres asegurar que los datos sensibles estén enmascarados pero sigan manteniendo la integridad referencial (referential integrity), porque los nombres y los correos electrónicos se usan a menudo como claves de unión (join keys).<br>¿Cómo debes usar la API de Cloud Data Loss Prevention (API de DLP) para asegurar que personas no autorizadas no puedan acceder a los datos de PII?<br>",
+   "src": "cd18284e1b96"
+  },
+  "choices.0.html": {
+   "es": "Crea un seudónimo (pseudonym) reemplazando los datos de PII por tokens criptogénicos y guarda los datos sin tokenizar en un bucket bloqueado.",
+   "src": "5439fd46d20e"
+  },
+  "choices.1.html": {
+   "es": "Oculta (redact) todos los datos de PII y guarda una versión de los datos sin ocultar en un bucket bloqueado.",
+   "src": "1cc32c52bc1e"
+  },
+  "choices.2.html": {
+   "es": "Escanea cada tabla de BigQuery y enmascara los datos que encuentre con PII.",
+   "src": "39042b1df668"
+  },
+  "choices.3.html": {
+   "es": "Crea un seudónimo reemplazando los datos de PII por un token criptográfico que conserva el formato.",
+   "src": "68df07362928"
+  },
+  "sourceExplanation": {
+   "es": "El requisito de mantener la integridad referencial (permitir uniones por nombres o correos) exige una transformación determinista, en la que entradas idénticas producen salidas idénticas. El cifrado que conserva el formato (Format-Preserving Encryption, FPE) o el cifrado determinista asegura esa consistencia mientras enmascara los datos. En cambio, la simple ocultación destruye las claves de unión, y el hash estándar puede alterar el formato de los datos o considerarse irreversible sin tablas de búsqueda que la opción no especifica.",
+   "src": "b3ebf3548953"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-180": {
+  "html": {
+   "es": "Estás migrando una aplicación que registra libros de una biblioteca y la información de cada libro, como el autor o el año de publicación, de un almacén de datos local a BigQuery. En tu base de datos relacional actual, la información del autor se guarda en una tabla aparte y se une a la información del libro con una clave común. Según la práctica recomendada por Google para el diseño de esquemas, ¿cómo estructurarías los datos para asegurar la velocidad óptima de las consultas sobre el autor de cada libro que se ha prestado?<br>",
+   "src": "575c391be873"
+  },
+  "choices.0.html": {
+   "es": "Mantén el mismo esquema, conserva las tablas distintas para el libro y para cada uno de los atributos, y consulta como lo haces hoy.",
+   "src": "86bda97ba598"
+  },
+  "choices.1.html": {
+   "es": "Crea una tabla ancha (wide) que incluya una columna para cada atributo, incluidos el nombre, el apellido, la fecha de nacimiento, etc. del autor.",
+   "src": "f061a1a0fc35"
+  },
+  "choices.2.html": {
+   "es": "Crea una tabla que incluya información de los libros y de los autores, pero anida (nest) los campos del autor dentro de la columna author.",
+   "src": "90d8973fa119"
+  },
+  "choices.3.html": {
+   "es": "Mantén el mismo esquema, crea una vista que una todas las tablas y consulta siempre la vista.",
+   "src": "aeb07b595254"
+  },
+  "sourceExplanation": {
+   "es": "Google recomienda desnormalizar (denormalize) los datos en BigQuery para mejorar el rendimiento de las consultas, al evitar operaciones JOIN costosas.\nAnidar campos relacionados (como los detalles del autor) dentro de la tabla principal permite guardar relaciones jerárquicas de forma eficiente sin aplanar cada atributo en columnas individuales.",
+   "src": "a895b7157524"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-182": {
+  "html": {
+   "es": "Estás migrando tu almacén de datos a Google Cloud y dando de baja tu centro de datos local. Como esto es una prioridad para tu empresa, sabes que habrá ancho de banda disponible para la carga inicial de datos a la nube. Los archivos que se transfieren no son muchos, pero cada archivo pesa 90 GB.<br>Además, quieres que tus sistemas transaccionales actualicen de forma continua y en tiempo real el almacén en Google Cloud. ¿Qué herramientas debes usar para migrar los datos y asegurar que se sigan escribiendo en tu almacén?<br>",
+   "src": "c7b89cff9558"
+  },
+  "choices.0.html": {
+   "es": "Storage Transfer Service para la migración. Pub/Sub y Cloud Data Fusion para las actualizaciones en tiempo real",
+   "src": "75cc61cea2d1"
+  },
+  "choices.1.html": {
+   "es": "BigQuery Data Transfer Service para la migración. Pub/Sub y Dataproc para las actualizaciones en tiempo real",
+   "src": "a61c3f2a6494"
+  },
+  "choices.2.html": {
+   "es": "gsutil para la migración. Pub/Sub y Dataflow para las actualizaciones en tiempo real",
+   "src": "ac359ffd27d2"
+  },
+  "choices.3.html": {
+   "es": "gsutil tanto para la migración como para las actualizaciones en tiempo real",
+   "src": "586038d3a7f7"
+  },
+  "sourceExplanation": {
+   "es": "gsutil es la herramienta recomendada para la migración inicial de datos cuando hay suficiente ancho de banda de red y el volumen total de datos es manejable (menos de ~10TB), lo que la hace adecuada para los pocos archivos grandes que se describen. Para las actualizaciones en tiempo real, Pub/Sub ingiere eventos de captura de datos de cambios (change data capture) de los sistemas locales, mientras que Dataflow procesa esos flujos de forma continua para escribir actualizaciones incrementales en BigQuery.",
+   "src": "42a1c56f0ed8"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-187": {
+  "html": {
+   "es": "Los equipos Development y External tienen el rol project viewer de Identity and Access Management (IAM) en una carpeta llamada Visualization. Quieres que el<br>equipo Development pueda leer datos de Cloud Storage y de BigQuery, pero que el equipo External solo pueda leer datos de BigQuery. ¿Qué debes hacer?<br><img src=\"assets/images/6b92c412069e0bf0a37a.jpg\" alt=\"Original diagram for imported question 187. Open the full-size image to inspect the details.\" loading=\"lazy\"><br>\n",
+   "src": "4acbb5b05534"
+  },
+  "choices.0.html": {
+   "es": "Quita al equipo External los permisos de IAM de Cloud Storage en el proyecto acme-raw-data.",
+   "src": "0795e08f8c60"
+  },
+  "choices.1.html": {
+   "es": "Crea reglas de firewall de Virtual Private Cloud (VPC) en el proyecto acme-raw-data que denieguen todo el tráfico de entrada (ingress) del rango CIDR del equipo External.",
+   "src": "b12a76b13cbe"
+  },
+  "choices.2.html": {
+   "es": "Crea un perímetro de VPC Service Controls que contenga ambos proyectos y a BigQuery como API restringida. Añade a los usuarios del equipo External al nivel de acceso (Access Level) del perímetro.",
+   "src": "47626c8660fb"
+  },
+  "choices.3.html": {
+   "es": "Crea un perímetro de VPC Service Controls que contenga ambos proyectos y a Cloud Storage como API restringida. Añade a los usuarios del equipo Development al nivel de acceso (Access Level) del perímetro.",
+   "src": "cef9a16864e4"
+  },
+  "sourceExplanation": {
+   "es": "VPC Service Controls define perímetros de seguridad que restringen el acceso a servicios específicos. Para permitir que el equipo Development acceda a Cloud Storage y a BigQuery, y negar al equipo External el acceso a Cloud Storage, debes crear un perímetro que contenga a Cloud Storage como servicio restringido.\nAl añadir solo a los usuarios del equipo Development al nivel de acceso del perímetro, ellos obtienen acceso dentro del límite, mientras que el equipo External queda fuera y se le niega el acceso a los recursos restringidos de Cloud Storage.",
+   "src": "de1746e6122e"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-200": {
+  "html": {
+   "es": "Las normativas gubernamentales del sector bancario exigen proteger la información de identificación personal (PII) de los clientes. Tu empresa exige que la PII tenga acceso controlado, esté cifrada y cumpla las principales normas de protección de datos. Además de usar Cloud Data Loss Prevention (Cloud DLP), quieres seguir las<br>prácticas recomendadas por Google y usar cuentas de servicio para controlar el acceso a la PII. ¿Qué debes hacer?<br>",
+   "src": "cd3df3e099ec"
+  },
+  "choices.0.html": {
+   "es": "Asigna los roles de Identity and Access Management (IAM) necesarios a cada empleado y crea una sola cuenta de servicio para acceder a los recursos del proyecto.",
+   "src": "84b289fe9406"
+  },
+  "choices.1.html": {
+   "es": "Usa una cuenta de servicio para acceder a una base de datos de Cloud SQL y usa cuentas de servicio separadas para cada usuario humano.",
+   "src": "988a3f28cab5"
+  },
+  "choices.2.html": {
+   "es": "Usa Cloud Storage para cumplir las principales normas de protección de datos. Usa una cuenta de servicio compartida por todos los usuarios.",
+   "src": "f868597eda13"
+  },
+  "choices.3.html": {
+   "es": "Usa Cloud Storage para cumplir las principales normas de protección de datos. Usa varias cuentas de servicio asociadas a grupos de IAM para dar el acceso adecuado a cada grupo.",
+   "src": "178ac8eeedee"
+  },
+  "sourceExplanation": {
+   "es": "La respuesta correcta es la D porque respeta el principio de mínimo privilegio al usar varias cuentas de servicio adaptadas a necesidades específicas, en lugar de una sola cuenta compartida (A), que crea un riesgo de seguridad y ambigüedad en la auditoría. Aunque Google en general aconseja no añadir cuentas de servicio directamente a grupos, en el contexto de gestionar el acceso humano a la PII mediante grupos de IAM, esta opción es mejor que la B (que aísla sin necesidad a cada usuario en cuentas de servicio separadas y crea una carga de gestión) y que la C (que comparte una cuenta entre todos los usuarios). La opción D ofrece una estructura escalable en la que los grupos de IAM controlan el acceso de personas o de roles de aplicaciones, y asegura una segmentación adecuada sin la pesadilla administrativa de gestionar permisos individuales para cada empleado.",
+   "src": "7957c8ca9967"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-215": {
+  "html": {
+   "es": "Administras un dataset de BigQuery que usa una clave de cifrado administrada por el cliente (CMEK). Necesitas compartir el dataset con una organización asociada que no tiene acceso a tu CMEK. ¿Qué debes hacer?",
+   "src": "f3490d812fdf"
+  },
+  "choices.0.html": {
+   "es": "Dale a la organización asociada una copia de tus CMEK para descifrar los datos.",
+   "src": "9c47b1bf2f87"
+  },
+  "choices.1.html": {
+   "es": "Exporta las tablas a archivos Parquet en un bucket de Cloud Storage y dale el rol storageinsights.viewer sobre el bucket a la organización asociada.",
+   "src": "9afc38a22645"
+  },
+  "choices.2.html": {
+   "es": "Copia las tablas que necesitas compartir a un dataset sin CMEK. Crea un listado (listing) de Analytics Hub para este dataset.",
+   "src": "80dba0bfedfc"
+  },
+  "choices.3.html": {
+   "es": "Crea una vista autorizada que contenga la CMEK para descifrar los datos cuando se acceda a ellos.",
+   "src": "5e16b74dc5a0"
+  },
+  "sourceExplanation": {
+   "es": "No puedes compartir datos cifrados con una clave de cifrado administrada por el cliente (CMEK) sin dar al receptor acceso a esa clave, lo que supone un riesgo de seguridad. Si copias las tablas a un dataset que usa claves de cifrado administradas por Google y publicas con Analytics Hub, ofreces un uso compartido de datos seguro y gobernado sin exponer tu CMEK.",
+   "src": "cfa830bf78a7"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-216": {
+  "html": {
+   "es": "Estás desarrollando un pipeline de Apache Beam para extraer datos de una instancia de Cloud SQL con JdbcIO. Tienes dos proyectos en Google Cloud. El pipeline se desplegará y se ejecutará en Dataflow en el Proyecto A. La instancia de Cloud SQL se ejecuta en el Proyecto B y no tiene dirección IP pública. Después de desplegar el pipeline, notaste que no pudo extraer datos de la instancia de Cloud SQL por un fallo de conexión. Verificaste que VPC Service Controls y la VPC compartida (shared VPC) no se usan en estos proyectos. Quieres resolver este error y asegurar a la vez que los datos no pasen por la internet pública. ¿Qué debes hacer?",
+   "src": "920deaf1c359"
+  },
+  "choices.0.html": {
+   "es": "Configura el VPC Network Peering entre el Proyecto A y el Proyecto B. Añade una regla de firewall que permita al rango de subred del peering acceder a todas las instancias de la red.",
+   "src": "18fca647e242"
+  },
+  "choices.1.html": {
+   "es": "Desactiva las direcciones IP externas del worker de Dataflow. Activa Cloud NAT en el Proyecto A.",
+   "src": "0c0f50b6affb"
+  },
+  "choices.2.html": {
+   "es": "Añade las direcciones IP externas del worker de Dataflow como redes autorizadas (authorized networks) en la instancia de Cloud SQL.",
+   "src": "01000626580d"
+  },
+  "choices.3.html": {
+   "es": "Configura el VPC Network Peering entre el Proyecto A y el Proyecto B. Crea en el Proyecto B, en la subred del peering, una instancia de Compute Engine sin dirección IP externa que sirva como servidor proxy de la base de datos de Cloud SQL.",
+   "src": "4a7593cda4d5"
+  },
+  "sourceExplanation": {
+   "es": "El VPC Network Peering no ofrece enrutamiento transitivo hacia servicios administrados por Google como Cloud SQL, así que la conectividad directa desde una VPC con peering es imposible sin un intermediario.\nLa opción D establece la ruta de red necesaria mediante el peering y usa un proxy de Compute Engine en el Proyecto B para conectar los workers de Dataflow (Proyecto A) con la instancia privada de Cloud SQL.\nEsto asegura que el tráfico se quede dentro de la red interna de Google, y cumple el requisito de que los datos no pasen por la internet pública.",
+   "src": "01d0b0321ec6"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-217": {
+  "html": {
+   "es": "Tienes una tabla de BigQuery con datos de clientes, incluida información sensible como nombres y direcciones. Necesitas compartir los datos de clientes de forma segura con tus equipos de análisis de datos y de soporte al consumidor. El equipo de análisis de datos necesita acceder a los datos de todos los clientes, pero no debe poder acceder a los datos sensibles. El equipo de soporte al consumidor necesita acceso a todas las columnas de datos, pero no debe poder acceder a los clientes que ya no tienen contratos activos. Aplicaste estos requisitos con un dataset autorizado (authorized dataset) y etiquetas de políticas (policy tags). Después de implementar estos pasos, el equipo de análisis de datos informa de que sigue teniendo acceso a las columnas sensibles. Debes asegurar que el equipo de análisis de datos no tenga acceso a los datos restringidos. ¿Qué debes hacer? (Elige dos.)",
+   "src": "b482549c6796"
+  },
+  "choices.0.html": {
+   "es": "Crea dos datasets autorizados separados: uno para el equipo de análisis de datos y otro para el equipo de soporte al consumidor.",
+   "src": "1061ce8d1db8"
+  },
+  "choices.1.html": {
+   "es": "Asegura que los miembros del equipo de análisis de datos no tengan el rol Data Catalog Fine-Grained Reader para las etiquetas de políticas.",
+   "src": "bbbae55792a0"
+  },
+  "choices.2.html": {
+   "es": "Reemplaza el dataset autorizado por una vista autorizada. Usa seguridad a nivel de fila (row-level security) y aplica filter_expression para limitar el acceso a los datos.",
+   "src": "edbe26608728"
+  },
+  "choices.3.html": {
+   "es": "Quita el rol bigquery.dataViewer al equipo de análisis de datos en los datasets autorizados.",
+   "src": "8a4f9bc350d5"
+  },
+  "choices.4.html": {
+   "es": "Aplica el control de acceso en la taxonomía de etiquetas de políticas (policy tag taxonomy).",
+   "src": "967b3fd087db"
+  },
+  "explanation": {
+   "es": "La pregunta pide dos acciones. Quitar el acceso inadecuado de Fine-Grained Reader y aplicar el control de acceso en la taxonomía de etiquetas de políticas funcionan juntos. Un dataset autorizado no anula las reglas a nivel de columna. Revisa la taxonomía y todos los permisos efectivos o heredados. La respuesta editorial es B y E. La fuente marcó solo B.",
+   "src": "aae9965d8e30"
+  },
+  "reviewNote": {
+   "es": "El razonamiento editorial está vinculado a documentación primaria. La clave importada se conserva por separado.",
+   "src": "c07bc5e656c6"
+  },
+  "issues.0": {
+   "es": "La pregunta pide 2 opciones, pero la clave importada contiene 1.",
+   "src": "0ddc5cc390bc"
+  }
+ },
+ "imp-220": {
+  "html": {
+   "es": "Estás migrando tu almacén de datos local a BigQuery. Una de las fuentes de datos de origen está en una base de datos MySQL que se ejecuta en tu centro de datos local, sin direcciones IP públicas. Quieres asegurar que la ingesta de datos en BigQuery se haga de forma segura y sin pasar por la internet pública. ¿Qué debes hacer?",
+   "src": "4af570652e57"
+  },
+  "choices.0.html": {
+   "es": "Actualiza tu herramienta de ETL local existente para escribir en BigQuery con el driver Open Database Connectivity (ODBC) de BigQuery. Configura el parámetro proxy del archivo simba.googlebigqueryodbc.ini para que apunte a la puerta de enlace NAT de tu centro de datos.",
+   "src": "a6c9be81e0ee"
+  },
+  "choices.1.html": {
+   "es": "Usa Datastream para replicar datos de tu base de datos MySQL local a BigQuery. Configura Cloud Interconnect entre tu centro de datos local y Google Cloud. Usa Private connectivity como método de conectividad y asigna un rango de direcciones IP dentro de tu red de VPC a la configuración de conectividad de Datastream. Usa Server-only como tipo de cifrado al configurar el perfil de conexión en Datastream.",
+   "src": "a0b4cbd82483"
+  },
+  "choices.2.html": {
+   "es": "Usa Datastream para replicar datos de tu base de datos MySQL local a BigQuery. Usa Forward-SSH tunnel como método de conectividad para establecer un túnel seguro entre Datastream y tu base de datos MySQL local, mediante un servidor de túnel en tu centro de datos local. Usa None como tipo de cifrado al configurar el perfil de conexión en Datastream.",
+   "src": "4d3ffe63f482"
+  },
+  "choices.3.html": {
+   "es": "Usa Datastream para replicar datos de tu base de datos MySQL local a BigQuery. Reúne las direcciones IP públicas de Datastream de la región de Google Cloud que se usará para configurar el stream. Añade esas direcciones IP a la lista de permitidos del firewall de tu centro de datos local. Usa IP Allowlisting como método de conectividad y Server-only como tipo de cifrado al configurar el perfil de conexión en Datastream.",
+   "src": "a31838473076"
+  },
+  "sourceExplanation": {
+   "es": "Cloud Interconnect establece una conexión de red privada entre la infraestructura local y Google Cloud, y asegura que el tráfico no pase por la internet pública. Configurar Datastream con Private connectivity sobre esta interconexión permite una replicación segura desde la base de datos MySQL local hacia BigQuery con direcciones IP privadas.",
+   "src": "852e1c046cb8"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-226": {
+  "html": {
+   "es": "Tu organización tiene dos proyectos de Google Cloud, el proyecto A y el proyecto B. En el proyecto A tienes un tema (topic) de Pub/Sub que recibe datos de fuentes confidenciales. Solo los recursos del proyecto A deben poder acceder a los datos de ese tema. Quieres asegurar que el proyecto B y cualquier proyecto futuro no puedan acceder a los datos del tema del proyecto A. ¿Qué debes hacer?",
+   "src": "46a2b5f62f65"
+  },
+  "choices.0.html": {
+   "es": "Añade reglas de firewall en el proyecto A para que solo se permita el tráfico de la VPC del proyecto A.",
+   "src": "5965cce8666f"
+  },
+  "choices.1.html": {
+   "es": "Configura VPC Service Controls en la organización con un perímetro alrededor del proyecto A.",
+   "src": "d909577a4baa"
+  },
+  "choices.2.html": {
+   "es": "Usa condiciones de Identity and Access Management para asegurar que solo los usuarios y las cuentas de servicio del proyecto A puedan acceder a los recursos del proyecto A.",
+   "src": "c613232a10fa"
+  },
+  "choices.3.html": {
+   "es": "Configura VPC Service Controls en la organización con un perímetro alrededor de la VPC del proyecto A.",
+   "src": "f0eab3558bc9"
+  },
+  "sourceExplanation": {
+   "es": "VPC Service Controls crea perímetros de seguridad que restringen la exfiltración de datos y el acceso a los recursos de un grupo específico de proyectos, sin importar los permisos de IAM.\nAl colocar el Proyecto A dentro de un perímetro de VPC Service Controls, aseguras que se nieguen las solicitudes que se originan fuera del perímetro (como las del Proyecto B o de proyectos futuros) a servicios sensibles como Pub/Sub, incluso si esas entidades externas tienen permisos de IAM.\nEste enfoque es mejor que las condiciones de IAM porque aplica un aislamiento de límites a nivel de organización, y evita el acceso accidental o malicioso entre proyectos sin gestionar condiciones de identidad individuales.",
+   "src": "82456226ac50"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-237": {
+  "html": {
+   "es": "Planeas cargar parte de tus datos locales existentes en BigQuery en Google Cloud. Quieres cargar los datos en streaming o por lotes, según tu caso de uso. Además, quieres enmascarar algunos datos sensibles antes de cargarlos en BigQuery. Necesitas hacerlo de forma programática y con el costo mínimo. ¿Qué debes hacer?",
+   "src": "07ba011255e5"
+  },
+  "choices.0.html": {
+   "es": "Usa Cloud Data Fusion para diseñar tu pipeline, usa el plug-in de Cloud DLP para desidentificar (de-identify) los datos dentro del pipeline y luego mueve los datos a BigQuery.",
+   "src": "c9d5215bac72"
+  },
+  "choices.1.html": {
+   "es": "Usa BigQuery Data Transfer Service para programar tu migración. Cuando los datos ya estén en BigQuery, usa la conexión con la API de Cloud Data Loss Prevention (Cloud DLP) para desidentificar los datos necesarios.",
+   "src": "f83785a25376"
+  },
+  "choices.2.html": {
+   "es": "Crea tu pipeline con Dataflow mediante el SDK de Apache Beam para Python, y personaliza en tu código opciones separadas para streaming, procesamiento por lotes y Cloud DLP. Elige BigQuery como destino (sink) de los datos.",
+   "src": "ca2fb4c784b5"
+  },
+  "choices.3.html": {
+   "es": "Configura Datastream para replicar tus datos locales en BigQuery.",
+   "src": "5a8f198f2112"
+  },
+  "sourceExplanation": {
+   "es": "La opción C es correcta porque Apache Beam admite el streaming y el procesamiento por lotes con el mismo código base, y cumple el requisito de manejar cualquiera de los dos modos de forma programática.\n\nPermite una integración directa con la API de Cloud DLP dentro del pipeline de Dataflow para desidentificar los datos sensibles antes de escribir en BigQuery.\n\nEste enfoque evita las limitaciones de bajo código (low-code) de Cloud Data Fusion (opción A) y aprovecha el modelo sin servidor y de pago por uso de Dataflow para minimizar los costos.",
+   "src": "9037860959df"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-238": {
+  "html": {
+   "es": "Quieres cifrar los datos de clientes guardados en BigQuery. Necesitas implementar la eliminación criptográfica (crypto-deletion) por usuario sobre los datos guardados en tus tablas. Quieres adoptar funciones nativas de Google Cloud para evitar soluciones personalizadas. ¿Qué debes hacer?",
+   "src": "91cf38b491db"
+  },
+  "choices.0.html": {
+   "es": "Implementa las funciones de BigQuery de cifrado autenticado con datos asociados (Authenticated Encryption with Associated Data, AEAD) mientras guardas tus datos en BigQuery.",
+   "src": "9609c845f09a"
+  },
+  "choices.1.html": {
+   "es": "Crea una clave de cifrado administrada por el cliente (CMEK) en Cloud KMS. Asocia la clave a la tabla al crear la tabla.",
+   "src": "d8919a732c7e"
+  },
+  "choices.2.html": {
+   "es": "Crea una clave de cifrado administrada por el cliente (CMEK) en Cloud KMS. Usa la clave para cifrar los datos antes de guardarlos en BigQuery.",
+   "src": "87f7cae91e24"
+  },
+  "choices.3.html": {
+   "es": "Cifra tus datos durante la ingesta con una biblioteca criptográfica compatible con tu pipeline de ETL.",
+   "src": "6c6f8901fa70"
+  },
+  "sourceExplanation": {
+   "es": "Las funciones de cifrado AEAD de BigQuery permiten cifrar por columna o por fila con claves específicas administradas fuera de BigQuery.\nPara lograr la eliminación criptográfica, basta con borrar o revocar la clave asociada a un usuario concreto, y así sus datos cifrados quedan ilegibles para siempre, sin cambiar la estructura de la tabla.\nEste enfoque aprovecha funciones nativas de Google Cloud para implementar la eliminación criptográfica de forma eficiente, mientras que las CMEK (opciones B y C) gestionan claves de cifrado a nivel de almacenamiento que se aplican de forma amplia y no permiten revocar datos de forma granular por usuario.",
+   "src": "573435901074"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-239": {
+  "html": {
+   "es": "El equipo de analistas de datos de tu empresa usa BigQuery para consultas ad hoc y para pipelines de SQL programados en un proyecto de Google Cloud con una reserva de 2000 slots. Sin embargo, con la reciente introducción de cientos de pipelines de SQL nuevos que no son urgentes (non time-sensitive), el equipo tiene errores de cuota con frecuencia. Examinas los registros y ves que se activan aproximadamente 1500 consultas al mismo tiempo en las horas pico. Necesitas resolver el problema de concurrencia. ¿Qué debes hacer?",
+   "src": "f19cf11704d3"
+  },
+  "choices.0.html": {
+   "es": "Aumenta la capacidad de slots del proyecto con una línea base (baseline) de 0 y un tamaño máximo de reserva de 3000.",
+   "src": "fe2273c7cf09"
+  },
+  "choices.1.html": {
+   "es": "Actualiza los pipelines de SQL para que se ejecuten como consulta por lotes (batch query) y ejecuta las consultas ad hoc como trabajos de consulta interactivos (interactive query jobs).",
+   "src": "d04b12e310ac"
+  },
+  "choices.2.html": {
+   "es": "Aumenta la capacidad de slots del proyecto con una línea base de 2000 y un tamaño máximo de reserva de 3000.",
+   "src": "9b2217b9e9c3"
+  },
+  "choices.3.html": {
+   "es": "Actualiza los pipelines de SQL y las consultas ad hoc para que se ejecuten como trabajos de consulta interactivos.",
+   "src": "9206ee94686b"
+  },
+  "sourceExplanation": {
+   "es": "El problema central es la competencia por los recursos entre las consultas ad hoc urgentes y los pipelines programados que no son urgentes.\nAl configurar los pipelines de SQL nuevos como trabajos por lotes, se les asigna una prioridad menor y esperan en cola en lugar de competir por los slots inmediatos cuando se agota la capacidad.\nMantener las consultas ad hoc como interactivas asegura que los analistas conserven un acceso rápido a los recursos de cómputo sin que los bloquee la carga de trabajo de baja prioridad.",
+   "src": "daf9956c3623"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-240": {
+  "html": {
+   "es": "Estás diseñando una malla de datos (data mesh) en Google Cloud con Dataplex para gestionar datos en BigQuery y Cloud Storage. Quieres simplificar los permisos de los activos de datos. Estás creando un lago virtual de clientes (customer virtual lake) con dos grupos de usuarios:<br><br>• Ingenieros de datos, que necesitan acceso total al data lake<br>• Usuarios de análisis, que necesitan acceso a los datos curados<br><br>Debes asignar derechos de acceso a estos dos grupos. ¿Qué debes hacer?",
+   "src": "f1c57767cde6"
+  },
+  "choices.0.html": {
+   "es": "1. Dale el rol dataplex.dataOwner al grupo de ingenieros de datos en el data lake de clientes.<br>2. Dale el rol dataplex.dataReader al grupo de usuarios de análisis en la zona curada de clientes.",
+   "src": "4f77f049844f"
+  },
+  "choices.1.html": {
+   "es": "1. Dale el rol dataplex.dataReader al grupo de ingenieros de datos en el data lake de clientes.<br>2. Dale el rol dataplex.dataOwner al grupo de usuarios de análisis en la zona curada de clientes.",
+   "src": "2dc1648d8d5d"
+  },
+  "choices.2.html": {
+   "es": "1. Dale a los ingenieros de datos el rol bigquery.dataOwner en los datasets de BigQuery y el rol storage.objectCreator en los buckets de Cloud Storage.<br>2. Dale a los usuarios de análisis el rol bigquery.dataViewer en los datasets de BigQuery y el rol storage.objectViewer en los buckets de Cloud Storage.",
+   "src": "a9b5e7394354"
+  },
+  "choices.3.html": {
+   "es": "1. Dale a los ingenieros de datos el rol bigquery.dataViewer en los datasets de BigQuery y el rol storage.objectViewer en los buckets de Cloud Storage.<br>2. Dale a los usuarios de análisis el rol bigquery.dataOwner en los datasets de BigQuery y el rol storage.objectEditor en los buckets de Cloud Storage.",
+   "src": "ceb1689f7e68"
+  },
+  "sourceExplanation": {
+   "es": "La pregunta pide de forma explícita usar Dataplex para simplificar los permisos, así que debes asignar los roles definidos por Dataplex en lugar de roles de IAM granulares de BigQuery o de Cloud Storage.\ndataOwner de Dataplex da el control total (leer, escribir y administrar) que los ingenieros de datos necesitan sobre los activos del lago, tanto crudos como curados.\ndataReader de Dataplex da acceso de solo lectura, adecuado para los usuarios de análisis que acceden a las zonas de datos curados.",
+   "src": "447cc3624c71"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-250": {
+  "html": {
+   "es": "La plataforma de datos de tu empresa ingiere en Cloud Storage volcados de archivos CSV con datos de reservas y de perfiles de usuario desde fuentes de origen. El equipo de analistas de datos quiere unir (join) estos datasets por el campo de correo electrónico (email) que está en ambos para hacer análisis. Sin embargo, la información de identificación personal (PII) no debe ser accesible para los analistas. Necesitas desidentificar el campo email en ambos datasets antes de cargarlos en BigQuery para los analistas. ¿Qué debes hacer?",
+   "src": "10e2d1a18437"
+  },
+  "choices.0.html": {
+   "es": "1. Crea un pipeline para desidentificar el campo email con recordTransformations en Cloud Data Loss Prevention (Cloud DLP), con enmascaramiento (masking) como tipo de transformación de desidentificación.<br>2. Carga los datos de reservas y de perfiles de usuario en una tabla de BigQuery.",
+   "src": "8af916b83943"
+  },
+  "choices.1.html": {
+   "es": "1. Crea un pipeline para desidentificar el campo email con recordTransformations en Cloud DLP, con cifrado que conserva el formato (format-preserving encryption) con FFX como tipo de transformación de desidentificación.<br>2. Carga los datos de reservas y de perfiles de usuario en una tabla de BigQuery.",
+   "src": "c2a784710e6b"
+  },
+  "choices.2.html": {
+   "es": "1. Carga los archivos CSV de Cloud Storage en una tabla de BigQuery y activa el enmascaramiento dinámico de datos (dynamic data masking).<br>2. Crea una etiqueta de política con la máscara de correo electrónico (email mask) como regla de enmascaramiento de datos.<br>3. Asigna la política al campo email en ambas tablas. A<br>4. Asigna a los analistas el rol de Identity and Access Management bigquerydatapolicy.maskedReader para las tablas de BigQuery.",
+   "src": "18ca22050f9f"
+  },
+  "choices.3.html": {
+   "es": "1. Carga los archivos CSV de Cloud Storage en una tabla de BigQuery y activa el enmascaramiento dinámico de datos (dynamic data masking).<br>2. Crea una etiqueta de política con el valor de enmascaramiento predeterminado (default masking value) como regla de enmascaramiento de datos.<br>3. Asigna la política al campo email en ambas tablas.<br>4. Asigna a los analistas el rol de Identity and Access Management bigquerydatapolicy.maskedReader para las tablas de BigQuery",
+   "src": "e826dd8e1ba2"
+  },
+  "sourceExplanation": {
+   "es": "El requisito indica desidentificar los datos *antes* de cargarlos en BigQuery, lo que elimina las opciones C y D, que dependen del enmascaramiento dinámico de datos dentro de BigQuery. Entre las opciones restantes de Cloud DLP, el enmascaramiento simple (opción A) reemplaza los caracteres por símbolos estáticos y destruye el identificador único necesario para unir los datasets. La opción B usa cifrado que conserva el formato (Format-Preserving Encryption, FPE) con FFX, que cifra las direcciones de correo electrónico y mantiene su formato original y su consistencia, y permite a los analistas unir los datasets sin exponer la PII.",
+   "src": "4628fe762ee4"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-258": {
+  "html": {
+   "es": "Tienes varias fuentes de datos de distintos tipos de archivo, como Apache Parquet y CSV. Quieres guardar los datos en Cloud Storage. Necesitas configurar un destino de objetos (object sink) para tus datos que te permita usar tus propias claves de cifrado. Quieres usar una solución con interfaz gráfica (GUI). ¿Qué debes hacer?",
+   "src": "925816efb403"
+  },
+  "choices.0.html": {
+   "es": "Usa Storage Transfer Service para mover los archivos a Cloud Storage.",
+   "src": "fb7851efbbb8"
+  },
+  "choices.1.html": {
+   "es": "Usa Cloud Data Fusion para mover los archivos a Cloud Storage.",
+   "src": "87cab5e5a87e"
+  },
+  "choices.2.html": {
+   "es": "Usa Dataflow para mover los archivos a Cloud Storage.",
+   "src": "2539412d5dd5"
+  },
+  "choices.3.html": {
+   "es": "Usa BigQuery Data Transfer Service para mover los archivos a BigQuery.",
+   "src": "37c1f0b74a24"
+  },
+  "sourceExplanation": {
+   "es": "Cloud Data Fusion es un servicio totalmente administrado con interfaz gráfica (GUI) que admite la construcción visual de pipelines para ingerir en Cloud Storage varios formatos de archivo como Parquet y CSV. Admite de forma explícita las claves de cifrado administradas por el cliente (CMEK) para los buckets de destino, y cumple el requisito de usar tus propias claves de cifrado. En cambio, Storage Transfer Service no admite CMEK para los datos en reposo, como confirma la documentación oficial.",
+   "src": "505086933c23"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-262": {
+  "html": {
+   "es": "Estás en el equipo de gobierno de datos y estás implementando requisitos de seguridad. Necesitas cifrar todos tus datos de BigQuery con una clave de cifrado administrada por tu equipo. Debes implementar un mecanismo que genere y guarde el material de cifrado solo en tu módulo de seguridad de hardware (HSM) local. Quieres apoyarte en soluciones administradas por Google. ¿Qué debes hacer?",
+   "src": "ca451ac63118"
+  },
+  "choices.0.html": {
+   "es": "Crea la clave de cifrado en el HSM local e impórtala como clave de Cloud Key Management Service (Cloud KMS). Asocia la clave de Cloud KMS creada al crear los recursos de BigQuery.",
+   "src": "adaa073eea60"
+  },
+  "choices.1.html": {
+   "es": "Crea la clave de cifrado en el HSM local y vincúlala a una clave de Cloud External Key Manager (Cloud EKM). Asocia la clave de Cloud KMS creada al crear los recursos de BigQuery.",
+   "src": "7db90c3f1286"
+  },
+  "choices.2.html": {
+   "es": "Crea la clave de cifrado en el HSM local e impórtala como clave de Cloud Key Management Service (Cloud HSM). Asocia la clave de Cloud HSM creada al crear los recursos de BigQuery.",
+   "src": "35a3687f5a88"
+  },
+  "choices.3.html": {
+   "es": "Crea la clave de cifrado en el HSM local. Crea recursos de BigQuery y cifra los datos mientras los ingieres en BigQuery.",
+   "src": "850b9207e935"
+  },
+  "sourceExplanation": {
+   "es": "Cloud External Key Manager (Cloud EKM) es la solución específica de Google Cloud diseñada para integrar BigQuery con sistemas externos de gestión de claves, como un HSM local.\nEsto permite que el material de la clave de cifrado permanezca exclusivamente en tu hardware local, mientras BigQuery usa la clave criptográfica asociada de Cloud KMS para las operaciones de cifrado.\nLas opciones que implican importar a Cloud KMS o usar Cloud HSM guardarían o replicarían el material de la clave dentro de la infraestructura de Google, y romperían el requisito de que el material se guarde solo de forma local.",
+   "src": "75aa23db5a66"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-272": {
+  "html": {
+   "es": "Tienes un dataset de BigQuery llamado “customers”. Todas las tablas se etiquetarán con una plantilla de etiquetas de Data Catalog llamada “gdpr”. La plantilla contiene un campo obligatorio, “has_sensitive_data”, con un valor booleano. Todos los empleados deben poder hacer una búsqueda simple y encontrar las tablas del dataset que tienen true o false en el campo “has_sensitive_data’. Sin embargo, solo el grupo de Recursos Humanos (HR) debe poder ver los datos dentro de las tablas en las que “has_sensitive data” es true. Das al grupo de todos los empleados los roles bigquery.metadataViewer y bigquery.connectionUser en el dataset. Quieres minimizar la sobrecarga de configuración. ¿Qué debes hacer a continuación?",
+   "src": "a48e5b5c2e98"
+  },
+  "choices.0.html": {
+   "es": "Crea la plantilla de etiquetas “gdpr” con visibilidad privada (private visibility). Asigna el rol bigquery.dataViewer al grupo HR en las tablas que contienen datos sensibles.",
+   "src": "8844ea4aefb6"
+  },
+  "choices.1.html": {
+   "es": "Crea la plantilla de etiquetas “gdpr” con visibilidad privada. Asigna el rol datacatalog.tagTemplateViewer sobre esta etiqueta al grupo de todos los empleados y asigna el rol bigquery.dataViewer al grupo HR en las tablas que contienen datos sensibles.",
+   "src": "09318f100374"
+  },
+  "choices.2.html": {
+   "es": "Crea la plantilla de etiquetas “gdpr” con visibilidad pública (public visibility). Asigna el rol bigquery.dataViewer al grupo HR en las tablas que contienen datos sensibles.",
+   "src": "c42de9b69896"
+  },
+  "choices.3.html": {
+   "es": "Crea la plantilla de etiquetas “gdpr” con visibilidad pública. Asigna el rol datacatalog.tagTemplateViewer sobre esta etiqueta al grupo de todos los empleados y asigna el rol bigquery.dataViewer al grupo HR en las tablas que contienen datos sensibles.",
+   "src": "4ff092c2bcea"
+  },
+  "sourceExplanation": {
+   "es": "La opción C es correcta porque configurar la plantilla de etiquetas con visibilidad pública permite que los usuarios con permisos estándar de ver metadatos (ya concedidos con bigquery.metadataViewer) busquen y descubran las etiquetas sin necesitar roles adicionales de IAM de Data Catalog.\nAsignar bigquery.dataViewer solo al grupo HR en tablas específicas aplica el control de acceso a nivel de fila para los datos sensibles y mantiene una sobrecarga de configuración mínima, al evitar asignaciones de roles innecesarias.",
+   "src": "5cdc498a879a"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-274": {
+  "html": {
+   "es": "Tienes una tabla de BigQuery que ingiere datos directamente de una suscripción de Pub/Sub. Los datos ingeridos se cifran con una clave de cifrado administrada por Google. Necesitas cumplir una nueva política de la organización que exige usar claves de un proyecto centralizado de Cloud Key Management Service (Cloud KMS) para cifrar los datos en reposo. ¿Qué debes hacer?",
+   "src": "fd661e561b76"
+  },
+  "choices.0.html": {
+   "es": "Usa una clave de cifrado de Cloud KMS con Dataflow para ingerir la suscripción de Pub/Sub existente en la tabla de BigQuery existente.",
+   "src": "163e92d6835a"
+  },
+  "choices.1.html": {
+   "es": "Crea una tabla nueva de BigQuery con claves de cifrado administradas por el cliente (CMEK) y migra los datos de la tabla antigua de BigQuery.",
+   "src": "e95a0f562e37"
+  },
+  "choices.2.html": {
+   "es": "Crea un tema nuevo de Pub/Sub con CMEK y usa la tabla de BigQuery existente con una clave de cifrado administrada por Google.",
+   "src": "6b89f05133ff"
+  },
+  "choices.3.html": {
+   "es": "Crea una tabla nueva de BigQuery y un tema de Pub/Sub con claves de cifrado administradas por el cliente (CMEK) y migra los datos de la tabla antigua de BigQuery.",
+   "src": "7d8b407f9b32"
+  },
+  "sourceExplanation": {
+   "es": "El requisito indica cifrar los datos en reposo con CMEK. Como las tablas de BigQuery guardan en reposo los datos ingeridos, crear una tabla nueva con CMEK y migrar los datos existentes asegura el cumplimiento también para los datos históricos.\nAunque Pub/Sub guarda los mensajes de forma temporal (retención), el objetivo principal del cifrado en reposo de los 'datos ingeridos' en este contexto es la tabla de BigQuery.\nLa opción B resuelve correctamente el requisito de cifrado de BigQuery sin complejidad innecesaria ni sobreingeniería del tema de origen, que no se pide de forma explícita en la redacción específica sobre la tabla ingerida.",
+   "src": "28aeb1391ae2"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-295": {
+  "html": {
+   "es": "Estás diseñando la arquitectura para procesar tus datos de Cloud Storage a BigQuery con Dataflow. El equipo de redes te proporcionó la red y la subred de VPC compartida (Shared VPC) que deben usar tus pipelines. Necesitas habilitar el despliegue del pipeline en la red de VPC compartida. ¿Qué debes hacer?",
+   "src": "aff7cce7674e"
+  },
+  "choices.0.html": {
+   "es": "Asigna el rol compute.networkUser al agente de servicio (service agent) de Dataflow.",
+   "src": "8d15be42a56e"
+  },
+  "choices.1.html": {
+   "es": "Asigna el rol compute.networkUser a la cuenta de servicio que ejecuta el pipeline de Dataflow.",
+   "src": "9c94232734ff"
+  },
+  "choices.2.html": {
+   "es": "Asigna el rol dataflow.admin al agente de servicio de Dataflow.",
+   "src": "79178538ab3b"
+  },
+  "choices.3.html": {
+   "es": "Asigna el rol dataflow.admin a la cuenta de servicio que ejecuta el pipeline de Dataflow.",
+   "src": "7c1f6b1471cc"
+  },
+  "explanation": {
+   "es": "El acceso a una VPC compartida implica más que un permiso genérico de Dataflow Admin. La guía actual de redes y de IAM distingue entre la cuenta de servicio del worker, el emisor del trabajo (submitter) y el agente de servicio, con permisos de subred en el proyecto host. Como tanto A como B nombran identidades que pueden necesitar acceso según la configuración, esta pregunta, al estar poco especificada, no debe usarse como una receta de IAM incondicional de una sola respuesta.",
+   "src": "df4ec0657f3a"
+  },
+  "reviewNote": {
+   "es": "Esta pregunta importada está excluida de la práctica con puntuación. Lee la nota técnica en lugar de memorizar su clave.",
+   "src": "5d478c3e8ed1"
+  }
+ },
+ "imp-296": {
+  "html": {
+   "es": "Tu equipo de infraestructura ha configurado un enlace de interconexión (interconnect) entre Google Cloud y la red local. Estás diseñando un pipeline de streaming de alto rendimiento para ingerir datos en streaming desde un clúster de Apache Kafka alojado de forma local. Quieres guardar los datos en BigQuery con la menor latencia posible. ¿Qué debes hacer?",
+   "src": "d09a21426227"
+  },
+  "choices.0.html": {
+   "es": "Configura un puente de Kafka Connect entre Kafka y Pub/Sub. Usa una plantilla de Dataflow proporcionada por Google para leer los datos de Pub/Sub y escribirlos en BigQuery.",
+   "src": "35e267a16bcc"
+  },
+  "choices.1.html": {
+   "es": "Usa un host proxy en la VPC de Google Cloud que se conecte a Kafka. Escribe un pipeline de Dataflow que lea los datos del host proxy y los escriba en BigQuery.",
+   "src": "7de14ac68191"
+  },
+  "choices.2.html": {
+   "es": "Usa Dataflow y escribe un pipeline que lea los datos de Kafka y los escriba en BigQuery.",
+   "src": "442fc4662461"
+  },
+  "choices.3.html": {
+   "es": "Configura un puente de Kafka Connect entre Kafka y Pub/Sub. Escribe un pipeline de Dataflow que lea los datos de Pub/Sub y los escriba en BigQuery.",
+   "src": "d7ec0289641b"
+  },
+  "explanation": {
+   "es": "La ingesta directa con KafkaIO por una conexión privada existente evita un puente innecesario de Kafka a Pub/Sub antes de BigQuery. Un pipeline de Dataflow puede aplicar procesamiento y escribir en el almacén mientras tú gestionas de forma explícita la accesibilidad de la fuente, el esquema y la semántica del destino (sink). Eso encaja con la ruta de baja latencia que se pide.",
+   "src": "f03706082194"
+  },
+  "reviewNote": {
+   "es": "El razonamiento editorial está vinculado a documentación primaria. La clave importada se conserva por separado.",
+   "src": "c07bc5e656c6"
+  }
+ },
+ "imp-297": {
+  "html": {
+   "es": "Migraste tu data lake local de Apache Hadoop Distributed File System (HDFS) a Cloud Storage. El equipo de científicos de datos necesita procesar los datos con Apache Spark y SQL. Hay que aplicar las políticas de seguridad a nivel de columna. Necesitas una solución rentable que pueda escalar hacia una malla de datos (data mesh). ¿Qué debes hacer?",
+   "src": "8d90e797dbd6"
+  },
+  "choices.0.html": {
+   "es": "1. Despliega un clúster de Dataproc de larga duración con Apache Hive y Ranger habilitados.<br>2. Configura Ranger para la seguridad a nivel de columna.<br>3. Procesa con Spark de Dataproc o con Hive SQL.",
+   "src": "fac50d310d1c"
+  },
+  "choices.1.html": {
+   "es": "1. Define una tabla BigLake.<br>2. Crea una taxonomía de etiquetas de políticas en Data Catalog.<br>3. Añade etiquetas de políticas a las columnas.<br>4. Procesa con el conector Spark-BigQuery o con SQL de BigQuery.",
+   "src": "f10f294fa3d3"
+  },
+  "choices.2.html": {
+   "es": "1. Carga los datos en tablas de BigQuery.<br>2. Crea una taxonomía de etiquetas de políticas en Data Catalog.<br>3. Añade etiquetas de políticas a las columnas.<br>4. Procesa con el conector Spark-BigQuery o con SQL de BigQuery.",
+   "src": "fc8f1059f0d7"
+  },
+  "choices.3.html": {
+   "es": "1. Aplica una política de Identity and Access Management (IAM) a nivel de archivo en Cloud Storage.<br>2. Define una tabla externa de BigQuery para el procesamiento con SQL.<br>3. Usa Spark de Dataproc para procesar los archivos de Cloud Storage.",
+   "src": "8fefec14a8a6"
+  },
+  "sourceExplanation": {
+   "es": "La opción B es correcta porque BigLake permite definir tablas administradas sobre datos existentes de Cloud Storage sin cargas de ETL costosas, y así asegura rentabilidad y compatibilidad con una arquitectura de malla de datos (data mesh).\nLas etiquetas de políticas de Data Catalog ofrecen la aplicación de seguridad detallada a nivel de columna que IAM no puede lograr.\nEl conector Spark-BigQuery permite a los científicos de datos procesar estas tablas BigLake con Apache Spark o SQL directamente.",
+   "src": "1aa158402a5e"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-298": {
+  "html": {
+   "es": "Una de tus claves de cifrado guardadas en Cloud Key Management Service (Cloud KMS) quedó expuesta. Necesitas volver a cifrar todos tus datos de Cloud Storage protegidos con CMEK que usaron esa clave, y después eliminar la clave comprometida. También quieres reducir el riesgo de que en el futuro se escriban objetos sin protección de clave de cifrado administrada por el cliente (CMEK). ¿Qué debes hacer?",
+   "src": "ea5dbfe19e32"
+  },
+  "choices.0.html": {
+   "es": "Rota la versión de la clave de Cloud KMS. Sigue usando el mismo bucket de Cloud Storage.",
+   "src": "46455b83fe66"
+  },
+  "choices.1.html": {
+   "es": "Crea una clave nueva de Cloud KMS. Configura la nueva clave como clave CMEK predeterminada del bucket de Cloud Storage existente.",
+   "src": "4e68eafefdd6"
+  },
+  "choices.2.html": {
+   "es": "Crea una clave nueva de Cloud KMS. Crea un bucket nuevo de Cloud Storage. Copia todos los objetos del bucket antiguo al bucket nuevo indicando la clave nueva de Cloud KMS en el comando de copia.",
+   "src": "85c7b9128363"
+  },
+  "choices.3.html": {
+   "es": "Crea una clave nueva de Cloud KMS. Crea un bucket nuevo de Cloud Storage configurado para usar la clave nueva como clave CMEK predeterminada. Copia todos los objetos del bucket antiguo al bucket nuevo sin indicar una clave.",
+   "src": "d3c0d8520652"
+  },
+  "sourceExplanation": {
+   "es": "Rotar una clave (opción A) no vuelve a cifrar de forma automática los datos existentes, y cambiar la clave CMEK predeterminada de un bucket existente (opción B) solo afecta a las escrituras futuras y deja los datos antiguos cifrados con la clave comprometida. Para volver a cifrar todos los datos, debes copiar los objetos a una ubicación nueva donde estén protegidos por la clave nueva. La opción D es superior porque crear un bucket nuevo con la clave nueva como predeterminada asegura que tanto los datos copiados como las cargas futuras queden protegidos de forma automática por la CMEK nueva, mientras que la opción C exige indicar la clave de forma explícita en cada operación de copia, pero no garantiza la protección de las cargas manuales posteriores si el cifrado predeterminado del bucket no se configura de forma explícita o no se gestiona de forma consistente.",
+   "src": "dd7ba085cc1e"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-306": {
+  "html": {
+   "es": "Estás preparando un dataset para toda la organización. Necesitas preprocesar datos de clientes guardados en un bucket restringido de Cloud Storage. Los datos se usarán para crear análisis de consumidores. Necesitas cumplir los requisitos de privacidad de datos.<br><br>¿Qué debes hacer?",
+   "src": "f125850feb89"
+  },
+  "choices.0.html": {
+   "es": "Usa Dataflow y la API de Cloud Data Loss Prevention para enmascarar los datos sensibles. Escribe los datos procesados en BigQuery.",
+   "src": "a08485c875f9"
+  },
+  "choices.1.html": {
+   "es": "Usa claves de cifrado administradas por el cliente (CMEK) para cifrar directamente los datos en Cloud Storage. Usa consultas federadas desde BigQuery. Comparte la clave de cifrado siguiendo el principio de mínimo privilegio.",
+   "src": "1615b9a10bd3"
+  },
+  "choices.2.html": {
+   "es": "Usa la API de Cloud Data Loss Prevention y Dataflow para detectar y quitar los campos sensibles de los datos en Cloud Storage. Escribe los datos filtrados en BigQuery.",
+   "src": "fcf70725b96c"
+  },
+  "choices.3.html": {
+   "es": "Usa Dataflow y Cloud KMS para cifrar los campos sensibles y escribe los datos cifrados en BigQuery. Comparte la clave de cifrado siguiendo el principio de mínimo privilegio.",
+   "src": "bf19e3b68ee2"
+  },
+  "sourceExplanation": {
+   "es": "La opción A es correcta porque usa la API de Cloud DLP para enmascarar los datos sensibles en lugar de borrarlos, lo que conserva la utilidad del dataset para el análisis de consumidores y asegura el cumplimiento de la privacidad.\nQuitar los campos por completo (opción C) probablemente destruiría la capacidad de hacer análisis significativos, porque dejaría los registros sin identificar o incompletos.\nLas opciones B y D se basan en el cifrado, que protege los datos en reposo pero no impide el acceso no autorizado de usuarios con privilegios de descifrado, mientras que el enmascaramiento deja la PII inutilizable aunque se acceda a ella.",
+   "src": "e3943619b211"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-317": {
+  "html": {
+   "es": "Tienes varias fuentes de datos no estructurados distintas, dentro de tu centro de datos local y también en la nube. Los datos están en varios formatos, como Apache Parquet y CSV. Quieres centralizar estos datos en Cloud Storage. Necesitas configurar un destino de objetos (object sink) para tus datos que te permita usar tus propias claves de cifrado. Quieres usar una solución con interfaz gráfica (GUI). ¿Qué debes hacer?",
+   "src": "3662eb742850"
+  },
+  "choices.0.html": {
+   "es": "Usa BigQuery Data Transfer Service para mover los archivos a BigQuery.",
+   "src": "37c1f0b74a24"
+  },
+  "choices.1.html": {
+   "es": "Usa Storage Transfer Service para mover los archivos a Cloud Storage",
+   "src": "761295648e36"
+  },
+  "choices.2.html": {
+   "es": "Usa Dataflow para mover los archivos a Cloud Storage",
+   "src": "546787df681e"
+  },
+  "choices.3.html": {
+   "es": "Usa Cloud Data Fusion para mover los archivos a Cloud Storage.",
+   "src": "87cab5e5a87e"
+  },
+  "sourceExplanation": {
+   "es": "Cloud Data Fusion es el único servicio de integración de datos con interfaz gráfica (GUI) (sin código o con poco código) entre las opciones que admite usar claves de cifrado suministradas por el cliente (CSEK) para destinos de objetos (object sinks) en Cloud Storage.\nStorage Transfer Service, aunque puede mover datos, no tiene un diseñador visual completo de flujos de trabajo y tiene limitaciones con el uso de CSEK en comparación con Data Fusion.",
+   "src": "c32d0e5ff4e7"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-319": {
+  "html": {
+   "es": "Estás preparando un dataset para toda la organización. Necesitas preprocesar datos de clientes guardados en un bucket restringido de Cloud Storage. Los datos se usarán para crear análisis de consumidores. Necesitas cumplir los requisitos de privacidad de datos, incluida la protección de ciertos elementos de datos sensibles, y a la vez conservar todos los datos para posibles casos de uso futuros. ¿Qué debes hacer?",
+   "src": "0c32672ce8ae"
+  },
+  "choices.0.html": {
+   "es": "Usa la API de Cloud Data Loss Prevention y Dataflow para detectar y quitar los campos sensibles de los datos en Cloud Storage. Escribe los datos filtrados en BigQuery.",
+   "src": "fcf70725b96c"
+  },
+  "choices.1.html": {
+   "es": "Usa claves de cifrado administradas por el cliente (CMEK) para cifrar directamente los datos en Cloud Storage. Usa consultas federadas desde BigQuery. Comparte la clave de cifrado siguiendo el principio de mínimo privilegio.",
+   "src": "1615b9a10bd3"
+  },
+  "choices.2.html": {
+   "es": "Usa Dataflow y la API de Cloud Data Loss Prevention para enmascarar los datos sensibles. Escribe los datos procesados en BigQuery.",
+   "src": "a08485c875f9"
+  },
+  "choices.3.html": {
+   "es": "Usa Dataflow y Cloud KMS para cifrar los campos sensibles y escribe los datos cifrados en BigQuery. Comparte la clave de cifrado siguiendo el principio de mínimo privilegio.",
+   "src": "bf19e3b68ee2"
+  },
+  "sourceExplanation": {
+   "es": "La opción C es correcta porque usa la API de Cloud Data Loss Prevention (DLP) para enmascarar los datos sensibles en lugar de borrarlos, y cumple el requisito de conservar todos los datos para usos futuros.\nEl enmascaramiento protege la privacidad y conserva la estructura y el volumen del dataset, mientras que la opción A quita campos por completo y rompe la restricción de retención.\nLas opciones B y D se centran en el cifrado en reposo o en el cifrado a nivel de campo, que no anonimiza de forma inherente los datos para el procesamiento analítico igual que la ocultación o el enmascaramiento de DLP.",
+   "src": "bf6f974a8407"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-322": {
+  "html": {
+   "es": "Tu empresa planea migrar un gran almacén de datos local a BigQuery. Los datos están guardados actualmente en un formato propietario, específico del proveedor. Necesitas hacer una migración por lotes de estos datos a BigQuery. ¿Qué debes hacer?",
+   "src": "321392782961"
+  },
+  "choices.0.html": {
+   "es": "Usa la herramienta de línea de comandos bq para cargar los datos directamente desde el almacén de datos local.",
+   "src": "87fc6cc8188b"
+  },
+  "choices.1.html": {
+   "es": "Exporta los datos a archivos CSV, sube los archivos a Cloud Storage y después carga los archivos en BigQuery.",
+   "src": "b6bb843260b5"
+  },
+  "choices.2.html": {
+   "es": "Usa BigQuery Data Transfer Service.",
+   "src": "77c6ff490c3a"
+  },
+  "choices.3.html": {
+   "es": "Usa Datastream para replicar los datos en tiempo real.",
+   "src": "eac81700bda5"
+  },
+  "sourceExplanation": {
+   "es": "BigQuery Data Transfer Service (DTS) es la herramienta designada para hacer transferencias por lotes programadas de datos desde fuentes compatibles, incluidos muchos almacenes de datos locales y en la nube.\nAunque exportar a CSV en Cloud Storage es una ruta de migración genérica válida, DTS ofrece una solución administrada y automatizada diseñada específicamente para migraciones por lotes recurrentes sin manejo manual de archivos.\nDatastream (opción D) se usa para la replicación con captura de datos de cambios en tiempo real, lo que contradice el requisito de una migración por lotes.",
+   "src": "59a31b4683a1"
+  },
+  "explanation": {
+   "es": "Un servicio de transferencia administrado requiere una fuente y un formato compatibles. La pregunta no identifica el sistema propietario, así que la clave C importada no se puede establecer en general. Exportar a un formato de intercambio compatible y hacer una carga validada es una ruta explícita de migración por lotes. Un conector compatible del proveedor puede ser preferible cuando esté disponible.",
+   "src": "b5b33167c090"
+  },
+  "reviewNote": {
+   "es": "Esta pregunta importada está excluida de la práctica con puntuación. Lee la nota técnica en lugar de memorizar su clave.",
+   "src": "5d478c3e8ed1"
+  }
+ },
+ "imp-323": {
+  "html": {
+   "es": "Tu empresa usa proyectos de Google Cloud separados para desarrollo, staging y producción. Los desarrolladores necesitan acceso de edición en el proyecto de desarrollo, acceso de solo lectura en el proyecto de staging y ningún acceso en el proyecto de producción. Necesitas una solución eficaz y manejable para asignar y aplicar estos permisos según las prácticas recomendadas por Google. ¿Qué debes hacer?",
+   "src": "cfbc6adc83e3"
+  },
+  "choices.0.html": {
+   "es": "Crea perímetros de VPC Service Controls separados para cada proyecto y usa niveles de acceso (access levels).",
+   "src": "7b0c4eae5c51"
+  },
+  "choices.1.html": {
+   "es": "Da a cada desarrollador roles de IAM específicos directamente en cada proyecto.",
+   "src": "9bd956494389"
+  },
+  "choices.2.html": {
+   "es": "Configura reglas de firewall dentro de la VPC de cada proyecto para bloquear el tráfico de las máquinas de desarrolladores no autorizadas.",
+   "src": "c681dbf87004"
+  },
+  "choices.3.html": {
+   "es": "Crea Google Groups para los niveles de acceso, asigna los desarrolladores a los grupos y da a los grupos los roles de IAM adecuados en cada proyecto.",
+   "src": "aab7a6ddcc81"
+  },
+  "explanation": {
+   "es": "Los grupos separan la pertenencia al equipo de la asignación de roles por proyecto. Da al grupo de desarrollo solo los permisos de desarrollo necesarios, usa un acceso de lectura con el alcance adecuado en staging y evita dar permisos en producción. Revisa también los permisos heredados: no poner un permiso local no elimina uno heredado más amplio.",
+   "src": "43ebb436af64"
+  },
+  "reviewNote": {
+   "es": "El razonamiento editorial está vinculado a documentación primaria. La clave importada se conserva por separado.",
+   "src": "c07bc5e656c6"
+  }
+ },
+ "imp-325": {
+  "html": {
+   "es": "Tu gran empresa de comercio electrónico usa BigQuery para las necesidades de su almacén de datos. Tiene dos tipos principales de cargas de trabajo:<br>• Dashboards de analistas: consultas interactivas que ejecutan los analistas de negocio durante todo el día y que requieren baja latencia para obtener información en tiempo real.<br>• Trabajos de ETL: consultas por lotes grandes y complejas que cargan y transforman datos durante la noche. Estos trabajos son sensibles al costo, pueden tolerar tiempos de ejecución más largos y no tienen los mismos requisitos de rendimiento que los dashboards.<br><br>Los analistas informan de un rendimiento inconsistente de sus dashboards, sobre todo en las horas pico del negocio. Necesitas asegurar un rendimiento confiable para los dos tipos de carga de trabajo y optimizar los costos a la vez. ¿Qué debes hacer?",
+   "src": "843e3691a10e"
+  },
+  "choices.0.html": {
+   "es": "Usa las ediciones de BigQuery (BigQuery editions) para crear una reserva con autoescalado y slots dedicados para los dashboards de los analistas, y ejecuta los trabajos de ETL con una reserva separada o con el modelo de facturación bajo demanda (on-demand).",
+   "src": "b92e677c6748"
+  },
+  "choices.1.html": {
+   "es": "Implementa una solución de autoescalado personalizada con funciones de Cloud Run para ajustar de forma dinámica los slots de BigQuery disponibles según la hora del día.",
+   "src": "438a9d207d8e"
+  },
+  "choices.2.html": {
+   "es": "Migra todos los trabajos de ETL a Cloud SQL para reducir la carga de trabajo de BigQuery.",
+   "src": "6319df0df3ee"
+  },
+  "choices.3.html": {
+   "es": "Ejecuta todas las consultas de los dashboards de los analistas como consultas interactivas y configura los trabajos de ETL para que se ejecuten como consultas por lotes.",
+   "src": "4dd6fc4ab723"
+  },
+  "explanation": {
+   "es": "Separar la asignación de cómputo evita que el ETL, sensible al costo, compita sin control con los dashboards de baja latencia. Las reservas y las asignaciones (assignments) te permiten dimensionar o autoescalar la carga de trabajo de los dashboards y aislar el ETL según sus propios requisitos. Las etiquetas interactivo y por lotes, por sí solas, no reservan cómputo dedicado.",
+   "src": "042175295d45"
+  },
+  "reviewNote": {
+   "es": "El razonamiento editorial está vinculado a documentación primaria. La clave importada se conserva por separado.",
+   "src": "c07bc5e656c6"
+  }
+ },
+ "imp-338": {
+  "html": {
+   "es": "Tu organización guarda datos muy personales en BigQuery y debe cumplir normativas estrictas de privacidad de datos. Necesitas asegurar que los valores de datos sensibles queden ilegibles cada vez que un empleado deja la organización. ¿Qué debes hacer?",
+   "src": "41e1a6d18b42"
+  },
+  "choices.0.html": {
+   "es": "Usa controles de acceso a nivel de columna con etiquetas de políticas y revoca los permisos de lector cuando los empleados dejen la organización.",
+   "src": "88908a5482d3"
+  },
+  "choices.1.html": {
+   "es": "Usa el enmascaramiento dinámico de datos (dynamic data masking) y revoca los permisos de lector cuando los empleados dejen la organización.",
+   "src": "3739dfece8f9"
+  },
+  "choices.2.html": {
+   "es": "Usa claves de cifrado administradas por el cliente (CMEK) y elimina las claves cuando los empleados dejen la organización.",
+   "src": "7348054bad1a"
+  },
+  "choices.3.html": {
+   "es": "Usa funciones AEAD y elimina las claves cuando los empleados dejen la organización.",
+   "src": "c6f3fde5b0f3"
+  },
+  "sourceExplanation": {
+   "es": "La opción D es correcta porque las funciones AEAD (Authenticated Encryption with Associated Data) de BigQuery permiten un cifrado a nivel de celda ligado a claves específicas. Cuando un empleado se va, eliminar su clave asociada deja los datos cifrados ilegibles para siempre, porque descifrar se vuelve matemáticamente imposible sin la clave. Esto se diferencia de los controles de acceso o del enmascaramiento, que solo ocultan los datos y no los hacen irrecuperables desde el punto de vista criptográfico.",
+   "src": "f9570ce32e4e"
+  },
+  "explanation": {
+   "es": "Quitar los permisos de lectura de un empleado y eliminar de forma criptográfica los datos de ese empleado son requisitos distintos. Eliminar la clave AEAD solo deja ilegibles los valores previstos si la granularidad de las claves, las copias y el ciclo de vida de las claves se diseñan para eso. La pregunta no especifica ese modelo de propiedad de las claves, así que D es condicional y no una regla general de baja de empleados.",
+   "src": "0f62d08ad053"
+  },
+  "reviewNote": {
+   "es": "Esta pregunta importada está excluida de la práctica con puntuación. Lee la nota técnica en lugar de memorizar su clave.",
+   "src": "5d478c3e8ed1"
+  }
+ },
+ "imp-341": {
+  "html": {
+   "es": "Estás integrando tu base de datos MySQL local heredada (legacy) en un nuevo almacén de datos de Google Cloud. La base de datos contiene datos históricos de fidelización de clientes que se deben extraer cada día y cargar en BigQuery. Quieres una solución de integración administrada que sea segura y admita cargas incrementales. ¿Qué debes hacer?",
+   "src": "d76ef672b32b"
+  },
+  "choices.0.html": {
+   "es": "Implementa un pipeline de datos con Pub/Sub para enviar en streaming los cambios de datos de MySQL.",
+   "src": "0bedb92e4b3c"
+  },
+  "choices.1.html": {
+   "es": "Configura una transferencia programada en BigQuery Data Transfer Service para ingerir datos de la base de datos MySQL con una configuración de transferencia programada.",
+   "src": "871d3430593f"
+  },
+  "choices.2.html": {
+   "es": "Aprovecha Database Migration Service para la replicación continua de toda la base de datos a Cloud SQL.",
+   "src": "e41e0434996e"
+  },
+  "choices.3.html": {
+   "es": "Usa consultas federadas de Cloud SQL para consultar directamente la base de datos MySQL local desde BigQuery.",
+   "src": "4a82afda5733"
+  },
+  "explanation": {
+   "es": "El conector de MySQL compatible de BigQuery Data Transfer Service ofrece importaciones programadas y preferencias de escritura completa o incremental documentadas. Verifica las versiones de origen compatibles, la conectividad privada y la configuración incremental. Database Migration Service está pensado para migrar bases de datos, no para esta importación recurrente al almacén. Pub/Sub por sí solo no es un extractor de MySQL.",
+   "src": "a6cf79deafb7"
+  },
+  "reviewNote": {
+   "es": "El razonamiento editorial está vinculado a documentación primaria. La clave importada se conserva por separado.",
+   "src": "c07bc5e656c6"
+  }
+ },
+ "imp-347": {
+  "html": {
+   "es": "Estás definiendo la estrategia de gobierno de datos para una tabla nueva de BigQuery con datos médicos y financieros. Quieres una solución escalable que asegure que los investigadores clínicos puedan acceder a los datos médicos de los pacientes sin la información financiera, y que permita al equipo de contabilidad acceder solo a los datos financieros con identificadores de pacientes mínimos. ¿Qué debes hacer?",
+   "src": "24594a0071d4"
+  },
+  "choices.0.html": {
+   "es": "Implementa políticas de seguridad a nivel de columna en las tablas de BigQuery con permisos de IAM.",
+   "src": "fd1893122dff"
+  },
+  "choices.1.html": {
+   "es": "Crea tablas separadas para la información de identificación personal (PII), los datos financieros y los datos médicos anonimizados. Usa permisos de IAM para controlar el acceso a cada tabla.",
+   "src": "62c6a51d6e51"
+  },
+  "choices.2.html": {
+   "es": "Implementa políticas de seguridad a nivel de fila en las tablas de BigQuery con permisos de IAM.",
+   "src": "0867ff9412c7"
+  },
+  "choices.3.html": {
+   "es": "Crea datasets separados con vistas autorizadas que muestren solo los datos aprobados.",
+   "src": "d281d559cce1"
+  },
+  "sourceExplanation": {
+   "es": "El requisito de restringir el acceso según columnas concretas (médicas frente a financieras) dentro de la misma tabla se cumple mejor con la seguridad a nivel de columna con etiquetas de políticas (Policy Tags).\nBigQuery permite asignar etiquetas a las columnas sensibles y dar roles de IAM que permiten o deniegan el acceso a esas etiquetas concretas, lo que da un control detallado sin duplicar datos.",
+   "src": "116d3dbb8919"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ }
+}

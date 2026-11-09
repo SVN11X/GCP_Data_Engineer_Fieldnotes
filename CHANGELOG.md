@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- The 57 imported questions of domain 1 now read in Spanish (412 strings, all with a source hash) with the label "Traducción al español de una pregunta aportada" and a control to swap to the untouched English original. Source keys, review labels, images and scoring are unchanged. The Spanish needs the owner's review.
 - The 124 original practice questions now read in Spanish (1,240 strings: question, choices, reasons and explanation) in practice, the question page, timed practice, the diagnostic and quick challenges. Each domain has its own overlay with source hashes that loads only for Spanish visitors. Answers, keys, order and scoring are unchanged. The Spanish needs the owner's review.
 - The service decision table on the resources page now reads in Spanish. The language report counts overlay text as translated and lists English left by a missing or stale overlay entry with its reason.
 - The resources page now shows source-kind labels ("Fuente primaria") and workshop titles in Spanish. The language report no longer lists overlay-translated text as missing.

@@ -57,6 +57,25 @@
         }
       }catch{}
     }
+    /* Spanish text of the imported questions: only for Spanish visitors and only for domains whose imported bank is loaded.
+       fetchIt=false only re-applies overlays that are already loaded (the list page merges English catalog text over loaded questions). Back in English every loaded domain is restored. Any failure leaves English. */
+    async function localizeImported(domains,fetchIt=true){
+      const on=getLang?.()==='es';
+      if(!on&&!pending.has('i'))return;
+      const todo=(on?domains:data.domains.map(x=>x.id)).filter(d=>pending.has(data.manifest.imported+d+'.json'));
+      if(!todo.length)return;
+      try{
+        if(!pending.has('s'))pending.set('s',add('script','lesson-es.js').catch(x=>{pending.delete('s');throw x;}));
+        if(!pending.has('i'))pending.set('i',pending.get('s').then(()=>add('script','imported-es.js')).catch(x=>{pending.delete('i');throw x;}));
+        await pending.get('i');
+        for(const d of todo){
+          const file=(data.manifest.importedEs||'')+d+'.json',known=(data.manifest.esImported||[]).includes(d);
+          if(on&&known&&!fetchIt&&!pending.has(file))continue;
+          const overlay=on&&known?await load(file,()=>{}):null;
+          await globalThis.FieldImportedEs.apply(data.questions.filter(q=>q.domain===d&&q.origin==='imported'&&q.choices.length),overlay,on);
+        }
+      }catch{}
+    }
     /* Spanish text of services, comparisons, workshops and architectures. Only for Spanish visitors and only on the route that shows it. Any failure leaves English. */
     async function localizeContent(kind,items){
       const on=getLang?.()==='es';
@@ -79,8 +98,8 @@
         if(lesson){await Promise.all([lessons(lesson.domain),questions(lesson.domain)]);await localize(lesson.domain);await localizeQuestions([lesson.domain]);}
       }
       if(route==='learn'&&id){pending.get('v')||pending.set('v',add('script','verification.js').catch(()=>{}));const lesson=data.lessons.find(l=>l.id===id);if(lesson){await lessons(lesson.domain);await localize(lesson.domain);}}
-      if(route==='practice'&&id){const question=data.questions.find(q=>q.id===id);if(question){await(question.origin==='imported'?importedQuestions(question.domain):questions(question.domain));if(question.origin==='authored')await localizeQuestions([question.domain]);}}
-      if((route==='practice'&&!id)||route==='progress'){await importedCatalog();await localizeQuestions(data.domains.map(d=>d.id));}
+      if(route==='practice'&&id){const question=data.questions.find(q=>q.id===id);if(question){await(question.origin==='imported'?importedQuestions(question.domain):questions(question.domain));if(question.origin==='authored')await localizeQuestions([question.domain]);else await localizeImported([question.domain]);}}
+      if((route==='practice'&&!id)||route==='progress'){await importedCatalog();await localizeQuestions(data.domains.map(d=>d.id));await localizeImported(data.domains.map(d=>d.id),false);}
       if(['diagnostic','exam','review'].includes(route)){await Promise.all(data.domains.map(d=>route==='review'?lessons(d.id):questions(d.id)));if(route!=='review')await localizeQuestions(data.domains.map(d=>d.id));}
       if(route==='resources'){data.resources.id='resources';data.resources.audit=data.sourceAudit;await localizeContent('resources',[data.resources]);await localizeContent('workshops',data.workshops);await localizeContent('services',data.services);}
       if(route==='compare')await localizeContent('services',data.services);
