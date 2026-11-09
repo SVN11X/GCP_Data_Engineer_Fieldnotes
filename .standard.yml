@@ -1,0 +1,38 @@
+# Identity of this repository for the standard.
+# After editing, run: python .standards/scripts/standard.py agents .
+standard: SVN11X/standards@v1
+owner: SVN11X
+name: GCP_Data_Engineer_Fieldnotes
+profile: web
+setup: done
+license: none
+content_language: en
+github:
+  description: Independent bilingual study site for the Google Cloud Professional Data Engineer exam
+  homepage: https://svn11x.github.io/GCP_Data_Engineer_Fieldnotes/
+  topics:
+  - web
+  - github-pages
+options:
+  hosting: github-pages
+  build: npm
+  motion: rich
+  three_d: none
+  flows: multi-step
+  theme: both
+parts: {}
+part_options: {}
+extra_folders:
+  content: Editable knowledge source of the study site (lessons, questions, glossary, sources). Build scripts read it.
+  dist: Temporary. Committed build output until plan item 3 moves the client to src/ and stops tracking it.
+  reports: Temporary. Audit reports until plan item 4 moves them into docs/.
+skills:
+- repo-improve
+- code-review
+- tool-radar
+- web-improve
+- antislop
+- antislop-ui
+- antislop-human
+- antislop-layoutmobile
+- antislop-copywriting
