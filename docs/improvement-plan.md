@@ -21,7 +21,8 @@ Format: `- [ ]` pending, `- [x]` done, `- [x] SKIPPED: reason`, `- [ ] BLOCKED: 
 
 - [x] 10. G Official domain and objective titles from guide v4.2, IDs kept. Weights 22/25/20/15/18 rechecked against the guide on 2026-11-08 and recorded in content/verification.json.
 - [x] 11. G Type and spacing scale: body 16 px or more, labels 14 px or more, prose max 70ch, 4 and 8 px spacing. Replace every 8 to 12 px font rule in styles.css.
-- [ ] 12. G Field-notebook visual system from DESIGN.md: paper tokens, one self-hosted OFL accent font (license in LICENSES/), domain colors, both themes at 4.5:1 contrast or more.
+- [x] 12. G Field-notebook visual system from DESIGN.md: paper and ink tokens, key-fact style, domain text colors, both themes at 4.5:1 contrast or more. No new font yet (see 12b).
+- [ ] BLOCKED: 12b. Do you approve downloading one handwritten OFL font (for example Caveat from Google Fonts, about 100 KB WOFF2) into assets/ with its OFL text in LICENSES/? A self-hosted copy adds no runtime request to other hosts.
 - [ ] 13. G Mermaid-to-SVG at build time (radar: trial) for whiteboard diagrams. The radar note goes as a separate pull request to SVN11X/standards.
 
 ## Focus, lessons and motion
