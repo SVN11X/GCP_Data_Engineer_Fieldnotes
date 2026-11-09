@@ -29,7 +29,7 @@ Format: `- [ ]` pending, `- [x]` done, `- [x] SKIPPED: reason`, `- [ ] BLOCKED: 
 
 - [x] 14. G Focus mode: topbar button, f key, Escape, remembered in its own storage key, progress bar. Tests cover toggle, bad values, clamping and old saved progress. Bar shows session step or completed lessons.
 - [x] 15. G Lesson block pilot: 4 of 9 domain 1 lessons start with a diagram, a key fact and a quick check. Text is derived from the lessons and needs owner review.
-- [ ] 16. G Motion set: data moving along pipeline SVGs, button feedback, key-fact highlight. Reduced-motion fallback, pause control over 5 s, decision record.
+- [x] 16. G Motion set: dots moving along lesson diagrams (3 short passes, pause button), button feedback, key-fact sweep, reduced-motion fallback, decision 0001.
 - [ ] 17. G Gentle rewards: streaks and domain marks as optional fields under data-engineer-fieldnotes.v1. Export and restore test with old state.
 - [ ] BLOCKED: 18. Official Google Cloud product icons in diagrams after confirming the terms on cloud.google.com/icons. Attribution on the credits page. Needs your OK to download or install: official Google Cloud icon files.
 - [ ] BLOCKED: 19. Lucide UI icons copied as local SVG and CC0 illustrations (Open Peeps, Open Doodles), each listed in LICENSES/. Needs your OK to download or install: Lucide SVG files and CC0 illustrations.
