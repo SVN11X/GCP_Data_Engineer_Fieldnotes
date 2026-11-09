@@ -12,7 +12,7 @@ Format: `- [ ]` pending, `- [x]` done, `- [x] SKIPPED: reason`, `- [ ] BLOCKED: 
 - [x] 4. Y Moved INSTALLATION, KNOWLEDGE_REVIEW and VALIDATION to docs/ in lowercase and reports/ to docs/reports/. Fixed README links and build.mjs. The standard check now passes with 0 errors.
 - [x] 5. G Add docs/glossary.md and docs/assumptions.md. Each later decision record is written in the pull request that needs it.
 - [x] 6. G Add an MIT LICENSE for code, excluding content/imported.json and the 25 source images (done).
-- [ ] BLOCKED: 6b. G Which license should the original written content use, for example CC BY 4.0? Until you choose, the README says it is still to be chosen.
+- [x] 6b. G CC BY 4.0 for the original written content, approved by the owner. Text in LICENSES/CC-BY-4.0.txt, README and credits updated, decision 0005.
 - [x] 7. G Footer and About notice: not affiliated with or endorsed by Google, trademarks of Google LLC. Credit line on every lesson. The CC BY 4.0 claim is not stated, because the license of cloud.google.com pages could not be verified.
 - [x] 8. G LICENSES/ folder, docs/credits.md and a public credits.html page listing every outside source with its license. CSP default-src stays self. Later asset items add their own rows.
 - [x] 9. G Commit package-lock.json and install with npm ci in the Pages workflow. The standard workflow from item 2 already runs the pinned check and gitleaks. Workflow permissions stay minimal.
@@ -22,7 +22,7 @@ Format: `- [ ]` pending, `- [x]` done, `- [x] SKIPPED: reason`, `- [ ] BLOCKED: 
 - [x] 10. G Official domain and objective titles from guide v4.2, IDs kept. Weights 22/25/20/15/18 rechecked against the guide on 2026-11-08 and recorded in content/verification.json.
 - [x] 11. G Type and spacing scale: body 16 px or more, labels 14 px or more, prose max 70ch, 4 and 8 px spacing. Replace every 8 to 12 px font rule in styles.css.
 - [x] 12. G Field-notebook visual system from DESIGN.md: paper and ink tokens, key-fact style, domain text colors, both themes at 4.5:1 contrast or more. No new font yet (see 12b).
-- [ ] BLOCKED: 12b. Do you approve downloading one handwritten OFL font (for example Caveat from Google Fonts, about 100 KB WOFF2) into assets/ with its OFL text in LICENSES/? A self-hosted copy adds no runtime request to other hosts.
+- [x] 12b. Caveat self-hosted as a 73 KB Latin WOFF2 in assets/fonts/ with its OFL text in LICENSES/, used for the lesson key fact. Decision 0005.
 - [ ] BLOCKED: 13. Mermaid-to-SVG at build time (radar: trial) for whiteboard diagrams. The radar note goes as a separate pull request to SVN11X/standards. Needs your OK to download or install: an npm package for Mermaid-to-SVG.
 
 ## Focus, lessons and motion

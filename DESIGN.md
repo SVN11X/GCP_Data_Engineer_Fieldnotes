@@ -27,7 +27,7 @@ Expressive. The motion option in `.standard.yml` is `rich`.
 
 ## Typography
 
-A readable sans-serif for body text, plus one handwritten face for notes and labels. Both are self-hosted with an open font license (OFL). Two families at most. The families are chosen in item 12.
+A readable sans-serif for body text, plus one handwritten face for notes and labels. Both are self-hosted with an open font license (OFL). Two families at most. The handwritten face is Caveat, used for the key fact of a lesson block (decision 0005).
 
 ## Motion
 

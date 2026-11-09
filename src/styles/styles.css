@@ -114,3 +114,6 @@ body{background:var(--paper);color:var(--ink)}
 @keyframes lb-sweep{from{background-size:0 100%}to{background-size:100% 100%}}
 @media(prefers-reduced-motion:reduce){.lb-flow{display:none}.lb-dot{animation:none!important}.button,.lb-choice{transition:none}.button:active:not(:disabled),.lb-choice:active:not(:disabled){transform:none}}
 .rewards-line{margin:12px 0 0}.reward-chip{display:inline-block;font-size:var(--fs-label);padding:4px 12px;border:1px solid var(--line);border-radius:999px;background:var(--pale);color:inherit}.reward-best{color:inherit}.mark-list{list-style:none;padding:0;margin:12px 0;display:flex;flex-wrap:wrap;gap:8px}.domain-mark{font-size:var(--fs-label);padding:4px 12px;border:1px dashed var(--line);border-radius:8px}.domain-mark.earned{border-style:solid;border-color:var(--blue);background:var(--pale)}.domain-mark svg{vertical-align:-3px}
+@font-face{font-family:Caveat;src:url(fonts/caveat-latin.woff2) format("woff2");font-weight:400 700;font-display:swap}
+:root{--font-note:Caveat,"Segoe Print","Bradley Hand",cursive}
+.lb-fact{font-family:var(--font-note);font-size:1.375rem;line-height:1.35}

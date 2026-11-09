@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Original written content is now licensed CC BY 4.0, and lesson key facts use the self-hosted Caveat handwriting font (73 KB, OFL). No request goes to another host.
 - The 88 imported questions of domain 5 now read in Spanish (632 strings, all with a source hash), with the same label and swap-to-original control as domains 1 to 4. All 349 imported questions now have a Spanish overlay. Source keys, IDs, images and progress are unchanged. The Spanish needs the owner's review.
 - The 90 imported questions of domain 4 now read in Spanish (640 strings, all with a source hash), with the same label and swap-to-original control as domains 1 to 3. Source keys, IDs, images and progress are unchanged. The Spanish needs the owner's review.
 - The 61 imported questions of domain 3 now read in Spanish (434 strings, all with a source hash), with the same label and swap-to-original control as domains 1 and 2. Source keys, IDs, review labels, images and progress are untouched.
