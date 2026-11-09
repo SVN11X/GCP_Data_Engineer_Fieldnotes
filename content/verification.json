@@ -10,7 +10,7 @@
         "guide"
       ],
       "status": "official-checked",
-      "note": "Guide and certification page read; independent coverage labels are not a guarantee of exam readiness."
+      "note": "Guide v4.2 PDF and the certification page re-read on 2026-11-08. Section titles, objective titles 1.1 to 5.5 and the weights (about 22, 25, 20, 15 and 18 percent) match the site. The guide is not in the Google Developer Knowledge MCP corpus, so it was checked directly. Independent coverage labels are not a guarantee of exam readiness."
     },
     {
       "id": "kafka-ownership",
