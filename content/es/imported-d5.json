@@ -934,5 +934,467 @@
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
   }
+ },
+ "imp-119": {
+  "html": {
+   "es": "Operas una base de datos que guarda operaciones bursátiles (stock trades) y una aplicación que obtiene el precio medio de las acciones de una empresa dada en una ventana de tiempo ajustable. Los datos se guardan en Cloud Bigtable, donde la fecha y hora de la operación es el comienzo de la clave de fila. Tu aplicación tiene miles de usuarios simultáneos y notas que el rendimiento empieza a degradarse a medida que se agregan más acciones. ¿Qué debes hacer para mejorar el rendimiento de tu aplicación?<br>",
+   "src": "595fb1f96dda"
+  },
+  "choices.0.html": {
+   "es": "Cambiar la sintaxis de la clave de fila de tu tabla de Cloud Bigtable para que empiece con el símbolo de la acción (stock symbol).",
+   "src": "f5d064f005c0"
+  },
+  "choices.1.html": {
+   "es": "Cambiar la sintaxis de la clave de fila de tu tabla de Cloud Bigtable para que empiece con un número aleatorio por segundo.",
+   "src": "0789308006c7"
+  },
+  "choices.2.html": {
+   "es": "Cambiar la canalización de datos para usar BigQuery y guardar las operaciones bursátiles, y actualizar tu aplicación.",
+   "src": "8748ab71c2f5"
+  },
+  "choices.3.html": {
+   "es": "Usar Cloud Dataflow para escribir un resumen de las operaciones bursátiles de cada día en un archivo Avro en Cloud Storage. Actualizar tu aplicación para leer de Cloud Storage y de Cloud Bigtable y calcular las respuestas.",
+   "src": "75e92d59720d"
+  },
+  "sourceExplanation": {
+   "es": "Cloud Bigtable distribuye los datos según las claves de fila, y usar una marca de tiempo secuencial o monótona como comienzo de la clave provoca puntos calientes de escritura (write hotspots), porque todos los datos nuevos van al mismo tablet.\nAl poner como prefijo de la clave de fila el símbolo de la acción (un atributo de alta cardinalidad), las escrituras se reparten en paralelo entre varios tablets y se elimina el cuello de botella.\nEste diseño sigue las prácticas recomendadas para datos de series temporales en Bigtable, para asegurar una distribución equilibrada de la carga.",
+   "src": "a3dc482d2415"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-120": {
+  "html": {
+   "es": "Operas una canalización de streaming de Cloud Dataflow. La canalización agrega eventos de una fuente de suscripción de Cloud Pub/Sub, dentro de una ventana, y envía la agregación resultante a un bucket de Cloud Storage. La fuente tiene un rendimiento constante. Quieres monitorear y crear alertas sobre el comportamiento de la canalización con Cloud<br>Stackdriver para asegurar que está procesando datos. ¿Qué alertas de Stackdriver debes crear?<br>",
+   "src": "2088425aec92"
+  },
+  "choices.0.html": {
+   "es": "Una alerta basada en una disminución de subscription/num_undelivered_messages para la fuente y en un aumento de la tasa de cambio de instance/storage/ used_bytes para el destino",
+   "src": "4dbce036fe6d"
+  },
+  "choices.1.html": {
+   "es": "Una alerta basada en un aumento de subscription/num_undelivered_messages para la fuente y en una disminución de la tasa de cambio de instance/storage/ used_bytes para el destino",
+   "src": "ef9aeffe52e1"
+  },
+  "choices.2.html": {
+   "es": "Una alerta basada en una disminución de instance/storage/used_bytes para la fuente y en un aumento de la tasa de cambio de subscription/ num_undelivered_messages para el destino",
+   "src": "9de3ea8e4b02"
+  },
+  "choices.3.html": {
+   "es": "Una alerta basada en un aumento de instance/storage/used_bytes para la fuente y en una disminución de la tasa de cambio de subscription/ num_undelivered_messages para el destino",
+   "src": "1f12d59a8623"
+  },
+  "sourceExplanation": {
+   "es": "Las alertas deben activarse cuando la canalización no logra procesar datos, no cuando funciona bien.\nSi la canalización deja de procesar, los mensajes se acumulan en Pub/Sub y hacen que subscription/num_undelivered_messages aumente.\nAl mismo tiempo, se dejan de escribir datos en Cloud Storage, y eso hace que la tasa de cambio de instance/storage/used_bytes disminuya hacia cero.",
+   "src": "28be1d5a488a"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-122": {
+  "html": {
+   "es": "Decidiste usar Cloud Datastore para ingerir en tiempo real datos de telemetría de vehículos. Quieres crear un sistema de almacenamiento que tenga en cuenta el crecimiento de los datos a largo plazo y mantenga bajos los costos. También quieres crear instantáneas (snapshots) de los datos periódicamente, para poder hacer una recuperación a un momento dado (point-in-time, PIT) o clonar una copia de los datos de Cloud Datastore en un entorno distinto. Quieres archivar estas instantáneas durante mucho tiempo. ¿Qué dos métodos pueden lograrlo?<br>(Elige dos.)<br>",
+   "src": "9e6f3ec8b2ea"
+  },
+  "choices.0.html": {
+   "es": "Usar la exportación administrada (managed export) y guardar los datos en un bucket de Cloud Storage con clase Nearline o Coldline.",
+   "src": "ff818c4d94bc"
+  },
+  "choices.1.html": {
+   "es": "Usar la exportación administrada y luego importar a Cloud Datastore en un proyecto distinto, bajo un espacio de nombres (namespace) único reservado para esa exportación.",
+   "src": "be91db3033d8"
+  },
+  "choices.2.html": {
+   "es": "Usar la exportación administrada y luego importar los datos en una tabla de BigQuery creada solo para esa exportación, y eliminar los archivos de exportación temporales.",
+   "src": "40976fd46e45"
+  },
+  "choices.3.html": {
+   "es": "Escribir una aplicación que use las bibliotecas cliente de Cloud Datastore para leer todas las entidades. Tratar cada entidad como una fila de tabla de BigQuery mediante una inserción en streaming (streaming insert) de BigQuery. Asignar una marca de tiempo de exportación a cada exportación y agregarla como una columna adicional en cada fila. Asegurarse de que la tabla de BigQuery esté particionada por la columna de marca de tiempo de exportación.",
+   "src": "820ef1179bb4"
+  },
+  "choices.4.html": {
+   "es": "Escribir una aplicación que use las bibliotecas cliente de Cloud Datastore para leer todas las entidades. Dar formato JSON a los datos exportados. Aplicar compresión antes de guardar los datos en Cloud Source Repositories.",
+   "src": "4b7187501752"
+  },
+  "sourceExplanation": {
+   "es": "La opción A es correcta porque las exportaciones administradas crean instantáneas inmutables adecuadas para la recuperación a un momento dado (PIT), y guardar estos archivos en las clases Nearline o Coldline de Cloud Storage reduce de forma notable el costo del archivado a largo plazo.\nLa opción B es correcta porque importar los datos exportados en un espacio de nombres de Datastore separado permite clonar el conjunto de datos para usarlo en un entorno distinto, y así cumple el requisito de restaurar o replicar los datos de Datastore.",
+   "src": "d16fa7fa82f5"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-129": {
+  "html": {
+   "es": "Usas BigQuery como tu plataforma central de análisis. Cada día se cargan datos nuevos y una canalización de ETL modifica los datos originales y los prepara para los usuarios finales. Esta canalización de ETL se modifica con regularidad y puede generar errores, pero a veces los errores se detectan solo después de 2 semanas. Necesitas dar un método para recuperarte de estos errores, y tus copias de seguridad deben estar optimizadas en costos de almacenamiento. ¿Cómo debes organizar tus datos en BigQuery y guardar tus copias de seguridad?<br>",
+   "src": "83261b251938"
+  },
+  "choices.0.html": {
+   "es": "Organizar tus datos en una sola tabla, exportar, comprimir y guardar los datos de BigQuery en Cloud Storage.",
+   "src": "d04698b2e436"
+  },
+  "choices.1.html": {
+   "es": "Organizar tus datos en tablas separadas para cada mes, y exportar, comprimir y guardar los datos en Cloud Storage.",
+   "src": "934457223ef3"
+  },
+  "choices.2.html": {
+   "es": "Organizar tus datos en tablas separadas para cada mes y duplicar tus datos en un conjunto de datos separado de BigQuery.",
+   "src": "7526fd479937"
+  },
+  "choices.3.html": {
+   "es": "Organizar tus datos en tablas separadas para cada mes y usar decoradores de instantánea (snapshot decorators) para restaurar la tabla a un momento anterior a la corrupción.",
+   "src": "560d29bf7281"
+  },
+  "sourceExplanation": {
+   "es": "Los decoradores de instantánea solo permiten viajar en el tiempo (time travel) hasta 7 días, lo que hace inválida la opción D, ya que los errores se detectan después de 2 semanas.\nLa opción B es correcta porque exportar los datos a Cloud Storage ofrece un método de copia de seguridad duradero que persiste más allá de la ventana de 7 días y un almacenamiento optimizado en costos, en comparación con mantener duplicados completos dentro de BigQuery.",
+   "src": "6774fe0ee569"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-130": {
+  "html": {
+   "es": "El equipo de marketing de tu organización envía actualizaciones periódicas de un segmento de tu conjunto de datos de clientes. El equipo de marketing te ha dado un CSV con 1 millón de registros que deben actualizarse en BigQuery. Cuando usas la sentencia UPDATE en BigQuery, recibes un error quotaExceeded. ¿Qué debes hacer?<br>",
+   "src": "831a2b8362d6"
+  },
+  "choices.0.html": {
+   "es": "Reducir el número de registros que se actualizan cada día para mantenerte dentro del límite de sentencias DML UPDATE de BigQuery.",
+   "src": "3814e4950355"
+  },
+  "choices.1.html": {
+   "es": "Aumentar el límite de sentencias DML UPDATE de BigQuery en la sección de administración de cuotas (Quota management) de la consola de Google Cloud Platform.",
+   "src": "8c4f3673209e"
+  },
+  "choices.2.html": {
+   "es": "Dividir el archivo CSV de origen en archivos CSV más pequeños en Cloud Storage para reducir el número de sentencias DML UPDATE de BigQuery por trabajo de BigQuery.",
+   "src": "eee37f70dd61"
+  },
+  "choices.3.html": {
+   "es": "Importar los registros nuevos del archivo CSV a una tabla nueva de BigQuery. Crear un trabajo de BigQuery que combine los registros nuevos con los existentes y escriba los resultados en una tabla nueva de BigQuery.",
+   "src": "6495f5914d9a"
+  },
+  "sourceExplanation": {
+   "es": "Las sentencias UPDATE directas sobre conjuntos de datos grandes pueden superar las cuotas de DML relacionadas con los bytes modificados o con los límites de concurrencia. La opción D evita esto cargando los datos nuevos en una tabla separada y usando una operación MERGE, que está optimizada para actualizaciones masivas en BigQuery y esquiva las restricciones concretas que provocan el error quotaExceeded.",
+   "src": "189cc26b0152"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-137": {
+  "html": {
+   "es": "Tienes una canalización de datos con un trabajo de Dataflow que agrega y escribe métricas de series temporales en Bigtable. Notas que los datos se actualizan despacio en Bigtable. Estos datos alimentan un panel que usan miles de usuarios de toda la organización. Necesitas soportar más usuarios simultáneos y reducir el tiempo necesario para escribir los datos. ¿Qué dos acciones debes realizar? (Elige dos.)<br>",
+   "src": "49085e7af291"
+  },
+  "choices.0.html": {
+   "es": "Configurar tu canalización de Dataflow para usar ejecución local (local execution)",
+   "src": "1a93b1e7ccf6"
+  },
+  "choices.1.html": {
+   "es": "Aumentar el número máximo de trabajadores (workers) de Dataflow configurando maxNumWorkers en PipelineOptions",
+   "src": "89c2500aa0bd"
+  },
+  "choices.2.html": {
+   "es": "Aumentar el número de nodos del clúster de Bigtable",
+   "src": "8d88046defa0"
+  },
+  "choices.3.html": {
+   "es": "Modificar tu canalización de Dataflow para usar la transformación Flatten antes de escribir en Bigtable",
+   "src": "b432de9fc9b3"
+  },
+  "choices.4.html": {
+   "es": "Modificar tu canalización de Dataflow para usar la transformación CoGroupByKey antes de escribir en Bigtable",
+   "src": "a0b113f23729"
+  },
+  "sourceExplanation": {
+   "es": "Aumentar el número máximo de trabajadores de Dataflow (opción B) mejora la capacidad de procesamiento en paralelo, lo que permite a la canalización manejar un mayor rendimiento y reducir la latencia de escritura. Al mismo tiempo, aumentar el número de nodos del clúster de Bigtable (opción C) da más capacidad de almacenamiento y de atención de solicitudes, y ataca de forma directa el cuello de botella de servir a miles de usuarios simultáneos.",
+   "src": "2c4df0cd324d"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-138": {
+  "html": {
+   "es": "Tienes varios trabajos de Spark que se ejecutan en un clúster de Cloud Dataproc según una programación. Algunos de los trabajos se ejecutan en secuencia y otros se ejecutan al mismo tiempo. Necesitas automatizar este proceso. ¿Qué debes hacer?<br>",
+   "src": "58945e70f82f"
+  },
+  "choices.0.html": {
+   "es": "Crear una plantilla de flujo de trabajo (Workflow Template) de Cloud Dataproc",
+   "src": "97d68c74f986"
+  },
+  "choices.1.html": {
+   "es": "Crear una acción de inicialización (initialization action) para ejecutar los trabajos",
+   "src": "66a22070b254"
+  },
+  "choices.2.html": {
+   "es": "Crear un grafo acíclico dirigido (Directed Acyclic Graph) en Cloud Composer",
+   "src": "4f6d8e1be484"
+  },
+  "choices.3.html": {
+   "es": "Crear un script de Bash que use el SDK de Cloud para crear un clúster, ejecutar los trabajos y luego eliminar el clúster",
+   "src": "5398ed4b2771"
+  },
+  "sourceExplanation": {
+   "es": "Cloud Composer (Airflow) es la solución recomendada para orquestar flujos de trabajo de datos complejos en Google Cloud, y maneja en concreto las dependencias entre tareas secuenciales y simultáneas mediante grafos acíclicos dirigidos (Directed Acyclic Graphs, DAG). Aunque las plantillas de flujo de trabajo de Dataproc definen el orden de los trabajos, no soportan de forma nativa la programación ni la flexibilidad de orquestación más amplia que exige la pregunta. Cloud Composer se integra sin problemas con Dataproc para programar estas plantillas o trabajos, y da la automatización necesaria tanto para los horarios como para la gestión de dependencias.",
+   "src": "daf0e38e6585"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-142": {
+  "html": {
+   "es": "Cada equipo de análisis de tu organización ejecuta trabajos de BigQuery en sus propios proyectos. Quieres que cada equipo pueda monitorear el uso de ranuras (slots) dentro de sus proyectos.<br>¿Qué debes hacer?<br>",
+   "src": "c8f6d07c746f"
+  },
+  "choices.0.html": {
+   "es": "Crear un panel de Cloud Monitoring basado en la métrica de BigQuery query/scanned_bytes",
+   "src": "34389931f915"
+  },
+  "choices.1.html": {
+   "es": "Crear un panel de Cloud Monitoring basado en la métrica de BigQuery slots/allocated_for_project",
+   "src": "34f61a97b462"
+  },
+  "choices.2.html": {
+   "es": "Crear una exportación de registros por cada proyecto, capturar los registros de ejecución de trabajos de BigQuery, crear una métrica personalizada basada en totalSlotMs y crear un panel de Cloud Monitoring basado en la métrica personalizada",
+   "src": "a59f0575d98c"
+  },
+  "choices.3.html": {
+   "es": "Crear una exportación de registros agregada a nivel de organización, capturar los registros de ejecución de trabajos de BigQuery, crear una métrica personalizada basada en totalSlotMs y crear un panel de Cloud Monitoring basado en la métrica personalizada",
+   "src": "056a51507804"
+  },
+  "sourceExplanation": {
+   "es": "La métrica de BigQuery `slots/allocated_for_project` es la métrica nativa de Cloud Monitoring diseñada específicamente para seguir el consumo de ranuras a nivel de proyecto. Usar esta métrica integrada es el método más directo y eficiente, y evita la complejidad innecesaria de exportar registros o crear métricas personalizadas, como sugieren otras opciones.",
+   "src": "ca40a40abc75"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-144": {
+  "html": {
+   "es": "Necesitas mover 2 PB de datos históricos de un dispositivo de almacenamiento local (on-premises) a Cloud Storage en un plazo de seis meses, y tu capacidad de red de salida está limitada a 20 Mb/sec. ¿Cómo debes migrar estos datos a Cloud Storage?<br>",
+   "src": "fa41d86fb8df"
+  },
+  "choices.0.html": {
+   "es": "Usar Transfer Appliance para copiar los datos a Cloud Storage",
+   "src": "33357c31a606"
+  },
+  "choices.1.html": {
+   "es": "Usar gsutil cp -J para comprimir el contenido que se sube a Cloud Storage",
+   "src": "e4ce2d6daaf6"
+  },
+  "choices.2.html": {
+   "es": "Crear una URL privada para los datos históricos y luego usar Storage Transfer Service para copiar los datos a Cloud Storage",
+   "src": "2f51f822d09e"
+  },
+  "choices.3.html": {
+   "es": "Usar trickle o ionice junto con gsutil cp para limitar el ancho de banda que usa gsutil a menos de 20 Mb/sec, para que no interfiera con el tráfico de producción",
+   "src": "d7fd989d32cf"
+  },
+  "sourceExplanation": {
+   "es": "Transferir 2 PB por una conexión de 20 Mb/s tardaría aproximadamente 19 meses, lo que supera el plazo de seis meses. Cloud Transfer Appliance está diseñado específicamente para migrar conjuntos de datos masivos (petabytes) cuando el ancho de banda de la red es insuficiente o demasiado lento para cumplir los plazos de la migración.",
+   "src": "01132b4da65f"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-146": {
+  "html": {
+   "es": "Quieres migrar un sistema Hadoop local a Cloud Dataproc. Hive es la herramienta principal en uso y el formato de los datos es Optimized Row Columnar (ORC).<br>Todos los archivos ORC se han copiado correctamente a un bucket de Cloud Storage. Necesitas replicar algunos datos al sistema de archivos distribuido de Hadoop (Hadoop Distributed File System,<br>HDFS) local del clúster para maximizar el rendimiento. ¿Cuáles son dos formas de empezar a usar Hive en Cloud Dataproc? (Elige dos.)<br>",
+   "src": "0a5ecf8188bf"
+  },
+  "choices.0.html": {
+   "es": "Ejecutar la utilidad gsutil para transferir todos los archivos ORC del bucket de Cloud Storage a HDFS. Montar las tablas de Hive de forma local.",
+   "src": "620d500c51eb"
+  },
+  "choices.1.html": {
+   "es": "Ejecutar la utilidad gsutil para transferir todos los archivos ORC del bucket de Cloud Storage a cualquier nodo del clúster de Dataproc. Montar las tablas de Hive de forma local.",
+   "src": "cba3715c840f"
+  },
+  "choices.2.html": {
+   "es": "Ejecutar la utilidad gsutil para transferir todos los archivos ORC del bucket de Cloud Storage al nodo maestro (master node) del clúster de Dataproc. Luego ejecutar la utilidad de Hadoop para copiarlos a HDFS. Montar las tablas de Hive desde HDFS.",
+   "src": "76aa852456e3"
+  },
+  "choices.3.html": {
+   "es": "Aprovechar el conector de Cloud Storage para Hadoop (Cloud Storage connector for Hadoop) para montar los archivos ORC como tablas externas de Hive. Replicar las tablas externas de Hive a las nativas.",
+   "src": "093d21546986"
+  },
+  "choices.4.html": {
+   "es": "Cargar los archivos ORC en BigQuery. Aprovechar el conector de BigQuery para Hadoop para montar las tablas de BigQuery como tablas externas de Hive. Replicar las tablas externas de Hive a las nativas.",
+   "src": "225e29c8d9bf"
+  },
+  "explanation": {
+   "es": "No memorices A y D sin comprobar las utilidades. Un conector de GCS puede exponer los datos de objetos a Hadoop, y una copia con el sistema de archivos de Hadoop o un almacenamiento local temporal puede llenar HDFS. La redacción “gsutil directamente a HDFS” en A es problemática, mientras que C copia de forma explícita primero a un almacenamiento local y luego a HDFS. La combinación importada requiere revisión.",
+   "src": "12eeded754ec"
+  },
+  "reviewNote": {
+   "es": "Esta pregunta importada está excluida de la práctica con puntuación. Lee la nota técnica en lugar de memorizar su clave.",
+   "src": "5d478c3e8ed1"
+  }
+ },
+ "imp-147": {
+  "html": {
+   "es": "Estás implementando varios trabajos por lotes (batch) que deben ejecutarse según una programación. Estos trabajos tienen muchos pasos interdependientes que deben ejecutarse en un orden específico. Partes de los trabajos consisten en ejecutar scripts de shell, ejecutar trabajos de Hadoop y ejecutar consultas en BigQuery. Se espera que los trabajos se ejecuten desde muchos minutos hasta varias horas. Si los pasos fallan, deben reintentarse un número fijo de veces. ¿Qué servicio debes usar para gestionar la ejecución de estos trabajos?<br>",
+   "src": "6bb23a52926c"
+  },
+  "choices.0.html": {
+   "es": "Cloud Scheduler",
+   "src": "3161a303aaf7"
+  },
+  "choices.1.html": {
+   "es": "Cloud Dataflow",
+   "src": "77a677df6a02"
+  },
+  "choices.2.html": {
+   "es": "Cloud Functions",
+   "src": "f2f57c544fee"
+  },
+  "choices.3.html": {
+   "es": "Cloud Composer",
+   "src": "4070aa1a2937"
+  },
+  "sourceExplanation": {
+   "es": "Cloud Composer es la opción correcta porque es un servicio administrado de Apache Airflow diseñado específicamente para orquestar flujos de trabajo complejos con pasos interdependientes.\nSoporta la ejecución de cargas de trabajo diversas, como scripts de shell, trabajos de Hadoop y consultas de BigQuery, y ofrece lógica de reintento nativa para las tareas fallidas.\nCloud Scheduler no es adecuado aquí porque lanza trabajos individuales sin gestionar las dependencias ni la orquestación de varios pasos que exige el escenario.",
+   "src": "ccb2564077e3"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-153": {
+  "html": {
+   "es": "Operas una canalización de IoT construida alrededor de Apache Kafka que normalmente recibe alrededor de 5000 mensajes por segundo. Quieres usar Google Cloud Platform para crear una alerta en cuanto el promedio móvil de 1 hora baje de 4000 mensajes por segundo. ¿Qué debes hacer?<br>",
+   "src": "19defddd0cc3"
+  },
+  "choices.0.html": {
+   "es": "Consumir el flujo de datos en Dataflow con Kafka IO. Definir una ventana de tiempo deslizante (sliding) de 1 hora cada 5 minutos. Calcular el promedio cuando se cierre la ventana y enviar una alerta si el promedio es menor de 4000 mensajes.",
+   "src": "d4ad0acd8002"
+  },
+  "choices.1.html": {
+   "es": "Consumir el flujo de datos en Dataflow con Kafka IO. Definir una ventana de tiempo fija (fixed) de 1 hora. Calcular el promedio cuando se cierre la ventana y enviar una alerta si el promedio es menor de 4000 mensajes.",
+   "src": "080708e63db2"
+  },
+  "choices.2.html": {
+   "es": "Usar Kafka Connect para enlazar tu cola de mensajes de Kafka con Pub/Sub. Usar una plantilla de Dataflow para escribir tus mensajes de Pub/Sub en Bigtable. Usar Cloud Scheduler para ejecutar cada hora un script que cuente el número de filas creadas en Bigtable en la última hora. Si ese número baja de 4000, enviar una alerta.",
+   "src": "1e25c99d46c7"
+  },
+  "choices.3.html": {
+   "es": "Usar Kafka Connect para enlazar tu cola de mensajes de Kafka con Pub/Sub. Usar una plantilla de Dataflow para escribir tus mensajes de Pub/Sub en BigQuery. Usar Cloud Scheduler para ejecutar cada cinco minutos un script que cuente el número de filas creadas en BigQuery en la última hora. Si ese número baja de 4000, enviar una alerta.",
+   "src": "f00659813a23"
+  },
+  "sourceExplanation": {
+   "es": "La opción A es correcta porque usa la función de ventanas deslizantes de Apache Beam en Dataflow para calcular de forma continua el promedio móvil en un período de 1 hora, y activa alertas en cuanto se cruza el umbral.\n\nLas opciones C y D añaden una latencia innecesaria al depender de Cloud Scheduler para ejecutar consultas por lotes cada hora o cada cinco minutos, y no cumplen el requisito de 'en cuanto'. La opción B usa una ventana fija, que solo da un cálculo de promedio por hora en lugar de un promedio móvil continuo.",
+   "src": "4abaf54156a3"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-154": {
+  "html": {
+   "es": "Planeas desplegar Cloud SQL con MySQL. Necesitas asegurar la alta disponibilidad en caso de que falle una zona. ¿Qué debes hacer?<br>",
+   "src": "c184f6227017"
+  },
+  "choices.0.html": {
+   "es": "Crear una instancia de Cloud SQL en una zona y crear una réplica de conmutación por error (failover replica) en otra zona de la misma región.",
+   "src": "8e03950ae5fb"
+  },
+  "choices.1.html": {
+   "es": "Crear una instancia de Cloud SQL en una zona y crear una réplica de lectura (read replica) en otra zona de la misma región.",
+   "src": "2b197309fa9b"
+  },
+  "choices.2.html": {
+   "es": "Crear una instancia de Cloud SQL en una zona y configurar una réplica de lectura externa en una zona de una región distinta.",
+   "src": "205ace99fe52"
+  },
+  "choices.3.html": {
+   "es": "Crear una instancia de Cloud SQL en una región y configurar una copia de seguridad automática en un bucket de Cloud Storage de la misma región.",
+   "src": "0179d20afd58"
+  },
+  "sourceExplanation": {
+   "es": "La opción A es la respuesta correcta dentro del contexto de esta pregunta, que se basa en la terminología antigua (legacy) de Cloud SQL. En las configuraciones antiguas de alta disponibilidad de Cloud SQL para MySQL, una réplica de conmutación por error dedicada en otra zona de la misma región asegura la promoción automática y la continuidad de los datos durante un fallo de zona.\n\nAunque las implementaciones modernas usan discos persistentes regionales (a menudo llamadas simplemente 'Alta disponibilidad' sin mencionar réplicas de forma explícita), la opción A describe con exactitud el mecanismo de tener una instancia en espera (standby) en otra zona para sobrevivir a fallos de zona, mientras que las réplicas de lectura (opción B) no soportan la conmutación por error automática.",
+   "src": "ce68e18ef180"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-163": {
+  "html": {
+   "es": "Tienes canalizaciones de datos que se ejecutan en BigQuery, Dataflow y Dataproc. Necesitas hacer comprobaciones de estado (health checks) y monitorear su comportamiento, y luego avisar al equipo que gestiona las canalizaciones si fallan. También necesitas poder trabajar con varios proyectos. Prefieres usar productos o funciones administrados de la plataforma. ¿Qué debes hacer?<br>",
+   "src": "f9704814c856"
+  },
+  "choices.0.html": {
+   "es": "Exportar la información a Cloud Monitoring y configurar una política de alertas (Alerting policy)",
+   "src": "cc12ec00baff"
+  },
+  "choices.1.html": {
+   "es": "Ejecutar una máquina virtual en Compute Engine con Airflow y exportar la información a Cloud Monitoring",
+   "src": "25b14d1c712a"
+  },
+  "choices.2.html": {
+   "es": "Exportar los registros a BigQuery y configurar App Engine para leer esa información y enviar correos si encuentra un fallo en los registros",
+   "src": "550721a37afa"
+  },
+  "choices.3.html": {
+   "es": "Desarrollar una aplicación de App Engine que consuma los registros mediante llamadas a la API de GCP y envíe correos si encuentra un fallo en los registros",
+   "src": "d8f9ce737006"
+  },
+  "sourceExplanation": {
+   "es": "Cloud Monitoring es el servicio nativo y totalmente administrado de GCP diseñado para recopilar métricas y registros de varios servicios como BigQuery, Dataflow y Dataproc.\nSoporta capacidades de monitoreo entre proyectos y permite definir políticas de alertas que lanzan notificaciones (como correos o SMS) cuando se cumplen condiciones de fallo concretas.\nEste enfoque coincide con la preferencia por productos administrados, y elimina la carga operativa de crear soluciones personalizadas en Compute Engine o App Engine.",
+   "src": "e20029eae3b5"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-174": {
+  "html": {
+   "es": "Trabajas para una gran institución financiera que planea usar Dialogflow para crear un chatbot para la aplicación móvil de la empresa. Has revisado registros de chat antiguos y has etiquetado cada conversación con su intención (intent) según lo que cada cliente decía que quería al contactar con atención al cliente. Alrededor del 70% de las solicitudes de los clientes son sencillas y se resuelven con 10 intenciones. El 30% restante de las consultas requiere solicitudes mucho más largas y complicadas. ¿Qué intenciones debes automatizar primero?<br>",
+   "src": "a78b36bb7822"
+  },
+  "choices.0.html": {
+   "es": "Automatizar las 10 intenciones que cubren el 70% de las solicitudes, para que los agentes humanos (live agents) puedan atender las solicitudes más complicadas.",
+   "src": "596188b8476c"
+  },
+  "choices.1.html": {
+   "es": "Automatizar primero las solicitudes más complicadas, porque requieren más tiempo de los agentes.",
+   "src": "7bc1f7e40c7c"
+  },
+  "choices.2.html": {
+   "es": "Automatizar una mezcla de las intenciones más cortas y más largas para que sea representativa de todas las intenciones.",
+   "src": "f70a451a0dc2"
+  },
+  "choices.3.html": {
+   "es": "Automatizar las intenciones en las que palabras comunes como &#x27;payment&#x27; (pago) aparecen solo una vez, para que el software no se confunda.",
+   "src": "3153318de5d2"
+  },
+  "sourceExplanation": {
+   "es": "Automatizar primero las intenciones simples y de gran volumen sigue un enfoque de diseño iterativo y el principio de Pareto, y da valor inmediato al resolver el 70% de las consultas de los usuarios con un esfuerzo de desarrollo mínimo. Esta estrategia reduce de forma notable la carga de trabajo de los agentes, y les permite dedicar su tiempo y su experiencia al 30% restante de casos complejos que requieren criterio humano.",
+   "src": "2cfe81259a59"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
  }
 }
