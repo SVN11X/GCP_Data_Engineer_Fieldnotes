@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- The 28 service cards, the 4 service comparisons (with their Spanish verification notes), the 12 workshops and the 4 architecture patterns now read in Spanish (about 400 strings). Each has its own overlay that loads only for Spanish visitors and only on its page, and the architecture page chrome is translated. Service names stay in English. The Spanish needs the owner's review.
 - Domain 5 lessons now read in Spanish (389 strings): cost, capacity, retries, diagnosis, SLOs and recovery, with the Spanish verification notes. Lesson titles in lists now show Spanish for all 52 lessons. The Spanish needs the owner's review.
 - Domain 4 lessons now read in Spanish (267 strings): analytics and BI Engine, materialized views, features, ML evaluation, embeddings and vector search, RAG evaluation and BigQuery sharing. Spanish needs the owner's review.
 - Domain 3 lessons now read in Spanish (388 strings): storage choice, lifecycle, databases, warehouse model, SQL grain, lakes, BigLake, Iceberg, file layout and governance, with the Spanish "What was checked" notes. The titles index now covers domains 1 to 3. English text, questions, images and saved progress are unchanged. The Spanish needs the owner's review.

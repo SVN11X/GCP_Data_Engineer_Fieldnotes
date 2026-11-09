@@ -1,0 +1,618 @@
+{
+ "service-1": {
+  "fit": {
+   "es": "Escaneos analíticos grandes, agregaciones y uniones (joins).",
+   "src": "ee0ddf8de737"
+  },
+  "signal": {
+   "es": "Consultas de almacén de datos sobre muchos registros.",
+   "src": "2499921ed1c1"
+  },
+  "caution": {
+   "es": "Las búsquedas puntuales por solicitud necesitan una evaluación de latencia aparte.",
+   "src": "0f647ef0c701"
+  },
+  "strength": {
+   "es": "Escaneos analíticos grandes, agregaciones y uniones (joins).",
+   "src": "ee0ddf8de737"
+  },
+  "limitations.0": {
+   "es": "Las búsquedas puntuales por solicitud necesitan una evaluación de latencia aparte.",
+   "src": "0f647ef0c701"
+  }
+ },
+ "service-2": {
+  "fit": {
+   "es": "Servicio con alto rendimiento para datos por clave y series de tiempo.",
+   "src": "87a6e61ce77d"
+  },
+  "signal": {
+   "es": "Leer un sensor o una entidad por un rango de claves de fila (row-key) diseñado.",
+   "src": "8f3535435e22"
+  },
+  "caution": {
+   "es": "No supongas que las uniones (joins) arbitrarias al estilo de un almacén de datos son su acceso principal.",
+   "src": "60ff77f4975b"
+  },
+  "strength": {
+   "es": "Servicio con alto rendimiento para datos por clave y series de tiempo.",
+   "src": "87a6e61ce77d"
+  },
+  "limitations.0": {
+   "es": "No supongas que las uniones (joins) arbitrarias al estilo de un almacén de datos son su acceso principal.",
+   "src": "60ff77f4975b"
+  }
+ },
+ "service-3": {
+  "fit": {
+   "es": "Aplicaciones con MySQL, PostgreSQL o SQL Server administrado.",
+   "src": "40cb1ed0e09f"
+  },
+  "signal": {
+   "es": "Transacciones relacionales con compatibilidad con el motor existente.",
+   "src": "b7970e82d5bb"
+  },
+  "caution": {
+   "es": "El tamaño, los límites de conexión y la disponibilidad todavía necesitan un diseño deliberado.",
+   "src": "184d5fd27cfa"
+  },
+  "strength": {
+   "es": "Aplicaciones con MySQL, PostgreSQL o SQL Server administrado.",
+   "src": "40cb1ed0e09f"
+  },
+  "limitations.0": {
+   "es": "El tamaño, los límites de conexión y la disponibilidad todavía necesitan un diseño deliberado.",
+   "src": "184d5fd27cfa"
+  }
+ },
+ "service-4": {
+  "fit": {
+   "es": "Transacciones relacionales distribuidas y consistencia fuerte.",
+   "src": "65afb694bdd3"
+  },
+  "signal": {
+   "es": "Escalar datos transaccionales y mantener el modelo de consistencia que se necesita.",
+   "src": "bb4a2bdd0a80"
+  },
+  "caution": {
+   "es": "Modela las claves y el alcance de las transacciones. El nombre del servicio por sí solo no es el esquema.",
+   "src": "c0123adba3a9"
+  },
+  "strength": {
+   "es": "Transacciones relacionales distribuidas y consistencia fuerte.",
+   "src": "65afb694bdd3"
+  },
+  "limitations.0": {
+   "es": "Modela las claves y el alcance de las transacciones. El nombre del servicio por sí solo no es el esquema.",
+   "src": "c0123adba3a9"
+  }
+ },
+ "service-5": {
+  "fit": {
+   "es": "Cargas de trabajo exigentes compatibles con PostgreSQL.",
+   "src": "537f4ac92da2"
+  },
+  "signal": {
+   "es": "Conservar las herramientas de PostgreSQL y usar una arquitectura de base de datos administrada.",
+   "src": "ad94a88b0f4a"
+  },
+  "caution": {
+   "es": "Verifica la compatibilidad y el costo de la carga de trabajo. No supongas que la migración es gratis.",
+   "src": "a03f08decf2f"
+  },
+  "strength": {
+   "es": "Cargas de trabajo exigentes compatibles con PostgreSQL.",
+   "src": "537f4ac92da2"
+  },
+  "limitations.0": {
+   "es": "Verifica la compatibilidad y el costo de la carga de trabajo. No supongas que la migración es gratis.",
+   "src": "a03f08decf2f"
+  }
+ },
+ "service-6": {
+  "fit": {
+   "es": "Datos de aplicación orientados a documentos.",
+   "src": "8b947f4c945c"
+  },
+  "signal": {
+   "es": "Leer y actualizar entidades de una aplicación con un modelo de documentos.",
+   "src": "d305bebaf954"
+  },
+  "caution": {
+   "es": "Diseña los índices y las transacciones según el patrón real de acceso a los documentos.",
+   "src": "946f4f097d75"
+  },
+  "strength": {
+   "es": "Datos de aplicación orientados a documentos.",
+   "src": "8b947f4c945c"
+  },
+  "limitations.0": {
+   "es": "Diseña los índices y las transacciones según el patrón real de acceso a los documentos.",
+   "src": "946f4f097d75"
+  }
+ },
+ "service-7": {
+  "fit": {
+   "es": "Objetos duraderos y archivos reutilizables del lago de datos (data lake).",
+   "src": "d84474a979a3"
+  },
+  "signal": {
+   "es": "Mantener los archivos independientes del clúster de procesamiento.",
+   "src": "f5f272f85495"
+  },
+  "caution": {
+   "es": "El almacenamiento de objetos por sí solo no es un motor de transacciones relacionales.",
+   "src": "f09946f479f2"
+  },
+  "strength": {
+   "es": "Objetos duraderos y archivos reutilizables del lago de datos (data lake).",
+   "src": "d84474a979a3"
+  },
+  "limitations.0": {
+   "es": "El almacenamiento de objetos por sí solo no es un motor de transacciones relacionales.",
+   "src": "f09946f479f2"
+  }
+ },
+ "service-8": {
+  "fit": {
+   "es": "Consultas gobernadas sobre objetos externos compatibles.",
+   "src": "0550d6f8b381"
+  },
+  "signal": {
+   "es": "Delegar el acceso al almacenamiento mediante una conexión y aplicar controles a nivel de tabla.",
+   "src": "129a933faecf"
+  },
+  "caution": {
+   "es": "Una entrada de catálogo por sí sola no crea este modelo de acceso delegado.",
+   "src": "f2472821ad00"
+  },
+  "strength": {
+   "es": "Consultas gobernadas sobre objetos externos compatibles.",
+   "src": "0550d6f8b381"
+  },
+  "limitations.0": {
+   "es": "Una entrada de catálogo por sí sola no crea este modelo de acceso delegado.",
+   "src": "f2472821ad00"
+  }
+ },
+ "service-9": {
+  "fit": {
+   "es": "Caché en memoria para una carga de trabajo de Redis o Valkey.",
+   "src": "93a616740b82"
+  },
+  "signal": {
+   "es": "Servir estado de la aplicación que se reutiliza con frecuencia, con un nivel de disponibilidad adecuado.",
+   "src": "268f312055ce"
+  },
+  "caution": {
+   "es": "Decide de forma explícita si los valores en caché se pueden recuperar desde una fuente duradera.",
+   "src": "8359774c6b2e"
+  },
+  "strength": {
+   "es": "Caché en memoria para una carga de trabajo de Redis o Valkey.",
+   "src": "93a616740b82"
+  },
+  "limitations.0": {
+   "es": "Decide de forma explícita si los valores en caché se pueden recuperar desde una fuente duradera.",
+   "src": "8359774c6b2e"
+  }
+ },
+ "service-10": {
+  "fit": {
+   "es": "Ejecución administrada de Beam para pipelines por lotes y de streaming.",
+   "src": "82a658cf48c2"
+  },
+  "signal": {
+   "es": "Transformaciones personalizadas, procesamiento por tiempo del evento (event-time) y salidas de error controladas.",
+   "src": "b79c171a7f15"
+  },
+  "caution": {
+   "es": "Revisa el comportamiento del runner, los límites de la fuente y del destino (source/sink) y la compatibilidad de las actualizaciones con estado.",
+   "src": "66d178ae4d38"
+  },
+  "strength": {
+   "es": "Ejecución administrada de Beam para pipelines por lotes y de streaming.",
+   "src": "82a658cf48c2"
+  },
+  "limitations.0": {
+   "es": "Revisa el comportamiento del runner, los límites de la fuente y del destino (source/sink) y la compatibilidad de las actualizaciones con estado.",
+   "src": "66d178ae4d38"
+  }
+ },
+ "service-11": {
+  "fit": {
+   "es": "Transporte de eventos desacoplado y entrega por suscripción.",
+   "src": "3e09d5079cee"
+  },
+  "signal": {
+   "es": "Los productores y los consumidores necesitan escalar y estar disponibles de forma independiente.",
+   "src": "381dbc1d2bd5"
+  },
+  "caution": {
+   "es": "La entrega, el orden por clave, la repetición (replay) y los efectos secundarios externos son contratos distintos.",
+   "src": "127c3ba50edd"
+  },
+  "strength": {
+   "es": "Transporte de eventos desacoplado y entrega por suscripción.",
+   "src": "3e09d5079cee"
+  },
+  "limitations.0": {
+   "es": "La entrega, el orden por clave, la repetición (replay) y los efectos secundarios externos son contratos distintos.",
+   "src": "127c3ba50edd"
+  }
+ },
+ "service-12": {
+  "fit": {
+   "es": "Ecosistemas existentes de Spark y Hadoop.",
+   "src": "25814507fa42"
+  },
+  "signal": {
+   "es": "Conservar la compatibilidad de ejecución durante una migración corta.",
+   "src": "c865e3f21c98"
+  },
+  "caution": {
+   "es": "Separa los objetos duraderos del almacenamiento temporal del clúster y compara el costo de cómputo inactivo.",
+   "src": "97a28506b32e"
+  },
+  "strength": {
+   "es": "Ecosistemas existentes de Spark y Hadoop.",
+   "src": "25814507fa42"
+  },
+  "limitations.0": {
+   "es": "Separa los objetos duraderos del almacenamiento temporal del clúster y compara el costo de cómputo inactivo.",
+   "src": "97a28506b32e"
+  }
+ },
+ "service-13": {
+  "fit": {
+   "es": "Grafos de dependencias de SQL de BigQuery con control de versiones, y aserciones.",
+   "src": "d0b3c9436910"
+  },
+  "signal": {
+   "es": "ELT en el almacén de datos, modelos incrementales y controles de calidad.",
+   "src": "f0517a9ed238"
+  },
+  "caution": {
+   "es": "Prueba que la aserción requerida sea de verdad una dependencia de la publicación.",
+   "src": "4dc52674a966"
+  },
+  "strength": {
+   "es": "Grafos de dependencias de SQL de BigQuery con control de versiones, y aserciones.",
+   "src": "d0b3c9436910"
+  },
+  "limitations.0": {
+   "es": "Prueba que la aserción requerida sea de verdad una dependencia de la publicación.",
+   "src": "4dc52674a966"
+  }
+ },
+ "service-14": {
+  "fit": {
+   "es": "Pipelines visuales de integración y preparación de datos.",
+   "src": "58e2dd7de065"
+  },
+  "signal": {
+   "es": "Un equipo necesita conectores compatibles y una interfaz gráfica para transformar datos.",
+   "src": "63606e798bb5"
+  },
+  "caution": {
+   "es": "Convertir un formato por sí solo no limpia los valores no válidos.",
+   "src": "7fa6ab0ed43b"
+  },
+  "strength": {
+   "es": "Pipelines visuales de integración y preparación de datos.",
+   "src": "58e2dd7de065"
+  },
+  "limitations.0": {
+   "es": "Convertir un formato por sí solo no limpia los valores no válidos.",
+   "src": "7fa6ab0ed43b"
+  }
+ },
+ "service-15": {
+  "fit": {
+   "es": "Grafos de dependencias de varios pasos, programaciones y recuperación por tarea.",
+   "src": "6fd17bf76a3c"
+  },
+  "signal": {
+   "es": "Los flujos de trabajo (Workflows) necesitan reintentos y repeticiones que se puedan observar por separado.",
+   "src": "9058aed09508"
+  },
+  "caution": {
+   "es": "Usa intervalos de ejecución lógicos y efectos de tareas idempotentes. Un entorno no es cómputo inactivo gratis.",
+   "src": "2772a768e100"
+  },
+  "strength": {
+   "es": "Grafos de dependencias de varios pasos, programaciones y recuperación por tarea.",
+   "src": "6fd17bf76a3c"
+  },
+  "limitations.0": {
+   "es": "Usa intervalos de ejecución lógicos y efectos de tareas idempotentes. Un entorno no es cómputo inactivo gratis.",
+   "src": "2772a768e100"
+  }
+ },
+ "service-16": {
+  "fit": {
+   "es": "Coordinación ligera y sin servidor de llamadas a servicios.",
+   "src": "a15ba9edb1d4"
+  },
+  "signal": {
+   "es": "Una secuencia de llamadas a API y condiciones debe ejecutarse sin un entorno de Airflow.",
+   "src": "700b9da47b13"
+  },
+  "caution": {
+   "es": "La capa de orquestación no hace por sí misma todas las transformaciones grandes de datos.",
+   "src": "5c532064d46e"
+  },
+  "strength": {
+   "es": "Coordinación ligera y sin servidor de llamadas a servicios.",
+   "src": "a15ba9edb1d4"
+  },
+  "limitations.0": {
+   "es": "La capa de orquestación no hace por sí misma todas las transformaciones grandes de datos.",
+   "src": "5c532064d46e"
+  }
+ },
+ "service-17": {
+  "fit": {
+   "es": "Captura de cambios y replicación de bases de datos compatibles.",
+   "src": "576dc765983d"
+  },
+  "signal": {
+   "es": "Una carga inicial (backfill) y las actualizaciones continuas deben llegar a un destino compatible.",
+   "src": "cf6a19fec708"
+  },
+  "caution": {
+   "es": "Verifica el motor de origen, la semántica de los cambios, la conectividad y el contrato del cambio final (cutover).",
+   "src": "a85a1ede3471"
+  },
+  "strength": {
+   "es": "Captura de cambios y replicación de bases de datos compatibles.",
+   "src": "576dc765983d"
+  },
+  "limitations.0": {
+   "es": "Verifica el motor de origen, la semántica de los cambios, la conectividad y el contrato del cambio final (cutover).",
+   "src": "a85a1ede3471"
+  }
+ },
+ "service-18": {
+  "fit": {
+   "es": "Movimiento administrado de datos de objetos y archivos compatibles.",
+   "src": "f843346f4cce"
+  },
+  "signal": {
+   "es": "El requisito es una transferencia periódica de archivos.",
+   "src": "7ac1c6de3063"
+  },
+  "caution": {
+   "es": "No reemplaza de forma automática un extractor de CDC de bases de datos ni transforma formatos propietarios arbitrarios.",
+   "src": "e62f417561ae"
+  },
+  "strength": {
+   "es": "Movimiento administrado de datos de objetos y archivos compatibles.",
+   "src": "f843346f4cce"
+  },
+  "limitations.0": {
+   "es": "No reemplaza de forma automática un extractor de CDC de bases de datos ni transforma formatos propietarios arbitrarios.",
+   "src": "e62f417561ae"
+  }
+ },
+ "service-19": {
+  "fit": {
+   "es": "Descubrimiento de metadatos, linaje y contexto de datos gobernado.",
+   "src": "b7fc1d4d7300"
+  },
+  "signal": {
+   "es": "Los productos de dominio necesitan ser fáciles de encontrar y tener reglas compartidas.",
+   "src": "c37e6c0c8004"
+  },
+  "caution": {
+   "es": "Las entradas de catálogo no reemplazan los permisos de los datos de fondo ni la evidencia de calidad.",
+   "src": "9d13b9c7ee7d"
+  },
+  "strength": {
+   "es": "Descubrimiento de metadatos, linaje y contexto de datos gobernado.",
+   "src": "b7fc1d4d7300"
+  },
+  "limitations.0": {
+   "es": "Las entradas de catálogo no reemplazan los permisos de los datos de fondo ni la evidencia de calidad.",
+   "src": "9d13b9c7ee7d"
+  }
+ },
+ "service-20": {
+  "fit": {
+   "es": "Inspección y desidentificación compatible de valores sensibles.",
+   "src": "75b58f02ce74"
+  },
+  "signal": {
+   "es": "Los datos deben inspeccionarse o transformarse bajo un contrato de privacidad.",
+   "src": "78d31d3c5787"
+  },
+  "caution": {
+   "es": "El enmascaramiento, las transformaciones irreversibles y la tokenización reversible tienen requisitos distintos.",
+   "src": "7aaa8d7b74a9"
+  },
+  "strength": {
+   "es": "Inspección y desidentificación compatible de valores sensibles.",
+   "src": "75b58f02ce74"
+  },
+  "limitations.0": {
+   "es": "El enmascaramiento, las transformaciones irreversibles y la tokenización reversible tienen requisitos distintos.",
+   "src": "7aaa8d7b74a9"
+  }
+ },
+ "service-21": {
+  "fit": {
+   "es": "Métricas y políticas de alerta accionables.",
+   "src": "93cd939522d0"
+  },
+  "signal": {
+   "es": "Detectar síntomas de frescura de datos, atraso (backlog) o recursos, con un responsable y un manual de operación (runbook).",
+   "src": "84523f249bb3"
+  },
+  "caution": {
+   "es": "Un gráfico de CPU sano no prueba que los datos del negocio estén completos.",
+   "src": "a94da730b668"
+  },
+  "strength": {
+   "es": "Métricas y políticas de alerta accionables.",
+   "src": "93cd939522d0"
+  },
+  "limitations.0": {
+   "es": "Un gráfico de CPU sano no prueba que los datos del negocio estén completos.",
+   "src": "a94da730b668"
+  }
+ },
+ "service-22": {
+  "fit": {
+   "es": "Registros operativos y evidencia del acceso o la administración relevantes.",
+   "src": "b264b3f7a534"
+  },
+  "signal": {
+   "es": "Investigar quién hizo qué y relacionar los fallos del procesamiento.",
+   "src": "8ebea9c6d78e"
+  },
+  "caution": {
+   "es": "Revisa el tipo de registro que corresponde, la configuración, la retención y el manejo de datos sensibles en el contenido.",
+   "src": "f2257b408729"
+  },
+  "strength": {
+   "es": "Registros operativos y evidencia del acceso o la administración relevantes.",
+   "src": "b264b3f7a534"
+  },
+  "limitations.0": {
+   "es": "Revisa el tipo de registro que corresponde, la configuración, la retención y el manejo de datos sensibles en el contenido.",
+   "src": "f2257b408729"
+  }
+ },
+ "service-23": {
+  "fit": {
+   "es": "Clústeres de Managed Kafka para clientes de Kafka y grupos de consumidores.",
+   "src": "149bed419ea0"
+  },
+  "signal": {
+   "es": "La compatibilidad con el ecosistema de Kafka es un requisito explícito de la aplicación.",
+   "src": "9fb78d9e70bc"
+  },
+  "caution": {
+   "es": "La retención, el comportamiento de los clientes y el contrato del evento de negocio todavía necesitan diseño.",
+   "src": "3ff0d07ad4c8"
+  },
+  "strength": {
+   "es": "Clústeres de Managed Kafka para clientes de Kafka y grupos de consumidores.",
+   "src": "149bed419ea0"
+  },
+  "limitations.0": {
+   "es": "La retención, el comportamiento de los clientes y el contrato del evento de negocio todavía necesitan diseño.",
+   "src": "3ff0d07ad4c8"
+  }
+ },
+ "service-24": {
+  "fit": {
+   "es": "Cargas de trabajo por lotes de Spark enviadas y sesiones interactivas.",
+   "src": "c17f54eadf2a"
+  },
+  "signal": {
+   "es": "Procesamiento de Spark intermitente, sin un clúster aprovisionado por el usuario.",
+   "src": "1dbab09049b5"
+  },
+  "caution": {
+   "es": "Prueba el tiempo de ejecución, las dependencias, la red y el costo de la carga de trabajo.",
+   "src": "a01ce8cc4688"
+  },
+  "strength": {
+   "es": "Cargas de trabajo por lotes de Spark enviadas y sesiones interactivas.",
+   "src": "c17f54eadf2a"
+  },
+  "limitations.0": {
+   "es": "Prueba el tiempo de ejecución, las dependencias, la red y el costo de la carga de trabajo.",
+   "src": "a01ce8cc4688"
+  }
+ },
+ "service-25": {
+  "fit": {
+   "es": "Envío físico de conjuntos de datos grandes a Cloud Storage.",
+   "src": "dfce085ae98c"
+  },
+  "signal": {
+   "es": "La ventana de transferencia en línea no cabe en el plan de migración.",
+   "src": "5bb369349361"
+  },
+  "caution": {
+   "es": "Incluye en el plan el envío, la carga, la disponibilidad y la conciliación.",
+   "src": "adc448a76054"
+  },
+  "strength": {
+   "es": "Envío físico de conjuntos de datos grandes a Cloud Storage.",
+   "src": "dfce085ae98c"
+  },
+  "limitations.0": {
+   "es": "Incluye en el plan el envío, la carga, la disponibilidad y la conciliación.",
+   "src": "adc448a76054"
+  }
+ },
+ "service-26": {
+  "fit": {
+   "es": "Copia puntual de objetos y archivos desde la línea de comandos.",
+   "src": "c1a9bba25e00"
+  },
+  "signal": {
+   "es": "Un operador necesita una operación de copia directa y compatible.",
+   "src": "8ddbb0722e65"
+  },
+  "caution": {
+   "es": "Un comando de copia por sí solo no es una orquestación periódica ni un contrato de CDC de bases de datos.",
+   "src": "42755f6e6877"
+  },
+  "strength": {
+   "es": "Copia puntual de objetos y archivos desde la línea de comandos.",
+   "src": "c1a9bba25e00"
+  },
+  "limitations.0": {
+   "es": "Un comando de copia por sí solo no es una orquestación periódica ni un contrato de CDC de bases de datos.",
+   "src": "42755f6e6877"
+  }
+ },
+ "service-27": {
+  "fit": {
+   "es": "Tablas de formato abierto administradas por BigQuery, en Cloud Storage del cliente.",
+   "src": "d775e2150d83"
+  },
+  "signal": {
+   "es": "Se necesitan escrituras de BigQuery documentadas e interoperabilidad con formatos abiertos.",
+   "src": "f065f74d2547"
+  },
+  "caution": {
+   "es": "Valida las capacidades exactas de la tabla y la vía de modificación compatible.",
+   "src": "0a21cb2db3be"
+  },
+  "strength": {
+   "es": "Tablas de formato abierto administradas por BigQuery, en Cloud Storage del cliente.",
+   "src": "d775e2150d83"
+  },
+  "limitations.0": {
+   "es": "Valida las capacidades exactas de la tabla y la vía de modificación compatible.",
+   "src": "0a21cb2db3be"
+  }
+ },
+ "service-28": {
+  "fit": {
+   "es": "Vías compatibles de migración de bases de datos operativas.",
+   "src": "655149a6381e"
+  },
+  "signal": {
+   "es": "Mover una base de datos de origen compatible a un destino operativo compatible.",
+   "src": "1595ae658550"
+  },
+  "caution": {
+   "es": "Confirma las funciones del origen y del destino y el cambio final (cutover). No supongas CDC de almacén de datos.",
+   "src": "7b27cbecbd10"
+  },
+  "strength": {
+   "es": "Vías compatibles de migración de bases de datos operativas.",
+   "src": "655149a6381e"
+  },
+  "limitations.0": {
+   "es": "Confirma las funciones del origen y del destino y el cambio final (cutover). No supongas CDC de almacén de datos.",
+   "src": "7b27cbecbd10"
+  }
+ }
+}

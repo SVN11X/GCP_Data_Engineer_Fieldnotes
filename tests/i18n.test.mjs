@@ -172,12 +172,12 @@ test('workshop, English studio, sources and compare chrome patterns',()=>{
  for(const [en,es] of [['Use when','Úsalo cuando'],['Strength','Fortaleza'],['Check the limitation','Revisa la limitación'],['Storage','Almacenamiento'],['Orchestration','Orquestación']])assert.equal(t(en),es);
 });
 test('covered routes include the chrome added in this stage and nothing unreviewed',()=>{
- for(const route of ['learn','practice','workshops','english','compare','sources','home','progress'])assert.ok(I.COVERED.includes(route),route);
- for(const route of ['lab','architectures','resources','exam','missions','search'])assert.ok(!I.COVERED.includes(route),route+' is not translated yet');
+ for(const route of ['learn','practice','workshops','english','compare','architectures','sources','home','progress'])assert.ok(I.COVERED.includes(route),route);
+ for(const route of ['lab','resources','exam','missions','search'])assert.ok(!I.COVERED.includes(route),route+' is not translated yet');
 });
 test('skipped regions are named and the Spanish-text region excludes the page root',()=>{
  const has=sel=>({closest:s=>s.split(',').includes(sel)?{}:null});
- assert.equal(I.regionOf(has('[data-english]')),'lesson, question, service and workshop text');
+ assert.equal(I.regionOf(has('[data-english]')),'study content (own Spanish overlay or English) and question text');
  assert.equal(I.regionOf(has('pre')),'code');
  assert.equal(I.regionOf(has('svg')),'diagram text');
  assert.equal(I.regionOf(has('.lesson-info')),null);
