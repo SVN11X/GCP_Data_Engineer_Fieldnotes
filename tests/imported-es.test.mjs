@@ -9,7 +9,7 @@ import '../dist/assets/loader.js';
 const IE=globalThis.FieldImportedEs,C=globalThis.FieldCore;
 const read=f=>JSON.parse(fs.readFileSync(new URL('../'+f,import.meta.url),'utf8'));
 /* Domains whose imported overlay is shipped, and how many imported questions each domain has. */
-const SHIPPED=[1,2,3],COUNTS={1:57,2:53,3:61,4:90,5:88};
+const SHIPPED=[1,2,3,4],COUNTS={1:57,2:53,3:61,4:90,5:88};
 const imported=()=>read('content/imported.json').questions;
 /* Everything but the translatable strings, so two copies can be compared field by field. */
 const skeleton=q=>{const c=structuredClone(q);for(const k of ['text','html','sourceExplanation','explanation','reviewNote','issues'])delete c[k];c.choices=c.choices.map(({letter})=>({letter}));return c;};
@@ -20,7 +20,7 @@ const demoOverlay=q=>({'imp-9':{html:entry(q,'html',goodHtml),'choices.0.html':e
 const run=(o,q=demo())=>validateOverlay(o,[q]);
 const withHtml=(q,html)=>({...demoOverlay(q)['imp-9'],html:entry(q,'html',html)});
 
-test('domains 1 to 3 have a shipped overlay; the others wait for items 44e and 44f',()=>{
+test('domains 1 to 4 have a shipped overlay; domain 5 waits for item 44f',()=>{
  assert.equal(imported().length,349);
  for(const d of [1,2,3,4,5])assert.equal(englishImported(d).length,COUNTS[d],'domain '+d);
  assert.equal(Object.values(COUNTS).reduce((a,b)=>a+b,0),349);
@@ -43,6 +43,9 @@ test('every shipped overlay is valid, current and covers 100 percent of its impo
  const d3=coverage(readOverlay(3),englishImported(3));
  assert.equal(d3.total,434);assert.equal(d3.ok,434);
  assert.equal(Object.keys(readOverlay(3)).length,61);
+ const d4=coverage(readOverlay(4),englishImported(4));
+ assert.equal(d4.total,640);assert.equal(d4.ok,640);
+ assert.equal(Object.keys(readOverlay(4)).length,90);
 });
 test('the overlay holds only strings: no id, key, letter, status or image field',()=>{
  for(const d of overlayDomains()){
@@ -70,7 +73,7 @@ test('every translated html keeps the exact tags, attributes and image sources o
    images+=tags(en).filter(t=>t.startsWith('<img')).length;breaks+=tags(en).length;
   }
  }
- assert.equal(images,14,'the four inline images of domain 1, the five of domain 2 and the five of domain 3');
+ assert.equal(images,19,'the four inline images of domain 1, the five of domain 2, the five of domain 3 and the five of domain 4');
  assert.ok(breaks>300);
 });
 test('every choice of every question is translated, in the same number and order',()=>{
@@ -110,6 +113,27 @@ test('domain 3 overlay keeps code tokens, tables of identifiers, numbers and nam
  assert.ok(validateOverlay(broken,qs).some(e=>/translated/.test(e)),'a missing choice fails');
  const lost=structuredClone(o);lost['imp-44']['choices.0.html'].es=lost['imp-44']['choices.0.html'].es.replace(/<img[^>]*>/,'');
  assert.ok(validateOverlay(lost,qs).some(e=>/html tags differ/.test(e)),'a dropped image tag fails');
+});
+test('domain 4 overlay is complete, keeps code tokens, options and numbers, and holds no key field',()=>{
+ const o=readOverlay(4),qs=englishImported(4);
+ assert.equal(qs.length,90);
+ assert.deepEqual(Object.keys(o),qs.map(q=>q.id));
+ const has=(id,p,needle)=>assert.ok(o[id][p].es.includes(needle),id+':'+p+' '+needle);
+ has('imp-5','choices.2.html','max_bad_records');has('imp-156','choices.0.html','hdfs://');has('imp-172','choices.3.html','AfterWatermark.pastEndOfWindow ()');has('imp-229','choices.0.html','allow_non_incremental_definition');has('imp-229','choices.0.html','max_staleness');has('imp-328','choices.0.html','INSERT INTO ... SELECT * FROM external_table');has('imp-336','choices.0.html','--region=us-central1');has('imp-342','html','average_transaction_amount_last_24_hours');has('imp-343','choices.3.html','ML.GENERATE_TEXT');has('imp-282','html','1.5 GB');
+ for(const e of Object.values(o))for(const p of Object.keys(e))assert.match(p,/^(html|choices\.\d+\.html|sourceExplanation|explanation|reviewNote|issues\.\d+)$/);
+ for(const [id,e] of Object.entries(o))for(const k of ['answer','sourceAnswer','required','status','id','number','domain','images','letter','gradable','origin','lesson'])assert.ok(!(k in e),id+' has no '+k);
+ /* image-only choices of imp-243 and the inline image of imp-63 keep their exact sources */
+ const srcs=h=>[...h.matchAll(/src="([^"]+)"/g)].map(m=>m[1]);
+ for(const q of qs)for(const [p,en] of importedPaths(q))if(/html$/.test(p))assert.deepEqual(srcs(o[q.id][p].es),srcs(en),q.id+':'+p);
+ for(const e of Object.values(o))for(const x of Object.values(e))assert.ok(!/[;–—]/.test(x.es.replace(/&[#\w]+;/g,'')),x.es.slice(0,60));
+ const stale=structuredClone(o);stale['imp-1'].html.src='000000000000';
+ assert.ok(validateOverlay(stale,qs).some(e=>/stale translation/.test(e)),'a stale entry fails');
+ const broken=structuredClone(o);delete broken['imp-1']['choices.2.html'];
+ assert.ok(validateOverlay(broken,qs).some(e=>/translated/.test(e)),'a missing choice fails');
+ const lost=structuredClone(o);lost['imp-63'].html.es=lost['imp-63'].html.es.replace(/<img[^>]*>/,'');
+ assert.ok(validateOverlay(lost,qs).some(e=>/html tags differ/.test(e)),'a dropped image tag fails');
+ const keyed=structuredClone(o);keyed['imp-1'].answer={es:'A',src:'000000000000'};
+ assert.ok(validateOverlay(keyed,qs).some(e=>/only the html/.test(e)),'a key field is rejected');
 });
 test('Spanish keeps numbers, product names and code tokens, and has no semicolon or long dash',()=>{
  const o=readOverlay(1);
@@ -268,12 +292,12 @@ test('the loader requests the imported overlay only in Spanish, only for the dom
  try{
   let lang='en';
   const loader=globalThis.FieldLoader.create(data,fetcher,'https://example.test/p/',()=>lang);
-  await loader.ensure('practice');await loader.ensure('practice','imp-12');await loader.ensure('practice','imp-1');
+  await loader.ensure('practice');await loader.ensure('practice','imp-12');await loader.ensure('practice','imp-16');
   assert.deepEqual(asked(),[],'English visitors request no Spanish imported file');
   assert.ok(!scripts.some(s=>/imported-es/.test(s)));
   lang='es';
-  await loader.ensure('practice','imp-1');
-  assert.deepEqual(asked(),[],'domain 4 has no Spanish imported file yet');
+  await loader.ensure('practice','imp-16');
+  assert.deepEqual(asked(),[],'domain 5 has no Spanish imported file yet');
   calls.length=0;
   await loader.ensure('practice','imp-12');
   assert.deepEqual(asked(),[1],'a question page loads only its own domain');
@@ -288,8 +312,11 @@ test('the loader requests the imported overlay only in Spanish, only for the dom
   await loader.ensure('practice');
   assert.deepEqual(asked(),[]);
   assert.equal(q12.text,IE.htmlToText(o['imp-12'].html.es),'row text stays Spanish after the catalog merge');
-  assert.equal(data.questions.find(q=>q.id==='imp-1').choices.length>0,true);
-  assert.equal(data.questions.find(q=>q.id==='imp-1').html.includes('TensorFlow'),true,'domain 4 stays English');
+  assert.equal(data.questions.find(q=>q.id==='imp-16').choices.length>0,true);
+  assert.equal(data.questions.find(q=>q.id==='imp-16').html,englishImported(5).find(q=>q.id==='imp-16').html,'domain 5 stays English');
+  calls.length=0;await loader.ensure('practice','imp-1');
+  assert.deepEqual(asked(),[4],'domain 4 loads its own Spanish file');
+  assert.equal(data.questions.find(q=>q.id==='imp-1').html,readOverlay(4)['imp-1'].html.es);
   calls.length=0;await loader.ensure('practice','imp-12');await loader.ensure('practice','imp-24');
   assert.deepEqual(asked(),[],'each overlay is requested once');
   lang='en';

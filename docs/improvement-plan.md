@@ -75,7 +75,7 @@ Format: `- [ ]` pending, `- [x]` done, `- [x] SKIPPED: reason`, `- [ ] BLOCKED: 
 - [x] 44b. G Spanish overlay for the 57 imported questions of domain 1 plus the shared mechanism and a swap to the English original. Source keys, review labels and images untouched. Owner review pending.
 - [x] 44c. G Spanish overlay for the 53 imported questions of domain 2, same rules as 44b.
 - [x] 44d. G Spanish overlay for the 61 imported questions of domain 3, same rules as 44b. Source keys, review labels and images untouched. Owner review pending.
-- [ ] 44e. G Spanish overlay for the 90 imported questions of domain 4, same rules as 44b.
+- [x] 44e. G Spanish overlay for the 90 imported questions of domain 4, same rules as 44b.
 - [ ] 44f. G Spanish overlay for the 88 imported questions of domain 5, same rules as 44b.
 - [ ] 44. G Spanish layer for the 349 imported questions in content/imported-es.json. imported.json stays untouched, unreadable image text is not translated, one batch per domain.
 
