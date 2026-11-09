@@ -9,7 +9,7 @@ import '../dist/assets/loader.js';
 const IE=globalThis.FieldImportedEs,C=globalThis.FieldCore;
 const read=f=>JSON.parse(fs.readFileSync(new URL('../'+f,import.meta.url),'utf8'));
 /* Domains whose imported overlay is shipped, and how many imported questions each domain has. */
-const SHIPPED=[1],COUNTS={1:57,2:53,3:61,4:90,5:88};
+const SHIPPED=[1,2],COUNTS={1:57,2:53,3:61,4:90,5:88};
 const imported=()=>read('content/imported.json').questions;
 /* Everything but the translatable strings, so two copies can be compared field by field. */
 const skeleton=q=>{const c=structuredClone(q);for(const k of ['text','html','sourceExplanation','explanation','reviewNote','issues'])delete c[k];c.choices=c.choices.map(({letter})=>({letter}));return c;};
@@ -20,7 +20,7 @@ const demoOverlay=q=>({'imp-9':{html:entry(q,'html',goodHtml),'choices.0.html':e
 const run=(o,q=demo())=>validateOverlay(o,[q]);
 const withHtml=(q,html)=>({...demoOverlay(q)['imp-9'],html:entry(q,'html',html)});
 
-test('domain 1 has 57 imported questions and a shipped overlay; the others wait for items 44c to 44f',()=>{
+test('domains 1 and 2 have a shipped overlay; the others wait for items 44d to 44f',()=>{
  assert.equal(imported().length,349);
  for(const d of [1,2,3,4,5])assert.equal(englishImported(d).length,COUNTS[d],'domain '+d);
  assert.equal(Object.values(COUNTS).reduce((a,b)=>a+b,0),349);
@@ -37,6 +37,9 @@ test('every shipped overlay is valid, current and covers 100 percent of its impo
  }
  const d1=coverage(readOverlay(1),englishImported(1));
  assert.equal(d1.total,412);
+ const d2=coverage(readOverlay(2),englishImported(2));
+ assert.equal(d2.total,383);assert.equal(d2.ok,383);
+ assert.equal(Object.keys(readOverlay(2)).length,53);
 });
 test('the overlay holds only strings: no id, key, letter, status or image field',()=>{
  for(const d of overlayDomains()){
@@ -64,7 +67,7 @@ test('every translated html keeps the exact tags, attributes and image sources o
    images+=tags(en).filter(t=>t.startsWith('<img')).length;breaks+=tags(en).length;
   }
  }
- assert.equal(images,4,'the four inline images of domain 1');
+ assert.equal(images,9,'the four inline images of domain 1 and the five of domain 2');
  assert.ok(breaks>300);
 });
 test('every choice of every question is translated, in the same number and order',()=>{
@@ -79,6 +82,14 @@ test('every choice of every question is translated, in the same number and order
    q.issues.forEach((_,i)=>assert.ok(o[q.id]['issues.'+i]));
   }
  }
+});
+test('domain 2 overlay keeps code tokens, numbers and names, and holds no key field',()=>{
+ const o=readOverlay(2);
+ const has=(id,p,needle)=>assert.ok(o[id][p].es.includes(needle),id+':'+p+' '+needle);
+ has('imp-9','choices.0.html','noaa_gsod');has('imp-56','choices.0.html','TABLE_DATE_RANGE');has('imp-246','choices.1.html','STREET_ADDRESS');has('imp-136','html','europe-west4');has('imp-143','choices.0.html','--update');has('imp-228','choices.3.html','retain-acked-messages');
+ for(const e of Object.values(o))for(const p of Object.keys(e))assert.match(p,/^(html|choices\.\d+\.html|sourceExplanation|explanation|reviewNote|issues\.\d+)$/);
+ const stale=structuredClone(o);stale['imp-3'].html.src='000000000000';
+ assert.ok(validateOverlay(stale,englishImported(2)).some(e=>/stale translation/.test(e)));
 });
 test('Spanish keeps numbers, product names and code tokens, and has no semicolon or long dash',()=>{
  const o=readOverlay(1);

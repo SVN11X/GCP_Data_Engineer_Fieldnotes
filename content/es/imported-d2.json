@@ -1368,54 +1368,270 @@
   }
  },
  "imp-268": {
+  "html": {
+   "es": "Creaste una versión nueva de una canalización de ingesta de datos en streaming de Dataflow que lee de Pub/Sub y escribe en BigQuery. La versión anterior de la canalización, que se ejecuta en producción, usa una ventana de 5 minutos para el procesamiento. Necesitas desplegar la versión nueva de la canalización sin perder datos, sin crear inconsistencias y sin aumentar la latencia de procesamiento en más de 10 minutos. ¿Qué debes hacer?",
+   "src": "8e314678245e"
+  },
+  "choices.0.html": {
+   "es": "Actualizar la canalización anterior con el código de la canalización nueva.",
+   "src": "6fdc755a811a"
+  },
+  "choices.1.html": {
+   "es": "Tomar una instantánea (snapshot) de la canalización anterior, detenerla y luego iniciar la canalización nueva desde la instantánea.",
+   "src": "1d634e426a82"
+  },
+  "choices.2.html": {
+   "es": "Hacer drain de la canalización anterior y luego iniciar la canalización nueva.",
+   "src": "1eb07da0607a"
+  },
+  "choices.3.html": {
+   "es": "Cancelar la canalización anterior y luego iniciar la canalización nueva.",
+   "src": "f0eb8632ce3b"
+  },
+  "sourceExplanation": {
+   "es": "Hacer drain de la canalización detiene el procesamiento de datos nuevos y deja que se procesen los registros en proceso. Así se evita la pérdida de datos y se asegura la consistencia. \nCancelar causa una terminación inmediata que puede llevar a pérdida de datos, y actualizar el código directamente exige un ciclo de instantánea y reinicio que, según la implementación, puede introducir retrasos más largos o problemas de estado. \nLa opción C es el procedimiento estándar para transiciones seguras sin perder los datos en tránsito.",
+   "src": "c04a5eeede58"
+  },
   "reviewNote": {
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
   }
  },
  "imp-276": {
+  "html": {
+   "es": "Estás diseñando una canalización de Dataflow para un trabajo de procesamiento por lotes. Quieres mitigar varios fallos de zona (zonal failures) en el momento de enviar el trabajo. ¿Qué debes hacer?",
+   "src": "848001e077bc"
+  },
+  "choices.0.html": {
+   "es": "Enviar canalizaciones duplicadas en dos zonas distintas con la bandera --zone.",
+   "src": "56a2cd2da130"
+  },
+  "choices.1.html": {
+   "es": "Definir la ubicación de preparación (staging location) de la canalización como un bucket regional de Cloud Storage.",
+   "src": "5bddbdf8029b"
+  },
+  "choices.2.html": {
+   "es": "Especificar una región de workers con la bandera --region.",
+   "src": "52664f7d189c"
+  },
+  "choices.3.html": {
+   "es": "Crear un disparador de Eventarc para volver a enviar el trabajo en caso de un fallo de zona al enviar el trabajo.",
+   "src": "b1c0f1e9b0a0"
+  },
+  "sourceExplanation": {
+   "es": "Usar la bandera --region permite que Dataflow distribuya de forma automática los recursos de workers entre varias zonas dentro de esa región.\nEsta distribución automática mitiga el riesgo de fallos de zona, porque si una zona se cae, los workers de otras zonas pueden seguir procesando o reanudar la ejecución.",
+   "src": "e90d2491ff83"
+  },
   "reviewNote": {
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
   }
  },
  "imp-279": {
+  "html": {
+   "es": "Quieres guardar las tablas compartidas de tu equipo en un solo dataset para que varios analistas accedan fácilmente a los datos. Quieres que estos datos se puedan leer pero que los analistas no los puedan modificar. Al mismo tiempo, quieres dar a los analistas espacios de trabajo individuales en el mismo proyecto, donde puedan crear y guardar tablas para su propio uso, sin que otros analistas puedan acceder a esas tablas. ¿Qué debes hacer?",
+   "src": "4f29656f69d3"
+  },
+  "choices.0.html": {
+   "es": "Dar a los analistas el rol BigQuery Data Viewer a nivel de proyecto. Crear otro dataset y dar a los analistas el rol BigQuery Data Editor en ese dataset.",
+   "src": "3fe092f68f8f"
+  },
+  "choices.1.html": {
+   "es": "Dar a los analistas el rol BigQuery Data Viewer a nivel de proyecto. Crear un dataset para cada analista y dar a cada analista el rol BigQuery Data Editor a nivel de proyecto.",
+   "src": "b407bf88df60"
+  },
+  "choices.2.html": {
+   "es": "Dar a los analistas el rol BigQuery Data Viewer en el dataset compartido. Crear un dataset para cada analista y dar a cada analista el rol BigQuery Data Editor a nivel de dataset, en el dataset que se le asignó.",
+   "src": "ed1fead0fb09"
+  },
+  "choices.3.html": {
+   "es": "Dar a los analistas el rol BigQuery Data Viewer en el dataset compartido. Crear otro dataset y dar a los analistas el rol BigQuery Data Editor en ese dataset.",
+   "src": "5079f61c9db2"
+  },
+  "sourceExplanation": {
+   "es": "Asignar el rol BigQuery Data Viewer en el dataset compartido asegura que los analistas puedan leer las tablas comunes del equipo pero no modificarlas. Crear datasets individuales para cada analista y dar el rol Data Editor a nivel de dataset ofrece espacios de trabajo privados donde pueden crear y guardar tablas personales sin que otros analistas accedan a ellas.",
+   "src": "15759d650a4c"
+  },
   "reviewNote": {
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
   }
  },
  "imp-280": {
+  "html": {
+   "es": "Ejecutas una canalización de streaming con Dataflow y usas ventanas deslizantes (hopping windows) para agrupar los datos a medida que llegan. Notaste que algunos datos llegan tarde pero no se marcan como datos tardíos, lo que produce agregaciones inexactas más adelante. Necesitas encontrar una solución que te permita capturar los datos tardíos en la ventana adecuada. ¿Qué debes hacer?",
+   "src": "dbc465d7c92b"
+  },
+  "choices.0.html": {
+   "es": "Usar marcas de agua (watermarks) para definir la ventana esperada de llegada de datos. Permitir los datos tardíos a medida que lleguen.",
+   "src": "ffeb78b77736"
+  },
+  "choices.1.html": {
+   "es": "Cambiar tu función de ventanas a ventanas fijas sin superposición (tumbling windows) para evitar periodos de ventana superpuestos.",
+   "src": "b5fd8befce5e"
+  },
+  "choices.2.html": {
+   "es": "Cambiar tu función de ventanas a ventanas de sesión (session windows) para definir tus ventanas según cierta actividad.",
+   "src": "8c0d43e8a152"
+  },
+  "choices.3.html": {
+   "es": "Ampliar tu ventana deslizante para que los datos tardíos tengan más tiempo de llegar dentro de la agrupación.",
+   "src": "87a30def2c98"
+  },
+  "sourceExplanation": {
+   "es": "En Apache Beam y Dataflow, las marcas de agua (watermarks) siguen el avance del tiempo de evento para determinar cuándo se considera completa una ventana.\nAl configurar la canalización para permitir datos tardíos (por ejemplo, con AllowedLateness o con modos de acumulación como ACCUMULATING), los elementos que llegan después de que avanza la marca de agua se pueden procesar y agregar a las agregaciones de ventana existentes.\nEsto asegura que los registros que llegan tarde se asignen correctamente a las ventanas deslizantes que les corresponden, en lugar de descartarse o ignorarse.",
+   "src": "51eca72c1e67"
+  },
   "reviewNote": {
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
   }
  },
  "imp-289": {
+  "html": {
+   "es": "Tienes datos en BigQuery que se usan para generar informes de tu empresa. Notaste que algunos campos del informe ejecutivo semanal no cumplen el formato según los estándares de la empresa. Por ejemplo, los errores de los informes incluyen distintos formatos de teléfono y distintos identificadores de código de país. Este problema es frecuente, así que necesitas crear un trabajo recurrente para normalizar los datos. Quieres una solución rápida que no requiera programar. ¿Qué debes hacer?",
+   "src": "78cd4b66ea38"
+  },
+  "choices.0.html": {
+   "es": "Usar Cloud Data Fusion y Wrangler para normalizar los datos y configurar un trabajo recurrente.",
+   "src": "d0a0bf7ee4a6"
+  },
+  "choices.1.html": {
+   "es": "Usar Dataflow SQL para crear un trabajo que normalice los datos y, después de la primera ejecución del trabajo, programar la canalización para que se ejecute de forma recurrente.",
+   "src": "c24549331595"
+  },
+  "choices.2.html": {
+   "es": "Crear un trabajo de Spark y enviarlo a Dataproc Serverless.",
+   "src": "9ad63b410b05"
+  },
+  "choices.3.html": {
+   "es": "Usar BigQuery y GoogleSQL para normalizar los datos y programar consultas recurrentes en BigQuery.",
+   "src": "9bd2e12224ad"
+  },
+  "sourceExplanation": {
+   "es": "La pregunta exige de forma explícita una solución 'sin programar'. Cloud Data Fusion con Wrangler ofrece una interfaz visual y sin código para la transformación y la programación de datos, lo que cumple esta restricción. Las opciones B, C y D implican escribir código SQL o de Spark, lo que contradice el requisito de 'sin programar', aunque sean enfoques técnicos válidos para normalizar datos.",
+   "src": "49278cc87d4f"
+  },
   "reviewNote": {
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
   }
  },
  "imp-290": {
+  "html": {
+   "es": "Estás diseñando un sistema de mensajería con Pub/Sub para procesar datos de clickstream, con una aplicación consumidora controlada por eventos que usa una suscripción push. Necesitas configurar el sistema de mensajería para que sea lo bastante fiable para manejar una caída temporal de la aplicación consumidora. También necesitas que el sistema de mensajería guarde los mensajes de entrada que el suscriptor no pueda consumir. El sistema debe reintentar los mensajes fallidos de forma gradual, para no sobrecargar la aplicación consumidora, y guardar los mensajes fallidos en un tema después de un máximo de 10 reintentos. ¿Cómo debes configurar la suscripción de Pub/Sub?",
+   "src": "c090c6bee240"
+  },
+  "choices.0.html": {
+   "es": "Aumentar el plazo de confirmación (acknowledgement deadline) a 10 minutos.",
+   "src": "b0abb3739288"
+  },
+  "choices.1.html": {
+   "es": "Usar la reentrega inmediata como política de reintento de la suscripción y configurar los mensajes no entregados (dead lettering) hacia un tema distinto, con un máximo de 10 intentos de entrega.",
+   "src": "212eb8c021e2"
+  },
+  "choices.2.html": {
+   "es": "Usar el retroceso exponencial (exponential backoff) como política de reintento de la suscripción y configurar los mensajes no entregados hacia el mismo tema de origen, con un máximo de 10 intentos de entrega.",
+   "src": "01cf8437b590"
+  },
+  "choices.3.html": {
+   "es": "Usar el retroceso exponencial como política de reintento de la suscripción y configurar los mensajes no entregados hacia un tema distinto, con un máximo de 10 intentos de entrega.",
+   "src": "bd0a6cc2d9bf"
+  },
+  "sourceExplanation": {
+   "es": "El retroceso exponencial es necesario para aumentar poco a poco los retrasos entre reintentos, y así evitar que la aplicación consumidora se sature durante la recuperación. El dead lettering debe enviar los mensajes fallidos a un tema aparte después de 10 intentos, para aislarlos de los flujos de procesamiento exitosos y asegurar que se guarden como se pidió.",
+   "src": "f6117ad4b33a"
+  },
   "reviewNote": {
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
   }
  },
  "imp-301": {
+  "html": {
+   "es": "Estás diseñando una solución de transformación de datos para BigQuery. Tus desarrolladores dominan SQL y quieren usar la técnica de desarrollo ELT. Además, tus desarrolladores necesitan un entorno de programación intuitivo y la capacidad de administrar SQL como código. Necesitas identificar una solución para que tus desarrolladores creen estas canalizaciones. ¿Qué debes hacer?",
+   "src": "611b02349db1"
+  },
+  "choices.0.html": {
+   "es": "Usar Dataform para crear, administrar y programar canalizaciones de SQL.",
+   "src": "4f1c700cc62c"
+  },
+  "choices.1.html": {
+   "es": "Usar trabajos de Dataflow para leer datos de Pub/Sub, transformarlos y cargarlos en BigQuery.",
+   "src": "e293251789ab"
+  },
+  "choices.2.html": {
+   "es": "Usar Data Fusion para crear y ejecutar canalizaciones ETL.",
+   "src": "5922c456111e"
+  },
+  "choices.3.html": {
+   "es": "Usar Cloud Composer para cargar datos y ejecutar canalizaciones de SQL con los operadores de trabajos de BigQuery.",
+   "src": "44ab21a70309"
+  },
+  "sourceExplanation": {
+   "es": "Dataform está diseñado específicamente para flujos de trabajo ELT dentro de BigQuery, y permite que los desarrolladores que dominan SQL definan transformaciones con la sintaxis estándar de SQL. Ofrece un entorno integrado con Git que trata el SQL como código, lo que cumple el requisito de control de versiones y de una experiencia de programación intuitiva. En cambio, Dataflow usa Apache Beam (Java y Python), Data Fusion se centra en ETL basado en interfaz gráfica, y Cloud Composer orquesta tareas pero no ofrece la interfaz nativa de creación de SQL como código que se pidió.",
+   "src": "eeda818d6e72"
+  },
   "reviewNote": {
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
   }
  },
  "imp-311": {
+  "html": {
+   "es": "Tu empresa química necesita revisar manualmente la documentación de los pedidos de clientes. Usas una suscripción pull en Pub/Sub para que los agentes de ventas obtengan los detalles del pedido. Debes asegurar que no se procesen pedidos dos veces con distintos agentes de ventas y que no se agregue más complejidad a este flujo de trabajo. ¿Qué debes hacer?",
+   "src": "706b96ce60da"
+  },
+  "choices.0.html": {
+   "es": "Usar una transformación Deduplicate PTransform en Dataflow antes de enviar los mensajes a los agentes de ventas.",
+   "src": "fd7de5a49d72"
+  },
+  "choices.1.html": {
+   "es": "Crear una base de datos transaccional que supervise los mensajes pendientes.",
+   "src": "187dd401c4ba"
+  },
+  "choices.2.html": {
+   "es": "Usar la entrega exactamente una vez (exactly-once delivery) de Pub/Sub en tu suscripción pull.",
+   "src": "ef6119e72330"
+  },
+  "choices.3.html": {
+   "es": "Crear una suscripción push nueva de Pub/Sub para supervisar los pedidos procesados en el sistema del agente.",
+   "src": "49d966b522aa"
+  },
+  "sourceExplanation": {
+   "es": "Cloud Pub/Sub ofrece una función de entrega exactamente una vez, diseñada específicamente para garantizar que un suscriptor reciba y procese un mensaje exactamente una vez. Así evita el procesamiento duplicado sin necesitar una lógica externa compleja de deduplicación. Esto cumple directamente el requisito de evitar el doble procesamiento y de minimizar la complejidad agregada al flujo de trabajo, frente a implementar comprobaciones transaccionales personalizadas o canalizaciones de Dataflow.",
+   "src": "60694f454b1f"
+  },
   "reviewNote": {
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
   }
  },
  "imp-349": {
+  "html": {
+   "es": "Usas Dataflow para crear una canalización de datos en streaming que analiza la actividad de clics de los usuarios en un sitio web desde Pub/Sub. Necesitas calcular el número de clics de cada visita de un usuario al sitio. Una visita al sitio se define como un periodo de actividad seguido de 30 minutos de inactividad de un usuario específico. ¿Qué debes hacer?",
+   "src": "56912af41453"
+  },
+  "choices.0.html": {
+   "es": "Usar ventanas fijas sin superposición (tumbling windows) con una ventana de 30 minutos.",
+   "src": "deb3a8e22d6c"
+  },
+  "choices.1.html": {
+   "es": "Usar ventanas deslizantes (hopping windows) con una ventana de 30 minutos y un periodo de 1 minuto.",
+   "src": "87f58964c2c5"
+  },
+  "choices.2.html": {
+   "es": "Usar ventanas deslizantes con una ventana de 30 minutos y un periodo de 30 minutos.",
+   "src": "e15fb0683fba"
+  },
+  "choices.3.html": {
+   "es": "Usar ventanas de sesión (session windows) con una duración de intervalo de inactividad (gap) de 30 minutos.",
+   "src": "d2e57e51e612"
+  },
+  "sourceExplanation": {
+   "es": "Las ventanas de sesión están diseñadas específicamente para agrupar eventos por actividad y separarlos por periodos de inactividad. \nComo una visita al sitio se define como actividad seguida de 30 minutos de inactividad, configurar ventanas de sesión con un intervalo de 30 minutos captura correctamente estos límites. \nLas ventanas fijas sin superposición y las deslizantes usan intervalos de tiempo fijos sin importar cuándo llegan los datos, por lo que no sirven para sesiones de duración variable.",
+   "src": "d27d5612d505"
+  },
   "reviewNote": {
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
