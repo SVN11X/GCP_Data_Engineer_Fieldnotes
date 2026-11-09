@@ -1,0 +1,1514 @@
+{
+ "lab-12": {
+  "text": {
+   "es": "En un diagrama de pipeline, ¿qué representa el sink (destino final)?",
+   "src": "9c784a081246"
+  },
+  "choices.0.text": {
+   "es": "El destino que recibe la salida procesada.",
+   "src": "037edd149e93"
+  },
+  "choices.0.why": {
+   "es": "La fuente (source) entrega la entrada. El sink acepta el resultado.",
+   "src": "4183ac2232af"
+  },
+  "choices.1.text": {
+   "es": "El servicio que genera todos los eventos originales.",
+   "src": "ab8e2c9c05ee"
+  },
+  "choices.1.why": {
+   "es": "Eso describe la fuente (source).",
+   "src": "a5421c93ea70"
+  },
+  "choices.2.text": {
+   "es": "Solo la clave de cifrado del pipeline.",
+   "src": "676e5ba887c9"
+  },
+  "choices.2.why": {
+   "es": "Una clave protege el acceso y no es el destino de la salida.",
+   "src": "3b2d88aeabb0"
+  },
+  "choices.3.text": {
+   "es": "El usuario que lee la pregunta del examen.",
+   "src": "572b623e7bff"
+  },
+  "choices.3.why": {
+   "es": "El término describe un componente del flujo de datos.",
+   "src": "da20996cfda0"
+  },
+  "explanation": {
+   "es": "La fuente (source) entrega la entrada. El sink acepta el resultado.",
+   "src": "4183ac2232af"
+  }
+ },
+ "lab-13": {
+  "text": {
+   "es": "Los workers privados de Dataflow necesitan llamar a las API de Google sin direcciones IP externas. ¿Qué capacidad de red se debe considerar?",
+   "src": "ec0ccd146968"
+  },
+  "choices.0.text": {
+   "es": "Una ventana de tiempo de evento más grande.",
+   "src": "ad47c73a5079"
+  },
+  "choices.0.why": {
+   "es": "Las ventanas no cambian la ruta de red.",
+   "src": "9a16a2e7e5cc"
+  },
+  "choices.1.text": {
+   "es": "Private Google Access con enrutamiento y permisos bien configurados.",
+   "src": "ddfcdac029fe"
+  },
+  "choices.1.why": {
+   "es": "La alcanzabilidad privada de las API y los permisos de identidad deben respaldar el trabajo.",
+   "src": "9d2799ff47c3"
+  },
+  "choices.2.text": {
+   "es": "Una vista materializada de BigQuery.",
+   "src": "b5a52f5c1f8e"
+  },
+  "choices.2.why": {
+   "es": "Una optimización de consultas no crea alcanzabilidad de red para los workers.",
+   "src": "4efef60a4dcb"
+  },
+  "choices.3.text": {
+   "es": "Una clave de cuenta de servicio pegada en un log.",
+   "src": "4c23c575f876"
+  },
+  "choices.3.why": {
+   "es": "Exponer una clave ni arregla la red ni protege la cuenta.",
+   "src": "99ab29ff86b9"
+  },
+  "explanation": {
+   "es": "La alcanzabilidad privada de las API y los permisos de identidad deben respaldar el trabajo.",
+   "src": "9d2799ff47c3"
+  }
+ },
+ "lab-14": {
+  "text": {
+   "es": "Debes conservar el código de Spark existente durante una migración corta de Hadoop. ¿Qué opción de procesamiento conserva mejor ese ecosistema?",
+   "src": "642c245d597e"
+  },
+  "choices.0.text": {
+   "es": "Usar Pub/Sub como motor de ejecución de Spark.",
+   "src": "9157c03545fe"
+  },
+  "choices.0.why": {
+   "es": "Pub/Sub transporta mensajes. No ejecuta trabajos de Spark.",
+   "src": "eafa92511c26"
+  },
+  "choices.1.text": {
+   "es": "Ejecutar todo dentro de una vista SQL sin conversión.",
+   "src": "2a924b8b2796"
+  },
+  "choices.1.why": {
+   "es": "El código de una aplicación Spark no se puede ejecutar automáticamente como una vista.",
+   "src": "6a0e544ef8fa"
+  },
+  "choices.2.text": {
+   "es": "Ejecución en Dataproc / Apache Spark administrado.",
+   "src": "79c03bcdc2dd"
+  },
+  "choices.2.why": {
+   "es": "Las herramientas administradas de Spark y Hadoop conservan el modelo de procesamiento actual con menos reescritura inmediata.",
+   "src": "15b2a47ee27b"
+  },
+  "choices.3.text": {
+   "es": "Reescribir cada trabajo como un cálculo de dashboard.",
+   "src": "e0bd155a2e47"
+  },
+  "choices.3.why": {
+   "es": "Esto cambia el modelo de ejecución y aumenta el alcance de la migración.",
+   "src": "2c00c2324111"
+  },
+  "explanation": {
+   "es": "Las herramientas administradas de Spark y Hadoop conservan el modelo de procesamiento actual con menos reescritura inmediata.",
+   "src": "15b2a47ee27b"
+  }
+ },
+ "lab-15": {
+  "text": {
+   "es": "Un equipo necesita una interfaz visual para pipelines reutilizables de integración y limpieza de datos. ¿Qué producto está diseñado para ese flujo de trabajo?",
+   "src": "187eff2ed8d6"
+  },
+  "choices.0.text": {
+   "es": "Cloud KMS.",
+   "src": "733175c2d201"
+  },
+  "choices.0.why": {
+   "es": "KMS administra claves criptográficas.",
+   "src": "7243e1b0eeed"
+  },
+  "choices.1.text": {
+   "es": "Asignaciones de reservas de BigQuery.",
+   "src": "ad7719339127"
+  },
+  "choices.1.why": {
+   "es": "Las reservas asignan capacidad de cómputo.",
+   "src": "e2844fb16d2b"
+  },
+  "choices.2.text": {
+   "es": "Snapshots de Pub/Sub.",
+   "src": "8414a2ef98f6"
+  },
+  "choices.2.why": {
+   "es": "Los snapshots conservan el estado de confirmación (acknowledgement) de los mensajes.",
+   "src": "939165411e40"
+  },
+  "choices.3.text": {
+   "es": "Cloud Data Fusion.",
+   "src": "6ffc3cc578db"
+  },
+  "choices.3.why": {
+   "es": "Data Fusion ofrece capacidades visuales de integración y transformación.",
+   "src": "9c68ff7d15fb"
+  },
+  "explanation": {
+   "es": "Data Fusion ofrece capacidades visuales de integración y transformación.",
+   "src": "9c68ff7d15fb"
+  }
+ },
+ "lab-16": {
+  "text": {
+   "es": "Un equipo quiere transformaciones SQL con versiones, dependencias y aserciones (assertions) dentro de su flujo de trabajo de BigQuery. ¿Qué encaja?",
+   "src": "52068e1c4624"
+  },
+  "choices.0.text": {
+   "es": "Dataform.",
+   "src": "71fa5d47fdb4"
+  },
+  "choices.0.why": {
+   "es": "Dataform organiza el SQL del almacén como código, con capacidades de dependencias y validación.",
+   "src": "7e2bf6c037eb"
+  },
+  "choices.1.text": {
+   "es": "Solo una extensión de traducción del navegador.",
+   "src": "79eabfe6a72f"
+  },
+  "choices.1.why": {
+   "es": "La traducción no orquesta las transformaciones del almacén.",
+   "src": "67e8ed0d3074"
+  },
+  "choices.2.text": {
+   "es": "Reglas de ciclo de vida de Cloud Storage.",
+   "src": "0dd711e821f5"
+  },
+  "choices.2.why": {
+   "es": "Las reglas de ciclo de vida administran objetos, no un grafo de dependencias SQL.",
+   "src": "b868dc20adf8"
+  },
+  "choices.3.text": {
+   "es": "Una versión de clave de cifrado.",
+   "src": "6469b7a97123"
+  },
+  "choices.3.why": {
+   "es": "Las versiones de clave no definen dependencias de transformación.",
+   "src": "f6ad4d4f9e09"
+  },
+  "explanation": {
+   "es": "Dataform organiza el SQL del almacén como código, con capacidades de dependencias y validación.",
+   "src": "7e2bf6c037eb"
+  }
+ },
+ "lab-17": {
+  "text": {
+   "es": "Los eventos deben agruparse en intervalos consecutivos de cinco minutos que no se superpongan. ¿Qué tipo de ventana encaja?",
+   "src": "7d5251da058b"
+  },
+  "choices.0.text": {
+   "es": "Una sola ventana global sin estrategia de disparadores (triggers).",
+   "src": "137ac6e2ba01"
+  },
+  "choices.0.why": {
+   "es": "Una agrupación global sin límite, por sí sola, no produce los intervalos pedidos.",
+   "src": "eefed52e35e1"
+  },
+  "choices.1.text": {
+   "es": "Ventanas fijas (fixed windows).",
+   "src": "d03b727faa2a"
+  },
+  "choices.1.why": {
+   "es": "Las ventanas fijas dividen el tiempo de evento en intervalos iguales que no se superponen.",
+   "src": "579c2a6ae72b"
+  },
+  "choices.2.text": {
+   "es": "Ventanas deslizantes (sliding windows) con períodos que se superponen.",
+   "src": "9624aa943426"
+  },
+  "choices.2.why": {
+   "es": "Las ventanas que se superponen pueden poner un evento en varios intervalos.",
+   "src": "3e2ec68bc061"
+  },
+  "choices.3.text": {
+   "es": "Ventanas de sesión (session windows) basadas en pausas de actividad.",
+   "src": "5500813804cf"
+  },
+  "choices.3.why": {
+   "es": "Las sesiones tienen límites variables que dependen de la actividad.",
+   "src": "cc8bac329bd5"
+  },
+  "explanation": {
+   "es": "Las ventanas fijas dividen el tiempo de evento en intervalos iguales que no se superponen.",
+   "src": "579c2a6ae72b"
+  }
+ },
+ "lab-18": {
+  "text": {
+   "es": "Una visita termina cuando un usuario lleva treinta minutos inactivo. ¿Qué estrategia de ventanas coincide con la definición de negocio?",
+   "src": "5c6ac9420217"
+  },
+  "choices.0.text": {
+   "es": "Particiones diarias de tablas.",
+   "src": "b6bf86458c53"
+  },
+  "choices.0.why": {
+   "es": "Las particiones organizan el almacenamiento. No definen sesiones de actividad de usuarios.",
+   "src": "10ab4b3fe7e1"
+  },
+  "choices.1.text": {
+   "es": "Una sola ventana para todos los usuarios para siempre.",
+   "src": "e0fc1ff08e2e"
+  },
+  "choices.1.why": {
+   "es": "Eso nunca separa las visitas.",
+   "src": "7e5898ed1149"
+  },
+  "choices.2.text": {
+   "es": "Ventanas de sesión (session windows) con una pausa de treinta minutos.",
+   "src": "bc23c9893b7f"
+  },
+  "choices.2.why": {
+   "es": "Los límites de una sesión siguen la inactividad, no intervalos fijos del reloj.",
+   "src": "49482a666332"
+  },
+  "choices.3.text": {
+   "es": "Ventanas fijas de treinta minutos.",
+   "src": "91a7342c781a"
+  },
+  "choices.3.why": {
+   "es": "La actividad que cruza un límite del reloj puede quedar dividida aunque no haya inactividad.",
+   "src": "3a349fdce9e8"
+  },
+  "explanation": {
+   "es": "Los límites de una sesión siguen la inactividad, no intervalos fijos del reloj.",
+   "src": "49482a666332"
+  }
+ },
+ "lab-19": {
+  "text": {
+   "es": "Un evento creado a las 10:02 llega después de uno creado a las 10:09. ¿Qué marca de tiempo debe determinar su ventana de tiempo de evento (event-time window)?",
+   "src": "bfe01c711e79"
+  },
+  "choices.0.text": {
+   "es": "Solo el reloj actual del worker.",
+   "src": "e227aa54912c"
+  },
+  "choices.0.why": {
+   "es": "Eso cambia el significado de negocio a tiempo de procesamiento (processing time).",
+   "src": "380f75562bfb"
+  },
+  "choices.1.text": {
+   "es": "La marca de tiempo del último evento recibido.",
+   "src": "54a6e0429d81"
+  },
+  "choices.1.why": {
+   "es": "Un evento no relacionado no debe redefinir el tiempo de este evento.",
+   "src": "1a283fdaac20"
+  },
+  "choices.2.text": {
+   "es": "La fecha de despliegue del trabajo.",
+   "src": "865e4d53098b"
+  },
+  "choices.2.why": {
+   "es": "La hora del despliegue no tiene relación con el momento en que ocurrió este evento.",
+   "src": "7defb45ef8cc"
+  },
+  "choices.3.text": {
+   "es": "La marca de tiempo original de las 10:02 del evento.",
+   "src": "5cbd88782c9f"
+  },
+  "choices.3.why": {
+   "es": "El tiempo de evento conserva cuándo ocurrió el evento aunque el orden de llegada sea distinto.",
+   "src": "f54b4295b33a"
+  },
+  "explanation": {
+   "es": "El tiempo de evento conserva cuándo ocurrió el evento aunque el orden de llegada sea distinto.",
+   "src": "f54b4295b33a"
+  }
+ },
+ "lab-20": {
+  "text": {
+   "es": "¿Qué representa un watermark (marca de agua) en streaming?",
+   "src": "49709e263b8a"
+  },
+  "choices.0.text": {
+   "es": "Una estimación del avance en el tiempo de evento.",
+   "src": "da513eed5a62"
+  },
+  "choices.0.why": {
+   "es": "Un watermark estima qué tan completos están los datos. Aun así pueden ocurrir eventos tardíos.",
+   "src": "485500491b7b"
+  },
+  "choices.1.text": {
+   "es": "La prueba de que ningún evento anterior puede llegar jamás.",
+   "src": "c91ff86a61e8"
+  },
+  "choices.1.why": {
+   "es": "Un watermark no es una garantía absoluta de llegada.",
+   "src": "6a725ba501bc"
+  },
+  "choices.2.text": {
+   "es": "La factura diaria máxima de la nube.",
+   "src": "1afb9938c665"
+  },
+  "choices.2.why": {
+   "es": "Es un concepto del tiempo en streaming, no un control de presupuesto.",
+   "src": "2d12bf930e98"
+  },
+  "choices.3.text": {
+   "es": "Un rol de IAM en el origen.",
+   "src": "163aa266ffa4"
+  },
+  "choices.3.why": {
+   "es": "La autorización y el avance del tiempo de evento son cosas distintas.",
+   "src": "85bd57c4cbf3"
+  },
+  "explanation": {
+   "es": "Un watermark estima qué tan completos están los datos. Aun así pueden ocurrir eventos tardíos.",
+   "src": "485500491b7b"
+  }
+ },
+ "lab-21": {
+  "text": {
+   "es": "Algunos registros tienen campos con tipos inválidos. Debes seguir procesando los registros válidos y conservar los fallos para repararlos. ¿Qué debes hacer?",
+   "src": "5c60b9af3955"
+  },
+  "choices.0.text": {
+   "es": "Marcar todos los registros como válidos.",
+   "src": "c4d25cd1a484"
+  },
+  "choices.0.why": {
+   "es": "Esto anula el contrato de datos.",
+   "src": "a6de109dcc9f"
+  },
+  "choices.1.text": {
+   "es": "Enviar los registros válidos hacia adelante y los inválidos a una salida de errores con los motivos.",
+   "src": "cab21f80f7d0"
+  },
+  "choices.1.why": {
+   "es": "Las salidas separadas conservan un buen rendimiento (throughput) y guardan la evidencia necesaria para reparar.",
+   "src": "6da98129e71b"
+  },
+  "choices.2.text": {
+   "es": "Descartar en silencio todos los registros inválidos.",
+   "src": "dff05c017d01"
+  },
+  "choices.2.why": {
+   "es": "Esto elimina evidencia y puede ocultar pérdida de datos.",
+   "src": "58d482b7fd49"
+  },
+  "choices.3.text": {
+   "es": "Reintentar la entrada mal formada para siempre sin registrar el motivo.",
+   "src": "67c09d2e8919"
+  },
+  "choices.3.why": {
+   "es": "Los datos malos permanentes no necesariamente mejoran con los reintentos.",
+   "src": "3972e45f7227"
+  },
+  "explanation": {
+   "es": "Las salidas separadas conservan un buen rendimiento (throughput) y guardan la evidencia necesaria para reparar.",
+   "src": "6da98129e71b"
+  }
+ },
+ "lab-22": {
+  "text": {
+   "es": "Una política de dead-letter (cola de mensajes fallidos) de Pub/Sub está configurada con un límite de intentos de entrega. ¿Cómo debes interpretar ese límite?",
+   "src": "7810071aa96c"
+  },
+  "choices.0.text": {
+   "es": "Como una garantía de que los payloads son JSON válido.",
+   "src": "26e6987931f8"
+  },
+  "choices.0.why": {
+   "es": "La política no valida la sintaxis del payload.",
+   "src": "35e03aebfa95"
+  },
+  "choices.1.text": {
+   "es": "Como un reemplazo de toda la configuración de IAM.",
+   "src": "2f681d52bc2f"
+  },
+  "choices.1.why": {
+   "es": "El reenvío a dead-letter sigue necesitando los permisos adecuados.",
+   "src": "00a67f33a31f"
+  },
+  "choices.2.text": {
+   "es": "Como un límite de intentos de mejor esfuerzo (best-effort) que requiere monitoreo.",
+   "src": "02dfddb76140"
+  },
+  "choices.2.why": {
+   "es": "El reenvío a dead-letter y el seguimiento de los intentos de entrega son aproximados.",
+   "src": "e9b5367a558a"
+  },
+  "choices.3.text": {
+   "es": "Como un contador global exacto de reintentos de negocio.",
+   "src": "b9511fd7ead4"
+  },
+  "choices.3.why": {
+   "es": "La función no garantiza ese conteo exacto a nivel de negocio.",
+   "src": "042454d8fa08"
+  },
+  "explanation": {
+   "es": "El reenvío a dead-letter y el seguimiento de los intentos de entrega son aproximados.",
+   "src": "e9b5367a558a"
+  }
+ },
+ "lab-23": {
+  "text": {
+   "es": "Un escritor en streaming debe reintentar las fallas de red sin añadir dos veces el mismo lote. ¿Qué enfoque de BigQuery respalda ese comportamiento?",
+   "src": "000c88fb8a42"
+  },
+  "choices.0.text": {
+   "es": "El stream predeterminado, suponiendo que todos los duplicados desaparecen.",
+   "src": "30ccc9dcbd31"
+  },
+  "choices.0.why": {
+   "es": "El stream predeterminado no ofrece el mismo contrato exactly-once basado en offsets.",
+   "src": "a6c892a2e0dc"
+  },
+  "choices.1.text": {
+   "es": "Un ID de evento nuevo y aleatorio en cada reintento.",
+   "src": "523043d670e2"
+  },
+  "choices.1.why": {
+   "es": "Un identificador que cambia hace más difícil reconocer los duplicados.",
+   "src": "490c52f2ca11"
+  },
+  "choices.2.text": {
+   "es": "Un intervalo de actualización de dashboard.",
+   "src": "dcde8ae1b04d"
+  },
+  "choices.2.why": {
+   "es": "El momento de la actualización no controla la semántica de escritura de la ingesta.",
+   "src": "2da6976de8c0"
+  },
+  "choices.3.text": {
+   "es": "Streams de escritura creados por la aplicación, con offsets bien administrados.",
+   "src": "20ac829842ff"
+  },
+  "choices.3.why": {
+   "es": "Los offsets permiten identificar una anexión repetida en la misma posición del stream y reintentarla con seguridad.",
+   "src": "2a283cf35377"
+  },
+  "explanation": {
+   "es": "Los offsets permiten identificar una anexión repetida en la misma posición del stream y reintentarla con seguridad.",
+   "src": "2a283cf35377"
+  }
+ },
+ "lab-24": {
+  "text": {
+   "es": "Una actualización de streaming es incompatible con el estado actual del trabajo. Debes conservar los datos de origen. ¿Cuál es el principio de lanzamiento adecuado?",
+   "src": "00f213dc95de"
+  },
+  "choices.0.text": {
+   "es": "Planear un reemplazo controlado con retención, drenado (draining) y conciliación.",
+   "src": "3a694c6278c8"
+  },
+  "choices.0.why": {
+   "es": "Los cambios incompatibles requieren un plan de reemplazo, en lugar de suponer que una actualización del estado en el lugar es segura.",
+   "src": "e708ba0cd6b8"
+  },
+  "choices.1.text": {
+   "es": "Cancelar el trabajo anterior y suponer que no hay trabajo en curso.",
+   "src": "39bd09d04131"
+  },
+  "choices.1.why": {
+   "es": "La cancelación puede interrumpir el trabajo y necesita un plan de recuperación explícito.",
+   "src": "4c51a1f5fdf0"
+  },
+  "choices.2.text": {
+   "es": "Desactivar primero la retención del origen.",
+   "src": "3270662c61ad"
+  },
+  "choices.2.why": {
+   "es": "Eso quita una posible ruta de reproducción (replay).",
+   "src": "92b897319272"
+  },
+  "choices.3.text": {
+   "es": "Ignorar la validación de la salida después del despliegue.",
+   "src": "2604d1584fc0"
+  },
+  "choices.3.why": {
+   "es": "Un trabajo en ejecución aún puede producir datos incorrectos.",
+   "src": "53153d11cfc4"
+  },
+  "explanation": {
+   "es": "Los cambios incompatibles requieren un plan de reemplazo, en lugar de suponer que una actualización del estado en el lugar es segura.",
+   "src": "e708ba0cd6b8"
+  }
+ },
+ "lab-62": {
+  "text": {
+   "es": "Dos intentos del publicador crean distintos ID de mensaje de Pub/Sub para el mismo pedido de negocio. La entrega exactly-once está habilitada en una suscripción pull compatible. ¿Qué sigue siendo necesario?",
+   "src": "80da8fe7a90b"
+  },
+  "choices.0.text": {
+   "es": "Reemplazar el ID del pedido por la marca de tiempo de procesamiento de cada suscriptor.",
+   "src": "27f89fdde9bc"
+  },
+  "choices.0.why": {
+   "es": "Eso hace más difícil reconocer los duplicados de negocio.",
+   "src": "8a46815c2e41"
+  },
+  "choices.1.text": {
+   "es": "Suponer que la clave de ordenamiento hace transaccionales las llamadas externas de pago.",
+   "src": "c6c258951923"
+  },
+  "choices.1.why": {
+   "es": "El ordenamiento y la atomicidad de las transacciones externas son temas distintos.",
+   "src": "e2d864be52fd"
+  },
+  "choices.2.text": {
+   "es": "Una regla de idempotencia a nivel de negocio que use una identidad de pedido estable.",
+   "src": "b7bec3a2bdfd"
+  },
+  "choices.2.why": {
+   "es": "La semántica de entrega de mensajes de la suscripción no une los duplicados de negocio publicados por separado.",
+   "src": "5255c6ad7026"
+  },
+  "choices.3.text": {
+   "es": "Nada: todos los payloads idénticos se deduplican globalmente para siempre.",
+   "src": "c42a305d4124"
+  },
+  "choices.3.why": {
+   "es": "La garantía no es un servicio ilimitado de similitud de payloads.",
+   "src": "e545fec3ceea"
+  },
+  "explanation": {
+   "es": "Distingue un pedido de negocio lógico de un mensaje publicado individual. La garantía de entrega documentada no convierte automáticamente intentos de publicación separados en una sola transacción de negocio.",
+   "src": "c1ba2693caaa"
+  }
+ },
+ "lab-63": {
+  "text": {
+   "es": "Una aplicación requiere que mensajes relacionados de Pub/Sub conserven un orden de publicación compatible. ¿Qué dos configuraciones o supuestos importan? (Elige 2.)",
+   "src": "19d377d068b2"
+  },
+  "choices.0.text": {
+   "es": "La promesa de un único orden universal por tiempo de evento entre todas las claves no relacionadas.",
+   "src": "996d78a40a08"
+  },
+  "choices.0.why": {
+   "es": "La función no crea ese orden global de eventos de negocio.",
+   "src": "2a7366921120"
+  },
+  "choices.1.text": {
+   "es": "La configuración documentada de ordenamiento de publicación y suscripción regional.",
+   "src": "e1852ed30f73"
+  },
+  "choices.1.why": {
+   "es": "El ordenamiento tiene un alcance y requisitos de configuración compatibles.",
+   "src": "049aa6849312"
+  },
+  "choices.2.text": {
+   "es": "Una clave de ordenamiento consistente para los mensajes relacionados.",
+   "src": "34a1c643fcd4"
+  },
+  "choices.2.why": {
+   "es": "La clave identifica qué mensajes pertenecen a una secuencia ordenada.",
+   "src": "5d381efd347a"
+  },
+  "choices.3.text": {
+   "es": "Una columna de clustering de BigQuery con el mismo nombre para mostrar.",
+   "src": "6a968c68878b"
+  },
+  "choices.3.why": {
+   "es": "La disposición del almacén no configura el orden de entrega de mensajes.",
+   "src": "fb9709b41072"
+  },
+  "explanation": {
+   "es": "El ordenamiento de Pub/Sub tiene alcance por clave y depende de su configuración documentada y de su comportamiento regional. No debe generalizarse como una cronología universal de eventos distribuidos del mundo real.",
+   "src": "3df1583e574f"
+  }
+ },
+ "lab-64": {
+  "text": {
+   "es": "Tu equipo habilita hoy la retención de mensajes confirmados (acknowledged-message retention) y quiere hacer seek a mensajes que se descartaron la semana pasada. ¿Cuál es la expectativa correcta?",
+   "src": "f98cea109c7f"
+  },
+  "choices.0.text": {
+   "es": "Una nueva clave de ordenamiento recrea los payloads borrados.",
+   "src": "1964c2321693"
+  },
+  "choices.0.why": {
+   "es": "El ordenamiento no recupera el historial que falta.",
+   "src": "2c5b3c68b71e"
+  },
+  "choices.1.text": {
+   "es": "Seek recrea cualquier mensaje que se haya publicado alguna vez en el proyecto.",
+   "src": "49be13df76d6"
+  },
+  "choices.1.why": {
+   "es": "Seek funciona sobre el historial retenido, no sobre un archivo independiente e infinito.",
+   "src": "2b3327b5cdf2"
+  },
+  "choices.2.text": {
+   "es": "La nueva configuración no puede reconstruir mensajes que ya no se retienen.",
+   "src": "4e66818ce5ac"
+  },
+  "choices.2.why": {
+   "es": "La reproducción (replay) requiere que el historial pedido todavía exista bajo un mecanismo de retención compatible.",
+   "src": "86f3086b87a2"
+  },
+  "choices.3.text": {
+   "es": "Un plazo de confirmación (acknowledgement deadline) más largo restaura datos pasados descartados.",
+   "src": "de079e786646"
+  },
+  "choices.3.why": {
+   "es": "Un plazo de confirmación no es un mecanismo de respaldo retroactivo.",
+   "src": "31dacff295c7"
+  },
+  "explanation": {
+   "es": "Configura y verifica la retención antes de depender de una ventana de reversión (rollback). Un seek por marca de tiempo cambia el estado de entrega de los datos retenidos. No restaura el historial que ya desapareció.",
+   "src": "427ac2015482"
+  }
+ },
+ "lab-65": {
+  "text": {
+   "es": "Un feed diario llega como objetos JSON delimitados por saltos de línea (newline-delimited JSON), comprimidos y compatibles, en Cloud Storage. No hace falta frescura a nivel de minutos. ¿Qué enfoque se debe evaluar primero?",
+   "src": "16d5e3433e00"
+  },
+  "choices.0.text": {
+   "es": "Una política de confirmación de Pub/Sub como único cargador de archivos.",
+   "src": "73a653dadee5"
+  },
+  "choices.0.why": {
+   "es": "Una política de confirmación de mensajería no extrae los registros de los objetos hacia un almacén.",
+   "src": "2b5a63da8874"
+  },
+  "choices.1.text": {
+   "es": "Una carga por lotes (batch load) administrada o una transferencia recurrente compatible hacia BigQuery.",
+   "src": "e89082b524e3"
+  },
+  "choices.1.why": {
+   "es": "El contrato de llegada de archivos y de frescura encaja de forma natural con la ingesta por lotes.",
+   "src": "9b5c3eb38fea"
+  },
+  "choices.2.text": {
+   "es": "Una función personalizada que analiza cada fila y usa inserciones en streaming sin importar el volumen.",
+   "src": "db8a126cf2ba"
+  },
+  "choices.2.why": {
+   "es": "Eso agrega trabajo de streaming personalizado sin una necesidad indicada de frescura de streaming.",
+   "src": "ed7226db4548"
+  },
+  "choices.3.text": {
+   "es": "Un clúster de Spark permanente solo para copiar bytes sin necesidad de transformación.",
+   "src": "d67f315e40db"
+  },
+  "choices.3.why": {
+   "es": "El cómputo persistente agrega costos operativos y de capacidad inactiva sin justificación.",
+   "src": "df6419d96a83"
+  },
+  "explanation": {
+   "es": "Usa el formato de archivo, la compresión, la ubicación y el esquema compatibles para elegir una ruta de ingesta por lotes. El streaming puede servir para otro contrato de latencia, pero no es automáticamente mejor para archivos diarios.",
+   "src": "5e6eaa6e346a"
+  }
+ },
+ "lab-66": {
+  "text": {
+   "es": "Un cliente de Storage Write API reintenta una anexión (append) después de un error de red transitorio. Usa un stream compatible creado por la aplicación. ¿Qué debe hacer la estrategia de offsets para respaldar la semántica de reintento prevista?",
+   "src": "7ac3bd406b73"
+  },
+  "choices.0.text": {
+   "es": "Reutilizar la posición correcta para la misma anexión y seguir el progreso exitoso de forma consistente.",
+   "src": "2dbe9285512b"
+  },
+  "choices.0.why": {
+   "es": "Los offsets identifican escrituras dentro del stream y deben administrarse según el estado confirmado.",
+   "src": "5f484c60bb4d"
+  },
+  "choices.1.text": {
+   "es": "Elegir un offset arbitrario nuevo en cada reintento.",
+   "src": "eda0a0ab74bc"
+  },
+  "choices.1.why": {
+   "es": "Las posiciones nuevas y arbitrarias no identifican el mismo intento de anexión.",
+   "src": "a4aaf3801f31"
+  },
+  "choices.2.text": {
+   "es": "Suponer que un offset en un stream deduplica globalmente el evento de negocio de todos los productores.",
+   "src": "9245e04bb4a3"
+  },
+  "choices.2.why": {
+   "es": "El alcance del offset no es un contrato global e ilimitado de ID de negocio.",
+   "src": "c6363f40f90e"
+  },
+  "choices.3.text": {
+   "es": "Usar la marca de tiempo de actualización del dashboard como única posición de escritura.",
+   "src": "ce0703ccac67"
+  },
+  "choices.3.why": {
+   "es": "La hora de presentación no sigue el estado de anexiones aceptadas del stream.",
+   "src": "2bf75022de53"
+  },
+  "explanation": {
+   "es": "El offset del stream debe corresponder a la posición de anexión prevista y al contrato de reintento. Un buen manejo de offsets resuelve los intentos de anexión repetidos dentro de ese stream. No reemplaza la identidad del evento de negocio entre streams no relacionados.",
+   "src": "94303602dea0"
+  }
+ },
+ "lab-67": {
+  "text": {
+   "es": "Una agregación de Beam emite paneles acumulativos (cumulative panes) con totales 3 y luego 5. El sink anexa ambos y un reporte los suma a 8. ¿Qué cambio resuelve el error semántico?",
+   "src": "3f2f092b2ba1"
+  },
+  "choices.0.text": {
+   "es": "Quitar todos los identificadores de evento antes de escribir.",
+   "src": "60cc31d33863"
+  },
+  "choices.0.why": {
+   "es": "Quitar la identidad hace menos confiables la corrección y la conciliación.",
+   "src": "3a08cc62a790"
+  },
+  "choices.1.text": {
+   "es": "Reemplazar el tiempo de evento por el tiempo de procesamiento en cada registro.",
+   "src": "8054ff865ccb"
+  },
+  "choices.1.why": {
+   "es": "Eso cambia el problema de agrupación en lugar de corregir la interpretación del sink.",
+   "src": "8ab6f95d3d30"
+  },
+  "choices.2.text": {
+   "es": "Hacer que el sink o el reporte interpreten los paneles acumulativos como reemplazos, o evitar de otra forma que se recuenten aportes anteriores.",
+   "src": "6ebc21ead370"
+  },
+  "choices.2.why": {
+   "es": "El segundo total acumulativo ya incluye los primeros tres aportes.",
+   "src": "8fcce3a695c7"
+  },
+  "choices.3.text": {
+   "es": "Agregar workers para que una suma de 8 sea un conteo final válido.",
+   "src": "927999296a00"
+  },
+  "choices.3.why": {
+   "es": "La capacidad de cómputo no cambia el significado de los totales acumulativos.",
+   "src": "cc8d5cc8e102"
+  },
+  "explanation": {
+   "es": "La semántica de emisión y la del sink deben coincidir. Con los totales acumulativos indicados, el valor final es 5. Sumar ambos paneles cuenta dos veces los aportes anteriores.",
+   "src": "8017aec4e474"
+  }
+ },
+ "lab-68": {
+  "text": {
+   "es": "Una visita es la actividad de un usuario hasta una pausa de inactividad de 20 minutos. La actividad puede cruzar límites de hora del reloj. ¿Qué configuración coincide con la agrupación de negocio indicada?",
+   "src": "dcf71a3b567f"
+  },
+  "choices.0.text": {
+   "es": "Particionar una tabla de BigQuery por día y suponer que define las sesiones.",
+   "src": "8d5e6ab1e374"
+  },
+  "choices.0.why": {
+   "es": "Las particiones de almacenamiento no implementan la regla de agrupación de la actividad del usuario.",
+   "src": "c92b82cb928a"
+  },
+  "choices.1.text": {
+   "es": "Usar una sola ventana global de por vida sin lógica para separar visitas.",
+   "src": "ecc361636bbe"
+  },
+  "choices.1.why": {
+   "es": "Eso no divide la actividad en las visitas pedidas.",
+   "src": "148c8770072d"
+  },
+  "choices.2.text": {
+   "es": "Usar ventanas fijas por hora sin clave de usuario.",
+   "src": "c21f12409a5a"
+  },
+  "choices.2.why": {
+   "es": "Eso puede mezclar usuarios y partir visitas continuas en el límite del reloj.",
+   "src": "851a5e71fabe"
+  },
+  "choices.3.text": {
+   "es": "Usar una clave por usuario y ventanas de sesión con la pausa de inactividad indicada.",
+   "src": "ac26bfba79de"
+  },
+  "choices.3.why": {
+   "es": "Una sesión sigue las pausas de actividad de la entidad, no límites fijos del reloj.",
+   "src": "25de633d0adf"
+  },
+  "explanation": {
+   "es": "La entidad de negocio y la regla de inactividad definen la agrupación. Un intervalo fijo alineado al reloj o una partición de almacenamiento tienen un significado distinto al de una sesión de usuario.",
+   "src": "927ac7ae81b1"
+  }
+ },
+ "lab-69": {
+  "text": {
+   "es": "Un trabajo de Dataflow tiene workers inactivos mientras una etapa de agregación por clave acumula la mayor parte del retraso (backlog). ¿Qué dos investigaciones son las más relevantes? (Elige 2.)",
+   "src": "71132183be35"
+  },
+  "choices.0.text": {
+   "es": "Borrar los registros de la clave dominante para mejorar el gráfico de utilización.",
+   "src": "3625a10d9c10"
+  },
+  "choices.0.why": {
+   "es": "Eso cambia el resultado de negocio y oculta pérdida de datos.",
+   "src": "f48fb3df874a"
+  },
+  "choices.1.text": {
+   "es": "Suponer que subir solo el máximo de workers debe dividir cualquier clave individual.",
+   "src": "c2b33518f6ae"
+  },
+  "choices.1.why": {
+   "es": "Más workers no eliminan automáticamente un límite serial a nivel de clave.",
+   "src": "3cffdc1aa34c"
+  },
+  "choices.2.text": {
+   "es": "Evaluar un diseño de agregación parcial y recombinación que conserve la corrección.",
+   "src": "a3b58094da4a"
+  },
+  "choices.2.why": {
+   "es": "Un rediseño debe explicar cómo los resultados parciales distribuidos recuperan el total previsto.",
+   "src": "81758fd634c2"
+  },
+  "choices.3.text": {
+   "es": "Inspeccionar la distribución de claves y el paralelismo de la agregación dominante.",
+   "src": "db520fd64348"
+  },
+  "choices.3.why": {
+   "es": "Una sola clave puede crear una concentración de trabajo serial.",
+   "src": "304e0d10e71d"
+  },
+  "explanation": {
+   "es": "La evidencia apunta a trabajo por clave concentrado, no prueba que falten workers en total. Investiga el límite de la clave y prueba cualquier estrategia de redistribución con salidas correctas conocidas.",
+   "src": "a8bbb4951f41"
+  }
+ },
+ "lab-70": {
+  "text": {
+   "es": "Un equipo propone agregar un paso de redistribución a cada etapa del pipeline para evitar la fusión (fusion). ¿Cuál es la mejor respuesta?",
+   "src": "6e35b71973ed"
+  },
+  "choices.0.text": {
+   "es": "Medir el cuello de botella real de fusión o de paralelismo y agregar redistribución solo donde su corrección y su sobrecarga estén justificadas.",
+   "src": "c9802cb51c0d"
+  },
+  "choices.0.why": {
+   "es": "La redistribución puede ayudar en ciertos límites, pero también agrega trabajo y no resuelve universalmente las claves calientes (hot keys).",
+   "src": "372dbf9b4ebb"
+  },
+  "choices.1.text": {
+   "es": "La fusión nunca puede influir en el paralelismo útil.",
+   "src": "8a1b3ac9612c"
+  },
+  "choices.1.why": {
+   "es": "Los límites de ejecución pueden importar, pero se necesita evidencia.",
+   "src": "45fb9a6eb844"
+  },
+  "choices.2.text": {
+   "es": "Cada paso de redistribución es gratis y siempre mejora el throughput.",
+   "src": "d1fddddc0c9b"
+  },
+  "choices.2.why": {
+   "es": "La materialización y el trabajo de red pueden agregar sobrecarga.",
+   "src": "20a29c9205d5"
+  },
+  "choices.3.text": {
+   "es": "Aleatorizar todas las claves de negocio y omitir una etapa de recombinación.",
+   "src": "dd21c7323e02"
+  },
+  "choices.3.why": {
+   "es": "Eso puede cambiar la semántica de la agregación.",
+   "src": "6e759184c7f1"
+  },
+  "explanation": {
+   "es": "Usa evidencia a nivel de etapa para justificar un límite de redistribución. Es una decisión de diseño de ejecución específica, no una optimización general que se aplique sin medir el costo ni revisar la semántica de la salida.",
+   "src": "e78286693c0e"
+  }
+ },
+ "lab-71": {
+  "text": {
+   "es": "Algunos registros que llegan tienen una fecha inválida de forma permanente. Otros fallan porque una API externa no está disponible temporalmente. ¿Qué dos acciones forman un diseño adecuado de manejo de fallas? (Elige 2.)",
+   "src": "2bc77ed0b70e"
+  },
+  "choices.0.text": {
+   "es": "Poner en cuarentena los datos inválidos con identificadores, contexto del payload y un motivo de validación.",
+   "src": "425f4fbf0fde"
+  },
+  "choices.0.why": {
+   "es": "Los errores permanentes de datos necesitan evidencia que se pueda reparar.",
+   "src": "d05f4eb79f03"
+  },
+  "choices.1.text": {
+   "es": "Reintentar las fechas mal formadas para siempre sin registrar el payload.",
+   "src": "d3331f9cb927"
+  },
+  "choices.1.why": {
+   "es": "Repetir una entrada inválida no repara su valor ni conserva un diagnóstico útil.",
+   "src": "1804c3c5a88d"
+  },
+  "choices.2.text": {
+   "es": "Informar éxito en silencio por todas las llamadas fallidas para mantener el pipeline en verde.",
+   "src": "f9c4f8203fe4"
+  },
+  "choices.2.why": {
+   "es": "Eso oculta una salida de negocio faltante o incorrecta.",
+   "src": "dd3a803e0fcd"
+  },
+  "choices.3.text": {
+   "es": "Usar reintentos acotados con retroceso (backoff) para las fallas transitorias apropiadas y monitorear el trabajo sin resolver.",
+   "src": "a835acc44c53"
+  },
+  "choices.3.why": {
+   "es": "Las fallas temporales de un servicio pueden recuperarse, pero los reintentos igual necesitan un límite y observación.",
+   "src": "2c76cd2e8e2d"
+  },
+  "explanation": {
+   "es": "Las fallas de validación de datos y las fallas transitorias de un servicio son clases distintas. Conserva los registros malos para repararlos de forma controlada y usa reintentos acotados adecuados para los problemas temporales de las dependencias.",
+   "src": "64b6989141a1"
+  }
+ },
+ "lab-72": {
+  "text": {
+   "es": "Una llamada de enriquecimiento generativo tiene éxito, pero devuelve una etiqueta de sentimiento fuera del esquema de salida permitido. ¿Qué comportamiento del pipeline se justifica?",
+   "src": "c6c21d87946b"
+  },
+  "choices.0.text": {
+   "es": "Dar a cada analista acceso directo a la entrada privada sin procesar para evitar la validación.",
+   "src": "a11bc486c1eb"
+  },
+  "choices.0.why": {
+   "es": "Un acceso más amplio no resuelve el contrato de salida del modelo.",
+   "src": "aff71f31a0bc"
+  },
+  "choices.1.text": {
+   "es": "Aceptar la respuesta como verdad absoluta porque el estado HTTP fue exitoso.",
+   "src": "80216f71390c"
+  },
+  "choices.1.why": {
+   "es": "Una solicitud exitosa aún puede producir una salida inválida o incorrecta.",
+   "src": "cdff2acbc8fd"
+  },
+  "choices.2.text": {
+   "es": "Validar la salida del modelo y enviar el resultado no compatible a una ruta explícita de revisión o de falla.",
+   "src": "ab658fe4cb88"
+  },
+  "choices.2.why": {
+   "es": "El éxito del transporte no establece la validez de los datos de negocio generados.",
+   "src": "60f5be96e7fd"
+  },
+  "choices.3.text": {
+   "es": "Inventar en silencio una etiqueta válida para que todas las filas pasen el esquema.",
+   "src": "96fc43679565"
+  },
+  "choices.3.why": {
+   "es": "Eso oculta un error de calidad en lugar de resolverlo.",
+   "src": "ad8ca9c4e546"
+  },
+  "explanation": {
+   "es": "La salida del modelo es el resultado de una dependencia que puede fallar. Revisa la respuesta estructurada y conserva la identidad del registro y el motivo de revisión, en lugar de tratar un estado de transporte exitoso como validación de datos.",
+   "src": "3d721cb82a86"
+  }
+ },
+ "lab-73": {
+  "text": {
+   "es": "Un lanzamiento cambia el estado y las ventanas de un pipeline en ejecución de una forma incompatible. El origen puede retener mensajes durante el reemplazo. ¿Qué dos partes pertenecen al plan de lanzamiento? (Elige 2.)",
+   "src": "776adfa11199"
+  },
+  "choices.0.text": {
+   "es": "Una estrategia compatible de detención y reemplazo con manejo explícito del trabajo en curso.",
+   "src": "c746f153e3fd"
+  },
+  "choices.0.why": {
+   "es": "Los cambios incompatibles necesitan una transición deliberada del ciclo de vida.",
+   "src": "ce067fb6af3e"
+  },
+  "choices.1.text": {
+   "es": "Retención en el origen, conciliación de la salida y una decisión de recuperación utilizable.",
+   "src": "b37035a7e5e3"
+  },
+  "choices.1.why": {
+   "es": "Que el reemplazo tenga éxito no prueba que no se perdieron ni se duplicaron datos.",
+   "src": "348037d2aae5"
+  },
+  "choices.2.text": {
+   "es": "Desactivar la retención antes de la transición para reducir las opciones de recuperación.",
+   "src": "47cfbe6dc389"
+  },
+  "choices.2.why": {
+   "es": "Eso descarta una posible ruta de reproducción.",
+   "src": "dc09d043dac8"
+  },
+  "choices.3.text": {
+   "es": "La garantía de que cualquier cambio de estado incompatible se vuelve seguro con una sola bandera de actualización.",
+   "src": "11b80cfbe2f9"
+  },
+  "choices.3.why": {
+   "es": "Una bandera no prueba que un estado arbitrario sea compatible.",
+   "src": "c69b27d6190d"
+  },
+  "explanation": {
+   "es": "Elige la operación del ciclo de vida según la compatibilidad y el comportamiento del trabajo en curso. La entrada retenida y una ruta de salida idempotente y conciliada respaldan una estrategia controlada de reemplazo y recuperación.",
+   "src": "59f7cb762bf2"
+  }
+ },
+ "lab-74": {
+  "text": {
+   "es": "Una aserción de unicidad (uniqueness assertion) de Dataform falla, pero una acción curada posterior (downstream) igual publica. ¿Qué revisión es la más relevante?",
+   "src": "e21a5e11c90c"
+  },
+  "choices.0.text": {
+   "es": "Quitar la aserción porque la creación de la tabla tuvo éxito.",
+   "src": "ad3eea7a2e15"
+  },
+  "choices.0.why": {
+   "es": "El éxito de la creación no es evidencia de unicidad.",
+   "src": "0a37fb0d829a"
+  },
+  "choices.1.text": {
+   "es": "Comprobar que la acción curada dependa de los resultados de las aserciones necesarias, con la configuración de dependencias compatible.",
+   "src": "8ad905ac8756"
+  },
+  "choices.1.why": {
+   "es": "Una dependencia de tabla no es automáticamente una prueba de que todas las aserciones requeridas condicionan al consumidor.",
+   "src": "61b4eee7a16c"
+  },
+  "choices.2.text": {
+   "es": "Aumentar la retención del dataset y dejar el grafo sin cambios.",
+   "src": "a3dfb95dc80f"
+  },
+  "choices.2.why": {
+   "es": "La retención histórica no establece una compuerta de aserción.",
+   "src": "ffdabcd11fe0"
+  },
+  "choices.3.text": {
+   "es": "Suponer que una falla de aserción siempre bloquea automáticamente cualquier acción no relacionada.",
+   "src": "4a3987c24505"
+  },
+  "choices.3.why": {
+   "es": "Importan el grafo de ejecución y las dependencias de aserciones configuradas.",
+   "src": "12ba293f5102"
+  },
+  "explanation": {
+   "es": "Una compuerta de calidad debe ser parte de la dependencia de ejecución posterior. Prueba una entrada inválida conocida y demuestra que la publicación se bloquea, en lugar de solo observar una falla de aserción en otro lado.",
+   "src": "3f9295c63ea3"
+  }
+ },
+ "lab-103": {
+  "text": {
+   "es": "Una aplicación debe conservar sus clientes de Kafka y la integración con grupos de consumidores (consumer groups) durante la migración. ¿Qué servicio es un candidato para evaluar primero?",
+   "src": "76567ebce277"
+  },
+  "choices.0.text": {
+   "es": "Reemplazar el endpoint del broker de Kafka por el nombre de una tabla de BigQuery.",
+   "src": "533a5384d419"
+  },
+  "choices.0.why": {
+   "es": "Una tabla de almacén no implementa el protocolo de cliente de Kafka.",
+   "src": "9d4de553d263"
+  },
+  "choices.1.text": {
+   "es": "Escribir cada mensaje en un objeto de Cloud Storage y dejar los clientes sin cambios.",
+   "src": "e7001c51091c"
+  },
+  "choices.1.why": {
+   "es": "Una ruta de escritura en un almacén de objetos no conserva por sí sola los consumidores de Kafka ni el comportamiento de sus grupos.",
+   "src": "ba04a8f0046e"
+  },
+  "choices.2.text": {
+   "es": "Managed Service for Apache Kafka.",
+   "src": "9e07c3942193"
+  },
+  "choices.2.why": {
+   "es": "El servicio administrado de Kafka está diseñado para el ecosistema de Kafka.",
+   "src": "d0f7f9bf9d8e"
+  },
+  "choices.3.text": {
+   "es": "Una suscripción de Pub/Sub que se supone con un protocolo idéntico.",
+   "src": "7c201605ecd1"
+  },
+  "choices.3.why": {
+   "es": "Una terminología de temas parecida no prueba la compatibilidad de protocolo ni de comportamiento.",
+   "src": "f4ba221c63f2"
+  },
+  "explanation": {
+   "es": "El servicio administrado de Kafka está diseñado para el ecosistema de Kafka.",
+   "src": "d0f7f9bf9d8e"
+  }
+ },
+ "lab-104": {
+  "text": {
+   "es": "¿Quién debe elegir de todos modos una retención de temas adecuada para una carga de trabajo de Kafka administrado?",
+   "src": "a8d197084f25"
+  },
+  "choices.0.text": {
+   "es": "Nadie: el almacenamiento por niveles administrado hace irrelevante la retención de temas.",
+   "src": "a6ebd07ddcd9"
+  },
+  "choices.0.why": {
+   "es": "El almacenamiento administrado igual requiere decisiones deliberadas de retención y de costo.",
+   "src": "798c6927b8a0"
+  },
+  "choices.1.text": {
+   "es": "El administrador de reservas de BigQuery mediante los slots de consulta.",
+   "src": "ce1deb1840da"
+  },
+  "choices.1.why": {
+   "es": "La asignación de slots analíticos no configura la retención de los temas de Kafka.",
+   "src": "fe6f2e0c5f17"
+  },
+  "choices.2.text": {
+   "es": "El equipo dueño del contrato de la carga de trabajo.",
+   "src": "70663d275797"
+  },
+  "choices.2.why": {
+   "es": "Los dueños de la carga de trabajo deben elegir una retención adecuada para la recuperación y la política.",
+   "src": "55ae0333245a"
+  },
+  "choices.3.text": {
+   "es": "La suscripción de Pub/Sub mediante su plazo de confirmación.",
+   "src": "c496875c7f80"
+  },
+  "choices.3.why": {
+   "es": "Una configuración de confirmación de Pub/Sub no es una política de retención de temas de Kafka.",
+   "src": "e2ef33201d18"
+  },
+  "explanation": {
+   "es": "Los dueños de la carga de trabajo deben elegir una retención adecuada para la recuperación y la política.",
+   "src": "55ae0333245a"
+  }
+ },
+ "lab-105": {
+  "text": {
+   "es": "Un publicador reintenta una compra como un mensaje de Pub/Sub distinto con un ID de mensaje nuevo. ¿Qué diseño resuelve los duplicados de negocio?",
+   "src": "e1e325155619"
+  },
+  "choices.0.text": {
+   "es": "Tratar cada ID de mensaje nuevo como una compra nueva.",
+   "src": "6d11dc9448af"
+  },
+  "choices.0.why": {
+   "es": "La identidad del mensaje y la identidad de la compra son contratos distintos.",
+   "src": "77311a9c3d98"
+  },
+  "choices.1.text": {
+   "es": "Conservar un ID de compra estable y usar una actualización de negocio idempotente.",
+   "src": "18bf965af19a"
+  },
+  "choices.1.why": {
+   "es": "Una clave de negocio estable permite reconocer las compras duplicadas.",
+   "src": "5960066e01b3"
+  },
+  "choices.2.text": {
+   "es": "Aumentar el plazo de confirmación y suponer que los ID de mensaje distintos se deduplican.",
+   "src": "eafe8adce986"
+  },
+  "choices.2.why": {
+   "es": "El momento de la confirmación no identifica dos mensajes publicados por separado como la misma compra.",
+   "src": "61fd444af3e9"
+  },
+  "choices.3.text": {
+   "es": "Quitar toda la retención para desactivar la reproducción.",
+   "src": "c1eda24b9329"
+  },
+  "choices.3.why": {
+   "es": "Quitar opciones de recuperación no establece la corrección.",
+   "src": "6c721d830739"
+  },
+  "explanation": {
+   "es": "Una clave de negocio estable permite reconocer las compras duplicadas.",
+   "src": "5960066e01b3"
+  }
+ },
+ "lab-106": {
+  "text": {
+   "es": "Un pipeline de Dataflow llama a una API externa que cobra a una cuenta. ¿Qué debe verificarse por separado del modo de procesamiento del pipeline?",
+   "src": "ffb8ea3416e2"
+  },
+  "choices.0.text": {
+   "es": "Si el tema de origen tiene un período de retención más largo.",
+   "src": "4e92c4782670"
+  },
+  "choices.0.why": {
+   "es": "La retención ayuda a recuperar, pero no define solicitudes repetidas seguras hacia la API externa.",
+   "src": "c5459015d0a6"
+  },
+  "choices.1.text": {
+   "es": "Solo el porcentaje de CPU de los workers.",
+   "src": "3e7407e96c84"
+  },
+  "choices.1.why": {
+   "es": "La CPU no puede probar que un efecto secundario remoto sea seguro.",
+   "src": "428db2b3604a"
+  },
+  "choices.2.text": {
+   "es": "Si la API externa admite un contrato de idempotencia seguro.",
+   "src": "a0544c401cd4"
+  },
+  "choices.2.why": {
+   "es": "Un efecto secundario remoto necesita su propio comportamiento ante solicitudes repetidas.",
+   "src": "7f81afbbdb67"
+  },
+  "choices.3.text": {
+   "es": "Si la tabla de salida está particionada por fecha de ingesta.",
+   "src": "d4f935fcb737"
+  },
+  "choices.3.why": {
+   "es": "Una partición de tabla no hace idempotente una solicitud de cobro externa.",
+   "src": "83a28a0e120d"
+  },
+  "explanation": {
+   "es": "Un efecto secundario remoto necesita su propio comportamiento ante solicitudes repetidas.",
+   "src": "7f81afbbdb67"
+  }
+ },
+ "lab-107": {
+  "text": {
+   "es": "Un lote de PySpark nocturno y aislado usa entradas duraderas en Cloud Storage y no necesita estado local del clúster. ¿Qué opción merece una evaluación?",
+   "src": "c32a58468c33"
+  },
+  "choices.0.text": {
+   "es": "Ejecución por lotes de Serverless for Apache Spark.",
+   "src": "9d444bbe9465"
+  },
+  "choices.0.why": {
+   "es": "La ejecución de Spark basada en la carga de trabajo coincide con la forma indicada. Aun así hay que probar las dependencias.",
+   "src": "e32eecbb456a"
+  },
+  "choices.1.text": {
+   "es": "Un clúster permanente solo para conservar archivos temporales.",
+   "src": "8c6124ad4ff2"
+  },
+  "choices.1.why": {
+   "es": "La premisa no requiere estado local persistente en el clúster.",
+   "src": "03748b1ca337"
+  },
+  "choices.2.text": {
+   "es": "Usar una clave de ordenamiento de Pub/Sub para ofrecer el runtime de Spark.",
+   "src": "74c6424eb9e2"
+  },
+  "choices.2.why": {
+   "es": "Las claves de ordenamiento gobiernan el orden de los mensajes, no ejecutan una carga de trabajo de Spark.",
+   "src": "46a75d03ed84"
+  },
+  "choices.3.text": {
+   "es": "Pasar el trabajo a una aserción de Dataform sin traducir su lógica de PySpark.",
+   "src": "32a6a710359d"
+  },
+  "choices.3.why": {
+   "es": "Una aserción de calidad en SQL de un almacén no reemplaza directamente transformaciones arbitrarias de PySpark.",
+   "src": "60e770046358"
+  },
+  "explanation": {
+   "es": "La ejecución de Spark basada en la carga de trabajo coincide con la forma indicada. Aun así hay que probar las dependencias.",
+   "src": "e32eecbb456a"
+  }
+ },
+ "lab-108": {
+  "text": {
+   "es": "Una migración de Spark conserva el código fuente sin cambios. ¿Qué afirmación se justifica?",
+   "src": "11fe4d83680e"
+  },
+  "choices.0.text": {
+   "es": "Todas las dependencias de runtime están necesariamente admitidas.",
+   "src": "0b057d0457f2"
+  },
+  "choices.0.why": {
+   "es": "Conservar el código fuente no establece la compatibilidad del runtime.",
+   "src": "66a74e87395d"
+  },
+  "choices.1.text": {
+   "es": "La red ya no importa.",
+   "src": "b087ccb7c828"
+  },
+  "choices.1.why": {
+   "es": "El trabajo igual necesita acceso a sus entradas y destinos.",
+   "src": "33561caaf611"
+  },
+  "choices.2.text": {
+   "es": "El entorno y los conectores igual necesitan pruebas de compatibilidad.",
+   "src": "9e4be648becd"
+  },
+  "choices.2.why": {
+   "es": "Los supuestos de runtime, de conectores y de identidad requieren validación.",
+   "src": "46417d93d974"
+  },
+  "choices.3.text": {
+   "es": "Todos los archivos históricos se migran automáticamente.",
+   "src": "aa6d41c9c6d9"
+  },
+  "choices.3.why": {
+   "es": "Ejecutar código no implica que se hayan movido los datos de origen.",
+   "src": "30caf898f465"
+  },
+  "explanation": {
+   "es": "Los supuestos de runtime, de conectores y de identidad requieren validación.",
+   "src": "46417d93d974"
+  }
+ },
+ "lab-109": {
+  "text": {
+   "es": "En una agregación de Beam sin límite (unbounded), ¿qué concepto agrupa eventos mientras otro controla cuándo se emiten los resultados?",
+   "src": "cb9966d7f7e3"
+  },
+  "choices.0.text": {
+   "es": "Un trigger agrupa eventos. Una ventana controla cada emisión.",
+   "src": "dc13fe127f76"
+  },
+  "choices.0.why": {
+   "es": "Esto invierte los roles de la agrupación y de la emisión de resultados.",
+   "src": "2d79e0c54edd"
+  },
+  "choices.1.text": {
+   "es": "Una ventana (window) agrupa eventos. Un trigger controla la emisión.",
+   "src": "409d5e02581d"
+  },
+  "choices.1.why": {
+   "es": "Las ventanas y los triggers responden dos preguntas de tiempo distintas.",
+   "src": "658bd4c5beb3"
+  },
+  "choices.2.text": {
+   "es": "Un tema agrupa ventanas de tiempo de evento. Una suscripción define todos los triggers de Beam.",
+   "src": "e0aad2b70847"
+  },
+  "choices.2.why": {
+   "es": "Los recursos de transporte no definen el contrato completo de ventanas y triggers de Beam.",
+   "src": "6d09c3aa4940"
+  },
+  "choices.3.text": {
+   "es": "Un worker agrupa cada evento por orden de llegada. El autoescalado controla la emisión.",
+   "src": "1538c1cef288"
+  },
+  "choices.3.why": {
+   "es": "Escalar recursos no es la política de agrupación por tiempo de evento ni de emisión de resultados.",
+   "src": "9507744367a5"
+  },
+  "explanation": {
+   "es": "Las ventanas y los triggers responden dos preguntas de tiempo distintas.",
+   "src": "658bd4c5beb3"
+  }
+ },
+ "lab-110": {
+  "text": {
+   "es": "Un equipo cambia de runner de Beam. ¿Cuál es la conclusión adecuada sobre el modelo reutilizable?",
+   "src": "6ab9c6a2ca04"
+  },
+  "choices.0.text": {
+   "es": "Todo runner debe tener el mismo comportamiento y rendimiento en los conectores.",
+   "src": "f6f4d6e0cddb"
+  },
+  "choices.0.why": {
+   "es": "Un modelo común no promete un comportamiento idéntico de la implementación.",
+   "src": "8777b1cac05b"
+  },
+  "choices.1.text": {
+   "es": "Se pueden borrar todas las pruebas.",
+   "src": "01e68c2a6e80"
+  },
+  "choices.1.why": {
+   "es": "Cambiar de runner introduce supuestos de ejecución que hay que probar.",
+   "src": "4d843c0ee78b"
+  },
+  "choices.2.text": {
+   "es": "El modelo de negocio se puede reutilizar, con pruebas de las capacidades del runner de destino y de los sinks.",
+   "src": "2b35b831b939"
+  },
+  "choices.2.why": {
+   "es": "Reutilizar el modelo y verificar la implementación se complementan.",
+   "src": "c3873a7262f7"
+  },
+  "choices.3.text": {
+   "es": "Las marcas de tiempo de los eventos dejan de importar.",
+   "src": "abc9dcade55f"
+  },
+  "choices.3.why": {
+   "es": "La semántica del tiempo de evento sigue afectando los resultados sin límite.",
+   "src": "b5c0c65f9073"
+  },
+  "explanation": {
+   "es": "Reutilizar el modelo y verificar la implementación se complementan.",
+   "src": "c3873a7262f7"
+  }
+ },
+ "lab-111": {
+  "text": {
+   "es": "Los pedidos más antiguos no tienen un campo nuevo de descuento. ¿Qué revisión conserva mejor el significado?",
+   "src": "bbca75ed1705"
+  },
+  "choices.0.text": {
+   "es": "Reemplazar cada ausencia por cero sin consultar el contrato.",
+   "src": "14933fe25863"
+  },
+  "choices.0.why": {
+   "es": "El cero codifica un valor específico que puede no estar justificado.",
+   "src": "6a5d0130e551"
+  },
+  "choices.1.text": {
+   "es": "Verificar si la ausencia significa desconocido, sin descuento o no aplicable.",
+   "src": "49fbc4540c0f"
+  },
+  "choices.1.why": {
+   "es": "El contrato de datos debe definir la semántica de los valores faltantes.",
+   "src": "adf4d9931b1b"
+  },
+  "choices.2.text": {
+   "es": "Marcar el campo como obligatorio y suponer que las filas históricas se completan automáticamente.",
+   "src": "4027c99070db"
+  },
+  "choices.2.why": {
+   "es": "Un contrato más estricto no crea los hechos de negocio históricos que faltan.",
+   "src": "f84bc418ea87"
+  },
+  "choices.3.text": {
+   "es": "Suponer que un JSON aceptado prueba el significado previsto.",
+   "src": "b05b77824cba"
+  },
+  "choices.3.why": {
+   "es": "Que el análisis (parsing) tenga éxito no establece la semántica de negocio.",
+   "src": "846f7d8af424"
+  },
+  "explanation": {
+   "es": "El contrato de datos debe definir la semántica de los valores faltantes.",
+   "src": "adf4d9931b1b"
+  }
+ },
+ "lab-112": {
+  "text": {
+   "es": "¿Qué cambio del modo de una columna existente de BigQuery está documentado como relajación (relaxation)?",
+   "src": "21322c32f167"
+  },
+  "choices.0.text": {
+   "es": "NULLABLE a REQUIRED.",
+   "src": "5b709dcdc6c8"
+  },
+  "choices.0.why": {
+   "es": "Hacer obligatoria una columna que ya admite nulos no es una relajación.",
+   "src": "fb9276419935"
+  },
+  "choices.1.text": {
+   "es": "REPEATED a REQUIRED directamente.",
+   "src": "196e30f0cf05"
+  },
+  "choices.1.why": {
+   "es": "Esta no es la operación de relajación documentada.",
+   "src": "e305bffa4118"
+  },
+  "choices.2.text": {
+   "es": "REQUIRED a NULLABLE.",
+   "src": "538c1d85af09"
+  },
+  "choices.2.why": {
+   "es": "La relajación permite que valores antes obligatorios pasen a admitir nulos.",
+   "src": "4fd0b3bc1d8b"
+  },
+  "choices.3.text": {
+   "es": "Cualquier modo a cualquier otro modo sin restricciones.",
+   "src": "0bb9336bea0a"
+  },
+  "choices.3.why": {
+   "es": "Las modificaciones de modo tienen restricciones documentadas.",
+   "src": "2bbc8a23d4b3"
+  },
+  "explanation": {
+   "es": "La relajación permite que valores antes obligatorios pasen a admitir nulos.",
+   "src": "4fd0b3bc1d8b"
+  }
+ }
+}

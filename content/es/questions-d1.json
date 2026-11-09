@@ -1,0 +1,1010 @@
+{
+ "lab-1": {
+  "text": {
+   "es": "Un trabajo nocturno lee un bucket de Cloud Storage y escribe en un dataset de BigQuery. ¿Qué diseño de identidad sigue mejor el menor privilegio (least privilege)?",
+   "src": "21c22dcfaeac"
+  },
+  "choices.0.text": {
+   "es": "Una clave de API con acceso a todos los proyectos.",
+   "src": "815b11f15835"
+  },
+  "choices.0.why": {
+   "es": "Una clave de API no reemplaza la autorización de IAM que se necesita.",
+   "src": "96d28d1ef44c"
+  },
+  "choices.1.text": {
+   "es": "Una cuenta de servicio dedicada con solo los permisos necesarios sobre los recursos.",
+   "src": "cbee872a5b3f"
+  },
+  "choices.1.why": {
+   "es": "Una identidad de carga de trabajo dedicada limita los permisos y el impacto de este trabajo en particular.",
+   "src": "0cf80fdd539e"
+  },
+  "choices.2.text": {
+   "es": "Las credenciales personales de Project Owner del ingeniero.",
+   "src": "af501760bcbc"
+  },
+  "choices.2.why": {
+   "es": "La propiedad personal otorga permisos no relacionados y complica la automatización.",
+   "src": "b57b4c06e54a"
+  },
+  "choices.3.text": {
+   "es": "Una cuenta de servicio Editor compartida en toda la organización.",
+   "src": "ff7a773e28de"
+  },
+  "choices.3.why": {
+   "es": "Una identidad amplia y compartida aumenta la exposición entre cargas de trabajo.",
+   "src": "b8c71c156d80"
+  },
+  "explanation": {
+   "es": "Una identidad de carga de trabajo dedicada limita los permisos y el impacto de este trabajo en particular.",
+   "src": "0cf80fdd539e"
+  }
+ },
+ "lab-2": {
+  "text": {
+   "es": "Los desarrolladores necesitan permisos distintos en desarrollo y en producción. Los miembros del equipo cambian con frecuencia. ¿Cuál es el enfoque más fácil de administrar?",
+   "src": "8a7710b58a3a"
+  },
+  "choices.0.text": {
+   "es": "Mantener una regla de firewall para cada desarrollador.",
+   "src": "09abe4b5fcbd"
+  },
+  "choices.0.why": {
+   "es": "Las reglas de red no pueden expresar todas las operaciones de IAM a nivel de recurso.",
+   "src": "e1e8247a93da"
+  },
+  "choices.1.text": {
+   "es": "Compartir una sola clave de cuenta de servicio descargada.",
+   "src": "a59ca4b10035"
+  },
+  "choices.1.why": {
+   "es": "Una clave compartida debilita la rendición de cuentas y crea un secreto de larga duración.",
+   "src": "a8ff063ea52b"
+  },
+  "choices.2.text": {
+   "es": "Asignar roles a grupos en el ámbito del entorno adecuado.",
+   "src": "86ec5a6bab59"
+  },
+  "choices.2.why": {
+   "es": "Los grupos centralizan la membresía y los roles con ámbito de recurso conservan los límites entre entornos.",
+   "src": "6bb672a7efd8"
+  },
+  "choices.3.text": {
+   "es": "Dar el rol Owner a cada desarrollador en ambos entornos.",
+   "src": "9c276e2af2cc"
+  },
+  "choices.3.why": {
+   "es": "Esto elimina la separación que se necesita.",
+   "src": "608ef1dcee30"
+  },
+  "explanation": {
+   "es": "Los grupos centralizan la membresía y los roles con ámbito de recurso conservan los límites entre entornos.",
+   "src": "6bb672a7efd8"
+  }
+ },
+ "lab-3": {
+  "text": {
+   "es": "Los analistas pueden leer todas las filas de clientes, pero nunca deben ver los valores de identificación oficial. ¿Qué control apunta directamente a los campos restringidos?",
+   "src": "7538ca53ff30"
+  },
+  "choices.0.text": {
+   "es": "Un filtro de filas que conserva solo a los clientes activos.",
+   "src": "30edab7ddf94"
+  },
+  "choices.0.why": {
+   "es": "Esto cambia qué registros se permiten, no qué campos se ven.",
+   "src": "91e5f4ff06dc"
+  },
+  "choices.1.text": {
+   "es": "Más slots de BigQuery.",
+   "src": "671561f42ffe"
+  },
+  "choices.1.why": {
+   "es": "La capacidad de cómputo no establece autorización a nivel de campo.",
+   "src": "61e977d4208d"
+  },
+  "choices.2.text": {
+   "es": "Un período de retención más largo en Cloud Storage.",
+   "src": "9b4edb5a4970"
+  },
+  "choices.2.why": {
+   "es": "La retención de objetos no protege columnas específicas de BigQuery.",
+   "src": "d73efab2328b"
+  },
+  "choices.3.text": {
+   "es": "Políticas de acceso a nivel de columna en las columnas sensibles.",
+   "src": "2895fd9b53f3"
+  },
+  "choices.3.why": {
+   "es": "Las políticas de columna restringen el acceso a campos seleccionados y permiten el acceso a las demás columnas.",
+   "src": "93ee5f6e5f02"
+  },
+  "explanation": {
+   "es": "Las políticas de columna restringen el acceso a campos seleccionados y permiten el acceso a las demás columnas.",
+   "src": "93ee5f6e5f02"
+  }
+ },
+ "lab-4": {
+  "text": {
+   "es": "Los agentes de soporte solo pueden ver a los clientes con un contrato activo. ¿Qué mecanismo expresa directamente esa regla a nivel de registro?",
+   "src": "7faebd243712"
+  },
+  "choices.0.text": {
+   "es": "Una política de acceso a filas (row access policy) de BigQuery.",
+   "src": "cc5fa4813f2c"
+  },
+  "choices.0.why": {
+   "es": "Una política de filas filtra los registros a los que puede acceder una identidad autorizada.",
+   "src": "0d7b80278132"
+  },
+  "choices.1.text": {
+   "es": "Un calendario de rotación de claves de cifrado.",
+   "src": "838eca486fe0"
+  },
+  "choices.1.why": {
+   "es": "La rotación de claves no expresa una condición de acceso por registro.",
+   "src": "1abf96c00723"
+  },
+  "choices.2.text": {
+   "es": "Clustering por estado del contrato.",
+   "src": "26454b4928e2"
+  },
+  "choices.2.why": {
+   "es": "El clustering organiza el almacenamiento y no autoriza a los lectores.",
+   "src": "f2b98eed6d7b"
+  },
+  "choices.3.text": {
+   "es": "Una alerta de presupuesto del proyecto.",
+   "src": "e006a63f146f"
+  },
+  "choices.3.why": {
+   "es": "Una notificación de gasto no tiene relación con la visibilidad de los registros.",
+   "src": "b46e237803f6"
+  },
+  "explanation": {
+   "es": "Una política de filas filtra los registros a los que puede acceder una identidad autorizada.",
+   "src": "0d7b80278132"
+  }
+ },
+ "lab-5": {
+  "text": {
+   "es": "Tu organización necesita controlar las claves que protegen los datos almacenados. ¿Qué capacidad cubre ese requisito?",
+   "src": "469c1a8190a2"
+  },
+  "choices.0.text": {
+   "es": "Un intervalo de programación de Airflow.",
+   "src": "f697d62ed7f8"
+  },
+  "choices.0.why": {
+   "es": "El momento en que corre un flujo de trabajo no administra claves de cifrado.",
+   "src": "1537036a2db7"
+  },
+  "choices.1.text": {
+   "es": "Claves de cifrado administradas por el cliente (customer-managed encryption keys) en Cloud KMS.",
+   "src": "80a7119415b6"
+  },
+  "choices.1.why": {
+   "es": "CMEK da al cliente control sobre el ciclo de vida de la clave de cifrado.",
+   "src": "383103d1b977"
+  },
+  "choices.2.text": {
+   "es": "Clustering de BigQuery.",
+   "src": "90fe98e46789"
+  },
+  "choices.2.why": {
+   "es": "El clustering cambia la organización de los datos, no la propiedad de las claves.",
+   "src": "226b98fc5f1d"
+  },
+  "choices.3.text": {
+   "es": "Una clave de ordenamiento de Pub/Sub.",
+   "src": "f951782c2efb"
+  },
+  "choices.3.why": {
+   "es": "Una clave de ordenamiento relaciona mensajes, no material de cifrado.",
+   "src": "799c0a2ec931"
+  },
+  "explanation": {
+   "es": "CMEK da al cliente control sobre el ciclo de vida de la clave de cifrado.",
+   "src": "383103d1b977"
+  }
+ },
+ "lab-6": {
+  "text": {
+   "es": "IAM ya está configurado. También necesitas un límite que reduzca la exfiltración (exfiltration, la salida no autorizada de datos) a través de las API de servicios de Google compatibles. ¿Qué debes evaluar?",
+   "src": "69d4a8dd4d07"
+  },
+  "choices.0.text": {
+   "es": "Una máquina más grande de Dataflow.",
+   "src": "3c123c13c483"
+  },
+  "choices.0.why": {
+   "es": "El tamaño de los workers no establece controles contra la exfiltración.",
+   "src": "a8510069c205"
+  },
+  "choices.1.text": {
+   "es": "Una nueva convención de nombres de tablas.",
+   "src": "1356f0293f3d"
+  },
+  "choices.1.why": {
+   "es": "Los nombres no hacen cumplir restricciones de acceso a las API.",
+   "src": "2236c05f1b8a"
+  },
+  "choices.2.text": {
+   "es": "Un perímetro de VPC Service Controls.",
+   "src": "145192f5106e"
+  },
+  "choices.2.why": {
+   "es": "Un perímetro de servicio agrega un límite de acceso a los datos alrededor de los servicios compatibles.",
+   "src": "a0f312978d00"
+  },
+  "choices.3.text": {
+   "es": "Un filtro adicional en el dashboard.",
+   "src": "5c0c67d4cc6d"
+  },
+  "choices.3.why": {
+   "es": "Un filtro de dashboard no es un límite general de acceso a los servicios.",
+   "src": "4578d089298f"
+  },
+  "explanation": {
+   "es": "Un perímetro de servicio agrega un límite de acceso a los datos alrededor de los servicios compatibles.",
+   "src": "a0f312978d00"
+  }
+ },
+ "lab-7": {
+  "text": {
+   "es": "Una API externa de pagos puede recibir otra llamada después de que Dataflow reintente un worker (retry). ¿Qué hace más seguras las llamadas repetidas?",
+   "src": "cb2be6f63ccd"
+  },
+  "choices.0.text": {
+   "es": "Suponer que cada transformación se ejecuta solo una vez.",
+   "src": "2a5483de9713"
+  },
+  "choices.0.why": {
+   "es": "Los reintentos pueden ejecutar el código de la transformación varias veces.",
+   "src": "5af0ef4a384b"
+  },
+  "choices.1.text": {
+   "es": "Usar el tiempo de procesamiento como ID de transacción.",
+   "src": "5a73f5294c15"
+  },
+  "choices.1.why": {
+   "es": "Los reintentos pueden recibir marcas de tiempo de procesamiento distintas.",
+   "src": "42a589529889"
+  },
+  "choices.2.text": {
+   "es": "Desactivar todo el monitoreo.",
+   "src": "dfb58b273488"
+  },
+  "choices.2.why": {
+   "es": "Quitar la visibilidad no evita los efectos secundarios duplicados.",
+   "src": "b8e5c3033988"
+  },
+  "choices.3.text": {
+   "es": "Un ID de transacción estable y una operación de API idempotente (idempotent).",
+   "src": "47bc923abc0b"
+  },
+  "choices.3.why": {
+   "es": "Las garantías de procesamiento de Dataflow no cubren automáticamente efectos secundarios externos arbitrarios.",
+   "src": "330130b571a0"
+  },
+  "explanation": {
+   "es": "Las garantías de procesamiento de Dataflow no cubren automáticamente efectos secundarios externos arbitrarios.",
+   "src": "330130b571a0"
+  }
+ },
+ "lab-8": {
+  "text": {
+   "es": "Una migración termina sin errores en los trabajos. ¿Qué da mejor evidencia de que los datos de negocio siguen correctos?",
+   "src": "e4567ff7403d"
+  },
+  "choices.0.text": {
+   "es": "Conciliar los conteos de filas y los totales de negocio con el origen.",
+   "src": "0c16dcbd9db7"
+  },
+  "choices.0.why": {
+   "es": "El estado de finalización por sí solo no demuestra la fidelidad de los datos.",
+   "src": "b3ebe88ff19f"
+  },
+  "choices.1.text": {
+   "es": "Comprobar solo si la tabla de destino existe.",
+   "src": "eebb78b75add"
+  },
+  "choices.1.why": {
+   "es": "Que exista no demuestra que esté completa ni que los valores sean correctos.",
+   "src": "da20addde72c"
+  },
+  "choices.2.text": {
+   "es": "Borrar el origen de inmediato.",
+   "src": "e1d8a62dcc47"
+  },
+  "choices.2.why": {
+   "es": "Borrar elimina una referencia útil para validar y recuperar.",
+   "src": "04728a07e65c"
+  },
+  "choices.3.text": {
+   "es": "Comparar solo los nombres para mostrar de las tablas.",
+   "src": "16d21a269d77"
+  },
+  "choices.3.why": {
+   "es": "Que los nombres coincidan no valida los datos.",
+   "src": "ecb61a2e479c"
+  },
+  "explanation": {
+   "es": "El estado de finalización por sí solo no demuestra la fidelidad de los datos.",
+   "src": "b3ebe88ff19f"
+  }
+ },
+ "lab-9": {
+  "text": {
+   "es": "Un trabajo de Spark se ejecuta una vez por semana. Sus resultados deben sobrevivir cuando se borra el clúster. ¿Dónde deben vivir sus datos duraderos?",
+   "src": "41544548f7d6"
+  },
+  "choices.0.text": {
+   "es": "Solo en los logs de tareas de Airflow.",
+   "src": "4baedd71101a"
+  },
+  "choices.0.why": {
+   "es": "Los logs documentan la ejecución y no son la capa prevista para almacenar datos.",
+   "src": "d2b0105bf15b"
+  },
+  "choices.1.text": {
+   "es": "En una capa separada de almacenamiento de objetos duradero.",
+   "src": "d02c5d082b10"
+  },
+  "choices.1.why": {
+   "es": "Separar el almacenamiento persistente del cómputo temporal evita atar la supervivencia de los datos al clúster.",
+   "src": "0064955b018c"
+  },
+  "choices.2.text": {
+   "es": "Solo en directorios temporales locales de los workers.",
+   "src": "775a0e1ca149"
+  },
+  "choices.2.why": {
+   "es": "Los workers temporales no son el sistema de registro duradero.",
+   "src": "6dd164f6aedd"
+  },
+  "choices.3.text": {
+   "es": "Solo en la caché del navegador.",
+   "src": "0d09b8282619"
+  },
+  "choices.3.why": {
+   "es": "Una caché del navegador no puede servir como almacenamiento persistente compartido de un pipeline.",
+   "src": "ebf7faf3497f"
+  },
+  "explanation": {
+   "es": "Separar el almacenamiento persistente del cómputo temporal evita atar la supervivencia de los datos al clúster.",
+   "src": "0064955b018c"
+  }
+ },
+ "lab-10": {
+  "text": {
+   "es": "Una base de datos de origen compatible debe replicar a BigQuery los cambios de filas que sigan ocurriendo después de su carga inicial. ¿Qué servicio está diseñado para esa captura de cambios (change data capture)?",
+   "src": "1a0100d72cef"
+  },
+  "choices.0.text": {
+   "es": "BI Engine.",
+   "src": "60816d927c4d"
+  },
+  "choices.0.why": {
+   "es": "BI Engine acelera el análisis, no replica los cambios del origen.",
+   "src": "b2a35054ff47"
+  },
+  "choices.1.text": {
+   "es": "Una captura de pantalla de un dashboard.",
+   "src": "68d33b5932d9"
+  },
+  "choices.1.why": {
+   "es": "Una captura de pantalla no es ingesta estructurada ni captura de cambios.",
+   "src": "b14d53aeeb5b"
+  },
+  "choices.2.text": {
+   "es": "Datastream.",
+   "src": "a757506542b7"
+  },
+  "choices.2.why": {
+   "es": "Datastream captura los cambios compatibles de bases de datos y puede entregarlos a destinos analíticos.",
+   "src": "1e7442299519"
+  },
+  "choices.3.text": {
+   "es": "Transfer Appliance por sí solo.",
+   "src": "3ecfcf520731"
+  },
+  "choices.3.why": {
+   "es": "Un dispositivo offline de carga masiva no captura cambios de la base de datos de forma continua.",
+   "src": "edc29d187ab8"
+  },
+  "explanation": {
+   "es": "Datastream captura los cambios compatibles de bases de datos y puede entregarlos a destinos analíticos.",
+   "src": "1e7442299519"
+  }
+ },
+ "lab-11": {
+  "text": {
+   "es": "Debes mover 1 PB por un enlace limitado a 20 Mb/s en un plazo de seis meses. ¿Qué debes establecer primero?",
+   "src": "b0bf6de4614d"
+  },
+  "choices.0.text": {
+   "es": "Que más clientes en paralelo pueden superar la capacidad máxima del enlace.",
+   "src": "9674e85284e0"
+  },
+  "choices.0.why": {
+   "es": "El paralelismo no puede superar un límite real de ancho de banda compartido.",
+   "src": "1c11b774272a"
+  },
+  "choices.1.text": {
+   "es": "Que la compresión siempre hace que la transferencia termine en horas.",
+   "src": "1b40e9a57b89"
+  },
+  "choices.1.why": {
+   "es": "La tasa de compresión no está especificada y no se puede suponer.",
+   "src": "d41f7864f1cc"
+  },
+  "choices.2.text": {
+   "es": "Que una vista SQL reduce a cero el volumen de red.",
+   "src": "c053dbb3f51e"
+  },
+  "choices.2.why": {
+   "es": "Una vista no mueve los datos subyacentes requeridos.",
+   "src": "056dba436794"
+  },
+  "choices.3.text": {
+   "es": "Una ruta de transferencia con capacidad para cumplir el plazo.",
+   "src": "8ce46aa21cfe"
+  },
+  "choices.3.why": {
+   "es": "Con ese ancho de banda, el tiempo ideal de transferencia se mide en años. Valida la capacidad antes de optimizar el software.",
+   "src": "69d46a11c991"
+  },
+  "explanation": {
+   "es": "Con ese ancho de banda, el tiempo ideal de transferencia se mide en años. Valida la capacidad antes de optimizar el software.",
+   "src": "69d46a11c991"
+  }
+ },
+ "lab-51": {
+  "text": {
+   "es": "Una identidad de CI puede crear un trabajo de Dataflow, pero el trabajo falla cuando sus workers leen un bucket privado. El pipeline usa de forma explícita una cuenta de worker dedicada. ¿Cuál es la revisión de permisos más directa?",
+   "src": "dafab27ab057"
+  },
+  "choices.0.text": {
+   "es": "Revisar el acceso efectivo de lectura de objetos de la cuenta de worker configurada.",
+   "src": "db84975c5b62"
+  },
+  "choices.0.why": {
+   "es": "Los workers acceden al origen con su identidad real de carga de trabajo.",
+   "src": "327cbc74e403"
+  },
+  "choices.1.text": {
+   "es": "Rotar la clave de cifrado del bucket sin examinar el error.",
+   "src": "c25d6483f792"
+  },
+  "choices.1.why": {
+   "es": "Rotar no es evidencia de que se haya reparado la autorización que faltaba.",
+   "src": "de28f54c86e4"
+  },
+  "choices.2.text": {
+   "es": "Dar Project Owner a la identidad de CI para que los workers hereden su acceso.",
+   "src": "a89f17904428"
+  },
+  "choices.2.why": {
+   "es": "Un worker no hereda automáticamente los permisos personales de quien envía el trabajo.",
+   "src": "5d8c2d815d1d"
+  },
+  "choices.3.text": {
+   "es": "Dar BigQuery data viewer a todos los desarrolladores.",
+   "src": "91faa28a4e90"
+  },
+  "choices.3.why": {
+   "es": "Eso no resuelve la lectura fallida del bucket.",
+   "src": "bce9c61f09de"
+  },
+  "explanation": {
+   "es": "La falla está en el límite entre el worker y el origen. Inspecciona la identidad asociada al trabajo y sus permisos efectivos sobre el origen, en lugar de ampliar el rol de quien lo envía.",
+   "src": "fb0aadc33d7b"
+  }
+ },
+ "lab-52": {
+  "text": {
+   "es": "Una plataforma de CI externa guarda hoy una clave de cuenta de servicio de Google de larga duración. Quieres credenciales de vida más corta sin cambiar el acceso a datos de negocio del pipeline. ¿Qué enfoque debes evaluar?",
+   "src": "6bffb52df3ee"
+  },
+  "choices.0.text": {
+   "es": "Mover la misma clave privada al repositorio público.",
+   "src": "f0f166de03e8"
+  },
+  "choices.0.why": {
+   "es": "Esto expone la credencial y no acorta su duración.",
+   "src": "5007f258f5c0"
+  },
+  "choices.1.text": {
+   "es": "Dar Owner a todos los usuarios de CI y dejar de usar una identidad de carga de trabajo.",
+   "src": "5bfb2ff25926"
+  },
+  "choices.1.why": {
+   "es": "Esto amplía el acceso sin cumplir el objetivo indicado para las credenciales.",
+   "src": "29af2e39a749"
+  },
+  "choices.2.text": {
+   "es": "Workload Identity Federation con suplantación de identidad (impersonation) o acceso directo restringidos de forma adecuada.",
+   "src": "17a949095cd3"
+  },
+  "choices.2.why": {
+   "es": "La federación puede intercambiar una identidad externa de confianza por credenciales de Google de corta duración.",
+   "src": "24635372772e"
+  },
+  "choices.3.text": {
+   "es": "Usar una clave de API como reemplazo de toda la autorización de IAM.",
+   "src": "5b4fff7f9fcf"
+  },
+  "choices.3.why": {
+   "es": "Una clave de API no reemplaza el modelo de permisos sobre recursos que se necesita.",
+   "src": "ebc9bb62daa1"
+  },
+  "explanation": {
+   "es": "La federación resuelve cómo se autentica la carga de trabajo externa. Su acceso efectivo a los datos debe seguir el menor privilegio, y las condiciones de confianza deben restringir qué identidades externas pueden actuar.",
+   "src": "4588347173d7"
+  }
+ },
+ "lab-53": {
+  "text": {
+   "es": "Un equipo de soporte regional puede leer a los clientes activos de su región. Los analistas pueden revisar todas las regiones, pero deben recibir los ID nacionales enmascarados. ¿Qué dos dimensiones de política debe abordar el diseño de forma explícita? (Elige 2.)",
+   "src": "5ae9ddbc3b49"
+  },
+  "choices.0.text": {
+   "es": "Permiso para ver los campos sensibles originales o enmascarados.",
+   "src": "017bbb0a9a89"
+  },
+  "choices.0.why": {
+   "es": "El acceso a columnas y el enmascaramiento tienen que ver con la visibilidad o la representación de los campos.",
+   "src": "8c7b0d49d973"
+  },
+  "choices.1.text": {
+   "es": "El color de fondo del reporte como límite de autorización.",
+   "src": "bf83f9e972ae"
+  },
+  "choices.1.why": {
+   "es": "El estilo de presentación no restringe los datos subyacentes.",
+   "src": "f17ea82ce233"
+  },
+  "choices.2.text": {
+   "es": "Los registros permitidos para cada grupo de lectores.",
+   "src": "1bf35c366b66"
+  },
+  "choices.2.why": {
+   "es": "La visibilidad de registros es una regla de negocio a nivel de fila.",
+   "src": "a2e78d35823f"
+  },
+  "choices.3.text": {
+   "es": "Un único permiso Editor universal del proyecto para ambos equipos.",
+   "src": "b3f7482baa0d"
+  },
+  "choices.3.why": {
+   "es": "Eso no expresa las distinciones de filas y de campos que se necesitan.",
+   "src": "9456720f4a17"
+  },
+  "explanation": {
+   "es": "Las restricciones se aplican en ejes distintos: qué registros de clientes se pueden leer y qué representación de campos sensibles está disponible. Evalúa los permisos efectivos junto con los controles de fila y de columna elegidos.",
+   "src": "8530c1742b11"
+  }
+ },
+ "lab-54": {
+  "text": {
+   "es": "Una regla de residencia de datos (data residency) permite los datos de clientes solo en una ubicación aprobada. Un diseño propuesto pone el almacén de datos ahí, pero guarda exportaciones sin enmascarar en otro lugar como paso intermedio (staging). ¿Cuál es la mejor evaluación?",
+   "src": "31ca2106befb"
+  },
+  "choices.0.text": {
+   "es": "El cifrado por sí solo siempre hace irrelevante la restricción geográfica.",
+   "src": "1081d9693062"
+  },
+  "choices.0.why": {
+   "es": "El cifrado no elimina automáticamente el requisito de ubicación indicado.",
+   "src": "1981c70501ad"
+  },
+  "choices.1.text": {
+   "es": "La ubicación del almacén controla automáticamente todos los servicios y archivos exportados.",
+   "src": "e36edac57fe9"
+  },
+  "choices.1.why": {
+   "es": "Una configuración del dataset no configura todos los recursos de staging y de procesamiento.",
+   "src": "407e83031a0f"
+  },
+  "choices.2.text": {
+   "es": "La copia de staging también debe revisarse frente a las restricciones de residencia y privacidad.",
+   "src": "45dae90a6cdd"
+  },
+  "choices.2.why": {
+   "es": "Los requisitos de manejo de datos pueden aplicarse más allá del almacén final.",
+   "src": "cdf0b5aeb8e3"
+  },
+  "choices.3.text": {
+   "es": "La exportación cumple siempre que el nombre de su bucket incluya la ubicación aprobada.",
+   "src": "e34856539c72"
+  },
+  "choices.3.why": {
+   "es": "El nombre de un recurso no establece su ubicación real ni el cumplimiento de la política.",
+   "src": "4743cd85dbec"
+  },
+  "explanation": {
+   "es": "Mapea todas las copias de datos y las ubicaciones de procesamiento. No uses la ubicación del dataset final como prueba de que el staging, las exportaciones, los logs y las copias de recuperación cumplen los mismos requisitos de manejo aprobados.",
+   "src": "7618c016d536"
+  }
+ },
+ "lab-55": {
+  "text": {
+   "es": "Una transformación de Dataflow llama a una API externa de pedidos. El reintento de un worker puede volver a llamarla después de un tiempo de espera agotado de la red. ¿Qué diseño limita de forma más directa los efectos de negocio duplicados?",
+   "src": "6b1556706c0e"
+  },
+  "choices.0.text": {
+   "es": "Usar un ID de pedido estable con un contrato de API idempotente o transaccional.",
+   "src": "ae5ce1b3735d"
+  },
+  "choices.0.why": {
+   "es": "El sistema externo debe reconocer los intentos repetidos de la misma operación de negocio.",
+   "src": "dfdb799bc6f8"
+  },
+  "choices.1.text": {
+   "es": "Generar un ID de pedido nuevo en cada reintento.",
+   "src": "bceeffb376c5"
+  },
+  "choices.1.why": {
+   "es": "Cambiar la identidad de negocio impide reconocer duplicados de forma confiable.",
+   "src": "a1959432fa9f"
+  },
+  "choices.2.text": {
+   "es": "Suponer que Dataflow nunca ejecuta dos veces el código de una transformación.",
+   "src": "53d23d4d255d"
+  },
+  "choices.2.why": {
+   "es": "Las garantías del procesamiento administrado no impiden toda ejecución repetida del código de usuario.",
+   "src": "ad6aadd42ffb"
+  },
+  "choices.3.text": {
+   "es": "Confirmar (acknowledge) los mensajes de origen antes de intentar la llamada a la API.",
+   "src": "4d8f9cd2ca68"
+  },
+  "choices.3.why": {
+   "es": "Confirmar demasiado pronto puede perder la ruta de recuperación y no hace atómico el efecto externo.",
+   "src": "0eb184183178"
+  },
+  "explanation": {
+   "es": "El procesamiento exactamente una vez (exactly-once) no es automáticamente un efecto secundario externo de exactamente una vez. Define la identidad de negocio y el comportamiento de repetición de la API en ese límite aparte.",
+   "src": "88e156be311f"
+  }
+ },
+ "lab-56": {
+  "text": {
+   "es": "Después de una migración, el origen y el destino tienen el mismo conteo de filas, pero los ingresos del destino son mayores. ¿Qué dos investigaciones se justifican? (Elige 2.)",
+   "src": "5e3e0ab9402e"
+  },
+  "choices.0.text": {
+   "es": "Comprobar si un join o un aplanamiento cambió la granularidad del negocio (business grain).",
+   "src": "4e057e2720a2"
+  },
+  "choices.0.why": {
+   "es": "Un cambio de cardinalidad puede repetir un monto a nivel de pedido.",
+   "src": "3012558d9cd1"
+  },
+  "choices.1.text": {
+   "es": "Declarar éxito porque los conteos iguales prueban que todos los valores coinciden.",
+   "src": "e2e6be5dc854"
+  },
+  "choices.1.why": {
+   "es": "La diferencia observada en los ingresos contradice esa conclusión.",
+   "src": "266d2ef150e5"
+  },
+  "choices.2.text": {
+   "es": "Reemplazar todos los valores faltantes por cero sin revisar su significado.",
+   "src": "f8489739f1c6"
+  },
+  "choices.2.why": {
+   "es": "Esa no es una reparación general justificada para la discrepancia.",
+   "src": "f40a7e81da7e"
+  },
+  "choices.3.text": {
+   "es": "Conciliar las claves de negocio estables y los totales financieros con el origen.",
+   "src": "e31fc0246348"
+  },
+  "choices.3.why": {
+   "es": "Los conteos por sí solos no establecen la fidelidad de los valores.",
+   "src": "ce36e282a909"
+  },
+  "explanation": {
+   "es": "Valida la identidad y el significado de cada fila, no solo el número de filas. Un monto duplicado, un cambio en la granularidad del join o una transformación incorrecta pueden conservar una métrica de conteo y aun así dañar los totales de negocio.",
+   "src": "41bfe54275ee"
+  }
+ },
+ "lab-57": {
+  "text": {
+   "es": "Un equipo exporta datos del data lake como Parquet y afirma que toda su plataforma ya puede pasar sin cambios a otra nube. ¿Qué respuesta es la más precisa?",
+   "src": "0349495e775b"
+  },
+  "choices.0.text": {
+   "es": "Un formato abierto transfiere automáticamente las asignaciones de políticas de IAM (policy bindings).",
+   "src": "0dfceeeebf32"
+  },
+  "choices.0.why": {
+   "es": "Los formatos de archivo no mueven las configuraciones de permisos de la nube.",
+   "src": "d164541b13e6"
+  },
+  "choices.1.text": {
+   "es": "La portabilidad exige borrar todos los metadatos y esquemas.",
+   "src": "85161b63dfb8"
+  },
+  "choices.1.why": {
+   "es": "Quitar el contrato de datos dificulta reutilizarlos correctamente.",
+   "src": "4b6f8fd37508"
+  },
+  "choices.2.text": {
+   "es": "El formato ayuda con la legibilidad, pero las identidades, la red, la orquestación y la semántica siguen necesitando un plan de portabilidad.",
+   "src": "04f04e73e0ff"
+  },
+  "choices.2.why": {
+   "es": "La representación de los datos es solo una capa de la portabilidad.",
+   "src": "5cf93aba933a"
+  },
+  "choices.3.text": {
+   "es": "Parquet garantiza que todos los motores de consulta tengan el mismo comportamiento y costo.",
+   "src": "b3bc903db914"
+  },
+  "choices.3.why": {
+   "es": "La semántica, las capacidades y la economía de cada motor siguen siendo distintas.",
+   "src": "2edf48f3e505"
+  },
+  "explanation": {
+   "es": "Un formato reutilizable ayuda a que varios motores lean los datos. La arquitectura igual debe considerar la autorización, la evolución del esquema, el acceso a la red, la programación, el comportamiento de las consultas y los contratos con los consumidores.",
+   "src": "b7db72871acb"
+  }
+ },
+ "lab-58": {
+  "text": {
+   "es": "Una empresa tiene muchos trabajos de Spark existentes y una fecha límite de migración fija a corto plazo. Quiere hacer los mínimos cambios de código ahora y poder modernizar después. ¿Cuál es una primera etapa razonable?",
+   "src": "2976b238660e"
+  },
+  "choices.0.text": {
+   "es": "Mover los datos duraderos a un almacenamiento de objetos compatible y ejecutar la carga de trabajo de Spark compatible en Spark administrado/Dataproc.",
+   "src": "33573706bca8"
+  },
+  "choices.0.why": {
+   "es": "Esto conserva el modelo de ejecución actual y separa los datos del ciclo de vida del clúster.",
+   "src": "623617c8caab"
+  },
+  "choices.1.text": {
+   "es": "Reemplazar Spark solo con Pub/Sub.",
+   "src": "41459faf2302"
+  },
+  "choices.1.why": {
+   "es": "Un servicio de mensajería no ejecuta el código de transformación de Spark existente.",
+   "src": "ac4246764a8e"
+  },
+  "choices.2.text": {
+   "es": "Reescribir cada aplicación como SQL de BigQuery antes de mover cualquier dato.",
+   "src": "73355107a5c1"
+  },
+  "choices.2.why": {
+   "es": "Una reescritura completa choca con la restricción de compatibilidad a corto plazo indicada.",
+   "src": "eba82a608ffd"
+  },
+  "choices.3.text": {
+   "es": "Guardar la única copia duradera en directorios temporales de los workers.",
+   "src": "dce9a5ac24a2"
+  },
+  "choices.3.why": {
+   "es": "Eso ata la supervivencia de los datos al cómputo temporal.",
+   "src": "f7a33e0cc516"
+  },
+  "explanation": {
+   "es": "Una migración puede conservar un modelo de ejecución compatible antes de modernizar. Valida las bibliotecas y los contratos de entrada y salida, y mantén el estado duradero independiente del cómputo desechable.",
+   "src": "9dbe9513e5c1"
+  }
+ },
+ "lab-59": {
+  "text": {
+   "es": "El snapshot completo de una base de datos se copia mientras el origen sigue aceptando actualizaciones y borrados. ¿Qué evidencia adicional se necesita antes de redirigir las lecturas de producción?",
+   "src": "0684cfeb82cd"
+  },
+  "choices.0.text": {
+   "es": "Cobertura de captura de cambios (CDC), estado al día (caught-up) y conciliación de negocio en un punto de cutover (corte) acordado.",
+   "src": "62a8f1a649ce"
+  },
+  "choices.0.why": {
+   "es": "El destino debe representar el estado previsto del origen, incluidos los cambios durante la copia.",
+   "src": "f9b02a55762f"
+  },
+  "choices.1.text": {
+   "es": "Que la copia de reversión (rollback) se borró para forzar el uso del destino.",
+   "src": "76d2334210e6"
+  },
+  "choices.1.why": {
+   "es": "Quitar las opciones de recuperación no es evidencia de validación.",
+   "src": "f6f87caec427"
+  },
+  "choices.2.text": {
+   "es": "Solo que ambos sistemas usan una tabla con el mismo nombre para mostrar.",
+   "src": "40493e1fa318"
+  },
+  "choices.2.why": {
+   "es": "Que los nombres coincidan no verifica los datos actuales ni una semántica compatible.",
+   "src": "0eda153fd7a3"
+  },
+  "choices.3.text": {
+   "es": "Solo que el trabajo de la copia terminó con éxito.",
+   "src": "cff385f24ec3"
+  },
+  "choices.3.why": {
+   "es": "Eso no establece la cobertura de los cambios posteriores en el origen.",
+   "src": "91ed3c60c308"
+  },
+  "explanation": {
+   "es": "Un backfill exitoso prueba que la transferencia inicial terminó. El cutover también necesita cobertura de cambios, interpretación de actualizaciones y borrados, un retraso aceptable, validación de los consumidores y una decisión sobre la reversión (rollback).",
+   "src": "7db25b6b69c7"
+  }
+ },
+ "lab-60": {
+  "text": {
+   "es": "Un origen tiene 10 TB decimales y el enlace de transferencia está limitado a 100 Mb/s decimales. Sin contar la sobrecarga, ¿cómo se debe evaluar una propuesta de copia completa en seis horas?",
+   "src": "56b32aa66f01"
+  },
+  "choices.0.text": {
+   "es": "Solo la transferencia ideal tarda unas 222 horas, así que el plazo propuesto no se puede cumplir en ese enlace.",
+   "src": "4d6821547039"
+  },
+  "choices.0.why": {
+   "es": "10 × 10^12 bytes × 8 ÷ (100 × 10^6 bits/s) es 800,000 segundos.",
+   "src": "e00e3cc1b9dd"
+  },
+  "choices.1.text": {
+   "es": "El cifrado garantiza que todos los datos del origen se comprimen lo suficiente para caber en seis horas.",
+   "src": "13b692846c8f"
+  },
+  "choices.1.why": {
+   "es": "No se da ni se garantiza ninguna tasa de compresión así.",
+   "src": "9626e304e576"
+  },
+  "choices.2.text": {
+   "es": "Tarda unas 0.8 horas porque los bytes y los bits se pueden tratar como iguales.",
+   "src": "412953cc729e"
+  },
+  "choices.2.why": {
+   "es": "Eso mezcla unidades y subestima el tiempo de transferencia.",
+   "src": "19b0f516d461"
+  },
+  "choices.3.text": {
+   "es": "Diez procesos en paralelo pueden superar necesariamente el límite fijo de ancho de banda compartido.",
+   "src": "eb0af3e194f0"
+  },
+  "choices.3.why": {
+   "es": "Los clientes en paralelo no pueden superar el límite real de capacidad de un enlace compartido.",
+   "src": "6338e560b289"
+  },
+  "explanation": {
+   "es": "El límite inferior es 800,000 segundos, unas 222.2 horas o 9.3 días. La sobrecarga real puede hacerlo más largo. Un plazo más corto necesita otra capacidad u otra estrategia de transferencia, no una suposición sin sustento sobre el paralelismo del software.",
+   "src": "4b508f1d218f"
+  }
+ },
+ "lab-61": {
+  "text": {
+   "es": "Un destino de estado actual (current-state) ya aceptó la versión 5 de una entidad. Después llega un evento CDC retrasado de la versión 4. ¿Qué dos elementos de diseño protegen el estado actual previsto? (Elige 2.)",
+   "src": "54e418903484"
+  },
+  "choices.0.text": {
+   "es": "Quitar las claves primarias para que cada actualización sea una entidad sin relación.",
+   "src": "e42da121583b"
+  },
+  "choices.0.why": {
+   "es": "Eso pierde la identidad que se necesita para conciliar el estado actual.",
+   "src": "1b2f55cc4a6b"
+  },
+  "choices.1.text": {
+   "es": "Una regla condicional de la aplicación que impida que versiones obsoletas sobrescriban un estado más nuevo.",
+   "src": "7f86d4ed46f7"
+  },
+  "choices.1.why": {
+   "es": "El destino debe hacer cumplir la regla de orden elegida.",
+   "src": "20caa45b55d3"
+  },
+  "choices.2.text": {
+   "es": "Dejar siempre que el último evento procesado sobrescriba la fila.",
+   "src": "221e4f50ae43"
+  },
+  "choices.2.why": {
+   "es": "El orden de llegada al procesamiento no prueba cuál es más reciente en el origen.",
+   "src": "3dac4a0aec18"
+  },
+  "choices.3.text": {
+   "es": "Un contrato de orden o versión en el origen que distinga los cambios más nuevos de los más antiguos.",
+   "src": "33428046a35b"
+  },
+  "choices.3.why": {
+   "es": "El sistema necesita un orden de negocio definido, no el orden de llegada.",
+   "src": "f3d76ff4e155"
+  },
+  "explanation": {
+   "es": "La corrección del estado actual depende de dos cosas: una interpretación de la versión en el origen y una regla de la aplicación que la haga cumplir. Las llegadas tardías no deben revertir en silencio un estado más nuevo ya aceptado.",
+   "src": "269302d3d09b"
+  }
+ },
+ "lab-101": {
+  "text": {
+   "es": "Un equipo necesita una copia única de una carpeta local pequeña en Cloud Storage. ¿Cuál es el candidato más directo para evaluar?",
+   "src": "7dabe397f6f5"
+  },
+  "choices.0.text": {
+   "es": "Una operación gcloud storage cp compatible.",
+   "src": "878104e69f73"
+  },
+  "choices.0.why": {
+   "es": "El comando admite copias puntuales. Verifica las credenciales y las rutas.",
+   "src": "73177d1040d5"
+  },
+  "choices.1.text": {
+   "es": "Pedir Transfer Appliance como opción predeterminada para una carpeta de cualquier tamaño.",
+   "src": "f5e71e94ca3c"
+  },
+  "choices.1.why": {
+   "es": "El envío físico no es el candidato más directo para la copia puntual pequeña que se describe.",
+   "src": "e065dc3ed35f"
+  },
+  "choices.2.text": {
+   "es": "Configurar Datastream para leer el directorio local.",
+   "src": "00acb7812dc0"
+  },
+  "choices.2.why": {
+   "es": "Datastream captura cambios compatibles de bases de datos, no actúa como un copiador genérico de directorios.",
+   "src": "82c57e44d383"
+  },
+  "choices.3.text": {
+   "es": "Crear un clúster de Spark persistente solo para ejecutar la copia de un archivo.",
+   "src": "83c16519635a"
+  },
+  "choices.3.why": {
+   "es": "Un entorno de procesamiento persistente agrega un alcance operativo innecesario a este movimiento simple.",
+   "src": "5211e735035c"
+  },
+  "explanation": {
+   "es": "El comando admite copias puntuales. Verifica las credenciales y las rutas.",
+   "src": "73177d1040d5"
+  }
+ },
+ "lab-102": {
+  "text": {
+   "es": "Una base de datos que cambia se copió la semana pasada. ¿Qué evidencia se necesita antes de cambiar los lectores de producción?",
+   "src": "b5ef8c150652"
+  },
+  "choices.0.text": {
+   "es": "Solo el conteo de bytes copiados.",
+   "src": "d65520df10be"
+  },
+  "choices.0.why": {
+   "es": "Un conteo de bytes no puede probar que se capturaron los cambios posteriores de la base de datos.",
+   "src": "60c38b55b33f"
+  },
+  "choices.1.text": {
+   "es": "Una conciliación consistente que incluya los cambios posteriores y las reglas de cutover.",
+   "src": "0e6b8fc95b22"
+  },
+  "choices.1.why": {
+   "es": "El destino debe reflejar el estado acordado y los cambios antes del cutover.",
+   "src": "cde31bb2f61c"
+  },
+  "choices.2.text": {
+   "es": "Solo la confirmación de que se creó el esquema de destino.",
+   "src": "cc7d2775d9b5"
+  },
+  "choices.2.why": {
+   "es": "Un esquema que coincide no prueba que los registros y los cambios posteriores se migraron correctamente.",
+   "src": "7961b02f3895"
+  },
+  "choices.3.text": {
+   "es": "Solo el estado exitoso de la operación de copia de la semana pasada.",
+   "src": "14b4ffc4074d"
+  },
+  "choices.3.why": {
+   "es": "El estado de la copia no establece el estado del destino después de otra semana de cambios en el origen.",
+   "src": "0d35e4cc3a06"
+  },
+  "explanation": {
+   "es": "El destino debe reflejar el estado acordado y los cambios antes del cutover.",
+   "src": "cde31bb2f61c"
+  }
+ }
+}

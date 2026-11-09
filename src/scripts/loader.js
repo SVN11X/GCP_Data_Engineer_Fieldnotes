@@ -43,6 +43,20 @@
         await globalThis.FieldLessonEs.applyTitles(data.lessons,titles,on);
       }catch{}
     }
+    /* Spanish text of the authored questions: only for Spanish visitors and only for the domains the route shows. Back in English every domain is restored. Any failure leaves English. */
+    async function localizeQuestions(domains){
+      const on=getLang?.()==='es';
+      if(!on&&!pending.has('q'))return;
+      try{
+        if(!pending.has('s'))pending.set('s',add('script','lesson-es.js').catch(x=>{pending.delete('s');throw x;}));
+        if(!pending.has('q'))pending.set('q',pending.get('s').then(()=>add('script','question-es.js')).catch(x=>{pending.delete('q');throw x;}));
+        await pending.get('q');
+        for(const d of on?domains:data.domains.map(x=>x.id)){
+          const overlay=on&&(data.manifest.esQuestions||[]).includes(d)?await load(data.manifest.questionsEs+d+'.json',()=>{}):null;
+          await globalThis.FieldQuestionEs.apply(data.questions.filter(q=>q.domain===d&&q.origin==='authored'),overlay,on);
+        }
+      }catch{}
+    }
     /* Spanish text of services, comparisons, workshops and architectures. Only for Spanish visitors and only on the route that shows it. Any failure leaves English. */
     async function localizeContent(kind,items){
       const on=getLang?.()==='es';
@@ -62,12 +76,12 @@
       if(['home','orientation','diagnostic','review'].includes(route)){const p=entry();await(route==='home'?p.catch(()=>{}):p);}
       if(route==='focus'){
         const lesson=data.lessons.find(l=>l.id===(id||'pipeline-contract'))||data.lessons.find(l=>l.id==='pipeline-contract');
-        if(lesson){await Promise.all([lessons(lesson.domain),questions(lesson.domain)]);await localize(lesson.domain);}
+        if(lesson){await Promise.all([lessons(lesson.domain),questions(lesson.domain)]);await localize(lesson.domain);await localizeQuestions([lesson.domain]);}
       }
       if(route==='learn'&&id){pending.get('v')||pending.set('v',add('script','verification.js').catch(()=>{}));const lesson=data.lessons.find(l=>l.id===id);if(lesson){await lessons(lesson.domain);await localize(lesson.domain);}}
-      if(route==='practice'&&id){const question=data.questions.find(q=>q.id===id);if(question)await(question.origin==='imported'?importedQuestions(question.domain):questions(question.domain));}
-      if((route==='practice'&&!id)||route==='progress')await importedCatalog();
-      if(['diagnostic','exam','review'].includes(route))await Promise.all(data.domains.map(d=>route==='review'?lessons(d.id):questions(d.id)));
+      if(route==='practice'&&id){const question=data.questions.find(q=>q.id===id);if(question){await(question.origin==='imported'?importedQuestions(question.domain):questions(question.domain));if(question.origin==='authored')await localizeQuestions([question.domain]);}}
+      if((route==='practice'&&!id)||route==='progress'){await importedCatalog();await localizeQuestions(data.domains.map(d=>d.id));}
+      if(['diagnostic','exam','review'].includes(route)){await Promise.all(data.domains.map(d=>route==='review'?lessons(d.id):questions(d.id)));if(route!=='review')await localizeQuestions(data.domains.map(d=>d.id));}
       if(route==='resources'){data.resources.id='resources';data.resources.audit=data.sourceAudit;await localizeContent('resources',[data.resources]);await localizeContent('workshops',data.workshops);await localizeContent('services',data.services);}
       if(route==='compare')await localizeContent('services',data.services);
       if(route==='workshops'){await load(data.manifest.workshops,v=>merge(data.workshops,v));await localizeContent('workshops',data.workshops);}

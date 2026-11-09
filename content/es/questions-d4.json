@@ -1,0 +1,590 @@
+{
+ "lab-35": {
+  "text": {
+   "es": "Muchos dashboards ejecutan de forma repetida una agregación diaria de ventas compatible sobre una tabla grande. ¿Qué puede reutilizar ese cálculo?",
+   "src": "7cdee9b67d4b"
+  },
+  "choices.0.text": {
+   "es": "Solo cambiar el nombre de la vista lógica.",
+   "src": "4fdfebb77083"
+  },
+  "choices.0.why": {
+   "es": "Un cambio de nombre no almacena el resultado calculado.",
+   "src": "6a6e4bad203c"
+  },
+  "choices.1.text": {
+   "es": "Dar Project Owner a los analistas.",
+   "src": "9dd81e7b4263"
+  },
+  "choices.1.why": {
+   "es": "Los permisos amplios no eliminan el trabajo repetido de agregación.",
+   "src": "e13111f06be1"
+  },
+  "choices.2.text": {
+   "es": "Mover el texto de la consulta a un correo.",
+   "src": "dfb7148da78d"
+  },
+  "choices.2.why": {
+   "es": "Igual se necesitaría el mismo cálculo.",
+   "src": "5b6fdaeb2f06"
+  },
+  "choices.3.text": {
+   "es": "Una vista materializada (materialized view).",
+   "src": "036999a6aa1c"
+  },
+  "choices.3.why": {
+   "es": "Una vista materializada almacena resultados calculados compatibles para reutilizarlos.",
+   "src": "18d9f32f560d"
+  },
+  "explanation": {
+   "es": "Una vista materializada almacena resultados calculados compatibles para reutilizarlos.",
+   "src": "18d9f32f560d"
+  }
+ },
+ "lab-36": {
+  "text": {
+   "es": "Quieres aceleración en memoria para las consultas elegibles de dashboards de BigQuery. ¿Qué capacidad debes evaluar?",
+   "src": "4ee7b89e8ae7"
+  },
+  "choices.0.text": {
+   "es": "BI Engine.",
+   "src": "60816d927c4d"
+  },
+  "choices.0.why": {
+   "es": "BI Engine está diseñado para acelerar consultas analíticas elegibles con ejecución en memoria.",
+   "src": "3d0962f574e2"
+  },
+  "choices.1.text": {
+   "es": "Transfer Appliance.",
+   "src": "df020bceb749"
+  },
+  "choices.1.why": {
+   "es": "Un dispositivo de migración offline no acelera la ejecución de consultas de dashboards.",
+   "src": "bc0d2d2eafa9"
+  },
+  "choices.2.text": {
+   "es": "Pub/Sub seek.",
+   "src": "38845d3c0b1b"
+  },
+  "choices.2.why": {
+   "es": "Seek reproduce mensajes, no acelera SQL.",
+   "src": "f5991e7887a5"
+  },
+  "choices.3.text": {
+   "es": "Rotación de claves de KMS.",
+   "src": "56ed8f3f1648"
+  },
+  "choices.3.why": {
+   "es": "Rotar una clave no ofrece el motor de consultas pedido.",
+   "src": "6215af331446"
+  },
+  "explanation": {
+   "es": "BI Engine está diseñado para acelerar consultas analíticas elegibles con ejecución en memoria.",
+   "src": "3d0962f574e2"
+  }
+ },
+ "lab-37": {
+  "text": {
+   "es": "El pipeline de entrenamiento escala las características (features) con estadísticas ajustadas con los datos de entrenamiento. ¿Qué debe usar el servicio de predicción (serving)?",
+   "src": "73948c167619"
+  },
+  "choices.0.text": {
+   "es": "Un orden aleatorio de características en cada solicitud.",
+   "src": "621675294499"
+  },
+  "choices.0.why": {
+   "es": "Cambiar la alineación de las características puede invalidar las predicciones.",
+   "src": "b96a88ff33b1"
+  },
+  "choices.1.text": {
+   "es": "La misma transformación ajustada y los mismos parámetros.",
+   "src": "1c92fba0fa68"
+  },
+  "choices.1.why": {
+   "es": "Un preprocesamiento ajustado y consistente evita el desajuste entre entrenamiento y servicio (training-serving skew).",
+   "src": "dd9f90d63e6d"
+  },
+  "choices.2.text": {
+   "es": "Estadísticas nuevas, ajustadas de forma independiente, en cada solicitud.",
+   "src": "ca2ac8c66a6b"
+  },
+  "choices.2.why": {
+   "es": "Eso cambia el significado de la entrada del modelo.",
+   "src": "176387b97f1a"
+  },
+  "choices.3.text": {
+   "es": "Valores sin procesar porque el modelo ya está desplegado.",
+   "src": "44b6ba281aa2"
+  },
+  "choices.3.why": {
+   "es": "El despliegue no elimina el contrato de entrada que el modelo aprendió.",
+   "src": "d020783357b1"
+  },
+  "explanation": {
+   "es": "Un preprocesamiento ajustado y consistente evita el desajuste entre entrenamiento y servicio (training-serving skew).",
+   "src": "dd9f90d63e6d"
+  }
+ },
+ "lab-38": {
+  "text": {
+   "es": "Un modelo de demanda usa como entrada el total final de ventas del próximo mes cuando predice ese mes. ¿Cuál es el problema principal?",
+   "src": "5055e952bc7a"
+  },
+  "choices.0.text": {
+   "es": "Falta una clave de ordenamiento de Pub/Sub.",
+   "src": "8becb1b6e478"
+  },
+  "choices.0.why": {
+   "es": "El orden de los mensajes no tiene relación con esta fuga de datos en el entrenamiento.",
+   "src": "a23ff064d0b3"
+  },
+  "choices.1.text": {
+   "es": "Una regla de ciclo de vida de Cloud Storage.",
+   "src": "15d1440bfcd9"
+  },
+  "choices.1.why": {
+   "es": "El ciclo de vida de los objetos no explica la característica que depende del futuro.",
+   "src": "a6c7c3922c9e"
+  },
+  "choices.2.text": {
+   "es": "Fuga de datos (data leakage) por información que no está disponible en el momento de la predicción.",
+   "src": "916d8bb610bf"
+  },
+  "choices.2.why": {
+   "es": "Los resultados futuros hacen engañosa la evaluación, porque el servicio no puede usar esa información.",
+   "src": "c998517ec40e"
+  },
+  "choices.3.text": {
+   "es": "Muy pocos colores en el dashboard.",
+   "src": "061feefb5c77"
+  },
+  "choices.3.why": {
+   "es": "Los colores de presentación no explican la característica inválida.",
+   "src": "1be0fa873baa"
+  },
+  "explanation": {
+   "es": "Los resultados futuros hacen engañosa la evaluación, porque el servicio no puede usar esa información.",
+   "src": "c998517ec40e"
+  }
+ },
+ "lab-39": {
+  "text": {
+   "es": "Un asistente interno de RAG (generación aumentada con recuperación) usará documentos de políticas restringidos. ¿Qué es esencial antes de dar el contexto recuperado a su modelo?",
+   "src": "2e767adad0a5"
+  },
+  "choices.0.text": {
+   "es": "Permitir que todos los empleados recuperen todos los documentos.",
+   "src": "80a3309ada08"
+  },
+  "choices.0.why": {
+   "es": "Eso ignora las restricciones indicadas.",
+   "src": "65a1edb32049"
+  },
+  "choices.1.text": {
+   "es": "Descartar los ID de origen después de crear los embeddings.",
+   "src": "397da776012c"
+  },
+  "choices.1.why": {
+   "es": "Esto debilita la trazabilidad y las citas.",
+   "src": "79efd4654feb"
+  },
+  "choices.2.text": {
+   "es": "Tratar una coincidencia vectorial como prueba de que la respuesta es verdadera.",
+   "src": "d87415af8bbb"
+  },
+  "choices.2.why": {
+   "es": "La similitud por sí sola no garantiza la corrección de los hechos.",
+   "src": "17a7419b173c"
+  },
+  "choices.3.text": {
+   "es": "Hacer cumplir el acceso a los pasajes recuperados y conservar la procedencia (provenance).",
+   "src": "fd77887297c8"
+  },
+  "choices.3.why": {
+   "es": "La generación debe usar solo contexto permitido cuyo origen se pueda rastrear.",
+   "src": "9a6116273feb"
+  },
+  "explanation": {
+   "es": "La generación debe usar solo contexto permitido cuyo origen se pueda rastrear.",
+   "src": "9a6116273feb"
+  }
+ },
+ "lab-40": {
+  "text": {
+   "es": "Un socio puede consultar una agregación aprobada, pero no debe acceder a la tabla sin procesar subyacente. ¿Qué mecanismo para compartir encaja?",
+   "src": "889f58accf2b"
+  },
+  "choices.0.text": {
+   "es": "Una vista autorizada (authorized view) que exponga la consulta aprobada.",
+   "src": "c0f9c841508e"
+  },
+  "choices.0.why": {
+   "es": "Una vista autorizada puede exponer el resultado elegido sin dar acceso directo a la tabla de origen.",
+   "src": "a48ce5d237f5"
+  },
+  "choices.1.text": {
+   "es": "Un rol Owner a nivel de todo el proyecto.",
+   "src": "831b7e22ca93"
+  },
+  "choices.1.why": {
+   "es": "Eso expone mucho más que la agregación permitida.",
+   "src": "9df8333bd215"
+  },
+  "choices.2.text": {
+   "es": "Un CSV con todas las filas sin procesar de los clientes.",
+   "src": "35e55686d188"
+  },
+  "choices.2.why": {
+   "es": "Eso viola directamente el alcance de datos permitido.",
+   "src": "8ceac44b3527"
+  },
+  "choices.3.text": {
+   "es": "Solo una reserva de consultas más grande.",
+   "src": "d396cee35d51"
+  },
+  "choices.3.why": {
+   "es": "La asignación de cómputo no define el subconjunto de datos aprobado.",
+   "src": "8b5e6eb98228"
+  },
+  "explanation": {
+   "es": "Una vista autorizada puede exponer el resultado elegido sin dar acceso directo a la tabla de origen.",
+   "src": "a48ce5d237f5"
+  }
+ },
+ "lab-41": {
+  "text": {
+   "es": "Los equipos necesitan suscripciones descubribles y reutilizables a productos de datos gobernados de BigQuery. ¿Qué capacidad encaja?",
+   "src": "9978f60a23e3"
+  },
+  "choices.0.text": {
+   "es": "Un plazo de confirmación (acknowledgement deadline) de Pub/Sub.",
+   "src": "ae87a7a4fb0e"
+  },
+  "choices.0.why": {
+   "es": "El plazo de un mensaje no publica un producto de datos del almacén.",
+   "src": "64c697524245"
+  },
+  "choices.1.text": {
+   "es": "BigQuery sharing, también conocido como Analytics Hub.",
+   "src": "280485ee0fe1"
+  },
+  "choices.1.why": {
+   "es": "Los listados y las suscripciones permiten distribuir de forma reutilizable activos de datos gobernados.",
+   "src": "051a3b4e4c63"
+  },
+  "choices.2.text": {
+   "es": "Compartir la contraseña de un solo ingeniero.",
+   "src": "19e77ce7cc84"
+  },
+  "choices.2.why": {
+   "es": "Una contraseña no es un contrato de producto de datos ni una suscripción gobernada.",
+   "src": "1d69bfd201ce"
+  },
+  "choices.3.text": {
+   "es": "Un archivo temporal local de un worker.",
+   "src": "b718488b6877"
+  },
+  "choices.3.why": {
+   "es": "Un archivo efímero no ofrece listados de datos administrados.",
+   "src": "40f1fc91428e"
+  },
+  "explanation": {
+   "es": "Los listados y las suscripciones permiten distribuir de forma reutilizable activos de datos gobernados.",
+   "src": "051a3b4e4c63"
+  }
+ },
+ "lab-85": {
+  "text": {
+   "es": "Cientos de dashboards consultan una agregación diaria de ventas compatible. Quieres reutilizarla con poco mantenimiento y conservar la frescura requerida. ¿Qué dos comprobaciones se necesitan antes de elegir una vista materializada? (Elige 2.)",
+   "src": "c6aca3206651"
+  },
+  "choices.0.text": {
+   "es": "Que una vista lógica siempre se almacena físicamente como la misma agregación.",
+   "src": "65639259e712"
+  },
+  "choices.0.why": {
+   "es": "Una vista lógica almacena una definición, no necesariamente un resultado precalculado.",
+   "src": "97275cc8f9fa"
+  },
+  "choices.1.text": {
+   "es": "Que elegir una letra más grande en los gráficos elimina el trabajo repetido de SQL.",
+   "src": "20caf2b740bb"
+  },
+  "choices.1.why": {
+   "es": "El estilo de presentación no establece la reutilización de la agregación.",
+   "src": "f04c378ad5f2"
+  },
+  "choices.2.text": {
+   "es": "Si la forma de la consulta y el modo de vista materializada elegido son compatibles.",
+   "src": "8cf7e2dca34b"
+  },
+  "choices.2.why": {
+   "es": "Las definiciones compatibles y el comportamiento de actualización limitan el diseño.",
+   "src": "77b81e1994d6"
+  },
+  "choices.3.text": {
+   "es": "Si se cumple el contrato completo de frescura desde los datos hasta el dashboard.",
+   "src": "3a1bf6e8f284"
+  },
+  "choices.3.why": {
+   "es": "Los resultados precalculados no eliminan los problemas de frescura en el origen ni en la presentación.",
+   "src": "2af0a17e858a"
+  },
+  "explanation": {
+   "es": "Una decisión sobre vistas materializadas depende de la semántica de consulta compatible y del comportamiento de actualización requerido. Mide por separado la latencia de la consulta repetida y la frescura de extremo a extremo.",
+   "src": "4b09c8506472"
+  }
+ },
+ "lab-86": {
+  "text": {
+   "es": "Un dashboard se actualiza cada minuto, pero muestra cifras de hace una hora. La consulta del almacén (warehouse) se ejecuta rápido. ¿Qué investigación siguiente tiene más respaldo?",
+   "src": "48210b6b6447"
+  },
+  "choices.0.text": {
+   "es": "Rastrear las marcas de tiempo de la ingesta del origen, de la actualización de la agregación y de la caché de presentación.",
+   "src": "c7f4447e4a32"
+  },
+  "choices.0.why": {
+   "es": "Una ejecución rápida y una actualización frecuente del dashboard no prueban que los datos de origen estén frescos.",
+   "src": "19082e077f9a"
+  },
+  "choices.1.text": {
+   "es": "Suponer que una actualización de presentación de un minuto garantiza frescura de eventos de un minuto.",
+   "src": "d3c20f0c4519"
+  },
+  "choices.1.why": {
+   "es": "La actualización opera sobre los datos que se le entregan.",
+   "src": "2f9e69a1f338"
+  },
+  "choices.2.text": {
+   "es": "Comprar más slots de inmediato porque todo problema de frescura es falta de cómputo.",
+   "src": "7033f1df7bfd"
+  },
+  "choices.2.why": {
+   "es": "La consulta rápida indicada no establece esa hipótesis.",
+   "src": "6b68b4eabb6c"
+  },
+  "choices.3.text": {
+   "es": "Quitar todos los controles de acceso para actualizar más rápido.",
+   "src": "fc5b50f696d0"
+  },
+  "choices.3.why": {
+   "es": "Eso no resuelve la brecha observada en las marcas de tiempo y cambia el contrato de seguridad.",
+   "src": "962474892dd4"
+  },
+  "explanation": {
+   "es": "La frescura de extremo a extremo abarca desde que ocurre el evento, la ingesta y la transformación hasta la visualización. Una consulta rápida sobre entradas desactualizadas puede devolver con mucha eficiencia un estado de negocio viejo.",
+   "src": "a7a8a16f3911"
+  }
+ },
+ "lab-87": {
+  "text": {
+   "es": "Un clasificador detecta 8 de 10 casos positivos reales y lanza 12 alertas positivas en total. ¿Qué afirmación es correcta?",
+   "src": "eb207275961b"
+  },
+  "choices.0.text": {
+   "es": "Ambas medidas deben ser iguales a la exactitud global (accuracy).",
+   "src": "db81a66fc868"
+  },
+  "choices.0.why": {
+   "es": "La exactitud usa un denominador distinto y necesita conteos adicionales de la población.",
+   "src": "487c96a02b44"
+  },
+  "choices.1.text": {
+   "es": "El recall (sensibilidad) es 80% y la precisión (precision) es de alrededor de 66.7%.",
+   "src": "35f6d7e7ac9f"
+  },
+  "choices.1.why": {
+   "es": "El recall es 8/10 y la precisión es 8/12.",
+   "src": "6487a7e81268"
+  },
+  "choices.2.text": {
+   "es": "La precisión es 80% y el recall es de alrededor de 66.7%.",
+   "src": "b30489eff671"
+  },
+  "choices.2.why": {
+   "es": "Eso intercambia los denominadores de positivos reales y de positivos predichos.",
+   "src": "0b7b65f96125"
+  },
+  "choices.3.text": {
+   "es": "El total de alertas positivas por sí solo prueba que no hay falsos positivos.",
+   "src": "51c466dedc90"
+  },
+  "choices.3.why": {
+   "es": "Doce alertas con ocho verdaderos positivos implican cuatro falsos positivos.",
+   "src": "937b822d11f5"
+  },
+  "explanation": {
+   "es": "Usa el denominador correcto para cada error de negocio. El recall pregunta cuántos positivos reales se encontraron. La precisión pregunta cuántos positivos predichos eran verdaderos. La exactitud global no se puede calcular solo con estos conteos.",
+   "src": "4f905f7f30d8"
+  }
+ },
+ "lab-88": {
+  "text": {
+   "es": "Un pronóstico de demanda se evalúa con una división aleatoria de filas que deja que registros futuros de los mismos productos influyan en el preprocesamiento del entrenamiento. ¿Qué dos cambios se deben considerar? (Elige 2.)",
+   "src": "5335dcc6308e"
+  },
+  "choices.0.text": {
+   "es": "Agregar los totales finales de ventas futuras para mejorar la puntuación de validación informada.",
+   "src": "95c2c43bc4e8"
+  },
+  "choices.0.why": {
+   "es": "Eso refuerza la fuga de datos en lugar de producir una evaluación realista.",
+   "src": "06ad358d1883"
+  },
+  "choices.1.text": {
+   "es": "Tratar una puntuación de validación más alta como prueba de que la división es válida.",
+   "src": "33842ad95278"
+  },
+  "choices.1.why": {
+   "es": "Una puntuación alta puede estar inflada por la fuga de datos.",
+   "src": "01eb9cdf5a57"
+  },
+  "choices.2.text": {
+   "es": "Ajustar el preprocesamiento con la información de entrenamiento y reutilizar sus parámetros.",
+   "src": "a04e83c7fe2d"
+  },
+  "choices.2.why": {
+   "es": "La evaluación y el servicio no deben introducir información futura en las transformaciones ajustadas.",
+   "src": "a5bbb451b049"
+  },
+  "choices.3.text": {
+   "es": "Usar un diseño de evaluación temporal o consciente de las entidades que sea relevante para el despliegue.",
+   "src": "8d0c5fb6b4c8"
+  },
+  "choices.3.why": {
+   "es": "El conjunto de reserva (holdout) debe reflejar la información disponible en el momento de la predicción.",
+   "src": "aeb5996dd7f9"
+  },
+  "explanation": {
+   "es": "La cuestión es si la evaluación representa el despliegue, no si una división aleatoria es sintácticamente válida. Evita la fuga de información a través del tiempo, de las entidades repetidas y del preprocesamiento ajustado.",
+   "src": "9eaef4fa1412"
+  }
+ },
+ "lab-89": {
+  "text": {
+   "es": "Una empresa restringe algunos documentos de políticas. Un servicio RAG recupera fragmentos (chunks) relevantes antes de llamar a un modelo. ¿Qué dos controles pertenecen antes o dentro del límite entre la recuperación y la generación? (Elige 2.)",
+   "src": "8e2575f667bb"
+  },
+  "choices.0.text": {
+   "es": "Tratar una similitud vectorial alta como prueba de que el usuario tiene acceso.",
+   "src": "56edaa3683a4"
+  },
+  "choices.0.why": {
+   "es": "La similitud no es una decisión de autorización.",
+   "src": "4c87198e4e2e"
+  },
+  "choices.1.text": {
+   "es": "Conservar la identidad y la versión del documento para citas trazables.",
+   "src": "b12ae9f0ccb3"
+  },
+  "choices.1.why": {
+   "es": "Una respuesta útil necesita contexto de procedencia y de frescura.",
+   "src": "f4494e11f0b5"
+  },
+  "choices.2.text": {
+   "es": "Aplicar la autorización para que el modelo reciba solo fragmentos permitidos.",
+   "src": "9843ac50d34a"
+  },
+  "choices.2.why": {
+   "es": "La autorización debe impedir que la evidencia prohibida entre al contexto.",
+   "src": "64bf54968f53"
+  },
+  "choices.3.text": {
+   "es": "Recuperar todos los documentos restringidos y confiar solo en que se oculte el contenido (redaction) al final.",
+   "src": "abf3ee23ca28"
+  },
+  "choices.3.why": {
+   "es": "Eso ya expuso el material restringido a la ruta de generación.",
+   "src": "723872bd329d"
+  },
+  "explanation": {
+   "es": "La relevancia de la recuperación, la autorización y la procedencia son requisitos separados. Un pasaje útil semánticamente no está permitido de forma automática, y una cita generada solo tiene sentido cuando se puede rastrear la fuente.",
+   "src": "42166759c8b6"
+  }
+ },
+ "lab-90": {
+  "text": {
+   "es": "Una respuesta RAG cita un documento real, pero saca una conclusión que sus pasajes no respaldan. ¿Qué evaluación se necesita?",
+   "src": "c25bf4c2af56"
+  },
+  "choices.0.text": {
+   "es": "Aumentar la dimensionalidad de los embeddings como arreglo universal de la corrección.",
+   "src": "43d88a1e8014"
+  },
+  "choices.0.why": {
+   "es": "Eso no es evidencia de que se vaya a reparar la conclusión sin respaldo.",
+   "src": "eb628e3ad578"
+  },
+  "choices.1.text": {
+   "es": "Evaluar el fundamento de la respuesta (groundedness) por separado de la relevancia de la recuperación y de la existencia de la cita.",
+   "src": "0dd4b8bfffb1"
+  },
+  "choices.1.why": {
+   "es": "Una cita real no prueba que la conclusión generada se desprenda de la evidencia.",
+   "src": "ce80cdb30f7e"
+  },
+  "choices.2.text": {
+   "es": "Solo comprobar que aparece una URL en algún lugar de la respuesta.",
+   "src": "e85060163e71"
+  },
+  "choices.2.why": {
+   "es": "La sintaxis de una cita no establece una interpretación fiel.",
+   "src": "fab219279e11"
+  },
+  "choices.3.text": {
+   "es": "Suponer que un índice vectorial garantiza respuestas con hechos correctos.",
+   "src": "492517ed758b"
+  },
+  "choices.3.why": {
+   "es": "Un índice ayuda a recuperar y no valida cada afirmación generada.",
+   "src": "ddde1fe65fc6"
+  },
+  "explanation": {
+   "es": "Evalúa la recuperación útil y permitida y la generación fiel como capas distintas. Rastrea si se recuperó el pasaje de respaldo real y si la conclusión se justifica con él.",
+   "src": "2dc2e9ae915f"
+  }
+ },
+ "lab-91": {
+  "text": {
+   "es": "Un socio externo debe consultar una agregación regional permitida sin recibir acceso directo a las tablas sin procesar de clientes. ¿Qué diseño expresa mejor ese requisito?",
+   "src": "806da7614e0d"
+  },
+  "choices.0.text": {
+   "es": "Exponer una vista autorizada de forma adecuada, o un producto de datos gobernado, que contenga el resultado permitido.",
+   "src": "199a1617cdf1"
+  },
+  "choices.0.why": {
+   "es": "El consumidor debe recibir la forma aprobada mediante una ruta de acceso controlada.",
+   "src": "b7caba703aef"
+  },
+  "choices.1.text": {
+   "es": "Enviar por correo la clave de una cuenta de servicio sin restricciones del proyecto sin procesar.",
+   "src": "1b49b35d3a04"
+  },
+  "choices.1.why": {
+   "es": "Una credencial amplia no hace cumplir el subconjunto de datos previsto.",
+   "src": "1822670fd5a4"
+  },
+  "choices.2.text": {
+   "es": "Dar a cada socio acceso directo al bucket sin procesar, sin importar el diseño de las tablas.",
+   "src": "fbcc52caa240"
+  },
+  "choices.2.why": {
+   "es": "Eso omite la restricción indicada sobre los datos sin procesar.",
+   "src": "68b623d3a865"
+  },
+  "choices.3.text": {
+   "es": "Otorgar Editor a todo el proyecto y confiar en un filtro de dashboard para mantener el secreto.",
+   "src": "9a813afd113e"
+  },
+  "choices.3.why": {
+   "es": "Eso expone un acceso subyacente más amplio que el resultado aprobado.",
+   "src": "e720d01cbbee"
+  },
+  "explanation": {
+   "es": "Elige una ruta de acceso que exponga la forma de datos permitida y conserve el control del productor. Compartir un reporte o una credencial no sustituye hacer cumplir la política de datos subyacente.",
+   "src": "3aa942e9f146"
+  }
+ }
+}
