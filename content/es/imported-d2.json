@@ -808,12 +808,64 @@
   }
  },
  "imp-145": {
+  "html": {
+   "es": "Recibes cada mes archivos de datos en formato CSV de un tercero. Necesitas depurar estos datos, pero cada tres meses cambia el esquema de los archivos. Tus requisitos para implementar estas transformaciones incluyen:<br>✑ Ejecutar las transformaciones según un calendario<br>✑ Permitir que analistas que no son desarrolladores modifiquen las transformaciones<br>✑ Ofrecer una herramienta gráfica para diseñar las transformaciones<br>¿Qué debes hacer?<br>",
+   "src": "d8830cbfa374"
+  },
+  "choices.0.html": {
+   "es": "Usar Dataprep by Trifacta para crear y mantener las recetas (recipes) de transformación, y ejecutarlas de forma programada",
+   "src": "7ed9071778fd"
+  },
+  "choices.1.html": {
+   "es": "Cargar los datos CSV de cada mes en BigQuery y escribir una consulta SQL para transformar los datos a un esquema estándar. Combinar las tablas transformadas con una consulta SQL",
+   "src": "da4197c27d09"
+  },
+  "choices.2.html": {
+   "es": "Ayudar a los analistas a escribir una canalización de Dataflow en Python para hacer la transformación. El código de Python debe guardarse en un sistema de control de versiones y modificarse cuando cambie el esquema de los datos entrantes",
+   "src": "4b9617900b87"
+  },
+  "choices.3.html": {
+   "es": "Usar Apache Spark en Dataproc para inferir el esquema del archivo CSV antes de crear un Dataframe. Luego implementar las transformaciones en Spark SQL antes de escribir los datos en Cloud Storage y cargarlos en BigQuery",
+   "src": "daf710cafe96"
+  },
+  "sourceExplanation": {
+   "es": "El requisito de que analistas que no son desarrolladores modifiquen las transformaciones con una herramienta gráfica apunta directamente a Dataprep by Trifacta. \nA diferencia de las soluciones basadas en SQL o Python (BigQuery, Dataflow, Spark), Dataprep ofrece una interfaz visual donde los usuarios pueden crear y editar 'recipes' (recetas) sin escribir código. \nAdemás, estas recetas se pueden ejecutar según un calendario mediante Cloud Scheduler, lo que cumple el requisito de automatización.",
+   "src": "af86e1054bf6"
+  },
+  "explanation": {
+   "es": "La pregunta usa el nombre histórico de Dataprep. Vuelve a revisar los productos de preparación visual de datos y las opciones de implementación que tienen soporte actualmente.",
+   "src": "49aec4608479"
+  },
   "reviewNote": {
    "es": "Esta pregunta importada está excluida de la práctica con puntuación. Lee la nota técnica en lugar de memorizar su clave.",
    "src": "5d478c3e8ed1"
   }
  },
  "imp-155": {
+  "html": {
+   "es": "Tu empresa está eligiendo un sistema para centralizar la ingesta y la entrega de datos. Estás considerando sistemas de mensajería y de integración de datos para cubrir los requisitos. Los requisitos clave son:<br>✑ La capacidad de buscar un desplazamiento (offset) concreto en un tema (topic), incluso hasta el inicio de todos los datos capturados<br>✑ Soporte de semántica de publicación y suscripción (publish/subscribe) en cientos de temas<br><br>Mantener el orden por clave -<br><img src=\"assets/images/4e85222d4c68108414c8.png\" alt=\"Original diagram for imported question 155. Open the full-size image to inspect the details.\" loading=\"lazy\"><br>¿Qué sistema debes elegir?<br>\n",
+   "src": "b08439678879"
+  },
+  "choices.0.html": {
+   "es": "Apache Kafka",
+   "src": "b953bd92180f"
+  },
+  "choices.1.html": {
+   "es": "Cloud Storage",
+   "src": "2ec3eb563477"
+  },
+  "choices.2.html": {
+   "es": "Dataflow",
+   "src": "1b81c3984347"
+  },
+  "choices.3.html": {
+   "es": "Firebase Cloud Messaging",
+   "src": "32890cd0bb9c"
+  },
+  "sourceExplanation": {
+   "es": "Apache Kafka es la única opción que admite de forma nativa buscar desplazamientos específicos dentro de los temas, una función esencial para reproducir datos históricos. También ofrece una semántica sólida de publicación y suscripción en cientos de temas, y garantiza el orden por clave mediante la asignación de la clave de partición.",
+   "src": "ce26e5c1b64d"
+  },
   "reviewNote": {
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
@@ -824,42 +876,210 @@
   }
  },
  "imp-170": {
+  "html": {
+   "es": "Estás actualizando el código de un suscriptor de un feed de Pub/Sub. Te preocupa que, al desplegarlo, el suscriptor pueda confirmar mensajes por error y eso cause pérdida de mensajes. Tu suscriptor no está configurado para retener los mensajes confirmados. ¿Qué debes hacer para asegurar que puedas recuperarte de errores después del despliegue?<br>",
+   "src": "30123423f2a8"
+  },
+  "choices.0.html": {
+   "es": "Configurar el emulador de Pub/Sub en tu máquina local. Validar el comportamiento de la nueva lógica del suscriptor antes de desplegarla en producción.",
+   "src": "61aaebe94df7"
+  },
+  "choices.1.html": {
+   "es": "Crear una instantánea (snapshot) de Pub/Sub antes de desplegar el código nuevo del suscriptor. Usar una operación Seek para volver a entregar los mensajes que quedaron disponibles después de crear la instantánea.",
+   "src": "b2e6750d7902"
+  },
+  "choices.2.html": {
+   "es": "Usar Cloud Build para tu despliegue. Si ocurre un error después del despliegue, usar una operación Seek para ubicar una marca de tiempo registrada por Cloud Build al inicio del despliegue.",
+   "src": "7eec5a13c3cc"
+  },
+  "choices.3.html": {
+   "es": "Habilitar el dead-lettering (cola de mensajes no entregados) en el tema de Pub/Sub para capturar los mensajes que no se confirman con éxito. Si ocurre un error después del despliegue, volver a entregar los mensajes capturados por la cola de mensajes no entregados (dead-letter queue).",
+   "src": "637d15024ab6"
+  },
+  "sourceExplanation": {
+   "es": "Crear una instantánea antes del despliegue captura el estado de la suscripción en ese momento. Si el código nuevo confirma mensajes por error (y hace que se quiten de la cola), la operación Seek sobre la instantánea devuelve al consumidor al estado anterior al despliegue. Así se pueden volver a entregar todos los mensajes publicados desde que se tomó la instantánea.\n\nLas otras opciones fallan porque el dead-lettering (D) solo captura los mensajes que fallan al procesarse o que no se confirman, mientras que las instantáneas atienden específicamente la pérdida de mensajes por una confirmación prematura. Buscar por marca de tiempo (C) es un método de recuperación, pero exige retener los mensajes confirmados en la suscripción o el tema, y la pregunta dice que eso no está configurado.",
+   "src": "ba18c1de2717"
+  },
   "reviewNote": {
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
   }
  },
  "imp-173": {
+  "html": {
+   "es": "Estás diseñando una canalización que publica eventos de una aplicación en un tema de Pub/Sub. Aunque el orden de los mensajes no es importante, necesitas poder agregar los eventos en intervalos de una hora que no se superponen (disjoint), antes de cargar los resultados en BigQuery para su análisis. ¿Qué tecnología debes usar para procesar y cargar estos datos en<br>BigQuery y asegurar que escale con grandes volúmenes de eventos?<br>",
+   "src": "1685d710f96b"
+  },
+  "choices.0.html": {
+   "es": "Crear una Cloud Function que haga el procesamiento de datos necesario y se ejecute con el disparador de Pub/Sub cada vez que se publique un mensaje nuevo en el tema.",
+   "src": "bf36b48ff489"
+  },
+  "choices.1.html": {
+   "es": "Programar una Cloud Function para que se ejecute cada hora, extraiga todos los mensajes disponibles del tema de Pub/Sub y haga las agregaciones necesarias.",
+   "src": "99455aa0f7ab"
+  },
+  "choices.2.html": {
+   "es": "Programar un trabajo por lotes de Dataflow para que se ejecute cada hora, extraiga todos los mensajes disponibles del tema de Pub/Sub y haga las agregaciones necesarias.",
+   "src": "26e7f7db8367"
+  },
+  "choices.3.html": {
+   "es": "Crear un trabajo de streaming de Dataflow que lea de forma continua del tema de Pub/Sub y haga las agregaciones necesarias con ventanas fijas sin superposición (tumbling windows).",
+   "src": "4b411083c037"
+  },
+  "sourceExplanation": {
+   "es": "El requisito de 'escalar con grandes volúmenes' exige una arquitectura de streaming capaz de manejar una ingesta continua de alto rendimiento, sin la latencia ni las limitaciones de recuperación propias de consultar por lotes cada hora. Cloud Pub/Sub está diseñado para flujos de datos en tiempo real, por lo que Dataflow Streaming es la opción adecuada para procesar estos eventos a medida que llegan. Las tumbling windows se definen específicamente como intervalos de tiempo de duración fija que no se superponen (por ejemplo, cada hora), lo que coincide perfectamente con la lógica de agregación requerida.",
+   "src": "3c3453c042ca"
+  },
   "reviewNote": {
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
   }
  },
  "imp-178": {
+  "html": {
+   "es": "Estás probando una canalización de Dataflow para ingerir y transformar archivos de texto. Los archivos están comprimidos en gzip, los errores se escriben en una cola de mensajes no entregados (dead-letter queue) y usas<br>SideInputs para unir datos. Notaste que la canalización tarda más en completarse de lo esperado. ¿Qué debes hacer para acelerar el trabajo de Dataflow?<br>",
+   "src": "f2a779ad5793"
+  },
+  "choices.0.html": {
+   "es": "Cambiar a archivos Avro comprimidos.",
+   "src": "d1e47c766d0e"
+  },
+  "choices.1.html": {
+   "es": "Reducir el tamaño del lote.",
+   "src": "67c328335870"
+  },
+  "choices.2.html": {
+   "es": "Reintentar los registros que producen un error.",
+   "src": "b88707af09c7"
+  },
+  "choices.3.html": {
+   "es": "Usar CoGroupByKey en lugar del SideInput.",
+   "src": "249fcdc6c7c0"
+  },
+  "sourceExplanation": {
+   "es": "La pregunta destaca de forma específica el uso de SideInputs como un posible cuello de botella de rendimiento. Aunque los SideInputs son eficientes para conjuntos de datos pequeños, exigen cargar toda la PCollection en la memoria de cada worker. Eso puede degradar mucho el rendimiento y causar tiempos de espera agotados si los datos son grandes o cambian con frecuencia.\n\nCoGroupByKey es la alternativa recomendada para unir conjuntos de datos cuando los datos del side input no caben de forma eficiente en la memoria, porque procesa la unión en la etapa de mezcla (shuffle) de la canalización y no depende de una caché global. Este cambio permite que Dataflow escale la operación de unión de forma horizontal entre los workers y así acelere la finalización del trabajo.",
+   "src": "a212ace08f30"
+  },
   "reviewNote": {
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
   }
  },
  "imp-181": {
+  "html": {
+   "es": "Necesitas dar a los usuarios nuevos de un sitio web un identificador único global (GUID) con un servicio que recibe puntos de datos y devuelve un GUID. Estos datos vienen de sistemas internos y externos mediante llamadas HTTP que harás con microservicios dentro de tu canalización. Habrá decenas de miles de mensajes por segundo, que pueden ser multihilo (multi-threaded). Y te preocupa la contrapresión (backpressure) en el sistema. ¿Cómo debes diseñar tu canalización para minimizar esa contrapresión?<br>",
+   "src": "3f55336a361b"
+  },
+  "choices.0.html": {
+   "es": "Llamar al servicio por HTTP.",
+   "src": "0990518d6446"
+  },
+  "choices.1.html": {
+   "es": "Crear la canalización de forma estática en la definición de la clase.",
+   "src": "acb8f2801780"
+  },
+  "choices.2.html": {
+   "es": "Crear un objeto nuevo en el método startBundle de DoFn.",
+   "src": "29b95b180310"
+  },
+  "choices.3.html": {
+   "es": "Agrupar el trabajo en lotes de incrementos de diez segundos.",
+   "src": "d8047e1f5d89"
+  },
+  "sourceExplanation": {
+   "es": "Procesar decenas de miles de mensajes por segundo con llamadas HTTP síncronas individuales crea una contrapresión importante, por la alta latencia y los límites de concurrencia. Agrupar las solicitudes en incrementos de tiempo reduce el total de llamadas a APIs externas, suaviza los picos de carga y evita que el servicio externo se convierta en un cuello de botella.",
+   "src": "511b7e0521d2"
+  },
   "reviewNote": {
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
   }
  },
  "imp-184": {
+  "html": {
+   "es": "Estás creando un almacén de datos solo para informes, donde los datos se transmiten a BigQuery con la API de streaming. Siguiendo las mejores prácticas de Google, tienes una tabla de preparación (staging) y una tabla de producción para los datos. ¿Cómo debes diseñar la carga de datos para asegurar que haya un solo conjunto de datos maestro, sin afectar el rendimiento de la ingesta ni de los informes?<br>",
+   "src": "7f73dcd25ac8"
+  },
+  "choices.0.html": {
+   "es": "Tener una tabla de preparación con un modelo de solo anexar (append-only) y luego actualizar la tabla de producción cada tres horas con los cambios escritos en la tabla de preparación.",
+   "src": "be730e334b55"
+  },
+  "choices.1.html": {
+   "es": "Tener una tabla de preparación con un modelo de solo anexar y luego actualizar la tabla de producción cada noventa minutos con los cambios escritos en la tabla de preparación.",
+   "src": "ee4d886dc820"
+  },
+  "choices.2.html": {
+   "es": "Tener una tabla de preparación que pase los datos preparados a la tabla de producción y borre el contenido de la tabla de preparación cada tres horas.",
+   "src": "eeb8bceadc6c"
+  },
+  "choices.3.html": {
+   "es": "Tener una tabla de preparación que pase los datos preparados a la tabla de producción y borre el contenido de la tabla de preparación cada treinta minutos.",
+   "src": "a145f32d212a"
+  },
+  "sourceExplanation": {
+   "es": "El diseño correcto consiste en pasar los datos de la tabla de preparación a la de producción y vaciar la de preparación, porque mantener una tabla de preparación de solo anexar lleva a un crecimiento sin límite y a problemas de rendimiento. Las mejores prácticas de Google recomiendan un intervalo de tres horas para este proceso, porque el búfer de streaming de BigQuery retiene los datos hasta 90 minutos (rara vez más). Así, 3 horas bastan para asegurar que todas las filas transmitidas estén disponibles para operaciones DML como DELETE o MERGE, sin fallar por bloqueos del búfer.",
+   "src": "5a057dc42717"
+  },
   "reviewNote": {
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
   }
  },
  "imp-192": {
+  "html": {
+   "es": "Estás implementando un chatbot para ayudar a un minorista en línea a agilizar su servicio al cliente. El chatbot debe poder responder tanto a consultas de texto como de voz.<br>Buscas una opción de poco código o sin código, y quieres poder entrenar fácilmente al chatbot para que dé respuestas a palabras clave. ¿Qué debes hacer?<br>",
+   "src": "73b295580da5"
+  },
+  "choices.0.html": {
+   "es": "Usar la Cloud Speech-to-Text API para crear una aplicación de Python en App Engine.",
+   "src": "08388acab88f"
+  },
+  "choices.1.html": {
+   "es": "Usar la Cloud Speech-to-Text API para crear una aplicación de Python en una instancia de Compute Engine.",
+   "src": "b3785372e9bd"
+  },
+  "choices.2.html": {
+   "es": "Usar Dialogflow para las consultas simples y la Cloud Speech-to-Text API para las consultas complejas.",
+   "src": "b85481319103"
+  },
+  "choices.3.html": {
+   "es": "Usar Dialogflow para implementar el chatbot, definiendo los intents (intenciones) a partir de las consultas más comunes recopiladas.",
+   "src": "57134c54bcd4"
+  },
+  "sourceExplanation": {
+   "es": "Dialogflow es una plataforma de IA conversacional de poco código que maneja de forma nativa entradas de texto y de voz mediante APIs integradas de voz a texto y de texto a voz, lo que elimina la necesidad de código de aplicación personalizado. Definir intents permite asociar palabras clave y consultas de usuarios con respuestas concretas, lo que cumple directamente el requisito de entrenar al chatbot con las consultas habituales.",
+   "src": "2ab9c04a9d00"
+  },
   "reviewNote": {
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
   }
  },
  "imp-193": {
+  "html": {
+   "es": "Una empresa aeroespacial usa un formato de datos propio para guardar sus datos de vuelo. Necesitas conectar esta nueva fuente de datos a BigQuery y transmitir los datos a<br>BigQuery. Quieres importar los datos a BigQuery de forma eficiente y consumiendo la menor cantidad posible de recursos. ¿Qué debes hacer?<br>",
+   "src": "a8d4fdb3c650"
+  },
+  "choices.0.html": {
+   "es": "Escribir un script de shell que active una Cloud Function que haga trabajos ETL por lotes periódicos sobre la nueva fuente de datos.",
+   "src": "0d164351f491"
+  },
+  "choices.1.html": {
+   "es": "Usar una canalización estándar de Dataflow para guardar los datos sin procesar en BigQuery y transformar el formato más tarde, cuando se usen los datos.",
+   "src": "4914cfc410a7"
+  },
+  "choices.2.html": {
+   "es": "Usar Apache Hive para escribir un trabajo de Dataproc que transmita los datos a BigQuery en formato CSV.",
+   "src": "cb84bb560976"
+  },
+  "choices.3.html": {
+   "es": "Usar un conector personalizado de Apache Beam para escribir una canalización de Dataflow que transmita los datos a BigQuery en formato Avro.",
+   "src": "670f1d44a1c7"
+  },
+  "sourceExplanation": {
+   "es": "La opción D es correcta porque Dataflow ofrece procesamiento de streaming administrado y con escalado automático, esencial para una ingesta eficiente con un desperdicio mínimo de recursos.\nComo la fuente tiene un formato propio, se necesita un conector personalizado de Apache Beam para analizarla antes de transmitirla a BigQuery en un formato optimizado y favorable a las columnas, como Avro.\nLas opciones A y C usan enfoques por lotes o de clústeres manuales que no tienen eficiencia en tiempo real, y la opción B aplaza transformaciones necesarias, lo que incumple el requisito de importación eficiente.",
+   "src": "1d149f00da2f"
+  },
   "reviewNote": {
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
