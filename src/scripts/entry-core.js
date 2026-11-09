@@ -46,7 +46,7 @@
   function pickDiagnostic(questions, domains, random = Math.random, size = DIAGNOSTIC_SIZE) {
     const counts = FC().quotas(size, domains), ids = [];
     for (const d of domains) {
-      const all = questions.filter(q => q.origin === 'authored' && q.gradable === true && q.domain === d.id && Array.isArray(q.choices) && q.choices.length);
+      const all = questions.filter(q => q.origin === 'authored' && q.timed !== false && q.gradable === true && q.domain === d.id && Array.isArray(q.choices) && q.choices.length);
       const pool = all.filter(q => q.required === 1);
       if (pool.length < counts[d.id]) throw new Error('Not enough authored questions for domain ' + d.id);
       ids.push(...FC().shuffle(pool, random).slice(0, counts[d.id]).map(q => q.id));

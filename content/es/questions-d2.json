@@ -1510,5 +1510,89 @@
    "es": "La relajación permite que valores antes obligatorios pasen a admitir nulos.",
    "src": "4fd0b3bc1d8b"
   }
+ },
+ "lab-128": {
+  "text": {
+   "es": "Reemplazas un trabajo de streaming de Dataflow en ejecución con código nuevo que renombra una transformación. Quieres conservar el estado del trabajo. ¿Qué debes entregar con la actualización?",
+   "src": "4f3c33934e88"
+  },
+  "choices.0.text": {
+   "es": "Una solicitud de drain antes de cada actualización.",
+   "src": "38d01e023f76"
+  },
+  "choices.0.why": {
+   "es": "Drain detiene el trabajo y no traslada el estado al trabajo nuevo.",
+   "src": "c27dd8ec0a42"
+  },
+  "choices.1.text": {
+   "es": "Un mapeo de nombres de transformaciones del nombre antiguo al nuevo.",
+   "src": "12382897bd3b"
+  },
+  "choices.1.why": {
+   "es": "Dataflow necesita el mapeo para emparejar los pasos renombrados durante la comprobación de compatibilidad.",
+   "src": "392f7e2303dd"
+  },
+  "choices.2.text": {
+   "es": "Un tema nuevo de Pub/Sub.",
+   "src": "4f39d005a191"
+  },
+  "choices.2.why": {
+   "es": "Un tema nuevo no ayuda a emparejar transformaciones renombradas.",
+   "src": "95bb0dbb65e7"
+  },
+  "choices.3.text": {
+   "es": "Nada, porque las transformaciones renombradas se emparejan automáticamente.",
+   "src": "efe80e8ea391"
+  },
+  "choices.3.why": {
+   "es": "Una transformación renombrada falla la comprobación de compatibilidad sin un mapeo.",
+   "src": "0ae2e70a7432"
+  },
+  "explanation": {
+   "es": "Dataflow necesita el mapeo para emparejar los pasos renombrados durante la comprobación de compatibilidad.",
+   "src": "392f7e2303dd"
+  }
+ },
+ "lab-129": {
+  "text": {
+   "es": "Un trabajo de streaming de Dataflow debe detenerse por mantenimiento. Debe terminar de procesar los datos que ya leyó y dejar de leer datos nuevos. ¿Qué acción corresponde?",
+   "src": "bad63d311e9d"
+  },
+  "choices.0.text": {
+   "es": "Cancelar el trabajo.",
+   "src": "48debb9f0e68"
+  },
+  "choices.0.why": {
+   "es": "Cancelar detiene el procesamiento de inmediato y los datos en tránsito pueden perderse.",
+   "src": "6efb5390a989"
+  },
+  "choices.1.text": {
+   "es": "Eliminar las VM de los workers.",
+   "src": "28e743d40b80"
+  },
+  "choices.1.why": {
+   "es": "Esto rompe el trabajo de forma descontrolada.",
+   "src": "3ba87617cb8f"
+  },
+  "choices.2.text": {
+   "es": "Pausar el tema de Pub/Sub.",
+   "src": "6082a1e76355"
+  },
+  "choices.2.why": {
+   "es": "Esto no termina de procesar los datos que el trabajo ya leyó.",
+   "src": "5ce8573d2c7b"
+  },
+  "choices.3.text": {
+   "es": "Hacer drain del trabajo.",
+   "src": "0519f084ffc6"
+  },
+  "choices.3.why": {
+   "es": "Drain deja de leer datos nuevos y termina los datos en búfer y en tránsito antes de que el trabajo acabe.",
+   "src": "21b298e8a488"
+  },
+  "explanation": {
+   "es": "Drain deja de leer datos nuevos y termina los datos en búfer y en tránsito antes de que el trabajo acabe.",
+   "src": "21b298e8a488"
+  }
  }
 }

@@ -46,7 +46,7 @@ Format: `- [ ]` pending, `- [x]` done, `- [x] SKIPPED: reason`, `- [ ] BLOCKED: 
 - [x] 26b. Initial payload limit raised from 450,000 to 500,000 bytes, approved by the owner. Long content still loads on demand. See docs/decisions/0003-initial-payload-budget.md.
 - [x] 27. G Fast review path: a 1 to 2 hour plan across the five domains weighted by the guide, with a one-page summary per domain.
 - [x] 28. G Added 4 verified comparisons (storage, processing, messaging, orchestration) at #review/compare, loaded on demand. #compare already serves service cards.
-- [ ] 29. G Original scenario questions until every objective has five, kept outside the timed pool. BLOCKED: allow them in timed sessions? AGENTS.md fixes that pool.
+- [x] 29. G Thirteen original scenario questions (lab-125 to lab-137) so every objective has at least five. Facts checked with the Google MCP. They carry timed:false, so timed sessions and the diagnostic keep their 124 questions. Spanish overlays included. The catalog limit moved from 230,000 to 240,000 bytes (see decision 0003 amendment), owner to confirm.
 
 ## Verification with the Google MCP
 

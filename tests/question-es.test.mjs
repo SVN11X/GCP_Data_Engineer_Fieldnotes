@@ -9,7 +9,7 @@ import '../dist/assets/entry-core.js';
 import '../dist/assets/loader.js';
 const QE=globalThis.FieldQuestionEs,C=globalThis.FieldCore,EC=C;
 const read=f=>JSON.parse(fs.readFileSync(new URL('../'+f,import.meta.url),'utf8'));
-const COUNTS={1:24,2:36,3:26,4:14,5:24};
+const COUNTS={1:27,2:38,3:29,4:17,5:26};
 const authored=()=>read('content/curated.json').filter(q=>q.origin==='authored');
 const overlays=()=>Object.fromEntries([1,2,3,4,5].map(d=>[d,readOverlay(d)]));
 /* Everything but the translatable strings, so two copies can be compared field by field. */
@@ -18,17 +18,17 @@ const demo=()=>({id:'demo',domain:1,origin:'authored',text:'Use BigQuery for 3 j
 const entry=(q,p,es)=>({es,src:sha12(new Map(questionPaths(q)).get(p))});
 const demoOverlay=q=>({demo:{text:entry(q,'text','Usa BigQuery para 3 trabajos con event_time.'),'choices.0.text':entry(q,'choices.0.text','BigQuery.'),'choices.1.text':entry(q,'choices.1.text','Ninguno.')}});
 
-test('there are 124 authored questions and one overlay file per domain',()=>{
- assert.equal(authored().length,124);
+test('there are 137 authored questions and one overlay file per domain',()=>{
+ assert.equal(authored().length,137);
  assert.deepEqual(overlayDomains(),[1,2,3,4,5]);
  for(const d of [1,2,3,4,5])assert.equal(englishQuestions(d).length,COUNTS[d],'domain '+d);
- assert.equal(Object.values(COUNTS).reduce((a,b)=>a+b,0),124);
+ assert.equal(Object.values(COUNTS).reduce((a,b)=>a+b,0),137);
 });
 test('paths list only the learner-visible strings of a question',()=>{
  const q=read('content/curated.json').find(x=>x.id==='lab-1');
  assert.deepEqual(questionPaths(q).map(x=>x[0]),['text','choices.0.text','choices.0.why','choices.1.text','choices.1.why','choices.2.text','choices.2.why','choices.3.text','choices.3.why','explanation']);
 });
-test('every shipped overlay is valid, current and covers 100 percent of the 124 authored questions',()=>{
+test('every shipped overlay is valid, current and covers 100 percent of the 137 authored questions',()=>{
  let total=0,ok=0;
  for(const d of [1,2,3,4,5]){
   const o=readOverlay(d),qs=englishQuestions(d);
@@ -37,7 +37,7 @@ test('every shipped overlay is valid, current and covers 100 percent of the 124 
   const c=coverage(o,qs);total+=c.total;ok+=c.ok;
   assert.ok(status(o,qs).every(x=>x.state==='ok'),'no missing or stale string in domain '+d);
  }
- assert.equal(total,1240);assert.equal(ok,1240);
+ assert.equal(total,1370);assert.equal(ok,1370);
 });
 test('the overlay holds only strings: no answer, key, letter or flag fields',()=>{
  for(const [d,o] of Object.entries(overlays())){

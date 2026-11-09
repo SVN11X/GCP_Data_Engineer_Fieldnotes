@@ -45,9 +45,9 @@ test('progress restore preserves a running deadline and rejects unknown identiti
  const bad=C.validateProgress({...input,exam:{...input.exam,ids:['imp-1']}},pack.lessons.map(l=>l.id),questions.map(q=>q.id),pack.glossary.map(g=>g.id));assert.equal(bad.exam,null);
 });
 test('all 349 supplied questions and their source keys remain alongside the original scenarios',()=>{
- assert.equal(questions.filter(q=>q.origin==='imported').length,349);assert.equal(questions.length,473);
+ assert.equal(questions.filter(q=>q.origin==='imported').length,349);assert.equal(questions.length,486);
  assert.equal(questions.filter(q=>q.origin==='authored'&&q.number<=100).length,100);
- assert.equal(questions.filter(q=>q.origin==='authored'&&q.number>100).length,24);
+ assert.equal(questions.filter(q=>q.origin==='authored'&&q.number>100&&q.timed!==false).length,24);assert.equal(questions.filter(q=>q.origin==='authored'&&q.timed===false).length,13);
  assert.deepEqual(map['imp-217'].sourceAnswer,['B']);assert.deepEqual(map['imp-217'].answer,['B','E']);
  for(const n of [54,69,103,326]){assert.equal(map['imp-'+n].gradable,false);assert.equal(map['imp-'+n].status,'disputed');}
 });
@@ -105,4 +105,15 @@ test('expanded progress preserves old records and validates workshop steps',()=>
  assert.deepEqual(s.labProgress['dedup-latest'],{steps:['step-1'],prediction:'45',revealed:true,completed:false});assert.equal(s.labProgress.evil,undefined);
  const resumed=C.validateProgress({...s,exam:{ids:['lab-51','lab-52'],answers:{'lab-51':['A','C']},index:1,startedAt:100,deadline:9999999999999,difficulty:'Applied'}},...ids,pack.workshops);
  assert.equal(resumed.exam.difficulty,'Applied');assert.deepEqual(resumed.exam.answers['lab-51'],['A','C']);
+});
+test('the 13 added scenarios cover objectives up to five questions each and never enter a timed or diagnostic pool',()=>{
+ const authored=questions.filter(q=>q.origin==='authored');
+ const per={};for(const q of authored)per[q.objective]=(per[q.objective]||0)+1;
+ for(const [o,n] of Object.entries(per))assert.ok(n>=5,'objective '+o+' has '+n);
+ const extra=authored.filter(q=>q.timed===false);
+ assert.equal(extra.length,13);
+ for(let i=0;i<20;i++){
+  const ids=new Set(C.makeExam(questions,50,pack.domains).map(q=>q.id));
+  for(const q of extra)assert.ok(!ids.has(q.id),q.id);
+ }
 });

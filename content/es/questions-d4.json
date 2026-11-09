@@ -586,5 +586,131 @@
    "es": "Elige una ruta de acceso que exponga la forma de datos permitida y conserve el control del productor. Compartir un reporte o una credencial no sustituye hacer cumplir la política de datos subyacente.",
    "src": "3aa942e9f146"
   }
+ },
+ "lab-133": {
+  "text": {
+   "es": "Los dashboards siempre filtran una tabla de eventos de varios terabytes por event_date y customer_id. ¿Qué diseño de tabla reduce más los bytes escaneados?",
+   "src": "b82d0e7b44a5"
+  },
+  "choices.0.text": {
+   "es": "Agrupar en clústeres solo por event_date y dejar la tabla sin particionar.",
+   "src": "30d8115895f7"
+  },
+  "choices.0.why": {
+   "es": "Particionar por la columna de fecha permite saltar particiones completas, algo que el clustering solo no iguala.",
+   "src": "bca5d061172c"
+  },
+  "choices.1.text": {
+   "es": "Crear una tabla nueva para cada dashboard.",
+   "src": "2039e405b2c7"
+  },
+  "choices.1.why": {
+   "es": "Esto multiplica el almacenamiento y el mantenimiento.",
+   "src": "bf3ce39aeaf2"
+  },
+  "choices.2.text": {
+   "es": "Particionar por event_date y agrupar en clústeres por customer_id.",
+   "src": "e9b47c1d13e0"
+  },
+  "choices.2.why": {
+   "es": "El filtro de fecha poda particiones y el clustering reduce los bloques leídos dentro de ellas.",
+   "src": "48eaf6cb4ed2"
+  },
+  "choices.3.text": {
+   "es": "Exportar la tabla a archivos CSV.",
+   "src": "62c49616c275"
+  },
+  "choices.3.why": {
+   "es": "Los archivos CSV pierden las optimizaciones de almacenamiento de BigQuery.",
+   "src": "085930500837"
+  },
+  "explanation": {
+   "es": "El filtro de fecha poda particiones y el clustering reduce los bloques leídos dentro de ellas.",
+   "src": "48eaf6cb4ed2"
+  }
+ },
+ "lab-134": {
+  "text": {
+   "es": "Un equipo mantiene cuarenta vistas en un conjunto de datos. Todas deben leer tablas de otro conjunto de datos de origen. Autorizar cada vista una por una es lento y propenso a errores. ¿Qué función reduce ese trabajo?",
+   "src": "ddc9779f9441"
+  },
+  "choices.0.text": {
+   "es": "Un conjunto de datos autorizado, que autoriza de una vez las vistas de un conjunto de datos.",
+   "src": "f27b16d9a2b0"
+  },
+  "choices.0.why": {
+   "es": "Las vistas de un conjunto de datos autorizado, incluidas las futuras, pueden acceder al conjunto de datos compartido.",
+   "src": "39d8399d9aa2"
+  },
+  "choices.1.text": {
+   "es": "Acceso de propietario para cada lector en el conjunto de datos de origen.",
+   "src": "5f5b80ae278e"
+  },
+  "choices.1.why": {
+   "es": "Esto da mucho más acceso del necesario.",
+   "src": "2b213ab09d39"
+  },
+  "choices.2.text": {
+   "es": "Una copia de las tablas de origen en cada proyecto.",
+   "src": "10d8c6088921"
+  },
+  "choices.2.why": {
+   "es": "Las copias agregan costo y se desincronizan.",
+   "src": "07760d66af34"
+  },
+  "choices.3.text": {
+   "es": "Acceso público al conjunto de datos de origen.",
+   "src": "65d4934902da"
+  },
+  "choices.3.why": {
+   "es": "El acceso público elimina el contrato de acceso.",
+   "src": "e1c4057dc8e2"
+  },
+  "explanation": {
+   "es": "Las vistas de un conjunto de datos autorizado, incluidas las futuras, pueden acceder al conjunto de datos compartido.",
+   "src": "39d8399d9aa2"
+  }
+ },
+ "lab-135": {
+  "text": {
+   "es": "Un publicador comparte un conjunto de datos mediante BigQuery sharing. ¿Qué recibe un suscriptor?",
+   "src": "47d1e20868a3"
+  },
+  "choices.0.text": {
+   "es": "Una copia completa de los datos que se factura como almacenamiento al suscriptor.",
+   "src": "586413170915"
+  },
+  "choices.0.why": {
+   "es": "Suscribirse no replica los datos.",
+   "src": "b6f23e70468e"
+  },
+  "choices.1.text": {
+   "es": "Una exportación de los datos en archivos CSV.",
+   "src": "c0a86992a6b5"
+  },
+  "choices.1.why": {
+   "es": "Los suscriptores consultan los datos en BigQuery y no reciben archivos.",
+   "src": "532f5a237517"
+  },
+  "choices.2.text": {
+   "es": "Acceso de propietario al conjunto de datos del publicador.",
+   "src": "0c494f5e2975"
+  },
+  "choices.2.why": {
+   "es": "Los suscriptores no obtienen la propiedad del origen.",
+   "src": "525be34becdd"
+  },
+  "choices.3.text": {
+   "es": "Un conjunto de datos vinculado de solo lectura en el proyecto del suscriptor que apunta a los datos compartidos.",
+   "src": "6fdfbdf09bdf"
+  },
+  "choices.3.why": {
+   "es": "El conjunto de datos vinculado es un puntero, así que las consultas leen los datos publicados sin una copia.",
+   "src": "513670e72657"
+  },
+  "explanation": {
+   "es": "El conjunto de datos vinculado es un puntero, así que las consultas leen los datos publicados sin una copia.",
+   "src": "513670e72657"
+  }
  }
 }
