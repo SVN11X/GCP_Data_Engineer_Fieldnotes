@@ -10,13 +10,13 @@ const V=globalThis.FieldVerification;
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const log=JSON.parse(fs.readFileSync(new URL('../content/verification-log.json',import.meta.url),'utf8'));
 const pack=JSON.parse(fs.readFileSync(new URL('../dist/data/study-pack.json',import.meta.url),'utf8'));
-const ids={lesson:pack.lessons.map(l=>l.id),service:pack.services.map(s=>s.id),comparison:[]};
+const ids={lesson:pack.lessons.map(l=>l.id),service:pack.services.map(s=>s.id),comparison:['storage','processing','messaging','orchestration']};
 const good={topic:'capacity',kind:'lesson',checkedOn:'2026-11-08',method:'google-developer-knowledge-mcp',query:'q',sources:['https://docs.cloud.google.com/bigquery/docs/editions-intro'],result:'confirmed',note:'ok'};
 const bad=patch=>validateLog([{...good,...patch}],ids);
 
 test('the shipped log is valid and every entry points at a real topic',()=>{
  assert.deepEqual(validateLog(log,ids),[]);
- assert.equal(log.length,81);
+ assert.equal(log.length,85);
  assert.equal(fs.readFileSync(new URL('../dist/data/verification-log.json',import.meta.url),'utf8').trim(),JSON.stringify(log));
 });
 test('the browser copy is not part of the initial page',()=>{
@@ -33,7 +33,7 @@ test('schema rejects bad dates, methods, sources, kinds, topics and results',()=
 test('exam and comparison topics follow their own rules',()=>{
  assert.deepEqual(bad({kind:'exam',topic:'exam'}),[]);
  assert.ok(bad({kind:'exam',topic:'capacity'}).length);
- assert.ok(bad({kind:'comparison',topic:'storage'}).length);
+ assert.ok(bad({kind:'comparison',topic:'unknown-comparison'}).length);
  assert.deepEqual(validateLog([{...good,kind:'comparison',topic:'storage'}],{...ids,comparison:['storage']}),[]);
 });
 test('the same topic, method and date cannot appear twice',()=>{
@@ -87,16 +87,16 @@ test('a missing lesson or service entry fails the gate with the first 10 ids, wi
 });
 test('comparison entries are required only when a comparison id list exists',()=>{
  assert.deepEqual(gapErrors(log,{...ids,comparison:[]}),[]);
- assert.ok(gapErrors(log,{...ids,comparison:['storage']})[0].includes('1 of 1 comparisons have no entry. First 1: storage'));
- const withIt=[...log,{...good,kind:'comparison',topic:'storage'}];
- assert.deepEqual(gapErrors(withIt,{...ids,comparison:['storage']}),[]);
+ assert.ok(gapErrors(log,{...ids,comparison:['fake-comparison']})[0].includes('1 of 1 comparisons have no entry. First 1: fake-comparison'));
+ const withIt=[...log,{...good,kind:'comparison',topic:'fake-comparison'}];
+ assert.deepEqual(gapErrors(withIt,{...ids,comparison:['fake-comparison']}),[]);
  const dir=fs.mkdtempSync(path.join(os.tmpdir(),'fieldnotes-'));
  try{
   assert.deepEqual(comparisonIds(dir),[]);
   fs.writeFileSync(path.join(dir,'comparisons.json'),JSON.stringify([{id:'storage'},{id:'orchestration'}]));
   assert.deepEqual(comparisonIds(dir),['storage','orchestration']);
  }finally{fs.rmSync(dir,{recursive:true,force:true});}
- assert.deepEqual(comparisonIds(path.join(root,'content')),[]);
+ assert.deepEqual(comparisonIds(path.join(root,'content')),ids.comparison);
 });
 test('warnings report only entries older than 90 days with an injected date',()=>{
  assert.deepEqual(warnings(log,ids,'2026-11-08'),[]);

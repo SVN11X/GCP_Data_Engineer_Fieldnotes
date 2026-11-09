@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Added four service comparisons at #review/compare: where to store data, Dataflow versus the Spark service versus Data Fusion, Pub/Sub versus Managed Kafka, and Airflow versus Workflows versus Scheduler. Each option cites Google documentation and has a verification log entry. The page, styles and data load on demand.
 - Verified the 28 service cards against Google documentation through the Developer Knowledge MCP and logged each check. 25 were confirmed and 3 updated to the current Managed Service for Apache Spark and Airflow names. A lesson or service without a log entry now fails the build.
 - Verified the nine remaining domain 5 lessons against Google documentation through the Developer Knowledge MCP and logged each check. Seven were confirmed and two updated: repeatability now names Managed Service for Apache Airflow (formerly Cloud Composer) and recovery says cross-region replication alone is not a regional outage plan.
 - Verified the seven domain 4 lessons against Google documentation through the Developer Knowledge MCP and logged each check. All were confirmed, no lesson text changed.

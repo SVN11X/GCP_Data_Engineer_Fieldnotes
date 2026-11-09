@@ -3,6 +3,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {validateLog,warnings,assertNoGaps,comparisonIds} from './verification-log.mjs';
+import {validateComparisons} from './comparisons.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const read=n=>JSON.parse(fs.readFileSync(path.join(root,'content',n+'.json'),'utf8'));
 const imported=read('imported'),imageText=read('image-text'),preservation=read('imported-preservation');
@@ -27,7 +28,7 @@ fs.mkdirSync(path.join(output,'assets'),{recursive:true});
 for(const page of ['index.html','credits.html'])fs.copyFileSync(path.join(root,'src',page),path.join(output,page));
 fs.cpSync(path.join(root,'src/scripts'),path.join(output,'assets'),{recursive:true,filter:keep});
 fs.copyFileSync(path.join(root,'src/styles/styles.css'),path.join(output,'assets/styles.css'));
-for(const css of ['entry','review'])fs.copyFileSync(path.join(root,'src/styles/'+css+'.css'),path.join(output,'assets/'+css+'.css'));
+for(const css of ['entry','review','compare'])fs.copyFileSync(path.join(root,'src/styles/'+css+'.css'),path.join(output,'assets/'+css+'.css'));
 fs.cpSync(path.join(root,'assets'),path.join(output,'assets'),{recursive:true,filter:keep});
 const write=(name,value)=>fs.writeFileSync(path.join(dataDir,name+'.json'),JSON.stringify(value)+'\n');
 // Content-derived release keys prevent mixing a cached catalog with another release.
@@ -41,6 +42,10 @@ const logErrors=validateLog(verificationLog,logIds);
 if(logErrors.length)throw new Error('Invalid content/verification-log.json:\n'+logErrors.join('\n'));
 assertNoGaps(verificationLog,logIds);
 write('verification-log',verificationLog);
+// Comparisons: validated against the log and the lessons, then served as a demand-loaded file.
+const comparisons=read('comparisons'),comparisonErrors=validateComparisons(comparisons,verificationLog,logIds.lesson);
+if(comparisonErrors.length)throw new Error('Invalid content/comparisons.json:\n'+comparisonErrors.join('\n'));
+write('comparisons',comparisons);
 // BUILD_DATE (YYYY-MM-DD) makes the 90 day rule reproducible in tests.
 for(const line of warnings(verificationLog,logIds,process.env.BUILD_DATE||new Date().toISOString().slice(0,10)))console.warn('WARNING: '+line);
 const normalize=s=>String(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
