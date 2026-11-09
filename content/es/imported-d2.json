@@ -252,54 +252,282 @@
   }
  },
  "imp-31": {
+  "html": {
+   "es": "Tienes una canalización de streaming de Google Cloud Dataflow en ejecución, con una suscripción de Google Cloud Pub/Sub como fuente. Necesitas actualizar el código de modo que la nueva canalización de Cloud Dataflow sea incompatible con la versión actual. No quieres perder ningún dato al hacer esta actualización. ¿Qué debes hacer?<br>",
+   "src": "dc3a233b79d1"
+  },
+  "choices.0.html": {
+   "es": "Actualizar la canalización actual y usar la bandera drain.",
+   "src": "0ca9603a7a96"
+  },
+  "choices.1.html": {
+   "es": "Actualizar la canalización actual y proporcionar el objeto JSON de mapeo de transformaciones (transform mapping).",
+   "src": "efd24a902813"
+  },
+  "choices.2.html": {
+   "es": "Crear una canalización nueva con la misma suscripción de Cloud Pub/Sub y cancelar la canalización anterior.",
+   "src": "45fced71f49f"
+  },
+  "choices.3.html": {
+   "es": "Crear una canalización nueva con una suscripción nueva de Cloud Pub/Sub y cancelar la canalización anterior.",
+   "src": "e964a94b4c20"
+  },
+  "sourceExplanation": {
+   "es": "Como el código nuevo es incompatible con la canalización actual, no es posible una actualización directa con el mapeo de transformaciones (opción B), porque esa actualización exige compatibilidad.\nCancelar la canalización de inmediato (opciones C y D) arriesga la pérdida de datos de los elementos en proceso.\nLa bandera drain detiene la ingesta de mensajes nuevos y deja que la canalización termine de procesar todos los datos en búfer y en proceso. Así se asegura que no se pierdan datos durante la transición.",
+   "src": "30e9b41702b2"
+  },
+  "explanation": {
+   "es": "La guía actual distingue entre una actualización en el lugar compatible y un reemplazo incompatible. Haz drain del trabajo anterior y planifica el reemplazo y la retención de la fuente. La redacción “update ... use the drain flag” no describe una actualización incompatible completa y segura. Ninguna de estas opciones cortas establece todas las garantías necesarias.",
+   "src": "c4ead366ab2b"
+  },
   "reviewNote": {
    "es": "Esta pregunta importada está excluida de la práctica con puntuación. Lee la nota técnica en lugar de memorizar su clave.",
    "src": "5d478c3e8ed1"
   }
  },
  "imp-43": {
+  "html": {
+   "es": "Trabajas para una cadena grande de restaurantes de comida rápida con más de 400,000 empleados. Guardas la información de los empleados en Google BigQuery, en una tabla Users con un campo FirstName y un campo LastName. Un miembro de TI está creando una aplicación y te pide modificar el esquema y los datos en BigQuery para que la aplicación pueda consultar un campo FullName. Ese campo debe contener, para cada empleado, el valor del campo FirstName, un espacio y el valor del campo LastName. ¿Cómo puedes poner esos datos a disposición y minimizar el costo?<br>",
+   "src": "92cf12bad12a"
+  },
+  "choices.0.html": {
+   "es": "Crear una vista (view) en BigQuery que concatene los valores de los campos FirstName y LastName para producir FullName.",
+   "src": "3124027d3168"
+  },
+  "choices.1.html": {
+   "es": "Agregar una columna nueva llamada FullName a la tabla Users. Ejecutar una sentencia UPDATE que actualice la columna FullName de cada usuario con la concatenación de los valores de FirstName y LastName.",
+   "src": "2f4907725747"
+  },
+  "choices.2.html": {
+   "es": "Crear un trabajo de Google Cloud Dataflow que consulte en BigQuery toda la tabla Users, concatene el valor de FirstName y el de LastName de cada usuario, y cargue los valores correctos de FirstName, LastName y FullName en una tabla nueva de BigQuery.",
+   "src": "f696e06e497d"
+  },
+  "choices.3.html": {
+   "es": "Usar BigQuery para exportar los datos de la tabla a un archivo CSV. Crear un trabajo de Google Cloud Dataproc que procese el archivo CSV y genere un archivo CSV nuevo con los valores correctos de FirstName, LastName y FullName. Ejecutar un trabajo de carga de BigQuery para cargar el archivo CSV nuevo en BigQuery.",
+   "src": "a4414c723ec4"
+  },
+  "sourceExplanation": {
+   "es": "Crear una vista (opción A) es la solución más rentable porque evita costos de almacenamiento adicionales por datos redundantes.\nA diferencia de las tablas físicas, las vistas no almacenan datos sino que dan una representación lógica que calcula FullName cuando se necesita, a partir de los campos FirstName y LastName existentes.\nLas opciones B, C y D implican crear columnas o tablas nuevas, lo que aumenta el uso de almacenamiento y la carga de procesamiento, y no cumple el requisito de minimizar el costo.",
+   "src": "0a236c428ecc"
+  },
   "reviewNote": {
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
   }
  },
  "imp-45": {
+  "html": {
+   "es": "Trabajas para una planta de manufactura que agrupa los archivos de registro de las aplicaciones en un solo archivo de registro una vez al día, a las 2:00 AM. Escribiste un trabajo de Google Cloud<br>Dataflow para procesar ese archivo de registro. Debes asegurarte de que el archivo de registro se procese una vez al día de la forma más económica posible. ¿Qué debes hacer?<br>",
+   "src": "4edb3a038c54"
+  },
+  "choices.0.html": {
+   "es": "Cambiar el trabajo de procesamiento para usar Google Cloud Dataproc.",
+   "src": "c533c47f8f37"
+  },
+  "choices.1.html": {
+   "es": "Iniciar el trabajo de Cloud Dataflow de forma manual cada mañana al llegar a la oficina.",
+   "src": "f4d3380ee058"
+  },
+  "choices.2.html": {
+   "es": "Crear un trabajo cron con Google App Engine Cron Service para ejecutar el trabajo de Cloud Dataflow.",
+   "src": "38f9e8494d37"
+  },
+  "choices.3.html": {
+   "es": "Configurar el trabajo de Cloud Dataflow como un trabajo de streaming para que procese los datos del registro de inmediato.",
+   "src": "d88a6330133d"
+  },
+  "sourceExplanation": {
+   "es": "Para procesar el archivo de registro de forma económica y fiable una vez al día, se necesita automatización. Así se evitan los costos de trabajo manual y el error humano.\nUsar Google App Engine Cron Service (o Cloud Scheduler en las arquitecturas modernas) da una forma administrada y automática de activar el trabajo de Dataflow a la hora indicada, sin necesidad de aprovisionar infraestructura para el programador mismo.",
+   "src": "09d520307ba1"
+  },
+  "explanation": {
+   "es": "Esta pregunta nombra App Engine Cron. Compara las opciones actuales de programación y orquestación con la carga de trabajo, en lugar de memorizar una afirmación histórica sobre cuál es el servicio más barato.",
+   "src": "9165d90981f7"
+  },
   "reviewNote": {
    "es": "Esta pregunta importada está excluida de la práctica con puntuación. Lee la nota técnica en lugar de memorizar su clave.",
    "src": "5d478c3e8ed1"
   }
  },
  "imp-48": {
+  "html": {
+   "es": "Tu empresa carga archivos de valores separados por comas (CSV) en Google BigQuery. Los datos se importan por completo con éxito, pero los datos importados no coinciden byte a byte con el archivo de origen. ¿Cuál es la causa más probable de este problema?<br>",
+   "src": "0fa000f47e59"
+  },
+  "choices.0.html": {
+   "es": "Los datos CSV cargados en BigQuery no están marcados como CSV.",
+   "src": "136f2f391d23"
+  },
+  "choices.1.html": {
+   "es": "Los datos CSV tienen filas no válidas que se omitieron en la importación.",
+   "src": "536e24cff377"
+  },
+  "choices.2.html": {
+   "es": "Los datos CSV cargados en BigQuery no usan la codificación (encoding) predeterminada de BigQuery.",
+   "src": "55fb3b97088d"
+  },
+  "choices.3.html": {
+   "es": "Los datos CSV no pasaron por una fase de ETL antes de cargarse en BigQuery.",
+   "src": "7e17bdb6d5f0"
+  },
+  "sourceExplanation": {
+   "es": "BigQuery usa por defecto la codificación UTF-8 en las importaciones de CSV. Si el archivo de origen usa otra codificación (por ejemplo, ISO-8859-1), BigQuery intenta convertirlo a UTF-8. Eso cambia la representación de bytes de fondo, pero los datos se cargan con éxito igualmente. Esta conversión hace que los datos importados no coincidan byte a byte con el archivo de origen.",
+   "src": "26de6e4bd7ef"
+  },
   "reviewNote": {
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
   }
  },
  "imp-53": {
+  "html": {
+   "es": "Usas Google BigQuery como tu almacén de datos (data warehouse). Tus usuarios informan de que la siguiente consulta simple se ejecuta muy lenta, sin importar cuándo la ejecuten:<br>SELECT country, state, city FROM [myproject:mydataset.mytable] GROUP BY country<br>Revisas el plan de consulta (query plan) y ves el siguiente resultado en la sección Read de Stage:1:<br><img src=\"assets/images/c49feb8746ff4ab526bb.jpg\" alt=\"Original diagram for imported question 53. Open the full-size image to inspect the details.\" loading=\"lazy\"><br>¿Cuál es la causa más probable del retraso de esta consulta?<br>\n",
+   "src": "58f9607e69ae"
+  },
+  "choices.0.html": {
+   "es": "Los usuarios ejecutan demasiadas consultas concurrentes en el sistema",
+   "src": "030b39daf5ac"
+  },
+  "choices.1.html": {
+   "es": "La tabla [myproject:mydataset.mytable] tiene demasiadas particiones",
+   "src": "89a5f88c2ed9"
+  },
+  "choices.2.html": {
+   "es": "Las columnas state o city de la tabla [myproject:mydataset.mytable] tienen demasiados valores NULL",
+   "src": "b97ee7ed3d83"
+  },
+  "choices.3.html": {
+   "es": "La mayoría de las filas de la tabla [myproject:mydataset.mytable] tienen el mismo valor en la columna country, lo que causa un sesgo de datos (data skew)",
+   "src": "c3f5424dc06c"
+  },
+  "sourceExplanation": {
+   "es": "La imagen del plan de consulta indica un desequilibrio importante en las etapas de procesamiento, que es una señal típica de sesgo de datos (data skew).\nCuando la mayoría de las filas comparten el mismo valor de clave (por ejemplo, 'country'), BigQuery no puede repartir el trabajo de forma pareja entre los workers durante la fase de mezcla (shuffle). Algunos nodos procesan así muchos más datos que otros.\nEsta distribución desigual obliga a la consulta a esperar a que termine el worker más lento. Por eso se observa el retraso, sin importar la concurrencia ni la cantidad de particiones.",
+   "src": "d2a31ec6b2d3"
+  },
   "reviewNote": {
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
   }
  },
  "imp-54": {
+  "html": {
+   "es": "Tu aplicación de subastas distribuida globalmente permite a los usuarios pujar por artículos. A veces, los usuarios hacen pujas idénticas casi al mismo tiempo, y distintos servidores de aplicaciones procesan esas pujas. Cada evento de puja contiene el artículo, el monto, el usuario y la marca de tiempo. Quieres reunir esos eventos de puja en un solo lugar en tiempo real para determinar qué usuario pujó primero. ¿Qué debes hacer?<br>",
+   "src": "d061beb7094a"
+  },
+  "choices.0.html": {
+   "es": "Crear un archivo en un sistema de archivos compartido y hacer que los servidores de aplicaciones escriban en él todos los eventos de puja. Procesar el archivo con Apache Hadoop para identificar qué usuario pujó primero.",
+   "src": "6b81a6ca0b2f"
+  },
+  "choices.1.html": {
+   "es": "Hacer que cada servidor de aplicaciones escriba los eventos de puja en Cloud Pub/Sub cuando ocurran. Enviar (push) los eventos desde Cloud Pub/Sub a un endpoint personalizado que escriba la información del evento de puja en Cloud SQL.",
+   "src": "f7f691981c08"
+  },
+  "choices.2.html": {
+   "es": "Configurar una base de datos MySQL para que cada servidor de aplicaciones escriba en ella los eventos de puja. Consultar periódicamente cada una de esas bases de datos MySQL distribuidas y actualizar una base de datos MySQL maestra con la información de los eventos de puja.",
+   "src": "27d4c3a3dbc9"
+  },
+  "choices.3.html": {
+   "es": "Hacer que cada servidor de aplicaciones escriba los eventos de puja en Google Cloud Pub/Sub cuando ocurran. Usar una suscripción pull para extraer los eventos de puja con Google Cloud Dataflow. Dar la puja de cada artículo al usuario del evento de puja que se procese primero.",
+   "src": "e992332e973c"
+  },
+  "explanation": {
+   "es": "La clave D importada no es una regla segura para decidir cuál fue la puja más temprana. Los retrasos de red y los reintentos pueden cambiar el orden de procesamiento. Conserva las marcas de tiempo de los eventos, define cómo tratar el tiempo del evento y un criterio de desempate determinista, y usa una decisión transaccional donde haga falta. El ordenamiento de Pub/Sub conserva un orden de publicación compatible, pero no establece un orden universal por tiempo del evento.",
+   "src": "02c62d5f020d"
+  },
   "reviewNote": {
    "es": "Esta pregunta importada está excluida de la práctica con puntuación. Lee la nota técnica en lugar de memorizar su clave.",
    "src": "5d478c3e8ed1"
   }
  },
  "imp-56": {
+  "html": {
+   "es": "Activaste la integración gratuita entre Firebase Analytics y Google BigQuery. Firebase ahora crea automáticamente una tabla nueva cada día en BigQuery con el formato app_events_YYYYMMDD. Quieres consultar todas las tablas de los últimos 30 días en SQL heredado (legacy SQL). ¿Qué debes hacer?<br>",
+   "src": "21177ea5739b"
+  },
+  "choices.0.html": {
+   "es": "Usar la función TABLE_DATE_RANGE",
+   "src": "fef4f16a9957"
+  },
+  "choices.1.html": {
+   "es": "Usar la pseudocolumna WHERE_PARTITIONTIME",
+   "src": "38ef8e2fa60d"
+  },
+  "choices.2.html": {
+   "es": "Usar WHERE date BETWEEN YYYY-MM-DD AND YYYY-MM-DD",
+   "src": "38db8f3ce18e"
+  },
+  "choices.3.html": {
+   "es": "Usar SELECT IF.(date &gt;= YYYY-MM-DD AND date &lt;= YYYY-MM-DD",
+   "src": "39988abdb3cf"
+  },
+  "sourceExplanation": {
+   "es": "La pregunta especifica de forma explícita el uso de Legacy SQL. En el dialecto Legacy SQL de BigQuery, la función TABLE_DATE_RANGE() es el método designado para consultar un rango de tablas que siguen una convención de nombres con sufijos de fecha (por ejemplo, app_events_YYYYMMDD). Standard SQL usa decoradores de partición o la pseudocolumna `_TABLE_SUFFIX`, pero Legacy SQL depende de esta función específica de comodín de tablas para expandir la lista de tablas de forma dinámica.",
+   "src": "f542b9d2b6bc"
+  },
+  "explanation": {
+   "es": "El enunciado pide de forma explícita SQL heredado (legacy SQL). TABLE_DATE_RANGE es sintaxis histórica. Aprende el filtrado con comodines de GoogleSQL y las tablas particionadas para las implementaciones nuevas.",
+   "src": "e52c11b5c022"
+  },
   "reviewNote": {
    "es": "Esta pregunta importada está excluida de la práctica con puntuación. Lee la nota técnica en lugar de memorizar su clave.",
    "src": "5d478c3e8ed1"
   }
  },
  "imp-88": {
+  "html": {
+   "es": "Tu equipo es responsable de desarrollar y mantener los ETL de tu empresa. Uno de tus trabajos de Dataflow falla por algunos errores en los datos de entrada, y necesitas mejorar la fiabilidad de la canalización (incluida la capacidad de reprocesar todos los datos que fallen).<br>¿Qué debes hacer?<br>",
+   "src": "070b34235f1b"
+  },
+  "choices.0.html": {
+   "es": "Agregar un paso de filtrado para omitir este tipo de errores en el futuro y extraer las filas erróneas de los registros.",
+   "src": "b66c63011864"
+  },
+  "choices.1.html": {
+   "es": "Agregar un bloque try&quot;¦ catch a tu DoFn que transforma los datos y extraer las filas erróneas de los registros.",
+   "src": "d733db4760fd"
+  },
+  "choices.2.html": {
+   "es": "Agregar un bloque try&quot;¦ catch a tu DoFn que transforma los datos y escribir las filas erróneas en Pub/Sub PubSub directamente desde el DoFn.",
+   "src": "5dee3ab93c4d"
+  },
+  "choices.3.html": {
+   "es": "Agregar un bloque try&quot;¦ catch a tu DoFn que transforma los datos y usar un sideOutput para crear una PCollection que se pueda guardar en Pub/Sub más tarde.",
+   "src": "db33abfcd6ae"
+  },
+  "sourceExplanation": {
+   "es": "Usar un bloque try-catch dentro del DoFn permite que la canalización maneje los errores de elementos individuales sin que falle todo el trabajo. Los sideOutputs son el mecanismo correcto de Apache Beam para enviar los registros erróneos a una PCollection aparte, para su procesamiento posterior, por ejemplo escribirlos en Pub/Sub con PubsubIO.\nEscribir en Pub/Sub directamente desde dentro del DoFn (opción C) es un antipatrón (anti-pattern) que evita los conectores de IO de Beam y puede causar cuellos de botella de rendimiento o fugas de recursos.",
+   "src": "88834da512bd"
+  },
   "reviewNote": {
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
   }
  },
  "imp-94": {
+  "html": {
+   "es": "Estás diseñando una canalización de Apache Beam para enriquecer datos de Cloud Pub/Sub con datos de referencia estáticos de BigQuery. Los datos de referencia son lo bastante pequeños para caber en la memoria de un solo worker. La canalización debe escribir los resultados enriquecidos en BigQuery para su análisis. ¿Qué tipo de trabajo y qué transformaciones debe usar esta canalización?<br>",
+   "src": "9184b748434c"
+  },
+  "choices.0.html": {
+   "es": "Trabajo por lotes (batch), PubSubIO, side-inputs",
+   "src": "3394b4080be0"
+  },
+  "choices.1.html": {
+   "es": "Trabajo de streaming, PubSubIO, JdbcIO, side-outputs",
+   "src": "5c57cdac5eb6"
+  },
+  "choices.2.html": {
+   "es": "Trabajo de streaming, PubSubIO, BigQueryIO, side-inputs",
+   "src": "36f05895583d"
+  },
+  "choices.3.html": {
+   "es": "Trabajo de streaming, PubSubIO, BigQueryIO, side-outputs",
+   "src": "f58aa5bc7ca0"
+  },
+  "sourceExplanation": {
+   "es": "La canalización procesa datos continuos de Cloud Pub/Sub, por lo que necesita un trabajo de streaming con PubSubIO para la ingesta.\nLos side-inputs son el patrón correcto para enriquecer los datos de la PCollection principal con datos de referencia pequeños y estáticos, cargados en memoria desde BigQuery.",
+   "src": "8ecc1ef9815a"
+  },
   "reviewNote": {
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
