@@ -12,7 +12,7 @@ const bad=patch=>validateLog([{...good,...patch}],ids);
 
 test('the shipped log is valid and every entry points at a real topic',()=>{
  assert.deepEqual(validateLog(log,ids),[]);
- assert.equal(log.length,37);
+ assert.equal(log.length,44);
  assert.equal(fs.readFileSync(new URL('../dist/data/verification-log.json',import.meta.url),'utf8').trim(),JSON.stringify(log));
 });
 test('the browser copy is not part of the initial page',()=>{
@@ -67,10 +67,10 @@ test('gaps list lessons and services without an entry',()=>{
  assert.deepEqual(findGaps([],{lesson:['a']}),{lessons:['a'],services:[]});
 });
 test('warnings report counts, the first 10 ids and entries older than 90 days with an injected date',()=>{
- const fresh=warnings(log,ids,'2026-11-08');
+ const fresh=warnings(log,ids,'2026-11-08');const gapCount=ids.lesson.length-log.filter(e=>e.kind==='lesson').length;
  assert.equal(fresh.length,2);
- assert.ok(fresh[0].includes(`${ids.lesson.length-log.filter(e=>e.kind==='lesson').length} of ${ids.lesson.length} lessons`)&&fresh[0].includes('First 10'));
- assert.equal(fresh[0].split(': ').pop().split(', ').length,10);
+ assert.ok(fresh[0].includes(`${ids.lesson.length-log.filter(e=>e.kind==='lesson').length} of ${ids.lesson.length} lessons`)&&fresh[0].includes(`First ${Math.min(10,gapCount)}`));
+ assert.equal(fresh[0].split(': ').pop().split(', ').length,Math.min(10,gapCount));
  assert.ok(fresh[1].includes(`${ids.service.length} of ${ids.service.length} services`));
  assert.equal(findStale(log,'2026-11-08').length,0);
  const old=warnings(log,ids,'2027-03-01');

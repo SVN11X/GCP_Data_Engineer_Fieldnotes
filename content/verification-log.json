@@ -491,5 +491,98 @@
     ],
     "result": "confirmed",
     "note": "Checked Knowledge Catalog is formerly Dataplex Universal Catalog, lineage traces origin and downstream impact, Data Catalog is shutting down in phases. Lesson already explains the rename. Exam guide wording not checked."
+  },
+  {
+    "topic": "analytics",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "BigQuery materialized views precomputed results logical view stores no data BI Engine in-memory acceleration",
+    "sources": [
+      "https://docs.cloud.google.com/bigquery/docs/logical-materialized-view-overview",
+      "https://docs.cloud.google.com/bigquery/docs/bi-engine-intro"
+    ],
+    "result": "confirmed",
+    "note": "Checked logical views store only a query, materialized views store results, BI Engine is in-memory and keeps authorized views and column security. Query-plan tuning and dashboard cache timing not checked."
+  },
+  {
+    "topic": "materialized-freshness",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "BigQuery incremental and non-incremental materialized views supported queries refresh freshness",
+    "sources": [
+      "https://docs.cloud.google.com/bigquery/docs/materialized-views-intro",
+      "https://docs.cloud.google.com/bigquery/docs/materialized-views-use"
+    ],
+    "result": "confirmed",
+    "note": "Checked incremental views allow limited query shapes and non-incremental ones most queries, with different refresh cost and freshness. Report-cache layer and business freshness targets not checked."
+  },
+  {
+    "topic": "features",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "BigQuery ML TRANSFORM clause preprocessing automatically applied in ML.PREDICT and ML.EVALUATE model export",
+    "sources": [
+      "https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/bigqueryml-syntax-create",
+      "https://docs.cloud.google.com/bigquery/docs/manual-preprocessing"
+    ],
+    "result": "confirmed",
+    "note": "Checked TRANSFORM reapplies preprocessing and training statistics at prediction and evaluation, and exported models support it. Data leakage and overfitting are general ML advice, not checked."
+  },
+  {
+    "topic": "ml-evaluation",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "BigQuery ML ML.EVALUATE precision recall threshold confusion matrix ML.ROC_CURVE",
+    "sources": [
+      "https://docs.cloud.google.com/bigquery/docs/evaluate-overview",
+      "https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/bigqueryml-syntax-evaluate"
+    ],
+    "result": "confirmed",
+    "note": "Checked BigQuery ML reports precision, recall, accuracy and a confusion matrix, and evaluates at a custom threshold for binary models. Majority-class and split design advice is general ML, not checked."
+  },
+  {
+    "topic": "embeddings",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "BigQuery vector index approximate nearest neighbor recall brute force VECTOR_SEARCH index coverage embeddings",
+    "sources": [
+      "https://docs.cloud.google.com/bigquery/docs/vector-search",
+      "https://docs.cloud.google.com/bigquery/docs/vector-search-intro",
+      "https://docs.cloud.google.com/generative-ai-app-builder/docs/builder-apis"
+    ],
+    "result": "confirmed",
+    "note": "Checked indexed search is approximate with lower recall, brute force is exact, index coverage is visible, RAG flow chunks, embeds, retrieves. Embedding model change and access enforcement not checked."
+  },
+  {
+    "topic": "rag-evaluation",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "evaluate RAG retrieval and generated answer groundedness separately check grounding API",
+    "sources": [
+      "https://docs.cloud.google.com/generative-ai-app-builder/docs/builder-apis",
+      "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/grounding/ground-responses-using-rag"
+    ],
+    "result": "confirmed",
+    "note": "Checked RAG has separate retrieval and generation stages and a check grounding API scores answers against retrieved sources. Document deletion, access revocation and untrusted text advice not checked."
+  },
+  {
+    "topic": "share",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "BigQuery sharing formerly Analytics Hub listings exchanges subscribers linked datasets authorized view",
+    "sources": [
+      "https://docs.cloud.google.com/bigquery/docs/analytics-hub-introduction",
+      "https://docs.cloud.google.com/bigquery/docs/analytics-hub-view-subscribe-listings",
+      "https://docs.cloud.google.com/bigquery/docs/logical-materialized-view-overview"
+    ],
+    "result": "confirmed",
+    "note": "Checked BigQuery sharing is formerly Analytics Hub, subscribers get read-only linked datasets, authorized views hide source datasets. Lesson says also known as. Report link access not checked."
   }
 ]

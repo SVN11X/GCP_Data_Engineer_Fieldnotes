@@ -54,7 +54,7 @@ Format: `- [ ]` pending, `- [x]` done, `- [x] SKIPPED: reason`, `- [ ] BLOCKED: 
 - [x] 31. G Verified the 9 domain 1 lessons with the MCP: 9 confirmed, 0 updated, 0 unverifiable. No stale claims found, so lesson text is unchanged.
 - [x] 32. G Verified the 16 domain 2 lessons with the MCP: 16 confirmed, 0 updated, 0 unverifiable. No stale claims found, so lesson text is unchanged.
 - [x] 33. G Verified the 10 domain 3 lessons with the MCP: 9 confirmed, 1 updated, 0 unverifiable. Fixed the LIMIT cost note to say non-clustered tables.
-- [ ] 34. G Verify domain 4 topics with the MCP. Fix stale claims.
+- [x] 34. G Verified the 7 domain 4 lessons with the MCP: 7 confirmed, 0 updated, 0 unverifiable. No lesson text needed changes, unchecked claims are listed in each log note.
 - [ ] 35. G Verify domain 5 topics with the MCP. Fix stale claims.
 - [ ] 36. G Verify services and comparisons with the MCP. Then make missing verification records fail the build.
 
