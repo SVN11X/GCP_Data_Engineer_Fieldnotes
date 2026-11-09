@@ -68,7 +68,7 @@
       if(route==='practice'&&id){const question=data.questions.find(q=>q.id===id);if(question)await(question.origin==='imported'?importedQuestions(question.domain):questions(question.domain));}
       if((route==='practice'&&!id)||route==='progress')await importedCatalog();
       if(['diagnostic','exam','review'].includes(route))await Promise.all(data.domains.map(d=>route==='review'?lessons(d.id):questions(d.id)));
-      if(route==='resources'){data.resources.id='resources';data.resources.audit=data.sourceAudit;await localizeContent('resources',[data.resources]);await localizeContent('workshops',data.workshops);}
+      if(route==='resources'){data.resources.id='resources';data.resources.audit=data.sourceAudit;await localizeContent('resources',[data.resources]);await localizeContent('workshops',data.workshops);await localizeContent('services',data.services);}
       if(route==='compare')await localizeContent('services',data.services);
       if(route==='workshops'){await load(data.manifest.workshops,v=>merge(data.workshops,v));await localizeContent('workshops',data.workshops);}
       if(route==='architectures'){await load(data.manifest.architectures,v=>{data.architectures=v;});await localizeContent('architectures',data.architectures);}

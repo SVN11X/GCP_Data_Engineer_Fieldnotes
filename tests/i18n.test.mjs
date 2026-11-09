@@ -273,3 +273,32 @@ test('the resources route also localizes the workshop titles it lists',()=>{
  const src=read('src/scripts/loader.js');
  assert.match(src,/route==='resources'\)\{[^\n]*localizeContent\('workshops',data\.workshops\)/);
 });
+
+test('overlayState tells translated, gap and intentionally skipped text apart',()=>{
+ const applied=new Set(['Escaneos analíticos grandes.']),gaps=new Map([['Read a sensor by row-key range.','stale source hash'],['Other text','overlay not loaded']]);
+ assert.equal(I.overlayState('  Escaneos analíticos\n grandes. ',applied,gaps),'translated');
+ assert.equal(I.overlayState('Read a sensor by   row-key range.',applied,gaps),'stale source hash');
+ assert.equal(I.overlayState('Other text',applied,gaps),'overlay not loaded');
+ assert.equal(I.overlayState('A question stem',applied,gaps),null);
+ assert.equal(I.overlayState('Other text',null,undefined),null);
+});
+
+test('the content overlay records applied text and gaps with a reason',async()=>{
+ await import('../dist/assets/lesson-es.js');
+ await import('../dist/assets/content-es.js');
+ const L=globalThis.FieldLessonEs,E=globalThis.FieldContentEs,h=await L.hash12('Fit A');
+ const svc={id:'s1',fit:'Fit A',signal:'Signal B',caution:'Caution C'};
+ await E.apply('services',[svc],{s1:{fit:{es:'Ajuste A',src:h},caution:{es:'Cuidado C',src:'000000000000'}}},true);
+ assert.equal(I.overlayState('Ajuste A',E.applied,E.gaps),'translated');
+ assert.equal(I.overlayState('Signal B',E.applied,E.gaps),'no entry in the overlay');
+ assert.equal(I.overlayState('Caution C',E.applied,E.gaps),'stale source hash');
+ const t={id:'s2',fit:'Fit D'};
+ await E.apply('services',[t],null,true);
+ assert.equal(I.overlayState('Fit D',E.applied,E.gaps),'overlay not loaded');
+ await E.apply('services',[t],null,false);
+ assert.equal(I.overlayState('Fit D',E.applied,E.gaps),null);
+});
+
+test('the resources route also applies the services overlay',()=>{
+ assert.match(read('src/scripts/loader.js'),/route==='resources'\)\{[^\n]*localizeContent\('services',data\.services\)/);
+});
