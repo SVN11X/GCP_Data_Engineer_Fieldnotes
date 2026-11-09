@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Added a calm motion set: dots that travel along lesson diagram edges for three short passes with a pause button, quick button feedback, and a one-time key-fact marker sweep. Reduced motion shows everything still. Purposes are in docs/decisions/0001-motion-purposes.md.
+- Reorganized the repository: the client lives in src/, images in assets/, and dist/ is generated. The published site is byte-identical.
 - Added a lesson block pilot on four domain 1 lessons: a small diagram, one highlighted key fact and a quick check with an immediate explanation. Nothing is scored or saved, and the text is derived from the lessons and awaits owner review.
 - Added the field-notebook look: warm paper and ink tokens, a key-fact highlighter style, and domain text colors that keep 4.5:1 contrast in both themes. The handwritten font waits for approval.
 - Added a focus mode: a topbar button or the F key hides navigation and search, Escape turns it off, the choice is remembered in the browser, and a thin bar shows progress.

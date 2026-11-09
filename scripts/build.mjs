@@ -20,6 +20,13 @@ const dataDir=path.join(output,'data');
 fs.mkdirSync(path.join(dataDir,'lessons'),{recursive:true});
 fs.mkdirSync(path.join(dataDir,'questions'),{recursive:true});
 fs.mkdirSync(path.join(dataDir,'imported'),{recursive:true});
+// Build the deployable site: pages from src/, scripts and styles into dist/assets/, media from assets/.
+const keep=file=>path.basename(file)!=='README.md';
+fs.mkdirSync(path.join(output,'assets'),{recursive:true});
+for(const page of ['index.html','credits.html'])fs.copyFileSync(path.join(root,'src',page),path.join(output,page));
+fs.cpSync(path.join(root,'src/scripts'),path.join(output,'assets'),{recursive:true,filter:keep});
+fs.copyFileSync(path.join(root,'src/styles/styles.css'),path.join(output,'assets/styles.css'));
+fs.cpSync(path.join(root,'assets'),path.join(output,'assets'),{recursive:true,filter:keep});
 const write=(name,value)=>fs.writeFileSync(path.join(dataDir,name+'.json'),JSON.stringify(value)+'\n');
 // Content-derived release keys prevent mixing a cached catalog with another release.
 const release=crypto.createHash('sha256').update(JSON.stringify(data)).digest('hex').slice(0,16);
