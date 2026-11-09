@@ -128,5 +128,20 @@
     }
     return out;
   }
-  root.FieldCore = {equalAnswers, quotas, shuffle, makeExam, scoreExam, EVENTS, simulateStream, scanModel, runWorkshop, checkPrediction, defaultState, validateProgress};
+  const FOCUS_KEY = 'data-engineer-fieldnotes.focus.v1';
+  function parseFocusPreference(raw) {return raw === '1';}
+  function serializeFocusPreference(on) {return on === true ? '1' : '0';}
+  function toggleFocus(on) {return on !== true;}
+  function focusProgress(done, total) {
+    const d = Number(done), t = Number(total);
+    if (!Number.isFinite(d) || !Number.isFinite(t) || t <= 0) return 0;
+    return Math.max(0, Math.min(1, d / t));
+  }
+  function isTypingTarget(el) {
+    return !!(el && (['INPUT', 'TEXTAREA', 'SELECT'].includes(el.tagName) || el.isContentEditable === true));
+  }
+  function isFocusShortcut(ev) {
+    return !!ev && ev.key === 'f' && !ev.ctrlKey && !ev.metaKey && !ev.altKey && !ev.shiftKey && !isTypingTarget(ev.target);
+  }
+  root.FieldCore = {FOCUS_KEY, parseFocusPreference, serializeFocusPreference, toggleFocus, focusProgress, isFocusShortcut, equalAnswers, quotas, shuffle, makeExam, scoreExam, EVENTS, simulateStream, scanModel, runWorkshop, checkPrediction, defaultState, validateProgress};
 })(globalThis);

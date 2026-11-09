@@ -23,22 +23,22 @@ Format: `- [ ]` pending, `- [x]` done, `- [x] SKIPPED: reason`, `- [ ] BLOCKED: 
 - [x] 11. G Type and spacing scale: body 16 px or more, labels 14 px or more, prose max 70ch, 4 and 8 px spacing. Replace every 8 to 12 px font rule in styles.css.
 - [x] 12. G Field-notebook visual system from DESIGN.md: paper and ink tokens, key-fact style, domain text colors, both themes at 4.5:1 contrast or more. No new font yet (see 12b).
 - [ ] BLOCKED: 12b. Do you approve downloading one handwritten OFL font (for example Caveat from Google Fonts, about 100 KB WOFF2) into assets/ with its OFL text in LICENSES/? A self-hosted copy adds no runtime request to other hosts.
-- [ ] 13. G Mermaid-to-SVG at build time (radar: trial) for whiteboard diagrams. The radar note goes as a separate pull request to SVN11X/standards.
+- [ ] BLOCKED: 13. Mermaid-to-SVG at build time (radar: trial) for whiteboard diagrams. The radar note goes as a separate pull request to SVN11X/standards. Needs your OK to download or install: an npm package for Mermaid-to-SVG.
 
 ## Focus, lessons and motion
 
-- [ ] 14. G Focus mode on top of .focus-session: keyboard toggle, remembered state, progress bar. Test that old saved state still loads.
+- [x] 14. G Focus mode: topbar button, f key, Escape, remembered in its own storage key, progress bar. Tests cover toggle, bad values, clamping and old saved progress. Bar shows session step or completed lessons.
 - [ ] 15. G Lesson block pilot on domain 1: 2 to 5 minutes, diagram first, highlighted key fact, one quick check.
 - [ ] 16. G Motion set: data moving along pipeline SVGs, button feedback, key-fact highlight. Reduced-motion fallback, pause control over 5 s, decision record.
 - [ ] 17. G Gentle rewards: streaks and domain marks as optional fields under data-engineer-fieldnotes.v1. Export and restore test with old state.
-- [ ] 18. Y Official Google Cloud product icons in diagrams after confirming the terms on cloud.google.com/icons. Attribution on the credits page.
-- [ ] 19. G Lucide UI icons copied as local SVG and CC0 illustrations (Open Peeps, Open Doodles), each listed in LICENSES/.
-- [ ] 20. G Manim pilot: one 20 to 40 s WebM clip (batch vs streaming) rendered locally, 1 MB or less, poster, EN and ES VTT, pause control. Radar pull request to standards.
+- [ ] BLOCKED: 18. Official Google Cloud product icons in diagrams after confirming the terms on cloud.google.com/icons. Attribution on the credits page. Needs your OK to download or install: official Google Cloud icon files.
+- [ ] BLOCKED: 19. Lucide UI icons copied as local SVG and CC0 illustrations (Open Peeps, Open Doodles), each listed in LICENSES/. Needs your OK to download or install: Lucide SVG files and CC0 illustrations.
+- [ ] BLOCKED: 20. Manim pilot: one 20 to 40 s WebM clip (batch vs streaming) rendered locally, 1 MB or less, poster, EN and ES VTT, pause control. Radar pull requ... Needs your OK to download or install: Manim, ffmpeg and a rendered video.
 - [ ] 21. G Convert domain 2 to the lesson block format with diagrams.
 - [ ] 22. G Convert domain 3 to the lesson block format with diagrams.
 - [ ] 23. G Convert domain 4 to the lesson block format with diagrams.
 - [ ] 24. G Convert domain 5 to the lesson block format with diagrams.
-- [ ] 25. G Two more Manim clips (Pub/Sub to Dataflow to BigQuery, partition pruning) within the media budget of 10 MB new media in git.
+- [ ] BLOCKED: 25. Two more Manim clips (Pub/Sub to Dataflow to BigQuery, partition pruning) within the media budget of 10 MB new media in git. Needs your OK to download or install: Manim again, same approval as item 20.
 
 ## Entry paths, comparisons and questions
 

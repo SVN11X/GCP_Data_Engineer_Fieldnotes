@@ -17,6 +17,10 @@ function load(){try{const raw=localStorage.getItem(KEY);if(raw)return C.validate
 let state=load(),storageWarned=false,toastTimer,route='',practice={id:null,selected:[],checked:false},bank={query:'',domain:0,origin:'all',status:'all',difficulty:'all',saved:false,incorrect:false,page:1},english={query:'',saved:false,mode:'list',index:0,flipped:false,deck:[]},lab={tab:'stream',step:0,late:3,days:7,country:'CL',recipe:'stream'},sourceQuery='';
 const U=globalThis.FieldStudyUI.create({D,e,refs,tag,doclink,getState:()=>state,save,render});
 const A=globalThis.FieldAttention.create({D,C,e,refs,tag,getState:()=>state,save,render,highlight});
+let focusMode=false;try{focusMode=C.parseFocusPreference(localStorage.getItem(C.FOCUS_KEY));}catch{}
+function focusFraction(){if(route==='focus')return C.focusProgress((state.focus?.step||0)+1,4);if(route==='learn')return C.focusProgress(state.completed.length,D.lessons.length);return null;}
+function updateFocus(){const on=focusMode,bar=$('#focus-progress'),f=on?focusFraction():null;document.body.classList.toggle('focus-session',route==='focus'||on);$('#focus-toggle').setAttribute('aria-pressed',String(on));$('#focus-status').textContent=on?'on':'off';bar.hidden=f===null;if(f!==null){bar.setAttribute('aria-valuenow',String(Math.round(f*100)));bar.firstElementChild.style.width=f*100+'%';}}
+function setFocus(on){focusMode=on;try{localStorage.setItem(C.FOCUS_KEY,C.serializeFocusPreference(on));}catch{}updateFocus();}
 let renderVersion=0,currentView='',examReady=!state.exam;
 function applyTheme(){const preference=state.theme||'system';document.documentElement.dataset.theme=preference==='system'?(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):preference;$('#theme-toggle').textContent='Theme: '+preference;$('#theme-toggle').setAttribute('aria-label','Color theme: '+preference+'. Change theme');}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch{if(!storageWarned){storageWarned=true;toast('Browser storage is unavailable. Export progress before closing this page.');}}}
@@ -30,7 +34,7 @@ function renderNav(active){
  $('#navigation').innerHTML=primary.map(link).join('')+`<details class="nav-tools" ${tools.some(t=>t[0]===active)?'open':''}><summary>More study tools</summary>${tools.map(link).join('')}</details>`;
  $('#breadcrumb').textContent=active==='focus'?'Short session':[...primary,...tools].find(n=>n[0]===active)?.[1]||'Search';
  $('#english-toggle').setAttribute('aria-pressed',String(state.english));$('#english-status').textContent=state.english?'on':'off';document.body.classList.toggle('english-off',!state.english);
- document.body.classList.toggle('focus-session',active==='focus');
+ document.body.classList.toggle('focus-session',active==='focus'||focusMode);
 }
 
 function pipelineVisual(){return `<div class="pipeline-visual" role="img" aria-label="A streaming analytics route: devices publish to Pub/Sub, Dataflow transforms events, and BigQuery stores the analytical output."><div class="visual-top"><span>A RECORD’S JOURNEY</span><span>STREAMING PATTERN</span></div><svg viewBox="0 0 430 253"><defs><marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0 6 3 0 6" fill="none" stroke="#94a8ce" stroke-width="1"/></marker></defs><path d="M163 72H266M320 106V159M266 194H163" stroke="#9db2d8" fill="none" stroke-width="1.2" marker-end="url(#arrow)" class="flow-line"/><g fill="#fff" stroke="#d8e2f2"><rect x="23" y="38" width="140" height="68" rx="9"/><rect x="266" y="38" width="140" height="68" rx="9"/><rect x="266" y="159" width="140" height="68" rx="9"/><rect x="23" y="159" width="140" height="68" rx="9"/></g><g font-size="8" fill="#8592a8"><text x="195" y="62">publish</text><text x="327" y="139">transform</text><text x="188" y="185">write output</text></g><g fill="#3159c9"><rect x="35" y="53" width="25" height="25" rx="6" fill="#edf2ff"/><path d="M41 60h13v12H41zM45 64h5" fill="none" stroke="#3159c9"/><rect x="278" y="53" width="25" height="25" rx="6" fill="#edf2ff"/><circle cx="286" cy="61" r="2"/><circle cx="296" cy="61" r="2"/><circle cx="291" cy="71" r="2"/><path d="m286 63 5 6 5-6" stroke="#3159c9" fill="none"/><rect x="278" y="174" width="25" height="25" rx="6" fill="#fff4db"/><path d="M284 181h13M284 187h13M284 193h13" stroke="#b98c36"/><rect x="35" y="174" width="25" height="25" rx="6" fill="#e9f5f1"/><path d="M41 193v-8M47 193v-13M53 193v-5" stroke="#2b8773" stroke-width="2"/></g><g font-size="11" font-weight="650" fill="#334660"><text x="69" y="62">Device events</text><text x="312" y="62">Pub/Sub</text><text x="312" y="183">Dataflow</text><text x="69" y="183">BigQuery</text></g><g font-size="8" fill="#8490a4"><text x="69" y="78">Preserve event time</text><text x="312" y="78">Decouple producers</text><text x="312" y="199">Validate · window</text><text x="69" y="199">Store · analyze</text></g><text x="215" y="245" text-anchor="middle" font-size="7" fill="#8c99ad">ONE USEFUL PATTERN. THE REQUIREMENTS MAKE THE DECISION.</text></svg></div>`;}
@@ -147,7 +151,7 @@ async function render(scroll=false){
   html='<section class="empty" role="alert"><h1>This section could not load.</h1><p>Check the connection and retry. Saved study progress is kept in this browser.</p><button class="button primary" data-action="retry-content">Retry this section</button><p><a href="data/study-notes.md">Read the downloadable study notes</a></p></section>';
  }
  if(version!==renderVersion)return;
- currentView=view;$('#main').innerHTML=html;$('#main').removeAttribute('aria-busy');highlight();
+ currentView=view;$('#main').innerHTML=html;$('#main').removeAttribute('aria-busy');highlight();updateFocus();
  document.title=(route==='home'?'Learn with understanding':$('#main h1')?.textContent||'Study')+' · Data Engineer Fieldnotes';
  if(scroll){window.scrollTo({top:0,left:0,behavior:'instant'});$('#main').focus({preventScroll:true});}
  else if(focus){const replacement=focus.id?document.getElementById(focus.id):focus.action?document.querySelector(`[data-action="${CSS.escape(focus.action)}"]${focus.item?`[data-id="${CSS.escape(focus.item)}"]`:''}`):null;replacement?.focus({preventScroll:true});}
@@ -233,8 +237,11 @@ $('#global-search').addEventListener('submit',ev=>{ev.preventDefault();const val
 $('#theme-toggle').addEventListener('click',()=>{const themes=['system','light','dark'];state.theme=themes[(themes.indexOf(state.theme||'system')+1)%themes.length];save();applyTheme();});
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change',applyTheme);
 $('#english-toggle').addEventListener('click',()=>{state.english=!state.english;save();render(false);toast(state.english?'English help is on. Tap underlined terms.':'English help is off. The wordbook is still available.');});
+$('#focus-toggle').addEventListener('click',()=>setFocus(C.toggleFocus(focusMode)));
 $('#menu-toggle').addEventListener('click',()=>{const open=document.body.classList.toggle('nav-open');$('#menu-toggle').setAttribute('aria-expanded',String(open));if(open)$('#navigation a').focus();});
 document.addEventListener('keydown',ev=>{
+ if(C.isFocusShortcut(ev)&&!ev.target.closest('dialog')){ev.preventDefault();setFocus(C.toggleFocus(focusMode));}
+ if(ev.key==='Escape'&&focusMode&&!document.body.classList.contains('nav-open')&&!document.querySelector('dialog[open]'))setFocus(false);
  if(ev.key==='/'&&!ev.target.closest('input,textarea,select,[contenteditable=true],dialog')){ev.preventDefault();$('#search-input').focus();}
  if(ev.key==='Escape'&&document.body.classList.contains('nav-open')){document.body.classList.remove('nav-open');$('#menu-toggle').setAttribute('aria-expanded','false');$('#menu-toggle').focus();}
  if(ev.target.matches('[role=tab]')&&['ArrowLeft','ArrowRight','Home','End'].includes(ev.key)){ev.preventDefault();const tabs=[...ev.target.parentElement.querySelectorAll('[role=tab]')],idx=tabs.indexOf(ev.target),next=ev.key==='Home'?0:ev.key==='End'?tabs.length-1:(idx+(ev.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;tabs[next].click();document.querySelectorAll('[role=tab]')[next]?.focus();}
