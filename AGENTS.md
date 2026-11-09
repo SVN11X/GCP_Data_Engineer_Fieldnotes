@@ -53,7 +53,6 @@ If the task contradicts the goals or a decision, treat it as red and say so.
 - `content/`: extra folder declared in .standard.yml. Editable knowledge source of the study site (lessons, questions, glossary, sources). Build scripts read it.
 - `dist/`: extra folder declared in .standard.yml. Temporary. Committed build output until plan item 3 moves the client to src/ and stops tracking it.
 - `LICENSES/`: extra folder declared in .standard.yml. License texts of third-party assets the repository ships (REUSE layout).
-- `reports/`: extra folder declared in .standard.yml. Temporary. Audit reports until plan item 4 moves them into docs/.
 - Files created by the official tool of a language or framework are allowed where the tool puts them. Declare any other top-level folder in .standard.yml under extra_folders, with a reason.
 
 ## Fixed rules
