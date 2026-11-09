@@ -1,0 +1,1084 @@
+{
+ "analytics": {
+  "title": {
+   "es": "Haz que los dashboards sean eficientes y confiables",
+   "src": "d62fae31449d"
+  },
+  "lead": {
+   "es": "Optimiza la operación costosa que de verdad aparece en el plan de la consulta.",
+   "src": "9e103c880a98"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "Las vistas materializadas (materialized views) reutilizan resultados calculados compatibles. BI Engine acelera en memoria las consultas analíticas elegibles (eligible). Los filtros de partición y las columnas selectivas reducen el escaneo. Los controles de acceso por fila y por columna se siguen aplicando a los datos que ven los usuarios.",
+   "src": "3f0cb6a45e5b"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Usa los detalles de ejecución para ubicar joins costosos, sesgo (skew) o escaneos innecesarios. Revisa por separado la frescura del dashboard y su caché, y la frescura de la ingesta en el almacén (warehouse).",
+   "src": "133ad0f9ae41"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Cientos de usuarios suman las ventas por día una y otra vez. Un agregado materializado compatible evita repetir el mismo cálculo grande. BI Engine puede acelerar aún más las consultas elegibles del dashboard.",
+   "src": "c14a8e1c9d24"
+  },
+  "sections.3.title": {
+   "es": "Revisa dónde ocurre el trabajo costoso",
+   "src": "911b077bec6a"
+  },
+  "sections.3.body": {
+   "es": "Una consulta puede perder tiempo leyendo columnas que no necesita, reordenando (shuffle) un join grande, procesando una clave sesgada u ordenando un resultado intermedio grande. Parte de la evidencia de la ejecución y compara la misma carga de trabajo. Más capacidad puede ayudar si hay presión de recursos, pero no convierte en buen diseño una explosión de filas que se podía evitar.",
+   "src": "3cb6aca67b0b"
+  },
+  "sections.4.title": {
+   "es": "Elige la representación reutilizable adecuada",
+   "src": "1039cca726e6"
+  },
+  "sections.4.body": {
+   "es": "Una vista lógica (logical view) guarda la definición de una consulta. Una vista materializada guarda resultados calculados compatibles y tiene reglas propias de actualización (refresh) y de forma de la consulta. BI Engine acelera en memoria el trabajo analítico elegible. Estos mecanismos pueden complementarse, pero ninguno elimina la necesidad de entender el filtrado, la frescura y la autorización.",
+   "src": "998012bbdfa2"
+  },
+  "sections.5.title": {
+   "es": "Prueba la frescura del dashboard de extremo a extremo",
+   "src": "e03e6650b04d"
+  },
+  "sections.5.body": {
+   "es": "Distingue cuándo ocurrió un evento, cuándo se cargó, cuándo se actualizó un agregado y cuándo se actualizó por última vez la caché del dashboard. Un dashboard recién actualizado todavía puede mostrar datos viejos de origen. Define a qué marca de tiempo se refiere la meta de frescura del negocio y monitorea ese intervalo.",
+   "src": "010c922aabeb"
+  },
+  "trap": {
+   "es": "Una vista lógica es la definición guardada de una consulta. No es, por sí sola, una caché de resultados guardada.",
+   "src": "f85a848efd58"
+  },
+  "exercise.prompt": {
+   "es": "El dashboard se actualiza cada minuto, pero muestra valores de hace una hora. ¿Agregar slots es la primera acción justificada?",
+   "src": "7dd12fc35f73"
+  },
+  "exercise.answer": {
+   "es": "No. Sigue la ruta de la llegada del origen, el fin de la ingesta, la actualización del agregado y la caché de la visualización. Usa la evidencia de ejecución de la consulta para decidir si el cómputo es de verdad el cuello de botella. Actualizar con frecuencia no prueba que haya frescura de extremo a extremo.",
+   "src": "fd163cb361a8"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Ubica la etapa costosa de la consulta.",
+   "src": "37ea758d60b1"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Explica la diferencia entre vistas lógicas y materializadas.",
+   "src": "42dbc43975cb"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Sigue la frescura a lo largo de todo el camino.",
+   "src": "d72bb4650296"
+  },
+  "briefing.context": {
+   "es": "Un dashboard se actualiza seguido y las personas confían en sus números para tomar decisiones.",
+   "src": "7f8e36062799"
+  },
+  "briefing.whyItMatters": {
+   "es": "Los gráficos rápidos no sirven si sus valores están desactualizados, duplicados o los ve quien no debe.",
+   "src": "2b802649f0a8"
+  },
+  "briefing.takeaway": {
+   "es": "Equilibra la eficiencia de la consulta, la frescura y el acceso autorizado.",
+   "src": "77183f787e3a"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Del plan de la consulta al dashboard",
+   "src": "1aa226b90095"
+  },
+  "block.diagram.description": {
+   "es": "Lee el plan de la consulta, corrige el paso costoso y revisa la frescura por separado.",
+   "src": "249d56e7aade"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Lee el plan",
+   "src": "11001a8dbcdc"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "del paso costoso",
+   "src": "41764b296ce6"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Corrige escaneos,",
+   "src": "33987e30c454"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "joins o trabajo repetido",
+   "src": "90b9c56d0c1a"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Revisa la frescura",
+   "src": "4c3dffb02d7b"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "por separado",
+   "src": "dcb1661cdedc"
+  },
+  "block.keyFact": {
+   "es": "Una vista lógica es la definición guardada de una consulta. No es, por sí sola, una caché de resultados guardada.",
+   "src": "f85a848efd58"
+  },
+  "block.check.question": {
+   "es": "Cientos de usuarios suman las ventas por día una y otra vez. ¿Qué evita repetir el mismo cálculo grande?",
+   "src": "5b9464e0c7f1"
+  },
+  "block.check.choices.0.text": {
+   "es": "Una vista lógica",
+   "src": "8047265d2c26"
+  },
+  "block.check.choices.0.why": {
+   "es": "Una vista lógica guarda la definición de una consulta, no un resultado.",
+   "src": "7d35c81eb070"
+  },
+  "block.check.choices.1.text": {
+   "es": "Solo más capacidad",
+   "src": "7dd580b7bad0"
+  },
+  "block.check.choices.1.why": {
+   "es": "La capacidad puede ayudar si hay presión de recursos, pero no corrige el trabajo evitable.",
+   "src": "15a71e3d5e07"
+  },
+  "block.check.choices.2.text": {
+   "es": "Un agregado materializado compatible",
+   "src": "4dc7ed30eaa2"
+  },
+  "block.check.choices.2.why": {
+   "es": "Guarda resultados calculados, así que no se repite el mismo cálculo grande.",
+   "src": "28d3f9a6445f"
+  },
+  "verification.note": {
+   "es": "Se confirmó que las vistas lógicas solo guardan una consulta, que las vistas materializadas guardan resultados, que BI Engine trabaja en memoria y que se mantienen las vistas autorizadas y la seguridad por columna. No se comprobaron el ajuste del plan de consulta ni los tiempos de la caché del dashboard.",
+   "src": "26bd9d86d523"
+  }
+ },
+ "materialized-freshness": {
+  "title": {
+   "es": "Elige resultados reutilizables sin perder frescura",
+   "src": "13d907819363"
+  },
+  "lead": {
+   "es": "Un dashboard rápido igual debe responder la pregunta sensible al tiempo que se quiere resolver.",
+   "src": "aa8c537849a8"
+  },
+  "sections.0.title": {
+   "es": "Compara el objeto guardado",
+   "src": "4c827da09a74"
+  },
+  "sections.0.body": {
+   "es": "Una vista lógica guarda una definición SQL. Una vista materializada guarda resultados calculados compatibles, con su propio comportamiento de actualización y sus reglas de elegibilidad. Una caché de reportes guarda una respuesta del lado de la presentación. Están en capas distintas, así que cambiar una no repara de forma automática los datos viejos de las otras.",
+   "src": "7ef81d2c3fd9"
+  },
+  "sections.1.title": {
+   "es": "Revisa el patrón de consulta compatible",
+   "src": "063245a19158"
+  },
+  "sections.1.body": {
+   "es": "Las opciones incrementales y no incrementales de las vistas materializadas admiten formas de consulta distintas y tienen un mantenimiento o una frescura distintos. Consulta la documentación actual y no supongas que cualquier expresión SQL se puede reutilizar de forma incremental. Elige el agregado compatible más simple para una necesidad repetible del dashboard.",
+   "src": "02bfb65f446b"
+  },
+  "sections.2.title": {
+   "es": "Mide la frescura y la latencia de extremo a extremo",
+   "src": "d907e817a20e"
+  },
+  "sections.2.body": {
+   "es": "Registra la hora del evento de origen, la hora de carga, la actualización del agregado y cómo lee el dashboard. Compara la consulta analítica real con la estrategia de aceleración y sin ella, y deja fijas la autorización y la lógica del negocio. Debes demostrar por separado un menor tiempo de consulta y un resultado fresco.",
+   "src": "072c3aa889d4"
+  },
+  "trap": {
+   "es": "Precalcular no da permiso para ignorar la meta de frescura del negocio.",
+   "src": "bbae2f8d9080"
+  },
+  "exercise.prompt": {
+   "es": "Una vista lógica es rápida en la segunda ejecución. ¿Eso prueba que es una vista materializada?",
+   "src": "1e3ed3400d06"
+  },
+  "exercise.answer": {
+   "es": "No. Una vista lógica sigue siendo la definición guardada de una consulta. Otras cachés pueden influir en una ejecución repetida. Revisa el tipo real del objeto y la evidencia de ejecución antes de atribuir un cambio de rendimiento.",
+   "src": "0f49a6eed517"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Distingue las tres capas de caché.",
+   "src": "bda9167fee4e"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Revisa la elegibilidad para materializar.",
+   "src": "a07e429621c6"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Mide la frescura por separado de la latencia de la consulta.",
+   "src": "86d6a107e82c"
+  },
+  "briefing.context": {
+   "es": "Muchos usuarios repiten el mismo cálculo analítico costoso.",
+   "src": "5759837bfcec"
+  },
+  "briefing.whyItMatters": {
+   "es": "Reutilizar resultados puede ayudar, pero un reporte igual necesita un acuerdo claro de frescura.",
+   "src": "307f8f43460d"
+  },
+  "briefing.takeaway": {
+   "es": "Compara los resultados reutilizables con cuánta antigüedad (staleness) permite el negocio.",
+   "src": "dabb46c52407"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Tres capas que pueden quedar viejas",
+   "src": "e10d55d76df0"
+  },
+  "block.diagram.description": {
+   "es": "Una vista lógica guarda SQL, una vista materializada guarda resultados compatibles y una caché de reportes guarda una respuesta.",
+   "src": "d32816ae470c"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Vista lógica:",
+   "src": "948378892677"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "definición SQL",
+   "src": "c5fd7c2cc7eb"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Vista materializada:",
+   "src": "063fb2108f50"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "resultados compatibles",
+   "src": "46248d4a9f4f"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Caché de reportes:",
+   "src": "bdc72f341e88"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "respuesta final",
+   "src": "a1e9768a61ee"
+  },
+  "block.keyFact": {
+   "es": "Precalcular no da permiso para ignorar la meta de frescura del negocio.",
+   "src": "bbae2f8d9080"
+  },
+  "block.check.question": {
+   "es": "Una vista materializada está actualizada, pero el reporte sigue viéndose viejo. ¿Por qué?",
+   "src": "b40e5cce1b43"
+  },
+  "block.check.choices.0.text": {
+   "es": "Están en capas distintas, así que una no repara las otras",
+   "src": "a61d5ca89475"
+  },
+  "block.check.choices.0.why": {
+   "es": "Cambiar una capa no repara de forma automática los datos viejos de las otras.",
+   "src": "336f44303ed1"
+  },
+  "block.check.choices.1.text": {
+   "es": "Una vista materializada es solo una vista lógica",
+   "src": "fdc3d5cfe35c"
+  },
+  "block.check.choices.1.why": {
+   "es": "Una vista lógica guarda SQL y una vista materializada guarda resultados calculados.",
+   "src": "c894688f884b"
+  },
+  "block.check.choices.2.text": {
+   "es": "Precalcular elimina la meta de frescura",
+   "src": "5b22bc7ce12f"
+  },
+  "block.check.choices.2.why": {
+   "es": "Precalcular no da permiso para ignorar la meta de frescura del negocio.",
+   "src": "bbae2f8d9080"
+  },
+  "verification.note": {
+   "es": "Se confirmó que las vistas incrementales admiten pocas formas de consulta y las no incrementales admiten la mayoría, con distinto costo de actualización y distinta frescura. No se comprobaron la capa de caché de reportes ni las metas de frescura del negocio.",
+   "src": "f2ad60840be0"
+  }
+ },
+ "features": {
+  "title": {
+   "es": "Mantén coherentes las transformaciones de entrenamiento y de servicio",
+   "src": "87aa36627f51"
+  },
+  "lead": {
+   "es": "El mismo valor crudo debe significar lo mismo en los dos entornos.",
+   "src": "6feb183409b5"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "Ajusta (fit) el preprocesamiento con los datos de entrenamiento y aplícalo igual en la evaluación y en el servicio (serving). La cláusula TRANSFORM de BigQuery ML puede unir las transformaciones compatibles al uso del modelo. Hay fuga de datos (data leakage) cuando entra al entrenamiento información futura que no estaría disponible.",
+   "src": "b8523b2006f6"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Divide los datos de evaluación con intención, revisa los nulos y los valores atípicos, y usa métricas adecuadas. El sobreajuste (overfitting) es ajustarse a rarezas del entrenamiento en lugar de generalizar. Más datos representativos o la regularización pueden ayudar.",
+   "src": "dad771c55e54"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "La predicción de demanda usa precios escalados. Reutiliza los parámetros de escalado ya ajustados para el servicio y no los recalcules por separado con una sola solicitud de predicción.",
+   "src": "3d4eb3d0fe44"
+  },
+  "sections.3.title": {
+   "es": "Ajusta las transformaciones con la información de entrenamiento",
+   "src": "8fa219f1d766"
+  },
+  "sections.3.body": {
+   "es": "El escalado y la codificación son parte del contrato de entrada que aprende el modelo. Ajustar las estadísticas con datos futuros de evaluación puede filtrar información. Conserva los parámetros ajustados y aplica la misma transformación en el servicio. Una cláusula TRANSFORM puede mantener con el modelo las transformaciones compatibles de BigQuery ML, pero un servicio externo igual necesita una implementación compatible.",
+   "src": "85e1c1c5b5f7"
+  },
+  "sections.4.title": {
+   "es": "Elige métricas según el error del negocio",
+   "src": "156240731c6d"
+  },
+  "sections.4.body": {
+   "es": "La exactitud (accuracy) puede ocultar el fallo en una clase poco común. La precisión (precision) indica cuántos de los positivos predichos son verdaderos. La exhaustividad (recall) indica cuántos de los positivos reales se encontraron. Las métricas de regresión expresan penalizaciones distintas para los errores numéricos. Compara los modelos con un diseño de evaluación reservado (held-out) adecuado y elige los umbrales según el costo real de los errores.",
+   "src": "f94394a99bf7"
+  },
+  "sections.5.title": {
+   "es": "Elige datos de evaluación parecidos al uso real",
+   "src": "c5551aa12ee6"
+  },
+  "sections.5.body": {
+   "es": "Una división aleatoria no siempre es adecuada para un pronóstico cronológico ni para observaciones repetidas de la misma entidad. Revisa si entidades casi duplicadas o valores futuros cruzan el límite de evaluación. Un conjunto reservado más realista puede bajar el puntaje aparente, pero da una estimación más útil del comportamiento en producción.",
+   "src": "07e01d1ac6f2"
+  },
+  "trap": {
+   "es": "Un puntaje alto de entrenamiento, por sí solo, no es evidencia de buen rendimiento con datos nuevos.",
+   "src": "a1ababa0d7a8"
+  },
+  "exercise.prompt": {
+   "es": "Un detector de fraude marca todas las transacciones como legítimas y reporta 99.9% de exactitud. ¿Qué debes investigar?",
+   "src": "c46e4467f2e2"
+  },
+  "exercise.answer": {
+   "es": "Revisa el balance de clases, la matriz de confusión, la exhaustividad (recall) del fraude y el costo operativo de los fraudes no detectados y de las falsas alarmas. Compara con una línea base (baseline) con sentido y evalúa con datos que reflejen el uso real. Un valor global alto de exactitud, por sí solo, no demuestra que el detector sea útil.",
+   "src": "88e9a92b415d"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Mantén coherente el preprocesamiento ajustado.",
+   "src": "e739072134cd"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Explica la diferencia entre precisión y exhaustividad.",
+   "src": "c3b2c589bff3"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Identifica una forma de fuga temporal o por entidad.",
+   "src": "ea960f2c6767"
+  },
+  "briefing.context": {
+   "es": "Un modelo aprende de datos de entrenamiento transformados y luego recibe entradas en vivo.",
+   "src": "33770c856282"
+  },
+  "briefing.whyItMatters": {
+   "es": "Si las transformaciones del entrenamiento y del servicio son distintas, el modelo puede comportarse de forma inesperada.",
+   "src": "ded97a48f068"
+  },
+  "briefing.takeaway": {
+   "es": "Mantén coherentes el significado de las variables (features) y sus transformaciones en todo el ciclo de vida.",
+   "src": "88836caeb4c8"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Una transformación, dos lugares",
+   "src": "21f2e93d6387"
+  },
+  "block.diagram.description": {
+   "es": "Ajusta el escalado con los datos de entrenamiento, conserva los parámetros y aplícalos en el servicio.",
+   "src": "d92ec1500b2d"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Ajusta el escalado",
+   "src": "a446f8989719"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "con datos de entrenamiento",
+   "src": "56eabe5e6f9e"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Conserva los",
+   "src": "5ba29ad0e499"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "parámetros ajustados",
+   "src": "f528212a496d"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Aplica la misma",
+   "src": "a27e0f2c54d8"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "transformación al servir",
+   "src": "3264f42a5859"
+  },
+  "block.keyFact": {
+   "es": "Un puntaje alto de entrenamiento, por sí solo, no es evidencia de buen rendimiento con datos nuevos.",
+   "src": "a1ababa0d7a8"
+  },
+  "block.check.question": {
+   "es": "La predicción de demanda usa precios escalados. ¿Cómo debe escalarse una sola solicitud de servicio?",
+   "src": "5c90b06f51ae"
+  },
+  "block.check.choices.0.text": {
+   "es": "Recalcular las estadísticas con esa sola solicitud",
+   "src": "e75dc98f4970"
+  },
+  "block.check.choices.0.why": {
+   "es": "Reutiliza los parámetros ajustados y no los recalcules con una sola solicitud.",
+   "src": "bae310054cbd"
+  },
+  "block.check.choices.1.text": {
+   "es": "Reutilizar los parámetros de escalado ajustados",
+   "src": "756683a73027"
+  },
+  "block.check.choices.1.why": {
+   "es": "La misma transformación debe aplicarse en el entrenamiento y en el servicio.",
+   "src": "d53f4653e9a7"
+  },
+  "block.check.choices.2.text": {
+   "es": "Ajustar las estadísticas con los datos de evaluación",
+   "src": "6d7b0872f914"
+  },
+  "block.check.choices.2.why": {
+   "es": "Ajustar las estadísticas con datos futuros de evaluación puede filtrar información.",
+   "src": "da509f8ea8b5"
+  },
+  "verification.note": {
+   "es": "Se confirmó que TRANSFORM vuelve a aplicar el preprocesamiento y las estadísticas de entrenamiento en la predicción y la evaluación, y que los modelos exportados lo admiten. La fuga de datos y el sobreajuste son consejos generales de ML y no se comprobaron.",
+   "src": "4b518c97be47"
+  }
+ },
+ "ml-evaluation": {
+  "title": {
+   "es": "Evalúa los modelos según el costo real de sus fallos",
+   "src": "c110be067482"
+  },
+  "lead": {
+   "es": "Una métrica debe corresponder a un error del negocio y no solo verse impresionante.",
+   "src": "23892bd0d94e"
+  },
+  "sections.0.title": {
+   "es": "Crea una línea base fácil de interpretar",
+   "src": "1afdbe3b8981"
+  },
+  "sections.0.body": {
+   "es": "En clasificación, examina la población y la matriz de confusión. Un predictor de la clase mayoritaria (majority-class) puede tener una exactitud alta y no encontrar ninguno de los eventos positivos poco comunes. En la predicción numérica, compara con una línea base razonable y elige una medida de error que refleje la penalización de los errores grandes.",
+   "src": "91ae3263f2a4"
+  },
+  "sections.1.title": {
+   "es": "Elige la división según las condiciones de uso",
+   "src": "f6170dfb8349"
+  },
+  "sections.1.body": {
+   "es": "Al evaluar un pronóstico, mantén la información futura fuera del entrenamiento. Considera las entidades repetidas y los registros casi duplicados al elegir el conjunto reservado (holdout). Ajusta el preprocesamiento con la información de entrenamiento y reutilízalo en la evaluación y en el servicio. Una división aleatoria es un método y no una garantía absoluta de una generalización realista.",
+   "src": "ef914fdd5e65"
+  },
+  "sections.2.title": {
+   "es": "Conecta un umbral con sus consecuencias operativas",
+   "src": "2cf1724b209c"
+  },
+  "sections.2.body": {
+   "es": "La precisión y la exhaustividad cambian con el umbral de clasificación. Más exhaustividad puede generar más casos para revisión humana. Con menos falsas alertas se pueden perder más positivos. Evalúa la carga de trabajo y el costo para el negocio del umbral elegido, y vigila que el entrenamiento y el servicio sigan siendo coherentes.",
+   "src": "f6d17f305dd7"
+  },
+  "trap": {
+   "es": "Un puntaje de validación no garantiza la misma distribución de errores en producción.",
+   "src": "cf182ba4e4e3"
+  },
+  "exercise.prompt": {
+   "es": "Un detector identifica 8 de 10 casos de fraude, con 12 alertas en total. ¿Cuáles son la exhaustividad (recall) y la precisión (precision)?",
+   "src": "b07a46406c5f"
+  },
+  "exercise.answer": {
+   "es": "La exhaustividad es 8/10 = 80%. La precisión es 8/12, cerca de 66.7%. El umbral útil depende del costo del fraude no detectado y de investigar las falsas alertas.",
+   "src": "36e6b533bbbd"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Calcula la precisión y la exhaustividad.",
+   "src": "e674033b51e9"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Elige un conjunto reservado que sirva para el uso real.",
+   "src": "002487168127"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Explica una forma en que el preprocesamiento puede filtrar información.",
+   "src": "2efb4d757bbb"
+  },
+  "briefing.context": {
+   "es": "Un modelo de fraude puede no detectar fraudes reales o marcar por error compras legítimas.",
+   "src": "93869bd83b33"
+  },
+  "briefing.whyItMatters": {
+   "es": "Un solo número de exactitud oculta los costos distintos de esos errores.",
+   "src": "83ca43bede2e"
+  },
+  "briefing.takeaway": {
+   "es": "Elige medidas de evaluación que reflejen el costo real de los fallos.",
+   "src": "ae89e112c3ce"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Cómo juzgar un modelo con eventos raros",
+   "src": "621c559fb25e"
+  },
+  "block.diagram.description": {
+   "es": "Una línea base de clase mayoritaria puede tener una exactitud alta, así que compara la precisión y la exhaustividad con un umbral elegido.",
+   "src": "d7a15069deeb"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Predictor de la",
+   "src": "c7d4514f3fe8"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "clase mayoritaria",
+   "src": "3b857e4f8436"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Exactitud alta,",
+   "src": "fcda2ae921a9"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "ningún positivo raro hallado",
+   "src": "aced381d4207"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Precisión y exhaustividad",
+   "src": "f95010e587a3"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "con el umbral",
+   "src": "79096397397a"
+  },
+  "block.keyFact": {
+   "es": "Un puntaje de validación no garantiza la misma distribución de errores en producción.",
+   "src": "cf182ba4e4e3"
+  },
+  "block.check.question": {
+   "es": "Un predictor de la clase mayoritaria muestra una exactitud alta en un evento raro. ¿Qué demuestra eso?",
+   "src": "289987dcf60e"
+  },
+  "block.check.choices.0.text": {
+   "es": "Que el modelo es útil",
+   "src": "5f7eb87256dd"
+  },
+  "block.check.choices.0.why": {
+   "es": "La exactitud puede ocultar el fallo en una clase poco común.",
+   "src": "16fa61d30798"
+  },
+  "block.check.choices.1.text": {
+   "es": "Que la exhaustividad ya no importa",
+   "src": "c987fe0a6ff3"
+  },
+  "block.check.choices.1.why": {
+   "es": "La precisión y la exhaustividad cambian con el umbral y tienen un costo operativo.",
+   "src": "455002c9d7ed"
+  },
+  "block.check.choices.2.text": {
+   "es": "Que puede no encontrar ninguno de los positivos raros",
+   "src": "2693c454d557"
+  },
+  "block.check.choices.2.why": {
+   "es": "Un predictor de la clase mayoritaria puede tener una exactitud alta y no encontrar ninguno.",
+   "src": "38baadfaedbb"
+  },
+  "verification.note": {
+   "es": "Se confirmó que BigQuery ML reporta precisión, exhaustividad, exactitud y una matriz de confusión, y que evalúa con un umbral personalizado en los modelos binarios. Los consejos sobre la clase mayoritaria y el diseño de la división son de ML general y no se comprobaron.",
+   "src": "75ca1f6cd39b"
+  }
+ },
+ "embeddings": {
+  "title": {
+   "es": "Prepara los documentos para la recuperación y la generación",
+   "src": "9e01d59237bc"
+  },
+  "lead": {
+   "es": "Un sistema de recuperación necesita contexto relevante y permitido antes de generar una respuesta.",
+   "src": "6bc3dfb46851"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "Un embedding (incrustación) es una representación numérica que sirve para comparar significados. Un flujo RAG divide el material de origen en fragmentos (chunks), conserva los metadatos, crea los embeddings, recupera los fragmentos relevantes y entrega ese contexto a un modelo de generación.",
+   "src": "95beb56cb80f"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Elige los límites de los fragmentos y el modelo de embeddings de forma coherente. Conserva la procedencia (provenance) y aplica las restricciones de acceso al recuperar. Después evalúa tanto el contexto recuperado como la respuesta final.",
+   "src": "b8c8b1f5d640"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Un asistente interno de políticas recupera pasajes con ID de documento y fechas de vigencia. La respuesta cita esos pasajes y los documentos restringidos nunca llegan a usuarios sin autorización.",
+   "src": "a3c0456fc7e5"
+  },
+  "sections.3.title": {
+   "es": "Mantén una representación reproducible de los documentos",
+   "src": "d4fc15fbdba0"
+  },
+  "sections.3.body": {
+   "es": "Guarda un identificador de fragmento, el documento de origen, la versión o la fecha, los metadatos de acceso y el modelo de embeddings usado. Si cambias de modelo de embeddings, puede ser necesario regenerar los vectores guardados o separarlos. Los límites de los fragmentos influyen en que la recuperación capte suficiente contexto sin mezclar material que no tiene relación.",
+   "src": "57352a029f3f"
+  },
+  "sections.4.title": {
+   "es": "Filtra la evidencia recuperada antes de generar",
+   "src": "ba725d98b84d"
+  },
+  "sections.4.body": {
+   "es": "El modelo no debe recibir un pasaje restringido solo porque su vector esté cerca de la pregunta. Aplica una recuperación autorizada y conserva la procedencia. Trata el texto de origen como contenido no confiable y no como instrucciones para la aplicación. Evalúa por separado la relevancia, el apoyo en las fuentes (groundedness) y la utilidad de la respuesta final.",
+   "src": "330343c9ea81"
+  },
+  "sections.5.title": {
+   "es": "Entiende el equilibrio del indexado",
+   "src": "f64d6d7dfe3f"
+  },
+  "sections.5.body": {
+   "es": "Un índice vectorial puede acelerar la recuperación aproximada (approximate) en una carga de trabajo, a cambio de algo de almacenamiento y mantenimiento. Los vecinos aproximados no son, por sí solos, lo mismo que una búsqueda exacta en todos los vectores. Mide la calidad de recuperación y la latencia que necesita tu aplicación, y revisa la disponibilidad o la cobertura del índice antes de atribuirle cambios de rendimiento.",
+   "src": "7769bbc455d8"
+  },
+  "trap": {
+   "es": "Un índice vectorial mejora el rendimiento de la recuperación. No garantiza respuestas correctas ni autorizadas.",
+   "src": "505d9bd1a7e4"
+  },
+  "exercise.prompt": {
+   "es": "Una respuesta RAG cita un documento real, pero da una conclusión equivocada. ¿Qué capas podrían necesitar evaluación?",
+   "src": "738739574786"
+  },
+  "exercise.answer": {
+   "es": "Revisa si los fragmentos recuperados eran relevantes, completos, actuales y autorizados. Luego inspecciona cómo los usó la generación. Citar un documento válido no prueba que la conclusión se deduzca de la evidencia. Revisa tanto la calidad de la recuperación como la calidad de la respuesta.",
+   "src": "fff2d983db35"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Conserva la versión del documento y los metadatos de acceso.",
+   "src": "7b23e745e7b0"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Separa la relevancia de la recuperación de la corrección de la respuesta.",
+   "src": "774345819b70"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Explica la recuperación aproximada frente a la exacta.",
+   "src": "61ddd0a75131"
+  },
+  "briefing.context": {
+   "es": "Un usuario hace una pregunta y el sistema debe encontrar pasajes relevantes de los documentos antes de generar una respuesta.",
+   "src": "b8a90366b7a6"
+  },
+  "briefing.whyItMatters": {
+   "es": "El texto relevante debe poder encontrarse sin perder su fuente ni sus reglas de autorización.",
+   "src": "e2209b0386f6"
+  },
+  "briefing.takeaway": {
+   "es": "Prepara juntos los fragmentos útiles, los embeddings y la evidencia de recuperación.",
+   "src": "f0b23f8597ed"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Recuperar antes de generar",
+   "src": "585c387788c3"
+  },
+  "block.diagram.description": {
+   "es": "Divide las fuentes en fragmentos, crea embeddings con metadatos, recupera los fragmentos permitidos y luego genera.",
+   "src": "283137ff238e"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Divide el material",
+   "src": "3b0ad620be27"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Embedding y metadatos",
+   "src": "189d510bf76e"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Recupera lo permitido",
+   "src": "0ef876eb89e5"
+  },
+  "block.diagram.nodes.3.lines.0": {
+   "es": "Genera con contexto",
+   "src": "d7692231c690"
+  },
+  "block.keyFact": {
+   "es": "Un índice vectorial mejora el rendimiento de la recuperación. No garantiza respuestas correctas ni autorizadas.",
+   "src": "508bdde7c384"
+  },
+  "block.check.question": {
+   "es": "Un pasaje restringido tiene un vector cercano a la pregunta. ¿Qué debe pasar?",
+   "src": "54ad5b7ba1b3"
+  },
+  "block.check.choices.0.text": {
+   "es": "Aplicar el acceso para que no se recupere para usuarios sin autorización",
+   "src": "326203cde7c3"
+  },
+  "block.check.choices.0.why": {
+   "es": "El modelo no debe recibir un pasaje restringido solo porque su vector esté cerca.",
+   "src": "b8b706cdd439"
+  },
+  "block.check.choices.1.text": {
+   "es": "Enviarlo, porque es la coincidencia más cercana",
+   "src": "1b477819401b"
+  },
+  "block.check.choices.1.why": {
+   "es": "La cercanía, por sí sola, no justifica enviar un pasaje restringido.",
+   "src": "1aae8c632f5b"
+  },
+  "block.check.choices.2.text": {
+   "es": "Confiar en que el índice vectorial mantenga las respuestas autorizadas",
+   "src": "59f693ddd6a1"
+  },
+  "block.check.choices.2.why": {
+   "es": "Un índice vectorial mejora el rendimiento, pero no garantiza respuestas autorizadas.",
+   "src": "355d52183280"
+  },
+  "verification.note": {
+   "es": "Se confirmó que la búsqueda con índice es aproximada y con menor exhaustividad, que la fuerza bruta (brute force) es exacta, que la cobertura del índice es visible y que el flujo RAG divide, crea embeddings y recupera. No se comprobaron el cambio de modelo de embeddings ni la aplicación del acceso.",
+   "src": "5cc5eefd67fb"
+  }
+ },
+ "rag-evaluation": {
+  "title": {
+   "es": "Evalúa por separado la recuperación y las respuestas generadas",
+   "src": "a56daab0c434"
+  },
+  "lead": {
+   "es": "El contexto relevante, el control de acceso y la generación fiel son requisitos distintos.",
+   "src": "422f5e4a5edb"
+  },
+  "sections.0.title": {
+   "es": "Prueba la etapa de recuperación por sí sola",
+   "src": "a5fca6284bd0"
+  },
+  "sections.0.body": {
+   "es": "Crea preguntas representativas con los pasajes útiles que esperas. Revisa si aparece el material relevante, si está actualizado y si los filtros de acceso excluyen los documentos restringidos. Si falta la evidencia correcta, cambiar solo el prompt de generación puede no arreglar el problema de fondo de la recuperación.",
+   "src": "092992ac1af5"
+  },
+  "sections.1.title": {
+   "es": "Prueba la respuesta contra la evidencia recuperada",
+   "src": "bf97d34ff4f8"
+  },
+  "sections.1.body": {
+   "es": "Evalúa si la conclusión se deduce de los pasajes entregados, si las citas llevan a la versión correcta del documento y cómo se maneja la evidencia que falta. Distingue una afirmación generada por el modelo de un hecho validado por tu pipeline de datos. Trata cualquier instrucción dentro de un documento como contenido no confiable.",
+   "src": "bfebf5f601e0"
+  },
+  "sections.2.title": {
+   "es": "Monitorea el ciclo de vida de los documentos",
+   "src": "3bfab2c75482"
+  },
+  "sections.2.body": {
+   "es": "Cuando un documento cambia, se elimina o pierde el acceso, actualiza la representación de recuperación y sus metadatos según el contrato que corresponda. Un embedding viejo puede seguir llevando a contexto desactualizado o prohibido si el diseño de acceso y de actualización a su alrededor está incompleto.",
+   "src": "b225ea999229"
+  },
+  "trap": {
+   "es": "Un embedding es una representación para comparar. No es una copia de la verdad ni una decisión de autorización.",
+   "src": "96c97b854b5c"
+  },
+  "exercise.prompt": {
+   "es": "Una política que antes era pública pasa a ser restringida, pero su fragmento viejo sigue siendo recuperable. ¿Qué contrato falló?",
+   "src": "bb601863813b"
+  },
+  "exercise.answer": {
+   "es": "Falló el contrato de acceso y de actualización de documentos de la recuperación. Actualiza o excluye la representación afectada y aplica la autorización antes de que el contexto llegue a la generación. Prometer ocultar datos en la respuesta final es más débil que impedir la recuperación no autorizada.",
+   "src": "872f4c848f8f"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Evalúa la relevancia de los pasajes antes de generar.",
+   "src": "44784dd1d2b9"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Revisa la versión de la cita y el apoyo en las fuentes (groundedness).",
+   "src": "b285983f9144"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Propaga las eliminaciones de documentos y los cambios de acceso.",
+   "src": "9ca08c6b7462"
+  },
+  "briefing.context": {
+   "es": "Una respuesta generada suena convincente, pero la evidencia recuperada puede ser irrelevante o no estar autorizada.",
+   "src": "208bc5ca8376"
+  },
+  "briefing.whyItMatters": {
+   "es": "Una buena recuperación y una buena generación son resultados distintos y necesitan revisiones distintas.",
+   "src": "798089c974a4"
+  },
+  "briefing.takeaway": {
+   "es": "Evalúa por separado la selección de la evidencia y el respaldo de la respuesta.",
+   "src": "aeb4874b0abf"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Tres revisiones para un sistema RAG",
+   "src": "29a1d1043aa1"
+  },
+  "block.diagram.description": {
+   "es": "Prueba la recuperación, prueba la respuesta contra su evidencia y monitorea el ciclo de vida de los documentos.",
+   "src": "767640a4ec2c"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Prueba la",
+   "src": "b0327b09828a"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "recuperación sola",
+   "src": "a80799e8d715"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Prueba la respuesta",
+   "src": "caf563fbfe50"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "contra la evidencia",
+   "src": "7da96c097066"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Monitorea el ciclo",
+   "src": "d387ae8e8af7"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "de vida de documentos",
+   "src": "100584cb1432"
+  },
+  "block.keyFact": {
+   "es": "Un embedding es una representación para comparar. No es una copia de la verdad ni una decisión de autorización.",
+   "src": "96c97b854b5c"
+  },
+  "block.check.question": {
+   "es": "Un documento se elimina o pierde el acceso. ¿Qué debe pasar?",
+   "src": "5f03a0a042c4"
+  },
+  "block.check.choices.0.text": {
+   "es": "Nada, el embedding viejo es inofensivo",
+   "src": "3d1300805f02"
+  },
+  "block.check.choices.0.why": {
+   "es": "Un embedding viejo puede seguir llevando a contexto desactualizado o prohibido.",
+   "src": "fdbc1cc8a400"
+  },
+  "block.check.choices.1.text": {
+   "es": "Actualizar la representación de recuperación y sus metadatos",
+   "src": "b35a87a385a7"
+  },
+  "block.check.choices.1.why": {
+   "es": "Los cambios, las eliminaciones y las revocaciones deben llegar a la representación de recuperación.",
+   "src": "d181120260de"
+  },
+  "block.check.choices.2.text": {
+   "es": "Tratar el embedding como la decisión de autorización",
+   "src": "6b5d33619ef3"
+  },
+  "block.check.choices.2.why": {
+   "es": "Un embedding es una representación para comparar, no una decisión de autorización.",
+   "src": "4ef5f80ae82b"
+  },
+  "verification.note": {
+   "es": "Se confirmó que RAG tiene etapas separadas de recuperación y de generación, y que una API de verificación de apoyo en fuentes (check grounding) puntúa las respuestas contra las fuentes recuperadas. No se comprobaron los consejos sobre la eliminación de documentos, la revocación de acceso y el texto no confiable.",
+   "src": "3a7552733944"
+  }
+ },
+ "share": {
+  "title": {
+   "es": "Publica productos de datos con un contrato de acceso",
+   "src": "2f9d2e5e7570"
+  },
+  "lead": {
+   "es": "Comparte el subconjunto que se puede usar y deja claro quién es el responsable.",
+   "src": "32af7adfabf4"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "Una vista autorizada (authorized view) puede mostrar el resultado de una consulta elegida sin dar acceso directo a las tablas de origen. BigQuery sharing, también conocido como Analytics Hub, distribuye listados (listings) gobernados a los que los consumidores pueden suscribirse.",
+   "src": "bcec3b1200bf"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Elige una vista para una forma restringida de los datos y un listado para el descubrimiento y la suscripción reutilizables. Documenta la frescura, la ubicación, quién paga los costos y quién puede dar acceso.",
+   "src": "68a86ca2232e"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Un socio solo necesita las ventas regionales agregadas. Expón la agregación permitida y publica su contrato. No des acceso amplio a las filas crudas de clientes.",
+   "src": "0dc0f8e32036"
+  },
+  "sections.3.title": {
+   "es": "Publica un contrato de acceso a los datos",
+   "src": "08c5db01242b"
+  },
+  "sections.3.body": {
+   "es": "Un intercambio (exchange) o un listado da a los consumidores una ruta de acceso que pueden encontrar, pero no explica por sí solo el significado de negocio. Registra el responsable, la audiencia permitida, la ubicación, la frescura, la calidad y quién paga los costos. Quien consume los datos debe saber si ve observaciones crudas, totales corregidos o una instantánea (snapshot) que se actualiza cada cierto tiempo.",
+   "src": "df1fd5f8dd6e"
+  },
+  "sections.4.title": {
+   "es": "Expón solo la forma que se necesita",
+   "src": "0e39e3c98310"
+  },
+  "sections.4.body": {
+   "es": "Usa una vista autorizada cuando el resultado de una consulta elegida cubra el requisito de compartir. Usa controles por fila o por columna cuando la política de lectura de los datos de origen deba variar según la identidad o el campo. Revisa los permisos efectivos del consumidor y la relación de autorización. No supongas que un enlace a un reporte da el acceso a los datos que quieres dar.",
+   "src": "72a2cc9ffe0a"
+  },
+  "sections.5.title": {
+   "es": "Planifica los cambios y las revocaciones",
+   "src": "6485239ac529"
+  },
+  "sections.5.body": {
+   "es": "Un productor puede cambiar esquemas, retirar un producto o revocar un acceso. Documenta qué cambios son compatibles y cómo se enteran los consumidores. No enseñes el uso compartido con terceros como una exportación única cuando el requisito es un acceso gobernado y reutilizable a datos actuales.",
+   "src": "8f753bf0d522"
+  },
+  "trap": {
+   "es": "Compartir la URL de un reporte no autoriza, por sí solo, a quien lo ve a acceder a los datos de origen.",
+   "src": "a787be92ecde"
+  },
+  "exercise.prompt": {
+   "es": "Un socio se suscribe a un listado, pero interpreta mal un campo de ingresos como ingresos netos. ¿Qué le faltaba al producto?",
+   "src": "771b6d5434e9"
+  },
+  "exercise.answer": {
+   "es": "La definición de negocio y el contrato del reporte eran insuficientes. El acceso y el descubrimiento funcionaron, pero el consumidor también necesita una granularidad (grain) clara, el significado de la métrica, las expectativas de actualización y el responsable. Compartir datos es a la vez un problema de seguridad y de diseño semántico.",
+   "src": "e49ce37dfc98"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Elige un mecanismo para compartir según una audiencia concreta.",
+   "src": "2a1276364c92"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Define la granularidad de la métrica y el contrato de frescura.",
+   "src": "3de0c26b1676"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Explica la revocación y los cambios de esquema compatibles.",
+   "src": "34a4a925782d"
+  },
+  "briefing.context": {
+   "es": "Un equipo quiere que otro equipo use su producto de datos.",
+   "src": "5472993eb522"
+  },
+  "briefing.whyItMatters": {
+   "es": "Compartir un conjunto de datos sin un contrato de acceso y de frescura crea responsabilidades confusas.",
+   "src": "6bde60631a3e"
+  },
+  "briefing.takeaway": {
+   "es": "Define quién puede consumir qué datos y con qué expectativas.",
+   "src": "12efc0a1e129"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Compartir solo lo necesario",
+   "src": "092cb01a34cd"
+  },
+  "block.diagram.description": {
+   "es": "Expón la forma que se necesita, publica un contrato de acceso y planifica los cambios y la revocación.",
+   "src": "7c9dc9554495"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Expón solo la",
+   "src": "17857b32d3a2"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "forma necesaria",
+   "src": "34aeeb3c7baa"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Publica un contrato",
+   "src": "4ff5b9cac9c5"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "de acceso",
+   "src": "4cb0b1c8b2b6"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Planifica cambios",
+   "src": "5a7933623daa"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "y revocación",
+   "src": "2a3c5fe92785"
+  },
+  "block.keyFact": {
+   "es": "Compartir la URL de un reporte no autoriza, por sí solo, a quien lo ve a acceder a los datos de origen.",
+   "src": "a787be92ecde"
+  },
+  "block.check.question": {
+   "es": "Un socio solo necesita las ventas regionales agregadas. ¿Qué haces?",
+   "src": "a306c02c9c33"
+  },
+  "block.check.choices.0.text": {
+   "es": "Exponer la agregación permitida y publicar su contrato",
+   "src": "c8e559d56d52"
+  },
+  "block.check.choices.0.why": {
+   "es": "No des acceso amplio a las filas crudas de clientes.",
+   "src": "0bab8fcff929"
+  },
+  "block.check.choices.1.text": {
+   "es": "Dar acceso a las filas crudas de clientes",
+   "src": "cfc0b787acc0"
+  },
+  "block.check.choices.1.why": {
+   "es": "El socio solo necesita la agregación permitida.",
+   "src": "7f63e7b429b1"
+  },
+  "block.check.choices.2.text": {
+   "es": "Enviar la URL de un reporte",
+   "src": "bb282b7bdc08"
+  },
+  "block.check.choices.2.why": {
+   "es": "El enlace a un reporte no autoriza el acceso a los datos de origen.",
+   "src": "81fed77702ec"
+  },
+  "verification.note": {
+   "es": "Se confirmó que BigQuery sharing es el antiguo Analytics Hub, que los suscriptores reciben datasets vinculados (linked datasets) de solo lectura y que las vistas autorizadas ocultan los datasets de origen. La lección dice también conocido como. No se comprobó el acceso mediante el enlace a un reporte.",
+   "src": "aa5bb2f424d0"
+  }
+ }
+}
