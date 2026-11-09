@@ -1858,5 +1858,455 @@
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
   }
+ },
+ "imp-236": {
+  "html": {
+   "es": "Estás desplegando una carga de trabajo de base de datos MySQL en Cloud SQL. La base de datos debe poder escalar para atender a varios lectores de distintas regiones geográficas. Debe tener alta disponibilidad y cumplir requisitos bajos de RTO y RPO, incluso ante una caída regional. Necesitas asegurarte de que las interrupciones para los lectores sean mínimas durante una conmutación por error de la base de datos. ¿Qué debes hacer?",
+   "src": "2894b84aa16d"
+  },
+  "choices.0.html": {
+   "es": "Crea una instancia de Cloud SQL de alta disponibilidad en la región A. Crea una réplica de lectura de alta disponibilidad en la región B. Escala las cargas de lectura creando réplicas de lectura en cascada en varias regiones. Haz copias de seguridad de las instancias de Cloud SQL en un bucket multirregional de Cloud Storage. Restaura la copia de seguridad de Cloud SQL en una instancia nueva de otra región cuando la región A esté caída.",
+   "src": "7a466e6126b2"
+  },
+  "choices.1.html": {
+   "es": "Crea una instancia de Cloud SQL de alta disponibilidad en la región A. Escala las cargas de lectura creando réplicas de lectura en varias regiones. Promueve una de las réplicas de lectura cuando la región A esté caída.",
+   "src": "a914708157a6"
+  },
+  "choices.2.html": {
+   "es": "Crea una instancia de Cloud SQL de alta disponibilidad en la región A. Crea una réplica de lectura de alta disponibilidad en la región B. Escala las cargas de lectura creando réplicas de lectura en cascada en varias regiones. Promueve la réplica de lectura de la región B cuando la región A esté caída.",
+   "src": "e549995cdaf3"
+  },
+  "choices.3.html": {
+   "es": "Crea una instancia de Cloud SQL de alta disponibilidad en la región A. Escala las cargas de lectura creando réplicas de lectura en la misma región. Conmuta por error a la instancia de Cloud SQL en espera cuando falle la instancia principal.",
+   "src": "8398ce7e2af0"
+  },
+  "sourceExplanation": {
+   "es": "La opción C es correcta porque establece una arquitectura distribuida geográficamente con una réplica de lectura de alta disponibilidad en la región B, lo que asegura un RTO y un RPO bajos durante una caída regional. A diferencia de la opción A, restaurar desde una copia de seguridad tarda demasiado. A diferencia de la opción B, las réplicas estándar no tienen la alta disponibilidad integrada que se necesita para una interrupción mínima. La opción D no cubre los requisitos entre regiones.",
+   "src": "9a73d6e1d82a"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-241": {
+  "html": {
+   "es": "Estás diseñando la arquitectura de tu aplicación para almacenar datos en Cloud Storage. Tu aplicación consta de pipelines que leen datos de un bucket de Cloud Storage con datos sin procesar y escriben los datos en un segundo bucket después de procesarlos. Quieres diseñar una arquitectura con recursos de Cloud Storage que resista un fallo regional de Google Cloud. Quieres minimizar el objetivo de punto de recuperación (RPO) si ocurre un fallo, sin afectar a las aplicaciones que usan los datos almacenados. ¿Qué debes hacer?",
+   "src": "bfc0700867c1"
+  },
+  "choices.0.html": {
+   "es": "Adopta buckets multirregionales de Cloud Storage en tu arquitectura.",
+   "src": "9f9c23ccdc4c"
+  },
+  "choices.1.html": {
+   "es": "Adopta dos buckets regionales de Cloud Storage y actualiza tu aplicación para escribir la salida en ambos buckets.",
+   "src": "0bd82d2ba42e"
+  },
+  "choices.2.html": {
+   "es": "Adopta un bucket birregional de Cloud Storage y habilita la replicación turbo en tu arquitectura.",
+   "src": "9c01b577c503"
+  },
+  "choices.3.html": {
+   "es": "Adopta dos buckets regionales de Cloud Storage y crea una tarea diaria que copie de un bucket al otro.",
+   "src": "2307f87de49d"
+  },
+  "sourceExplanation": {
+   "es": "Los buckets birregionales replican los datos entre dos regiones geográficas concretas, lo que da resiliencia ante fallos regionales. Habilitar la replicación turbo reduce de forma significativa el objetivo de punto de recuperación (RPO) a una meta de 15 minutos para el 100 % de los objetos, frente a hasta 12 horas con la replicación predeterminada. Esta configuración cumple el requisito de minimizar el RPO sin afectar a la lógica de la aplicación ni requerir intervención manual.",
+   "src": "6e523b810901"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-242": {
+  "html": {
+   "es": "Has diseñado un pipeline de procesamiento de Apache Beam que lee de un tema de Pub/Sub, el cual tiene una duración de retención de mensajes de un día, y escribe en un bucket de Cloud Storage. Necesitas elegir una ubicación del bucket y una estrategia de procesamiento para evitar la pérdida de datos ante una caída regional con un RPO de 15 minutos. ¿Qué debes hacer?",
+   "src": "b3ec07558fe8"
+  },
+  "choices.0.html": {
+   "es": "1. Usa un bucket birregional de Cloud Storage.<br>2. Monitorea las métricas de Dataflow con Cloud Monitoring para detectar cuándo ocurre una caída.<br>3. Retrocede la suscripción 15 minutos en el tiempo para recuperar los mensajes confirmados.<br>4. Inicia el trabajo de Dataflow en una región secundaria.",
+   "src": "d1186a58080d"
+  },
+  "choices.1.html": {
+   "es": "1. Usa un bucket multirregional de Cloud Storage.<br>2. Monitorea las métricas de Dataflow con Cloud Monitoring para detectar cuándo ocurre una caída.<br>3. Retrocede la suscripción 60 minutos en el tiempo para recuperar los mensajes confirmados.<br>4. Inicia el trabajo de Dataflow en una región secundaria.",
+   "src": "47c61d9c2f35"
+  },
+  "choices.2.html": {
+   "es": "1. Usa un bucket regional de Cloud Storage.<br>2. Monitorea las métricas de Dataflow con Cloud Monitoring para detectar cuándo ocurre una caída.<br>3. Retrocede la suscripción un día en el tiempo para recuperar los mensajes confirmados.<br>4. Inicia el trabajo de Dataflow en una región secundaria y escribe en un bucket de la misma región.",
+   "src": "224d5977e69a"
+  },
+  "choices.3.html": {
+   "es": "1. Usa un bucket birregional de Cloud Storage con la replicación turbo habilitada.<br>2. Monitorea las métricas de Dataflow con Cloud Monitoring para detectar cuándo ocurre una caída.<br>3. Retrocede la suscripción 60 minutos en el tiempo para recuperar los mensajes confirmados.<br>4. Inicia el trabajo de Dataflow en una región secundaria.",
+   "src": "ebd4d50b6abc"
+  },
+  "sourceExplanation": {
+   "es": "Un bucket birregional de Cloud Storage con replicación turbo asegura que los objetos se repliquen en ambas regiones dentro del objetivo de punto de recuperación (RPO) de 15 minutos, lo que cumple el requisito de evitar la pérdida de datos.\nUn bucket birregional estándar puede tardar hasta una hora en replicar, pero habilitar la replicación turbo garantiza la sincronización dentro de la ventana de 15 minutos que exige el escenario.",
+   "src": "69fee28b9be2"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-255": {
+  "html": {
+   "es": "Tienes una base de datos Oracle desplegada en una VM como parte de una red de nube privada virtual (VPC). Quieres replicar y sincronizar de forma continua 50 tablas en BigQuery. Quieres minimizar la necesidad de administrar infraestructura. ¿Qué debes hacer?",
+   "src": "71b6393f8b4a"
+  },
+  "choices.0.html": {
+   "es": "Despliega Apache Kafka en la misma red de VPC, usa Kafka Connect Oracle Change Data Capture (CDC) y Dataflow para transmitir el tema de Kafka a BigQuery.",
+   "src": "d177b514b043"
+  },
+  "choices.1.html": {
+   "es": "Crea una suscripción de Pub/Sub que escriba directamente en BigQuery. Despliega el conector Debezium para Oracle para capturar los cambios de la base de datos Oracle y envíalos al tema de Pub/Sub.",
+   "src": "4be3fe7ddb52"
+  },
+  "choices.2.html": {
+   "es": "Despliega Apache Kafka en la misma red de VPC, usa Kafka Connect Oracle change data capture (CDC) y el Kafka Connect Google BigQuery Sink Connector.",
+   "src": "cd9b5871e440"
+  },
+  "choices.3.html": {
+   "es": "Crea un servicio de Datastream de Oracle a BigQuery, usa una configuración de conectividad privada hacia la misma red de VPC y un perfil de conexión a BigQuery.",
+   "src": "0ddeace5994f"
+  },
+  "sourceExplanation": {
+   "es": "Cloud Datastream es un servicio de captura de datos de cambios (CDC) totalmente administrado y sin servidores, diseñado específicamente para replicar cambios de bases de datos en BigQuery con una administración mínima de infraestructura.\nLas opciones A, B y C requieren desplegar y mantener herramientas de código abierto como Apache Kafka o Debezium, lo que contradice el requisito de minimizar la carga de administración de la infraestructura.",
+   "src": "60b18b6fc5ac"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-256": {
+  "html": {
+   "es": "Estás desplegando un grafo acíclico dirigido (DAG) de Apache Airflow en una instancia de Cloud Composer 2. Tienes archivos entrantes en un bucket de Cloud Storage que el DAG procesa, uno por uno. La instancia de Cloud Composer está desplegada en una subred sin acceso a Internet. En lugar de ejecutar el DAG según un horario, quieres ejecutarlo de forma reactiva cada vez que llegue un archivo nuevo. ¿Qué debes hacer?",
+   "src": "e4c78ccd2893"
+  },
+  "choices.0.html": {
+   "es": "1. Habilita el Acceso privado a Google en la subred y configura notificaciones de Cloud Storage hacia un tema de Pub/Sub.<br>2. Crea una suscripción push que apunte a la URL del servidor web.",
+   "src": "0564c75357c2"
+  },
+  "choices.1.html": {
+   "es": "1. Habilita la API de Cloud Composer y configura notificaciones de Cloud Storage que activen una Cloud Function.<br>2. Escribe una instancia de Cloud Function que llame al DAG mediante la API de Cloud Composer y la URL del servidor web.<br>3. Usa el acceso a VPC sin servidor para llegar a la URL del servidor web.",
+   "src": "31d94f70f35a"
+  },
+  "choices.2.html": {
+   "es": "1. Habilita la API REST de Airflow y configura notificaciones de Cloud Storage que activen una instancia de Cloud Function.<br>2. Crea un endpoint de Private Service Connect (PSC).<br>3. Escribe una Cloud Function que se conecte al clúster de Cloud Composer a través del endpoint de PSC.",
+   "src": "0ed6d19576c7"
+  },
+  "choices.3.html": {
+   "es": "1. Habilita la API REST de Airflow y configura notificaciones de Cloud Storage que activen una instancia de Cloud Function.<br>2. Escribe una instancia de Cloud Function que llame al DAG mediante la API REST de Airflow y la URL del servidor web.<br>3. Usa el acceso a VPC sin servidor para llegar a la URL del servidor web.",
+   "src": "6d7523b7fe47"
+  },
+  "explanation": {
+   "es": "El principio sólido es activar la API REST de Airflow por una ruta autenticada que el entorno elegido pueda alcanzar. La respuesta C importada nombra un endpoint de PSC sin especificar el servicio de destino ni una ruta completa y compatible hacia el servidor web. La generación del entorno, las restricciones de acceso al servidor web y la red de la función cambian la configuración. Trata esta clave como no resuelta y no como una receta universal.",
+   "src": "dfc4924a5044"
+  },
+  "reviewNote": {
+   "es": "Esta pregunta importada está excluida de la práctica con puntuación. Lee la nota técnica en lugar de memorizar su clave.",
+   "src": "5d478c3e8ed1"
+  }
+ },
+ "imp-260": {
+  "html": {
+   "es": "Tienes dos proyectos donde ejecutas trabajos de BigQuery:<br>•\tUn proyecto ejecuta trabajos de producción con acuerdos de nivel de servicio (SLA) estrictos de tiempo de finalización. Son trabajos de alta prioridad que deben tener disponibles los recursos de cómputo necesarios cuando los requieran. Estos trabajos casi nunca bajan de un uso de 300 slots, pero ocasionalmente suben 500 slots adicionales.<br>•\tEl otro proyecto es para que los usuarios ejecuten consultas analíticas ad hoc. Este proyecto casi nunca usa más de 200 slots a la vez. Quieres que estas consultas ad hoc se facturen según la cantidad de datos que los usuarios escanean y no por capacidad de slots.<br><br>Necesitas asegurarte de que ambos proyectos tengan los recursos de cómputo adecuados. ¿Qué debes hacer?",
+   "src": "4bba65c86bbc"
+  },
+  "choices.0.html": {
+   "es": "Crea una única reserva Enterprise Edition para ambos proyectos. Define una base de 300 slots. Habilita el autoescalado hasta 700 slots.",
+   "src": "6ea64c42a6c6"
+  },
+  "choices.1.html": {
+   "es": "Crea dos reservas, una para cada proyecto. Para el proyecto con SLA, usa una Enterprise Edition con una base de 300 slots y habilita el autoescalado hasta 500 slots. Para el proyecto ad hoc, configura la facturación bajo demanda.",
+   "src": "f476a640b092"
+  },
+  "choices.2.html": {
+   "es": "Crea dos reservas Enterprise Edition, una para cada proyecto. Para el proyecto con SLA, define una base de 300 slots y habilita el autoescalado hasta 500 slots. Para el proyecto ad hoc, define una base de reserva de 0 slots y establece el indicador ignore idle slots en False.",
+   "src": "8e6c7de1597a"
+  },
+  "choices.3.html": {
+   "es": "Crea dos reservas Enterprise Edition, una para cada proyecto. Para el proyecto con SLA, define una base de 800 slots. Para el proyecto ad hoc, habilita el autoescalado hasta 200 slots.",
+   "src": "117c0a543463"
+  },
+  "sourceExplanation": {
+   "es": "El proyecto ad hoc requiere facturación según los datos escaneados, lo que exige la facturación bajo demanda y no una reserva basada en capacidad, y esto descarta las opciones C y D.\nLa opción B configura correctamente el proyecto con SLA con una reserva Enterprise (base de 300 + autoescalado de 500 = 800 slots como máximo) para cubrir las estrictas necesidades de disponibilidad, y deja que el proyecto ad hoc use facturación bajo demanda con pago por escaneo.",
+   "src": "717c8505fcca"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-263": {
+  "html": {
+   "es": "Mantienes pipelines de ETL. Notas que un pipeline de streaming que se ejecuta en Dataflow tarda mucho en procesar los datos entrantes, lo que causa retrasos en la salida. También notaste que Dataflow optimizó automáticamente el grafo del pipeline y lo fusionó en un solo paso. Quieres identificar dónde se produce el posible cuello de botella. ¿Qué debes hacer?",
+   "src": "fff3b306156e"
+  },
+  "choices.0.html": {
+   "es": "Inserta una operación Reshuffle después de cada paso de procesamiento y monitorea los detalles de ejecución en la consola de Dataflow.",
+   "src": "fcb40116c11b"
+  },
+  "choices.1.html": {
+   "es": "Inserta destinos de salida después de cada paso de procesamiento clave y observa el rendimiento de escritura de cada bloque.",
+   "src": "206ad415a3de"
+  },
+  "choices.2.html": {
+   "es": "Registra información de depuración en cada función ParDo y analiza los registros durante la ejecución.",
+   "src": "295de2f2fb97"
+  },
+  "choices.3.html": {
+   "es": "Verifica que las cuentas de servicio de Dataflow tengan los permisos adecuados para escribir los datos procesados en los destinos de salida.",
+   "src": "d211b8c3590e"
+  },
+  "sourceExplanation": {
+   "es": "El servicio Dataflow fusiona automáticamente varias transformaciones en un solo paso para optimizar el rendimiento, lo que puede ocultar la latencia de cada paso. Insertar una operación Reshuffle rompe este límite de fusión y obliga al pipeline a ejecutar etapas distintas que se pueden monitorear por separado en la consola de Dataflow. Esto permite aislar e identificar la transformación concreta que causa el cuello de botella.",
+   "src": "2d38142d6072"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-264": {
+  "html": {
+   "es": "Ejecutas tu proyecto de BigQuery con el modelo de facturación bajo demanda y realizas un proceso de captura de datos de cambios (CDC) que ingiere datos. El proceso de CDC carga 1 GB de datos cada 10 minutos en una tabla temporal y luego hace una fusión (merge) en una tabla de destino de 10 TB. Este proceso escanea mucho y quieres explorar opciones para tener un modelo de costos predecible. Necesitas crear una reserva de BigQuery basada en la información de uso obtenida del monitoreo de BigQuery y aplicar la reserva al proceso de CDC. ¿Qué debes hacer?",
+   "src": "6ee4f0d97f8b"
+  },
+  "choices.0.html": {
+   "es": "Crea una reserva de BigQuery para el conjunto de datos.",
+   "src": "7ef3347a9eb9"
+  },
+  "choices.1.html": {
+   "es": "Crea una reserva de BigQuery para el trabajo.",
+   "src": "d1691ee4bb62"
+  },
+  "choices.2.html": {
+   "es": "Crea una reserva de BigQuery para la cuenta de servicio que ejecuta el trabajo.",
+   "src": "30e19255215b"
+  },
+  "choices.3.html": {
+   "es": "Crea una reserva de BigQuery para el proyecto.",
+   "src": "b602f92bfa8b"
+  },
+  "sourceExplanation": {
+   "es": "Las reservas de BigQuery se asignan a recursos en el nivel de proyecto, carpeta u organización de la jerarquía de recursos.\nLos slots no se pueden asignar directamente a conjuntos de datos, cuentas de servicio ni trabajos individuales.\nPara aplicar controles de capacidad al proceso de CDC, debes crear y asignar una reserva al proyecto concreto que ejecuta esos trabajos.",
+   "src": "33a0d12d0776"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-265": {
+  "html": {
+   "es": "Estás diseñando una arquitectura tolerante a fallos para almacenar datos en un conjunto de datos regional de BigQuery. Necesitas asegurarte de que tu aplicación pueda recuperarse de un evento de corrupción en tus tablas ocurrido en los últimos siete días. Quieres adoptar servicios administrados con el menor RPO y la solución más económica. ¿Qué debes hacer?",
+   "src": "8cca78fdcf59"
+  },
+  "choices.0.html": {
+   "es": "Accede a los datos históricos con el viaje en el tiempo (time travel) de BigQuery.",
+   "src": "f36a8c0d3772"
+  },
+  "choices.1.html": {
+   "es": "Exporta los datos de BigQuery a una tabla nueva que excluya los datos corruptos.",
+   "src": "82e5878eddb8"
+  },
+  "choices.2.html": {
+   "es": "Crea una instantánea de tabla de BigQuery a diario.",
+   "src": "63ec3408fa80"
+  },
+  "choices.3.html": {
+   "es": "Migra tus datos a buckets multirregionales de BigQuery.",
+   "src": "70997eb499fd"
+  },
+  "sourceExplanation": {
+   "es": "El viaje en el tiempo de BigQuery ofrece el menor RPO (pérdida de datos casi nula) al permitir acceder a los estados de la tabla hasta siete días atrás, lo que cumple la ventana de recuperación exigida.\n\nEs la solución más económica porque es una función integrada sin costos de almacenamiento adicionales por los datos históricos retenidos dentro de la ventana predeterminada, a diferencia de las instantáneas, que generan cargos de almacenamiento incrementales.",
+   "src": "c273bf0196de"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-270": {
+  "html": {
+   "es": "Necesitas crear un pipeline de SQL. El pipeline ejecuta una transformación SQL de agregación sobre una tabla de BigQuery cada dos horas y añade el resultado a otra tabla de BigQuery existente. Necesitas configurar el pipeline para que reintente si ocurren errores. Quieres que el pipeline envíe una notificación por correo electrónico después de tres fallos consecutivos. ¿Qué debes hacer?",
+   "src": "f4ae8d9a5224"
+  },
+  "choices.0.html": {
+   "es": "Usa BigQueryUpsertTableOperator en Cloud Composer, define el parámetro retry en tres y el parámetro email_on_failure en true.",
+   "src": "343d34a61005"
+  },
+  "choices.1.html": {
+   "es": "Usa BigQueryInsertJobOperator en Cloud Composer, define el parámetro retry en tres y el parámetro email_on_failure en true.",
+   "src": "463504890fc3"
+  },
+  "choices.2.html": {
+   "es": "Crea una consulta programada de BigQuery que ejecute la transformación SQL con opciones de programación que se repitan cada dos horas y habilita las notificaciones por correo electrónico.",
+   "src": "ec196044f301"
+  },
+  "choices.3.html": {
+   "es": "Crea una consulta programada de BigQuery que ejecute la transformación SQL con opciones de programación que se repitan cada dos horas y habilita la notificación a un tema de Pub/Sub. Usa Pub/Sub y Cloud Functions para enviar un correo electrónico después de tres ejecuciones fallidas.",
+   "src": "c682e3ea49de"
+  },
+  "sourceExplanation": {
+   "es": "Las consultas programadas de BigQuery admiten de forma nativa la programación y la lógica de reintentos, pero no tienen una función integrada para enviar correos solo después de N fallos consecutivos. La opción D usa correctamente las notificaciones de Pub/Sub para los eventos de fallo de la consulta y aprovecha Cloud Functions para implementar la lógica de negocio específica de contar los fallos consecutivos antes de enviar el correo.",
+   "src": "221c975fb08b"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-271": {
+  "html": {
+   "es": "Monitoreas el data lake de tu organización alojado en BigQuery. Los pipelines de ingesta leen datos de Pub/Sub y los escriben en tablas de BigQuery. Después de desplegar una nueva versión de los pipelines de ingesta, los datos almacenados diarios aumentaron un 50 %. Los volúmenes de datos en Pub/Sub se mantuvieron iguales y solo algunas tablas duplicaron el tamaño de los datos de su partición diaria. Necesitas investigar y corregir la causa del aumento de datos. ¿Qué debes hacer?",
+   "src": "a8257814ec01"
+  },
+  "choices.0.html": {
+   "es": "1. Busca filas duplicadas en las tablas de BigQuery cuya partición diaria duplicó su tamaño.<br>2. Programa trabajos SQL diarios para deduplicar las tablas afectadas.<br>3. Comparte el script de deduplicación con los otros equipos operativos para reutilizarlo si ocurre en otras tablas.",
+   "src": "f286d567235e"
+  },
+  "choices.1.html": {
+   "es": "1. Busca errores de código en los pipelines desplegados.<br>2. Busca escrituras múltiples en el destino de BigQuery del pipeline.<br>3. Busca errores en Cloud Logging durante el día del lanzamiento de los nuevos pipelines.<br>4. Si no hay errores, restaura las tablas de BigQuery a su contenido anterior al último lanzamiento con el viaje en el tiempo.",
+   "src": "7a125915583b"
+  },
+  "choices.2.html": {
+   "es": "1. Busca filas duplicadas en las tablas de BigQuery cuya partición diaria duplicó su tamaño.<br>2. Revisa los registros de auditoría de BigQuery para encontrar los ID de trabajo.<br>3. Usa Cloud Monitoring para determinar cuándo empezaron los trabajos de Dataflow identificados y la versión del código del pipeline.<br>4. Cuando más de un pipeline ingiera datos en una tabla, detén todas las versiones excepto la más reciente.",
+   "src": "71152ba66c76"
+  },
+  "choices.3.html": {
+   "es": "1. Revierte el último despliegue.<br>2. Restaura las tablas de BigQuery a su contenido anterior al último lanzamiento con el viaje en el tiempo.<br>3. Reinicia los trabajos de Dataflow y reproduce los mensajes retrocediendo la suscripción hasta la marca de tiempo del lanzamiento.",
+   "src": "2eeb27d72c3b"
+  },
+  "sourceExplanation": {
+   "es": "La opción C es correcta porque ofrece un flujo de investigación completo: buscar duplicados atiende el síntoma, mientras que los registros de auditoría y Cloud Monitoring rastrean la causa raíz (probablemente versiones de pipeline que corren a la vez).\nDetener los pipelines inactivos corrige el error de configuración de fondo y evita que los datos sigan inflándose. A diferencia de las otras opciones, se centra en identificar por qué aumentó el volumen y no solo en revertir el estado sin entender la causa.",
+   "src": "40702467010d"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-273": {
+  "html": {
+   "es": "Estás creando el ciclo de CI/CD para el código de los grafos acíclicos dirigidos (DAG) que se ejecutan en Cloud Composer. Tu equipo tiene dos instancias de Cloud Composer: una para desarrollo y otra para producción. Tu equipo usa un repositorio Git para mantener y desarrollar el código de los DAG. Quieres desplegar los DAG automáticamente en Cloud Composer cuando se suba una etiqueta determinada al repositorio Git. ¿Qué debes hacer?",
+   "src": "3abba6d6b856"
+  },
+  "choices.0.html": {
+   "es": "1. Usa Cloud Build para copiar el código del DAG al bucket de Cloud Storage de la instancia de desarrollo y probar el DAG.<br>2. Si las pruebas pasan, usa Cloud Build para copiar el código al bucket de la instancia de producción.",
+   "src": "58be555e5754"
+  },
+  "choices.1.html": {
+   "es": "1. Usa Cloud Build para construir un contenedor con el código del DAG y KubernetesPodOperator para desplegar el código en el clúster de Google Kubernetes Engine (GKE) de la instancia de desarrollo y probarlo.<br>2. Si las pruebas pasan, usa KubernetesPodOperator para desplegar el contenedor en el clúster de GKE de la instancia de producción.",
+   "src": "5ca50ded0350"
+  },
+  "choices.2.html": {
+   "es": "1. Usa Cloud Build para construir un contenedor y KubernetesPodOperator para desplegar el código del DAG en el clúster de Google Kubernetes Engine (GKE) de la instancia de desarrollo y probarlo.<br>2. Si las pruebas pasan, copia el código al bucket de Cloud Storage de la instancia de producción.",
+   "src": "263b6d1ac59f"
+  },
+  "choices.3.html": {
+   "es": "1. Usa Cloud Build para copiar el código del DAG al bucket de Cloud Storage de la instancia de desarrollo y probar el DAG.<br>2. Si las pruebas pasan, usa Cloud Build para construir un contenedor con el código del DAG y KubernetesPodOperator para desplegar el contenedor en el clúster de Google Kubernetes Engine (GKE) de la instancia de producción.",
+   "src": "07a6691546a9"
+  },
+  "sourceExplanation": {
+   "es": "Las instancias de Cloud Composer sincronizan automáticamente los DAG desde sus buckets de Cloud Storage asociados, así que el despliegue consiste en copiar archivos a esos buckets y no en administrar imágenes de contenedor.\nUsar Cloud Build activado por una etiqueta de Git permite automatizar la copia del código del DAG al bucket de desarrollo para probarlo y luego al bucket de producción si todo sale bien.\nLas opciones con GKE y KubernetesPodOperator son incorrectas porque despliegan cargas de trabajo en un clúster de Kubernetes, que no aprovisiona ni actualiza automáticamente los DAG de un entorno de Cloud Composer.",
+   "src": "450516eb94c0"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-278": {
+  "html": {
+   "es": "Tu fábrica de autos envía mediciones de máquinas como mensajes a un tema de Pub/Sub de tu proyecto de Google Cloud. Un trabajo de streaming de Dataflow, que escribiste con el SDK de Apache Beam, lee estos mensajes, envía la confirmación a Pub/Sub, aplica lógica de negocio personalizada en una instancia de DoFn y escribe el resultado en BigQuery. Quieres asegurarte de que, si tu lógica de negocio falla con un mensaje, este se envíe a un tema de Pub/Sub que quieres monitorear para generar alertas. ¿Qué debes hacer?",
+   "src": "af8c5d1f3d25"
+  },
+  "choices.0.html": {
+   "es": "Habilita la retención de mensajes confirmados en tu suscripción pull de Pub/Sub. Usa Cloud Monitoring para monitorear la métrica subscription/num_retained_acked_messages de esta suscripción.",
+   "src": "87e1e0a50bff"
+  },
+  "choices.1.html": {
+   "es": "Usa un bloque de manejo de excepciones en el código del DoFn de Dataflow para enviar los mensajes que no se pudieron transformar, mediante una salida lateral, a un tema nuevo de Pub/Sub. Usa Cloud Monitoring para monitorear la métrica topic/num_unacked_messages_by_region de este tema nuevo.",
+   "src": "b604d8da60f8"
+  },
+  "choices.2.html": {
+   "es": "Habilita las dead letters en tu suscripción pull de Pub/Sub y especifica un tema nuevo de Pub/Sub como tema de dead letter. Usa Cloud Monitoring para monitorear la métrica subscription/dead_letter_message_count de tu suscripción pull.",
+   "src": "94a05fcd92b1"
+  },
+  "choices.3.html": {
+   "es": "Crea una instantánea de tu suscripción pull de Pub/Sub. Usa Cloud Monitoring para monitorear la métrica snapshot/num_messages de esta instantánea.",
+   "src": "32903b4ed646"
+  },
+  "sourceExplanation": {
+   "es": "El escenario exige manejar los fallos que ocurren *después* de que Dataflow confirmó el mensaje. Las dead letters de Pub/Sub (opción C) solo se aplican a mensajes cuyo procesamiento falla antes de la confirmación o que superan el límite de reintentos, por lo que aquí no sirven.\n\nPara capturar errores de la lógica de negocio posteriores a la confirmación, debes implementar un manejo explícito de excepciones dentro del DoFn. Usar salidas laterales para enviar los registros fallidos a un tema de errores aparte es el patrón estándar para este caso, ya que Google desaconseja expresamente usar temas de dead letter con pipelines de Dataflow.",
+   "src": "7f31686aab57"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-285": {
+  "html": {
+   "es": "Tienes 100 GB de datos almacenados en una tabla de BigQuery. Estos datos están desactualizados y solo se consultarán una o dos veces al año para análisis con SQL. Como respaldo, quieres almacenarlos de forma inmutable durante 3 años. Quieres minimizar los costos de almacenamiento. ¿Qué debes hacer?",
+   "src": "ecac00112797"
+  },
+  "choices.0.html": {
+   "es": "1. Crea un clon de tabla de BigQuery.<br>2. Consulta el clon cuando necesites hacer análisis.",
+   "src": "2a14628b566a"
+  },
+  "choices.1.html": {
+   "es": "1. Crea una instantánea de tabla de BigQuery.<br>2. Restaura la instantánea cuando necesites hacer análisis.",
+   "src": "8c775728d2a5"
+  },
+  "choices.2.html": {
+   "es": "1. Exporta desde BigQuery a un bucket de Cloud Storage con la clase de almacenamiento Archive.<br>2. Habilita el control de versiones en el bucket.<br>3. Crea una tabla externa de BigQuery sobre los archivos exportados.",
+   "src": "c660aae95210"
+  },
+  "choices.3.html": {
+   "es": "1. Exporta desde BigQuery a un bucket de Cloud Storage con la clase de almacenamiento Archive.<br>2. Define una política de retención bloqueada en el bucket.<br>3. Crea una tabla externa de BigQuery sobre los archivos exportados.",
+   "src": "5c11efd3b0bf"
+  },
+  "sourceExplanation": {
+   "es": "La clase de almacenamiento Archive de Cloud Storage ofrece el menor costo para datos de acceso poco frecuente (1 o 2 veces al año) y retención a largo plazo (3 años). Se requiere una política de retención bloqueada para imponer la inmutabilidad, mientras que el control de versiones del bucket solo conserva el historial de objetos y no impide eliminar ni modificar versiones concretas. Usar una tabla externa de BigQuery permite consultar estos datos archivados sin volver a importarlos al almacenamiento administrado.",
+   "src": "e923921a46c9"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-287": {
+  "html": {
+   "es": "Administras conjuntos de datos compartidos de BigQuery que contienen vistas usadas por varios equipos de tu organización. El equipo de marketing está preocupado por la variabilidad de su gasto mensual en análisis de BigQuery con el modelo de facturación bajo demanda. Necesitas ayudar al equipo de marketing a establecer un gasto mensual constante en análisis de BigQuery. ¿Qué debes hacer?",
+   "src": "32fbbe826dc3"
+  },
+  "choices.0.html": {
+   "es": "Crea una reserva BigQuery Enterprise con una base de 250 slots y autoescalado hasta 500 para el equipo de marketing, y facturales en consecuencia.",
+   "src": "ede88f773b7c"
+  },
+  "choices.1.html": {
+   "es": "Establece una cuota de BigQuery para el equipo de marketing y limita el número máximo de bytes escaneados cada día.",
+   "src": "32fe00c3cf48"
+  },
+  "choices.2.html": {
+   "es": "Crea una reserva de BigQuery con una base de 500 slots y sin autoescalado para el equipo de marketing, y facturales en consecuencia.",
+   "src": "e6c0534831d9"
+  },
+  "choices.3.html": {
+   "es": "Crea una reserva BigQuery Standard de pago por uso con una base de 0 slots y autoescalado hasta 500 para el equipo de marketing, y facturales en consecuencia.",
+   "src": "8a15920925cc"
+  },
+  "explanation": {
+   "es": "Una base fija sin autoescalado hace que la asignación de cómputo sea más predecible que el escaneo variable bajo demanda o la capacidad elástica. Entre las opciones listadas, la C se ajusta mejor a un presupuesto de cómputo analítico estable. Aún hay que considerar el almacenamiento, las transferencias, el comportamiento de la capacidad inactiva y otros cargos, así que esto no promete una factura total fija en la nube.",
+   "src": "7505fcd2d0f6"
+  },
+  "reviewNote": {
+   "es": "El razonamiento editorial está enlazado a documentación primaria. La clave importada se conserva por separado.",
+   "src": "c07bc5e656c6"
+  }
  }
 }
