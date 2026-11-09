@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Added the first-visit question "Do you know the exam?" with two switchable paths: a newcomer orientation (#orientation) and a 10-question diagnostic from original questions (#diagnostic) that names the weakest domain. The choice is stored under its own key, nothing enters saved progress, and the orientation text awaits owner review.
 - Added lesson blocks to all ten domain 5 lessons, with correct quick-check answers spread over all three positions. Text is derived from the lessons and awaits owner review.
 - Added lesson blocks to all seven domain 4 lessons, with correct quick-check answers spread over all three positions. Text is derived from the lessons and awaits owner review.
 - Added lesson blocks to all ten domain 3 lessons, with correct quick-check answers spread over all three positions. Text is derived from the lessons and awaits owner review.

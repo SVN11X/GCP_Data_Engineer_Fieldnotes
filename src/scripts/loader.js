@@ -19,7 +19,10 @@
     function importedQuestions(domain){return load(data.manifest.imported+domain+'.json',v=>merge(data.questions,v));}
     function importedCatalog(){return load(data.manifest.importedCatalog,v=>merge(data.questions,v));}
     function lessons(domain){return load(data.manifest.lessons+domain+'.json',v=>merge(data.lessons,v));}
+    const add=(t,f)=>new Promise((ok,no)=>{const el=document.createElement(t);if(t==='link'){el.rel='stylesheet';el.href='assets/'+f+'?v='+data.release;}else el.src='assets/'+f+'?v='+data.release;el.onload=ok;el.onerror=no;document.head.append(el);});
+    const entry=()=>pending.get('e')||pending.set('e',Promise.all([add('link','entry.css'),add('script','entry-core.js')]).then(()=>add('script','entry.js')).catch(x=>{pending.delete('e');throw x;})).get('e');
     async function ensure(route,id){
+      if(['home','orientation','diagnostic'].includes(route)){const p=entry();await(route==='home'?p.catch(()=>{}):p);}
       if(route==='focus'){
         const lesson=data.lessons.find(l=>l.id===(id||'pipeline-contract'))||data.lessons.find(l=>l.id==='pipeline-contract');
         if(lesson)await Promise.all([lessons(lesson.domain),questions(lesson.domain)]);
@@ -27,6 +30,7 @@
       if(route==='learn'&&id){const lesson=data.lessons.find(l=>l.id===id);if(lesson)await lessons(lesson.domain);}
       if(route==='practice'&&id){const question=data.questions.find(q=>q.id===id);if(question)await(question.origin==='imported'?importedQuestions(question.domain):questions(question.domain));}
       if((route==='practice'&&!id)||route==='progress')await importedCatalog();
+      if(route==='diagnostic')await Promise.all(data.domains.map(d=>questions(d.id)));
       if(route==='exam')await Promise.all(data.domains.map(d=>questions(d.id)));
       if(route==='workshops')await load(data.manifest.workshops,v=>merge(data.workshops,v));
       if(route==='architectures')await load(data.manifest.architectures,v=>{data.architectures=v;});
