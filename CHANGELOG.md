@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Added gentle rewards: a "Days studied in a row" chip and domain mark badges on My progress and Start here. The optional streak field loads from old saves and exports, a missed day restarts quietly, and nothing is animated.
 - Added a calm motion set: dots that travel along lesson diagram edges for three short passes with a pause button, quick button feedback, and a one-time key-fact marker sweep. Reduced motion shows everything still. Purposes are in docs/decisions/0001-motion-purposes.md.
 - Reorganized the repository: the client lives in src/, images in assets/, and dist/ is generated. The published site is byte-identical.
 - Added a lesson block pilot on four domain 1 lessons: a small diagram, one highlighted key fact and a quick check with an immediate explanation. Nothing is scored or saved, and the text is derived from the lessons and awaits owner review.
