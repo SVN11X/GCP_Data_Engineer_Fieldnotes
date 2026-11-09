@@ -15,7 +15,7 @@ Format: `- [ ]` pending, `- [x]` done, `- [x] SKIPPED: reason`, `- [ ] BLOCKED: 
 - [ ] BLOCKED: 6b. G Which license should the original written content use, for example CC BY 4.0? Until you choose, the README says it is still to be chosen.
 - [x] 7. G Footer and About notice: not affiliated with or endorsed by Google, trademarks of Google LLC. Credit line on every lesson. The CC BY 4.0 claim is not stated, because the license of cloud.google.com pages could not be verified.
 - [x] 8. G LICENSES/ folder, docs/credits.md and a public credits.html page listing every outside source with its license. CSP default-src stays self. Later asset items add their own rows.
-- [ ] 9. G Commit package-lock.json. Run the pinned standard check and gitleaks in CI after radar review. Keep minimal workflow permissions.
+- [x] 9. G Commit package-lock.json and install with npm ci in the Pages workflow. The standard workflow from item 2 already runs the pinned check and gitleaks. Workflow permissions stay minimal.
 
 ## Domains, type and visual system
 

@@ -23,6 +23,8 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: '22'
+      - name: Install from the lockfile
+        run: npm ci
       - name: Build the static study pack
         run: npm run build
       - name: Test scoring, recovery and teaching models
