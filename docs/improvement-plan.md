@@ -13,7 +13,7 @@ Format: `- [ ]` pending, `- [x]` done, `- [x] SKIPPED: reason`, `- [ ] BLOCKED: 
 - [x] 5. G Add docs/glossary.md and docs/assumptions.md. Each later decision record is written in the pull request that needs it.
 - [x] 6. G Add an MIT LICENSE for code, excluding content/imported.json and the 25 source images (done).
 - [ ] BLOCKED: 6b. G Which license should the original written content use, for example CC BY 4.0? Until you choose, the README says it is still to be chosen.
-- [ ] 7. G Footer and About notice: not affiliated with or endorsed by Google, trademarks of Google LLC. Credit and links to Google Cloud docs (CC BY 4.0) on every lesson.
+- [x] 7. G Footer and About notice: not affiliated with or endorsed by Google, trademarks of Google LLC. Credit line on every lesson. The CC BY 4.0 claim is not stated, because the license of cloud.google.com pages could not be verified.
 - [ ] 8. G LICENSES/ folder and credits page for every third-party asset with license and reason. Keep CSP default-src 'self'.
 - [ ] 9. G Commit package-lock.json. Run the pinned standard check and gitleaks in CI after radar review. Keep minimal workflow permissions.
 

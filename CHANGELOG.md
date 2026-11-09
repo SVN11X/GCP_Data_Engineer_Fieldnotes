@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Added a notice in the footer that the site is independent and not affiliated with Google, and a credit line to the Google Cloud documentation on every lesson.
+
 ## 2.1.0 — 2026-11-08
 
 - Preserved all 349 owner-supplied imported questions and all 25 original images, with source keys, review labels, explanations, IDs and import/review tools unchanged from the original repository.
