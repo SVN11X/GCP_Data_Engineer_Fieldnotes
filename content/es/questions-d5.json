@@ -670,5 +670,341 @@
    "es": "Observa el contrato de datos de negocio junto con la infraestructura. La frescura, la completitud y los errores sin resolver revelan fallas que pueden convivir con un estado saludable del proceso o con un uso promedio moderado de CPU.",
    "src": "7d4a0947e719"
   }
+ },
+ "lab-99": {
+  "text": {
+   "es": "Un snapshot captura el estado de las 10:00 y se completa a las 10:04. Ocurre una falla a las 10:03. La última copia completada conocida captura las 09:30. Con estos supuestos, ¿cuál es el intervalo de pérdida potencial?",
+   "src": "1266393debf8"
+  },
+  "choices.0.text": {
+   "es": "33 minutos, medidos desde el último estado recuperable conocido.",
+   "src": "024967751800"
+  },
+  "choices.0.why": {
+   "es": "A las 10:03, la copia utilizable conocida representa las 09:30.",
+   "src": "c0b457bc0163"
+  },
+  "choices.1.text": {
+   "es": "4 minutos, porque la duración de la finalización siempre es igual al RPO.",
+   "src": "45f95b8ce682"
+  },
+  "choices.1.why": {
+   "es": "El RPO se refiere a la antigüedad de los datos recuperables, no solo a la duración de la copia.",
+   "src": "bbc915c8fc48"
+  },
+  "choices.2.text": {
+   "es": "3 minutos, porque un snapshot incompleto debe poder usarse.",
+   "src": "7ca417687eb8"
+  },
+  "choices.2.why": {
+   "es": "Los supuestos no establecen que la captura de las 10:00 ya se pueda restaurar.",
+   "src": "68caed4f0c59"
+  },
+  "choices.3.text": {
+   "es": "Cero, porque cualquier snapshot programado implica que no hay pérdida de datos.",
+   "src": "7ffdbec25391"
+  },
+  "choices.3.why": {
+   "es": "Una programación por sí sola no garantiza un estado recuperable actual.",
+   "src": "10a9f636b332"
+  },
+  "explanation": {
+   "es": "Usa el estado que de verdad se sabe recuperable en el momento de la falla. La exposición a pérdida en este ejemplo explícito es 10:03 menos 09:30, sin importar la duración de la copia posterior incompleta.",
+   "src": "1c57a96cf4e8"
+  }
+ },
+ "lab-100": {
+  "text": {
+   "es": "Una copia de recuperación regional se restaura con éxito, pero la cuenta de la aplicación no puede descifrarla ni leerla. ¿Qué dos conclusiones son válidas? (Elige 2.)",
+   "src": "d392304d73e3"
+  },
+  "choices.0.text": {
+   "es": "El RTO se cumple automáticamente cuando existe una tabla, sin importar el comportamiento de la aplicación.",
+   "src": "a25267467c3e"
+  },
+  "choices.0.why": {
+   "es": "El servicio de negocio requerido sigue sin estar disponible.",
+   "src": "f6e2c81b15c8"
+  },
+  "choices.1.text": {
+   "es": "No se ha demostrado el objetivo de restauración de extremo a extremo de la aplicación.",
+   "src": "1d9b7d7bc7fe"
+  },
+  "choices.1.why": {
+   "es": "Restaurar la copia por sí solo no prueba que el servicio de negocio se reanudó.",
+   "src": "a6d8999fcb48"
+  },
+  "choices.2.text": {
+   "es": "Una etiqueta multirregión elimina la necesidad de planear todas las claves y accesos.",
+   "src": "f1ddc5f7f727"
+  },
+  "choices.2.why": {
+   "es": "La ubicación geográfica no aporta todos los permisos de recuperación.",
+   "src": "07b80c78e1dd"
+  },
+  "choices.3.text": {
+   "es": "El runbook debe incluir los permisos efectivos sobre los datos y las claves, además de la validación de los consumidores.",
+   "src": "808b26fa7e9a"
+  },
+  "choices.3.why": {
+   "es": "La recuperación depende de identidades utilizables y del acceso posterior, no solo de los bytes.",
+   "src": "0788a1e89b9f"
+  },
+  "explanation": {
+   "es": "La recuperación es un camino de negocio completo: detección, restauración, permisos, validación y redirección de los consumidores. La copia de los datos es necesaria, pero por sí sola no prueba el tiempo de recuperación objetivo.",
+   "src": "89b3d64fdb1f"
+  }
+ },
+ "lab-119": {
+  "text": {
+   "es": "Una consulta bajo demanda (on-demand) usa SELECT * con LIMIT 10 en una tabla sin clustering. ¿Qué debes concluir?",
+   "src": "2200005f3a7d"
+  },
+  "choices.0.text": {
+   "es": "El límite garantiza en general el costo de escanear diez filas.",
+   "src": "7f84e020973b"
+  },
+  "choices.0.why": {
+   "es": "El número de filas del resultado no es el contrato de escaneo en una tabla sin clustering.",
+   "src": "edc31fbcc496"
+  },
+  "choices.1.text": {
+   "es": "La consulta pasó a ser gratis.",
+   "src": "41db1614151f"
+  },
+  "choices.1.why": {
+   "es": "Un límite no garantiza una consulta gratis.",
+   "src": "ee0c53e35a62"
+  },
+  "choices.2.text": {
+   "es": "El resultado es más pequeño, pero el límite no reduce los bytes leídos.",
+   "src": "5faa746737e7"
+  },
+  "choices.2.why": {
+   "es": "La proyección de columnas, los filtros de partición y las barreras de protección adecuadas resuelven el trabajo de escaneo.",
+   "src": "55e1545bf89c"
+  },
+  "choices.3.text": {
+   "es": "El límite garantiza baja latencia sin importar el plan de la consulta.",
+   "src": "20b0dedb742c"
+  },
+  "choices.3.why": {
+   "es": "Un resultado más pequeño no elimina en general los joins, los escaneos ni la contención de recursos.",
+   "src": "3b3c81a7d28a"
+  },
+  "explanation": {
+   "es": "La proyección de columnas, los filtros de partición y las barreras de protección adecuadas resuelven el trabajo de escaneo.",
+   "src": "55e1545bf89c"
+  }
+ },
+ "lab-120": {
+  "text": {
+   "es": "¿Qué par ayuda a controlar una consulta bajo demanda antes de ejecutarla?",
+   "src": "772c96408738"
+  },
+  "choices.0.text": {
+   "es": "Una estimación con dry run y una configuración adecuada de bytes facturados máximos (maximum bytes billed).",
+   "src": "5bb89e495d2f"
+  },
+  "choices.0.why": {
+   "es": "Ayudan a estimar y acotar el trabajo de escaneo permitido, dentro de sus limitaciones documentadas.",
+   "src": "cc651aa7bb21"
+  },
+  "choices.1.text": {
+   "es": "Un LIMIT de filas de salida y una caché de dashboard sin contrato de frescura.",
+   "src": "d06fc8cdbf04"
+  },
+  "choices.1.why": {
+   "es": "El límite en una tabla sin clustering no acota el trabajo de escaneo, y la caché necesita un contrato explícito de frescura.",
+   "src": "95d95c6330b9"
+  },
+  "choices.2.text": {
+   "es": "Una reserva más grande que se supone que hace cumplir topes de bytes bajo demanda.",
+   "src": "60ac945e6783"
+  },
+  "choices.2.why": {
+   "es": "La asignación de capacidad y una barrera de bytes por consulta bajo demanda son controles distintos.",
+   "src": "de56f2a8ad19"
+  },
+  "choices.3.text": {
+   "es": "Una regla de ciclo de vida del almacenamiento y una etiqueta del dataset.",
+   "src": "a9307729dfca"
+  },
+  "choices.3.why": {
+   "es": "El ciclo de vida y las etiquetas de metadatos no imponen el tope de bytes en la ejecución de consultas.",
+   "src": "5aa612f295da"
+  },
+  "explanation": {
+   "es": "Ayudan a estimar y acotar el trabajo de escaneo permitido, dentro de sus limitaciones documentadas.",
+   "src": "cc651aa7bb21"
+  }
+ },
+ "lab-121": {
+  "text": {
+   "es": "Un reintento lee una carpeta elegida a partir del reloj actual. ¿Cuál es el principal riesgo de corrección?",
+   "src": "916aa0ab4a39"
+  },
+  "choices.0.text": {
+   "es": "Puede leer un intervalo distinto al del intento original.",
+   "src": "abfe137708a8"
+  },
+  "choices.0.why": {
+   "es": "El reintento debe fijar la entrada lógica prevista para ser reproducible.",
+   "src": "bcbf125e1f4f"
+  },
+  "choices.1.text": {
+   "es": "El reintento apunta automáticamente a exactamente los mismos registros históricos.",
+   "src": "0e16250ac661"
+  },
+  "choices.1.why": {
+   "es": "Usar el reloj actual puede cambiar el intervalo de entrada elegido.",
+   "src": "26fb8947b38d"
+  },
+  "choices.2.text": {
+   "es": "El orquestador convierte automáticamente cada anexión en un upsert.",
+   "src": "24c996bc3f40"
+  },
+  "choices.2.why": {
+   "es": "La programación de reintentos de tareas no reescribe la semántica de modificación de datos de la aplicación.",
+   "src": "efa55004b3f5"
+  },
+  "choices.3.text": {
+   "es": "Las dependencias entre tareas por sí solas garantizan entradas deterministas.",
+   "src": "80a88e05c019"
+  },
+  "choices.3.why": {
+   "es": "Las dependencias no fijan la carpeta elegida por una expresión de entrada basada en el reloj.",
+   "src": "44b058dd646b"
+  },
+  "explanation": {
+   "es": "El reintento debe fijar la entrada lógica prevista para ser reproducible.",
+   "src": "bcbf125e1f4f"
+  }
+ },
+ "lab-122": {
+  "text": {
+   "es": "Una carga de datos tuvo éxito, pero falló su notificación. ¿Qué diseño permite volver a ejecutar con seguridad?",
+   "src": "04fba547cd79"
+  },
+  "choices.0.text": {
+   "es": "Anexar todos los datos otra vez sin una identidad de operación.",
+   "src": "d2275a93e86a"
+  },
+  "choices.0.why": {
+   "es": "Las anexiones a ciegas pueden duplicar filas de negocio.",
+   "src": "f2ea32b4c2fd"
+  },
+  "choices.1.text": {
+   "es": "Usar identidades estables de intervalo y de operación con escrituras idempotentes.",
+   "src": "ab04aa87b66c"
+  },
+  "choices.1.why": {
+   "es": "Las entradas fijas y los efectos repetibles con seguridad resuelven el fallo parcial.",
+   "src": "41b4c3dc30af"
+  },
+  "choices.2.text": {
+   "es": "Suponer que el éxito de la orquestación garantiza la calidad de los datos.",
+   "src": "c4239918fc55"
+  },
+  "choices.2.why": {
+   "es": "La calidad de los datos necesita comprobaciones explícitas.",
+   "src": "e4061d819fc4"
+  },
+  "choices.3.text": {
+   "es": "Poner la única entrada requerida en un disco local arbitrario de un worker.",
+   "src": "4fce405738ef"
+  },
+  "choices.3.why": {
+   "es": "Las tareas distribuidas no pueden depender de un estado duradero arbitrario local del worker.",
+   "src": "b1f16138a9c6"
+  },
+  "explanation": {
+   "es": "Las entradas fijas y los efectos repetibles con seguridad resuelven el fallo parcial.",
+   "src": "41b4c3dc30af"
+  }
+ },
+ "lab-123": {
+  "text": {
+   "es": "El backlog crece, las escrituras al sink muestran errores de permisos y la CPU de los workers es moderada. ¿Cuál es la mejor investigación siguiente?",
+   "src": "039fd343d2e5"
+  },
+  "choices.0.text": {
+   "es": "Aumentar los workers sin límite antes de leer los errores.",
+   "src": "2bab82b2b217"
+  },
+  "choices.0.why": {
+   "es": "Los workers no pueden reparar escrituras denegadas con más cómputo.",
+   "src": "07e74e3b8ba0"
+  },
+  "choices.1.text": {
+   "es": "Inspeccionar y reparar la identidad del sink o la ruta de permisos, y luego verificar que el backlog se vacíe.",
+   "src": "8d7b466f38b3"
+  },
+  "choices.1.why": {
+   "es": "Los errores del sink dan una pista causal concreta que se puede validar.",
+   "src": "e5cdbd1b5071"
+  },
+  "choices.2.text": {
+   "es": "Borrar en silencio los registros retrasados.",
+   "src": "319b80a450bd"
+  },
+  "choices.2.why": {
+   "es": "El borrado silencioso sacrifica la corrección de los datos.",
+   "src": "6973766bd9ef"
+  },
+  "choices.3.text": {
+   "es": "Desactivar la conciliación de forma permanente.",
+   "src": "9de0bca0c0db"
+  },
+  "choices.3.why": {
+   "es": "La recuperación sigue necesitando conciliación.",
+   "src": "2bbfbb80f9a4"
+  },
+  "explanation": {
+   "es": "Los errores del sink dan una pista causal concreta que se puede validar.",
+   "src": "e5cdbd1b5071"
+  }
+ },
+ "lab-124": {
+  "text": {
+   "es": "Un equipo define un objetivo de frescura sin una marca de tiempo ni un punto de observación. ¿Qué se necesita?",
+   "src": "9641f709b64c"
+  },
+  "choices.0.text": {
+   "es": "Solo un gráfico verde de uso de CPU.",
+   "src": "50e04244a8da"
+  },
+  "choices.0.why": {
+   "es": "La CPU es una observación de recursos, no el objetivo de frescura de negocio.",
+   "src": "b278da13dafb"
+  },
+  "choices.1.text": {
+   "es": "Una definición medible de la población, las marcas de tiempo y el punto de observación.",
+   "src": "ef557934a213"
+  },
+  "choices.1.why": {
+   "es": "Un SLO (objetivo de nivel de servicio) debe especificar qué se mide y dónde.",
+   "src": "364282ce2606"
+  },
+  "choices.2.text": {
+   "es": "Una configuración de retención de mensajes más larga, sin regla de medición.",
+   "src": "928d4276a216"
+  },
+  "choices.2.why": {
+   "es": "La retención no define la población de frescura, la marca de tiempo ni el punto de observación.",
+   "src": "e5dfbebbaa58"
+  },
+  "choices.3.text": {
+   "es": "Solo los nombres de los productos.",
+   "src": "0037329f582d"
+  },
+  "choices.3.why": {
+   "es": "Los nombres de los productos no definen el objetivo.",
+   "src": "f64d5d38e2dd"
+  },
+  "explanation": {
+   "es": "Un SLO (objetivo de nivel de servicio) debe especificar qué se mide y dónde.",
+   "src": "364282ce2606"
+  }
  }
 }
