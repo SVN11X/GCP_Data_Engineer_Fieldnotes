@@ -7,7 +7,13 @@
     "build": "node scripts/build.mjs",
     "pretest": "npm run build",
     "test": "node --test tests/*.test.mjs",
-    "validate": "node scripts/validate.mjs"
+    "validate": "node scripts/validate.mjs",
+    "diagrams": "node scripts/diagrams.mjs"
   },
-  "engines": {"node": ">=22"}
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "@mermaid-js/mermaid-cli": "^12.2.0"
+  }
 }

@@ -23,7 +23,7 @@ Format: `- [ ]` pending, `- [x]` done, `- [x] SKIPPED: reason`, `- [ ] BLOCKED: 
 - [x] 11. G Type and spacing scale: body 16 px or more, labels 14 px or more, prose max 70ch, 4 and 8 px spacing. Replace every 8 to 12 px font rule in styles.css.
 - [x] 12. G Field-notebook visual system from DESIGN.md: paper and ink tokens, key-fact style, domain text colors, both themes at 4.5:1 contrast or more. No new font yet (see 12b).
 - [x] 12b. Caveat self-hosted as a 73 KB Latin WOFF2 in assets/fonts/ with its OFL text in LICENSES/, used for the lesson key fact. Decision 0005.
-- [ ] BLOCKED: 13. Mermaid-to-SVG needs the mermaid-cli npm package and a Chromium download of about 170 MB, and the lesson diagrams are already hand-made SVG. Install it anyway, or drop it?
+- [x] 13. G Mermaid CLI added as a dev dependency. npm run diagrams renders content/diagrams to committed SVG, first the exam map on the review page. Decision 0007. Radar note stays with the owner.
 
 ## Focus, lessons and motion
 

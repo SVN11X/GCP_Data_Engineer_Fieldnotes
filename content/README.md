@@ -5,3 +5,5 @@ Editable knowledge source of the study site: lessons, questions, glossary, the S
 The 349 owner-supplied imported questions live in `imported.json`. Never remove or edit them without a new explicit owner instruction (see `AGENTS.md`).
 
 - `captions/`: WebVTT captions for the clips in `assets/video/`. The build copies them to `dist/assets/video/`.
+
+- `diagrams/`: Mermaid sources. `npm run diagrams` renders them to `assets/diagrams/`.
