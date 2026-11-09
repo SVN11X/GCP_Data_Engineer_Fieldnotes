@@ -6,7 +6,7 @@ Format: `- [ ]` pending, `- [x]` done, `- [x] SKIPPED: reason`, `- [ ] BLOCKED: 
 
 ## Structure and standard
 
-- [ ] 1. G Browser baseline with Claude in Chrome at 360, 768, 1280 and 1920 px, plus imported IDs and image hashes from npm run validate, saved in docs/audit/baseline.md.
+- [x] 1. G Browser baseline with Claude in Chrome at 360, 768, 1280 and 1920 px, plus imported IDs and image hashes from npm run validate, saved in docs/audit/baseline.md.
 - [ ] 2. Y Adopt the standard: .standard.yml (web, github-pages, npm build, rich motion, multi-step, both themes), AGENTS.md keeping preservation rules, docs/goals.md, DESIGN.md. Merge pages.yml, do not overwrite it.
 - [ ] 3. Y Move dist/index.html and dist/assets code to src/, mark.svg and the 25 images to assets/. build.mjs copies to dist/ with .nojekyll. Untrack and ignore dist/. Verify hashes. Show the move plan first.
 - [ ] 4. Y Move INSTALLATION.md, VALIDATION.md, KNOWLEDGE_REVIEW.md and reports/ into docs/. Update the output path in scripts/build.mjs and the README links. Show the move plan first.
