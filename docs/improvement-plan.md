@@ -69,6 +69,7 @@ Format: `- [ ]` pending, `- [x]` done, `- [x] SKIPPED: reason`, `- [ ] BLOCKED: 
 - [x] 42. G Domain 5 lessons are in Spanish (389 strings, notes included, owner review pending). The titles index now covers all 52 lessons.
 - [x] 43. G Services, comparisons, workshops and architecture patterns are in Spanish (28 cards, 4 comparisons with notes, 12 workshops, 4 patterns, owner review pending).
 - [x] 43b. G Remaining routes are in Spanish: quick challenges, labs, resources, exam chrome and the sources notes. A raw noscript text bug on #architectures is fixed.
+- [x] 43c. G Fix the remaining Spanish gaps on #resources and make FieldI18n.report() accurate on overlay-translated pages.
 - [ ] 44. G Spanish layer for the 349 imported questions in content/imported-es.json. imported.json stays untouched, unreadable image text is not translated, one batch per domain.
 
 ## Presentation

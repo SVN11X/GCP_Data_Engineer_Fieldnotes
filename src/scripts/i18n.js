@@ -44,6 +44,8 @@ function compile(dict){
  }).sort((x,y)=>y.weight-x.weight);
  return {strings:new Map(Object.entries(dict.strings||{})),keep:new Set(dict.keep||[]),patterns};
 }
+/* True when the text was written by a Spanish overlay (seen = set of whitespace-collapsed overlay values). Such text is translated, never missing. */
+function fromOverlay(core,seen){return !!seen&&typeof seen.has==='function'&&seen.has(plain(core));}
 /* Returns the Spanish text, or null when the string has no entry. Whitespace around the string is kept by translate(). */
 function resolve(core,c,depth=0,info){
  if(!core)return null;
@@ -231,6 +233,7 @@ function report(){
   if(skipped(el,kind==='attr')||(node&&lessonTitle(node)))return note(regionOf(el,true)||'text left in English on purpose');
   const info={},out=resolve(core,st.c,0,info);
   if(out!==null){if(info.fallback)note('text captured inside a pattern');return;}
+  if(fromOverlay(core,root.FieldLessonEs&&root.FieldLessonEs.seen))return;
   const soft=regionOf(el,true);
   if(soft)return note(soft);
   const id=kind+'|'+attr+'|'+core,hit=found.get(id);
@@ -246,5 +249,5 @@ function report(){
  const skippedList=[...left].map(([region,count])=>({region,count})),total=skippedList.reduce((t,x)=>t+x.count,0);
  return {route:(root.location&&root.location.hash)||'#home',covered:st.covered,partial:st.covered&&total>0,missing:[...found.values()],skipped:skippedList,skippedCount:total};
 }
-root.FieldI18n={compile,resolve,translate,translateTitle,regionOf,validate,duplicateKeys,start,stop,report,ATTRS,COVERED,HARD,SOFT,SKIP};
+root.FieldI18n={compile,resolve,fromOverlay,translate,translateTitle,regionOf,validate,duplicateKeys,start,stop,report,ATTRS,COVERED,HARD,SOFT,SKIP};
 })(globalThis);
