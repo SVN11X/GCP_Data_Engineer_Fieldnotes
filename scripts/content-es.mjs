@@ -20,6 +20,7 @@ const readContent=n=>JSON.parse(fs.readFileSync(path.join(root,'content',n+'.jso
 export function englishItems(kind,log=readContent('verification-log')){
  /* The resources page is one item. The loader links the source audit under "audit" at run time, so the same shape is built here. */
  if(kind==='resources'){const a=readContent('source-audit');return [{id:'resources',...readContent('resources'),audit:{method:a.method,scope:a.scope}}];}
+ if(kind==='sources')return [{id:'sources',knowledgeAudit:readContent('knowledge-audit'),verification:readContent('verification')}];
  const items=readContent(kind);
  if(kind==='comparisons')for(const c of items){const entry=globalThis.FieldCompare.entryFor(log,c.id);if(entry&&entry.note)c.verification={note:entry.note};}
  return items;

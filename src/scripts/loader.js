@@ -75,7 +75,7 @@
       if(route==='sources')await Promise.all([
         load(data.manifest.knowledgeAudit,v=>{data.knowledgeAudit=v;}),
         load(data.manifest.verification,v=>{data.verification=v;})
-      ]);
+      ]).then(()=>localizeContent('sources',[{id:'sources',knowledgeAudit:data.knowledgeAudit,verification:data.verification}]));
       if(route==='search')await load(data.manifest.search,v=>{
         if(v.release!==data.release)throw new Error('This page and its search index have different versions. Reload the page.');
         data.searchIndex=v.documents;

@@ -47,7 +47,12 @@
   "BigQuery",
   "Dataform",
   "Cloud Storage",
-  "Dataproc / Spark"
+  "Dataproc / Spark",
+  "BigLake / Iceberg",
+  "Dataflow / Beam",
+  "Kafka",
+  "Spark / Dataproc",
+  "Composer / Airflow"
  ],
  "strings": {
   "Skip to content": "Saltar al contenido",
@@ -864,7 +869,10 @@
   "Service / role": "Servicio / función",
   "Useful fit and signal": "Cuándo encaja y señal que lo indica",
   "What was checked and what each source means": "Qué se revisó y qué significa cada fuente",
-  "Inspect the reference shelf and knowledge audit →": "Revisa el estante de referencias y la auditoría del conocimiento →"
+  "Inspect the reference shelf and knowledge audit →": "Revisa el estante de referencias y la auditoría del conocimiento →",
+  "Security / governance": "Seguridad / gobernanza",
+  "Observability": "Observabilidad",
+  "Cost / performance": "Costo / rendimiento"
  },
  "patterns": {
   "Theme: {name}": "Tema: {name}",
@@ -999,6 +1007,7 @@
   "Use the exam blueprint to set the scope, then learn, predict, explain and practise. Reviewed {date}.": "Usa la guía del examen para definir el alcance. Luego aprende, predice, explica y practica. Revisado el {date}.",
   "{n} minutes": "{n} minutos",
   "Standard certification validity: {validity}. Course access and certificates are separate from exam registration and certification.": "Vigencia de la certificación estándar: {validity}. El acceso a los cursos y los certificados son independientes de la inscripción al examen y de la certificación.",
-  "Requirements first: {n} service choices": "Primero los requisitos: {n} opciones de servicio"
+  "Requirements first: {n} service choices": "Primero los requisitos: {n} opciones de servicio",
+  "Question {n} / {total}": "Pregunta {n} / {total}"
  }
 }

@@ -89,7 +89,7 @@ test('the validator catches the mistakes it exists for',()=>{
 });
 test('every English string in the dictionary exists in the client source or the domain data',()=>{
  const files=['src/index.html',...fs.readdirSync(new URL('../src/scripts/',import.meta.url)).filter(f=>f.endsWith('.js')&&f!=='i18n.js').map(f=>'src/scripts/'+f)];
- const source=files.map(read).join('\n')+['domains','lessons','services','workshops','sources','glossary'].map(f=>read('content/'+f+'.json')).join('\n'),clean=s=>s.replace(/&amp;/g,'&');
+ const source=files.map(read).join('\n')+['domains','lessons','services','workshops','sources','glossary','knowledge-audit'].map(f=>read('content/'+f+'.json')).join('\n'),clean=s=>s.replace(/&amp;/g,'&');
  const text=clean(source),strip=x=>x.replace(/^[←→:·\s]+|[←→:·\s]+$/g,''),missing=[];
  // Arrows and some labels are joined with a variable in the source, so edges are trimmed. Pattern pieces may also be split across several literals.
  // image-text.js builds these four from 'Selectable ' + kind + ' from the original image' and 'Copy ' + kind.
@@ -211,4 +211,32 @@ test('lesson titles, question text, service names and source titles never match 
 test('no render template in src/scripts contains a noscript element',()=>{
  const dir=new URL('../src/scripts/',import.meta.url);
  for(const f of fs.readdirSync(dir).filter(f=>f.endsWith('.js')))assert.ok(!/<\/?noscript\b/i.test(fs.readFileSync(new URL(f,dir),'utf8')),f+' has a noscript element inside a script');
+});
+
+test('quick challenges, labs and exam chrome translate with their numbers and keep names and numbers',()=>{
+ const t=x=>I.translate(x,c),dot=' '+String.fromCharCode(183)+' ';
+ assert.equal(t('One order. Two messages.'),'Un pedido. Dos mensajes.');
+ assert.equal(t('Pub/Sub messages'),'Mensajes de Pub/Sub');
+ assert.equal(t('70 amount units'),'70 unidades de importe');
+ assert.equal(t('300 GB'),'300 GB');
+ assert.equal(t('2. ID A'),'2. ID A');
+ assert.equal(t('Logical reads: full fixture 300 GB; current result 7 GB'),'Lecturas lógicas: conjunto completo de 300 GB, resultado actual de 7 GB');
+ assert.equal(t('3 minutes after window end'),'3 minutos después del fin de la ventana');
+ assert.equal(t('[0, 5) minutes'),'[0, 5) minutos');
+ assert.equal(t('Value units'+dot+'events A, B'),'Unidades de valor'+dot+'eventos A, B');
+ assert.equal(t('Event D: created at 2 min, arrived at 10 min. Before arrival, the watermark was 8 min. Dropped because its window had expired under the selected policy.'),'Evento D: creado en el minuto 2, llegó en el minuto 10. Antes de llegar, el watermark estaba en el minuto 8. Se descartó porque su ventana ya había vencido según la política elegida.');
+ assert.equal(t('Accepted'+dot+'delayed'),'Aceptado'+dot+'con retraso');
+ assert.equal(t('STEP 02'),'PASO 02');
+ assert.equal(t('40 questions'+dot+'120 minutes'),'40 preguntas'+dot+'120 minutos');
+ assert.equal(t('Foundation'+dot+'60 scenarios'),'Básico'+dot+'60 escenarios');
+ assert.equal(t('3 / 40 correct'),'3 / 40 correctas');
+ assert.equal(t('Question 5'),'Pregunta 5');
+ assert.equal(t('Question 5, answered, current'),'Pregunta 5, respondida, actual');
+ assert.equal(t('Use the exam blueprint to set the scope, then learn, predict, explain and practise. Reviewed 2026-11-07.'),'Usa la guía del examen para definir el alcance. Luego aprende, predice, explica y practica. Revisado el 2026-11-07.');
+ assert.equal(t('120 minutes'),'120 minutos');
+ assert.equal(t('Requirements first: 28 service choices'),'Primero los requisitos: 28 opciones de servicio');
+});
+test('every Spanish string added for the remaining routes avoids semicolons and long dashes',()=>{
+ const bad=Object.entries({...dict.strings,...dict.patterns}).filter(([,v])=>/[;–—]/.test(v));
+ assert.deepEqual(bad,[]);
 });
