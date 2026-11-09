@@ -23,7 +23,7 @@ Format: `- [ ]` pending, `- [x]` done, `- [x] SKIPPED: reason`, `- [ ] BLOCKED: 
 - [x] 11. G Type and spacing scale: body 16 px or more, labels 14 px or more, prose max 70ch, 4 and 8 px spacing. Replace every 8 to 12 px font rule in styles.css.
 - [x] 12. G Field-notebook visual system from DESIGN.md: paper and ink tokens, key-fact style, domain text colors, both themes at 4.5:1 contrast or more. No new font yet (see 12b).
 - [x] 12b. Caveat self-hosted as a 73 KB Latin WOFF2 in assets/fonts/ with its OFL text in LICENSES/, used for the lesson key fact. Decision 0005.
-- [ ] BLOCKED: 13. Mermaid-to-SVG at build time (radar: trial) for whiteboard diagrams. The radar note goes as a separate pull request to SVN11X/standards. Needs your OK to download or install: an npm package for Mermaid-to-SVG.
+- [ ] BLOCKED: 13. Mermaid-to-SVG needs the mermaid-cli npm package and a Chromium download of about 170 MB, and the lesson diagrams are already hand-made SVG. Install it anyway, or drop it?
 
 ## Focus, lessons and motion
 
@@ -31,8 +31,8 @@ Format: `- [ ]` pending, `- [x]` done, `- [x] SKIPPED: reason`, `- [ ] BLOCKED: 
 - [x] 15. G Lesson block pilot: 4 of 9 domain 1 lessons start with a diagram, a key fact and a quick check. Text is derived from the lessons and needs owner review.
 - [x] 16. G Motion set: dots moving along lesson diagrams (3 short passes, pause button), button feedback, key-fact sweep, reduced-motion fallback, decision 0001.
 - [x] 17. G Gentle rewards: optional streak field under data-engineer-fieldnotes.v1, domain marks derived from completed lessons, calm chip and badges. Tests cover old state, export and restore.
-- [ ] BLOCKED: 18. Official Google Cloud product icons in diagrams after confirming the terms on cloud.google.com/icons. Attribution on the credits page. Needs your OK to download or install: official Google Cloud icon files.
-- [ ] BLOCKED: 19. Lucide UI icons copied as local SVG and CC0 illustrations (Open Peeps, Open Doodles), each listed in LICENSES/. Needs your OK to download or install: Lucide SVG files and CC0 illustrations.
+- [ ] BLOCKED: 18. cloud.google.com/icons renders with scripts, so its terms could not be read from here. Paste the terms or approve a manual download, then I add the icons and the credit row.
+- [ ] BLOCKED: 19. Lucide is ISC and not CC0. Open Peeps and Open Doodles are decorative, which AGENTS.md allows only with a written reason. Which UI icons or illustrations do you want, and where?
 - [x] 20. G Manim pilot: one 30 s WebM clip (batch vs streaming), 576 KB, WebP poster, EN and ES captions, native pause control. Decision 0006. The radar note for SVN11X/standards is not part of this repository and stays with the owner.
 - [x] 21. G Convert domain 2 to the lesson block format with diagrams. Done for the 8 most central of 16 lessons, text derived from the lessons, owner review pending.
 - [x] 22. G Convert domain 3 to the lesson block format with diagrams. All 10 lessons have blocks, text derived from the lessons, owner review pending.
@@ -46,7 +46,7 @@ Format: `- [ ]` pending, `- [x]` done, `- [x] SKIPPED: reason`, `- [ ] BLOCKED: 
 - [x] 26b. Initial payload limit raised from 450,000 to 500,000 bytes, approved by the owner. Long content still loads on demand. See docs/decisions/0003-initial-payload-budget.md.
 - [x] 27. G Fast review path: a 1 to 2 hour plan across the five domains weighted by the guide, with a one-page summary per domain.
 - [x] 28. G Added 4 verified comparisons (storage, processing, messaging, orchestration) at #review/compare, loaded on demand. #compare already serves service cards.
-- [x] 29. G Thirteen original scenario questions (lab-125 to lab-137) so every objective has at least five. Facts checked with the Google MCP. They carry timed:false, so timed sessions and the diagnostic keep their 124 questions. Spanish overlays included. The catalog limit moved from 230,000 to 240,000 bytes (see decision 0003 amendment), owner to confirm.
+- [x] 29. G 13 original scenarios (lab-125 to lab-137), five per objective, with Spanish. timed:false keeps timed sessions at 124 questions. Catalog limit now 240,000 bytes, owner to confirm (decision 0003).
 
 ## Verification with the Google MCP
 
@@ -81,7 +81,7 @@ Format: `- [ ]` pending, `- [x]` done, `- [x] SKIPPED: reason`, `- [ ] BLOCKED: 
 
 ## Presentation
 
-- [ ] 45. G Rewrite the README with a status line and the live link. Show the GitHub About panel and topics for the owner to apply with --apply.
+- [x] 45. G README rewritten with a status line, the live link and a Standard section. The About panel and topics are left for the owner to apply (command in the pull request).
 - [ ] 46. G Final browser check at four widths, keyboard, touch, reduced motion and dark theme, saved in docs/audit/final.md.
 
 ## Dropped

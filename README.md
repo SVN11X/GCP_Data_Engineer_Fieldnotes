@@ -1,15 +1,17 @@
 # Google Cloud Data Engineer Fieldnotes
 
-An independent, English-first static study workspace for the Professional Data Engineer standard exam. Learn the decisions, explain the tradeoffs and verify the source. Spanish vocabulary support is available without replacing the English study experience.
+An independent, bilingual (English and Spanish) and visual study site for the Google Cloud Professional Data Engineer exam. It takes a newcomer to exam level and lets someone who knows the exam review all five domains in 1 to 2 hours. It is not affiliated with or endorsed by Google.
+
+**Status:** active, improved through stacked pull requests. **Live site:** https://svn11x.github.io/GCP_Data_Engineer_Fieldnotes/
 
 ## Study workspace
 
 Start with one of three original two-minute playgrounds, or choose a five-minute guided session. Every chapter explains its situation, why it matters and the idea to keep. Short sessions reveal one step at a time and resume after interruption.
 
 - 52 lessons mapped to all 19 standard-guide objectives; review dates and scope are visible.
-- All 349 owner-supplied imported questions, original keys, review labels and 25 unchanged images, plus 124 original explained scenarios. Collection and review filters remain available.
+- All 349 owner-supplied imported questions, original keys, review labels and 25 unchanged images, plus 137 original explained scenarios. Collection and review filters remain available.
 - Selectable text for ten code/text images and an accessible table alternative; every original image stays available at full size.
-- Foundation / Applied levels, multiple-select answers and weighted timed sessions from the established original-question pool.
+- Foundation / Applied levels, multiple-select answers and weighted timed sessions from the established pool of 124 original questions. The other 13 scenarios stay in the practice bank.
 - 28 service cards and side-by-side architectural comparisons.
 - Four original interactive solution patterns with accepted / rejected paths and keyboard-accessible node explanations.
 - 12 synthetic workshops and the existing event-time, scan and architecture labs.
@@ -17,6 +19,8 @@ Start with one of three original two-minute playgrounds, or choose a five-minute
 - Local progress, review flags, bookmarks, export / restore and resumed timed deadlines. Short sessions and full chapters are tracked separately.
 - Responsive layouts, system / light / dark themes and downloadable text alternatives.
 - A searchable local index requested only when search is opened.
+- A Spanish layer for the interface, all 52 lessons, the original questions and all 349 imported questions. Spanish text is flagged for the owner's review.
+- Focus mode, a fast 1 to 2 hour review path, a first-visit orientation or diagnostic and three short captioned clips.
 
 ## Build and validate
 
@@ -31,6 +35,10 @@ npm run validate
 `content/` is the editable knowledge source. `scripts/build.mjs` generates the public catalog, content chunks, local index, downloadable notes and inventory. `src/` holds the dependency-free client: the pages (`index.html`, `credits.html`), `scripts/` and `styles/`. `assets/` holds the images, including the 25 unchanged source images. `npm run build` copies them into `dist/`, which is generated, never committed, and is the GitHub Pages output. The Actions workflow builds, tests and validates it before publication. `npm test` builds first.
 
 For local review, serve `dist/` over HTTP (for example `python -m http.server 8000 --directory dist`). Demand-loaded JSON does not work by double-clicking a `file://` entry. All assets and requests use relative paths and the application keeps hash routes, including under `/GCP_Data_Engineer_Fieldnotes/`.
+
+## Standard
+
+The repository follows SVN11X/standards v1 (see `.standard.yml` and `AGENTS.md`). Run the standard check with `python <path-to-standards>/scripts/standard.py check .` and fix every error. The Pages workflow runs the same check in CI.
 
 ## Knowledge and publication
 
