@@ -8,8 +8,8 @@ Format: `- [ ]` pending, `- [x]` done, `- [x] SKIPPED: reason`, `- [ ] BLOCKED: 
 
 - [x] 1. G Browser baseline with Claude in Chrome at 360, 768, 1280 and 1920 px, plus imported IDs and image hashes from npm run validate, saved in docs/audit/baseline.md.
 - [x] 2. Y Adopt the standard: .standard.yml (web, github-pages, npm build, rich motion, multi-step, both themes), AGENTS.md keeping preservation rules, docs/goals.md, DESIGN.md. Merge pages.yml, do not overwrite it.
-- [ ] 3. Y Move dist/index.html and dist/assets code to src/, mark.svg and the 25 images to assets/. build.mjs copies to dist/ with .nojekyll. Untrack and ignore dist/. Verify hashes. Show the move plan first.
-- [ ] 4. Y Move INSTALLATION.md, VALIDATION.md, KNOWLEDGE_REVIEW.md and reports/ into docs/. Update the output path in scripts/build.mjs and the README links. Show the move plan first.
+- [ ] BLOCKED: 3. Y Move the client in dist/ (index.html, assets code) to src/, mark.svg and 25 images to assets/, untrack dist/. Do you approve? It changes how the site is built. Details after item 4.
+- [ ] BLOCKED: 4. Y Do you approve docs/migration-plan.yml: INSTALLATION, KNOWLEDGE_REVIEW and VALIDATION move to docs/ in lowercase, and reports/ goes to docs/reports/? README links and build.mjs:57 get fixed.
 - [ ] 5. G Add docs/glossary.md and docs/assumptions.md. Each later decision record is written in the pull request that needs it.
 - [ ] 6. G Add an MIT LICENSE for code, excluding content/imported.json and the 25 source images. BLOCKED: which license for the original content?
 - [ ] 7. G Footer and About notice: not affiliated with or endorsed by Google, trademarks of Google LLC. Credit and links to Google Cloud docs (CC BY 4.0) on every lesson.
