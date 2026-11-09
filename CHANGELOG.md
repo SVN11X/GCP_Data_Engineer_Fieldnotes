@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- The link check skips docs.cloud.google.com, which refuses connections from GitHub Actions runners, so the standard check on main no longer fails for network reasons.
 - The Pages workflow pins every action to a commit and no longer keeps the token in the checkout, as the standard's workflow audit asks.
 - The theme, focus mode and language buttons now show a small icon next to their text.
 - The credits page now lists the font, the render tools and the CC BY 4.0 scope, and links a community collection of Google Cloud logos. Nothing from it is bundled.
