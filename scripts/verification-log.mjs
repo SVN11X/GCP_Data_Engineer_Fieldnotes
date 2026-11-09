@@ -1,4 +1,6 @@
 // Verification log rules shared by the build, the validator and the tests.
+import fs from 'node:fs';
+import path from 'node:path';
 import '../src/scripts/verification.js';
 const V=globalThis.FieldVerification;
 export const METHODS=Object.keys(V.METHODS);
@@ -38,20 +40,35 @@ export function validateLog(log,ids={}){
  return errors;
 }
 
-/* Gap check. A later item will turn these gaps into build failures, so keep it in this one function. */
+/* Gap check. Missing records fail the build (see gapErrors). This is the one place that decides what counts as a gap.
+   comparison ids are checked only when a comparisons content file supplies them, so ids.comparison is empty until then. */
 export function findGaps(log,ids){
  const have=latestByTopic(log),missing=kind=>(ids[kind]||[]).filter(id=>!have.has(kind+':'+id));
- return {lessons:missing('lesson'),services:missing('service')};
+ return {lessons:missing('lesson'),services:missing('service'),comparisons:missing('comparison')};
+}
+/* Error lines for the build gate, one per kind that has gaps, each naming the first 10 missing ids. Empty when covered. */
+export function gapErrors(log,ids){
+ const gaps=findGaps(log,ids),out=[];
+ for(const [name,list,total] of [['lessons',gaps.lessons,(ids.lesson||[]).length],['services',gaps.services,(ids.service||[]).length],['comparisons',gaps.comparisons,(ids.comparison||[]).length]])
+  if(list.length)out.push(`Verification log: ${list.length} of ${total} ${name} have no entry. First ${Math.min(10,list.length)}: ${list.slice(0,10).join(', ')}`);
+ return out;
+}
+/* Throws one Error that lists every gap line. The build calls this before it writes anything. */
+export function assertNoGaps(log,ids){
+ const errors=gapErrors(log,ids);
+ if(errors.length)throw new Error('Missing verification records in content/verification-log.json:\n'+errors.join('\n'));
+}
+/* Ids of the comparisons content file, or an empty list while that file does not exist yet. */
+export function comparisonIds(contentDir){
+ const file=path.join(contentDir,'comparisons.json');
+ return fs.existsSync(file)?JSON.parse(fs.readFileSync(file,'utf8')).map(x=>x.id):[];
 }
 export function findStale(log,today,maxDays=MAX_AGE_DAYS){
  return [...latestByTopic(log).values()].filter(x=>V.isStale(x,today,maxDays));
 }
-/* Warning lines for the build. Does not throw and does not decide pass or fail. */
+/* Warning lines for the build. Only entries older than 90 days warn. Does not throw and does not decide pass or fail. */
 export function warnings(log,ids,today){
- const out=[],gaps=findGaps(log,ids);
- for(const [name,list,total] of [['lessons',gaps.lessons,(ids.lesson||[]).length],['services',gaps.services,(ids.service||[]).length]])
-  if(list.length)out.push(`Verification log: ${list.length} of ${total} ${name} have no entry. First ${Math.min(10,list.length)}: ${list.slice(0,10).join(', ')}`);
- const stale=findStale(log,today);
+ const out=[],stale=findStale(log,today);
  if(stale.length)out.push(`Verification log: ${stale.length} entries are older than ${MAX_AGE_DAYS} days: ${stale.slice(0,10).map(x=>x.kind+':'+x.topic).join(', ')}`);
  return out;
 }
