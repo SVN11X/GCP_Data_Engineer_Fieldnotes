@@ -1,0 +1,630 @@
+{
+ "imp-8": {
+  "html": {
+   "es": "Estás creando un nuevo almacén de datos (data warehouse) en tiempo real para tu empresa y vas a usar inserciones en streaming de Google BigQuery. No hay garantía de que los datos se envíen solo una vez, pero tienes un ID único para cada fila de datos y una marca de tiempo del evento. Quieres asegurarte de que no se incluyan duplicados al consultar los datos de forma interactiva. ¿Qué tipo de consulta debes usar?<br>",
+   "src": "4a13968a64a8"
+  },
+  "choices.0.html": {
+   "es": "Incluir ORDER BY DESK en la columna de la marca de tiempo y LIMIT 1.",
+   "src": "4569946af45e"
+  },
+  "choices.1.html": {
+   "es": "Usar GROUP BY en la columna del ID único y la columna de la marca de tiempo, y SUM sobre los valores.",
+   "src": "69229290e65e"
+  },
+  "choices.2.html": {
+   "es": "Usar la función de ventana LAG con PARTITION por el ID único junto con WHERE LAG IS NOT NULL.",
+   "src": "f6804fd69377"
+  },
+  "choices.3.html": {
+   "es": "Usar la función de ventana ROW_NUMBER con PARTITION por el ID único junto con WHERE row igual a 1.",
+   "src": "13ac397995cc"
+  },
+  "sourceExplanation": {
+   "es": "Para manejar los duplicados de las inserciones en streaming de BigQuery, debes eliminar las filas duplicadas según el ID único.\nLa función de ventana ROW_NUMBER() asignada sobre PARTITION BY el ID único te permite ordenar las filas duplicadas y filtrar solo la primera aparición (WHERE row = 1).\nEsto asegura que se devuelva exactamente una fila por ID único. En cambio, GROUP BY agrega datos en lugar de quitar duplicados, LAG filtra los registros únicos y ORDER BY con LIMIT devuelve una sola fila en total.",
+   "src": "c4b744e7a959"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-13": {
+  "html": {
+   "es": "Quieres procesar transacciones de pago en una aplicación de punto de venta que se ejecutará en Google Cloud Platform. Tu base de usuarios podría crecer de forma exponencial, pero no quieres administrar el escalado de la infraestructura.<br>¿Qué servicio de base de datos de Google debes usar?<br>",
+   "src": "e9f606f15be4"
+  },
+  "choices.0.html": {
+   "es": "Cloud SQL",
+   "src": "1097c59b4b0a"
+  },
+  "choices.1.html": {
+   "es": "BigQuery",
+   "src": "0871a590f805"
+  },
+  "choices.2.html": {
+   "es": "Cloud Bigtable",
+   "src": "5521a117cff5"
+  },
+  "choices.3.html": {
+   "es": "Cloud Datastore",
+   "src": "f84d6dc000d4"
+  },
+  "sourceExplanation": {
+   "es": "El requisito de no administrar el escalado de la infraestructura apunta a una base de datos totalmente administrada y serverless (sin servidores que administrar) que escale de forma automática.\nCloud SQL requiere configurar a mano la CPU y la memoria para escalar (escalado vertical), mientras que Cloud Datastore (Firestore en modo Datastore) maneja el escalado de forma transparente.\nAdemás, Google menciona de forma explícita las transacciones financieras como un caso de uso de Cloud Datastore por su soporte de transacciones ACID, lo que lo convierte en la mejor opción para esta carga de trabajo concreta.",
+   "src": "72484bf78ec2"
+  },
+  "explanation": {
+   "es": "Los servicios de la lista omiten algunas alternativas modernas. Decide según los límites transaccionales, la consistencia, la escala y el patrón de acceso. El nombre histórico Datastore por sí solo no es un diseño de sistema de pagos.",
+   "src": "d6fe5b05ed32"
+  },
+  "reviewNote": {
+   "es": "Esta pregunta importada está excluida de la práctica con puntuación. Lee la nota técnica en lugar de memorizar su clave.",
+   "src": "5d478c3e8ed1"
+  }
+ },
+ "imp-22": {
+  "html": {
+   "es": "Tu empresa contrató a una nueva científica de datos que quiere hacer análisis complejos sobre conjuntos de datos muy grandes almacenados en Google Cloud Storage y en un<br>clúster de Cassandra en Google Compute Engine. Ella quiere sobre todo crear conjuntos de datos etiquetados para proyectos de aprendizaje automático (machine learning), además de algunas tareas de visualización. Dice que su laptop no es lo bastante potente para sus tareas y que la está retrasando. Quieres ayudarla a hacer su trabajo.<br>¿Qué debes hacer?<br>",
+   "src": "001f2a2b4a9a"
+  },
+  "choices.0.html": {
+   "es": "Ejecutar una versión local de Jupiter en la laptop.",
+   "src": "3e7c1ee7d859"
+  },
+  "choices.1.html": {
+   "es": "Dar al usuario acceso a Google Cloud Shell.",
+   "src": "f933cd3aef23"
+  },
+  "choices.2.html": {
+   "es": "Alojar una herramienta de visualización en una VM de Google Compute Engine.",
+   "src": "96df5221c67b"
+  },
+  "choices.3.html": {
+   "es": "Implementar Google Cloud Datalab en una máquina virtual (VM) de Google Compute Engine.",
+   "src": "35c7b63c836b"
+  },
+  "sourceExplanation": {
+   "es": "Google Cloud Datalab (el predecesor de Vertex AI Workbench) está diseñado de forma específica como un entorno interactivo de análisis de datos que se ejecuta dentro de una VM de Compute Engine y ofrece recursos de alto rendimiento para conjuntos de datos grandes. Esto resuelve las limitaciones de rendimiento de la laptop y da la interfaz necesaria para crear conjuntos de datos etiquetados y visualizaciones con herramientas como los notebooks de Jupyter. Las otras opciones no bastan. La ejecución local no puede manejar el volumen, Cloud Shell no tiene capacidad de cómputo potente y persistente para tareas complejas de ML, y una herramienta de visualización genérica no admite el flujo completo de etiquetado de datos.",
+   "src": "c5fa4964baad"
+  },
+  "explanation": {
+   "es": "La fuente nombra Cloud Datalab, un producto de notebooks más antiguo. Conserva la pregunta como contexto histórico y usa la guía vigente de notebooks administrados para la implementación.",
+   "src": "515676522753"
+  },
+  "reviewNote": {
+   "es": "Esta pregunta importada está excluida de la práctica con puntuación. Lee la nota técnica en lugar de memorizar su clave.",
+   "src": "5d478c3e8ed1"
+  }
+ },
+ "imp-29": {
+  "html": {
+   "es": "Tu empresa envía en streaming datos de sensores en tiempo real desde la planta de fábrica a Bigtable y ha notado un rendimiento muy malo. ¿Cómo se debe rediseñar la clave de fila (row key) para mejorar el rendimiento de Bigtable en las consultas que alimentan los paneles en tiempo real?<br>",
+   "src": "e9aad0a5044c"
+  },
+  "choices.0.html": {
+   "es": "Usar una clave de fila con la forma &lt;timestamp&gt;.",
+   "src": "56244fd05b66"
+  },
+  "choices.1.html": {
+   "es": "Usar una clave de fila con la forma &lt;sensorid&gt;.",
+   "src": "0f873234c6ba"
+  },
+  "choices.2.html": {
+   "es": "Usar una clave de fila con la forma &lt;timestamp&gt;#&lt;sensorid&gt;.",
+   "src": "077687f87a2b"
+  },
+  "choices.3.html": {
+   "es": "Usar una clave de fila con la forma &gt;#&lt;sensorid&gt;#&lt;timestamp&gt;.",
+   "src": "fa1486e6671b"
+  },
+  "sourceExplanation": {
+   "es": "La opción D es correcta porque poner el ID del sensor antes de la marca de tiempo hace que las escrituras de distintos sensores se repartan entre varios tablets (fragmentos de la tabla) y evita el hotspotting (puntos calientes). Empezar una clave de fila con una marca de tiempo que siempre crece (opciones A y C) concentra el tráfico de escritura en un solo nodo y degrada el rendimiento. La opción B falla porque no tiene un componente de marca de tiempo, y por eso las lecturas nuevas sobrescriben las anteriores en lugar de agregarse.",
+   "src": "1f987b650c1b"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-32": {
+  "html": {
+   "es": "Tu empresa está haciendo su primera campaña dinámica: ofrece distintas ofertas al analizar datos en tiempo real durante la temporada navideña. Los científicos de datos recopilan terabytes de datos que crecen rápido cada hora durante su campaña de 30 días. Usan Google Cloud Dataflow para preprocesar los datos y reunir los datos de características (señales) que necesita el modelo de aprendizaje automático en Google Cloud Bigtable. El equipo observa un rendimiento deficiente en las lecturas y escrituras de su carga inicial de 10 TB de datos. Quieren mejorar este rendimiento y minimizar el costo. ¿Qué deben hacer?<br>",
+   "src": "02a51e7ab722"
+  },
+  "choices.0.html": {
+   "es": "Redefinir el esquema para distribuir de forma uniforme las lecturas y escrituras en todo el espacio de filas de la tabla.",
+   "src": "e485b1e5ac48"
+  },
+  "choices.1.html": {
+   "es": "El problema de rendimiento se resolverá con el tiempo a medida que aumente el tamaño del clúster de BigDate.",
+   "src": "1ecda1b9ed6f"
+  },
+  "choices.2.html": {
+   "es": "Rediseñar el esquema para usar una sola clave de fila que identifique los valores que se deben actualizar con frecuencia en el clúster.",
+   "src": "77ec06b9571a"
+  },
+  "choices.3.html": {
+   "es": "Rediseñar el esquema para usar claves de fila basadas en ID numéricos que aumentan de forma secuencial por cada usuario que ve las ofertas.",
+   "src": "be553880bc57"
+  },
+  "sourceExplanation": {
+   "es": "Cloud Bigtable es un almacén de datos distribuido que logra su mejor rendimiento cuando las operaciones de lectura y escritura se reparten de forma uniforme entre todos los nodos del clúster.\nSi hay hotspots (puntos calientes) por un mal diseño de la clave de fila, el rendimiento baja porque el tráfico se concentra en un subconjunto de nodos.\nPor eso, rediseñar el esquema para asegurar una distribución uniforme en el espacio de filas resuelve el cuello de botella sin agregar infraestructura costosa.",
+   "src": "f5320b962a48"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-44": {
+  "html": {
+   "es": "Estás implementando un nuevo sistema de almacenamiento para tu aplicación móvil, que es un servicio de streaming de contenido multimedia. Decides que la mejor opción es Google Cloud Datastore. Tienes entidades con varias propiedades, y algunas pueden tomar varios valores. Por ejemplo, en la entidad &#x27;Movie&#x27; la propiedad &#x27;actors&#x27; y la propiedad<br>&#x27;tags&#x27; tienen varios valores, pero la propiedad &#x27;date released&#x27; no. Una consulta típica pediría todas las películas con actor=&lt;actorname&gt; ordenadas por date_released, o todas las películas con tag=Comedy ordenadas por date_released. ¿Cómo debes evitar una explosión combinatoria en la cantidad de índices?<br>",
+   "src": "4a99a52ab43b"
+  },
+  "choices.0.html": {
+   "es": "Configurar el índice a mano en tu index config (archivo de configuración de índices) de esta forma: <img src=\"assets/images/ce9a8c492e24c900585a.png\" alt=\"Original diagram for imported question 44. Open the full-size image to inspect the details.\" loading=\"lazy\">",
+   "src": "5f94a0a7d26d"
+  },
+  "choices.1.html": {
+   "es": "Configurar el índice a mano en tu index config (archivo de configuración de índices) de esta forma: <img src=\"assets/images/ee0c886b58da167b2839.png\" alt=\"Original diagram for imported question 44. Open the full-size image to inspect the details.\" loading=\"lazy\">",
+   "src": "416f8938cbcf"
+  },
+  "choices.2.html": {
+   "es": "Definir lo siguiente en las opciones de tu entidad: exclude_from_indexes = &#x27;actors, tags&#x27;",
+   "src": "73ba0a2e3cc0"
+  },
+  "choices.3.html": {
+   "es": "Definir lo siguiente en las opciones de tu entidad: exclude_from_indexes = &#x27;date_published&#x27;",
+   "src": "16c8a313035c"
+  },
+  "sourceExplanation": {
+   "es": "Para evitar la explosión combinatoria de índices causada por propiedades con varios valores (actors y tags) combinadas con una propiedad ordenada (date_released), debes configurar a mano los índices compuestos en el archivo `index.yaml`.\nDatastore crea de forma automática todas las combinaciones de índices a menos que se definan de forma explícita. La configuración manual limita la creación solo a los patrones de consulta necesarios (por ejemplo, actors + date_released, tags + date_released) y reduce mucho la cantidad de entradas de índice.",
+   "src": "e00ae71c4931"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-47": {
+  "html": {
+   "es": "Estás diseñando el esquema de base de datos de un servicio de pedidos de comida basado en aprendizaje automático (machine learning) que predecirá qué quieren comer los usuarios. Esta es parte de la información que necesitas guardar:<br>✑ El perfil del usuario: lo que le gusta y no le gusta comer<br>✑ La información de la cuenta del usuario: nombre, dirección, horarios de comida preferidos<br>✑ La información del pedido: cuándo se hacen los pedidos, desde dónde y para quién<br>La base de datos se usará para guardar todos los datos transaccionales del producto. Quieres optimizar el esquema de datos. ¿Qué producto de Google Cloud Platform debes usar?<br>",
+   "src": "ac0554b2da8f"
+  },
+  "choices.0.html": {
+   "es": "BigQuery",
+   "src": "0871a590f805"
+  },
+  "choices.1.html": {
+   "es": "Cloud SQL",
+   "src": "1097c59b4b0a"
+  },
+  "choices.2.html": {
+   "es": "Cloud Bigtable",
+   "src": "5521a117cff5"
+  },
+  "choices.3.html": {
+   "es": "Cloud Datastore",
+   "src": "f84d6dc000d4"
+  },
+  "explanation": {
+   "es": "Cloud SQL encaja con los registros transaccionales relacionales del enunciado: los usuarios y los pedidos tienen relaciones y se pueden actualizar de forma transaccional. BigQuery está optimizado para análisis. Bigtable es un almacén de columnas anchas con acceso por clave. Que haya una función de ML en el futuro no convierte el sistema transaccional en un almacén de datos (warehouse).",
+   "src": "311df7830d29"
+  },
+  "reviewNote": {
+   "es": "El razonamiento editorial está vinculado a documentación primaria. La clave importada se conserva por separado.",
+   "src": "c07bc5e656c6"
+  }
+ },
+ "imp-49": {
+  "html": {
+   "es": "Tu empresa produce 20,000 archivos cada hora. Cada archivo de datos tiene formato de valores separados por comas (CSV) y pesa menos de 4 KB. Todos los archivos deben ingresar a Google Cloud Platform antes de poder procesarse. El sitio de tu empresa tiene una latencia de 200 ms hacia Google Cloud, y el ancho de banda de tu conexión a Internet está limitado a 50 Mbps. Hoy tienes un servidor de FTP seguro (SFTP) en una máquina virtual de Google Compute Engine como punto de ingesta de datos. Un cliente SFTP local se ejecuta en una máquina dedicada para transmitir los archivos CSV tal como están. El objetivo es que los informes con los datos del día anterior estén disponibles para los ejecutivos a las 10:00 a.m. de cada día. Este diseño apenas logra mantener el ritmo del volumen actual, aunque el uso del ancho de banda es bastante bajo.<br>Te dicen que, por la estacionalidad, tu empresa espera que la cantidad de archivos se duplique durante los próximos tres meses. ¿Qué dos acciones debes tomar? (Elige dos.)<br>",
+   "src": "950818526304"
+  },
+  "choices.0.html": {
+   "es": "Comprimir cada archivo para aumentar la velocidad de transferencia de archivos.",
+   "src": "627bba397ef5"
+  },
+  "choices.1.html": {
+   "es": "Contactar a tu proveedor de servicios de Internet (ISP) para aumentar tu ancho de banda máximo a al menos 100 Mbps.",
+   "src": "cfa864c536b4"
+  },
+  "choices.2.html": {
+   "es": "Rediseñar el proceso de ingesta de datos para usar la herramienta gsutil y enviar los archivos CSV a un bucket de almacenamiento en paralelo.",
+   "src": "9f6b1ca8cad3"
+  },
+  "choices.3.html": {
+   "es": "Reunir 1,000 archivos en un archivo tar (tape archive, TAR). Transmitir los archivos TAR en lugar de los CSV y desarmarlos en la nube al recibirlos.",
+   "src": "efa27a1f46e6"
+  },
+  "choices.4.html": {
+   "es": "Crear en tu red un endpoint de almacenamiento compatible con S3 y usar Google Cloud Storage Transfer Service para transferir los datos locales al bucket de almacenamiento designado.",
+   "src": "6c0790d27c68"
+  },
+  "sourceExplanation": {
+   "es": "La opción C es correcta porque usar `gsutil` con cargas en paralelo (`-m`) maneja de forma eficiente un gran volumen de archivos pequeños gracias al multihilo, y supera la sobrecarga por archivo propia del diseño actual con SFTP.\nLa opción D es correcta porque agrupar muchos archivos pequeños de 4 KB en archivos TAR más grandes reduce la sobrecarga de tantas conexiones TCP individuales y de tantas operaciones de creación de objetos de almacenamiento, y esto mejora mucho el rendimiento en Cloud Storage.\nLas opciones A, B y E son incorrectas. El ancho de banda ya es suficiente (el uso es bajo), la compresión agrega carga de CPU innecesaria para archivos de texto diminutos, y Storage Transfer Service exige un ancho de banda mayor (>300 Mbps) que los 50 Mbps disponibles.",
+   "src": "b105b5ce938b"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-50": {
+  "html": {
+   "es": "Estás eligiendo una base de datos NoSQL para manejar datos de telemetría enviados por millones de dispositivos del Internet de las cosas (IoT). El volumen de datos crece 100<br>TB por año y cada entrada de datos tiene unos 100 atributos. El pipeline de procesamiento de datos no requiere atomicidad, consistencia, aislamiento y durabilidad (ACID).<br>Sin embargo, se necesitan alta disponibilidad y baja latencia.<br>Necesitas analizar los datos consultando campos individuales. ¿Cuáles tres bases de datos cumplen tus requisitos? (Elige tres.)<br>",
+   "src": "f1694e5a6ba2"
+  },
+  "choices.0.html": {
+   "es": "Redis",
+   "src": "a7f6415749a3"
+  },
+  "choices.1.html": {
+   "es": "HBase",
+   "src": "161879137acc"
+  },
+  "choices.2.html": {
+   "es": "MySQL",
+   "src": "211906c1c32d"
+  },
+  "choices.3.html": {
+   "es": "MongoDB",
+   "src": "91231ff9ab66"
+  },
+  "choices.4.html": {
+   "es": "Cassandra",
+   "src": "e3297e400dff"
+  },
+  "choices.5.html": {
+   "es": "HDFS con Hive",
+   "src": "50c088599ed9"
+  },
+  "sourceExplanation": {
+   "es": "HBase, MongoDB y Cassandra son bases de datos NoSQL diseñadas para alta escalabilidad, alta disponibilidad y baja latencia sin un cumplimiento estricto de ACID, y por eso sirven para cargas masivas de telemetría de IoT.\nRedis es sobre todo un almacén clave-valor en memoria que se usa a menudo como caché y no para almacenamiento persistente a escala de petabytes. MySQL es una base de datos relacional centrada en transacciones ACID.\nHDFS con Hive es un motor OLAP optimizado para procesamiento por lotes con alta latencia, y no cumple el requisito de baja latencia.",
+   "src": "59896d16ae86"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-67": {
+  "html": {
+   "es": "Estás desarrollando una aplicación que usa un motor de recomendaciones en Google Cloud. Tu solución debe mostrar videos nuevos a los clientes según lo que vieron antes. Tu solución necesita generar etiquetas para las entidades de los videos que el cliente ha visto. Tu diseño debe poder ofrecer sugerencias de filtrado muy rápidas a partir de datos de las preferencias de otros clientes, sobre varios TB de datos. ¿Qué debes hacer?<br>",
+   "src": "c9b882d33e19"
+  },
+  "choices.0.html": {
+   "es": "Crear y entrenar un modelo de clasificación complejo con Spark MLlib para generar etiquetas y filtrar los resultados. Implementar los modelos con Cloud Dataproc. Llamar al modelo desde tu aplicación.",
+   "src": "9e9ba7ec1fea"
+  },
+  "choices.1.html": {
+   "es": "Crear y entrenar un modelo de clasificación con Spark MLlib para generar etiquetas. Crear y entrenar un segundo modelo de clasificación con Spark MLlib para filtrar los resultados según las preferencias del cliente. Implementar los modelos con Cloud Dataproc. Llamar a los modelos desde tu aplicación.",
+   "src": "a11e3a1c075f"
+  },
+  "choices.2.html": {
+   "es": "Crear una aplicación que llame a la Cloud Video Intelligence API para generar etiquetas. Guardar los datos en Cloud Bigtable y filtrar las etiquetas predichas para que coincidan con el historial de visualización del usuario y así generar preferencias.",
+   "src": "92e9a6f3d9d0"
+  },
+  "choices.3.html": {
+   "es": "Crear una aplicación que llame a la Cloud Video Intelligence API para generar etiquetas. Guardar los datos en Cloud SQL y unir (join) y filtrar las etiquetas predichas para que coincidan con el historial de visualización del usuario y así generar preferencias.",
+   "src": "0c344e450e99"
+  },
+  "sourceExplanation": {
+   "es": "La opción C es correcta porque aprovecha la Cloud Video Intelligence API administrada para generar las etiquetas y evita la carga operativa de crear y mantener modelos propios en Dataproc.\nAdemás, se elige Cloud Bigtable en lugar de Cloud SQL para manejar con eficiencia el conjunto de datos de varios terabytes, ya que ofrece el acceso de baja latencia y el filtrado por clave que se necesitan para comparar preferencias rápido y a escala.",
+   "src": "84bbccc7e1b0"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-73": {
+  "html": {
+   "es": "Estás diseñando el almacenamiento de dos tablas relacionales que forman parte de una base de datos de 10 TB en Google Cloud. Quieres admitir transacciones que escalen en horizontal.<br>También quieres optimizar los datos para consultas por rango sobre columnas que no son la clave. ¿Qué debes hacer?<br>",
+   "src": "fe492ea3eb4c"
+  },
+  "choices.0.html": {
+   "es": "Usar Cloud SQL para el almacenamiento. Agregar índices secundarios para admitir los patrones de consulta.",
+   "src": "ca5be41ad26e"
+  },
+  "choices.1.html": {
+   "es": "Usar Cloud SQL para el almacenamiento. Usar Cloud Dataflow para transformar los datos y admitir los patrones de consulta.",
+   "src": "88da090cab90"
+  },
+  "choices.2.html": {
+   "es": "Usar Cloud Spanner para el almacenamiento. Agregar índices secundarios para admitir los patrones de consulta.",
+   "src": "19236da544b5"
+  },
+  "choices.3.html": {
+   "es": "Usar Cloud Spanner para el almacenamiento. Usar Cloud Dataflow para transformar los datos y admitir los patrones de consulta.",
+   "src": "2d25c29b813a"
+  },
+  "sourceExplanation": {
+   "es": "Se necesita Cloud Spanner porque es una base de datos relacional totalmente administrada que admite de forma nativa el escalado horizontal para transacciones, a diferencia de Cloud SQL, que escala en vertical. Para optimizar el rendimiento de las consultas por rango sobre columnas que no son la clave, debes agregar índices secundarios en Spanner, ya que las búsquedas solo por clave primaria no pueden atender estos patrones de consulta con eficiencia.",
+   "src": "63cc3f145308"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-74": {
+  "html": {
+   "es": "Tu empresa de servicios financieros se está pasando a la tecnología en la nube y quiere guardar en la nube 50 TB de datos financieros de series de tiempo. Estos datos se actualizan con frecuencia y llegarán datos nuevos en streaming todo el tiempo. Tu empresa también quiere mover sus trabajos existentes de Apache Hadoop a la nube para obtener información de estos datos.<br>¿Qué producto deben usar para guardar los datos?<br>",
+   "src": "73a0a62da77c"
+  },
+  "choices.0.html": {
+   "es": "Cloud Bigtable",
+   "src": "5521a117cff5"
+  },
+  "choices.1.html": {
+   "es": "Google BigQuery",
+   "src": "8042cabd7873"
+  },
+  "choices.2.html": {
+   "es": "Google Cloud Storage",
+   "src": "53fa0ba12faa"
+  },
+  "choices.3.html": {
+   "es": "Google Cloud Datastore",
+   "src": "7d8c6600dfc8"
+  },
+  "sourceExplanation": {
+   "es": "Cloud Bigtable está optimizado de forma específica para lecturas y escrituras de baja latencia en conjuntos de datos a gran escala, y por eso es ideal para datos financieros de series de tiempo que se actualizan con frecuencia.\nAdmite de forma nativa la ingesta en streaming de alto rendimiento, lo que coincide con el requisito de que lleguen datos nuevos de forma continua.\nAdemás, Cloud Bigtable se integra de forma directa con Apache Hadoop mediante los conectores de Dataproc, lo que permite a la empresa ejecutar sus trabajos de Hadoop existentes sobre este almacén de datos.",
+   "src": "9a6b0bb27c20"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-84": {
+  "html": {
+   "es": "Después de migrar los trabajos de ETL para que se ejecuten en BigQuery, necesitas comprobar que el resultado de los trabajos migrados es igual al del original. Cargaste una tabla con el resultado del trabajo original y quieres comparar su contenido con el resultado del trabajo migrado para demostrar que son idénticos. Las tablas no tienen una columna de clave primaria que te permita unirlas para compararlas.<br>¿Qué debes hacer?<br>",
+   "src": "d6c5c19ff76a"
+  },
+  "choices.0.html": {
+   "es": "Seleccionar muestras aleatorias de las tablas con la función RAND() y comparar las muestras.",
+   "src": "2d1eb00a3683"
+  },
+  "choices.1.html": {
+   "es": "Seleccionar muestras aleatorias de las tablas con la función HASH() y comparar las muestras.",
+   "src": "0b3e366319c4"
+  },
+  "choices.2.html": {
+   "es": "Usar un clúster de Dataproc y el conector de Hadoop de BigQuery para leer los datos de cada tabla y calcular un hash de las columnas de la tabla que no son de marca de tiempo, después de ordenarlas. Comparar los hashes de cada tabla.",
+   "src": "da17686886c5"
+  },
+  "choices.3.html": {
+   "es": "Crear muestras aleatorias estratificadas con la función OVER() y comparar las muestras equivalentes de cada tabla.",
+   "src": "f05f78f9c3c0"
+  },
+  "sourceExplanation": {
+   "es": "El requisito es comprobar que los resultados son idénticos, y para eso hay que comparar cada registro en lugar de confiar en muestras aleatorias que podrían pasar por alto diferencias. Como no es posible unir por clave primaria, calcular un hash determinista de las columnas ordenadas que no son de marca de tiempo, sobre todo el conjunto de datos, es un método confiable para confirmar la paridad total de los datos.\nLa opción C aplica de forma correcta esta estrategia de verificación de todos los datos con Dataproc y el conector de BigQuery.",
+   "src": "e09aec3612d0"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-92": {
+  "html": {
+   "es": "Necesitas migrar una base de datos relacional de 2TB a Google Cloud Platform. No tienes los recursos para rediseñar de forma importante la aplicación que usa esta base de datos, y el costo de operación es la preocupación principal.<br>¿Qué servicio eliges para guardar y servir tus datos?<br>",
+   "src": "e3da7ff04184"
+  },
+  "choices.0.html": {
+   "es": "Cloud Spanner",
+   "src": "e4cc4fd25783"
+  },
+  "choices.1.html": {
+   "es": "Cloud Bigtable",
+   "src": "5521a117cff5"
+  },
+  "choices.2.html": {
+   "es": "Cloud Firestore",
+   "src": "8bfd2203a493"
+  },
+  "choices.3.html": {
+   "es": "Cloud SQL",
+   "src": "1097c59b4b0a"
+  },
+  "sourceExplanation": {
+   "es": "El requisito de migrar una base de datos relacional sin rediseñar de forma importante la aplicación exige un servicio relacional administrado compatible con motores SQL estándar como MySQL, PostgreSQL o SQL Server.\nCloud SQL admite estos motores de forma directa, lo que permite una migración lift-and-shift (mover tal cual) que minimiza los cambios de código y suele tener costos operativos más bajos que los sistemas distribuidos globalmente.\nCloud Spanner es una base de datos relacional totalmente administrada, pero exige un rediseño importante por su naturaleza propietaria y por la falta de funciones como los procedimientos almacenados. Bigtable y Firestore son bases de datos NoSQL que no sirven para una migración relacional directa.",
+   "src": "ae1895b0ac4f"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-93": {
+  "html": {
+   "es": "Estás usando Bigtable para una aplicación en tiempo real y tienes una carga pesada que mezcla lecturas y escrituras. Hace poco identificaste un caso de uso adicional y necesitas ejecutar cada hora un trabajo analítico que calcule ciertas estadísticas sobre toda la base de datos. Necesitas asegurar tanto la confiabilidad de tu aplicación de producción como la de la carga analítica.<br>¿Qué debes hacer?<br>",
+   "src": "825e19268b15"
+  },
+  "choices.0.html": {
+   "es": "Exportar un volcado de Bigtable a GCS y ejecutar tu trabajo analítico sobre los archivos exportados.",
+   "src": "cb925ffc4ab0"
+  },
+  "choices.1.html": {
+   "es": "Agregar un segundo clúster a una instancia existente con enrutamiento multiclúster (multi-cluster routing), usar el perfil de aplicación live-traffic para tu carga normal y el perfil batch-analytics para la carga de análisis.",
+   "src": "5a4ad730da23"
+  },
+  "choices.2.html": {
+   "es": "Agregar un segundo clúster a una instancia existente con enrutamiento de un solo clúster (single-cluster routing), usar el perfil de aplicación live-traffic para tu carga normal y el perfil batch-analytics para la carga de análisis.",
+   "src": "450ba709d9a9"
+  },
+  "choices.3.html": {
+   "es": "Duplicar el tamaño de tu clúster existente y ejecutar tu carga de análisis en el nuevo clúster redimensionado.",
+   "src": "b3eab52e58ff"
+  },
+  "sourceExplanation": {
+   "es": "Para aislar las cargas analíticas pesadas del tráfico de producción sin afectar la confiabilidad ni el rendimiento, debes agregar un segundo clúster a la instancia de Bigtable existente.\nAl configurar perfiles de aplicación con enrutamiento de un solo clúster, puedes dirigir el tráfico de la aplicación en tiempo real a un clúster y el trabajo analítico por lotes de cada hora al otro, y así la competencia por recursos no degrada la carga de producción.",
+   "src": "93ff4ddbedee"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-99": {
+  "html": {
+   "es": "Tienes una consulta que filtra una tabla de BigQuery con una cláusula WHERE sobre columnas de marca de tiempo e ID. Al usar bq query `&quot;-dry_run descubres que la consulta provoca un escaneo completo de la tabla, aunque el filtro por marca de tiempo e ID selecciona una fracción mínima del total de los datos. Quieres reducir la cantidad de datos que escanea BigQuery con cambios mínimos en las consultas SQL existentes. ¿Qué debes hacer?<br>",
+   "src": "ec6ce0ccee66"
+  },
+  "choices.0.html": {
+   "es": "Crear una tabla aparte para cada ID.",
+   "src": "153b86c1bc76"
+  },
+  "choices.1.html": {
+   "es": "Usar la palabra clave LIMIT para reducir la cantidad de filas devueltas.",
+   "src": "811c3e3047fd"
+  },
+  "choices.2.html": {
+   "es": "Volver a crear la tabla con una columna de partición y una columna de clustering (agrupamiento).",
+   "src": "b854879fbe6b"
+  },
+  "choices.3.html": {
+   "es": "Usar la opción --maximum_bytes_billed de bq query para limitar la cantidad de bytes facturados.",
+   "src": "5c847a6f6e3c"
+  },
+  "sourceExplanation": {
+   "es": "Particionar por marca de tiempo y agrupar (clustering) por ID permite que BigQuery haga partition pruning (poda de particiones) y omita datos agrupados.\nAsí el motor lee solo las particiones y los clústeres relevantes, y reduce mucho los bytes escaneados sin modificar los filtros SQL existentes.",
+   "src": "833bc67f4653"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-111": {
+  "html": {
+   "es": "Tienes datos históricos de los últimos tres años en BigQuery y un pipeline de datos que entrega datos nuevos a BigQuery todos los días. Notaste que cuando el<br>equipo de Ciencia de Datos ejecuta una consulta filtrada por una columna de fecha y limitada a 30`&quot;90 días de datos, la consulta escanea toda la tabla. También notaste que tu factura sube más rápido de lo que esperabas. Quieres resolver el problema de la forma más económica posible y mantener la capacidad de hacer consultas SQL.<br>¿Qué debes hacer?<br>",
+   "src": "a1fec301768a"
+  },
+  "choices.0.html": {
+   "es": "Volver a crear las tablas con DDL. Particionar las tablas por una columna de tipo TIMESTAMP o DATE.",
+   "src": "72741fa5bb4c"
+  },
+  "choices.1.html": {
+   "es": "Recomendar que el equipo de Ciencia de Datos exporte la tabla a un archivo CSV en Cloud Storage y use Cloud Datalab para explorar los datos leyendo los archivos directamente.",
+   "src": "8754e5a74ae3"
+  },
+  "choices.2.html": {
+   "es": "Modificar tu pipeline para mantener los últimos 30 a 90 días de datos en una tabla y el historial más largo en otra, y así minimizar los escaneos completos de tabla sobre todo el historial.",
+   "src": "173283e9c3b6"
+  },
+  "choices.3.html": {
+   "es": "Escribir un pipeline de Apache Beam que cree una tabla de BigQuery por día. Recomendar que el equipo de Ciencia de Datos use comodines en los sufijos de los nombres de tabla para seleccionar los datos que necesita.",
+   "src": "f03ff2ec3d02"
+  },
+  "sourceExplanation": {
+   "es": "BigQuery cobra según la cantidad de datos escaneados por consulta. Sin particiones, los filtros sobre columnas de fecha igual provocan escaneos completos de la tabla en los tres años de datos, lo que lleva a costos altos.\nAl particionar la tabla por una columna TIMESTAMP o DATE (opción A), BigQuery puede hacer partition pruning (poda de particiones) y escanear solo las particiones específicas de la ventana de consulta de 30 a 90 días. Esto reduce mucho el volumen escaneado y el costo, y mantiene las capacidades estándar de consulta SQL.",
+   "src": "eff70acbe284"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-116": {
+  "html": {
+   "es": "Tu empresa está migrando sus soluciones locales de almacenamiento de datos a BigQuery. El almacén de datos actual usa captura de datos de cambios (CDC) basada en triggers para aplicar cada día las actualizaciones de varias fuentes de bases de datos transaccionales. Con BigQuery, tu empresa espera mejorar su manejo de<br>CDC para que los cambios en los sistemas de origen estén disponibles para consulta en BigQuery casi en tiempo real mediante flujos de CDC basados en logs, y que además se optimice el rendimiento al aplicar los cambios al almacén de datos. ¿Qué dos pasos deben dar para asegurar que los cambios estén disponibles en la tabla de informes de BigQuery con la mínima latencia y con menos sobrecarga de cómputo? (Elige dos.)<br>",
+   "src": "92dfb3a001b3"
+  },
+  "choices.0.html": {
+   "es": "Ejecutar un INSERT, UPDATE o DELETE de DML para replicar cada registro de CDC en tiempo real directamente en la tabla de informes.",
+   "src": "e1ff91680715"
+  },
+  "choices.1.html": {
+   "es": "Insertar cada registro de CDC nuevo y su tipo de operación correspondiente en una staging table (tabla de preparación) en tiempo real.",
+   "src": "c3d2d84d4860"
+  },
+  "choices.2.html": {
+   "es": "Borrar (DELETE) de forma periódica los registros obsoletos de la tabla de informes.",
+   "src": "ba745c709461"
+  },
+  "choices.3.html": {
+   "es": "Usar de forma periódica un MERGE de DML para realizar varias operaciones INSERT, UPDATE y DELETE de DML al mismo tiempo en la tabla de informes.",
+   "src": "8dbb5fab8e4e"
+  },
+  "choices.4.html": {
+   "es": "Insertar cada registro de CDC nuevo y su tipo de operación correspondiente en tiempo real en la tabla de informes, y usar una vista materializada para mostrar solo la versión más reciente de cada registro único.",
+   "src": "741209618bed"
+  },
+  "sourceExplanation": {
+   "es": "El DML directo por fila (opción A) tiene costos altos de cómputo en BigQuery, mientras que escribir los eventos de CDC en una staging table (opción B) aprovecha las inserciones en streaming eficientes con una sobrecarga mínima. Después, usar operaciones MERGE de DML periódicas (opción D) para aplicar estos cambios agrupados optimiza el rendimiento, porque reduce la cantidad de transacciones de escritura costosas en comparación con las actualizaciones individuales.",
+   "src": "42356e7612ee"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-123": {
+  "html": {
+   "es": "Necesitas crear un pipeline de datos que copie datos transaccionales de series de tiempo para que tu equipo de ciencia de datos pueda consultarlos desde BigQuery y analizarlos.<br>Cada hora se actualizan miles de transacciones con un estado nuevo. El tamaño del conjunto de datos inicial es de 1.5 PB y crecerá 3 TB por día. Los datos están muy estructurados y tu equipo de ciencia de datos creará modelos de aprendizaje automático con ellos. Quieres maximizar el rendimiento y la facilidad de uso para tu equipo de ciencia de datos. ¿Qué dos estrategias debes adoptar? (Elige dos.)<br>",
+   "src": "3f004c44b930"
+  },
+  "choices.0.html": {
+   "es": "Desnormalizar los datos tanto como sea posible.",
+   "src": "f3d8ffac02a3"
+  },
+  "choices.1.html": {
+   "es": "Conservar la estructura de los datos tanto como sea posible.",
+   "src": "25e265da5093"
+  },
+  "choices.2.html": {
+   "es": "Usar UPDATE de BigQuery para reducir aún más el tamaño del conjunto de datos.",
+   "src": "c7d02e8a253c"
+  },
+  "choices.3.html": {
+   "es": "Desarrollar un pipeline de datos en el que las actualizaciones de estado se agreguen a BigQuery en lugar de actualizarse.",
+   "src": "6c1a12bc22f8"
+  },
+  "choices.4.html": {
+   "es": "Copiar una instantánea (snapshot) diaria de los datos transaccionales a Cloud Storage y guardarla como un archivo Avro. Usar la compatibilidad de BigQuery con fuentes de datos externas para consultarla.",
+   "src": "108e8e7bb14e"
+  },
+  "sourceExplanation": {
+   "es": "Desnormalizar los datos reduce la necesidad de uniones (joins) complejas al ejecutar las consultas y mejora mucho el rendimiento en el motor de almacenamiento en columnas de BigQuery. Agregar las actualizaciones de estado en lugar de hacer UPDATE por fila es una buena práctica en BigQuery, porque evita el alto costo de cómputo y la lentitud de las operaciones que modifican datos en conjuntos grandes, y además conserva el estado histórico para el análisis.",
+   "src": "996034402ca8"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-132": {
+  "html": {
+   "es": "Tu empresa con sede en Estados Unidos creó una aplicación para evaluar y responder a las acciones de los usuarios. El volumen de datos de la tabla principal crece 250,000 registros por segundo. Muchos terceros usan las API de tu aplicación para integrar la funcionalidad en sus propias aplicaciones de frontend. Las API de tu aplicación deben cumplir estos requisitos:<br>✑ Un solo endpoint global<br>✑ Compatibilidad con SQL ANSI<br>✑ Acceso consistente a los datos más actualizados<br>¿Qué debes hacer?<br>",
+   "src": "d76886b55879"
+  },
+  "choices.0.html": {
+   "es": "Implementar BigQuery sin seleccionar una región para el almacenamiento ni para el procesamiento.",
+   "src": "1f19531ae9a9"
+  },
+  "choices.1.html": {
+   "es": "Implementar Cloud Spanner con el líder en Norteamérica y réplicas de solo lectura en Asia y Europa.",
+   "src": "2b51abe52cc8"
+  },
+  "choices.2.html": {
+   "es": "Implementar Cloud SQL para PostgreSQL con el maestro (master) en Norteamérica y réplicas de lectura en Asia y Europa.",
+   "src": "87c572dd29e6"
+  },
+  "choices.3.html": {
+   "es": "Implementar Bigtable con el clúster principal en Norteamérica y clústeres secundarios en Asia y Europa.",
+   "src": "fa29187baf96"
+  },
+  "sourceExplanation": {
+   "es": "Cloud Spanner (opción B) es la elección correcta porque admite SQL ANSI de forma nativa y ofrece consistencia fuerte global, lo que asegura que todos los usuarios accedan a los datos más actualizados sin importar dónde estén.\nLas otras opciones son incorrectas. BigQuery no admite endpoints globales de una sola región con la baja latencia y la consistencia transaccional que se describen. Cloud SQL tiene limitaciones de latencia para la replicación síncrona global y podría tener problemas con una ingesta de 250K registros por segundo a esa escala. Bigtable es una base de datos NoSQL y no admite SQL ANSI.",
+   "src": "ca6a2bb85e64"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ }
+}
