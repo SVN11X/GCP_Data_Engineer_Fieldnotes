@@ -2284,5 +2284,459 @@
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
   }
+ },
+ "imp-314": {
+  "html": {
+   "es": "Estás configurando la red de un trabajo de Dataflow. La canalización de datos usa imágenes de contenedor personalizadas con las bibliotecas necesarias para la lógica de transformación ya instaladas. La canalización lee los datos de Cloud Storage y los escribe en BigQuery. Necesitas asegurar una comunicación rentable y segura entre la canalización y las API y los servicios de Google. ¿Qué debes hacer?",
+   "src": "e9236d4aaae7"
+  },
+  "choices.0.html": {
+   "es": "Desactivar las direcciones IP externas de las VM trabajadoras y activar Private Google Access.",
+   "src": "3c05ee946431"
+  },
+  "choices.1.html": {
+   "es": "Dejar asignadas las direcciones IP externas a las VM trabajadoras y aplicar reglas de firewall.",
+   "src": "5d0849a0d3c3"
+  },
+  "choices.2.html": {
+   "es": "Desactivar las direcciones IP externas y establecer una dirección IP de endpoint de Private Service Connect.",
+   "src": "7bf5e12569d7"
+  },
+  "choices.3.html": {
+   "es": "Activar Cloud NAT para dar conectividad saliente a internet y aplicar reglas de firewall.",
+   "src": "6bae8ac7f359"
+  },
+  "sourceExplanation": {
+   "es": "Desactivar las direcciones IP externas evita que los datos pasen por la internet pública y mejora la seguridad. Activar Private Google Access permite que estas VM con solo IP interna se comuniquen con servicios de Google como Cloud Storage y BigQuery sin necesitar una puerta de enlace de Cloud NAT, lo que reduce los costos de salida de datos (egress).",
+   "src": "037ceaebad27"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-315": {
+  "html": {
+   "es": "Usas Workflows para llamar a una API que devuelve una respuesta JSON de 1KB, aplicar una lógica de negocio compleja sobre esta respuesta, esperar a que la lógica termine y luego hacer una carga desde un archivo de Cloud Storage a BigQuery. La biblioteca estándar de Workflows no tiene capacidades suficientes para hacer tu lógica compleja, y quieres usar en su lugar la biblioteca estándar de Python. Quieres optimizar tu flujo de trabajo para que sea sencillo y rápido de ejecutar. ¿Qué debes hacer?",
+   "src": "b4b0c6666ab2"
+  },
+  "choices.0.html": {
+   "es": "Crear un entorno de Cloud Composer y ejecutar la lógica en Cloud Composer.",
+   "src": "646c684b3a0a"
+  },
+  "choices.1.html": {
+   "es": "Crear un clúster de Dataproc y usar PySpark para aplicar la lógica sobre tu archivo JSON.",
+   "src": "cbe5e2699edc"
+  },
+  "choices.2.html": {
+   "es": "Invocar una instancia de Cloud Function que use Python para aplicar la lógica sobre tu archivo JSON.",
+   "src": "9ae58fe8e208"
+  },
+  "choices.3.html": {
+   "es": "Invocar un subflujo de trabajo (subworkflow) en Workflows para aplicar la lógica sobre tu archivo JSON.",
+   "src": "f5694f7c2d1f"
+  },
+  "sourceExplanation": {
+   "es": "Cloud Functions ofrece un entorno sin servidor para ejecutar código Python con baja latencia y una sobrecarga mínima, lo que encaja con el requisito de sencillez y rapidez.\nEsto evita el tiempo de aprovisionamiento de Dataproc o Cloud Composer y maneja una lógica que supera las capacidades integradas de Workflows.",
+   "src": "adf8cf74a97d"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-316": {
+  "html": {
+   "es": "Administras un entorno de BigQuery bajo demanda (on-demand). Tu herramienta de inteligencia de negocio envía cientos de consultas al día que agregan una tabla de hechos grande (50 TB) con el historial de ventas a nivel de día y de mes. Estas consultas tienen un tiempo de respuesta lento y superan las expectativas de costo. Necesitas reducir el tiempo de respuesta, bajar los costos de las consultas y reducir al mínimo el mantenimiento. ¿Qué debes hacer?",
+   "src": "a8caf875b407"
+  },
+  "choices.0.html": {
+   "es": "Crear vistas autorizadas sobre la tabla de ventas para agregar los datos a nivel de día y de mes.",
+   "src": "6230b0f8aaae"
+  },
+  "choices.1.html": {
+   "es": "Activar BI Engine y añadir tu tabla de ventas como tabla preferida (preferred table).",
+   "src": "66c430b799f9"
+  },
+  "choices.2.html": {
+   "es": "Crear vistas materializadas sobre la tabla de ventas para agregar los datos a nivel de día y de mes.",
+   "src": "82b8489c7ecc"
+  },
+  "choices.3.html": {
+   "es": "Crear una consulta programada para construir tablas de agregados de ventas por día y por mes cada hora.",
+   "src": "0df943e9feb8"
+  },
+  "sourceExplanation": {
+   "es": "Las vistas materializadas son la solución óptima porque mantienen de forma automática los resultados de agregación precalculados, sin necesidad de programación manual ni de administrar infraestructura adicional. Al redirigir las consultas a estos conjuntos de datos agregados más pequeños, BigQuery reduce la cantidad de datos analizados, lo que a la vez baja los costos de cómputo y mejora los tiempos de respuesta, y reduce al mínimo la carga de mantenimiento.",
+   "src": "3a154c2e575c"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-320": {
+  "html": {
+   "es": "Tu empresa usa Looker Studio conectado a BigQuery para informes. Los usuarios tienen tiempos de carga lentos en los paneles debido a consultas complejas sobre una tabla grande. Las consultas incluyen agregaciones y filtros en varias columnas. Necesitas optimizar el rendimiento de las consultas para reducir los tiempos de carga de los paneles. ¿Qué debes hacer?",
+   "src": "bb120fcf844a"
+  },
+  "choices.0.html": {
+   "es": "Configurar Looker Studio para que use un intervalo de actualización de datos más corto y asegurar que siempre se muestren datos recientes.",
+   "src": "fa4a706dce1f"
+  },
+  "choices.1.html": {
+   "es": "Crear una vista materializada en BigQuery que precalcule las agregaciones y los filtros que se usan en los paneles de Looker Studio.",
+   "src": "8c4e11be815b"
+  },
+  "choices.2.html": {
+   "es": "Implementar seguridad a nivel de fila (row-level security) en BigQuery para restringir el acceso a los datos y reducir la cantidad de datos que procesan las consultas.",
+   "src": "9af05b09d76c"
+  },
+  "choices.3.html": {
+   "es": "Usar BigQuery BI Engine para acelerar el rendimiento de las consultas guardando en caché los datos a los que se accede con frecuencia.",
+   "src": "884455257afe"
+  },
+  "sourceExplanation": {
+   "es": "La pregunta menciona específicamente 'Looker Studio' y 'BigQuery', por lo que BigQuery BI Engine es la solución óptima.\nBI Engine está diseñado para acelerar el rendimiento de las consultas de Looker Studio guardando datos en caché en memoria de alta velocidad, lo que resuelve directamente los tiempos de carga lentos de los paneles.\nLas vistas materializadas (B) ayudan con agregaciones complejas, pero no ofrecen la caché de baja latencia que requieren los paneles interactivos tan bien como BI Engine.",
+   "src": "f599262970f1"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-327": {
+  "html": {
+   "es": "Tu empresa quiere implementar un sistema de generación aumentada por recuperación (Retrieval-Augmented Generation, RAG) para que los empleados consulten una amplia base de conocimiento de documentos internos, como manuales de políticas e informes de proyectos. Necesitas preparar este texto no estructurado para generar incrustaciones (embeddings) que se usarán en el sistema RAG. ¿Qué debes hacer para asegurar que el sistema pueda recuperar la información más relevante?",
+   "src": "845f90aff4da"
+  },
+  "choices.0.html": {
+   "es": "Usar Cloud Data Loss Prevention (Cloud DLP) para analizar y ocultar la información sensible dentro de los documentos antes de procesarlos.",
+   "src": "6985c8a16304"
+  },
+  "choices.1.html": {
+   "es": "Almacenar los documentos como archivos comprimidos en una base de datos relacional tradicional para lograr un almacenamiento y una recuperación más eficientes.",
+   "src": "4a3d39db9667"
+  },
+  "choices.2.html": {
+   "es": "Convertir los documentos no estructurados en vectores numéricos de alta dimensión que capturen el significado semántico y las relaciones del texto.",
+   "src": "69842eae69d8"
+  },
+  "choices.3.html": {
+   "es": "Indexar cada palabra de los documentos en un motor de búsqueda para permitir la búsqueda por palabras clave.",
+   "src": "f622f5a1177c"
+  },
+  "sourceExplanation": {
+   "es": "La generación aumentada por recuperación (RAG) se basa en la búsqueda semántica para encontrar información relevante según el contexto, y no solo coincidencias de palabras clave. Para lograrlo, el texto no estructurado debe convertirse en vectores numéricos de alta dimensión (incrustaciones, embeddings) que capturen el significado semántico y las relaciones. Esto permite que el sistema recupere documentos según la similitud conceptual, lo cual es esencial para un rendimiento preciso de RAG.",
+   "src": "89c76881284a"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-328": {
+  "html": {
+   "es": "Necesitas cargar en BigQuery un conjunto de datos con varios terabytes de datos de flujo de clics (clickstream). Los datos llegan cada día como archivos JSON comprimidos en un bucket de Cloud Storage. Necesitas una solución de bajo costo, programática y escalable para cargar los datos en BigQuery. ¿Qué debes hacer?",
+   "src": "1163fe96872a"
+  },
+  "choices.0.html": {
+   "es": "Crear una tabla externa en BigQuery que apunte al bucket de Cloud Storage y ejecutar el comando INSERT INTO ... SELECT * FROM external_table.",
+   "src": "435d3e5cda57"
+  },
+  "choices.1.html": {
+   "es": "Usar el BigQuery Data Transfer Service desde Cloud Storage.",
+   "src": "d23fd2920f6c"
+  },
+  "choices.2.html": {
+   "es": "Crear una función de Cloud Run para ejecutar un script de Python que lea y analice cada archivo JSON, y usar la API de inserción en streaming de BigQuery.",
+   "src": "a1fef8111800"
+  },
+  "choices.3.html": {
+   "es": "Usar Cloud Data Fusion para crear una canalización que cargue los archivos JSON en BigQuery.",
+   "src": "7fa5a6d83ca6"
+  },
+  "sourceExplanation": {
+   "es": "La opción A es la respuesta correcta porque cumple directamente el requisito 'programático' usando comandos SQL estándar (`INSERT INTO ... SELECT`). Aunque la opción B (Data Transfer Service) también es de bajo costo y escalable, el DTS normalmente se configura mediante la consola o la CLI y no es un bloque de código programático directo para cargas diarias ad hoc de la misma forma. Las opciones C y D son incorrectas porque las inserciones en streaming son caras y Cloud Data Fusion añade complejidad y costo innecesarios para esta tarea ETL sencilla.",
+   "src": "7f51ad98a95f"
+  },
+  "explanation": {
+   "es": "Tanto un INSERT SELECT desde una tabla externa como una ruta de transferencia o carga compatible desde Cloud Storage pueden llenar una tabla nativa. Una carga programada administrada encaja de forma natural con lotes recurrentes de JSON comprimido, sujeta al formato JSON y la compresión compatibles. El enunciado no justifica tratar la clave A importada como la única óptima.",
+   "src": "e35710d2d68d"
+  },
+  "reviewNote": {
+   "es": "Esta pregunta importada está excluida de la práctica con puntuación. Lee la nota técnica en lugar de memorizar su clave.",
+   "src": "5d478c3e8ed1"
+  }
+ },
+ "imp-330": {
+  "html": {
+   "es": "Tu equipo de ciencia de datos necesita hacer consultas SQL interactivas sobre grandes conjuntos de datos almacenados en formato Apache Parquet en un bucket de Cloud Storage. El equipo conoce Apache Hive y quiere aprovechar las consultas HiveQL existentes. Necesitas dar al equipo un entorno para ejecutar sus consultas HiveQL interactivas directamente sobre los datos de Cloud Storage. Quieres mantener la carga operativa al mínimo. ¿Qué debes hacer?",
+   "src": "50e2347c8500"
+  },
+  "choices.0.html": {
+   "es": "Instalar y configurar de forma manual un clúster de Apache Hadoop y Hive en un grupo de instancias de Compute Engine.",
+   "src": "0569fb7ccc95"
+  },
+  "choices.1.html": {
+   "es": "Cargar los datos Parquet en una tabla nativa de BigQuery y usar el BigQuery Connector for Hive para ejecutar las consultas.",
+   "src": "6310225852a0"
+  },
+  "choices.2.html": {
+   "es": "Configurar BigQuery con una definición de tabla externa que apunte a los archivos Parquet.",
+   "src": "9cd756bccbbb"
+  },
+  "choices.3.html": {
+   "es": "Desplegar un clúster de Dataproc con los servicios de Hive activados.",
+   "src": "a5e92b739e41"
+  },
+  "sourceExplanation": {
+   "es": "Desplegar un clúster de Dataproc con los servicios de Hive activados (opción D) es la opción correcta porque Dataproc es un servicio administrado que reduce al mínimo la carga operativa en comparación con instalar Hadoop de forma manual en Compute Engine (opción A). Permite consultar directamente los archivos Parquet en Cloud Storage con HiveQL nativo, lo que cumple el requisito del equipo de tener un entorno que ya conoce. La opción C implica BigQuery, que usa SQL estándar y no HiveQL, y la opción B requiere cargar datos, lo que no es una solución de copia cero ni de baja carga para consultas ad hoc interactivas sobre el almacenamiento existente.",
+   "src": "6e3d0def6f29"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-331": {
+  "html": {
+   "es": "Analizas datos de flujo de clics (clickstream) de usuarios para personalizar las recomendaciones de contenido. Los datos llegan de forma continua y se deben procesar con baja latencia, incluidas transformaciones como la sesionización (agrupar los clics por usuario dentro de una ventana de tiempo) y la agregación de la actividad de los usuarios. Necesitas identificar una solución escalable para manejar millones de eventos por segundo y que sea resistente a los datos que llegan tarde. ¿Qué debes hacer?",
+   "src": "9c6bd5b19357"
+  },
+  "choices.0.html": {
+   "es": "Usar Firebase Realtime Database para la ingesta y el almacenamiento, y funciones de Cloud Run para el procesamiento y el análisis.",
+   "src": "8586f0d2ee77"
+  },
+  "choices.1.html": {
+   "es": "Usar Cloud Data Fusion para la ingesta y la transformación, y Cloud SQL para el almacenamiento y el análisis.",
+   "src": "8211c75769bf"
+  },
+  "choices.2.html": {
+   "es": "Usar Pub/Sub para la ingesta, Dataflow con Apache Beam para el procesamiento y BigQuery para el almacenamiento y el análisis.",
+   "src": "713c2bc5ea9f"
+  },
+  "choices.3.html": {
+   "es": "Usar Cloud Storage para la ingesta, Dataproc con Apache Spark para el procesamiento por lotes y BigQuery para el almacenamiento y el análisis.",
+   "src": "8cabbef03e08"
+  },
+  "sourceExplanation": {
+   "es": "Pub/Sub está diseñado para la ingesta continua y de alto rendimiento de millones de eventos por segundo con baja latencia. Dataflow (que ejecuta Apache Beam) ofrece procesamiento exactamente una vez y soporte integrado para ventanas y datos que llegan tarde mediante latencias permitidas y disparadores. BigQuery sirve como un almacén escalable para guardar y analizar los resultados agregados.",
+   "src": "8a23b2a7894a"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-333": {
+  "html": {
+   "es": "Estás construyendo una canalización de Dataflow para ingerir comentarios de clientes. Antes de cargar los datos en tu almacén de datos, debes validar las direcciones de correo electrónico y enriquecer las cadenas de comentarios no estructurados con una clasificación de sentimiento de IA generativa. Los registros no válidos deben enviarse a revisión manual. ¿Cómo debes implementar esta canalización?",
+   "src": "58362d20273a"
+  },
+  "choices.0.html": {
+   "es": "Configurar el sistema de origen de datos para validar previamente los datos antes de enviarlos a Dataflow y usar el comando ML.GENERATE_TEXT de BigQuery para asignar una puntuación de sentimiento.",
+   "src": "7d0c2a8fde96"
+  },
+  "choices.1.html": {
+   "es": "Usar Dataflow para cargar todos los datos en BigQuery y ejecutar una sentencia SQL MERGE para marcar los registros no válidos y BigQuery ML para asignar puntuaciones de sentimiento.",
+   "src": "838574ecdab9"
+  },
+  "choices.2.html": {
+   "es": "Después de que termine la carga de Dataflow, ejecutar una función de Cloud Run para buscar entradas no válidas y llamar a Vertex AI para asignar puntuaciones de sentimiento.",
+   "src": "0ce58c338672"
+  },
+  "choices.3.html": {
+   "es": "Aplicar una transformación ParDo en Dataflow para validar cada elemento, usar una transformación RunInference para asignar puntuaciones de sentimiento y usar salidas laterales (side outputs) para enviar los registros válidos/no válidos.",
+   "src": "0d1f931a97ff"
+  },
+  "explanation": {
+   "es": "ParDo puede validar cada entrada y enviar los registros válidos y no válidos por salidas separadas. La inferencia puede añadir una etiqueta antes de la escritura en el almacén. Usar RunInference con un endpoint generativo requiere un manejador o adaptador compatible. Incluye límites de concurrencia, comprobaciones de salida estructurada y una ruta de error. D recoge el patrón de procesamiento previsto, con esa salvedad de implementación.",
+   "src": "7693259859ab"
+  },
+  "reviewNote": {
+   "es": "El razonamiento editorial está vinculado a documentación primaria. La clave importada se conserva por separado.",
+   "src": "c07bc5e656c6"
+  }
+ },
+ "imp-335": {
+  "html": {
+   "es": "Tienes a un analista de datos en tu equipo que necesita analizar datos con BigQuery. El analista quiere crear una canalización de datos que cargue cada día 200 archivos CSV con un tamaño promedio de 15MB desde un bucket de Cloud Storage a BigQuery. Los datos se deben ingerir y transformar antes de acceder a ellos en BigQuery para el análisis. Necesitas recomendar al analista una solución totalmente administrada y sin código (no-code). ¿Qué debes hacer?",
+   "src": "d2f85adff91c"
+  },
+  "choices.0.html": {
+   "es": "Crear una función de Cloud Run y programarla para que se ejecute a diario con Cloud Scheduler para cargar los datos en BigQuery.",
+   "src": "a899d59561e6"
+  },
+  "choices.1.html": {
+   "es": "Usar el BigQuery Data Transfer Service para cargar archivos de Cloud Storage a BigQuery, crear un trabajo de BigQuery que transforme los datos con SQL de BigQuery y programarlo para que se ejecute a diario.",
+   "src": "8f927d6f0316"
+  },
+  "choices.2.html": {
+   "es": "Construir una canalización personalizada de Apache Beam y ejecutarla en Dataflow para cargar el archivo de Cloud Storage a BigQuery, y programarla para que se ejecute a diario con Cloud Composer.",
+   "src": "a60e20bfae51"
+  },
+  "choices.3.html": {
+   "es": "Crear una canalización con BigQuery pipelines y programarla para que cargue los datos en BigQuery a diario.",
+   "src": "735ef785144c"
+  },
+  "sourceExplanation": {
+   "es": "El requisito especifica una solución 'sin código' para un analista de datos. La opción D es correcta porque BigQuery Pipelines (antes BigQuery Workflows) es un producto totalmente administrado y sin servidor, diseñado para que los analistas orquesten cargas de datos y transformaciones SQL mediante una interfaz gráfica sin escribir código.\n\nLa opción B es incorrecta porque, aunque usa componentes sin servidor, programar trabajos de transformación personalizados suele requerir entender configuraciones de trabajos o escribir scripts, más allá del alcance sin código sencillo que implican las herramientas de canalización dedicadas. La opción A implica funciones de Cloud Run, que normalmente requieren programar. La opción C implica Apache Beam y Dataflow, que son soluciones basadas en código y pensadas para desarrolladores.",
+   "src": "49f67160b472"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-336": {
+  "html": {
+   "es": "Estás diseñando una canalización de procesamiento de datos con estado (stateful) que lee datos de un bucket de Cloud Storage y escribe datos transformados en una tabla de BigQuery. La canalización debe tener alta disponibilidad y ser resistente a fallos de zona dentro de la región us-central1. Necesitas configurar una canalización de Dataflow que garantice una interrupción mínima durante una caída de zona. ¿Qué debes hacer?",
+   "src": "29cfd9ea2d79"
+  },
+  "choices.0.html": {
+   "es": "Iniciar el trabajo de Dataflow con el parámetro --region=us-central1.",
+   "src": "1313a1e86c04"
+  },
+  "choices.1.html": {
+   "es": "Desplegar el trabajo de Dataflow en una sola zona dentro de us-central1 y configurarlo para que use un disco persistente regional para guardar su estado.",
+   "src": "3a7d6dac1048"
+  },
+  "choices.2.html": {
+   "es": "Desplegar el trabajo de Dataflow en una sola zona dentro de us-central1 y usar un bucket multirregional de Cloud Storage para guardar su estado.",
+   "src": "435612f56172"
+  },
+  "choices.3.html": {
+   "es": "Iniciar el trabajo de Dataflow con el parámetro --zone=us-central1a.",
+   "src": "136cd277122d"
+  },
+  "sourceExplanation": {
+   "es": "Especificar el parámetro --region (opción A) despliega el trabajo de Dataflow como un servicio regional y distribuye los trabajadores entre varias zonas de disponibilidad dentro de us-central1. Esta arquitectura asegura que, si una zona falla, las zonas restantes siguen procesando, lo que da alta disponibilidad y resistencia frente a fallos de zona.\nEn cambio, desplegar en una sola zona (opciones B, C y D) crea un punto único de fallo para la capa de cómputo, lo que significa que una caída de zona interrumpiría la canalización sin importar dónde estén el estado o el almacenamiento.",
+   "src": "d48518413f2e"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-337": {
+  "html": {
+   "es": "Tu equipo creó varios conjuntos de datos curados de BigQuery con datos de referencia de la industria anonimizados. Quieres que estos conjuntos de datos sean fáciles de descubrir y que las empresas socias externas puedan consultarlos dentro de sus propios proyectos de Google Cloud. Necesitas una solución segura y escalable. ¿Qué debes hacer?",
+   "src": "62241fc4ac4f"
+  },
+  "choices.0.html": {
+   "es": "Publicar los conjuntos de datos como listados (listings) en BigQuery sharing (Analytics Hub).",
+   "src": "aaa82edb0392"
+  },
+  "choices.1.html": {
+   "es": "Exportar los conjuntos de datos a buckets de Cloud Storage específicos para cada socio.",
+   "src": "1a1b47d0af50"
+  },
+  "choices.2.html": {
+   "es": "Crear vistas autorizadas para cada conjunto de datos y conceder acceso a cada socio.",
+   "src": "d2f315d34ff6"
+  },
+  "choices.3.html": {
+   "es": "Conceder el rol de IAM roles/bigquery.dataViewer a las direcciones de correo del grupo de socios en los conjuntos de datos.",
+   "src": "437ad0b8ed66"
+  },
+  "sourceExplanation": {
+   "es": "Google Cloud Analytics Hub (BigQuery Sharing) está diseñado específicamente para compartir de forma segura datos curados con terceros, manteniendo el control y la capacidad de auditoría. Permite que los socios accedan a los conjuntos de datos mediante listados, sin requerir concesiones directas de IAM ni duplicación de datos, lo que cumple el requisito 'seguro y escalable'.",
+   "src": "da97a872aab6"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-342": {
+  "html": {
+   "es": "Estás desarrollando un modelo de detección de fraude con BigQuery ML. Tienes un conjunto de datos de transacciones sin procesar y necesitas crear características nuevas, como average_transaction_amount_last_24_hours y time_since_last_transaction. Estas características requieren agregaciones y cálculos de ventanas de tiempo sobre los datos existentes. El objetivo es asegurar que estas características se apliquen de forma coherente tanto en el entrenamiento como en la predicción del modelo, sin intervención manual. Necesitas preparar estas características de forma eficiente para tu modelo. ¿Qué debes hacer?",
+   "src": "907eb99b48cd"
+  },
+  "choices.0.html": {
+   "es": "Implementar una función de Cloud Run que se active con las nuevas transacciones, calcule las características y las inserte en un almacén de características (feature store) antes de servir el modelo.",
+   "src": "f7e2a2e39c30"
+  },
+  "choices.1.html": {
+   "es": "Exportar los datos de BigQuery a Cloud Storage, hacer la ingeniería de características con un script de Python personalizado en un trabajo de Dataflow y luego volver a importar a BigQuery las características generadas.",
+   "src": "97a56ba8cad2"
+  },
+  "choices.2.html": {
+   "es": "Usar la cláusula TRANSFORM dentro de la sentencia CREATE MODEL, aprovechando funciones SQL para agregaciones y cálculos basados en el tiempo.",
+   "src": "2824cc00ce19"
+  },
+  "choices.3.html": {
+   "es": "Crear una tabla de BigQuery aparte con características precalculadas mediante consultas SQL complejas y unir esta tabla con los datos sin procesar durante el entrenamiento y el servicio del modelo.",
+   "src": "c779d7cf77a3"
+  },
+  "sourceExplanation": {
+   "es": "La cláusula TRANSFORM de BigQuery ML permite definir la lógica de ingeniería de características directamente dentro de la definición del modelo con SQL. Esto asegura que se apliquen exactamente las mismas transformaciones (agregaciones y cálculos de ventanas de tiempo) de forma coherente tanto en el entrenamiento como en la predicción del modelo, y elimina la intervención manual o los riesgos de deriva del esquema (schema drift).",
+   "src": "6d6969f02207"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-343": {
+  "html": {
+   "es": "Tu organización tiene miles de imágenes almacenadas en Cloud Storage. Los analistas de datos de la organización necesitan clasificar estas imágenes analizando su contenido y guardar los resultados en un formato estructurado para integrarlos con otros conjuntos de datos de BigQuery. Necesitas una solución que permita a los analistas hacer esta tarea con la menor cantidad de código. ¿Qué debes hacer?",
+   "src": "3f4e12aa0db4"
+  },
+  "choices.0.html": {
+   "es": "Usar el modelo Gemini 2.5 Pro en Vertex AI para analizar las imágenes y guardar los resultados en BigQuery.",
+   "src": "227ee2504e5d"
+  },
+  "choices.1.html": {
+   "es": "Usar la función ML.UNDERSTAND_TEXT junto con tablas de objetos (object tables) para analizar las imágenes y guardar la salida JSON en un bucket de Cloud Storage.",
+   "src": "e4fba02ece39"
+  },
+  "choices.2.html": {
+   "es": "Usar la Vertex AI Vision API para analizar las imágenes y guardar los resultados en BigQuery.",
+   "src": "8cd0e4a6e643"
+  },
+  "choices.3.html": {
+   "es": "Usar la función ML.GENERATE_TEXT junto con tablas de objetos para analizar las imágenes y guardar la salida JSON en una tabla de BigQuery.",
+   "src": "c9dba6fdeaff"
+  },
+  "sourceExplanation": {
+   "es": "La opción D es correcta porque usa la función nativa ML.GENERATE_TEXT de BigQuery con modelos Gemini mediante tablas de objetos.\nEste enfoque permite que los analistas procesen imágenes de Cloud Storage con SQL estándar, sin escribir código externo para las llamadas a la API, el análisis de datos ni las canalizaciones de ingesta.",
+   "src": "780f3ba08e87"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-346": {
+  "html": {
+   "es": "Tu empresa minorista está preocupada por su gasto en análisis de BigQuery. La empresa ejecuta varias consultas que requieren la misma agregación por ID de tienda y volumen de ventas en tiempo real. Necesitas implementar la solución óptima que reduzca al mínimo el gasto en análisis y devuelva resultados más rápido. ¿Qué debes hacer?",
+   "src": "1f0e656dfe0e"
+  },
+  "choices.0.html": {
+   "es": "Crear una tabla nueva a partir de un archivo CSV con la agregación repetida para que las otras consultas la usen como referencia y se procesen más rápido.",
+   "src": "f28501a9ad72"
+  },
+  "choices.1.html": {
+   "es": "Crear una vista materializada para reducir al mínimo los cálculos repetitivos.",
+   "src": "e04979a2f308"
+  },
+  "choices.2.html": {
+   "es": "Usar la aceleración de uniones (join acceleration) con claves primarias y externas para aumentar la unión de consultas con datos en vivo.",
+   "src": "d15b1058f4a4"
+  },
+  "choices.3.html": {
+   "es": "Aprovechar el particionamiento para reducir al mínimo el número de bytes leídos.",
+   "src": "c5b564cd73b0"
+  },
+  "sourceExplanation": {
+   "es": "Las vistas materializadas de BigQuery guardan los resultados precalculados de una consulta, lo que elimina la necesidad de volver a ejecutar agregaciones costosas en cada acceso. Esto reduce directamente los cálculos repetitivos y disminuye tanto el gasto en análisis como la latencia de las consultas, en comparación con las vistas lógicas o los análisis de tablas sin procesar.",
+   "src": "88e711046bd1"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
  }
 }
