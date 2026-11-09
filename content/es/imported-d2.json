@@ -1086,36 +1086,184 @@
   }
  },
  "imp-195": {
+  "html": {
+   "es": "Tu empresa quiere poder recuperar conjuntos de resultados grandes de información médica de tu sistema actual, que tiene más de 10 TB en la base de datos, y guardar los datos en tablas nuevas para consultarlos después. La base de datos debe tener una arquitectura de bajo mantenimiento y ser accesible con SQL. Necesitas implementar una solución rentable que pueda dar soporte al análisis de datos de conjuntos de resultados grandes. ¿Qué debes hacer?<br>",
+   "src": "2b533f338481"
+  },
+  "choices.0.html": {
+   "es": "Usar Cloud SQL, pero primero organizar los datos en tablas. Usar JOIN en las consultas para recuperar los datos.",
+   "src": "4fcc304f9cd3"
+  },
+  "choices.1.html": {
+   "es": "Usar BigQuery como almacén de datos (data warehouse). Definir destinos de salida para guardar en caché las consultas grandes.",
+   "src": "f206fa37fdd4"
+  },
+  "choices.2.html": {
+   "es": "Usar un clúster de MySQL instalado en un grupo de instancias administrado de Compute Engine para lograr escalabilidad.",
+   "src": "0e918dd60461"
+  },
+  "choices.3.html": {
+   "es": "Usar Cloud Spanner para replicar los datos entre regiones. Normalizar los datos en una serie de tablas.",
+   "src": "06255d32428d"
+  },
+  "sourceExplanation": {
+   "es": "BigQuery es un almacén de datos totalmente administrado, diseñado para análisis a gran escala. Ofrece una arquitectura de bajo mantenimiento que elimina la carga de administrar infraestructura. Admite SQL estándar y consultas rentables sobre conjuntos de datos masivos (más de 10 TB), con mecanismos de caché integrados para las consultas repetidas. En cambio, Cloud SQL y MySQL administrado por ti son bases de datos transaccionales que no están optimizadas para este volumen de cargas de trabajo analíticas, y Cloud Spanner sirve sobre todo para transacciones globales de baja latencia y no para análisis masivos.",
+   "src": "e37e99ca8c89"
+  },
   "reviewNote": {
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
   }
  },
  "imp-205": {
+  "html": {
+   "es": "Tienes una aplicación de procesamiento de datos que se ejecuta en Google Kubernetes Engine (GKE). Los contenedores deben iniciarse con sus configuraciones más recientes disponibles desde un registro de contenedores (container registry). Tus nodos de GKE necesitan tener GPU, SSD locales y 8 Gbps de ancho de banda. Quieres aprovisionar de forma eficiente la infraestructura de procesamiento de datos y administrar el proceso de despliegue. ¿Qué debes hacer?",
+   "src": "68423731825e"
+  },
+  "choices.0.html": {
+   "es": "Usar scripts de inicio de Compute Engine para extraer las imágenes de contenedor y usar comandos de gcloud para aprovisionar la infraestructura.",
+   "src": "d6917268d166"
+  },
+  "choices.1.html": {
+   "es": "Usar Cloud Build para programar un trabajo con Terraform build que aprovisione la infraestructura y la inicie con las imágenes de contenedor más actuales.",
+   "src": "c696350c9a8b"
+  },
+  "choices.2.html": {
+   "es": "Usar GKE para escalar los contenedores de forma automática y usar comandos de gcloud para aprovisionar la infraestructura.",
+   "src": "3c067b30ddee"
+  },
+  "choices.3.html": {
+   "es": "Usar Dataflow para aprovisionar la canalización de datos y usar Cloud Scheduler para ejecutar el trabajo.",
+   "src": "67c2d7711b81"
+  },
+  "sourceExplanation": {
+   "es": "La opción B es el enfoque más eficiente porque combina la infraestructura como código (Infrastructure as Code, con Terraform) con la automatización de CI/CD (con Cloud Build) para manejar tanto el aprovisionamiento de la infraestructura como la administración del despliegue. Terraform asegura que los nodos de GKE se aprovisionen con las configuraciones de hardware específicas necesarias, como GPU, SSD locales y ancho de banda de red. Por su parte, Cloud Build automatiza el proceso de despliegue y asegura que los contenedores se inicien con las imágenes más recientes del registro, sin intervención manual.",
+   "src": "0ed2cfd816c5"
+  },
   "reviewNote": {
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
   }
  },
  "imp-221": {
+  "html": {
+   "es": "Guardas y analizas tus datos relacionales en BigQuery en Google Cloud, con todos los datos en regiones de EE. UU. También tienes varios almacenes de objetos (object stores) en Microsoft Azure y Amazon Web Services (AWS), también en regiones de EE. UU. Quieres consultar todos tus datos en BigQuery cada día moviendo la menor cantidad posible de datos. ¿Qué debes hacer?",
+   "src": "f0683acf6ef8"
+  },
+  "choices.0.html": {
+   "es": "Usar BigQuery Data Transfer Service para cargar archivos de Azure y AWS en BigQuery.",
+   "src": "2f8f7a173b0b"
+  },
+  "choices.1.html": {
+   "es": "Crear una canalización de Dataflow para ingerir archivos de Azure y AWS en BigQuery.",
+   "src": "f1efc798acf0"
+  },
+  "choices.2.html": {
+   "es": "Cargar archivos de AWS y Azure en Cloud Storage con los argumentos de gsutil rsync de Cloud Shell.",
+   "src": "b90b6d766e02"
+  },
+  "choices.3.html": {
+   "es": "Usar la funcionalidad BigQuery Omni y las tablas BigLake para consultar archivos en Azure y AWS.",
+   "src": "83a559af3854"
+  },
+  "sourceExplanation": {
+   "es": "El requisito es minimizar el movimiento de datos al consultar los datos relacionales de BigQuery junto con almacenes de objetos externos en Azure y AWS. Las opciones A, B y C implican copiar o transferir físicamente los datos a Google Cloud, lo que incumple la restricción de movimiento mínimo. BigQuery Omni permite consultas federadas entre nubes, de modo que puedes analizar los datos en Azure Blob Storage y Amazon S3 directamente, sin ingesta, lo que cumple el objetivo.",
+   "src": "5d95d5d112e7"
+  },
   "reviewNote": {
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
   }
  },
  "imp-223": {
+  "html": {
+   "es": "Estás creando una solución ELT en BigQuery con Dataform. Necesitas hacer comprobaciones de unicidad y de valores nulos en tus tablas finales. ¿Qué debes hacer para integrar estas comprobaciones en tu canalización de forma eficiente?",
+   "src": "fbd07bac0402"
+  },
+  "choices.0.html": {
+   "es": "Crear funciones definidas por el usuario (UDF) de BigQuery.",
+   "src": "febdf5cef005"
+  },
+  "choices.1.html": {
+   "es": "Crear tareas de calidad de datos de Dataplex.",
+   "src": "eef2289a9378"
+  },
+  "choices.2.html": {
+   "es": "Incluir aserciones (assertions) de Dataform en tu código.",
+   "src": "e912d7d97604"
+  },
+  "choices.3.html": {
+   "es": "Escribir un procedimiento almacenado basado en Spark.",
+   "src": "90df250df0c9"
+  },
+  "sourceExplanation": {
+   "es": "Dataform incluye una función nativa llamada assertions (aserciones), que permite definir pruebas basadas en SQL para la calidad de los datos dentro de tu código de transformación.\nEstas aserciones están diseñadas específicamente para hacer comprobaciones como la unicidad y la validación de valores nulos directamente en tablas o vistas.\nUsar aserciones asegura una integración eficiente porque se ejecutan de forma automática durante la ejecución de la canalización, sin necesidad de herramientas externas ni de UDF personalizadas.",
+   "src": "e6bd05f29875"
+  },
   "reviewNote": {
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
   }
  },
  "imp-224": {
+  "html": {
+   "es": "Un servidor web envía eventos de clic como mensajes a un tema de Pub/Sub. El servidor web incluye en los mensajes un atributo eventTimestamp, que es la hora en que ocurrió el clic. Tienes un trabajo de streaming de Dataflow que lee de este tema de Pub/Sub mediante una suscripción, aplica algunas transformaciones y escribe el resultado en otro tema de Pub/Sub para que lo use el departamento de publicidad. El departamento de publicidad necesita recibir cada mensaje dentro de los 30 segundos posteriores al clic correspondiente, pero informa que recibe los mensajes tarde. El retraso del sistema (system lag) de tu trabajo de Dataflow es de unos 5 segundos, y la actualidad de los datos (data freshness) es de unos 40 segundos. Al inspeccionar algunos mensajes, se ve que hay como máximo 1 segundo de retraso entre su eventTimestamp y su publishTime. ¿Cuál es el problema y qué debes hacer?",
+   "src": "0232c8dbe658"
+  },
+  "choices.0.html": {
+   "es": "El departamento de publicidad causa retrasos al consumir los mensajes. Trabaja con el departamento de publicidad para corregirlo.",
+   "src": "f9b7da003178"
+  },
+  "choices.1.html": {
+   "es": "Los mensajes de tu trabajo de Dataflow tardan más de 30 segundos en procesarse. Optimiza tu trabajo o aumenta el número de workers para corregirlo.",
+   "src": "a146e576ca2c"
+  },
+  "choices.2.html": {
+   "es": "Los mensajes de tu trabajo de Dataflow se procesan en menos de 30 segundos, pero tu trabajo no puede seguir el ritmo de la acumulación de mensajes pendientes (backlog) en la suscripción de Pub/Sub. Optimiza tu trabajo o aumenta el número de workers para corregirlo.",
+   "src": "bd601e6923b1"
+  },
+  "choices.3.html": {
+   "es": "El servidor web no envía los mensajes a Pub/Sub con suficiente rapidez. Trabaja con el equipo del servidor web para corregirlo.",
+   "src": "d56d8ad6444f"
+  },
+  "sourceExplanation": {
+   "es": "La actualidad de los datos (data freshness) mide el retraso entre el momento del evento y el fin del procesamiento, mientras que el retraso del sistema (system lag) mide solo la duración del procesamiento activo. \nComo la actualidad de los datos es alta (40 s) pero el retraso del sistema es bajo (5 s), los mensajes individuales se procesan rápido. Esto indica que hay una gran acumulación de mensajes pendientes en la suscripción y que la ejecución por mensaje no es lenta. \nEl trabajo no puede ingerir mensajes nuevos tan rápido como llegan, y eso acumula retraso. Por eso, aumentar el rendimiento con optimización o con más workers resuelve la acumulación.",
+   "src": "25917ecf6ff4"
+  },
   "reviewNote": {
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
   }
  },
  "imp-228": {
+  "html": {
+   "es": "Tienes una canalización de streaming que ingiere datos de Pub/Sub en producción. Necesitas actualizar esta canalización con una lógica de negocio mejorada. Debes asegurar que la canalización actualizada vuelva a procesar los dos días anteriores de mensajes de Pub/Sub entregados. ¿Qué debes hacer? (Elige dos.)",
+   "src": "214399574814"
+  },
+  "choices.0.html": {
+   "es": "Usar la bandera clear-retry-policy de la suscripción de Pub/Sub",
+   "src": "80e725c88cf4"
+  },
+  "choices.1.html": {
+   "es": "Usar una captura de Pub/Sub Snapshot dos días antes del despliegue.",
+   "src": "c33425668fdf"
+  },
+  "choices.2.html": {
+   "es": "Crear una suscripción nueva de Pub/Sub dos días antes del despliegue.",
+   "src": "6e2436b42067"
+  },
+  "choices.3.html": {
+   "es": "Usar la bandera retain-acked-messages de la suscripción de Pub/Sub.",
+   "src": "9a6eaf77d948"
+  },
+  "choices.4.html": {
+   "es": "Usar Pub/Sub Seek con una marca de tiempo.",
+   "src": "d41eefadda96"
+  },
+  "explanation": {
+   "es": "Para reproducir mensajes ya confirmados según una marca de tiempo, retén esos mensajes durante el historial necesario y luego haz seek hasta la hora requerida. El par previsto es D y E. Habilitar la retención ahora no puede recuperar mensajes que ya se descartaron. Configura la retención antes del periodo que planeas reproducir.",
+   "src": "888aa8dda2ec"
+  },
   "reviewNote": {
    "es": "El razonamiento editorial está vinculado a documentación primaria. La clave importada se conserva por separado.",
    "src": "c07bc5e656c6"
@@ -1126,18 +1274,94 @@
   }
  },
  "imp-246": {
+  "html": {
+   "es": "Tienes un dataset de BigQuery que incluye las direcciones postales de clientes. Quieres recuperar todas las apariciones de direcciones postales del dataset. ¿Qué debes hacer?",
+   "src": "a40773c1530b"
+  },
+  "choices.0.html": {
+   "es": "Escribir una consulta SQL en BigQuery con REGEXP_CONTAINS sobre todas las tablas de tu dataset para encontrar las filas donde aparece la palabra “street”.",
+   "src": "a43b72879b2a"
+  },
+  "choices.1.html": {
+   "es": "Crear un trabajo de inspección profunda (deep inspection) en cada tabla de tu dataset con Cloud Data Loss Prevention y crear una plantilla de inspección que incluya el infoType STREET_ADDRESS.",
+   "src": "7a36418ae22b"
+  },
+  "choices.2.html": {
+   "es": "Crear una configuración de análisis de descubrimiento (discovery scan) en tu organización con Cloud Data Loss Prevention y crear una plantilla de inspección que incluya el infoType STREET_ADDRESS.",
+   "src": "aeaf0f50e31d"
+  },
+  "choices.3.html": {
+   "es": "Crear un trabajo de desidentificación (de-identification) en Cloud Data Loss Prevention y usar la transformación de enmascaramiento (masking).",
+   "src": "94d9571ebc02"
+  },
+  "sourceExplanation": {
+   "es": "Cloud Data Loss Prevention (Cloud DLP) es el servicio especializado para identificar y clasificar datos sensibles. Ofrece detectores infoType predefinidos, como STREET_ADDRESS, mucho más precisos que una simple coincidencia con expresiones regulares. Crear un trabajo de inspección con esta plantilla permite analizar tus tablas de BigQuery y obtener metadatos sobre dónde aparecen estas direcciones, sin alterar los datos.",
+   "src": "6b2aa6178c11"
+  },
   "reviewNote": {
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
   }
  },
  "imp-248": {
+  "html": {
+   "es": "Registros de muestra de dataset.inventory_vm:<br><br><img src=\"assets/images/e2f4b76a2f2a21b880f3.png\" alt=\"Original diagram for imported question 248. Open the full-size image to inspect the details.\" loading=\"lazy\"><br><br>Tienes un inventario de datos de VM guardado en la tabla de BigQuery. Quieres preparar los datos para informes regulares de la forma más rentable. Necesitas excluir de tu informe las filas de VM con menos de 8 vCPU. ¿Qué debes hacer?",
+   "src": "3eeb9fa884a5"
+  },
+  "choices.0.html": {
+   "es": "Crear una vista (view) con un filtro que elimine las filas con menos de 8 vCPU y usar el operador UNNEST.",
+   "src": "8755a4217fe4"
+  },
+  "choices.1.html": {
+   "es": "Crear una vista materializada (materialized view) con un filtro que elimine las filas con menos de 8 vCPU y usar la expresión de tabla común (common table expression) WITH.",
+   "src": "8f4a041bc924"
+  },
+  "choices.2.html": {
+   "es": "Crear una vista con un filtro que elimine las filas con menos de 8 vCPU y usar la expresión de tabla común WITH.",
+   "src": "81f0f3b4c358"
+  },
+  "choices.3.html": {
+   "es": "Usar Dataflow para procesar por lotes y escribir el resultado en otra tabla de BigQuery.",
+   "src": "a24666de505c"
+  },
+  "sourceExplanation": {
+   "es": "Los datos de vCPU están dentro de una estructura anidada en la columna `components`, por lo que hace falta el operador UNNEST para aplanarla y acceder a ella al filtrar. \nUna vista estándar es más rentable que una vista materializada porque evita los costos de almacenamiento de los resultados precalculados. Eso es lo óptimo para informes regulares, donde la frecuencia de las consultas no justifica esa carga adicional.",
+   "src": "9aff16d8127b"
+  },
   "reviewNote": {
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
    "src": "b71d3f53135a"
   }
  },
  "imp-259": {
+  "html": {
+   "es": "Tus usuarios de negocio necesitan una forma de limpiar y preparar los datos antes de usarlos en el análisis. Tus usuarios de negocio tienen menos conocimientos técnicos y prefieren trabajar con interfaces gráficas para definir sus transformaciones. Después de transformar los datos, los usuarios de negocio quieren hacer su análisis directamente en una hoja de cálculo. Necesitas recomendar una solución que puedan usar. ¿Qué debes hacer?",
+   "src": "179dcfa05d72"
+  },
+  "choices.0.html": {
+   "es": "Usar Dataprep para limpiar los datos y escribir los resultados en BigQuery. Analizar los datos con Connected Sheets.",
+   "src": "e2b1bc8b17dc"
+  },
+  "choices.1.html": {
+   "es": "Usar Dataprep para limpiar los datos y escribir los resultados en BigQuery. Analizar los datos con Looker Studio.",
+   "src": "84253e467543"
+  },
+  "choices.2.html": {
+   "es": "Usar Dataflow para limpiar los datos y escribir los resultados en BigQuery. Analizar los datos con Connected Sheets.",
+   "src": "d47b0f8d2b72"
+  },
+  "choices.3.html": {
+   "es": "Usar Dataflow para limpiar los datos y escribir los resultados en BigQuery. Analizar los datos con Looker Studio.",
+   "src": "a9025f7fa7d5"
+  },
+  "sourceExplanation": {
+   "es": "Dataprep (Trifacta) ofrece la interfaz gráfica que necesitan los usuarios menos técnicos para limpiar y preparar los datos, mientras que Dataflow es un servicio de procesamiento de streaming y por lotes centrado en el código.\nConnected Sheets permite analizar los datos directamente en una interfaz de hoja de cálculo al vincularla con BigQuery, lo que cumple el requisito específico de que los usuarios de negocio prefieren trabajar en hojas de cálculo.",
+   "src": "359547df0b38"
+  },
+  "explanation": {
+   "es": "Este elemento combina un producto histórico de preparación de datos con análisis en hojas de cálculo. Vuelve a revisar los conectores de preparación y de hojas de cálculo que tienen soporte actualmente.",
+   "src": "132e4d627305"
+  },
   "reviewNote": {
    "es": "Esta pregunta importada está excluida de la práctica con puntuación. Lee la nota técnica en lugar de memorizar su clave.",
    "src": "5d478c3e8ed1"
