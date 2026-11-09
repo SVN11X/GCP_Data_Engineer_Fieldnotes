@@ -159,6 +159,10 @@
   "block.check.choices.2.why": {
    "es": "Un rol Editor en todo el proyecto expone más de lo que necesitan un lector de bucket y un escritor de dataset.",
    "src": "8a1ec7295d89"
+  },
+  "verification.note": {
+   "es": "Se comprobó que la suplantación (impersonation) y las identidades asociadas dan credenciales de corta duración y menos riesgo que las claves, y que la federación cambia credenciales externas por tokens de Google de corta duración.",
+   "src": "bc9051c2f7e0"
   }
  },
  "identity-boundaries": {
@@ -233,6 +237,10 @@
   "review.scope": {
    "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
    "src": "65bb82d02b96"
+  },
+  "verification.note": {
+   "es": "Se comprobó que los workers usan la cuenta de servicio del worker, que quien envía el trabajo necesita actAs sobre ella y que los workers privados necesitan Private Google Access. No se comprobó el detalle de la subred anfitriona de Shared VPC.",
+   "src": "ad89a49598d7"
   }
  },
  "protect-data": {
@@ -391,6 +399,10 @@
   "block.check.choices.2.why": {
    "es": "Una regla de firewall por sí sola no puede expresar qué columnas de BigQuery puede leer un usuario.",
    "src": "d368cb00eeac"
+  },
+  "verification.note": {
+   "es": "Se comprobaron las políticas de fila, las etiquetas de política de columna, el enmascaramiento sobre la seguridad de filas, los perímetros contra la exfiltración y que CMEK necesita que la cuenta de servicio tenga el rol de la clave. No se comprobó el alcance de la eliminación de claves.",
+   "src": "e71d29a00fd1"
   }
  },
  "region-recovery-design": {
@@ -465,6 +477,10 @@
   "review.scope": {
    "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
    "src": "65bb82d02b96"
+  },
+  "verification.note": {
+   "es": "Se comprobó que una multirregión no da redundancia entre regiones, que hace falta replicación o recuperación ante desastres administrada para sobrevivir a la pérdida de una región y que una conmutación por error forzada puede perder datos.",
+   "src": "284fbb35d9f8"
   }
  },
  "fidelity": {
@@ -615,6 +631,10 @@
   "block.check.choices.2.why": {
    "es": "Después concilia los totales finales para confirmar el resultado.",
    "src": "b97bd488ab62"
+  },
+  "verification.note": {
+   "es": "Se comprobó que Pub/Sub entrega al menos una vez, que Dataflow deduplica su salida administrada y que el código del usuario, como las llamadas externas, puede ejecutarse más de una vez. No se comprobaron los consejos sobre Dataform y MERGE.",
+   "src": "0b27aebecccc"
   }
  },
  "portability": {
@@ -713,6 +733,10 @@
   "review.scope": {
    "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
    "src": "65bb82d02b96"
+  },
+  "verification.note": {
+   "es": "Se comprobó el cambio de nombre de Dataplex a Knowledge Catalog y que los clústeres sirven para migrar Spark con cambios mínimos de código. Los consejos sobre portabilidad con formatos abiertos son enseñanza propia del sitio.",
+   "src": "4b8f9a858b3c"
   }
  },
  "migration": {
@@ -871,6 +895,10 @@
   "block.check.choices.2.why": {
    "es": "Concilia los conteos, las sumas de verificación o los totales de negocio antes del traspaso.",
    "src": "6abb59181fbd"
+  },
+  "verification.note": {
+   "es": "Se comprobaron el relleno histórico más CDC de Datastream y sus orígenes, los orígenes de Storage Transfer Service y Transfer Appliance para movimientos sin conexión. La aritmética del tiempo de transferencia es cálculo propio del sitio.",
+   "src": "73e07429f293"
   }
  },
  "cdc-cutover": {
@@ -945,6 +973,10 @@
   "review.scope": {
    "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
    "src": "65bb82d02b96"
+  },
+  "verification.note": {
+   "es": "Se comprobó que Datastream combina una instantánea de relleno histórico con CDC continuo y que une los cambios en BigQuery. El orden de las versiones y las reglas de corte son enseñanza propia del sitio.",
+   "src": "c8780faad1d7"
   }
  },
  "transfer-decisions": {
@@ -1031,6 +1063,10 @@
   "decision.limitation": {
    "es": "Tanto el envío físico como las transferencias en línea requieren logística y conciliación.",
    "src": "b1c46c16e010"
+  },
+  "verification.note": {
+   "es": "Se comprobaron los orígenes de Storage Transfer Service, el envío de Transfer Appliance, gcloud storage cp y que Database Migration Service y Datastream tienen destinos distintos.",
+   "src": "2fe1c8f9d7d7"
   }
  }
 }

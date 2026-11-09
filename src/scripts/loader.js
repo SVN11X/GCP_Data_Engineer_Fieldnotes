@@ -29,11 +29,24 @@
         const known=(data.manifest.esDomains||[]).includes(domain);
         const overlay=on&&known?await load(data.manifest.lessonsEs+domain+'.json',()=>{}):null;
         await globalThis.FieldLessonEs.apply(data.lessons.filter(l=>l.domain===domain),overlay,on);
+        globalThis.FieldLessonEs.overlay=overlay;
+      }catch{}
+    }
+    /* Spanish titles and leads for lists. One small index for all domains, so list pages never load whole overlays. Any failure leaves English. */
+    async function localizeTitles(){
+      const on=getLang?.()==='es';
+      if(!on&&!pending.has('s'))return;
+      try{
+        if(!pending.has('s'))pending.set('s',add('script','lesson-es.js').catch(x=>{pending.delete('s');throw x;}));
+        await pending.get('s');
+        const titles=on&&data.manifest.esTitles?await load(data.manifest.esTitles,()=>{}):null;
+        await globalThis.FieldLessonEs.applyTitles(data.lessons,titles,on);
       }catch{}
     }
     const add=(t,f)=>new Promise((ok,no)=>{const el=document.createElement(t);if(t==='link'){el.rel='stylesheet';el.href='assets/'+f+'?v='+data.release;}else el.src='assets/'+f+'?v='+data.release;el.onload=ok;el.onerror=no;document.head.append(el);});
     const entry=()=>pending.get('e')||pending.set('e',Promise.all([add('link','entry.css'),add('script','entry-core.js')]).then(()=>add('script','entry.js')).catch(x=>{pending.delete('e');throw x;})).get('e');
-    async function ensure(route,id){
+    async function ensure(route,id){await ensureRoute(route,id);await localizeTitles();}
+    async function ensureRoute(route,id){
       if(['home','orientation','diagnostic','review'].includes(route)){const p=entry();await(route==='home'?p.catch(()=>{}):p);}
       if(route==='focus'){
         const lesson=data.lessons.find(l=>l.id===(id||'pipeline-contract'))||data.lessons.find(l=>l.id==='pipeline-contract');

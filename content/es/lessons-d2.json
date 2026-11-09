@@ -1,0 +1,1934 @@
+{
+ "pipeline-contract": {
+  "title": {
+   "es": "Define el origen, el destino y la ruta de red",
+   "src": "d364535b6b8f"
+  },
+  "lead": {
+   "es": "Dibuja la ruta completa que debe recorrer un registro.",
+   "src": "5221ce680b9e"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "Un origen (source) emite registros, las transformaciones (transforms) los cambian y un destino (sink) guarda o sirve el resultado. Define la latencia, el rendimiento (throughput), el esquema y el comportamiento de la entrega. Comprueba que los workers pueden llegar a los dos puntos de datos y a las API de Google que hacen falta.",
+   "src": "14504be6b262"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Los workers privados necesitan una subred adecuada, acceso a las API y permisos de IAM. En una VPC compartida (Shared VPC), distingue la identidad del worker, a quien envía el trabajo y el agente de servicio que administra Google.",
+   "src": "3ea892fb3ef0"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Dataflow lee Kafka en las instalaciones de la empresa (on premises) y escribe en BigQuery. Una conexión privada que ya existe puede dejar que KafkaIO lea directamente. Así evitas un puente de mensajes extra y su latencia.",
+   "src": "0c235ab6d852"
+  },
+  "sections.3.title": {
+   "es": "Escribe un contrato para cada límite",
+   "src": "4798b5e44a44"
+  },
+  "sections.3.body": {
+   "es": "Describe el esquema del origen, la identidad del evento, la semántica del tiempo, el retraso máximo aceptable y el comportamiento del destino. Incluye qué pasa con los registros malos y quién es responsable de corregirlos. Una canalización (pipeline) puede cumplir su objetivo de CPU en los workers y aun así fallar el requisito del negocio, porque los datos finales llegan viejos.",
+   "src": "24118aac9d78"
+  },
+  "sections.4.title": {
+   "es": "Sigue la ruta privada completa",
+   "src": "79b53de7ec2d"
+  },
+  "sections.4.body": {
+   "es": "Un worker puede necesitar llegar a una base de datos, a almacenamiento de objetos, a un punto de acceso de API y a un repositorio de artefactos o dependencias. Revisa el DNS, las rutas, los controles de firewall, la subred elegida y el acceso a las API de Google en cada camino. IAM puede permitir una operación y la red aun así impedir la conexión. También puede pasar al revés.",
+   "src": "2bb286f50872"
+  },
+  "sections.5.title": {
+   "es": "Distingue el plano de control y el plano de datos",
+   "src": "8d37ad1bb66e"
+  },
+  "sections.5.body": {
+   "es": "Crear un trabajo es una acción del plano de control (control plane). Cuando los workers leen y escriben registros, hacen acciones del plano de datos (data plane). Con una VPC compartida, el permiso para enviar un trabajo en el proyecto de servicio no basta para tener acceso a la subred del proyecto anfitrión. Sigue la guía actual de identidades de cada servicio. No des administración amplia a una cuenta cualquiera.",
+   "src": "a4127a427b02"
+  },
+  "trap": {
+   "es": "Dar Dataflow Admin no da por sí solo permiso para usar la subred de otro proyecto.",
+   "src": "e86d093576e8"
+  },
+  "exercise.prompt": {
+   "es": "Un trabajo de Dataflow arranca, pero no puede llegar a una base de datos on premises. ¿Qué evidencia debes reunir primero?",
+   "src": "195319146166"
+  },
+  "exercise.answer": {
+   "es": "Identifica los workers reales, la subred elegida, el destino resuelto, la ruta de conexión y el mensaje de error. Revisa la conectividad privada y la política de firewall junto con los permisos de la identidad del worker sobre la base de datos y sobre la nube. Que el trabajo arranque demuestra el acceso al plano de control, no la conectividad completa del plano de datos.",
+   "src": "bdf0aa5bcf09"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Documenta la latencia y qué pasa con los datos mal formados.",
+   "src": "b8a92d96ff31"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Sigue las dependencias más allá del origen y el destino.",
+   "src": "b6328e542f64"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Distingue crear el trabajo del acceso del worker a los datos.",
+   "src": "7bee8eb6fc7b"
+  },
+  "briefing.context": {
+   "es": "Una canalización de datos (data pipeline) mueve registros desde un origen, los pasa por transformaciones y los deja en un destino llamado sink.",
+   "src": "13babf5b7f0e"
+  },
+  "briefing.whyItMatters": {
+   "es": "Cuando la responsabilidad y lo que se espera son vagos, un servicio sano puede entregar datos que no sirven.",
+   "src": "8a412ef8caa8"
+  },
+  "briefing.takeaway": {
+   "es": "Define primero el origen, el destino, la identidad y la salida aceptable.",
+   "src": "786546d7a7eb"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "La ruta de un registro",
+   "src": "04e462b00856"
+  },
+  "block.diagram.description": {
+   "es": "Un origen emite registros, las transformaciones los cambian y un destino guarda o sirve el resultado.",
+   "src": "b9d83f9b1ce6"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "El origen emite registros",
+   "src": "b6ad67fff860"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Las transformaciones los cambian",
+   "src": "19a355623c91"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "El destino guarda o",
+   "src": "7d72a5a26ffa"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "sirve el resultado",
+   "src": "2666369991a8"
+  },
+  "block.keyFact": {
+   "es": "Comprueba que los workers pueden llegar a los dos puntos de datos y a las API de Google que hacen falta.",
+   "src": "409e6d17dd39"
+  },
+  "block.check.question": {
+   "es": "Dataflow lee Kafka on premises y escribe en BigQuery. Una conexión privada que ya existe puede dejar que KafkaIO lea directamente. ¿Qué evita eso?",
+   "src": "37d11244edad"
+  },
+  "block.check.choices.0.text": {
+   "es": "La necesidad de permisos de IAM",
+   "src": "1e05e990363e"
+  },
+  "block.check.choices.0.why": {
+   "es": "Los workers privados siguen necesitando una subred adecuada, acceso a las API y permisos de IAM.",
+   "src": "2dbf46c263c5"
+  },
+  "block.check.choices.1.text": {
+   "es": "Un puente de mensajes extra y su latencia",
+   "src": "6fcd27814dcc"
+  },
+  "block.check.choices.1.why": {
+   "es": "Una conexión privada que ya existe puede dejar que KafkaIO lea directamente. Así se evita un puente de mensajes extra y su latencia.",
+   "src": "e1f78eb4cf70"
+  },
+  "block.check.choices.2.text": {
+   "es": "La necesidad de definir el esquema",
+   "src": "24720443c430"
+  },
+  "block.check.choices.2.why": {
+   "es": "El contrato de la canalización sigue definiendo la latencia, el rendimiento, el esquema y el comportamiento de la entrega.",
+   "src": "8c0ee106d436"
+  },
+  "verification.note": {
+   "es": "Se comprobó que Shared VPC necesita la subred compartida con la cuenta de servicio de Dataflow más Compute Network User, que los roles del worker y de quien envía el trabajo son distintos y que los workers necesitan una ruta de red hasta Kafka. No se comprobaron el DNS privado ni las rutas.",
+   "src": "81a368e181ee"
+  }
+ },
+ "pubsub-contracts": {
+  "title": {
+   "es": "Separa la entrega, el orden y la reproducción en Pub/Sub",
+   "src": "f54fc1d83ec6"
+  },
+  "lead": {
+   "es": "Una garantía de mensajería debe ir unida a la suscripción y a la región que la admiten.",
+   "src": "efec650cd4d6"
+  },
+  "sections.0.title": {
+   "es": "La entrega no es un evento de negocio único",
+   "src": "175b995167d8"
+  },
+  "sections.0.body": {
+   "es": "Un reintento del publicador puede enviar el mismo pedido lógico como mensajes distintos. Una suscripción pull con exactly-once (entrega exactamente una vez) admitida cubre el contrato de entrega que está documentado. No reconoce de forma automática que dos IDs de mensaje distintos son el mismo pedido de negocio. Conserva un ID de negocio estable y protege los efectos externos.",
+   "src": "6a6460381ebd"
+  },
+  "sections.1.title": {
+   "es": "El orden tiene una clave y un alcance",
+   "src": "c52a3ec27f19"
+  },
+  "sections.1.body": {
+   "es": "El orden que se admite conserva el orden de publicación de los mensajes relacionados, según los requisitos de la clave de orden (ordering key) y de la región. No impone un único orden por tiempo del evento entre todas las claves. Tampoco demuestra qué evento de negocio ocurrió primero en un sistema distribuido por todo el mundo. Piensa en el efecto que tiene el trabajo lento de una clave sobre los mensajes posteriores relacionados.",
+   "src": "5ed92f345f56"
+  },
+  "sections.2.title": {
+   "es": "La reproducción depende del historial retenido",
+   "src": "8acc619867c3"
+  },
+  "sections.2.body": {
+   "es": "Una operación seek puede reproducir la entrada retenida. Pero si activas la retención después de que se descartaron datos viejos, no recuperas ese historial perdido. Una instantánea (snapshot) guarda el estado de las confirmaciones (acknowledgements) durante el tiempo de vida que está documentado. Antes de desplegar cambios riesgosos en el suscriptor, decide qué historial retenido y qué contrato de salida seguro hacen útil una reversión.",
+   "src": "1f4a5885729d"
+  },
+  "trap": {
+   "es": "La entrega exactly-once no es una garantía automática de transacción de pago de extremo a extremo.",
+   "src": "d1aedb0d8484"
+  },
+  "exercise.prompt": {
+   "es": "Dos publicadores envían el mismo pedido de negocio con IDs de mensaje de Pub/Sub distintos. ¿Basta con exactly-once en la suscripción?",
+   "src": "5e9f292f161c"
+  },
+  "exercise.answer": {
+   "es": "No. Cubre el contrato de entrega de mensajes que se admite, no cualquier duplicado de negocio que venga del publicador. El destino o la operación de negocio necesita un contrato de idempotencia (idempotency) con un ID de pedido de negocio estable.",
+   "src": "6d3d9639bdf1"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Distingue el ID del mensaje del ID del evento de negocio.",
+   "src": "dd441ab1965c"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Indica el alcance del orden.",
+   "src": "4c3246235889"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Planea la retención antes de depender de seek.",
+   "src": "70a55ffccd0b"
+  },
+  "briefing.context": {
+   "es": "Un productor publica eventos y un consumidor los procesa más tarde a través de una suscripción.",
+   "src": "f7860220a791"
+  },
+  "briefing.whyItMatters": {
+   "es": "Los reintentos de entrega, el orden y la reproducción afectan lo que el consumidor debe poder repetir sin riesgo.",
+   "src": "0ef16bbc2817"
+  },
+  "briefing.takeaway": {
+   "es": "Describe la entrega, la identidad del evento y la reproducción como contratos separados.",
+   "src": "90593f679283"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Un reintento se convierte en dos mensajes",
+   "src": "a6fd2f5e3503"
+  },
+  "block.diagram.description": {
+   "es": "Un reintento del publicador puede enviar el mismo pedido lógico como dos mensajes distintos.",
+   "src": "a28691de7f8d"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Reintento del publicador",
+   "src": "8820c78a522f"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Dos mensajes distintos",
+   "src": "7b846f14f521"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "El mismo pedido lógico",
+   "src": "0e6cd101cd6c"
+  },
+  "block.keyFact": {
+   "es": "Conserva un ID de negocio estable y protege los efectos externos.",
+   "src": "3c127184b2f9"
+  },
+  "block.check.question": {
+   "es": "Un reintento del publicador envía dos veces el mismo pedido lógico. ¿Qué debes conservar?",
+   "src": "4defdac6654d"
+  },
+  "block.check.choices.0.text": {
+   "es": "Nada, porque exactly-once en pull junta los dos",
+   "src": "84b49d27635e"
+  },
+  "block.check.choices.0.why": {
+   "es": "Una suscripción pull con exactly-once admitida no reconoce de forma automática que dos IDs de mensaje distintos son el mismo pedido de negocio.",
+   "src": "94f8b443b74a"
+  },
+  "block.check.choices.1.text": {
+   "es": "Nada, porque los IDs de mensaje ya identifican el pedido",
+   "src": "300e841a1418"
+  },
+  "block.check.choices.1.why": {
+   "es": "Un reintento del publicador puede enviar el mismo pedido lógico como mensajes distintos.",
+   "src": "24689d4472b0"
+  },
+  "block.check.choices.2.text": {
+   "es": "Un ID de negocio estable",
+   "src": "0283cded86ec"
+  },
+  "block.check.choices.2.why": {
+   "es": "Conserva un ID de negocio estable y protege los efectos externos.",
+   "src": "3c127184b2f9"
+  },
+  "verification.note": {
+   "es": "Se comprobó que el orden es solo por clave y por región, que hacer seek a un momento pasado necesita mensajes retenidos y que las instantáneas (snapshots) caducan con el backlog (máximo 7 días). No se comprobaron a fondo los eventos de negocio duplicados ni el alcance de exactly-once.",
+   "src": "a8f2be4b8959"
+  }
+ },
+ "managed-kafka": {
+  "title": {
+   "es": "Elige entre la compatibilidad con Kafka y la entrega de Pub/Sub",
+   "src": "1e5283ef73a5"
+  },
+  "lead": {
+   "es": "Empieza por los clientes que ya existen, los requisitos de reproducción y quién es dueño del contrato de eventos.",
+   "src": "2ca0a5371b61"
+  },
+  "sections.0.title": {
+   "es": "Conserva un ecosistema a propósito",
+   "src": "f7fbe7677fe8"
+  },
+  "sections.0.body": {
+   "es": "Managed Service for Apache Kafka ejecuta clústeres de Kafka administrados. Google aprovisiona los brokers a partir de los recursos de cómputo que configuras, y el equipo sigue eligiendo la retención de los topics. Es una opción cuando los clientes de Kafka, las particiones (partitions) y los grupos de consumidores (consumer groups) son parte del contrato de la aplicación.",
+   "src": "68e1c3e443ed"
+  },
+  "sections.1.title": {
+   "es": "Compara el contrato",
+   "src": "1a32cea5bd13"
+  },
+  "sections.1.body": {
+   "es": "Pub/Sub ofrece topics y suscripciones que desacoplan a los publicadores de los consumidores. Una suscripción de Pub/Sub no es un grupo de consumidores de Kafka con el mismo comportamiento. Antes de elegir un camino de migración, compara el alcance del orden, el comportamiento de las confirmaciones, la reproducción y la autenticación.",
+   "src": "6b8c785e29e6"
+  },
+  "sections.2.title": {
+   "es": "Resuelve una decisión original",
+   "src": "0e8b1c875c89"
+  },
+  "sections.2.body": {
+   "es": "Un equipo ya opera una aplicación de Kafka y debe conservar la integración de sus clientes durante una migración. Evalúa el servicio de Kafka administrado y después prueba el acceso de red y la recuperación de los consumidores. Una aplicación nueva sin ese requisito de compatibilidad puede evaluar Pub/Sub sin suponer la semántica de los brokers. Ninguna de las dos opciones elimina la necesidad de IDs de evento de negocio duraderos.",
+   "src": "55fb3cb17b25"
+  },
+  "trap": {
+   "es": "La infraestructura administrada no hace desaparecer todos los eventos de negocio duplicados.",
+   "src": "b6d5d94f9a40"
+  },
+  "exercise.prompt": {
+   "es": "Un equipo propone Pub/Sub solo porque los dos productos usan la palabra topic. ¿Qué evidencia falta?",
+   "src": "74c28741ee14"
+  },
+  "exercise.answer": {
+   "es": "La propuesta debe comparar la compatibilidad de los clientes, los supuestos sobre particiones o sobre el orden, el comportamiento de la reproducción, la identidad, la red y la recuperación. Que los nombres se parezcan no garantiza que sean interoperables.",
+   "src": "c4b94fa69ec9"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Identifica el requisito de compatibilidad.",
+   "src": "b6c94866147d"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Separa la entrega por el transporte de la deduplicación de negocio.",
+   "src": "ba4b18cec9ed"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Prueba la reproducción y la recuperación.",
+   "src": "e2b0c42a8a2d"
+  },
+  "briefing.context": {
+   "es": "Un equipo tiene clientes y grupos de consumidores de Kafka que deben seguir funcionando después de una migración.",
+   "src": "57b904f86ce7"
+  },
+  "briefing.whyItMatters": {
+   "es": "Que dos servicios tengan topics no hace que sus protocolos y su comportamiento de entrega sean intercambiables.",
+   "src": "d832cc13fd31"
+  },
+  "briefing.takeaway": {
+   "es": "Compara la compatibilidad del ecosistema y los contratos de eventos antes que el nombre del servicio.",
+   "src": "25990d244c9d"
+  },
+  "review.scope": {
+   "es": "Las afirmaciones específicas sobre servicios en esta lección original se comprobaron con sus referencias primarias. El escenario es ilustrativo.",
+   "src": "9203ccf1a1ce"
+  },
+  "decision.useCase": {
+   "es": "Conservar los productores y consumidores de Kafka durante una migración de plataforma.",
+   "src": "cfce4ddc75e5"
+  },
+  "decision.advantage": {
+   "es": "Managed Kafka reduce el trabajo de infraestructura y conserva el ecosistema de Kafka.",
+   "src": "8c4823a6485e"
+  },
+  "decision.limitation": {
+   "es": "La configuración de los topics, la lógica de los consumidores y la corrección de la aplicación siguen siendo responsabilidades de diseño.",
+   "src": "7277cd4f77ee"
+  },
+  "verification.note": {
+   "es": "Se comprobó que los brokers se aprovisionan a partir de las vCPU y la memoria que configuras, que la retención de los topics la elige el usuario y que los clientes de Kafka funcionan sin cambios. No se comprobaron las diferencias entre Pub/Sub y los grupos de consumidores de Kafka.",
+   "src": "3f7a01e00446"
+  }
+ },
+ "processing-engine": {
+  "title": {
+   "es": "Elige el motor que encaja con el trabajo",
+   "src": "4dda85c8dc67"
+  },
+  "lead": {
+   "es": "Reduce al mínimo los cambios de código necesarios y después piensa en el esfuerzo de operación.",
+   "src": "b0212feba6b7"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "Dataflow ejecuta canalizaciones de Apache Beam para datos acotados (bounded) o no acotados (unbounded). Dataproc admite los ecosistemas de Spark y Hadoop que ya existen. Data Fusion ofrece integración visual. Dataform administra transformaciones de SQL y sus dependencias en BigQuery.",
+   "src": "31d7ebb12d5f"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Usa la compatibilidad con la carga de trabajo que ya existe como una restricción. Una transformación de SQL nocturna no necesita de forma automática un motor de streaming. Una aplicación de Hive que ya existe puede inclinarse por herramientas administradas de Spark o Hadoop.",
+   "src": "9735b2150d58"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Un equipo tiene cientos de trabajos de Spark y una fecha límite corta para migrar. Mueve las entradas duraderas a Cloud Storage y conserva el modelo de ejecución de Spark antes de planear una reescritura posterior a SQL.",
+   "src": "fdc7c80e6932"
+  },
+  "sections.3.title": {
+   "es": "Empieza por el modelo de ejecución que ya existe",
+   "src": "eb4091496a23"
+  },
+  "sections.3.body": {
+   "es": "Beam y Dataflow encajan con una canalización descrita como transformaciones sobre colecciones acotadas o continuas. La compatibilidad con Spark y Hadoop puede favorecer a Dataproc o a Spark administrado. Dataform encaja con los grafos de SQL del almacén de datos (warehouse). Data Fusion ofrece integración visual. Workflows y Composer coordinan la ejecución. No reemplazan al motor que hace cada transformación pesada.",
+   "src": "b13aafa399f8"
+  },
+  "sections.4.title": {
+   "es": "Decide entre ETL y ELT a partir de la restricción",
+   "src": "ab4c7baeb015"
+  },
+  "sections.4.body": {
+   "es": "ETL transforma los datos antes de la carga analítica. ELT carga una representación intermedia (staging) y transforma dentro del almacén. ELT puede simplificar un sistema centrado en SQL, pero no es adecuado si los valores sensibles sin proteger nunca deben llegar a ese lugar intermedio. Elige según el manejo de los datos, las transformaciones necesarias, la escala y quién es dueño.",
+   "src": "b117ab9ff2ab"
+  },
+  "sections.5.title": {
+   "es": "Evita elegir por un solo adjetivo",
+   "src": "24ce2ec685cd"
+  },
+  "sections.5.body": {
+   "es": "Serverless, administrado y en tiempo real no son arquitecturas completas. Un servicio puede reducir el trabajo de infraestructura y aun así exigir diseño de esquemas, configuración de identidades, control de dependencias y monitoreo. Compara la compatibilidad, lo que puedes expresar en las transformaciones, el retraso esperado y el costo de operación con la misma carga de trabajo.",
+   "src": "4df345617e57"
+  },
+  "trap": {
+   "es": "Que un producto sea serverless no significa que su procesamiento, su almacenamiento y su uso de red sean gratis.",
+   "src": "1ff8531057e8"
+  },
+  "exercise.prompt": {
+   "es": "Deben correr una agregación diaria de SQL en BigQuery y un trabajo de ML en Spark que ya existe. ¿Tienen que compartir el mismo motor?",
+   "src": "6a41dd1b2592"
+  },
+  "exercise.answer": {
+   "es": "No. Deja la transformación de SQL en un flujo de trabajo de almacén adecuado y conserva el modelo de ejecución de Spark donde encaje con la aplicación. Coordina sus dependencias y valida el contrato de los datos compartidos. Usar un solo motor para todo no es un requisito, salvo que el negocio lo imponga de forma explícita.",
+   "src": "8fa1e765fec9"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Separa la orquestación (orchestration) de la transformación.",
+   "src": "ea81158fc1ee"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Explica una restricción de privacidad válida para usar ETL.",
+   "src": "06bfb1123c8e"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Compara los motores con los mismos requisitos.",
+   "src": "77fbc49ec7ce"
+  },
+  "briefing.context": {
+   "es": "El equipo tiene datos que transformar, pero varios servicios parecen hacer un trabajo parecido.",
+   "src": "b0c616aa7b8f"
+  },
+  "briefing.whyItMatters": {
+   "es": "Elegir por el nombre del producto puede añadir reescrituras innecesarias o administración continua.",
+   "src": "fa412e33714a"
+  },
+  "briefing.takeaway": {
+   "es": "Haz coincidir el código que ya existe, las transformaciones y la forma de la carga de trabajo con el motor de ejecución.",
+   "src": "fe35009fd7c3"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Migrar trabajos de Spark con una fecha límite",
+   "src": "5bd2cf5a0e5b"
+  },
+  "block.diagram.description": {
+   "es": "Mueve las entradas duraderas a Cloud Storage y conserva el modelo de ejecución de Spark antes de cualquier reescritura posterior a SQL.",
+   "src": "aaf1f6a2727b"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Cientos de",
+   "src": "69b2280b51aa"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "trabajos de Spark",
+   "src": "e757e9c931c1"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Entradas en",
+   "src": "1ea11da17045"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "Cloud Storage",
+   "src": "2ec3eb563477"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Conserva el modelo de Spark,",
+   "src": "6fea83bf7002"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "reescribe a SQL después",
+   "src": "62755cd6b759"
+  },
+  "block.keyFact": {
+   "es": "Usa la compatibilidad con la carga de trabajo que ya existe como una restricción.",
+   "src": "db1d884b09ed"
+  },
+  "block.check.question": {
+   "es": "Un equipo tiene cientos de trabajos de Spark y una fecha límite corta para migrar. ¿Cuál es el enfoque de la lección?",
+   "src": "83a4a346eda9"
+  },
+  "block.check.choices.0.text": {
+   "es": "Mover las entradas duraderas a Cloud Storage y conservar el modelo de ejecución de Spark",
+   "src": "007553c229c7"
+  },
+  "block.check.choices.0.why": {
+   "es": "Así se conserva el modelo que ya existe y la reescritura posterior a SQL queda para después de la fecha límite.",
+   "src": "a21420415ab5"
+  },
+  "block.check.choices.1.text": {
+   "es": "Reescribir primero cada trabajo como SQL",
+   "src": "4ef1bec24820"
+  },
+  "block.check.choices.1.why": {
+   "es": "La lección planea la reescritura a SQL para más tarde, no antes de la fecha límite.",
+   "src": "d6a754592986"
+  },
+  "block.check.choices.2.text": {
+   "es": "Elegir el motor que se describe como serverless",
+   "src": "55c07dc918e8"
+  },
+  "block.check.choices.2.why": {
+   "es": "Serverless, administrado y en tiempo real no son arquitecturas completas. Compara primero la compatibilidad.",
+   "src": "2037bc6f3d3c"
+  },
+  "verification.note": {
+   "es": "Se comprobó que Dataflow ejecuta Beam por lotes y en streaming, que Dataform administra SQL en BigQuery, que Data Fusion es visual y que la página del producto se llama Managed Service for Apache Spark (antes Dataproc). No se comprobó Composer.",
+   "src": "815c5e5cbd8c"
+  }
+ },
+ "dataflow-bottlenecks": {
+  "title": {
+   "es": "Encuentra el límite antes de añadir workers a Dataflow",
+   "src": "a6ceea5b3e3a"
+  },
+  "lead": {
+   "es": "Usa evidencia por etapa para distinguir la capacidad del paralelismo.",
+   "src": "aea24414a620"
+  },
+  "sections.0.title": {
+   "es": "Cada cuello de botella necesita un cambio distinto",
+   "src": "57f7684414d8"
+  },
+  "sections.0.body": {
+   "es": "Un origen o un destino puede limitar la canalización. Una clave caliente (hot key) puede concentrar la agregación. Una etapa fusionada (fused stage) puede limitar la redistribución. El código del worker puede agotar la memoria. Subir el máximo de workers no garantiza que desaparezca ninguna de estas restricciones. Revisa juntos el comportamiento de las etapas y la acumulación de trabajo pendiente (backlog).",
+   "src": "8666c80532aa"
+  },
+  "sections.1.title": {
+   "es": "Entiende por qué el trabajo se puede dividir o no",
+   "src": "5ac978849c73"
+  },
+  "sections.1.body": {
+   "es": "Los elementos se pueden procesar en paralelo, pero una agrupación concreta o una clave con estado puede crear un límite serial. Una redistribución explícita puede ayudar en algunos casos de fusión, pero añade materialización y costo de red. Si rediseñas una clave caliente, debes conservar la semántica de la agregación. Añadir sal (salting) al azar no explica por sí solo cómo se vuelven a combinar los resultados.",
+   "src": "88c9ae2e0d63"
+  },
+  "sections.2.title": {
+   "es": "Evalúa el autoescalado con el contrato completo",
+   "src": "d3bd9905759e"
+  },
+  "sections.2.body": {
+   "es": "Revisa los límites configurados, la cuota disponible, las opciones del trabajo, el trabajo pendiente de procesamiento y el comportamiento del origen y del destino. Compara una ejecución representativa antes y después de un cambio. Sigue la corrección y la frescura de la salida, no solo el número de workers activos.",
+   "src": "1697a9a3b5ee"
+  },
+  "trap": {
+   "es": "Tener más workers no demuestra que haya más trabajo paralelo útil.",
+   "src": "bb00d6115604"
+  },
+  "exercise.prompt": {
+   "es": "Una clave de agregación domina la carga mientras otros workers están inactivos. ¿Qué hipótesis debes probar?",
+   "src": "2bf31319f3ee"
+  },
+  "exercise.answer": {
+   "es": "Investiga la concentración en una clave caliente y el límite serial de la agregación. Considera una estrategia de agregación parcial y recombinación que conserve la corrección. Después mide la etapa afectada, en lugar de solo subir el límite global de workers.",
+   "src": "1d34cd10bd61"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Identifica un cuello de botella propio de una etapa.",
+   "src": "dcbe458e4d23"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Distingue las claves calientes de la fusión.",
+   "src": "83954628a35d"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Mide la corrección de la salida después del ajuste.",
+   "src": "f1bea09d63d0"
+  },
+  "briefing.context": {
+   "es": "Una canalización de streaming va con retraso aunque el equipo sigue añadiendo workers.",
+   "src": "651a32bf31ab"
+  },
+  "briefing.whyItMatters": {
+   "es": "Más cómputo no puede reparar una escritura denegada ni repartir de forma pareja una clave sobrecargada.",
+   "src": "85d2f450191c"
+  },
+  "briefing.takeaway": {
+   "es": "Encuentra el origen, la etapa, la clave o el destino que limita antes de escalar.",
+   "src": "f3417b812938"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "verification.note": {
+   "es": "Se comprobó que las claves calientes se procesan en serie por clave, que tener pocas claves limita el escalado, que subir el máximo de workers solo ayuda cuando el límite son las vCPU y que la sal (salting) de claves necesita un paso de agregación posterior. No se comprobaron los detalles de la fusión.",
+   "src": "d64d48fd690a"
+  }
+ },
+ "event-time": {
+  "title": {
+   "es": "Razona sobre el tiempo del evento y los datos tardíos",
+   "src": "6605e9fa11e3"
+  },
+  "lead": {
+   "es": "El momento en que ocurrió un evento y el momento en que un worker lo vio pueden ser distintos.",
+   "src": "518783aa1dba"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "Una ventana fija (fixed window) agrupa las marcas de tiempo en intervalos iguales. Una ventana deslizante (sliding window) puede solaparse. Una sesión (session) agrupa la actividad separada por una pausa de inactividad que tú eliges. Una marca de agua (watermark) estima el avance del tiempo del evento. No garantiza que hayan llegado todos los eventos anteriores.",
+   "src": "ac609162aba6"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Elige la tardanza permitida (allowed lateness) y los disparadores (triggers) según el equilibrio entre resultados tempranos y correcciones posteriores. Conserva las marcas de tiempo del origen en lugar de reemplazarlas por el tiempo de procesamiento.",
+   "src": "92825898c4d5"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Un clic creado en el minuto 2 llega después de uno creado en el minuto 9. Pertenece a la ventana más temprana del tiempo del evento, si esa ventana todavía puede aceptar datos.",
+   "src": "86343eba899f"
+  },
+  "sections.3.title": {
+   "es": "Define qué representa la salida",
+   "src": "61e9f93b6f5c"
+  },
+  "sections.3.body": {
+   "es": "Una ventana fija tiene límites alineados con el reloj. Una ventana deslizante puede incluir un evento en intervalos que se solapan. Una sesión une la actividad según una pausa de inactividad, por lo general después de agrupar por una clave de entidad. No confundas una función de ventana de SQL analítico sobre las filas de una tabla con una ventana de streaming por tiempo del evento.",
+   "src": "c2a662cd2792"
+  },
+  "sections.4.title": {
+   "es": "Separa la marca de agua, el disparador y la retención",
+   "src": "183d01760f74"
+  },
+  "sections.4.body": {
+   "es": "La marca de agua estima el avance del tiempo del evento. Un disparador decide cuándo se emite un panel (pane) de resultados. La tardanza permitida se refiere a cuánto tiempo puede una ventana seguir aceptando registros retrasados. La retención de los mensajes del origen se refiere a si se puede reproducir la entrada. Estos ajustes resuelven problemas distintos y ninguno reemplaza a los otros.",
+   "src": "d69aaddd6361"
+  },
+  "sections.5.title": {
+   "es": "Diseña la corrección en el destino",
+   "src": "1481bac3984c"
+  },
+  "sections.5.body": {
+   "es": "Un conteo temprano puede cambiar más tarde. Decide si los consumidores finales reciben un agregado actualizado, un reemplazo o una secuencia de paneles que deben combinar bien. Los resultados acumulativos pueden repetir aportes anteriores. Si sumas a ciegas cada panel emitido, puedes contar de más. Prueba las llegadas tempranas, a tiempo y tardías con totales esperados explícitos.",
+   "src": "12db5d77331e"
+  },
+  "trap": {
+   "es": "El primer mensaje de subasta que se procesa no es necesariamente la oferta más temprana.",
+   "src": "78a630884b30"
+  },
+  "exercise.prompt": {
+   "es": "Un panel de control necesita totales provisionales inmediatos y totales finales corregidos. ¿Basta con aumentar la tardanza permitida?",
+   "src": "598ce6b1f7bf"
+  },
+  "exercise.answer": {
+   "es": "No. Define un disparador y una estrategia de acumulación para los resultados intermedios, la política de tardanza y una representación en el destino que maneje las correcciones. La retención y la reproducción son temas aparte. Valida el total final con una secuencia conocida de eventos retrasados y repetidos.",
+   "src": "39c9c0df2182"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Distingue el tiempo del evento del tiempo de procesamiento.",
+   "src": "dd726fccc8fd"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Explica qué agrupa cada tipo de ventana.",
+   "src": "29d5e5b104bb"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Nombra cómo aplica el destino un agregado corregido.",
+   "src": "43720a451e20"
+  },
+  "briefing.context": {
+   "es": "Un dispositivo informa a las 10:02 que un evento ocurrió a las 09:59. El tiempo del evento (event time) es cuando ocurrió. El tiempo de llegada es cuando llegó al sistema.",
+   "src": "bbb427060345"
+  },
+  "briefing.whyItMatters": {
+   "es": "Usar el tiempo de llegada puede poner un evento válido en el periodo de reporte equivocado.",
+   "src": "dafaca6b6f80"
+  },
+  "briefing.takeaway": {
+   "es": "Elige a propósito la marca de tiempo y la política para las llegadas tardías.",
+   "src": "1ca1568d2f5f"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Un clic tardío y su ventana",
+   "src": "cf0ebbbd888b"
+  },
+  "block.diagram.description": {
+   "es": "Un clic creado en el minuto 2 llega después de un clic creado en el minuto 9 y pertenece a la ventana más temprana del tiempo del evento.",
+   "src": "fc5f4ee63eab"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Clic hecho",
+   "src": "9cbc041a7c60"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "en el minuto 2",
+   "src": "38390daa78a4"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Llega después del",
+   "src": "5bad9588cab1"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "clic del minuto 9",
+   "src": "2f54a57bdbcc"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Ventana anterior,",
+   "src": "353b44f53cfd"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "si sigue abierta",
+   "src": "2ce160a1a187"
+  },
+  "block.keyFact": {
+   "es": "Una marca de agua estima el avance del tiempo del evento. No garantiza que hayan llegado todos los eventos anteriores.",
+   "src": "4b4eaf36d51f"
+  },
+  "block.check.question": {
+   "es": "Un clic creado en el minuto 2 llega después de uno creado en el minuto 9. ¿A dónde pertenece?",
+   "src": "d6bb1378eb2f"
+  },
+  "block.check.choices.0.text": {
+   "es": "A la ventana de su hora de llegada",
+   "src": "04044952bd1f"
+  },
+  "block.check.choices.0.why": {
+   "es": "Conserva las marcas de tiempo del origen en lugar de reemplazarlas por el tiempo de procesamiento.",
+   "src": "3573bff24940"
+  },
+  "block.check.choices.1.text": {
+   "es": "A la ventana más temprana del tiempo del evento, si todavía acepta datos",
+   "src": "ae12e6da387c"
+  },
+  "block.check.choices.1.why": {
+   "es": "Pertenece a la ventana más temprana del tiempo del evento, si esa ventana todavía puede aceptar datos.",
+   "src": "08b147abe23c"
+  },
+  "block.check.choices.2.text": {
+   "es": "A ninguna, porque la marca de agua garantiza que todo llegó",
+   "src": "1bb3bc21c1a3"
+  },
+  "block.check.choices.2.why": {
+   "es": "Una marca de agua no garantiza que hayan llegado todos los eventos anteriores.",
+   "src": "12e90f1e43ce"
+  },
+  "verification.note": {
+   "es": "Se comprobaron las ventanas fijas, deslizantes y de sesión, que la marca de agua es una estimación, que los datos tardíos son los que quedan por detrás de ella y que los disparadores deciden cuándo se emiten los resultados. No se comprobaron la tardanza permitida ni las funciones de ventana de SQL.",
+   "src": "2ef670b0b532"
+  }
+ },
+ "beam-triggers": {
+  "title": {
+   "es": "Planea los paneles, las llegadas tardías y los totales corregidos",
+   "src": "b7a7c2d0c4e6"
+  },
+  "lead": {
+   "es": "Indica cuándo se emite un resultado y qué significan las actualizaciones posteriores.",
+   "src": "3ca7923d349d"
+  },
+  "sections.0.title": {
+   "es": "Asigna la marca de tiempo del negocio",
+   "src": "339a030b810b"
+  },
+  "sections.0.body": {
+   "es": "Elige la marca de tiempo del evento a partir del contrato del origen. Los eventos de una colección necesitan claves y una estrategia de ventanas que sirva para su agregación de negocio. Un registro puede llegar fuera de orden sin ser inválido. Si lo descartas, cambias el resultado, y por eso hace falta una política documentada.",
+   "src": "b6b4ca538e57"
+  },
+  "sections.1.title": {
+   "es": "Separa la emisión de la completitud",
+   "src": "6f7e0762649b"
+  },
+  "sections.1.body": {
+   "es": "Un disparador puede emitir un panel temprano antes de que la marca de agua indique que se espera que los datos estén completos. Los paneles posteriores pueden reflejar registros adicionales. La tardanza permitida y la limpieza del estado determinan qué sigue siendo posible después del final esperado de una ventana. Los detalles exactos dependen de la transformación y de la configuración del runner, así que prueba el comportamiento que quieres.",
+   "src": "04c909cffa9a"
+  },
+  "sections.2.title": {
+   "es": "Haz coincidir los paneles con un modelo de destino",
+   "src": "70ddd799e0a4"
+  },
+  "sections.2.body": {
+   "es": "Si los paneles son acumulativos, sumar cada panel como si solo tuviera valores nuevos cuenta dos veces los registros anteriores. Un destino puede necesitar reemplazos por clave o una representación acumulativa documentada. Usa eventos retrasados controlados para verificar tanto el panel de control inmediato como el total final reconciliado.",
+   "src": "94fb5d0fcedc"
+  },
+  "trap": {
+   "es": "Una estimación de la marca de agua no afirma que la red nunca pueda entregar un evento más antiguo.",
+   "src": "3e89e37fdf18"
+  },
+  "exercise.prompt": {
+   "es": "Los paneles acumulativos tienen los conteos 3 y después 5. ¿Cuál es el conteo final y por qué no es 8?",
+   "src": "799cf420f788"
+  },
+  "exercise.answer": {
+   "es": "El panel acumulativo posterior ya contiene los aportes anteriores, así que el conteo final es 5. Un consumidor final debe entender la semántica de los paneles en lugar de sumar a ciegas todos los agregados emitidos.",
+   "src": "0f16119b23f7"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Define el tiempo del evento y las claves.",
+   "src": "ac8158fee38d"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Explica la diferencia entre disparador y marca de agua.",
+   "src": "d4057e470916"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Indica cómo aplica el destino las correcciones.",
+   "src": "797814b2a8d5"
+  },
+  "briefing.context": {
+   "es": "Un reporte en vivo publica un total temprano y después un registro tardío cambia ese total.",
+   "src": "0610a7dfd0e4"
+  },
+  "briefing.whyItMatters": {
+   "es": "Agregar los dos resultados acumulativos puede contar la misma historia más de una vez.",
+   "src": "7d569bf06e38"
+  },
+  "briefing.takeaway": {
+   "es": "Define cuándo aparecen los resultados y cómo los reemplazan o actualizan las correcciones posteriores.",
+   "src": "0ecb22c8c54f"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "verification.note": {
+   "es": "Se comprobó que el disparador predeterminado se activa en la marca de agua, que no se puede garantizar la completitud y que los registros tardíos pueden descartarse. No se comprobaron los paneles tempranos, los modos de acumulación ni cómo maneja el destino los paneles acumulativos.",
+   "src": "f725a7a096ae"
+  }
+ },
+ "bad-records": {
+  "title": {
+   "es": "Enruta los fallos sin perder la evidencia",
+   "src": "4b83a5110020"
+  },
+  "lead": {
+   "es": "Un registro rechazado debe poder explicarse y recuperarse.",
+   "src": "e0aee1ca7ccd"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "Valida los campos antes de cargar las tablas tipadas del almacén de datos. Separa las filas válidas de una salida de mensajes fallidos (dead-letter) que contenga la carga original, el tipo de error y el identificador del evento. Distingue los datos inválidos permanentes de los errores temporales del servicio.",
+   "src": "97e896fe0260"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Usa reintentos acotados con espera creciente (backoff) para los fallos transitorios. Monitorea la salida de fallos y define quién la repara o la reproduce. El límite de intentos de entrega de dead-letter en Pub/Sub es aproximado, no un contador exacto de reintentos.",
+   "src": "a959c365de5b"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Una columna de direcciones mezcla formatos. Una transformación visual de Data Fusion puede estandarizar los valores, y una ruta de cuarentena guarda las filas cuyos valores no se pueden interpretar con seguridad.",
+   "src": "eb408f5efa3d"
+  },
+  "sections.3.title": {
+   "es": "Separa los errores de datos de los errores del servicio",
+   "src": "5383d957b6fa"
+  },
+  "sections.3.body": {
+   "es": "Una clave obligatoria que falta o una fecha mal formada suele necesitar la corrección del registro o de la regla de transformación. Una caída temporal de una API puede beneficiarse de un reintento acotado. Repetir sin fin una entrada mala permanente consume capacidad y bloquea trabajo útil sin mejorar la corrección. Clasifica el fallo antes de elegir cómo reintentar.",
+   "src": "40ffd4bd1d51"
+  },
+  "sections.4.title": {
+   "es": "Guarda un registro de error que se pueda reparar",
+   "src": "90a23fda3379"
+  },
+  "sections.4.body": {
+   "es": "Una salida de errores debe conservar un identificador estable, la carga original o una versión con datos ocultos de forma segura, la regla de validación, el contexto del procesamiento y suficiente información de tiempos para investigar. Protege esta salida con el mismo cuidado que el conjunto de datos principal si contiene información personal. Un almacén de dead-letter es parte de la arquitectura de datos. No es un lugar donde termina la responsabilidad.",
+   "src": "29f14df74283"
+  },
+  "sections.5.title": {
+   "es": "Haz de la reinserción un camino controlado",
+   "src": "1d6b49440825"
+  },
+  "sections.5.body": {
+   "es": "Define cómo vuelven al procesamiento los registros reparados y cómo su identidad evita resultados de negocio duplicados. Registra la decisión de reparación y monitorea el backlog que crece. Una tasa de errores en la canalización principal que baja puede ocultar un backlog de cuarentena que empeora, si no miras las dos métricas juntas.",
+   "src": "5c050848f5c4"
+  },
+  "trap": {
+   "es": "Convertir un CSV mal formado a Avro no repara por sí solo los valores de fondo.",
+   "src": "ce63d8cd22ff"
+  },
+  "exercise.prompt": {
+   "es": "Se conservan todos los registros inválidos, pero nadie revisa el conjunto de datos de errores. ¿Está resuelto el problema de calidad de datos?",
+   "src": "517e10157da3"
+  },
+  "exercise.answer": {
+   "es": "No. Conservar los registros guarda la evidencia, pero no repara los datos del negocio. Asigna un responsable, mide el backlog de fallos, clasifica las causas y define un camino seguro para reproducirlos. Reconcilia la salida reparada con los totales de negocio esperados.",
+   "src": "d6f84c385f60"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Clasifica los errores transitorios y los permanentes.",
+   "src": "a38a2074400c"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Define los campos de un registro de error reparable.",
+   "src": "85c90746b2fe"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Incluye al responsable y la reproducción en el diseño.",
+   "src": "8d202990d124"
+  },
+  "briefing.context": {
+   "es": "La mayoría de los registros son válidos, pero un registro mal formado hace que una canalización siga reintentando.",
+   "src": "83819c64572b"
+  },
+  "briefing.whyItMatters": {
+   "es": "Descartar el registro en silencio pierde la evidencia. Bloquear todos los registros una y otra vez retrasa todo el conjunto de datos.",
+   "src": "1e3aec42d778"
+  },
+  "briefing.takeaway": {
+   "es": "Dale a los datos inválidos un camino de excepción explícito y restringido, con un responsable de la reparación.",
+   "src": "5523738c31c0"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Filas válidas y una salida de dead-letter",
+   "src": "abbfea4715de"
+  },
+  "block.diagram.description": {
+   "es": "Las filas válidas van al almacén de datos. Los registros rechazados van a una salida de dead-letter con la carga original, el tipo de error y el identificador del evento.",
+   "src": "f2065929a17b"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Registro",
+   "src": "e301820ac839"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "entrante",
+   "src": "70ce871f8a3d"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Filas válidas",
+   "src": "fee8f6c27a45"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "al almacén",
+   "src": "bad60c3de437"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Salida de",
+   "src": "7254a1907790"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "dead-letter",
+   "src": "e0ee8bb50685"
+  },
+  "block.keyFact": {
+   "es": "Separa las filas válidas de una salida de dead-letter que contenga la carga original, el tipo de error y el identificador del evento.",
+   "src": "4223299fa998"
+  },
+  "block.check.question": {
+   "es": "Una caída temporal de una API hace que fallen algunos registros. ¿Qué encaja?",
+   "src": "f0e8c57cab1f"
+  },
+  "block.check.choices.0.text": {
+   "es": "Tratarlo como datos inválidos permanentes",
+   "src": "7995d39cc778"
+  },
+  "block.check.choices.0.why": {
+   "es": "Distingue los datos inválidos permanentes de los errores temporales del servicio.",
+   "src": "fcf7440cd376"
+  },
+  "block.check.choices.1.text": {
+   "es": "Repetir el registro sin fin",
+   "src": "864022ea8dfa"
+  },
+  "block.check.choices.1.why": {
+   "es": "Repetir sin fin una entrada mala permanente consume capacidad y bloquea trabajo útil.",
+   "src": "982850cd3edb"
+  },
+  "block.check.choices.2.text": {
+   "es": "Reintento acotado con backoff",
+   "src": "30ca57fab3de"
+  },
+  "block.check.choices.2.why": {
+   "es": "Usa reintentos acotados con backoff para los fallos transitorios.",
+   "src": "0801ffef628e"
+  },
+  "verification.note": {
+   "es": "Se comprobó que el límite de intentos de dead-letter es aproximado y de mejor esfuerzo, y que las llamadas remotas necesitan backoff y una salida de dead-letter. No se comprobaron la estandarización con Data Fusion ni el diseño de la cuarentena.",
+   "src": "9eb27fa8a1b6"
+  }
+ },
+ "write-contracts": {
+  "title": {
+   "es": "Elige de forma explícita cómo cargar, transmitir y combinar",
+   "src": "97fc2d823cce"
+  },
+  "lead": {
+   "es": "El método de ingesta determina la visibilidad, los reintentos y las responsabilidades sobre el esquema.",
+   "src": "e97139b63372"
+  },
+  "sections.0.title": {
+   "es": "La carga por lotes y el streaming resuelven necesidades de tiempo distintas",
+   "src": "fc21ed0d8aee"
+  },
+  "sections.0.body": {
+   "es": "Los archivos de objetos que llegan de forma recurrente pueden encajar con una carga por lotes (batch load) o con una configuración de transferencia admitida. Un escritor de streaming sirve a otro contrato de frescura. Confirma el formato de archivo, la compresión, la ubicación y el esquema que se admiten. Un nombre de archivo que termina en JSON no demuestra que un archivo comprimido tenga la estructura delimitada por saltos de línea (newline-delimited) que espera el cargador.",
+   "src": "b3a8da3b8179"
+  },
+  "sections.1.title": {
+   "es": "Usa los desplazamientos (offsets) dentro de su límite real",
+   "src": "9ca831d9541f"
+  },
+  "sections.1.body": {
+   "es": "Los offsets bien administrados en los streams de la Storage Write API creados por la aplicación y admitidos pueden hacer identificables los intentos repetidos de añadir datos. El alcance del offset es un stream, no cada mensaje de cada productor para siempre. Los eventos de negocio duplicados que vienen del productor siguen necesitando una identidad adecuada y una interpretación en el destino.",
+   "src": "5aa8d4acd0e1"
+  },
+  "sections.2.title": {
+   "es": "Haz deterministas las actualizaciones del estado actual",
+   "src": "9638236595c7"
+  },
+  "sections.2.body": {
+   "es": "Con MERGE, define la clave de coincidencia y deja filas de origen que sean adecuadas para la semántica de actualización que quieres. Varias coincidencias en el origen pueden causar errores al actualizar una fila de destino. Elegir de forma determinista la última versión es distinto de elegir una fila cualquiera, sobre todo cuando los tiempos de los eventos empatan.",
+   "src": "1ac3b4d78bc7"
+  },
+  "trap": {
+   "es": "El stream predeterminado (default write stream) y los streams de aplicación con offsets administrados no tienen contratos idénticos.",
+   "src": "7097a3f58804"
+  },
+  "exercise.prompt": {
+   "es": "Un lote de origen tiene tres actualizaciones para una misma clave de destino. ¿Qué debes definir antes de MERGE?",
+   "src": "ee9778e9569a"
+  },
+  "exercise.answer": {
+   "es": "Define el orden del origen y la selección del estado actual, deduplica hasta la fila que quieres por clave y decide cómo se manejan las versiones anteriores y los borrados. No supongas que MERGE inventa la regla de negocio.",
+   "src": "96c93064bc68"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Distingue los requisitos de carga y de streaming.",
+   "src": "4cc46b0097c8"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Indica el alcance del offset.",
+   "src": "463b7b80d552"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Define la cardinalidad del origen para MERGE.",
+   "src": "1492d239c258"
+  },
+  "briefing.context": {
+   "es": "Un lote o un stream debe escribir registros en BigQuery y puede necesitar reintentar.",
+   "src": "5ac0fd217a6e"
+  },
+  "briefing.whyItMatters": {
+   "es": "Un append, un merge y una escritura basada en offsets tienen consecuencias distintas al reproducir.",
+   "src": "24b1aa2661df"
+  },
+  "briefing.takeaway": {
+   "es": "Define el estado de destino y el comportamiento ante escrituras repetidas antes de elegir el método de escritura.",
+   "src": "a1767434f8d3"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "verification.note": {
+   "es": "Se comprobó que las cargas de JSON deben estar delimitadas por saltos de línea, que los offsets dan exactly-once solo dentro de un stream creado por la aplicación y que MERGE da error cuando varias filas de origen coinciden con una fila de destino. No se comprobó el servicio de transferencia.",
+   "src": "492cef88be1a"
+  }
+ },
+ "ai-enrichment": {
+  "title": {
+   "es": "Enriquece los registros con modelos, con cuidado",
+   "src": "a2592fb8961c"
+  },
+  "lead": {
+   "es": "La salida de un modelo es otra dependencia de datos, con límites de latencia y de calidad.",
+   "src": "551cfd3db79c"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "Una transformación de Beam puede validar registros y enrutar varias salidas. La inferencia (inference) puede añadir una etiqueta predicha. El enriquecimiento generativo también necesita validar la salida estructurada, manejar errores y proteger las entradas sensibles.",
+   "src": "f06d0ba96ecd"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Agrupa las solicitudes donde se admita, controla la concurrencia y prueba el adaptador del modelo que elegiste. No supongas que cualquier endpoint de generación de texto se puede llamar con cualquier configuración de RunInference sin una integración.",
+   "src": "fefd5096e77a"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Con comentarios de clientes, valida el ID del cliente, quita los datos personales que no hacen falta, clasifica el sentimiento y envía a revisión los resultados de inferencia mal formados o fallidos.",
+   "src": "3cf1f4e88a3e"
+  },
+  "sections.3.title": {
+   "es": "Trata el modelo como una dependencia que puede fallar",
+   "src": "4062fd362b56"
+  },
+  "sections.3.body": {
+   "es": "Una llamada HTTP exitosa no demuestra que la clasificación devuelta sea válida. Revisa la salida estructurada, las etiquetas permitidas, los campos que faltan y los errores del servicio. Ten en cuenta la latencia del endpoint y la capacidad de solicitudes al dimensionar una canalización. Controla la concurrencia para que una lentitud temporal de la inferencia no cree un backlog sin límite.",
+   "src": "c1adb2fd2b1e"
+  },
+  "sections.4.title": {
+   "es": "Controla la entrada y la evidencia",
+   "src": "8c577fd0da0a"
+  },
+  "sections.4.body": {
+   "es": "Envía solo la información que la tarea necesita. Separa el texto de documentos que no son de confianza de las instrucciones de procesamiento que sí lo son. Conserva la versión del modelo y del prompt cuando esté permitido, y haz que los resultados se puedan rastrear hasta la entrada. Usa revisión humana donde la aplicación lo exija, en lugar de presentar los valores generados como verdad validada.",
+   "src": "e857ffbb610b"
+  },
+  "sections.5.title": {
+   "es": "Elige dónde va el enriquecimiento",
+   "src": "e80b16ed7c20"
+  },
+  "sections.5.body": {
+   "es": "La inferencia dentro de la canalización puede cumplir un requisito de hacerlo antes de la carga, pero acopla la ingesta a la disponibilidad del modelo. Un enriquecimiento por etapas en el almacén de datos puede simplificar el reprocesamiento cuando se permite tener los datos crudos en ese entorno. Elige a partir del límite de privacidad, el objetivo de latencia, la interfaz de modelo admitida y el comportamiento de recuperación, en lugar de suponer que un solo producto es siempre el mejor.",
+   "src": "c9ab0e27e10d"
+  },
+  "trap": {
+   "es": "Una respuesta del modelo con un formato muy seguro puede aun así ser incorrecta o no cumplir tu esquema.",
+   "src": "df8fa1c179b6"
+  },
+  "exercise.prompt": {
+   "es": "Un endpoint de enriquecimiento devuelve una etiqueta desconocida mientras el estado de la solicitud es exitoso. ¿Qué debe pasar?",
+   "src": "1de63bb871d7"
+  },
+  "exercise.answer": {
+   "es": "Valida la respuesta contra el contrato de salida y envíala a revisión o márcala. Conserva la identidad de la entrada y el contexto del error para un reintento o una reparación controlados. No inventes en silencio una etiqueta de negocio por defecto solo para mantener alta una métrica de éxito.",
+   "src": "970e92118893"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Valida la salida del modelo más allá del éxito de HTTP.",
+   "src": "183ea0d886b1"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Ten en cuenta la latencia y la concurrencia del modelo.",
+   "src": "e06a8bf7de0c"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Compara el enriquecimiento dentro de la canalización con el enriquecimiento por etapas.",
+   "src": "cb2a1dcb42d5"
+  },
+  "briefing.context": {
+   "es": "Una canalización le pide a un modelo que añada una clasificación o extraiga información de cada registro.",
+   "src": "1a71f0287dc8"
+  },
+  "briefing.whyItMatters": {
+   "es": "Los fallos del modelo, la exposición de la privacidad y las salidas que cambian pueden afectar a todo el producto de datos.",
+   "src": "aa996d5fb087"
+  },
+  "briefing.takeaway": {
+   "es": "Trata la salida del modelo como una transformación con versión y validada.",
+   "src": "50df9fb6312d"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "verification.note": {
+   "es": "Se comprobó que RunInference agrupa las entradas, que las llamadas remotas necesitan backoff y una salida de dead-letter y que los manejadores de Vertex AI necesitan entrada en JSON. No se comprobaron los límites del adaptador de generación de texto ni los consejos de privacidad.",
+   "src": "68a56f92f48a"
+  }
+ },
+ "streaming-semantics": {
+  "title": {
+   "es": "Separa la entrega del procesamiento exactly-once",
+   "src": "b1dd6949a181"
+  },
+  "lead": {
+   "es": "Indica qué se procesa una sola vez, dónde pueden originarse los duplicados y qué promete el destino.",
+   "src": "2aa0f27cc9bc"
+  },
+  "sections.0.title": {
+   "es": "Elige un modo de procesamiento de Dataflow",
+   "src": "a1c524e6f233"
+  },
+  "sections.0.body": {
+   "es": "El streaming de Dataflow usa el modo exactly-once (exactamente una vez) de forma predeterminada y también admite el modo at-least-once (al menos una vez). Este último puede reducir el costo y la latencia cuando se acepta el procesamiento duplicado. Trata la decisión como un requisito de corrección antes de optimizar el modo de ejecución.",
+   "src": "8a5a5de20e6a"
+  },
+  "sections.1.title": {
+   "es": "Sigue el identificador",
+   "src": "677f43d9a56f"
+  },
+  "sections.1.body": {
+   "es": "Pub/Sub normalmente entrega al menos una vez. Dataflow puede deduplicar las reentregas, pero una aplicación puede publicar el mismo evento de negocio dos veces como mensajes distintos. Define un ID de evento estable en lugar de equiparar la identidad del mensaje con la identidad del negocio.",
+   "src": "303d6023f81e"
+  },
+  "sections.2.title": {
+   "es": "Revisa el efecto secundario final",
+   "src": "4c5c95900475"
+  },
+  "sections.2.body": {
+   "es": "Escenario original: una canalización llama a un endpoint de pagos externo y después escribe un registro analítico. Una garantía de procesamiento no demuestra que el endpoint no pueda recibir una solicitud repetida. Diseña un contrato de idempotencia en ese endpoint y verifica por separado el método de escritura en el destino.",
+   "src": "1fd74bc912c9"
+  },
+  "trap": {
+   "es": "El procesamiento exactly-once no es una promesa general para efectos secundarios externos cualquiera.",
+   "src": "1b7c8b414642"
+  },
+  "exercise.prompt": {
+   "es": "Se publica una compra repetida con un ID de mensaje nuevo. ¿Basta con la deduplicación de las reentregas del transporte?",
+   "src": "b6f5dddca592"
+  },
+  "exercise.answer": {
+   "es": "No. Conserva un identificador de compra estable y haz que la actualización de negocio sea idempotente. Verifica por separado el comportamiento de la canalización y del destino.",
+   "src": "55f9997d7f3d"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Nombra la identidad del duplicado.",
+   "src": "3285f95b3bdb"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Define el modo de procesamiento.",
+   "src": "b93903b4477e"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Define el comportamiento del destino y del efecto secundario.",
+   "src": "124fde0d2f27"
+  },
+  "briefing.context": {
+   "es": "Una compra se publica dos veces con dos IDs de mensaje después de un reintento de la aplicación.",
+   "src": "77d4e774e0e3"
+  },
+  "briefing.whyItMatters": {
+   "es": "Una garantía a nivel del transporte no identifica de forma automática la misma compra de negocio dos veces.",
+   "src": "d8118df48a7f"
+  },
+  "briefing.takeaway": {
+   "es": "Conserva un identificador de negocio estable y verifica cada límite de efecto secundario.",
+   "src": "6571fc0153ec"
+  },
+  "review.scope": {
+   "es": "Las afirmaciones específicas sobre servicios en esta lección original se comprobaron con sus referencias primarias. El escenario es ilustrativo.",
+   "src": "9203ccf1a1ce"
+  },
+  "decision.useCase": {
+   "es": "Producir agregados de transacciones confiables a partir de un stream que se puede reproducir.",
+   "src": "314b21f4da3b"
+  },
+  "decision.advantage": {
+   "es": "Un contrato de procesamiento explícito hace que la corrección se pueda probar.",
+   "src": "4e42318d9e37"
+  },
+  "decision.limitation": {
+   "es": "Una garantía de ejecución no reemplaza a los IDs de evento ni a las comprobaciones propias de cada destino.",
+   "src": "2f1fd4433e99"
+  },
+  "block.diagram.title": {
+   "es": "Dónde todavía puede ocurrir una repetición",
+   "src": "10ee81e6f247"
+  },
+  "block.diagram.description": {
+   "es": "Pub/Sub entrega al menos una vez, Dataflow puede deduplicar las reentregas y un endpoint de pagos externo aún necesita su propio contrato de idempotencia.",
+   "src": "6e84e05fc9c6"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Pub/Sub entrega",
+   "src": "f821f8d1dd78"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "al menos una vez",
+   "src": "c8ffbf859886"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Dataflow puede deduplicar",
+   "src": "7421b048dad9"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "las reentregas",
+   "src": "0462e3851db7"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "El endpoint de pagos necesita",
+   "src": "0fd21dd0e9bf"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "idempotencia",
+   "src": "f5d39a07e87f"
+  },
+  "block.keyFact": {
+   "es": "Una garantía de procesamiento no demuestra que el endpoint no pueda recibir una solicitud repetida.",
+   "src": "f9d204e26667"
+  },
+  "block.check.question": {
+   "es": "Una canalización llama a un endpoint de pagos externo y después escribe un registro analítico. ¿Qué diseñas?",
+   "src": "11b475f8d604"
+  },
+  "block.check.choices.0.text": {
+   "es": "Un contrato de idempotencia en ese endpoint",
+   "src": "fdb270c0a27f"
+  },
+  "block.check.choices.0.why": {
+   "es": "Una garantía de procesamiento no demuestra que el endpoint no pueda recibir una solicitud repetida.",
+   "src": "f9d204e26667"
+  },
+  "block.check.choices.1.text": {
+   "es": "Nada, porque el modo exactly-once cubre el endpoint",
+   "src": "4948fb8e4c62"
+  },
+  "block.check.choices.1.why": {
+   "es": "El procesamiento exactly-once no es una promesa general para efectos secundarios externos cualquiera.",
+   "src": "1b7c8b414642"
+  },
+  "block.check.choices.2.text": {
+   "es": "Una regla que diga que el ID del mensaje es el ID del negocio",
+   "src": "0418e5ffa4b9"
+  },
+  "block.check.choices.2.why": {
+   "es": "Define un ID de evento estable en lugar de equiparar la identidad del mensaje con la identidad del negocio.",
+   "src": "fccf815116fc"
+  },
+  "verification.note": {
+   "es": "Se comprobó que exactly-once es el modo predeterminado, que at-least-once es opcional, que Dataflow deduplica por ID de mensaje y que los efectos secundarios de un DoFn personalizado pueden repetirse. No se comprobó el diseño de idempotencia para endpoints de pagos.",
+   "src": "f7fcf7d1d397"
+  }
+ },
+ "spark-execution": {
+  "title": {
+   "es": "Elige un entorno de ejecución para Spark",
+   "src": "cb558b1fecc2"
+  },
+  "lead": {
+   "es": "Separa la compatibilidad del código de Spark de la decisión de operar un clúster persistente.",
+   "src": "a445517e52ed"
+  },
+  "sections.0.title": {
+   "es": "Compara la ejecución en clúster y la serverless",
+   "src": "efc47360784b"
+  },
+  "sections.0.body": {
+   "es": "La terminología de Dataproc aparece en la guía del examen. La documentación actual también usa Managed Service for Apache Spark. La ejecución serverless admite cargas por lotes enviadas y sesiones interactivas sin un clúster que el usuario aprovisione. El cómputo por lotes escala según la carga de trabajo y se cobra mientras la ejecución está en marcha.",
+   "src": "4efe8ffd0eb2"
+  },
+  "sections.1.title": {
+   "es": "Prueba las dependencias antes de elegir",
+   "src": "1fcc16df3e52"
+  },
+  "sections.1.body": {
+   "es": "Un trabajo que ya existe puede depender de una imagen concreta, de una acción de inicialización, de una biblioteca nativa o de un servicio del clúster. Haz un inventario de esos supuestos antes de pasarlo a la ejecución serverless. Conservar el código de Spark no demuestra que el entorno que lo rodea sea compatible.",
+   "src": "135fa504cb10"
+  },
+  "sections.2.title": {
+   "es": "Usa la forma de la carga de trabajo",
+   "src": "50735a7b9a3f"
+  },
+  "sections.2.body": {
+   "es": "Escenario original: una transformación nocturna aislada en PySpark lee objetos duraderos y no deja ningún estado necesario dentro del clúster. Evalúa primero un trabajo por lotes serverless. Una carga que necesita un componente de Hadoop específico y de larga duración necesita, en cambio, una evaluación de compatibilidad del clúster. Compara el tiempo de ejecución medido, el arranque, los permisos y el costo total.",
+   "src": "044309bb3776"
+  },
+  "trap": {
+   "es": "Serverless no significa que el trabajo no tenga requisitos de entorno de ejecución, de red o de identidad.",
+   "src": "d453529eca39"
+  },
+  "exercise.prompt": {
+   "es": "Un trabajo nocturno de Spark depende de archivos que quedaron en su clúster anterior. ¿Qué debe cambiar antes de usar cómputo desechable?",
+   "src": "7d0195a8096d"
+  },
+  "exercise.answer": {
+   "es": "Mueve las entradas duraderas y los puntos de control (checkpoints) que hacen falta a un almacenamiento persistente adecuado y define rutas explícitas para cada ejecución. Después prueba las dependencias del entorno de ejecución y los permisos.",
+   "src": "43bf1bfa211f"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Separa el ciclo de vida del cómputo de la retención de los datos.",
+   "src": "b4bb99ac46b6"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Haz un inventario de las dependencias del entorno de ejecución.",
+   "src": "0ed8fb9ebe8b"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Mide la ventana de ejecución completa.",
+   "src": "e352c3d1259a"
+  },
+  "briefing.context": {
+   "es": "Una transformación nocturna de Spark necesita cómputo durante una ventana de ejecución limitada.",
+   "src": "b15ed143a65d"
+  },
+  "briefing.whyItMatters": {
+   "es": "Conservar el código no demuestra que sus supuestos de entorno, dependencias y almacenamiento sigan funcionando.",
+   "src": "694cf8e14920"
+  },
+  "briefing.takeaway": {
+   "es": "Elige el entorno de ejecución después de hacer el inventario de los supuestos de la carga de trabajo.",
+   "src": "3350201e6e2b"
+  },
+  "review.scope": {
+   "es": "Las afirmaciones específicas sobre servicios en esta lección original se comprobaron con sus referencias primarias. El escenario es ilustrativo.",
+   "src": "9203ccf1a1ce"
+  },
+  "decision.useCase": {
+   "es": "Ejecutar procesamiento intermitente en PySpark con entradas duraderas en Cloud Storage.",
+   "src": "a673a925028c"
+  },
+  "decision.advantage": {
+   "es": "La ejecución según la carga de trabajo evita mantener un clúster inactivo aprovisionado por el usuario.",
+   "src": "40741328758f"
+  },
+  "decision.limitation": {
+   "es": "La compatibilidad y la economía de la carga de trabajo exigen medición.",
+   "src": "504f8bc15b5c"
+  },
+  "verification.note": {
+   "es": "Se comprobó que Spark serverless ejecuta cargas por lotes y sesiones interactivas sin un clúster propio, que escala solo, que se cobra mientras se ejecuta y que la documentación usa el nombre Managed Service for Apache Spark. No se comprobaron las imágenes.",
+   "src": "617c49a54d6e"
+  }
+ },
+ "beam-portability": {
+  "title": {
+   "es": "Lee el modelo de Beam antes de elegir un runner",
+   "src": "e0e1a9712655"
+  },
+  "lead": {
+   "es": "El modelo de la canalización describe los datos y las transformaciones. Un runner aporta un entorno de ejecución concreto.",
+   "src": "323a92caa41e"
+  },
+  "sections.0.title": {
+   "es": "Distingue los objetos",
+   "src": "47f36450c79f"
+  },
+  "sections.0.body": {
+   "es": "Apache Beam modela una canalización como transformaciones sobre colecciones. Una entrada acotada (bounded) puede terminar. Una entrada no acotada (unbounded) necesita políticas para agrupar los datos a lo largo del tiempo. Dataflow es un servicio de ejecución administrado para canalizaciones de Beam. No es otro nombre para el SDK de Beam.",
+   "src": "9f57f945cdeb"
+  },
+  "sections.1.title": {
+   "es": "Define el comportamiento del tiempo",
+   "src": "b4c9e8700725"
+  },
+  "sections.1.body": {
+   "es": "Para una agregación no acotada, define las marcas de tiempo de los eventos, las ventanas, los disparadores y la tardanza permitida. Una ventana agrupa registros. Un disparador controla cuándo se emiten los resultados. Un resultado que se emite temprano puede necesitar una corrección cuando llegan datos posteriores.",
+   "src": "938548e46484"
+  },
+  "sections.2.title": {
+   "es": "Traslada el contrato y después prueba",
+   "src": "29ef5d69a9bd"
+  },
+  "sections.2.body": {
+   "es": "Escenario original: un equipo quiere reutilizar la lógica de transformación en distintos runners. Mantén la lógica de negocio separada de los ajustes de infraestructura y prueba los conectores, las funciones admitidas y la semántica del destino en el runner de destino. La portabilidad del modelo es una evidencia útil, pero no promete el mismo rendimiento ni el comportamiento de todos los conectores.",
+   "src": "b4b1d1c5f3f4"
+  },
+  "trap": {
+   "es": "Una ventana fija no es un temporizador que haga llegar a tiempo todos los eventos.",
+   "src": "869a7302ca4f"
+  },
+  "exercise.prompt": {
+   "es": "Una agregación por hora con tiempo del evento emite antes de que lleguen todos los eventos. ¿Qué políticas separadas debe describir el diseño?",
+   "src": "327fe949e81a"
+  },
+  "exercise.answer": {
+   "es": "Define la marca de tiempo del evento, los límites de las ventanas, el disparador, la política de tardanza, el comportamiento de la acumulación y cómo representa el destino las correcciones.",
+   "src": "537abe1a7ccf"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Separa el modelo del SDK del runner.",
+   "src": "8ee060aece80"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Distingue una ventana de un disparador.",
+   "src": "26ef728eb3fb"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Describe la salida corregida.",
+   "src": "eee60df000f6"
+  },
+  "briefing.context": {
+   "es": "La misma lógica de transformación debe procesar un archivo completo y un stream continuo.",
+   "src": "3d16e51edcc1"
+  },
+  "briefing.whyItMatters": {
+   "es": "Un modelo de canalización común ayuda, pero los datos no acotados aún necesitan un comportamiento de tiempo explícito.",
+   "src": "5892b55b696c"
+  },
+  "briefing.takeaway": {
+   "es": "Separa el modelo de Beam del runner que lo ejecuta.",
+   "src": "48f67182a387"
+  },
+  "review.scope": {
+   "es": "Las afirmaciones específicas sobre servicios en esta lección original se comprobaron con sus referencias primarias. El escenario es ilustrativo.",
+   "src": "9203ccf1a1ce"
+  },
+  "decision.useCase": {
+   "es": "Reutilizar las transformaciones de Beam mientras validas la ejecución en un runner elegido.",
+   "src": "9f1216a55b7b"
+  },
+  "decision.advantage": {
+   "es": "Un modelo común ayuda a razonar sobre el procesamiento por lotes y el streaming a la vez.",
+   "src": "3c4df50d8450"
+  },
+  "decision.limitation": {
+   "es": "Las capacidades del runner y de los conectores todavía necesitan pruebas.",
+   "src": "6afeb5c0a01c"
+  },
+  "verification.note": {
+   "es": "Se comprobó que las canalizaciones de Beam son transformaciones sobre colecciones acotadas o no acotadas, que Dataflow ejecuta canalizaciones de Beam y que Beam puede correr en otros runners. No se comprobó la paridad de conectores entre runners.",
+   "src": "f2d08dc8ca28"
+  }
+ },
+ "schema-evolution": {
+  "title": {
+   "es": "Evoluciona los esquemas sin romper a los consumidores",
+   "src": "30bbbc646e1c"
+  },
+  "lead": {
+   "es": "Trata al productor, al transporte, a la tabla y al consumidor como un único contrato de datos con versión.",
+   "src": "7f2a31a588ed"
+  },
+  "sections.0.title": {
+   "es": "Revisa la operación permitida en la tabla",
+   "src": "0be0a5ea78c1"
+  },
+  "sections.0.body": {
+   "es": "BigQuery admite añadir campos según reglas documentadas de modo y de operación. Relajar REQUIRED a NULLABLE es distinto de cambiar NULLABLE a REQUIRED, que exige volver a crear la tabla. Verifica el cambio admitido para el método de ingesta y el tipo de tabla exactos.",
+   "src": "6e2967bfd06a"
+  },
+  "sections.1.title": {
+   "es": "Prueba los registros viejos y los nuevos",
+   "src": "9c6fa18276f6"
+  },
+  "sections.1.body": {
+   "es": "Un campo opcional no tiene de forma automática un valor por defecto seguro para el negocio. Escenario original: un campo de descuento nuevo no existe en los pedidos viejos. Cero, desconocido y no aplica representan hechos distintos. Prueba los productores viejos con consumidores nuevos y los productores nuevos con consumidores viejos.",
+   "src": "6c32367647e6"
+  },
+  "sections.2.title": {
+   "es": "Despliega con evidencia",
+   "src": "4782ea680320"
+  },
+  "sections.2.body": {
+   "es": "Prepara el contrato nuevo en una etapa previa, reproduce registros históricos representativos y revisa las filas rechazadas. Guarda un identificador de versión y un plan de reversión. Cuando un cambio altera el significado y no solo la representación, publica un contrato nuevo del producto de datos en lugar de reescribir la historia en silencio.",
+   "src": "feb0890ec90a"
+  },
+  "trap": {
+   "es": "Que el análisis se complete con éxito no demuestra que dos versiones del esquema signifiquen lo mismo.",
+   "src": "9981ee4f73e1"
+  },
+  "exercise.prompt": {
+   "es": "Un productor cambia un campo de monto opcional a obligatorio. ¿Hacer más estricta la tabla del consumidor repara los valores vacíos viejos?",
+   "src": "e1f3c0c9cfee"
+  },
+  "exercise.answer": {
+   "es": "No. Rellena los valores que faltan o recházalos de forma explícita con una regla documentada, verifica la operación sobre la tabla y coordina el despliegue del productor y del consumidor.",
+   "src": "d5049ff1fd52"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Prueba los valores ausentes, nulos y válidos.",
+   "src": "641dcef3cf9e"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Revisa el cambio exacto en la tabla.",
+   "src": "67f2c8a49591"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Conserva la evidencia de la versión y de la reversión.",
+   "src": "afbd4f1c15bf"
+  },
+  "briefing.context": {
+   "es": "Un productor añade un campo de descuento opcional que los registros de pedidos más viejos no tienen.",
+   "src": "490488cbfa69"
+  },
+  "briefing.whyItMatters": {
+   "es": "Un esquema nuevo que es válido puede aun así cambiar el significado de negocio o romper a los consumidores viejos.",
+   "src": "7dc2677a0ad4"
+  },
+  "briefing.takeaway": {
+   "es": "Prueba los registros viejos y los nuevos y define qué significan los valores ausentes.",
+   "src": "ed2fb5de4f17"
+  },
+  "review.scope": {
+   "es": "Las afirmaciones específicas sobre servicios en esta lección original se comprobaron con sus referencias primarias. El escenario es ilustrativo.",
+   "src": "9203ccf1a1ce"
+  },
+  "decision.useCase": {
+   "es": "Añadir un campo opcional sin perder la capacidad de interpretar los registros históricos.",
+   "src": "bf00f4ed04fd"
+  },
+  "decision.advantage": {
+   "es": "Un contrato de esquema explícito hace visibles los fallos de compatibilidad antes de publicar.",
+   "src": "4ace1ecf1bc5"
+  },
+  "decision.limitation": {
+   "es": "Un cambio de esquema aceptado desde lo técnico aún puede romper el significado de negocio.",
+   "src": "b474c0be2d5e"
+  },
+  "block.diagram.title": {
+   "es": "Los pedidos viejos se encuentran con un campo nuevo",
+   "src": "48721b003c5d"
+  },
+  "block.diagram.description": {
+   "es": "Un campo de descuento nuevo no existe en los pedidos viejos, así que hay que probar productores y consumidores viejos y nuevos.",
+   "src": "52e19236c019"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Pedidos viejos:",
+   "src": "92a82871a989"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "sin campo de descuento",
+   "src": "0c603066d4c2"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Campo de descuento nuevo",
+   "src": "b20aa765969b"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Prueba productores y",
+   "src": "7d363a2e3964"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "consumidores viejos y nuevos",
+   "src": "f6212cb25773"
+  },
+  "block.keyFact": {
+   "es": "Cero, desconocido y no aplica representan hechos distintos.",
+   "src": "4247d203be9a"
+  },
+  "block.check.question": {
+   "es": "¿Qué cambio de esquema de BigQuery exige volver a crear la tabla?",
+   "src": "ca129652dc82"
+  },
+  "block.check.choices.0.text": {
+   "es": "Relajar REQUIRED a NULLABLE",
+   "src": "9a7aba501921"
+  },
+  "block.check.choices.0.why": {
+   "es": "Esta es la dirección de relajar, que es distinta de cambiar NULLABLE a REQUIRED.",
+   "src": "7f49a00a334e"
+  },
+  "block.check.choices.1.text": {
+   "es": "Cambiar NULLABLE a REQUIRED",
+   "src": "513e91ac0e04"
+  },
+  "block.check.choices.1.why": {
+   "es": "Relajar REQUIRED a NULLABLE es distinto de cambiar NULLABLE a REQUIRED, que exige volver a crear la tabla.",
+   "src": "f14941d3691b"
+  },
+  "block.check.choices.2.text": {
+   "es": "Añadir un campo",
+   "src": "8593fa1c4a1d"
+  },
+  "block.check.choices.2.why": {
+   "es": "BigQuery admite añadir campos según reglas documentadas de modo y de operación.",
+   "src": "67957e643973"
+  },
+  "verification.note": {
+   "es": "Se comprobó que REQUIRED a NULLABLE es el único cambio de modo, que NULLABLE a REQUIRED necesita una tabla recreada y que las columnas añadidas deben ser NULLABLE o REPEATED. No se comprobaron las reglas por método de ingesta ni los consejos de despliegue.",
+   "src": "7f54f0bea3d3"
+  }
+ },
+ "deploy-pipeline": {
+  "title": {
+   "es": "Despliega una canalización que puedas reemplazar con seguridad",
+   "src": "d65ab035edd6"
+  },
+  "lead": {
+   "es": "Haz que el comportamiento de los lanzamientos sea parte del diseño, antes de la primera ejecución en producción.",
+   "src": "148eb5633c1e"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "Pon versión al código y a la configuración, valida los esquemas y prueba con registros representativos. Una actualización de streaming compatible puede conservar el estado. Una actualización incompatible necesita una estrategia controlada de reemplazo y de recuperación.",
+   "src": "764bd6f9a934"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Planea juntos el drenaje (drain), la retención del origen y la reproducción. Drenar procesa el trabajo en curso. Cancelar puede descartarlo. Decide si el origen puede retener los mensajes nuevos mientras arranca el reemplazo.",
+   "src": "beb4c0dc772e"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Un cambio de ventanas es incompatible. Conserva los mensajes del origen, drena el trabajo viejo, arranca el reemplazo y reconcilia las salidas. No supongas que un indicador (flag) hace compatibles cambios de estado cualquiera.",
+   "src": "8ba73f8a9f61"
+  },
+  "sections.3.title": {
+   "es": "Pon versión a más que el código de la aplicación",
+   "src": "ca3d0fa2047a"
+  },
+  "sections.3.body": {
+   "es": "Registra con cada lanzamiento el contrato del esquema, las dependencias del entorno de ejecución, la identidad del worker, la configuración de red y las opciones del trabajo que importan. Una transformación probada aún puede fallar en producción si el despliegue cambia una subred o una cuenta de servicio. Guarda entradas de prueba representativas y aserciones sobre la salida junto con la evidencia del lanzamiento.",
+   "src": "e03f94e935be"
+  },
+  "sections.4.title": {
+   "es": "Elige el camino de actualización según la compatibilidad",
+   "src": "f482a2ccd87c"
+  },
+  "sections.4.body": {
+   "es": "Una actualización con estado que es compatible y un trabajo de reemplazo tienen requisitos distintos. Los cambios en el estado, en los codificadores (coders) o en las ventanas pueden hacer que una actualización en el mismo lugar no sirva. Revisa la guía de actualización vigente, la retención del origen y el comportamiento del trabajo en curso antes de elegir entre drenar o cancelar. Un indicador de despliegue no demuestra compatibilidad semántica.",
+   "src": "8bac30580c12"
+  },
+  "sections.5.title": {
+   "es": "Planea la reconciliación y la reversión",
+   "src": "080121972a89"
+  },
+  "sections.5.body": {
+   "es": "Define la salida esperada para el intervalo de solapamiento o de transición y cómo se reconocen los duplicados. Prueba una reproducción desde los datos retenidos del origen en un destino controlado. Conserva un camino de recuperación que se pueda usar hasta que tengas evidencia de que el lanzamiento nuevo cumple los requisitos de calidad y de frescura.",
+   "src": "104637389706"
+  },
+  "trap": {
+   "es": "Un despliegue de CI exitoso no es evidencia de que los totales de la salida sigan siendo correctos.",
+   "src": "9f63ece3b3ff"
+  },
+  "exercise.prompt": {
+   "es": "Tus pruebas de integración pasan, pero el trabajo nuevo usa otra cuenta de servicio para los workers. ¿Qué revisión adicional hace falta?",
+   "src": "e524d5cb468d"
+  },
+  "exercise.answer": {
+   "es": "Revisa los permisos efectivos y la ruta de red privada de esa identidad, junto con el acceso a los artefactos y al origen. Después valida la salida real y la frescura durante un lanzamiento controlado. Que pasen las pruebas de transformación no demuestra que el entorno desplegado tenga el mismo contrato de acceso.",
+   "src": "3aec0662c6ec"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Pon versión a las identidades y a la red junto con el código.",
+   "src": "b102ceacce14"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Distingue una actualización compatible de un reemplazo.",
+   "src": "879253eb83fb"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Define una condición de reversión que se pueda medir.",
+   "src": "6ec7b994984b"
+  },
+  "briefing.context": {
+   "es": "Una versión nueva de la canalización debe reemplazar a otra que ya guarda estado de procesamiento.",
+   "src": "c993bd471a72"
+  },
+  "briefing.whyItMatters": {
+   "es": "Una actualización incompatible puede perder la capacidad de reanudarse o de producir la salida prevista.",
+   "src": "12cafecd4e7f"
+  },
+  "briefing.takeaway": {
+   "es": "Prueba los supuestos sobre el estado, el conector y la reproducción antes del reemplazo.",
+   "src": "81539e2972b1"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Reemplazar un trabajo incompatible",
+   "src": "dcbc044768a8"
+  },
+  "block.diagram.description": {
+   "es": "Ante un cambio de ventanas incompatible, conserva los mensajes del origen, drena el trabajo viejo, arranca el reemplazo y reconcilia las salidas.",
+   "src": "1550cc4ea095"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Conserva los mensajes del origen",
+   "src": "8417aea0a102"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Drena el trabajo viejo",
+   "src": "7fa70bf2f3b8"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Arranca el reemplazo",
+   "src": "6b05367ac848"
+  },
+  "block.diagram.nodes.3.lines.0": {
+   "es": "Reconcilia las salidas",
+   "src": "d0fe3fd8614e"
+  },
+  "block.keyFact": {
+   "es": "Drenar procesa el trabajo en curso. Cancelar puede descartarlo.",
+   "src": "189e9f7c0125"
+  },
+  "block.check.question": {
+   "es": "Un cambio de ventanas es incompatible. ¿Cuál es el camino?",
+   "src": "632e7562a545"
+  },
+  "block.check.choices.0.text": {
+   "es": "Cancelar el trabajo viejo de inmediato",
+   "src": "606602988126"
+  },
+  "block.check.choices.0.why": {
+   "es": "Drenar procesa el trabajo en curso. Cancelar puede descartarlo.",
+   "src": "189e9f7c0125"
+  },
+  "block.check.choices.1.text": {
+   "es": "Poner un indicador para que la actualización sea compatible",
+   "src": "5c6fcddc6482"
+  },
+  "block.check.choices.1.why": {
+   "es": "Un indicador de despliegue no demuestra compatibilidad semántica.",
+   "src": "323bad23b835"
+  },
+  "block.check.choices.2.text": {
+   "es": "Conservar los mensajes del origen, drenar el trabajo viejo, arrancar el reemplazo y reconciliar las salidas",
+   "src": "706e22a14c6b"
+  },
+  "block.check.choices.2.why": {
+   "es": "Este es el escenario de la lección.",
+   "src": "11a0c9b434a5"
+  },
+  "verification.note": {
+   "es": "Se comprobó que las actualizaciones compatibles conservan el estado, que las incompatibles necesitan detener y reemplazar, que cancelar puede perder datos en curso y que se prefiere drenar, y que los cambios grandes de ventanas son impredecibles. No se comprobó la retención del origen.",
+   "src": "8a52deddc6ce"
+  }
+ },
+ "dataform-quality": {
+  "title": {
+   "es": "Condiciona la publicación a la calidad del almacén de datos",
+   "src": "0eafe7cb78ec"
+  },
+  "lead": {
+   "es": "El SQL como código debe definir tanto la tabla como sus criterios de aceptación.",
+   "src": "e6d40384cdbe"
+  },
+  "sections.0.title": {
+   "es": "Separa la validación de la transformación",
+   "src": "a4f0033e38bf"
+  },
+  "sections.0.body": {
+   "es": "Una transformación crea un resultado. Una aserción (assertion) prueba una propiedad de ese resultado. Las comprobaciones de no nulo, de clave única y de condición sobre filas pueden detectar fallos distintos. Una aserción personalizada suele devolver las filas que violan la regla, y que no haya ninguna significa éxito. Haz explícitos los umbrales de negocio y las claves obligatorias en lugar de confiar en que la tabla se creó con éxito.",
+   "src": "8e17c534f1df"
+  },
+  "sections.1.title": {
+   "es": "Declara la dependencia que condiciona",
+   "src": "5eb5fe36dba2"
+  },
+  "sections.1.body": {
+   "es": "Una acción posterior puede necesitar depender de los resultados de las aserciones anteriores además de la tabla anterior. Usa la configuración de dependencias admitida y prueba un camino de fallo. Que una aserción aparezca en el grafo de ejecución no basta si el consumidor puede correr antes de que pase.",
+   "src": "80093862ec0e"
+  },
+  "sections.2.title": {
+   "es": "Diseña juntas las ejecuciones incrementales y la reproducción",
+   "src": "58d9052a5cbf"
+  },
+  "sections.2.body": {
+   "es": "Un filtro incremental selecciona qué procesar. Una regla de merge o de reemplazo define qué escribir. Las correcciones tardías que quedan fuera de una ventana corta hacia atrás (lookback) se pueden perder. Decide cómo llegan al destino los rellenos históricos (backfills) y los registros corregidos del origen. Después compara los conteos de las reejecuciones y los totales de negocio.",
+   "src": "58e76feea91f"
+  },
+  "trap": {
+   "es": "Un filtro incremental por fecha no es por sí solo un contrato de deduplicación ni de reproducción.",
+   "src": "82fbb36e1416"
+  },
+  "exercise.prompt": {
+   "es": "Una aserción de unicidad falla, pero el reporte curado se actualiza igual. ¿Qué debes revisar?",
+   "src": "d37d412adfed"
+  },
+  "exercise.answer": {
+   "es": "Revisa la relación de dependencia entre la acción curada y la aserción. Añade y prueba la barrera admitida para que no se publiquen datos inválidos solo porque la tabla anterior existe.",
+   "src": "56deab0e9d7d"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Escribe las reglas de calidad al nivel de detalle (grain) correcto.",
+   "src": "59b1aa801bdc"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Demuestra que una aserción bloquea la publicación.",
+   "src": "4a3c856905c4"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Prueba una corrección tardía fuera del intervalo incremental normal.",
+   "src": "3a72a865ea21"
+  },
+  "briefing.context": {
+   "es": "Una transformación del almacén de datos termina con éxito, pero algunas filas publicadas son inválidas.",
+   "src": "a72d995ee80b"
+  },
+  "briefing.whyItMatters": {
+   "es": "Los reportes posteriores pueden consumir datos malos a menos que las comprobaciones de calidad bloqueen de verdad la publicación.",
+   "src": "6b78d87f6003"
+  },
+  "briefing.takeaway": {
+   "es": "Haz que la aserción obligatoria sea una dependencia real del resultado publicado.",
+   "src": "bfcea4a65b42"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "verification.note": {
+   "es": "Se comprobó que las aserciones son consultas que devuelven las filas que violan la regla, que existen las comprobaciones integradas nonNull, uniqueKey y rowConditions y que las dependencias deben incluir las aserciones de forma explícita. No se comprobaron el lookback incremental ni los consejos de backfill.",
+   "src": "dcc42a19071a"
+  }
+ }
+}

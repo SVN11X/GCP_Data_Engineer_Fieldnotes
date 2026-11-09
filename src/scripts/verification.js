@@ -17,14 +17,21 @@ function latestByTopic(entries){
  }
  return out;
 }
-function lineHtml(entry){
+function lineHtml(entry,note){
  if(!entry)return '<span>Not yet verified against Google documentation.</span>';
  const url=Array.isArray(entry.sources)?entry.sources[0]:'';
  const link=/^https:\/\//.test(url||'')?` · <a href="${esc(url)}" target="_blank" rel="noopener noreferrer">Source (opens in a new tab)</a>`:'';
- const scope=entry.note?` <span class="verify-scope">What was checked: ${esc(entry.note)}</span>`:'';
+ const text=note||entry.note,scope=text?` <span class="verify-scope">What was checked: ${esc(text)}</span>`:'';
  return `<span>Checked ${esc(entry.checkedOn)} against ${esc(METHODS[entry.method]||'an official Google source')}</span>${link}${scope}`;
 }
-const api={MAX_AGE_DAYS,METHODS,dayNumber,ageInDays,isStale,latestByTopic,lineHtml};
+/* Spanish note for a lesson, from the lesson overlay (entries = overlay[lessonId]). Used only when the hash of the English note matches, so a changed log note falls back to English. */
+async function spanishNote(entry,entries,hash12){
+ const x=entries&&entries['verification.note'];
+ if(!entry||!entry.note||!x||typeof x.es!=='string'||!x.es.trim())return '';
+ const h=hash12?await hash12(entry.note):null;
+ return h===null||h===x.src?x.es:'';
+}
+const api={MAX_AGE_DAYS,METHODS,dayNumber,ageInDays,isStale,latestByTopic,lineHtml,spanishNote};
 root.FieldVerification=api;
 if(typeof document==='undefined')return;
 const src=document.currentScript?.src||'';
@@ -35,8 +42,10 @@ async function show(){
  if(parts[0]!=='learn'||!parts[1]||!host||host.parentNode.querySelector('.verify-line'))return;
  let map;try{map=await load();}catch{log=null;return;}
  if(host.parentNode.querySelector('.verify-line')||!host.isConnected)return;
- const entry=map.get('lesson:'+decodeURIComponent(parts[1]));
- const p=document.createElement('p');p.className='verify-line muted';p.style.fontSize='.9375rem';p.innerHTML=lineHtml(entry);
+ const id=decodeURIComponent(parts[1]),entry=map.get('lesson:'+id),es=root.FieldLessonEs;
+ let note='';try{note=await spanishNote(entry,es?.overlay?.[id],es?.hash12);}catch{}
+ if(host.parentNode.querySelector('.verify-line')||!host.isConnected)return;
+ const p=document.createElement('p');p.className='verify-line muted';p.style.fontSize='.9375rem';p.innerHTML=lineHtml(entry,note);
  host.after(p);
 }
 const main=document.getElementById('main');
