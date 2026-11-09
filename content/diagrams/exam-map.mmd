@@ -1,0 +1,7 @@
+%%{init: {"theme": "base", "themeVariables": {"background": "transparent", "primaryColor": "#ffffff", "primaryTextColor": "#1d2a3d", "primaryBorderColor": "#3159c9", "lineColor": "#7a8aa0", "fontFamily": "Segoe UI, Arial, sans-serif", "fontSize": "16px"}, "flowchart": {"htmlLabels": false}}}%%
+flowchart LR
+  D1["1. Design<br/>22%"] --> D2["2. Ingest and process<br/>25%"]
+  D2 --> D3["3. Store<br/>20%"]
+  D3 --> D4["4. Prepare and use<br/>15%"]
+  D4 --> D5["5. Maintain and automate<br/>18%"]
+  D5 -.->|"feedback"| D1

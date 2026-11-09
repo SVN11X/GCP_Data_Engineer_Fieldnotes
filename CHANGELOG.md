@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- The review plan page shows the five exam domains and their weights as a loop diagram, drawn from Mermaid text.
 - Thirteen new original scenario questions (numbers 125 to 137) bring every exam objective to at least five, with Spanish text. They appear in the practice bank and lessons but never in timed sessions or the diagnostic, which keep their 124 questions.
 - Two more short clips with English and Spanish captions: partition pruning on "Model the warehouse around its queries" and Pub/Sub to Dataflow to BigQuery on "Separate Pub/Sub delivery, ordering and replay".
 - The lesson "Choose the engine that fits the work" has a 30 second silent clip on batch versus streaming (576 KB). It starts only when you press play and has English and Spanish captions.

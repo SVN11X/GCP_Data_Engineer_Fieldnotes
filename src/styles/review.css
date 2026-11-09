@@ -1,3 +1,4 @@
 .review-page{max-width:760px}.review-domain h3{font-size:var(--fs-body);margin:14px 0 6px}.review-minutes{font-size:var(--fs-body);margin:2px 0 6px}
 .review-checks,.review-list{list-style:none;padding:0;margin:8px 0;display:grid;gap:8px;font-size:var(--fs-body);line-height:1.5}.review-checks label{display:flex;gap:10px;align-items:flex-start;min-height:44px}.review-checks input{width:24px;height:24px;flex:none;margin-top:1px}
 .review-list p{margin:2px 0 0;color:var(--muted,inherit)}.review-page a{overflow-wrap:anywhere}
+.exam-map{margin:16px 0}.exam-map img{display:block;max-width:100%;height:auto}.exam-map figcaption{margin-top:8px;font-size:var(--fs-label);color:var(--muted)}
