@@ -1,0 +1,1578 @@
+{
+ "resource-cost": {
+  "title": {
+   "es": "Paga solo el trabajo que de verdad necesitas",
+   "src": "a1ff4b51592a"
+  },
+  "lead": {
+   "es": "Une la optimización con un requisito del negocio y un cuello de botella medido.",
+   "src": "9e4992f2a191"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "Los clústeres persistentes pueden servir para cargas estables. El cómputo por trabajo (job-based) puede servir para procesos intermitentes. Reducir el escaneo importa en el análisis bajo demanda (on-demand). En la ejecución por capacidad hay que cuidar los slots y su uso.",
+   "src": "2bd2098a6c89"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Reutiliza los agregados compatibles, apaga el cómputo ocioso y compara los efectos en almacenamiento, procesamiento y red. Un worker más barato puede salir más caro en total si falla seguido o alarga el trabajo.",
+   "src": "d4bfb242bd28"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Un trabajo semanal de Spark dura treinta minutos. Guarda la entrada duradera en almacenamiento de objetos y compara un clúster efímero o la ejecución serverless con un clúster que queda encendido toda la semana.",
+   "src": "e6eef1718919"
+  },
+  "sections.3.title": {
+   "es": "Mide el trabajo total y el tiempo ocioso",
+   "src": "0b06eec28897"
+  },
+  "sections.3.body": {
+   "es": "Compara las cargas estables con los trabajos intermitentes. Mantén duradera la entrada de datos mientras evalúas cómputo temporal. Cuenta el almacenamiento, la red, el procesamiento, los intentos fallidos y el esfuerzo de operación. Una instancia más barata no siempre es más barata por cada ejecución de negocio exitosa. Usa una meta de finalización representativa en cada comparación.",
+   "src": "2e83dbd27c43"
+  },
+  "sections.4.title": {
+   "es": "Distingue los modelos de precio de la optimización",
+   "src": "328ebdbecc1b"
+  },
+  "sections.4.body": {
+   "es": "Los cargos analíticos bajo demanda se centran en los datos procesados. Los modelos por capacidad se centran en el cómputo aprovisionado o consumido. Reducir los bytes escaneados sigue siendo trabajo menos hecho, pero no garantiza el mismo porcentaje de reducción en una factura por capacidad. Revisa el modelo real antes de interpretar el resultado de un ajuste.",
+   "src": "85ed38ec15ac"
+  },
+  "sections.5.title": {
+   "es": "Usa la retroalimentación para proteger el objetivo del negocio",
+   "src": "d6bf12cf8556"
+  },
+  "sections.5.body": {
+   "es": "Mide la duración de la ejecución, la frescura, los fallos y el uso de recursos antes y después de un cambio. Una optimización de costo que rompe el tiempo de finalización requerido no es una solución completa. Mantén fijos el volumen de entrada y la lógica de negocio de la comparación, e identifica cualquier cambio en la confiabilidad o en los supuestos de operación.",
+   "src": "0f21bc80475b"
+  },
+  "trap": {
+   "es": "Reducir el tamaño de la máquina no es una optimización si incumple el plazo de finalización.",
+   "src": "dfeb3e6188ba"
+  },
+  "exercise.prompt": {
+   "es": "Un equipo reduce el volumen escaneado en un 90% y promete reducir en un 90% su factura por capacidad. ¿Esa conclusión tiene respaldo?",
+   "src": "c6ff6f788898"
+  },
+  "exercise.answer": {
+   "es": "No solo con el volumen escaneado. Eso muestra menos trabajo de lectura lógica en la consulta medida, pero la factura depende de la configuración de capacidad, del uso y de otros cargos. Compara el uso real bajo el modelo de facturación y comprueba que el resultado y el plazo sigan siendo correctos.",
+   "src": "3efecee8e954"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Compara el costo por resultado de negocio exitoso.",
+   "src": "ef9bfb5e2dc9"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Distingue las consideraciones del uso bajo demanda y por capacidad.",
+   "src": "9874a51dd217"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Mantén fija la carga durante una comparación de ajuste.",
+   "src": "814392eed59f"
+  },
+  "briefing.context": {
+   "es": "Un trabajo de Spark corre una vez por semana, pero su clúster puede quedar asignado toda la semana.",
+   "src": "2c8d84bd9cfc"
+  },
+  "briefing.whyItMatters": {
+   "es": "Los recursos ociosos gastan presupuesto sin mejorar el resultado de negocio requerido.",
+   "src": "3d92cede5c6d"
+  },
+  "briefing.takeaway": {
+   "es": "Compara cuánto vive el recurso con el trabajo que de verdad lo necesita.",
+   "src": "178ddbf04b94"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Cómo juzgar un cambio de costo",
+   "src": "6ce9ed8afc7d"
+  },
+  "block.diagram.description": {
+   "es": "Mide el trabajo total y el tiempo ocioso, revisa el modelo de precio y confirma que el objetivo del negocio se mantiene.",
+   "src": "8e899fca01dc"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Mide el trabajo total",
+   "src": "95454bdd51cb"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "y el tiempo ocioso",
+   "src": "4e633de48408"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Revisa el",
+   "src": "8f0343dbb0c3"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "modelo de precio",
+   "src": "0c22ac7bbbce"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Protege la meta",
+   "src": "b00cd9c57984"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "de finalización",
+   "src": "11eca7d0c4b9"
+  },
+  "block.keyFact": {
+   "es": "Reducir el tamaño de la máquina no es una optimización si incumple el plazo de finalización.",
+   "src": "dfeb3e6188ba"
+  },
+  "block.check.question": {
+   "es": "Una máquina más pequeña ahorra dinero, pero el trabajo ahora no llega al plazo. ¿Es una optimización?",
+   "src": "967cfcd95aff"
+  },
+  "block.check.choices.0.text": {
+   "es": "Sí, una máquina más pequeña siempre cuesta menos",
+   "src": "65df446c5699"
+  },
+  "block.check.choices.0.why": {
+   "es": "Una instancia más barata no siempre es más barata por cada ejecución de negocio exitosa.",
+   "src": "77951cb063bb"
+  },
+  "block.check.choices.1.text": {
+   "es": "No, rompe el tiempo de finalización requerido",
+   "src": "5197c45b8742"
+  },
+  "block.check.choices.1.why": {
+   "es": "Un cambio de costo que incumple el tiempo de finalización requerido no es una solución completa.",
+   "src": "3dbde4fa7e77"
+  },
+  "block.check.choices.2.text": {
+   "es": "Sí, si bajaron los bytes escaneados",
+   "src": "a13413705a77"
+  },
+  "block.check.choices.2.why": {
+   "es": "Menos bytes escaneados no garantizan la misma baja en una factura por capacidad.",
+   "src": "2ec3fc9f0d62"
+  },
+  "verification.note": {
+   "es": "Se confirmó que las consultas bajo demanda se facturan por bytes leídos y que un clúster de Spark puede borrarse solo tras un periodo ocioso. No se comprobaron la facturación por capacidad, Spark serverless ni el consejo del costo por ejecución exitosa.",
+   "src": "53e1ee907a68"
+  }
+ },
+ "warehouse-economics": {
+  "title": {
+   "es": "Controla el costo de las consultas con el modelo de precio correcto",
+   "src": "1cb42f7add91"
+  },
+  "lead": {
+   "es": "Los bytes escaneados, la capacidad de slots y el número de filas del resultado responden preguntas distintas.",
+   "src": "c8fc7cac623d"
+  },
+  "sections.0.title": {
+   "es": "Elige la señal de costo",
+   "src": "829b9462fa70"
+  },
+  "sections.0.body": {
+   "es": "En las consultas de BigQuery bajo demanda, usa una ejecución de prueba (dry run) como estimación y configura el máximo de bytes facturados (maximum bytes billed) cuando corresponda. Un LIMIT en una tabla sin clustering no reduce los bytes leídos. Elegir menos columnas necesarias y filtrar particiones reduce el escaneo, en lugar de solo recortar el resultado.",
+   "src": "d8255efd3702"
+  },
+  "sections.1.title": {
+   "es": "Separa la capacidad de los escaneos",
+   "src": "5e0831271a88"
+  },
+  "sections.1.body": {
+   "es": "Las cargas por capacidad usan slots y reservas. Reduce el trabajo desperdiciado, pero revisa también la concurrencia, las colas y la competencia por slots. Una consulta más rápida y una factura más pequeña se relacionan solo a través del contrato de precio y capacidad que aplique.",
+   "src": "cd795965ef56"
+  },
+  "sections.2.title": {
+   "es": "Compara una carga original",
+   "src": "e0ba40b159a0"
+  },
+  "sections.2.body": {
+   "es": "Un reporte escanea las mismas columnas históricas para muchos consumidores. Prueba una proyección más estrecha, la poda de particiones (partition pruning) y un resultado reutilizable adecuado. Compara los bytes, el tiempo de ejecución, la frescura y el comportamiento concurrente antes de adoptar el cambio. Mantén los modelos de escaneo de ejemplo separados de una estimación real de factura.",
+   "src": "f3be87aebdef"
+  },
+  "trap": {
+   "es": "LIMIT 10 controla el tamaño del resultado. No es un techo universal del costo de la consulta.",
+   "src": "32afd1ec82fe"
+  },
+  "exercise.prompt": {
+   "es": "Un dashboard agrega LIMIT 100 a un SELECT * en una tabla sin clustering. ¿Qué debe revisar después el ingeniero?",
+   "src": "77a5adaf86a3"
+  },
+  "exercise.answer": {
+   "es": "Debe revisar las columnas proyectadas, los filtros de partición y los bytes estimados, y después la evidencia de ejecución. Debe fijar una protección adecuada de la consulta para el uso bajo demanda y evaluar por separado el comportamiento de la capacidad.",
+   "src": "d91d15ff5487"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Identifica el modelo de precio.",
+   "src": "5d3df53a2ff3"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Separa las filas del resultado de los bytes escaneados.",
+   "src": "a22df77f2be3"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Mide la frescura además del tiempo de ejecución.",
+   "src": "b42a2fff555c"
+  },
+  "briefing.context": {
+   "es": "Un dashboard agrega LIMIT 10 y espera una factura de consultas mucho menor.",
+   "src": "0eeace721305"
+  },
+  "briefing.whyItMatters": {
+   "es": "En una tabla de BigQuery sin clustering, devolver menos filas no significa leer menos bytes.",
+   "src": "965ce1c4f89a"
+  },
+  "briefing.takeaway": {
+   "es": "Separa el tamaño del resultado, el trabajo de escaneo y el modelo de precio que aplica.",
+   "src": "58e2c85df1c3"
+  },
+  "review.scope": {
+   "es": "Las afirmaciones sobre servicios de esta lección original se comprobaron con sus referencias principales. El escenario es un ejemplo.",
+   "src": "9203ccf1a1ce"
+  },
+  "decision.useCase": {
+   "es": "Reducir el trabajo repetido del dashboard sin perder la frescura requerida.",
+   "src": "29d4cbcb403c"
+  },
+  "decision.advantage": {
+   "es": "Los controles de costo pueden evitar un escaneo inesperadamente grande antes de que se ejecute.",
+   "src": "74f860fe2d59"
+  },
+  "decision.limitation": {
+   "es": "Una estimación o un modelo local de escaneo no es una factura de producción.",
+   "src": "cc9c865e025c"
+  },
+  "block.diagram.title": {
+   "es": "Cómo leer el costo de una consulta",
+   "src": "494b5b4c1bbf"
+  },
+  "block.diagram.description": {
+   "es": "Usa una dry run y menos columnas para bajar los bytes escaneados, y revisa los slots en las cargas por capacidad.",
+   "src": "3d0454bd42e5"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Dry run y máximo",
+   "src": "128fd2d04bea"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "de bytes facturados",
+   "src": "917b7c50531e"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Menos columnas,",
+   "src": "5c761273738f"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "filtra particiones",
+   "src": "21ca5a481fdd"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Revisa slots y",
+   "src": "d13224244d77"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "concurrencia",
+   "src": "d1b92de2d207"
+  },
+  "block.keyFact": {
+   "es": "LIMIT 10 controla el tamaño del resultado. No es un techo universal del costo de la consulta.",
+   "src": "32afd1ec82fe"
+  },
+  "block.check.question": {
+   "es": "Una consulta bajo demanda en una tabla sin clustering termina con LIMIT 10. ¿Lee menos bytes?",
+   "src": "38864deff244"
+  },
+  "block.check.choices.0.text": {
+   "es": "Sí, LIMIT detiene el escaneo tras diez filas",
+   "src": "4f2c6a71513f"
+  },
+  "block.check.choices.0.why": {
+   "es": "Un LIMIT en una tabla sin clustering no reduce los bytes leídos.",
+   "src": "3b7d576592f7"
+  },
+  "block.check.choices.1.text": {
+   "es": "Sí, y además limita la factura",
+   "src": "43ef4eb5518b"
+  },
+  "block.check.choices.1.why": {
+   "es": "LIMIT controla el tamaño del resultado. No es un techo del costo de la consulta.",
+   "src": "92fbe83ba7f7"
+  },
+  "block.check.choices.2.text": {
+   "es": "No, para eso hay que elegir menos columnas y filtrar particiones",
+   "src": "d1bd4a8e7cf6"
+  },
+  "block.check.choices.2.why": {
+   "es": "Un LIMIT en una tabla sin clustering no reduce los bytes leídos.",
+   "src": "3b7d576592f7"
+  },
+  "verification.note": {
+   "es": "Se confirmó que la dry run estima los bytes, que el máximo de bytes facturados detiene las consultas que lo superan, que LIMIT no reduce los bytes leídos en tablas sin clustering y que los slots ponen las consultas en cola. No se comprobaron las estimaciones de factura ni la reutilización de vistas materializadas.",
+   "src": "7dd892ee8fff"
+  }
+ },
+ "repeatability": {
+  "title": {
+   "es": "Haz que cada reintento sea intencional",
+   "src": "e2d65e2d2178"
+  },
+  "lead": {
+   "es": "Un grafo acíclico dirigido (DAG) hace visibles las dependencias entre tareas.",
+   "src": "23ebba2fdce5"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "Managed Service for Apache Airflow (antes Cloud Composer, el nombre que usa la guía del examen) usa DAGs de Airflow para flujos programados con dependencias entre tareas. Workflows coordina llamadas a servicios sin que administres un entorno de Airflow. Una tarea idempotente (idempotent) permite reintentos más seguros y reejecuciones parciales.",
+   "src": "8873ab51c6e2"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Usa tareas separadas cuando importa recuperarse de un fallo por separado. Pasa un identificador de ejecución estable, haz que las escrituras sean repetibles y define alertas de finalización y de fallo.",
+   "src": "133e4c946056"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Un proceso diario obtiene archivos, los descifra y ejecuta SQL. Con tareas separadas en el DAG puedes volver a ejecutar solo la etapa que falló y conservar la evidencia de las etapas anteriores que sí funcionaron.",
+   "src": "49a902a4235b"
+  },
+  "sections.3.title": {
+   "es": "Haz explícita la identidad de la ejecución",
+   "src": "1b7f18cf1981"
+  },
+  "sections.3.body": {
+   "es": "Una tarea debe saber qué intervalo lógico o qué lote de entrada procesa. Un reintento, una ejecución retrasada o un relleno histórico (backfill) no deben cambiar en silencio a lo que el reloj llame hoy. Usa ese intervalo lógico para elegir las entradas y las claves de salida, y registra la versión del código o de la configuración que se usó.",
+   "src": "49ca5b8b66e6"
+  },
+  "sections.4.title": {
+   "es": "Elige límites que ayuden a recuperarse",
+   "src": "7a40c0b73ba1"
+  },
+  "sections.4.body": {
+   "es": "Separa la obtención, el descifrado, la preparación (staging), la transformación y la validación cuando necesiten reintentos independientes. Haz que los efectos de cada tarea sean repetibles o transaccionales cuando se pueda. Una tarea solo debe tener éxito cuando su salida esperada ya se puede usar. Capturar todos los errores y reportar éxito rompe la lógica de dependencias posteriores.",
+   "src": "47a821374537"
+  },
+  "sections.5.title": {
+   "es": "Una comprobación de calidad debe frenar al consumidor",
+   "src": "9090b0e69515"
+  },
+  "sections.5.body": {
+   "es": "Que una aserción (assertion) exista en un repositorio no significa que cada acción posterior la espere. Declara y prueba las dependencias de las aserciones que correspondan. Ejecuta una entrada que se sabe que falla y verifica que el consumidor curado quede bloqueado, en lugar de comprobar solo que la aserción dio un estado rojo en algún lugar.",
+   "src": "ad5516f5a3e9"
+  },
+  "trap": {
+   "es": "Poner todo el proceso dentro de un solo operador oculta los límites de recuperación.",
+   "src": "78980aab6609"
+  },
+  "exercise.prompt": {
+   "es": "Un relleno histórico del mes pasado consulta CURRENT_DATE y agrega datos al destino de hoy. ¿Qué debe cambiar?",
+   "src": "f5f6fcef2dcd"
+  },
+  "exercise.answer": {
+   "es": "Parametriza el intervalo lógico y define una estrategia de escritura repetible para ese intervalo. Usa claves estables o límites de reemplazo y condiciona la publicación a las comprobaciones de calidad. Prueba el mismo intervalo dos veces y confirma que el total de negocio resultante no se duplique.",
+   "src": "085443db1879"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Usa intervalos lógicos en los reintentos y los rellenos históricos.",
+   "src": "f6983748d109"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Haz que los efectos de las tareas sean repetibles.",
+   "src": "8a18cd004969"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Demuestra que las comprobaciones de calidad fallidas bloquean la publicación.",
+   "src": "80ef47fddcfb"
+  },
+  "briefing.context": {
+   "es": "Un flujo orquestado falla después de que una tarea ya escribió una salida duradera.",
+   "src": "c65549bdd68f"
+  },
+  "briefing.whyItMatters": {
+   "es": "Reintentar todos los pasos a ciegas puede agregar duplicados o publicar intervalos mezclados.",
+   "src": "8e438046ecbc"
+  },
+  "briefing.takeaway": {
+   "es": "Haz que ejecutar de nuevo produzca el estado que se busca.",
+   "src": "b65e953b7121"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Reintentos seguros en un DAG",
+   "src": "2433891c9d58"
+  },
+  "block.diagram.description": {
+   "es": "Tareas separadas, un identificador de ejecución estable y escrituras repetibles permiten que un reintento ejecute solo la etapa que falló.",
+   "src": "9453e9dda1b0"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Tareas separadas",
+   "src": "f144d42f5976"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "por etapa",
+   "src": "f20334ca2051"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Identificador",
+   "src": "cd5a5da72b16"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "de ejecución estable",
+   "src": "285437db8c5e"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Escrituras",
+   "src": "f961e9e5d961"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "repetibles",
+   "src": "531995e8b52d"
+  },
+  "block.keyFact": {
+   "es": "Poner todo el proceso dentro de un solo operador oculta los límites de recuperación.",
+   "src": "78980aab6609"
+  },
+  "block.check.question": {
+   "es": "Un proceso diario obtiene archivos, los descifra y ejecuta SQL. ¿Cómo lo construyes?",
+   "src": "73f1d60b36f3"
+  },
+  "block.check.choices.0.text": {
+   "es": "Tareas separadas en el DAG, para que solo se repita la etapa que falló",
+   "src": "52fb63990637"
+  },
+  "block.check.choices.0.why": {
+   "es": "Las tareas separadas conservan la evidencia de las etapas anteriores que sí funcionaron.",
+   "src": "ee9096656375"
+  },
+  "block.check.choices.1.text": {
+   "es": "Un solo operador que lo haga todo",
+   "src": "12eaf9dda636"
+  },
+  "block.check.choices.1.why": {
+   "es": "Un solo operador oculta los límites de recuperación.",
+   "src": "2aec414abd26"
+  },
+  "block.check.choices.2.text": {
+   "es": "Capturar todos los errores y reportar éxito",
+   "src": "e5e0ae212199"
+  },
+  "block.check.choices.2.why": {
+   "es": "Reportar éxito después de un error rompe la lógica de dependencias posteriores.",
+   "src": "b59af29862c2"
+  },
+  "verification.note": {
+   "es": "La lección ahora nombra Managed Service for Apache Airflow (antes Cloud Composer). Se confirmaron las tareas del DAG, que los reintentos conservan la fecha lógica y que Workflows es serverless. No se comprobó la condición de paso con aserciones de Dataform.",
+   "src": "49ed0414db05"
+  }
+ },
+ "composer-retries": {
+  "title": {
+   "es": "Haz que la orquestación sea segura de reintentar",
+   "src": "d49a76e70e5b"
+  },
+  "lead": {
+   "es": "Una programación coordina tareas. Las entradas deterministas y los efectos controlados hacen seguros los reintentos.",
+   "src": "e7b7e065d1eb"
+  },
+  "sections.0.title": {
+   "es": "Separa la orquestación y la ejecución",
+   "src": "e012e2337506"
+  },
+  "sections.0.body": {
+   "es": "El término Cloud Composer aparece en la guía del examen. La documentación actual usa Managed Airflow. Los DAG describen las tareas y sus dependencias. Deja que servicios especializados hagan la transformación grande, mientras la capa de orquestación inicia, observa y coordina el trabajo.",
+   "src": "220faf509f2e"
+  },
+  "sections.1.title": {
+   "es": "Fija la entrada lógica",
+   "src": "2372fa2447bb"
+  },
+  "sections.1.body": {
+   "es": "Airflow recomienda efectos repetibles en las tareas y leer una partición de datos concreta. Un reintento que lee los datos más recientes puede ver entradas distintas. Usa el intervalo previsto y salidas estables, y haz que la publicación dependa de la validación. Evita pasar datos duraderos necesarios a través de un archivo local del worker.",
+   "src": "065993212162"
+  },
+  "sections.2.title": {
+   "es": "Ensaya un fallo parcial",
+   "src": "70e1f93d1b0e"
+  },
+  "sections.2.body": {
+   "es": "Escenario original: una carga diaria funciona, pero falla su tarea de notificación. Ejecutarla de nuevo no debe agregar otra vez las mismas filas de negocio. Registra el intervalo y la identidad de la operación, usa un patrón de escritura idempotente adecuado y prueba el fallo después de cada efecto duradero.",
+   "src": "7eb2aef36999"
+  },
+  "trap": {
+   "es": "Un DAG en verde no prueba que los datos producidos cumplan el contrato del negocio.",
+   "src": "633cf3995259"
+  },
+  "exercise.prompt": {
+   "es": "Una tarea reintentada usa el reloj actual para elegir su carpeta de entrada. ¿Qué cambia?",
+   "src": "820a5b3d13a1"
+  },
+  "exercise.answer": {
+   "es": "Un reintento posterior puede leer un intervalo distinto. Fija la entrada y la salida lógicas y verifica los efectos idempotentes, incluida la publicación posterior.",
+   "src": "08660d823512"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Fija el intervalo de datos.",
+   "src": "7fb975788a34"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Identifica cada efecto duradero.",
+   "src": "b3baf31dd1d6"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Bloquea la publicación si falla la calidad.",
+   "src": "2b58523a1c44"
+  },
+  "briefing.context": {
+   "es": "Una carga diaria funciona, luego falla su notificación y el flujo se reintenta.",
+   "src": "5162e98a08f3"
+  },
+  "briefing.whyItMatters": {
+   "es": "Usar el reloj actual o agregar datos a ciegas puede cambiar la entrada o duplicar la salida.",
+   "src": "f87147ea542e"
+  },
+  "briefing.takeaway": {
+   "es": "Fija el intervalo lógico y haz que los efectos duraderos se puedan repetir sin riesgo.",
+   "src": "08f82be25697"
+  },
+  "review.scope": {
+   "es": "Las afirmaciones sobre servicios de esta lección original se comprobaron con sus referencias principales. El escenario es un ejemplo.",
+   "src": "9203ccf1a1ce"
+  },
+  "decision.useCase": {
+   "es": "Recuperar un pipeline diario que falló sin publicar filas de negocio duplicadas.",
+   "src": "b0e181774223"
+  },
+  "decision.advantage": {
+   "es": "Las dependencias explícitas hacen más fácil razonar sobre la recuperación y la responsabilidad.",
+   "src": "35d5adaed7b8"
+  },
+  "decision.limitation": {
+   "es": "El éxito del orquestador no valida por sí solo que los datos sean correctos.",
+   "src": "a36e67c09d93"
+  },
+  "block.diagram.title": {
+   "es": "Cómo hacer seguro un reintento",
+   "src": "3ffd41a649d9"
+  },
+  "block.diagram.description": {
+   "es": "Fija el intervalo lógico de entrada, escribe con una salida estable y publica solo después de validar.",
+   "src": "327152e1325b"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Fija el intervalo",
+   "src": "b0b4d95bab57"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "lógico de entrada",
+   "src": "607a80061290"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Escritura idempotente,",
+   "src": "8467fac78b3d"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "salida estable",
+   "src": "d73b4f18706a"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Publica tras",
+   "src": "c0f4fbc99dce"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "la validación",
+   "src": "98c41dcd20b8"
+  },
+  "block.keyFact": {
+   "es": "Un DAG en verde no prueba que los datos producidos cumplan el contrato del negocio.",
+   "src": "633cf3995259"
+  },
+  "block.check.question": {
+   "es": "Una carga diaria funciona, pero falla su tarea de notificación. ¿Qué hace seguro el reintento?",
+   "src": "2a2fa1ea9b0e"
+  },
+  "block.check.choices.0.text": {
+   "es": "Leer los datos más recientes en cada reintento",
+   "src": "368b641f13a8"
+  },
+  "block.check.choices.0.why": {
+   "es": "Un reintento que lee los datos más recientes puede ver entradas distintas.",
+   "src": "b31247de4e94"
+  },
+  "block.check.choices.1.text": {
+   "es": "Una escritura idempotente ligada al intervalo",
+   "src": "fccd32c9fe51"
+  },
+  "block.check.choices.1.why": {
+   "es": "Ejecutarla de nuevo no debe agregar otra vez las mismas filas de negocio.",
+   "src": "9581be5aae38"
+  },
+  "block.check.choices.2.text": {
+   "es": "Confiar en el estado verde del DAG",
+   "src": "7257b61471bc"
+  },
+  "block.check.choices.2.why": {
+   "es": "Un DAG en verde no prueba que los datos cumplan el contrato del negocio.",
+   "src": "ed608f129f8d"
+  },
+  "verification.note": {
+   "es": "Se confirmó que el producto se llamaba antes Cloud Composer, que los DAG contienen tareas y dependencias y que los reintentos conservan la misma fecha lógica. El consejo de Airflow sobre efectos repetibles y lecturas por partición queda fuera del corpus y no se comprobó.",
+   "src": "89cb103a2113"
+  }
+ },
+ "capacity": {
+  "title": {
+   "es": "Evita que las cargas que compiten se estorben",
+   "src": "3cedbb0e7794"
+  },
+  "lead": {
+   "es": "La prioridad y la asignación de capacidad son controles distintos.",
+   "src": "2ff249be2745"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "Las reservas de BigQuery (reservations) asignan capacidad de cómputo a las cargas de trabajo. La capacidad base (baseline) y el escalado automático (autoscaling) afectan la disponibilidad de recursos y el gasto. Reservas separadas pueden aislar el trabajo de los dashboards de los trabajos pesados de transformación.",
+   "src": "1296f167695f"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Mide el uso antes de dimensionar la capacidad. Elige la ejecución interactiva o por lotes (batch) según la tolerancia a la latencia, y usa asignaciones de reserva para los proyectos o las cargas que corresponden.",
+   "src": "a8f333f65423"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Los dashboards se vuelven lentos durante el ETL. Dales un grupo de capacidad deliberado y pon el ETL sensible al costo en otra asignación, en lugar de suponer que una etiqueta interactiva reserva recursos.",
+   "src": "e7c351875696"
+  },
+  "sections.3.title": {
+   "es": "Separa el aislamiento de recursos de la prioridad del trabajo",
+   "src": "85817a686f82"
+  },
+  "sections.3.body": {
+   "es": "La prioridad interactiva y la de lotes describen cómo se ejecuta un trabajo. Las asignaciones de reserva reparten la capacidad entre cargas. Un equipo sensible a la latencia aún puede competir por un grupo compartido si no tiene un límite de recursos deliberado. Usa mediciones para elegir las asignaciones y la capacidad, en lugar de suponer que una etiqueta de prioridad garantiza una asignación dedicada.",
+   "src": "5ebcee6891eb"
+  },
+  "sections.4.title": {
+   "es": "Razona sobre la capacidad base y la elasticidad",
+   "src": "ba003a170db4"
+  },
+  "sections.4.body": {
+   "es": "La capacidad base da una asignación inicial configurada. El escalado automático puede agregar capacidad según la configuración admitida y la carga. El máximo es un ajuste de capacidad, no una garantía completa de gasto fijo en almacenamiento y otros servicios. Revisa la edición (edition), la asignación, el uso compartido de capacidad ociosa y el comportamiento del uso con la configuración elegida.",
+   "src": "58d4820f972e"
+  },
+  "sections.5.title": {
+   "es": "Lee los controles de facturación al pie de la letra",
+   "src": "d27db7631401"
+  },
+  "sections.5.body": {
+   "es": "Una alerta de presupuesto informa el gasto o activa el manejo de notificaciones. Por sí sola no es un tope duro. Los controles propios de cada consulta y las cuotas de recursos resuelven problemas más acotados. Protege la ejecución crítica para el negocio mientras diseñas controles de costo, y evita apagar procesos esenciales como efecto colateral no examinado de una regla genérica de gasto.",
+   "src": "1141c9aa7451"
+  },
+  "trap": {
+   "es": "Una alerta de presupuesto informa el gasto. No es un tope automático garantizado.",
+   "src": "c34bb0a054b6"
+  },
+  "exercise.prompt": {
+   "es": "Los dashboards tienen una etiqueta de prioridad interactiva, pero siguen lentos durante el ETL. ¿Qué dimensión del diseño probablemente no se aisló?",
+   "src": "fc83d7d0d3bc"
+  },
+  "exercise.answer": {
+   "es": "Revisa el grupo de capacidad y las asignaciones de reserva. La prioridad del trabajo por sí sola no crea un cómputo separado para los dashboards. Usa evidencia real del uso de slots y de la competencia para decidir si hace falta aislamiento o una optimización a nivel de consulta.",
+   "src": "cc12c051443d"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Distingue las asignaciones de capacidad de la prioridad.",
+   "src": "c7fc71e22a23"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Explica la capacidad base y el escalado automático sin prometer una factura fija.",
+   "src": "f45f67a68f5e"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Indica qué hace una alerta de presupuesto.",
+   "src": "bb41cc2c37d3"
+  },
+  "briefing.context": {
+   "es": "Los reportes programados y los analistas interactivos compiten por los recursos analíticos.",
+   "src": "76efa9fa8e5d"
+  },
+  "briefing.whyItMatters": {
+   "es": "Una carga puede no llegar a su plazo porque espera capacidad compartida, aunque su SQL sea válido.",
+   "src": "cacea686f636"
+  },
+  "briefing.takeaway": {
+   "es": "Revisa la concurrencia y asigna la capacidad según las prioridades del negocio.",
+   "src": "dc5123c394a9"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Aislar los dashboards del ETL",
+   "src": "21752f1e91af"
+  },
+  "block.diagram.description": {
+   "es": "Asigna los dashboards y el ETL a reservas separadas, en lugar de confiar en una etiqueta de prioridad.",
+   "src": "880a3ad6d980"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Mide el uso",
+   "src": "adba715bc859"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "primero",
+   "src": "a7937b64b8ca"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Asigna un grupo de",
+   "src": "461f943c9a86"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "capacidad a dashboards",
+   "src": "706d8b9a6011"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Pon el ETL sensible",
+   "src": "471621d2b72c"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "al costo aparte",
+   "src": "ee2b9d4d6ce7"
+  },
+  "block.keyFact": {
+   "es": "Una alerta de presupuesto informa el gasto. No es un tope automático garantizado.",
+   "src": "895c8b920956"
+  },
+  "block.check.question": {
+   "es": "Los dashboards se vuelven lentos durante el ETL. ¿Qué les da capacidad protegida?",
+   "src": "477ecff58083"
+  },
+  "block.check.choices.0.text": {
+   "es": "Prioridad interactiva en las consultas del dashboard",
+   "src": "e843aff03048"
+  },
+  "block.check.choices.0.why": {
+   "es": "La prioridad describe cómo se ejecuta el trabajo y no asigna capacidad.",
+   "src": "11ba5f0103de"
+  },
+  "block.check.choices.1.text": {
+   "es": "Una alerta de presupuesto en el proyecto",
+   "src": "9303432d081c"
+  },
+  "block.check.choices.1.why": {
+   "es": "Una alerta de presupuesto informa el gasto y no es un límite de recursos.",
+   "src": "a956a13d9ab8"
+  },
+  "block.check.choices.2.text": {
+   "es": "Una asignación de reserva separada para los dashboards",
+   "src": "9d6ccc2ef410"
+  },
+  "block.check.choices.2.why": {
+   "es": "Las asignaciones de reserva reparten la capacidad entre cargas.",
+   "src": "d0eaaf2063ad"
+  },
+  "verification.note": {
+   "es": "Hay tres ediciones (editions): Standard, Enterprise y Enterprise Plus. Las ediciones son una propiedad del cómputo, no del almacenamiento. Cambiar la edición de una reserva significa borrarla y volver a crearla.",
+   "src": "d7b5c06d05a6"
+  }
+ },
+ "observability": {
+  "title": {
+   "es": "Diagnostica el fallo antes de escalar",
+   "src": "756469286093"
+  },
+  "lead": {
+   "es": "El error exacto y la etapa de ejecución importan más que una etiqueta genérica.",
+   "src": "9db21a85ac3a"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "Observa la frescura, el retraso (lag), las filas fallidas, los reintentos de tareas y el uso de recursos. Los detalles de ejecución y los metadatos de los trabajos de BigQuery ayudan a distinguir escaneos lentos, presión de slots, problemas de shuffle y operaciones que usan mucha memoria.",
+   "src": "b475c27e72bd"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Revisa el plan de la consulta y el mensaje de error completo antes de cambiar la capacidad. Separa las cuotas de solicitudes a la API de la memoria de ejecución y de la disponibilidad de cómputo.",
+   "src": "38c7e6c38d56"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Una consulta falla durante un ordenamiento grande. Revisa el grafo de ejecución y la presión de memoria. Reduce los datos intermedios que se ordenan o reestructura la consulta, en lugar de subir una cuota de API que no tiene relación.",
+   "src": "6354c3f4aa01"
+  },
+  "sections.3.title": {
+   "es": "Observa el negocio y el motor",
+   "src": "333e6564454c"
+  },
+  "sections.3.body": {
+   "es": "Sigue la frescura, la completitud de los datos y la acumulación de registros rechazados junto con la CPU, la memoria y el estado de los trabajos. Un pipeline puede estar corriendo bien y aun así los datos esperados nunca llegan a su consumidor. Define un umbral accionable, un responsable y un runbook para la condición de fallo que quieres detectar.",
+   "src": "d0b3595d246f"
+  },
+  "sections.4.title": {
+   "es": "Usa la evidencia adecuada para cada pregunta",
+   "src": "761ae287a06a"
+  },
+  "sections.4.body": {
+   "es": "Los registros de auditoría responden quién hizo las operaciones relevantes. Los metadatos del trabajo y los detalles de ejecución ayudan a explicar el trabajo de la consulta y su fallo. Las métricas de recursos describen la saturación o la acumulación. Correlaciona estas señales con un identificador de ejecución y un intervalo lógico, en lugar de tratar un gráfico aislado como prueba de la causa raíz.",
+   "src": "85b91aeeb6db"
+  },
+  "sections.5.title": {
+   "es": "Prefiere una prueba causal a una solución genérica",
+   "src": "b8d7b7720f8b"
+  },
+  "sections.5.body": {
+   "es": "Si una etapa es serial por una clave caliente (hot key), agregar workers puede dejar esa etapa igual. Si una consulta crea un join intermedio grande, subir una cuota de API que no tiene relación no corrige su granularidad. Plantea una hipótesis concreta, haz un cambio controlado y compara las salidas y el uso de recursos con la misma entrada.",
+   "src": "66aacb8b13c6"
+  },
+  "trap": {
+   "es": "Más slots no garantizan que desaparezca todo error de Resources exceeded.",
+   "src": "a232d052d0e2"
+  },
+  "exercise.prompt": {
+   "es": "La CPU de los workers es moderada, pero el retraso de eventos sigue subiendo y una clave domina una etapa. ¿Qué investigarías?",
+   "src": "6d6ef624fe97"
+  },
+  "exercise.answer": {
+   "es": "Revisa la distribución de claves, el paralelismo por etapa y cualquier trabajo serial o límite posterior. Más workers pueden no dividir el trabajo de una sola clave. Verifica la hipótesis con evidencia a nivel de etapa y con un rediseño que conserve la corrección, en lugar de escalar a ciegas.",
+   "src": "fe792300e6b6"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Incluye la frescura y la calidad de los datos en el monitoreo.",
+   "src": "3fe13a13911a"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Elige entre registros y metadatos del trabajo según una pregunta concreta.",
+   "src": "51d63868238e"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Prueba una hipótesis específica de cuello de botella.",
+   "src": "05585776d5e8"
+  },
+  "briefing.context": {
+   "es": "Un trabajo de datos va tarde y el equipo ve varios síntomas a la vez.",
+   "src": "9e5ace1393f6"
+  },
+  "briefing.whyItMatters": {
+   "es": "Tomar la métrica más visible como la causa puede hacer perder tiempo y dinero.",
+   "src": "62246a559d48"
+  },
+  "briefing.takeaway": {
+   "es": "Usa evidencia del origen, de la etapa y del destino para probar un diagnóstico concreto.",
+   "src": "bdff2351ee11"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Diagnosticar antes de escalar",
+   "src": "d1f3819aaef7"
+  },
+  "block.diagram.description": {
+   "es": "Lee el error completo y el plan de la consulta, plantea una hipótesis y luego haz un solo cambio controlado.",
+   "src": "b24b469114fd"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Lee el error exacto",
+   "src": "1f990b608a32"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "y el plan de consulta",
+   "src": "9264db683ac7"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Plantea una",
+   "src": "31d97b6e991c"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "hipótesis concreta",
+   "src": "7beb7f4a5725"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Cambia una cosa,",
+   "src": "9d43b4a579c5"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "compara resultados",
+   "src": "c63e420f2df0"
+  },
+  "block.keyFact": {
+   "es": "Más slots no garantizan que desaparezca todo error de Resources exceeded.",
+   "src": "a232d052d0e2"
+  },
+  "block.check.question": {
+   "es": "Una consulta falla durante un ordenamiento grande. ¿Qué revisas primero?",
+   "src": "44188128a0ef"
+  },
+  "block.check.choices.0.text": {
+   "es": "Subir la cuota de solicitudes a la API",
+   "src": "7e6c3b85ef82"
+  },
+  "block.check.choices.0.why": {
+   "es": "Las cuotas de solicitudes a la API son independientes de la memoria de ejecución.",
+   "src": "9adde360a64e"
+  },
+  "block.check.choices.1.text": {
+   "es": "El grafo de ejecución y la presión de memoria",
+   "src": "325898711373"
+  },
+  "block.check.choices.1.why": {
+   "es": "Reduce los datos intermedios que se ordenan o reestructura la consulta.",
+   "src": "df05d767f9a1"
+  },
+  "block.check.choices.2.text": {
+   "es": "Agregar más slots y ejecutar de nuevo",
+   "src": "e712c2d9016a"
+  },
+  "block.check.choices.2.why": {
+   "es": "Más slots no garantizan que el error desaparezca.",
+   "src": "60f6737578aa"
+  },
+  "verification.note": {
+   "es": "Se confirmó que los metadatos del trabajo muestran la competencia por slots, que un error de memoria al ordenar viene de la forma de la consulta y que los registros de auditoría guardan quién envió los trabajos. No se comprobaron el consejo de Dataflow sobre claves calientes ni el diseño de alertas.",
+   "src": "989c22f646e0"
+  }
+ },
+ "query-diagnosis": {
+  "title": {
+   "es": "Diagnostica una consulta con su evidencia de ejecución",
+   "src": "11e3d62dbc92"
+  },
+  "lead": {
+   "es": "Un mensaje de fallo es el inicio de una investigación causal.",
+   "src": "36f9a4d27909"
+  },
+  "sections.0.title": {
+   "es": "Separa la espera en cola del cómputo costoso",
+   "src": "bb1e032dc036"
+  },
+  "sections.0.body": {
+   "es": "Una consulta puede esperar recursos, escanear demasiados datos, crear un resultado intermedio grande en un join, ordenar demasiadas filas o perder tiempo por sesgo (skew). Los metadatos del trabajo y el grafo de ejecución ayudan a identificar qué etapa importa. Al probar una mejora, compara con la misma entrada y la misma semántica de consulta.",
+   "src": "2fe274a285c8"
+  },
+  "sections.1.title": {
+   "es": "Revisa la razón detrás del error",
+   "src": "f37c6517044e"
+  },
+  "sections.1.body": {
+   "es": "Resources exceeded puede indicar problemas distintos de memoria, de shuffle o de planificación. Las cuotas de tasa de solicitudes a la API son una restricción distinta de la memoria de ejecución. Una reserva de capacidad puede ser adecuada para algunos problemas de carga, pero no es una reparación universal para cualquier operador que falla ni para un plan de consulta demasiado complejo.",
+   "src": "04928c7760cf"
+  },
+  "sections.2.title": {
+   "es": "Usa bien la evidencia de facturación",
+   "src": "d5b7ec3707b1"
+  },
+  "sections.2.body": {
+   "es": "Una dry run puede estimar los bytes procesados relevantes en las consultas que la admiten. La poda real de bloques en tablas con clustering y el cómputo en tiempo de ejecución tienen consideraciones adicionales. Los límites de consulta, los controles de trabajo y los presupuestos resuelven problemas distintos. Registra el modelo de facturación y la unidad medida antes de convertir un resultado de rendimiento en una afirmación de costo.",
+   "src": "931f0163cf93"
+  },
+  "trap": {
+   "es": "El primer gráfico rojo visible no es necesariamente la causa raíz.",
+   "src": "95991007fe1e"
+  },
+  "exercise.prompt": {
+   "es": "Una consulta falla en un ordenamiento global grande. ¿Qué evidencia distinguiría un rediseño del SQL de comprar más capacidad?",
+   "src": "c72dca075ebf"
+  },
+  "exercise.answer": {
+   "es": "Revisa los detalles del error y la etapa de ejecución, incluidos el tamaño intermedio y la presión de memoria. Prueba reducir la entrada del ordenamiento o usar una estructura de consulta adecuada con el mismo resultado de negocio. La información de capacidad ayuda, pero la operación que falla aún necesita un diagnóstico concreto.",
+   "src": "def3813df70e"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Separa el tiempo en cola del cómputo.",
+   "src": "53f329e64bb9"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Relaciona un error con el recurso correcto.",
+   "src": "bd73f826f940"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Interpreta los bytes y los slots según el modelo de facturación elegido.",
+   "src": "3b15fdb9bcde"
+  },
+  "briefing.context": {
+   "es": "Una consulta analítica se vuelve lenta después de que cambia el dataset o la carga.",
+   "src": "d6cee9f362db"
+  },
+  "briefing.whyItMatters": {
+   "es": "Cambiar el SQL al azar puede esconder el cuello de botella sin arreglarlo.",
+   "src": "971b77dbd663"
+  },
+  "briefing.takeaway": {
+   "es": "Usa la evidencia de ejecución para distinguir los problemas de escaneo, de join y de competencia por recursos.",
+   "src": "f9d12b48793f"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Ubicar la etapa lenta",
+   "src": "3f10564836a5"
+  },
+  "block.diagram.description": {
+   "es": "Los metadatos del trabajo y el grafo de ejecución muestran si la consulta espera, escanea, une, ordena o tiene sesgo.",
+   "src": "3140e05af2a8"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Metadatos del",
+   "src": "2d1e5a084c58"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "trabajo y grafo",
+   "src": "674abc7af584"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Encuentra la etapa",
+   "src": "8c8e8ebbb97c"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "que importa",
+   "src": "53e67243faa3"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Prueba con la misma",
+   "src": "2f74bc4206f1"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "entrada y consulta",
+   "src": "95048ad00cfd"
+  },
+  "block.keyFact": {
+   "es": "El primer gráfico rojo visible no es necesariamente la causa raíz.",
+   "src": "95991007fe1e"
+  },
+  "block.check.question": {
+   "es": "Una consulta muestra Resources exceeded. ¿Cuál es el primer paso correcto?",
+   "src": "478cf7a7f140"
+  },
+  "block.check.choices.0.text": {
+   "es": "Reservar más capacidad para cada consulta que falla",
+   "src": "07529069be93"
+  },
+  "block.check.choices.0.why": {
+   "es": "Una reserva no es una reparación universal para cualquier operador que falla.",
+   "src": "a998d943dff9"
+  },
+  "block.check.choices.1.text": {
+   "es": "Subir la cuota de tasa de solicitudes a la API",
+   "src": "b037a774b8cb"
+  },
+  "block.check.choices.1.why": {
+   "es": "Las cuotas de tasa de solicitudes a la API son una restricción distinta de la memoria de ejecución.",
+   "src": "2a77dc4a76ab"
+  },
+  "block.check.choices.2.text": {
+   "es": "Revisar la razón en la evidencia de ejecución",
+   "src": "0147a5f2e7d9"
+  },
+  "block.check.choices.2.why": {
+   "es": "Puede indicar problemas distintos de memoria, de shuffle o de planificación.",
+   "src": "4ae7e9331e0b"
+  },
+  "verification.note": {
+   "es": "Se confirmó que Resources exceeded tiene causas de memoria, de shuffle y de complejidad, que más slots solo arreglan el caso del shuffle y que una dry run en una tabla con clustering da un límite superior. No se comprobó el consejo sobre sesgo y granularidad de joins.",
+   "src": "fcdb9f020461"
+  }
+ },
+ "pipeline-slo": {
+  "title": {
+   "es": "Diagnostica la frescura en un pipeline de streaming",
+   "src": "47f52a8e7863"
+  },
+  "lead": {
+   "es": "Rastrea dónde esperan los datos antes de agregar cómputo o de silenciar una alerta.",
+   "src": "a0d1ae33e6ed"
+  },
+  "sections.0.title": {
+   "es": "Distingue las observaciones",
+   "src": "69fae36d9c51"
+  },
+  "sections.0.body": {
+   "es": "Dataflow muestra métricas de frescura, latencia del sistema, rendimiento (throughput) y acumulación (backlog). La latencia del sistema mide el tiempo que un elemento pasa procesándose o esperando, según lo que el origen deje ver. La antigüedad del mensaje más antiguo sin confirmar (oldest unacknowledged age) de Pub/Sub describe los mensajes de la suscripción que esperan. Estas observaciones se relacionan, pero no son intercambiables.",
+   "src": "f1049f9ddf05"
+  },
+  "sections.1.title": {
+   "es": "Sigue el cuello de botella",
+   "src": "8e3c6f101fe4"
+  },
+  "sections.1.body": {
+   "es": "Incidente original: el tráfico de entrada es estable, las escrituras al destino empiezan a fallar y el backlog crece mientras la CPU de los workers sigue baja. Revisa los errores de escritura, los permisos, la cuota y la capacidad del destino. Agregar workers no puede reparar un destino que niega el acceso. Correlaciona la evidencia de las etapas en lugar de diagnosticar solo con la CPU.",
+   "src": "c9524e31294b"
+  },
+  "sections.2.title": {
+   "es": "Define un resultado accionable",
+   "src": "128432b1322b"
+  },
+  "sections.2.body": {
+   "es": "SLO de ejemplo: los pedidos curados deben poder consultarse en cinco minutos para la población acordada. Especifica la marca de tiempo, el denominador, el punto de observación y la política de eventos tardíos. Une la alerta a un responsable, a una acción de recuperación acotada y a una comprobación que concilie los registros faltantes después de recuperarte.",
+   "src": "ef8c178d27f1"
+  },
+  "trap": {
+   "es": "Un grafo de transporte sano no prueba que el dataset de negocio esté completo.",
+   "src": "e1dcb83668fb"
+  },
+  "exercise.prompt": {
+   "es": "El backlog sube mientras las escrituras al destino fallan con errores de permisos. ¿Subir el número de workers es una solución suficiente?",
+   "src": "28e9c3c51440"
+  },
+  "exercise.answer": {
+   "es": "No. Repara la identidad o la ruta de permisos y luego observa si el backlog se vacía. Concilia las salidas retrasadas o fallidas. Verifica el diagnóstico con los registros y las métricas.",
+   "src": "bdf4f96b6b0b"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Nombra el punto de observación y la unidad.",
+   "src": "3d9d5c23ac8d"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Correlaciona la evidencia del origen, de la etapa y del destino.",
+   "src": "2d4f9506acca"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Concilia los datos después de la recuperación.",
+   "src": "22a904bc85b3"
+  },
+  "briefing.context": {
+   "es": "Los pedidos llegan a tiempo, pero el dataset analítico va tarde porque fallan las escrituras al destino.",
+   "src": "828ac632888e"
+  },
+  "briefing.whyItMatters": {
+   "es": "Más workers no pueden reparar una escritura denegada, y un gráfico de CPU no establece la frescura de los datos.",
+   "src": "64ce541706c4"
+  },
+  "briefing.takeaway": {
+   "es": "Correlaciona la evidencia del origen, de la etapa y del destino antes de cambiar la capacidad.",
+   "src": "b8e03d0a4cb5"
+  },
+  "review.scope": {
+   "es": "Las afirmaciones sobre servicios de esta lección original se comprobaron con sus referencias principales. El escenario es un ejemplo.",
+   "src": "9203ccf1a1ce"
+  },
+  "decision.useCase": {
+   "es": "Clasificar un retraso en analítica con evidencia del origen, del procesador y del destino.",
+   "src": "1110601207e1"
+  },
+  "decision.advantage": {
+   "es": "La evidencia específica de cada etapa acota la acción correctiva.",
+   "src": "549491779836"
+  },
+  "decision.limitation": {
+   "es": "Las métricas de frescura por sí solas no establecen que los datos estén completos en su significado.",
+   "src": "03c7f9cf6f1d"
+  },
+  "block.diagram.title": {
+   "es": "Rastrear un backlog",
+   "src": "11a4738f8fbc"
+  },
+  "block.diagram.description": {
+   "es": "Una entrada estable, escrituras fallidas al destino y un backlog que crece apuntan al destino, no al número de workers.",
+   "src": "5efee065ba35"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Entrada estable,",
+   "src": "47c26cead9cd"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "el backlog crece",
+   "src": "f7494e3f6938"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Revisa errores de",
+   "src": "e594dab40612"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "escritura, permisos, cuota",
+   "src": "aa5e28303f9b"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Arregla el destino,",
+   "src": "574f82a3467d"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "luego concilia",
+   "src": "eac3b50e0903"
+  },
+  "block.keyFact": {
+   "es": "Un grafo de transporte sano no prueba que el dataset de negocio esté completo.",
+   "src": "e1dcb83668fb"
+  },
+  "block.check.question": {
+   "es": "El backlog crece, las escrituras fallan y la CPU de los workers es baja. ¿Qué haces?",
+   "src": "e8e705b580a0"
+  },
+  "block.check.choices.0.text": {
+   "es": "Revisar errores de escritura, permisos, cuota y capacidad",
+   "src": "c40077d1274d"
+  },
+  "block.check.choices.0.why": {
+   "es": "Agregar workers no puede reparar un destino que niega el acceso.",
+   "src": "d9c9aaf26bca"
+  },
+  "block.check.choices.1.text": {
+   "es": "Agregar más workers",
+   "src": "966d3d25a9de"
+  },
+  "block.check.choices.1.why": {
+   "es": "Agregar workers no puede reparar un destino que niega el acceso.",
+   "src": "d9c9aaf26bca"
+  },
+  "block.check.choices.2.text": {
+   "es": "Diagnosticar solo con la CPU",
+   "src": "fc7f49c0dd79"
+  },
+  "block.check.choices.2.why": {
+   "es": "Correlaciona la evidencia de las etapas en lugar de diagnosticar solo con la CPU.",
+   "src": "111118310021"
+  },
+  "verification.note": {
+   "es": "Se confirmó que Dataflow muestra frescura, latencia del sistema, rendimiento y backlog, que la latencia sube cuando un destino deja de aceptar escrituras y que Pub/Sub informa la antigüedad del mensaje más antiguo sin confirmar. No se comprobaron el diseño de SLO ni el consejo sobre permisos del destino.",
+   "src": "5f1bfb116571"
+  }
+ },
+ "recovery": {
+  "title": {
+   "es": "Diseña la recuperación según objetivos explícitos",
+   "src": "f0891d8ee94f"
+  },
+  "lead": {
+   "es": "Indica cuántos datos se pueden perder y qué tan rápido debe volver el servicio.",
+   "src": "af1b377abef8"
+  },
+  "sections.0.title": {
+   "es": "Entiende la idea",
+   "src": "ee65723ead6e"
+  },
+  "sections.0.body": {
+   "es": "El RPO (objetivo de punto de recuperación) limita la pérdida de datos tolerable. El RTO (objetivo de tiempo de recuperación) limita el tiempo de recuperación. El time travel de BigQuery, los snapshots y la replicación entre regiones (cross-region replication) atienden necesidades distintas de fallo y de retención. Una etiqueta multi-región por sí sola no es un plan completo de recuperación ante desastres (disaster recovery).",
+   "src": "e067d41287f6"
+  },
+  "sections.1.title": {
+   "es": "Toma la decisión",
+   "src": "194bb97e56fe"
+  },
+  "sections.1.body": {
+   "es": "Ajusta la frecuencia de las copias y el comportamiento de la replicación a los objetivos, y luego ensaya una restauración. Revisa la retención, los permisos y la región de la copia de recuperación.",
+   "src": "64a8428be974"
+  },
+  "sections.2.title": {
+   "es": "Resuelve un escenario",
+   "src": "57a8955f5f7b"
+  },
+  "sections.2.body": {
+   "es": "Una exportación diaria puede dejar sin disponibilidad casi un día de cambios, más los retrasos de programación o de exportación. Una meta estricta de menos de veinticuatro horas necesita un margen de seguridad adecuado o un enfoque de replicación distinto.",
+   "src": "6be65742f898"
+  },
+  "sections.3.title": {
+   "es": "Especifica el fallo del que te recuperas",
+   "src": "807edf06f9d4"
+  },
+  "sections.3.body": {
+   "es": "Un borrado accidental, datos corruptos, una caída de zona y la falta de disponibilidad de una región son eventos distintos. Una réplica de alta disponibilidad puede mantener el servicio durante algunos fallos de infraestructura, pero también replica una mala escritura. Una copia guardada en la misma región que falló puede no cumplir los requisitos de recuperación regional.",
+   "src": "f4493643582c"
+  },
+  "sections.4.title": {
+   "es": "Mide la antigüedad del estado recuperable",
+   "src": "bf61f048640c"
+  },
+  "sections.4.body": {
+   "es": "El RPO se refiere al estado de los datos que puedes recuperar, no solo a cuándo empezó o terminó una tarea de copia. Incluye en el modelo de pérdida los intervalos de snapshots, los retrasos de finalización, el retraso de replicación y los trabajos que no corrieron. El RTO también incluye la detección, los permisos, la restauración, la validación y la redirección de los consumidores. Que exista una copia de la tabla no es un procedimiento de recuperación ensayado.",
+   "src": "f08cd90d033e"
+  },
+  "sections.5.title": {
+   "es": "Elige por separado la retención histórica y la recuperación ante desastres",
+   "src": "1819a17e46b8"
+  },
+  "sections.5.body": {
+   "es": "El time travel puede recuperar estados históricos admitidos de una tabla dentro de su ventana configurada. Un snapshot retenido puede conservar un estado elegido por más tiempo. La replicación entre regiones atiende otro dominio de fallo y tiene sus propias capacidades admitidas, pero por sí sola no está pensada como plan para la caída total de una región. La recuperación ante desastres administrada de BigQuery (edición Enterprise Plus) agrega la conmutación por error (failover). Verifica las ubicaciones, los permisos y las operaciones de recuperación según el requisito real del incidente.",
+   "src": "c16667ac5a1d"
+  },
+  "trap": {
+   "es": "Una retención de copias de treinta días y un RPO de treinta días describen requisitos distintos.",
+   "src": "3e402ff12af7"
+  },
+  "exercise.prompt": {
+   "es": "Un snapshot tomado a las 10:00 termina a las 10:04. Un fallo a las 10:03 deja completo solo el snapshot de las 09:30. ¿Qué estado se sabe que es recuperable?",
+   "src": "0f4a2d186ec1"
+  },
+  "exercise.answer": {
+   "es": "Con esos supuestos, la última copia de recuperación completa captura las 09:30, así que el posible intervalo de pérdida de datos a las 10:03 es de 33 minutos. No uses la copia incompleta de las 10:00 ni confundas el retraso de finalización con la antigüedad de los datos recuperables.",
+   "src": "cc916aa0c6e2"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Indica el dominio de fallo del incidente.",
+   "src": "ae30d7483c91"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Calcula la antigüedad de la pérdida de datos a partir del estado recuperable.",
+   "src": "94d611fa3f1b"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Separa la retención histórica, la disponibilidad y la recuperación regional.",
+   "src": "8ef4d97ae1af"
+  },
+  "briefing.context": {
+   "es": "Un dataset se corrompe o deja de estar disponible en horario laboral.",
+   "src": "a8eacbd6b83d"
+  },
+  "briefing.whyItMatters": {
+   "es": "Una copia solo sirve como opción de recuperación si cumple los objetivos requeridos de pérdida de datos y de tiempo.",
+   "src": "bc50a7d554a3"
+  },
+  "briefing.takeaway": {
+   "es": "Indica el fallo, el punto de recuperación y el tiempo de recuperación que necesitas demostrar.",
+   "src": "bdca0d58c995"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Recuperar según los objetivos",
+   "src": "96dcc4de40a2"
+  },
+  "block.diagram.description": {
+   "es": "Indica el fallo, mide la antigüedad del estado recuperable y luego ensaya la restauración.",
+   "src": "51f56c4b1b09"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Nombra el fallo",
+   "src": "21ea64f6f775"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "del que te recuperas",
+   "src": "de10e6052361"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Mide la antigüedad",
+   "src": "63409c275f32"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "del estado recuperable",
+   "src": "4322163a02b3"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Ensaya la",
+   "src": "d902b974a562"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "restauración",
+   "src": "f329e3a317ee"
+  },
+  "block.keyFact": {
+   "es": "Una retención de copias de treinta días y un RPO de treinta días describen requisitos distintos.",
+   "src": "3e402ff12af7"
+  },
+  "block.check.question": {
+   "es": "Una exportación diaria es la única copia. ¿Puede cumplir una meta de menos de veinticuatro horas?",
+   "src": "9465e23ffe22"
+  },
+  "block.check.choices.0.text": {
+   "es": "Sí, existe una copia, así que la recuperación está cubierta",
+   "src": "1bb7256962cc"
+  },
+  "block.check.choices.0.why": {
+   "es": "Que exista una copia de la tabla no es un procedimiento de recuperación ensayado.",
+   "src": "1a9214692590"
+  },
+  "block.check.choices.1.text": {
+   "es": "Sí, una etiqueta multi-región basta",
+   "src": "81899b50d86a"
+  },
+  "block.check.choices.1.why": {
+   "es": "Una etiqueta multi-región por sí sola no es un plan completo de recuperación ante desastres.",
+   "src": "dcbd0fe4b476"
+  },
+  "block.check.choices.2.text": {
+   "es": "No sin un margen de seguridad o una replicación distinta",
+   "src": "c70aee16b657"
+  },
+  "block.check.choices.2.why": {
+   "es": "Una exportación diaria puede dejar sin disponibilidad casi un día de cambios.",
+   "src": "9ea5e9c8b28b"
+  },
+  "verification.note": {
+   "es": "Se agregó que la replicación por sí sola no es un plan para una caída regional y que la recuperación ante desastres administrada requiere Enterprise Plus. Se confirmó que los snapshots duran más que el time travel y que la alta disponibilidad (HA) copia las escrituras. No se comprobó la aritmética del RPO.",
+   "src": "07ae170043b0"
+  }
+ },
+ "recovery-runbook": {
+  "title": {
+   "es": "Demuestra el plan de recuperación con un runbook",
+   "src": "3f05ec2aa556"
+  },
+  "lead": {
+   "es": "Una copia protegida sirve solo cuando el servicio de verdad se puede restaurar.",
+   "src": "d54ec23c32e5"
+  },
+  "sections.0.title": {
+   "es": "Escribe una secuencia propia de cada fallo",
+   "src": "96796039e021"
+  },
+  "sections.0.body": {
+   "es": "Indica el alcance del incidente, la señal de detección, la persona o la automatización que decide, la fuente de recuperación, los permisos necesarios y el destino. Incluye la restauración, la validación, la reconexión o redirección de los consumidores y la condición para declarar el éxito. No cuentes el nombre de un archivo de copia como un runbook probado.",
+   "src": "37469bacef8e"
+  },
+  "sections.1.title": {
+   "es": "Mide por separado la pérdida y la restauración",
+   "src": "fa9cea51a48d"
+  },
+  "sections.1.body": {
+   "es": "La antigüedad del último estado de datos recuperable determina la posible exposición de RPO ante un fallo dado. El RTO incluye el tiempo para detectar y ejecutar la recuperación, validar los datos y retomar el camino del negocio. Una operación de copia rápida no demuestra un objetivo corto de restauración de extremo a extremo.",
+   "src": "5252a7c0e631"
+  },
+  "sections.2.title": {
+   "es": "Ensaya con restricciones representativas",
+   "src": "de06916fc3fc"
+  },
+  "sections.2.body": {
+   "es": "Una prueba debe mostrar el dominio de fallo previsto sin corromper la producción. Valida los totales de datos, el acceso, la disponibilidad de las claves y el comportamiento posterior en el entorno de recuperación. Registra qué supuestos se simularon, cuáles se observaron y qué queda sin probar.",
+   "src": "504bfa42df5f"
+  },
+  "trap": {
+   "es": "La replicación puede reproducir una mala escritura de la aplicación. La disponibilidad no reemplaza la recuperación histórica.",
+   "src": "c45fd5356895"
+  },
+  "exercise.prompt": {
+   "es": "La copia se restaura bien, pero la cuenta de la aplicación no puede leerla. ¿Se cumplió el RTO?",
+   "src": "173aefaae019"
+  },
+  "exercise.answer": {
+   "es": "No, si el servicio de negocio no se ha reanudado. El acceso y la validación de los consumidores forman parte del procedimiento de recuperación que se mide. Revisa los roles necesarios, los permisos de las claves y los pasos de redirección antes de declarar completa la restauración.",
+   "src": "bc8ce9f184b6"
+  },
+  "exercise.checkpoints.0": {
+   "es": "Define el alcance del incidente.",
+   "src": "f2205beabc97"
+  },
+  "exercise.checkpoints.1": {
+   "es": "Mide la antigüedad del estado recuperable.",
+   "src": "c0eca6848b27"
+  },
+  "exercise.checkpoints.2": {
+   "es": "Incluye a los consumidores y los permisos en la evidencia de recuperación.",
+   "src": "a677076900e6"
+  },
+  "briefing.context": {
+   "es": "Durante un incidente, un equipo debe elegir una ruta de recuperación bajo presión.",
+   "src": "38d0fdcb647d"
+  },
+  "briefing.whyItMatters": {
+   "es": "Una secuencia sin probar puede restaurar el estado equivocado o dejar a los lectores con datos incompletos.",
+   "src": "8b336a039906"
+  },
+  "briefing.takeaway": {
+   "es": "Ensaya la restauración y valida el dataset recuperado antes de abrirlo de nuevo.",
+   "src": "f25d8ada7b11"
+  },
+  "review.scope": {
+   "es": "Lección original conservada y referencias editoriales anteriores. En esta actualización solo se volvieron a revisar las afirmaciones del registro de verificación actual.",
+   "src": "65bb82d02b96"
+  },
+  "block.diagram.title": {
+   "es": "Demostrar un runbook",
+   "src": "f1273150b08c"
+  },
+  "block.diagram.description": {
+   "es": "Escribe los pasos propios de cada fallo, mide por separado la pérdida y la restauración, y ensaya con seguridad.",
+   "src": "65823e8d33ac"
+  },
+  "block.diagram.nodes.0.lines.0": {
+   "es": "Escribe los pasos",
+   "src": "4a69ff7aa3d5"
+  },
+  "block.diagram.nodes.0.lines.1": {
+   "es": "propios del fallo",
+   "src": "a52433a191fd"
+  },
+  "block.diagram.nodes.1.lines.0": {
+   "es": "Mide por separado",
+   "src": "08408639b74a"
+  },
+  "block.diagram.nodes.1.lines.1": {
+   "es": "pérdida y restauración",
+   "src": "cd273120573c"
+  },
+  "block.diagram.nodes.2.lines.0": {
+   "es": "Ensaya y anota",
+   "src": "25d57f97b8d1"
+  },
+  "block.diagram.nodes.2.lines.1": {
+   "es": "lo que no probaste",
+   "src": "d39e5a8ac1fa"
+  },
+  "block.keyFact": {
+   "es": "La replicación puede reproducir una mala escritura de la aplicación. La disponibilidad no reemplaza la recuperación histórica.",
+   "src": "e80353360c6b"
+  },
+  "block.check.question": {
+   "es": "Existe un archivo de copia. ¿Eso es un runbook probado?",
+   "src": "5f5185a96afc"
+  },
+  "block.check.choices.0.text": {
+   "es": "Sí, el nombre del archivo lo demuestra",
+   "src": "4556accb6bcb"
+  },
+  "block.check.choices.0.why": {
+   "es": "No cuentes el nombre de un archivo de copia como un runbook probado.",
+   "src": "646585d69488"
+  },
+  "block.check.choices.1.text": {
+   "es": "No, una prueba debe mostrar la restauración y la validación",
+   "src": "7d2d438c196b"
+  },
+  "block.check.choices.1.why": {
+   "es": "Una prueba debe validar los totales, el acceso, las claves y el comportamiento posterior.",
+   "src": "b49ee4d79951"
+  },
+  "block.check.choices.2.text": {
+   "es": "Sí, una copia rápida demuestra un RTO corto",
+   "src": "fc72f53ac7cd"
+  },
+  "block.check.choices.2.why": {
+   "es": "Una operación de copia rápida no demuestra un objetivo corto de extremo a extremo.",
+   "src": "3f3865d5fd38"
+  },
+  "verification.note": {
+   "es": "Se confirmó que los snapshots son copias de un punto en el tiempo, que las réplicas copian los datos corruptos y que una conmutación por error forzada puede perder datos sin replicar. No se comprobaron la disponibilidad de las claves en las copias cifradas ni el diseño del ensayo.",
+   "src": "657e3e740fb4"
+  }
+ }
+}

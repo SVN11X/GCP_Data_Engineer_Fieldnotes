@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Domain 5 lessons now read in Spanish (389 strings): cost, capacity, retries, diagnosis, SLOs and recovery, with the Spanish verification notes. Lesson titles in lists now show Spanish for all 52 lessons. The Spanish needs the owner's review.
 - Domain 4 lessons now read in Spanish (267 strings): analytics and BI Engine, materialized views, features, ML evaluation, embeddings and vector search, RAG evaluation and BigQuery sharing. Spanish needs the owner's review.
 - Domain 3 lessons now read in Spanish (388 strings): storage choice, lifecycle, databases, warehouse model, SQL grain, lakes, BigLake, Iceberg, file layout and governance, with the Spanish "What was checked" notes. The titles index now covers domains 1 to 3. English text, questions, images and saved progress are unchanged. The Spanish needs the owner's review.
 - Domain 2 lessons now read in Spanish (475 strings). Lesson titles in lists such as Learn, Review and the home page now show Spanish right after a reload, from a small titles index that loads only for Spanish visitors. The "What was checked" note on a lesson page is also in Spanish for domains 1 and 2, with a fallback to English when the English note changes. English text, questions, images and saved progress are unchanged.
