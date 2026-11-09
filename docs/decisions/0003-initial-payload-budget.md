@@ -26,4 +26,4 @@ The first load can grow by up to about 50,000 bytes of code and interface text. 
 
 ## Amendment, 2026-11-09
 
-Thirteen new original questions add 8 KB of catalog entries (id, text, choices, search text). The catalog limit moves from 230,000 to 240,000 bytes. The initial total limit of 500,000 bytes is unchanged and the page still weighs about 468,000 bytes. This changes an owner-approved number, so the owner should confirm it in the pull request.
+Thirteen new original questions add 8 KB of catalog entries (id, text, choices, search text). The catalog limit moves from 230,000 to 240,000 bytes. The initial total limit of 500,000 bytes is unchanged and the page still weighs about 468,000 bytes. The owner confirmed the new limit on 2026-11-09.
