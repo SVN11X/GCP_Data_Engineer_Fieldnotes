@@ -2853,6 +2853,81 @@
       "takeaway": "Start from the critical read, write and consistency requirement.",
       "minutes": 5,
       "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    },
+    "block": {
+      "minutes": 3,
+      "diagram": {
+        "title": "Two paths over related data",
+        "description": "Sensor lookups are served from Bigtable, and a warehouse copy serves analytical scans.",
+        "width": 280,
+        "height": 196,
+        "nodes": [
+          {
+            "id": "n0",
+            "lines": [
+              "Sensor lookups",
+              "need milliseconds"
+            ],
+            "x": 20,
+            "y": 4,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n1",
+            "lines": [
+              "Keyed path",
+              "from Bigtable"
+            ],
+            "x": 20,
+            "y": 76,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n2",
+            "lines": [
+              "Warehouse copy",
+              "for analytical scans"
+            ],
+            "x": 20,
+            "y": 148,
+            "w": 240,
+            "h": 44
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ]
+      },
+      "keyFact": "Data volume alone cannot answer which store to choose.",
+      "check": {
+        "question": "Sensor lookups need milliseconds while daily analytics need joins. What fits?",
+        "choices": [
+          {
+            "text": "One warehouse for both, because the data is large",
+            "correct": false,
+            "why": "Data volume alone cannot answer these questions."
+          },
+          {
+            "text": "Serve the keyed path from Bigtable and publish a warehouse copy",
+            "correct": true,
+            "why": "The keyed path and the analytical scans are different needs, so each gets its own store."
+          },
+          {
+            "text": "A cache such as Memorystore as the only store",
+            "correct": false,
+            "why": "A cache is a separate serving layer and does not replace the durable source."
+          }
+        ]
+      }
     }
   },
   {
@@ -2932,6 +3007,81 @@
       "takeaway": "Separate cost optimization from the rule that protects required data.",
       "minutes": 5,
       "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    },
+    "block": {
+      "minutes": 2,
+      "diagram": {
+        "title": "An immutable audit archive",
+        "description": "An audit archive uses an archival class and a retention policy, and the retrieval procedure is tested.",
+        "width": 280,
+        "height": 196,
+        "nodes": [
+          {
+            "id": "n0",
+            "lines": [
+              "Audit archive:",
+              "rarely read"
+            ],
+            "x": 20,
+            "y": 4,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n1",
+            "lines": [
+              "Archival class and",
+              "retention policy"
+            ],
+            "x": 20,
+            "y": 76,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n2",
+            "lines": [
+              "Test the retrieval",
+              "procedure"
+            ],
+            "x": 20,
+            "y": 148,
+            "w": 240,
+            "h": 44
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ]
+      },
+      "keyFact": "Choosing an archival class does not by itself make an object immutable.",
+      "check": {
+        "question": "An audit archive is rarely read and must stay immutable for years. What fits?",
+        "choices": [
+          {
+            "text": "An archival class alone",
+            "correct": false,
+            "why": "An archival class does not by itself make an object immutable or restrict who can read it."
+          },
+          {
+            "text": "A lifecycle delete rule",
+            "correct": false,
+            "why": "A lifecycle delete rule does not override an active retention requirement."
+          },
+          {
+            "text": "An archival class and a retention policy, then test retrieval",
+            "correct": true,
+            "why": "The class sets storage economics and the retention policy prevents deletion before the required age."
+          }
+        ]
+      }
     }
   },
   {
@@ -3015,6 +3165,81 @@
       "takeaway": "Name the critical query and transaction before selecting the database.",
       "minutes": 5,
       "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    },
+    "block": {
+      "minutes": 2,
+      "diagram": {
+        "title": "Two systems with explicit ownership",
+        "description": "An authoritative transaction system publishes validated analytical data, and freshness and reconciliation are documented.",
+        "width": 280,
+        "height": 196,
+        "nodes": [
+          {
+            "id": "n0",
+            "lines": [
+              "Authoritative",
+              "transaction system"
+            ],
+            "x": 20,
+            "y": 4,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n1",
+            "lines": [
+              "Validated",
+              "analytical data"
+            ],
+            "x": 20,
+            "y": 76,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n2",
+            "lines": [
+              "Document freshness,",
+              "deletion, reconciliation"
+            ],
+            "x": 20,
+            "y": 148,
+            "w": 240,
+            "h": 44
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ]
+      },
+      "keyFact": "Build a representative workload before choosing.",
+      "check": {
+        "question": "Checkout transactions and hourly sales analysis need different access paths. What do you keep?",
+        "choices": [
+          {
+            "text": "An authoritative transaction system and validated analytical data",
+            "correct": true,
+            "why": "Document freshness, deletion propagation and reconciliation between the systems."
+          },
+          {
+            "text": "One database that serves every query",
+            "correct": false,
+            "why": "The lesson advises against demanding that one database serve every query."
+          },
+          {
+            "text": "A store picked only from data size",
+            "correct": false,
+            "why": "Compare supported features, transaction scope, scale and location instead of choosing only from data size."
+          }
+        ]
+      }
     }
   },
   {
@@ -3096,6 +3321,81 @@
       "takeaway": "Choose the business grain, then a layout aligned with the queries.",
       "minutes": 5,
       "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    },
+    "block": {
+      "minutes": 3,
+      "diagram": {
+        "title": "A layout for recent orders by customer",
+        "description": "Orders are partitioned by order date, clustered by customer ID, and keep line items nested.",
+        "width": 280,
+        "height": 196,
+        "nodes": [
+          {
+            "id": "n0",
+            "lines": [
+              "Partition by",
+              "order date"
+            ],
+            "x": 20,
+            "y": 4,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n1",
+            "lines": [
+              "Cluster by",
+              "customer ID"
+            ],
+            "x": 20,
+            "y": 76,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n2",
+            "lines": [
+              "Keep line items",
+              "nested"
+            ],
+            "x": 20,
+            "y": 148,
+            "w": 240,
+            "h": 44
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ]
+      },
+      "keyFact": "LIMIT does not by itself reduce the bytes read from all referenced columns.",
+      "check": {
+        "question": "Orders are queried by recent date and customer. What layout fits?",
+        "choices": [
+          {
+            "text": "Copy the transactional normalization into every model",
+            "correct": false,
+            "why": "Avoid copying a transactional normalization rule into every analytical model."
+          },
+          {
+            "text": "Add LIMIT to cut the bytes read",
+            "correct": false,
+            "why": "LIMIT does not by itself reduce the bytes read from all referenced columns."
+          },
+          {
+            "text": "Partition by order date, cluster by customer ID, nest line items",
+            "correct": true,
+            "why": "This matches the common range filter, the selective access pattern and the reporting model."
+          }
+        ]
+      }
     }
   },
   {
@@ -3160,6 +3460,81 @@
       "takeaway": "State what one row represents before joining and summing.",
       "minutes": 5,
       "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    },
+    "block": {
+      "minutes": 3,
+      "diagram": {
+        "title": "A join that repeats a parent amount",
+        "description": "A one-to-many join repeats the parent order, so summing its total afterwards can multiply revenue.",
+        "width": 280,
+        "height": 196,
+        "nodes": [
+          {
+            "id": "n0",
+            "lines": [
+              "One order row",
+              "with a total"
+            ],
+            "x": 20,
+            "y": 4,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n1",
+            "lines": [
+              "Join to many",
+              "line rows"
+            ],
+            "x": 20,
+            "y": 76,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n2",
+            "lines": [
+              "Parent total",
+              "is repeated"
+            ],
+            "x": 20,
+            "y": 148,
+            "w": 240,
+            "h": 44
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ]
+      },
+      "keyFact": "Pre-aggregate to a compatible grain or choose a representation that preserves the relationship.",
+      "check": {
+        "question": "A one-to-many join repeats a parent order amount, which is then summed. What is the risk?",
+        "choices": [
+          {
+            "text": "Revenue can be multiplied",
+            "correct": true,
+            "why": "A one-to-many join repeats fields from the parent row."
+          },
+          {
+            "text": "SUM(DISTINCT amount) is a general repair",
+            "correct": false,
+            "why": "SUM(DISTINCT amount) is not a general repair for duplicated parent rows."
+          },
+          {
+            "text": "COUNT(DISTINCT parent_id) fixes every sum",
+            "correct": false,
+            "why": "It can fix one count but does not automatically fix every sum in the same query."
+          }
+        ]
+      }
     }
   },
   {
@@ -3241,6 +3616,81 @@
       "takeaway": "Make the lake discoverable, governed and understandable to its readers.",
       "minutes": 5,
       "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    },
+    "block": {
+      "minutes": 3,
+      "diagram": {
+        "title": "Stages of a lake",
+        "description": "A raw landing area, a validated layer and a curated product each carry their own contract.",
+        "width": 280,
+        "height": 196,
+        "nodes": [
+          {
+            "id": "n0",
+            "lines": [
+              "Raw landing:",
+              "received evidence"
+            ],
+            "x": 20,
+            "y": 4,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n1",
+            "lines": [
+              "Validated:",
+              "schema and quality"
+            ],
+            "x": 20,
+            "y": 76,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n2",
+            "lines": [
+              "Curated:",
+              "business-ready"
+            ],
+            "x": 20,
+            "y": 148,
+            "w": 240,
+            "h": 44
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ]
+      },
+      "keyFact": "A catalog organizes metadata. It does not automatically cleanse every file it discovers.",
+      "check": {
+        "question": "A team needs reusable curated sales objects. What do you do?",
+        "choices": [
+          {
+            "text": "Treat every uploaded object as trustworthy",
+            "correct": false,
+            "why": "Validate incoming partitions instead of trusting every uploaded object."
+          },
+          {
+            "text": "Publish schema, owner and freshness target, then validate partitions",
+            "correct": true,
+            "why": "Each transition should say which validation was performed."
+          },
+          {
+            "text": "Rely on the catalog to cleanse the files",
+            "correct": false,
+            "why": "A catalog organizes metadata and does not automatically cleanse files."
+          }
+        ]
+      }
     }
   },
   {
@@ -3306,6 +3756,81 @@
       "takeaway": "Trace the reader, connection identity and underlying storage separately.",
       "minutes": 5,
       "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    },
+    "block": {
+      "minutes": 2,
+      "diagram": {
+        "title": "Delegated access to external storage",
+        "description": "Analysts read a BigLake table while a connection service identity reads the supported storage.",
+        "width": 280,
+        "height": 196,
+        "nodes": [
+          {
+            "id": "n0",
+            "lines": [
+              "Analyst reads",
+              "the table"
+            ],
+            "x": 20,
+            "y": 4,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n1",
+            "lines": [
+              "BigLake connection",
+              "uses a service identity"
+            ],
+            "x": 20,
+            "y": 76,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n2",
+            "lines": [
+              "Supported",
+              "external storage"
+            ],
+            "x": 20,
+            "y": 148,
+            "w": 240,
+            "h": 44
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ]
+      },
+      "keyFact": "An external table definition is not proof that every reader has the required governed access.",
+      "check": {
+        "question": "How can analysts read supported external storage without broad direct object access?",
+        "choices": [
+          {
+            "text": "Give each analyst direct object permissions",
+            "correct": false,
+            "why": "Delegated access can avoid broad direct object access for each analyst."
+          },
+          {
+            "text": "Keep files external because it is always faster",
+            "correct": false,
+            "why": "Keeping files external is not automatically faster or cheaper for every repeated workload."
+          },
+          {
+            "text": "Through a BigLake connection with access managed at the table layer",
+            "correct": true,
+            "why": "The connection reads the storage and consumer authorization is managed at the table layer."
+          }
+        ]
+      }
     }
   },
   {
@@ -3379,6 +3904,80 @@
       "takeaway": "Ask for the exact table type and supported read and write paths.",
       "minutes": 5,
       "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    },
+    "block": {
+      "minutes": 2,
+      "diagram": {
+        "title": "Two table types, two contracts",
+        "description": "An external BigLake table is read-only in BigQuery, while a managed Iceberg table supports documented mutations.",
+        "width": 280,
+        "height": 160,
+        "nodes": [
+          {
+            "id": "t",
+            "lines": [
+              "Open-format table"
+            ],
+            "x": 20,
+            "y": 8,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "a",
+            "lines": [
+              "External BigLake",
+              "read-only"
+            ],
+            "x": 2,
+            "y": 100,
+            "w": 136,
+            "h": 44
+          },
+          {
+            "id": "b",
+            "lines": [
+              "Managed Iceberg",
+              "mutations"
+            ],
+            "x": 142,
+            "y": 100,
+            "w": 136,
+            "h": 44
+          }
+        ],
+        "edges": [
+          {
+            "from": "t",
+            "to": "a"
+          },
+          {
+            "from": "t",
+            "to": "b"
+          }
+        ]
+      },
+      "keyFact": "Do not generalize read-only to every product with BigLake or Iceberg in its name.",
+      "check": {
+        "question": "A team wants BigQuery-managed mutation of an open-format table in its own bucket. What do you evaluate?",
+        "choices": [
+          {
+            "text": "Managed Iceberg, testing its supported access paths",
+            "correct": true,
+            "why": "Managed Iceberg tables store data in customer-owned buckets and support documented table mutations."
+          },
+          {
+            "text": "An external BigLake table",
+            "correct": false,
+            "why": "Those external tables are read-only in BigQuery."
+          },
+          {
+            "text": "Any open-format table, since external engines may write it",
+            "correct": false,
+            "why": "Open format does not imply every external engine may safely write the same managed table."
+          }
+        ]
+      }
     }
   },
   {
@@ -3459,6 +4058,81 @@
       "takeaway": "Measure the reader and preserve replay and retention during a layout change.",
       "minutes": 5,
       "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    },
+    "block": {
+      "minutes": 2,
+      "diagram": {
+        "title": "From raw feed to data product",
+        "description": "A raw daily feed becomes a curated monthly product, and the raw replay contract stays.",
+        "width": 280,
+        "height": 196,
+        "nodes": [
+          {
+            "id": "n0",
+            "lines": [
+              "Raw daily feed:",
+              "replay contract"
+            ],
+            "x": 20,
+            "y": 4,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n1",
+            "lines": [
+              "Curated monthly",
+              "data product"
+            ],
+            "x": 20,
+            "y": 76,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n2",
+            "lines": [
+              "Owner, schema and",
+              "validation visible"
+            ],
+            "x": 20,
+            "y": 148,
+            "w": 240,
+            "h": 44
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ]
+      },
+      "keyFact": "Do not delete raw replay data merely because a curated table exists.",
+      "check": {
+        "question": "A raw daily feed becomes a curated monthly data product. What stays discoverable?",
+        "choices": [
+          {
+            "text": "Only the curated table, so raw data can be deleted",
+            "correct": false,
+            "why": "Do not delete raw replay data merely because a curated table exists."
+          },
+          {
+            "text": "The raw replay contract, curated schema, validation results and owner",
+            "correct": true,
+            "why": "These keep the product understandable and replayable."
+          },
+          {
+            "text": "Metadata alone, as proof the records are complete",
+            "correct": false,
+            "why": "Publishing metadata cannot prove that the records are complete."
+          }
+        ]
+      }
     }
   },
   {
@@ -3538,6 +4212,81 @@
       "takeaway": "Combine shared guardrails with accountable product ownership.",
       "minutes": 5,
       "scope": "Original learning scenario and short-session guidance; primary references belong to the full lesson."
+    },
+    "block": {
+      "minutes": 3,
+      "diagram": {
+        "title": "Ownership with shared guardrails",
+        "description": "Domain teams publish products, a shared catalog exposes meaning and lineage, and IAM and table policies control access.",
+        "width": 280,
+        "height": 196,
+        "nodes": [
+          {
+            "id": "n0",
+            "lines": [
+              "Domain team owns",
+              "the data product"
+            ],
+            "x": 20,
+            "y": 4,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n1",
+            "lines": [
+              "Shared catalog:",
+              "meaning and lineage"
+            ],
+            "x": 20,
+            "y": 76,
+            "w": 240,
+            "h": 44
+          },
+          {
+            "id": "n2",
+            "lines": [
+              "IAM and table policies",
+              "control real access"
+            ],
+            "x": 20,
+            "y": 148,
+            "w": 240,
+            "h": 44
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ]
+      },
+      "keyFact": "Governance metadata does not grant readers permission to the underlying data.",
+      "check": {
+        "question": "Marketing and finance publish curated assets. What controls real access?",
+        "choices": [
+          {
+            "text": "The shared catalog entry",
+            "correct": false,
+            "why": "Governance metadata does not grant readers permission to the data."
+          },
+          {
+            "text": "A separate spreadsheet catalog per team",
+            "correct": false,
+            "why": "Use platform capabilities rather than a separate spreadsheet catalog for each team."
+          },
+          {
+            "text": "Storage IAM and table policies",
+            "correct": true,
+            "why": "The shared catalog exposes meaning and lineage while these continue to control access."
+          }
+        ]
+      }
     }
   },
   {
