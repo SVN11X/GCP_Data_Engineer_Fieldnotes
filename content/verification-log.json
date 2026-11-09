@@ -584,5 +584,126 @@
     ],
     "result": "confirmed",
     "note": "Checked BigQuery sharing is formerly Analytics Hub, subscribers get read-only linked datasets, authorized views hide source datasets. Lesson says also known as. Report link access not checked."
+  },
+  {
+    "topic": "resource-cost",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Dataproc ephemeral cluster scheduled deletion after idle period and BigQuery on-demand bytes read billing",
+    "sources": [
+      "https://docs.cloud.google.com/bigquery/docs/best-practices-costs",
+      "https://docs.cloud.google.com/managed-spark/docs/concepts/configuring-clusters/scheduled-deletion"
+    ],
+    "result": "confirmed",
+    "note": "Checked on-demand queries bill by bytes read and a Spark cluster can auto-delete after an idle period. Capacity-model billing, serverless Spark and the cost per successful run advice not checked."
+  },
+  {
+    "topic": "warehouse-economics",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "BigQuery dry run estimate bytes processed maximum bytes billed LIMIT clause non-clustered table reservation query queue",
+    "sources": [
+      "https://docs.cloud.google.com/bigquery/docs/best-practices-costs",
+      "https://docs.cloud.google.com/bigquery/docs/query-queues"
+    ],
+    "result": "confirmed",
+    "note": "Checked dry run estimates bytes, maximum bytes billed stops over-limit queries, LIMIT keeps bytes read on non-clustered tables, slots queue queries. Invoice estimates and materialized view reuse not checked."
+  },
+  {
+    "topic": "repeatability",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Cloud Composer renamed Managed Service for Apache Airflow DAG tasks retries logical date Workflows serverless orchestration",
+    "sources": [
+      "https://cloud.google.com/products/managed-service-for-apache-airflow",
+      "https://docs.cloud.google.com/composer/docs/composer-3/schedule-and-trigger-dags",
+      "https://docs.cloud.google.com/workflows/docs/choose-orchestration"
+    ],
+    "result": "updated",
+    "note": "Lesson now names Managed Service for Apache Airflow (formerly Cloud Composer). Checked DAG tasks, retries keep the logical date, Workflows is serverless. Dataform assertion gating not checked."
+  },
+  {
+    "topic": "composer-retries",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Cloud Composer formerly Managed Service for Apache Airflow DAG tasks dependencies retries logical date",
+    "sources": [
+      "https://cloud.google.com/products/managed-service-for-apache-airflow",
+      "https://docs.cloud.google.com/composer/docs/composer-3/composer-overview",
+      "https://docs.cloud.google.com/composer/docs/composer-3/schedule-and-trigger-dags"
+    ],
+    "result": "confirmed",
+    "note": "Checked the product was formerly Cloud Composer, DAGs hold tasks and dependencies, retries keep the same logical date. Airflow advice on repeatable effects and partition reads is outside the corpus, not checked."
+  },
+  {
+    "topic": "observability",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "BigQuery INFORMATION_SCHEMA.JOBS slot contention insights Resources exceeded ORDER BY memory audit logs job submitted by",
+    "sources": [
+      "https://docs.cloud.google.com/bigquery/docs/information-schema-jobs",
+      "https://docs.cloud.google.com/bigquery/docs/troubleshoot-queries",
+      "https://docs.cloud.google.com/bigquery/docs/introduction-audit-workloads"
+    ],
+    "result": "confirmed",
+    "note": "Checked job metadata shows slot contention, a sort memory error comes from the query shape, audit logs record who submitted jobs. Dataflow hot key advice and alert design not checked."
+  },
+  {
+    "topic": "query-diagnosis",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "BigQuery Resources exceeded memory shuffle query too complex dry run upper bound clustered tables",
+    "sources": [
+      "https://docs.cloud.google.com/bigquery/docs/troubleshoot-queries",
+      "https://docs.cloud.google.com/bigquery/docs/best-practices-costs"
+    ],
+    "result": "confirmed",
+    "note": "Checked Resources exceeded has memory, shuffle and complexity causes, more slots fix only the shuffle case, and a clustered dry run is an upper bound. Skew and join grain advice not checked."
+  },
+  {
+    "topic": "pipeline-slo",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "Dataflow data freshness system latency throughput backlog metrics Pub/Sub oldest unacknowledged message age",
+    "sources": [
+      "https://docs.cloud.google.com/dataflow/docs/guides/using-monitoring-intf",
+      "https://docs.cloud.google.com/pubsub/docs/monitoring"
+    ],
+    "result": "confirmed",
+    "note": "Checked Dataflow shows freshness, system latency, throughput and backlog, latency rises when a sink stops accepting writes, Pub/Sub reports oldest unacked age. SLO design and sink permission advice not checked."
+  },
+  {
+    "topic": "recovery",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "BigQuery backup versus replication snapshots cross-region replication regional outage managed disaster recovery Cloud SQL high availability",
+    "sources": [
+      "https://docs.cloud.google.com/architecture/scalable-bigquery-backup-automation",
+      "https://docs.cloud.google.com/bigquery/docs/managed-disaster-recovery",
+      "https://docs.cloud.google.com/sql/docs/mysql/high-availability"
+    ],
+    "result": "updated",
+    "note": "Added that replication alone is not a regional outage plan and managed disaster recovery needs Enterprise Plus. Checked snapshots outlast time travel and HA copies writes. RPO arithmetic not checked."
+  },
+  {
+    "topic": "recovery-runbook",
+    "kind": "lesson",
+    "checkedOn": "2026-11-08",
+    "method": "google-developer-knowledge-mcp",
+    "query": "BigQuery snapshots exports backup versus replication corrupted data copied to replica hard failover data loss replication latency RPO",
+    "sources": [
+      "https://docs.cloud.google.com/architecture/scalable-bigquery-backup-automation",
+      "https://docs.cloud.google.com/bigquery/docs/managed-disaster-recovery"
+    ],
+    "result": "confirmed",
+    "note": "Checked snapshots are point-in-time backups, replicas copy corrupted data, hard failover can lose unreplicated data. Key availability for encrypted copies and rehearsal design not checked."
   }
 ]

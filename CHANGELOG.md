@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Verified the nine remaining domain 5 lessons against Google documentation through the Developer Knowledge MCP and logged each check. Seven were confirmed and two updated: repeatability now names Managed Service for Apache Airflow (formerly Cloud Composer) and recovery says cross-region replication alone is not a regional outage plan.
 - Verified the seven domain 4 lessons against Google documentation through the Developer Knowledge MCP and logged each check. All were confirmed, no lesson text changed.
 - Verified the ten domain 3 lessons against Google documentation through the Developer Knowledge MCP and logged each check. Nine were confirmed and one updated: the LIMIT cost note now says it applies to non-clustered tables.
 - Verified the sixteen domain 2 lessons against Google documentation through the Developer Knowledge MCP and logged each check. All were confirmed, no lesson text changed.
