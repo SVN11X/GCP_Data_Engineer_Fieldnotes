@@ -6,10 +6,14 @@ import fs from 'node:fs';
 import {status,coverage,readOverlay,englishLessons,overlayFile,merge,validateOverlay} from './lesson-es.mjs';
 import * as C from './content-es.mjs';
 import * as Q from './question-es.mjs';
-const args=process.argv.slice(2),domain=Number(args[0]),kind=C.KINDS.includes(args[0])?args[0]:null,qd=/^questions-([1-5])$/.exec(args[0]||'')?.[1];
-if(!kind&&!qd&&(!Number.isInteger(domain)||domain<1||domain>5)){console.error('Usage: node scripts/i18n-skeleton.mjs <domain 1-5|'+C.KINDS.join('|')+'> [--missing] [--json] [--merge file.json]');process.exit(2);}
+import * as I from './imported-es.mjs';
+const args=process.argv.slice(2),domain=Number(args[0]),kind=C.KINDS.includes(args[0])?args[0]:null,qd=/^questions-([1-5])$/.exec(args[0]||'')?.[1],imp=/^imported-([1-5])$/.exec(args[0]||'')?.[1];
+if(!kind&&!qd&&!imp&&(!Number.isInteger(domain)||domain<1||domain>5)){console.error('Usage: node scripts/i18n-skeleton.mjs <domain 1-5|questions-1..5|imported-1..5|'+C.KINDS.join('|')+'> [--missing] [--json] [--merge file.json]');process.exit(2);}
 /* One adapter for both sources, so listing and merging work the same way. */
-const src=qd?{
+const src=imp?{
+ items:I.englishImported(Number(imp)),overlay:I.readOverlay(Number(imp)),file:I.overlayFile(Number(imp)),label:'Imported questions, domain '+imp,
+ status:(o,i)=>I.status(o,i),coverage:(o,i)=>I.coverage(o,i),merge:(o,p,i)=>I.merge(o,p,i),validate:(o,i)=>I.validateOverlay(o,i)
+}:qd?{
  items:Q.englishQuestions(Number(qd)),overlay:Q.readOverlay(Number(qd)),file:Q.overlayFile(Number(qd)),label:'Authored questions, domain '+qd,
  status:(o,i)=>Q.status(o,i),coverage:(o,i)=>Q.coverage(o,i),merge:(o,p,i)=>Q.merge(o,p,i),validate:(o,i)=>Q.validateOverlay(o,i)
 }:kind?{
