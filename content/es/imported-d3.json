@@ -1241,7 +1241,7 @@
    "src": "edcfb76d6098"
   },
   "choices.2.html": {
-   "es": "Crear una política de Object Lifecycle Management para cambiar la clase de almacenamiento de los datos de más de 30 días a coldline, de más de 90 días a nearline y 365 días a la clase de almacenamiento archive. Borrar los datos antiguos según se necesite.",
+   "es": "Crear una política de Object Lifecycle Management para cambiar la clase de almacenamiento de los datos de más de 30 días a coldline, 90 días a nearline y 365 días a la clase de almacenamiento archive. Borrar los datos antiguos según se necesite.",
    "src": "ee4b80e5b8b2"
   },
   "choices.3.html": {
@@ -1251,6 +1251,606 @@
   "sourceExplanation": {
    "es": "Autoclass es la elección óptima porque pasa los objetos de forma automática a clases de almacenamiento más baratas (Nearline, Coldline o Archive) según los patrones de acceso, sin cargos por recuperación de datos durante la transición.\nLas políticas manuales de Lifecycle Management (opciones B, C y D) no cumplen el requisito de 'ningún cargo por la recuperación de datos', porque pasar objetos a Nearline, Coldline o Archive con reglas de ciclo de vida genera los costos estándar de recuperación.\nAutoclass asegura la optimización de costos y mantiene la disponibilidad instantánea y cero cargos de recuperación para los datos que se mueven entre clases.",
    "src": "39e318f89708"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-251": {
+  "html": {
+   "es": "Tienes documentos importantes de retención legal (legal hold) en un bucket de Cloud Storage. Necesitas asegurar que estos documentos no se borren ni se modifiquen. ¿Qué debes hacer?",
+   "src": "23067ec56081"
+  },
+  "choices.0.html": {
+   "es": "Definir una política de retención. Bloquear la política de retención.",
+   "src": "51b0710a1513"
+  },
+  "choices.1.html": {
+   "es": "Definir una política de retención. Definir Archive como la clase de almacenamiento predeterminada para la preservación digital a largo plazo.",
+   "src": "8e5cc3dd7dde"
+  },
+  "choices.2.html": {
+   "es": "Habilitar la función Object Versioning (control de versiones de objetos). Agregar una regla de ciclo de vida.",
+   "src": "9d90efa9fd41"
+  },
+  "choices.3.html": {
+   "es": "Habilitar la función Object Versioning. Crear una copia en un bucket de otra región.",
+   "src": "38541e4dc579"
+  },
+  "sourceExplanation": {
+   "es": "Para evitar el borrado o la modificación por requisitos de retención legal, debes configurar una política de retención que imponga una duración mínima de almacenamiento. Bloquear la política de retención la vuelve inmutable, de modo que ningún usuario (incluidos los propietarios) pueda quitar o acortar el período de retención, y así se garantiza la preservación de los datos.",
+   "src": "71931385ef5d"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-252": {
+  "html": {
+   "es": "Estás diseñando un almacén de datos en BigQuery para analizar datos de ventas de un proveedor de servicios de telecomunicaciones. Necesitas crear un modelo de datos para clientes, productos y suscripciones. Todos los clientes, productos y suscripciones se pueden actualizar cada mes, pero debes mantener un registro histórico de todos los datos. Planeas usar la capa de visualización para los informes actuales e históricos. Necesitas asegurar que el modelo de datos sea simple, fácil de usar y rentable. ¿Qué debes hacer?",
+   "src": "ff18fc4d5b08"
+  },
+  "choices.0.html": {
+   "es": "Crear un modelo normalizado con tablas para cada entidad. Usar snapshots (instantáneas) antes de las actualizaciones para hacer seguimiento de los datos históricos.",
+   "src": "a1d86c0802f9"
+  },
+  "choices.1.html": {
+   "es": "Crear un modelo normalizado con tablas para cada entidad. Conservar todos los archivos de entrada en un bucket de Cloud Storage para hacer seguimiento de los datos históricos.",
+   "src": "8aee0e6d8383"
+  },
+  "choices.2.html": {
+   "es": "Crear un modelo desnormalizado con campos anidados y repetidos. Actualizar la tabla y usar snapshots para hacer seguimiento de los datos históricos.",
+   "src": "04e235185d66"
+  },
+  "choices.3.html": {
+   "es": "Crear un modelo desnormalizado de solo anexar (append-only) con campos anidados y repetidos. Usar la marca de tiempo de ingesta para hacer seguimiento de los datos históricos.",
+   "src": "4e84f45a87e5"
+  },
+  "sourceExplanation": {
+   "es": "Un modelo desnormalizado de solo anexar es rentable y simple en BigQuery, porque elimina las operaciones JOIN costosas al guardar juntos los datos relacionados con campos anidados y repetidos.\nAgregar registros nuevos con una marca de tiempo de ingesta mantiene el estado histórico con eficiencia, sin la sobrecarga de administrar tablas de snapshots separadas ni una lógica de actualización compleja.",
+   "src": "25c821688875"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-257": {
+  "html": {
+   "es": "Planeas usar Cloud Storage como parte de tu solución de data lake (lago de datos). El bucket de Cloud Storage contendrá objetos ingeridos desde sistemas externos. Cada objeto se ingerirá una sola vez y los patrones de acceso a cada objeto serán aleatorios. Quieres minimizar el costo de guardar y recuperar estos objetos. Quieres asegurar que cualquier esfuerzo de optimización de costos sea transparente para los usuarios y las aplicaciones. ¿Qué debes hacer?",
+   "src": "b16f27c92e14"
+  },
+  "choices.0.html": {
+   "es": "Crear un bucket de Cloud Storage con Autoclass habilitado.",
+   "src": "f7a4080f71cb"
+  },
+  "choices.1.html": {
+   "es": "Crear un bucket de Cloud Storage con una política de Object Lifecycle Management (administración del ciclo de vida de los objetos) para pasar los objetos de la clase de almacenamiento Standard a Coldline cuando la edad de un objeto llegue a 30 días.",
+   "src": "b5f288d408e5"
+  },
+  "choices.2.html": {
+   "es": "Crear un bucket de Cloud Storage con una política de Object Lifecycle Management para pasar los objetos de la clase de almacenamiento Standard a Coldline si un objeto no está live (activo).",
+   "src": "bee05aa7fb18"
+  },
+  "choices.3.html": {
+   "es": "Crear dos buckets de Cloud Storage. Usar la clase de almacenamiento Standard para el primer bucket y la clase Coldline para el segundo bucket. Migrar los objetos del primer bucket al segundo después de 30 días.",
+   "src": "b8301f404007"
+  },
+  "sourceExplanation": {
+   "es": "Autoclass pasa los objetos de forma automática entre clases de almacenamiento (Standard, Nearline, Coldline, Archive) según los patrones de acceso reales y no según umbrales de tiempo fijos. Esto asegura la optimización de costos para patrones de acceso aleatorios sin necesitar reglas manuales de ciclo de vida ni cambios en las aplicaciones, y cumple el requisito de transparencia.",
+   "src": "28e3d32230e4"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-267": {
+  "html": {
+   "es": "Estás creando un modelo de datos en BigQuery que guardará datos de transacciones de venta minorista. Tus dos tablas más grandes, sales_transaction_header y sales_transaction_line, tienen una relación inmutable muy ligada. Estas tablas casi nunca se modifican después de la carga y se unen (join) con frecuencia cuando se consultan. Necesitas modelar las tablas sales_transaction_header y sales_transaction_line para mejorar el rendimiento de las consultas de análisis de datos. ¿Qué debes hacer?",
+   "src": "4f34840bc6a1"
+  },
+  "choices.0.html": {
+   "es": "Crear una tabla sales_transaction que guarde la información de sales_transaction_header como filas y las filas de sales_transaction_line como campos anidados y repetidos.",
+   "src": "a8859efb0d64"
+  },
+  "choices.1.html": {
+   "es": "Crear una tabla sales_transaction que guarde la información de sales_transaction_header y sales_transaction_line como filas, y duplique los datos de sales_transaction_header para cada línea.",
+   "src": "42ba0fa9bdc2"
+  },
+  "choices.2.html": {
+   "es": "Crear una tabla sales_transaction que guarde los datos de sales_transaction_header y sales_transaction_line como un tipo de datos JSON.",
+   "src": "ff6f80fefffa"
+  },
+  "choices.3.html": {
+   "es": "Crear tablas separadas sales_transaction_header y sales_transaction_line y, al consultar, indicar sales_transaction_line primero en la cláusula WHERE.",
+   "src": "d4fe236cb32f"
+  },
+  "sourceExplanation": {
+   "es": "BigQuery está optimizado para el almacenamiento en columnas y los datos semiestructurados, por lo que los campos anidados y repetidos son la forma más eficiente de modelar relaciones de uno a muchos, como las transacciones de encabezado y línea.\nAl desnormalizar los datos en una sola tabla con estructuras anidadas, eliminas la necesidad de operaciones JOIN costosas entre tablas separadas, y mejoras mucho el rendimiento de las consultas de análisis.",
+   "src": "6fbc4168c4b1"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-269": {
+  "html": {
+   "es": "Los activos de datos de tu organización están guardados en BigQuery, Pub/Sub y una instancia de PostgreSQL que se ejecuta en Compute Engine. Como hay varios dominios y equipos diversos que usan los datos, los equipos de tu organización no pueden descubrir los activos de datos existentes. Necesitas diseñar una solución que mejore la capacidad de descubrimiento de los datos y que mantenga al mínimo el esfuerzo de desarrollo y configuración. ¿Qué debes hacer?",
+   "src": "856942c7560f"
+  },
+  "choices.0.html": {
+   "es": "Usar Data Catalog para catalogar de forma automática los datasets de BigQuery. Usar las API de Data Catalog para catalogar a mano los temas de Pub/Sub y las tablas de PostgreSQL.",
+   "src": "c42c1130f0fa"
+  },
+  "choices.1.html": {
+   "es": "Usar Data Catalog para catalogar de forma automática los datasets de BigQuery y los temas de Pub/Sub. Usar las API de Data Catalog para catalogar a mano las tablas de PostgreSQL.",
+   "src": "9612c99c7a52"
+  },
+  "choices.2.html": {
+   "es": "Usar Data Catalog para catalogar de forma automática los datasets de BigQuery y los temas de Pub/Sub. Usar conectores personalizados para catalogar a mano las tablas de PostgreSQL.",
+   "src": "71a0d81a3dc2"
+  },
+  "choices.3.html": {
+   "es": "Usar conectores de cliente para catalogar a mano los datasets de BigQuery, los temas de Pub/Sub y las tablas de PostgreSQL.",
+   "src": "98b1fcfc95a0"
+  },
+  "explanation": {
+   "es": "La clave B original describe el comportamiento histórico de descubrimiento y de entradas personalizadas de Data Catalog. Data Catalog pasó a la plataforma de catálogo más nueva, y la documentación actual usa Knowledge Catalog. Vuelve a validar la compatibilidad de descubrimiento y los conectores personalizados para tus fuentes, en lugar de tratar esta receta antigua de API como una guía vigente.",
+   "src": "d68f24cf55a2"
+  },
+  "reviewNote": {
+   "es": "Esta pregunta importada está excluida de la práctica con puntuación. Lee la nota técnica en lugar de memorizar su clave.",
+   "src": "5d478c3e8ed1"
+  }
+ },
+ "imp-275": {
+  "html": {
+   "es": "Creaste un entorno de análisis en Google Cloud para que tu equipo de científicos de datos pueda explorar datos sin afectar la solución local de Apache Hadoop. Los datos del clúster local de Hadoop Distributed File System (HDFS) están en archivos con formato Optimized Row Columnar (ORC) con varias columnas de particionamiento de Hive. El equipo de científicos de datos necesita poder explorar los datos de forma parecida a como usaba el clúster local de HDFS, con SQL en el motor de consultas de Hive. Necesitas elegir la solución de almacenamiento y procesamiento más rentable. ¿Qué debes hacer?",
+   "src": "5d1500e3719f"
+  },
+  "choices.0.html": {
+   "es": "Importar los archivos ORC a tablas de Bigtable para el equipo de científicos de datos.",
+   "src": "b2713d1b6d4c"
+  },
+  "choices.1.html": {
+   "es": "Importar los archivos ORC a tablas de BigQuery para el equipo de científicos de datos.",
+   "src": "7f1d978a85e5"
+  },
+  "choices.2.html": {
+   "es": "Copiar los archivos ORC en Cloud Storage y luego implementar un clúster de Dataproc para el equipo de científicos de datos.",
+   "src": "3c0323bb520b"
+  },
+  "choices.3.html": {
+   "es": "Copiar los archivos ORC en Cloud Storage y luego crear tablas externas de BigQuery para el equipo de científicos de datos.",
+   "src": "9d7ea69c0ee1"
+  },
+  "sourceExplanation": {
+   "es": "La opción D es la solución más rentable porque aprovecha la función de tablas externas de BigQuery para consultar los archivos ORC directamente desde Cloud Storage, sin generar costos de carga de datos ni de almacenamiento a largo plazo dentro de BigQuery.\n\nEste enfoque permite al equipo de ciencia de datos explorar con SQL usando una sintaxis conocida, y cumple el requisito de una experiencia parecida a Hive, a la vez que evita la sobrecarga operativa y los costos de cómputo asociados con administrar un clúster de Dataproc.",
+   "src": "02e7ecee49f3"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-281": {
+  "html": {
+   "es": "Trabajas para una gran empresa de comercio electrónico. Guardas los datos de pedidos de tus clientes en Bigtable. Tienes una política de recolección de basura (garbage collection) que borra los datos después de 30 días y el número de versiones está en 1. Cuando los analistas de datos ejecutan una consulta para informar el gasto total de los clientes, a veces ven datos de clientes de más de 30 días de antigüedad. Necesitas asegurar que los analistas no vean datos de clientes de más de 30 días y minimizar el costo y la sobrecarga. ¿Qué debes hacer?",
+   "src": "ac860404d05f"
+  },
+  "choices.0.html": {
+   "es": "Definir los valores de expiración de las familias de columnas en 29 días y mantener el número de versiones en 1.",
+   "src": "1cafc1795e3d"
+  },
+  "choices.1.html": {
+   "es": "Usar un filtro de rango de marca de tiempo en la consulta para obtener los datos del cliente de un rango específico.",
+   "src": "701447111a16"
+  },
+  "choices.2.html": {
+   "es": "Programar un trabajo diario que escanee los datos de la tabla y borre los datos de más de 30 días.",
+   "src": "fa8ecaaaab1c"
+  },
+  "choices.3.html": {
+   "es": "Definir los valores de expiración de las familias de columnas en 30 días y definir el número de versiones en 2.",
+   "src": "1668321ae928"
+  },
+  "sourceExplanation": {
+   "es": "La recolección de basura de Bigtable es asíncrona y puede tardar hasta una semana en quitar los datos vencidos, por lo que confiar solo en las políticas de GC no garantiza un control inmediato de la visibilidad de los datos.\nPara asegurar que los analistas vean estrictamente solo datos recientes y minimizar la sobrecarga, debes aplicar un filtro de rango de marca de tiempo en la consulta para excluir las versiones más antiguas al momento de la lectura.",
+   "src": "b97bebc8f8f3"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-283": {
+  "html": {
+   "es": "Creaste una tabla externa para datos particionados de Apache Hive que están en un bucket de Cloud Storage, el cual contiene una gran cantidad de archivos. Notas que las consultas a esta tabla son lentas. Quieres mejorar el rendimiento de estas consultas. ¿Qué debes hacer?",
+   "src": "1aa842d13200"
+  },
+  "choices.0.html": {
+   "es": "Cambiar la clase de almacenamiento de los objetos de datos particionados de Hive de Coldline a Standard.",
+   "src": "a26738780991"
+  },
+  "choices.1.html": {
+   "es": "Crear una tabla externa individual para cada partición de Hive con un prefijo común en el nombre de la tabla. Usar consultas de tablas con comodines para hacer referencia a los datos particionados.",
+   "src": "702144963f9e"
+  },
+  "choices.2.html": {
+   "es": "Actualizar la tabla externa a una tabla BigLake. Habilitar el almacenamiento en caché de metadatos para la tabla.",
+   "src": "1498f903439d"
+  },
+  "choices.3.html": {
+   "es": "Migrar los objetos de datos particionados de Hive a un bucket multirregión de Cloud Storage.",
+   "src": "4dcf7f75aa15"
+  },
+  "sourceExplanation": {
+   "es": "Las tablas BigLake están diseñadas para consultar con eficiencia los data lakes en Cloud Storage, y resuelven los cuellos de botella de rendimiento asociados con una gran cantidad de archivos.\nHabilitar el almacenamiento en caché de metadatos reduce mucho la latencia de las consultas, porque evita escanear una y otra vez los metadatos de los archivos durante la ejecución de la consulta.",
+   "src": "de1601c4f95a"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-284": {
+  "html": {
+   "es": "Tienes una red de 1000 sensores. Los sensores generan datos de series de tiempo: una métrica por sensor por segundo, junto con una marca de tiempo. Ya tienes 1 TB de datos y esperas que los datos crezcan 1 GB cada día. Necesitas acceder a estos datos de dos maneras. El primer patrón de acceso requiere recuperar la métrica de un sensor específico guardada en una marca de tiempo específica, con una latencia mediana de un solo dígito en milisegundos. El segundo patrón de acceso requiere ejecutar una vez al día consultas analíticas complejas sobre los datos, incluidas uniones (joins). ¿Cómo debes guardar estos datos?",
+   "src": "f0e5c70ac17e"
+  },
+  "choices.0.html": {
+   "es": "Guardar tus datos en BigQuery. Concatenar el ID del sensor y la marca de tiempo, y usarlos como clave primaria.",
+   "src": "87742c852252"
+  },
+  "choices.1.html": {
+   "es": "Guardar tus datos en Bigtable. Concatenar el ID del sensor y la marca de tiempo y usarlos como clave de fila. Hacer una exportación a BigQuery cada día.",
+   "src": "42451b1f955f"
+  },
+  "choices.2.html": {
+   "es": "Guardar tus datos en Bigtable. Concatenar el ID del sensor y la métrica, y usarlos como clave de fila. Hacer una exportación a BigQuery cada día.",
+   "src": "1672ad8681cb"
+  },
+  "choices.3.html": {
+   "es": "Guardar tus datos en BigQuery. Usar la métrica como clave primaria.",
+   "src": "6fccd37a6706"
+  },
+  "sourceExplanation": {
+   "es": "Bigtable está optimizado para búsquedas puntuales de baja latencia mediante el diseño de su clave de fila, lo que cumple el requisito de acceso en milisegundos de un solo dígito a los datos de un sensor específico. Concatenar el ID del sensor y la marca de tiempo crea una clave de fila única que permite recuperar de forma directa los registros de momentos exactos en el tiempo. Como Bigtable no admite operaciones SQL complejas como las uniones (joins), exportar los datos cada día a BigQuery da la infraestructura necesaria para cargas analíticas pesadas sin afectar la latencia de lectura.",
+   "src": "4c98671d9026"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-288": {
+  "html": {
+   "es": "Eres parte de una organización de salud donde los datos son organizados y administrados por sus respectivos dueños en varios servicios de almacenamiento. Por este ecosistema descentralizado, descubrir y administrar los datos se ha vuelto difícil. Necesitas identificar e implementar con rapidez una solución optimizada en costos que ayude a tu organización con lo siguiente:<br><br>•\tAdministración y descubrimiento de datos<br>•\tSeguimiento del linaje de datos (data lineage)<br>•\tValidación de la calidad de los datos<br><br>¿Cómo debes crear la solución?",
+   "src": "4a488e31f00d"
+  },
+  "choices.0.html": {
+   "es": "Usar BigLake para convertir la solución actual en una arquitectura de data lake.",
+   "src": "7e9e8180af9b"
+  },
+  "choices.1.html": {
+   "es": "Crear una nueva herramienta de descubrimiento de datos en Google Kubernetes Engine que ayude con la incorporación de nuevas fuentes y el seguimiento del linaje de datos.",
+   "src": "d68a88a254c6"
+  },
+  "choices.2.html": {
+   "es": "Usar BigQuery para hacer seguimiento del linaje de datos y usar Dataprep para administrar los datos y validar su calidad.",
+   "src": "a1137b05070f"
+  },
+  "choices.3.html": {
+   "es": "Usar Dataplex para administrar los datos, hacer seguimiento del linaje de datos y validar su calidad.",
+   "src": "df1044d73988"
+  },
+  "sourceExplanation": {
+   "es": "Google Dataplex es una plataforma unificada de administración de datos diseñada de forma específica para resolver los desafíos de descubrimiento de datos, seguimiento del linaje y validación de calidad en ecosistemas descentralizados.\nA diferencia de BigLake o de las herramientas independientes, Dataplex ofrece una solución integrada que descubre activos de forma automática y aplica políticas de gobernanza sin necesitar un desarrollo personalizado complejo.",
+   "src": "5a005c1b9f24"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-293": {
+  "html": {
+   "es": "Tu organización está modernizando sus servicios de TI y migrando a Google Cloud. Necesitas organizar los datos que se guardarán en Cloud Storage y BigQuery. Necesitas habilitar un enfoque de data mesh (malla de datos) para compartir los datos entre los departamentos de ventas, diseño de productos y marketing. ¿Qué debes hacer?",
+   "src": "e060492a618c"
+  },
+  "choices.0.html": {
+   "es": "1. Crear un proyecto para guardar los datos de cada uno de tus departamentos.<br>2. Permitir que cada departamento cree buckets de Cloud Storage y datasets de BigQuery.<br>3. Crear grupos de usuarios con lectores autorizados para cada bucket y dataset.<br>4. Permitir que el equipo de TI administre los grupos de usuarios para agregar o quitar usuarios según lo pidan los departamentos.",
+   "src": "1f4d2c228208"
+  },
+  "choices.1.html": {
+   "es": "1. Crear varios proyectos para guardar los datos de las aplicaciones de cada uno de tus departamentos.<br>2. Permitir que cada departamento cree buckets de Cloud Storage y datasets de BigQuery.<br>3. Publicar en Analytics Hub los datos que cada departamento compartió.<br>4. Permitir que todos los departamentos descubran y se suscriban en Analytics Hub a los datos que necesitan.",
+   "src": "114969c5c867"
+  },
+  "choices.2.html": {
+   "es": "1. Crear un proyecto para guardar los datos de tu organización.<br>2. Crear un bucket central de Cloud Storage con tres carpetas para guardar los archivos de cada departamento.<br>3. Crear un dataset central de BigQuery con tablas con el nombre del departamento como prefijo.<br>4. Dar derechos de visualización del proyecto de almacenamiento a los usuarios de tus departamentos.",
+   "src": "c140521c7067"
+  },
+  "choices.3.html": {
+   "es": "1. Crear varios proyectos para guardar los datos de las aplicaciones de cada uno de tus departamentos.<br>2. Permitir que cada departamento cree buckets de Cloud Storage y datasets de BigQuery.<br>3. En Dataplex, asignar cada departamento a un data lake y a los buckets de Cloud Storage, y asignar los datasets de BigQuery a zones (zonas).<br>4. Permitir que cada departamento sea dueño de los datos de sus data lakes y los comparta.",
+   "src": "85612f441346"
+  },
+  "sourceExplanation": {
+   "es": "La opción D es correcta porque Google Cloud Dataplex es el servicio nativo diseñado para implementar una arquitectura de Data Mesh al organizar los datos en lakes y zones.\nPermite la propiedad descentralizada de los datos, de modo que departamentos específicos administren sus propios buckets de Cloud Storage y datasets de BigQuery como productos de datos.\nDataplex facilita el uso compartido y el descubrimiento estandarizados a través de estos límites departamentales, y cumple los requisitos centrales de un enfoque de data mesh.",
+   "src": "5a6a306296e5"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-294": {
+  "html": {
+   "es": "Trabajas para una gran empresa de comercio electrónico. Usas Pub/Sub para ingerir los datos de clickstream (flujo de clics) en Google Cloud para análisis. Observas que cuando un nuevo suscriptor se conecta a un tema existente para analizar datos, no puede suscribirse a datos más antiguos. Para un evento anual de ventas que será en dos meses, necesitas una solución que, una vez implementada, permita que cualquier suscriptor nuevo lea los últimos 30 días de datos. ¿Qué debes hacer?",
+   "src": "b5df8a8ff18b"
+  },
+  "choices.0.html": {
+   "es": "Crear un tema nuevo y publicar los últimos 30 días de datos cada vez que un suscriptor nuevo se conecte a un tema existente.",
+   "src": "cbec47d5009a"
+  },
+  "choices.1.html": {
+   "es": "Definir la política de retención del tema en 30 días.",
+   "src": "9c49fbe1a6e4"
+  },
+  "choices.2.html": {
+   "es": "Definir la política de retención del suscriptor en 30 días.",
+   "src": "166fff1e285b"
+  },
+  "choices.3.html": {
+   "es": "Pedir al sistema de origen que vuelva a enviar los datos a Pub/Sub y suscribirse a ellos.",
+   "src": "3e1d5e2fff40"
+  },
+  "sourceExplanation": {
+   "es": "Google Cloud Pub/Sub admite políticas de retención de temas que guardan los mensajes durante una duración especificada, sin importar si los suscriptores existentes ya los confirmaron (acknowledged).\nAl definir la política de retención del tema en 30 días, el sistema conserva todos los datos de clickstream publicados dentro de esa ventana.\nPor lo tanto, cualquier suscriptor nuevo que se conecte después del cambio puede acceder a estos datos históricos de los 30 días anteriores y consumirlos.",
+   "src": "342c2807fcf7"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-300": {
+  "html": {
+   "es": "Hoy tienes datos transaccionales guardados de forma local en una base de datos PostgreSQL. Para modernizar tu entorno de datos, quieres ejecutar cargas de trabajo transaccionales y atender necesidades de análisis con una sola base de datos. Necesitas pasar a Google Cloud sin cambiar de sistema de administración de bases de datos, y minimizar el costo y la complejidad. ¿Qué debes hacer?",
+   "src": "91886691457f"
+  },
+  "choices.0.html": {
+   "es": "Migrar y modernizar tu base de datos con Cloud Spanner.",
+   "src": "7b1f090c352a"
+  },
+  "choices.1.html": {
+   "es": "Migrar tus cargas de trabajo a AlloyDB para PostgreSQL.",
+   "src": "1daa3127c6ed"
+  },
+  "choices.2.html": {
+   "es": "Migrar a BigQuery para optimizar el análisis.",
+   "src": "ce90d16fc6f6"
+  },
+  "choices.3.html": {
+   "es": "Migrar tu base de datos PostgreSQL a Cloud SQL para PostgreSQL.",
+   "src": "2d4ed8588e7b"
+  },
+  "sourceExplanation": {
+   "es": "El requisito de ejecutar cargas transaccionales y analíticas en una sola base de datos apunta de forma directa a las capacidades HTAP (Hybrid Transactional/Analytical Processing, procesamiento híbrido transaccional y analítico).\nAlloyDB para PostgreSQL está diseñado de forma explícita para este caso de uso: ofrece un almacén en columnas que acelera las consultas analíticas y mantiene la compatibilidad total con PostgreSQL para las cargas transaccionales.\nAunque Cloud SQL es más barato, no tiene el rendimiento analítico integrado de AlloyDB, y por eso AlloyDB es la elección correcta para cumplir el requisito funcional de admitir ambos tipos de carga dentro de un solo sistema sin cambiar el DBMS.",
+   "src": "a8deab5b5a04"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-303": {
+  "html": {
+   "es": "Administras un entorno de Dataplex con zonas raw (sin procesar) y curated (curadas). Un equipo de ingeniería de datos sube archivos JSON y CSV a un asset de tipo bucket en la zona curated, pero Dataplex no los descubre de forma automática. ¿Qué debes hacer para asegurar que Dataplex descubra los archivos?",
+   "src": "b66e89eabc45"
+  },
+  "choices.0.html": {
+   "es": "Mover los archivos JSON y CSV a la zona raw.",
+   "src": "c4c0042e6b98"
+  },
+  "choices.1.html": {
+   "es": "Habilitar el descubrimiento automático de archivos para la zona curated.",
+   "src": "ce5a684716aa"
+  },
+  "choices.2.html": {
+   "es": "Usar la herramienta de línea de comandos bg para cargar los archivos JSON y CSV en tablas de BigQuery.",
+   "src": "14966c953911"
+  },
+  "choices.3.html": {
+   "es": "Dar acceso a nivel de objeto a los archivos CSV y JSON en Cloud Storage.",
+   "src": "6c1253eec79f"
+  },
+  "sourceExplanation": {
+   "es": "Las zonas curated de Dataplex imponen estándares estrictos de calidad de datos y solo admiten formatos estructurados como Parquet, Avro u ORC para el descubrimiento automático.\nLos archivos JSON y CSV se consideran formatos de datos no válidos en las zonas curated y no se descubrirán de forma predeterminada.\nPor lo tanto, mover estos archivos a una zona raw, que admite formatos diversos, incluidos JSON y CSV, asegura que se puedan descubrir de forma automática.",
+   "src": "1a3aee04c0f4"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-304": {
+  "html": {
+   "es": "Tienes una tabla con millones de filas de datos de ventas, particionada por fecha. Varias aplicaciones y usuarios consultan estos datos muchas veces por minuto. La consulta requiere agregar valores con AVG, MAX y SUM, y no requiere unirse a otras tablas. Las agregaciones necesarias solo se calculan sobre el último año de datos, aunque necesitas conservar el historial completo en las tablas base. Quieres asegurar que los resultados de la consulta siempre incluyan los datos más recientes de las tablas, y a la vez reducir el costo de cómputo, la sobrecarga de mantenimiento y la duración. ¿Qué debes hacer?",
+   "src": "7ee04a85f381"
+  },
+  "choices.0.html": {
+   "es": "Crear una vista materializada para agregar los datos de la tabla base. Incluir una cláusula de filtro para indicar el último año de particiones.",
+   "src": "2babe61fd743"
+  },
+  "choices.1.html": {
+   "es": "Crear una vista materializada para agregar los datos de la tabla base. Configurar una expiración de particiones en la tabla base para conservar solo el último año de particiones.",
+   "src": "242df09475af"
+  },
+  "choices.2.html": {
+   "es": "Crear una vista para agregar los datos de la tabla base. Incluir una cláusula de filtro para indicar el último año de particiones.",
+   "src": "b939ea185c33"
+  },
+  "choices.3.html": {
+   "es": "Crear una tabla nueva que agregue los datos de la tabla base. Incluir una cláusula de filtro para indicar el último año de particiones. Configurar una consulta programada para volver a crear la tabla nueva cada hora.",
+   "src": "c07c648c4194"
+  },
+  "sourceExplanation": {
+   "es": "La opción A es correcta porque una vista materializada precalcula las agregaciones (AVG, MAX, SUM) y reduce mucho el costo de cómputo y la duración de las consultas en comparación con una vista estándar (opción C). La cláusula de filtro asegura que solo se agreguen las particiones recientes relevantes. Además, conservar los datos históricos en la tabla base evita la pérdida de datos que causa la expiración de particiones (opción B) y reduce la sobrecarga de mantenimiento frente a las recreaciones programadas a mano (opción D).\n\nReferencia: las vistas materializadas de BigQuery se actualizan de forma automática para asegurar datos recientes sin intervención manual, y equilibran las mejoras de rendimiento con la actualidad de los datos.",
+   "src": "b8bc3e95f569"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-307": {
+  "html": {
+   "es": "Necesitas conectar varias aplicaciones con direcciones IP públicas dinámicas a una instancia de Cloud SQL. Configuraste a los usuarios con contraseñas seguras y exigiste la conexión SSL a tu instancia de Cloud SQL. Quieres usar la IP pública de Cloud SQL y asegurar que las conexiones estén protegidas. ¿Qué debes hacer?",
+   "src": "bc9ab9d7d99a"
+  },
+  "choices.0.html": {
+   "es": "Agregar la red CIDR 0.0.0.0/0 a Authorized Network (redes autorizadas). Usar Identity and Access Management (IAM) para agregar usuarios.",
+   "src": "7bef3b21d25d"
+  },
+  "choices.1.html": {
+   "es": "Agregar todas las redes de las aplicaciones a Authorized Network y actualizarlas con regularidad.",
+   "src": "13152878d5db"
+  },
+  "choices.2.html": {
+   "es": "Dejar Authorized Network vacío. Usar Cloud SQL Auth proxy en todas las aplicaciones.",
+   "src": "8aac51d0aa83"
+  },
+  "choices.3.html": {
+   "es": "Agregar la red CIDR 0.0.0.0/0 a Authorized Network. Usar Cloud SQL Auth proxy en todas las aplicaciones.",
+   "src": "5c98f55829ba"
+  },
+  "sourceExplanation": {
+   "es": "Cloud SQL Auth Proxy es el método recomendado para el acceso seguro porque autentica las conexiones con credenciales de Google IAM y no con direcciones IP ni certificados SSL. Esto elimina la necesidad de administrar IP públicas dinámicas en las Authorized Networks, lo que de otro modo exigiría actualizaciones frecuentes o reglas de acceso abierto inseguras como 0.0.0.0/0.\nAl dejar vacía la Authorized Network y apoyarte en el Proxy, aseguras que solo los usuarios autenticados puedan conectarse, sin importar su dirección IP de origen.",
+   "src": "e63d12b53e46"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-309": {
+  "html": {
+   "es": "Trabajas para una aerolínea y necesitas guardar datos meteorológicos en una tabla de BigQuery. Los datos meteorológicos se usarán como entrada de un modelo de aprendizaje automático. El modelo solo usa los últimos 30 días de datos meteorológicos. Quieres evitar guardar datos innecesarios y minimizar los costos. ¿Qué debes hacer?",
+   "src": "c8ae891a901d"
+  },
+  "choices.0.html": {
+   "es": "Crear una tabla de BigQuery donde cada registro tenga una marca de tiempo de ingesta. Ejecutar una consulta programada que borre todas las filas con una marca de tiempo de ingesta de más de 30 días.",
+   "src": "98ce473598ac"
+  },
+  "choices.1.html": {
+   "es": "Crear una tabla de BigQuery particionada por el valor datetime de la fecha del clima. Configurar la expiración de particiones en 30 días.",
+   "src": "f430eac8c9c0"
+  },
+  "choices.2.html": {
+   "es": "Crear una tabla de BigQuery particionada por tiempo de ingesta. Configurar la expiración de particiones en 30 días.",
+   "src": "e0769fd5c53b"
+  },
+  "choices.3.html": {
+   "es": "Crear una tabla de BigQuery con una columna datetime para el día al que se refieren los datos meteorológicos. Ejecutar una consulta programada que borre las filas con un valor datetime de más de 30 días.",
+   "src": "56d7d3ff7b67"
+  },
+  "sourceExplanation": {
+   "es": "Particionar por la columna de la fecha del clima asegura que los datos se organicen por su tiempo semántico, lo cual es crítico para los modelos de ML que requieren ventanas históricas específicas.\nLa expiración de particiones (TTL) borra de forma automática estas particiones antiguas después de 30 días, lo que evita el almacenamiento innecesario y elimina la necesidad de consultas de borrado manual.",
+   "src": "df4a1a956019"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-329": {
+  "html": {
+   "es": "Tu data lake de Cloud Storage tiene datos sin procesar, procesados e históricos en buckets distintos. Los datos de más de dos años casi no se consultan, y todos los datos deben conservarse por no más de siete años. Te preocupa el aumento de los costos de almacenamiento. ¿Cómo debes controlar los costos del bucket de datos históricos?",
+   "src": "a3d977248d41"
+  },
+  "choices.0.html": {
+   "es": "Escribir un script en una instancia de Compute Engine, activado cada día por Cloud Scheduler, que escanee todos los objetos y borre los de más de siete años.",
+   "src": "38b9fa27e31a"
+  },
+  "choices.1.html": {
+   "es": "Configurar una regla de Object Lifecycle Management (administración del ciclo de vida de los objetos) para pasar los objetos de más de dos años a la clase de almacenamiento Archive y, al final, borrarlos después de siete años.",
+   "src": "9a3df63538fa"
+  },
+  "choices.2.html": {
+   "es": "Habilitar la función Autoclass en tus buckets de Cloud Storage y seleccionar Opt-in para las transiciones de objetos a las clases de almacenamiento Coldline y Archive.",
+   "src": "8d83b3907124"
+  },
+  "choices.3.html": {
+   "es": "Replicar los buckets en una región distinta con menores costos de almacenamiento y configurar una regla de Object Lifecycle Management para borrar los objetos después de siete años.",
+   "src": "2583dce71453"
+  },
+  "sourceExplanation": {
+   "es": "Object Lifecycle Management (OLM) es la función nativa de Cloud Storage diseñada para automatizar la administración de los datos según la edad de los objetos.\nPermite definir reglas que pasen los objetos a clases de almacenamiento más baratas, como Archive, después de dos años y los borren después de siete años.\nEsto resuelve de forma directa tanto la optimización de costos para el acceso poco frecuente como el límite obligatorio de retención, sin intervención manual.",
+   "src": "a82d3584c1c4"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-332": {
+  "html": {
+   "es": "Estás diseñando tablas de BigQuery para grandes volúmenes de datos de eventos de clickstream (flujo de clics). Tu equipo de analistas de datos consultará con más frecuencia por rangos de fechas de evento específicos y filtrará por el UUID del ID de usuario. Quieres optimizar la estructura de la tabla para el costo y el rendimiento de las consultas. ¿Qué debes hacer?",
+   "src": "c91443e3b526"
+  },
+  "choices.0.html": {
+   "es": "Particionar la tabla por la columna del ID de usuario y hacer clustering de la tabla por la columna de la fecha del evento.",
+   "src": "8573fa27f5f4"
+  },
+  "choices.1.html": {
+   "es": "Crear una tabla particionada por tiempo de ingesta y hacer clustering por la columna del ID de usuario.",
+   "src": "1576c766840a"
+  },
+  "choices.2.html": {
+   "es": "Hacer clustering de la tabla por las columnas de la fecha del evento y del ID de usuario.",
+   "src": "bc760b622603"
+  },
+  "choices.3.html": {
+   "es": "Particionar la tabla por la columna de la fecha del evento y hacer clustering de la tabla por la columna del ID de usuario.",
+   "src": "79aa6223910b"
+  },
+  "sourceExplanation": {
+   "es": "Particionar por la columna de la fecha del evento reduce la cantidad de datos escaneados en las consultas con filtros de rango de fechas, lo que baja de forma directa el costo y mejora el rendimiento. Hacer clustering por el ID de usuario optimiza aún más las consultas que filtran o agrupan por UUID, al organizar los datos de forma física dentro de cada partición. Por lo tanto, combinar la partición basada en fechas con el clustering por ID de usuario da la mejor optimización para los patrones de consulta descritos.",
+   "src": "9c7de9367a83"
+  },
+  "reviewNote": {
+   "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
+   "src": "b71d3f53135a"
+  }
+ },
+ "imp-348": {
+  "html": {
+   "es": "Estás diseñando un data lake (lago de datos) en Google Cloud para guardar enormes cantidades de datos de interacción con clientes de varias fuentes, como sitios web, aplicaciones móviles y redes sociales. Necesitas asegurar que estos datos, que llegan en distintos formatos, se catalogen de forma consistente y que a los analistas de datos les resulte fácil descubrirlos y usarlos. También quieres hacer verificaciones básicas de calidad de datos y transformaciones antes de que las aplicaciones posteriores consuman los datos. Necesitas una solución de gobernanza de datos automatizada y administrada. ¿Qué debes hacer?",
+   "src": "b141a125e99e"
+  },
+  "choices.0.html": {
+   "es": "Usar Cloud Storage como repositorio central. Usar Vertex AI para clasificar y procesar los datos y hacer verificaciones de calidad de datos.",
+   "src": "78efe7a4d0c3"
+  },
+  "choices.1.html": {
+   "es": "Enviar todos los datos en streaming directamente a BigQuery, donde se catalogan y gobiernan de forma automática.",
+   "src": "fcbe7acbc4e5"
+  },
+  "choices.2.html": {
+   "es": "Usar Cloud Storage y BigQuery como repositorios. Usar Dataplex Universal Catalog para el descubrimiento de metadatos, las verificaciones de calidad de datos y las transformaciones.",
+   "src": "ea6ef6fdfa1e"
+  },
+  "choices.3.html": {
+   "es": "Usar Cloud Storage como repositorio central. Usar una función de Cloud Run para catalogar y transformar los datos y hacer verificaciones de calidad de datos.",
+   "src": "5d031246a319"
+  },
+  "sourceExplanation": {
+   "es": "Dataplex es la plataforma de data fabric totalmente administrada de Google Cloud, diseñada de forma específica para unificar la administración y la gobernanza de datos en un entorno de data lake.\nManeja de forma automática el descubrimiento de metadatos, la clasificación de datos, las verificaciones de calidad y las transformaciones de los datos guardados en Cloud Storage y BigQuery.\nEsto coincide con el requisito de una solución automatizada y administrada para catalogar fuentes de datos heterogéneas y asegurar la consistencia para los analistas.",
+   "src": "2f8b208c8618"
   },
   "reviewNote": {
    "es": "La respuesta importada y su justificación no se han verificado de forma independiente. Los enlaces oficiales de abajo son lecturas relacionadas, no una clave de respuestas oficial.",
